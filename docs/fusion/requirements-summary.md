@@ -6,7 +6,7 @@
 
 2026-10-03，用户对预审第 1 项回复“是”，确认以当前仓库实施计划、全部工作包、验收矩阵及本摘录作为本次完整需求基线。实现及验收覆盖 WP-01–WP-30 和 T01–T60；原 v1.1 / ZIP 的缺失不再阻断需求基线确认。后续取得原件时可核对差异，新增要求按显式修订处理，不作为本次未披露的隐含要求。
 
-同日用户说明可提供 OpenAI / X 登录授权，并确认 GLM 为中国大陆地区套餐；随后明确使用 API key，并确认是 Coding Plan 编码套餐。GLM 接入按 CN Coding Plan + API key，Agent 默认选择官方支持的 Codex 作为受管宿主候选，保持独立认证与计费。实际 key、套餐档位/权益及接入能力尚未核验，详见 [GLM 接入决定](decisions/glm-coding-plan-api-key.md)。
+同日用户说明可提供 OpenAI / X 登录授权，并确认 GLM 为中国大陆地区套餐；随后明确使用 API key，并确认是 Coding Plan 编码套餐。GLM 接入按 CN Coding Plan + API key，用户随后指定接入 Claude Code，GLM 使用 Claude Code 作为受管编码宿主，保持独立认证与计费。实际 key、套餐档位/权益及接入能力尚未核验，详见 [GLM 接入决定](decisions/glm-coding-plan-api-key.md)。
 
 用户随后确认“本机操作，一个文件夹作为项目”。部署和运行使用当前本机，项目以单个本地文件夹为单位；不要求该文件夹预先具有 Git 仓库。默认试点目录由 Agent 选定为本仓库下的 `.fusion-dev/pilot-project`，在后续实施时建立并管理隔离执行副本；实际试点内容及验证结果据实记录。
 
@@ -35,7 +35,7 @@ Fusion 是本人使用的自托管 AI 工作网关。以 Magpie 为源码基座�
 
 ## 接入与调度
 
-计划验证 Codex、Grok Build 和使用独立 API key 配置的 GLM Coding Plan 编码宿主。Runtime 适配完成与本人订阅真实可用分别验收；不以 fake 成功证明真实接入。
+计划验证 Codex、Grok Build 和使用独立 API key 配置的 Claude Code / GLM Coding Plan 编码宿主。Runtime 适配完成与本人订阅真实可用分别验收；不以 fake 成功证明真实接入。
 
 额度优先复用 Magpie/Runtime，CodexBar 用于缺口或对照。保留账号、共享池、单位、来源和更新时间，区分已知、未知、过期和耗尽。未知额度不能当作满额，额度不足不能自动增加费用或降低任务要求。
 

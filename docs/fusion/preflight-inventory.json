@@ -17,12 +17,12 @@
     "WP-06",
     "WP-07",
     "WP-08",
-    "WP-09",
-    "WP-10",
     "WP-11",
+    "WP-09",
     "WP-12",
     "WP-13",
     "WP-14",
+    "WP-10",
     "WP-15",
     "WP-16",
     "WP-17",
@@ -43,8 +43,8 @@
   "documents": [
     {
       "path": "docs/fusion/README.md",
-      "sha256": "80f37d164e41faf9f756e10d78d64ca7d64e95aff8ed41de6f866ea54ea27673",
-      "bytes": 4298
+      "sha256": "c5cabad3b1943889da3e65a35e23e0bec61847892d647f77a9822f603a33bdf6",
+      "bytes": 4312
     },
     {
       "path": "docs/fusion/baseline/artifacts.json",
@@ -108,8 +108,8 @@
     },
     {
       "path": "docs/fusion/decisions/glm-coding-plan-api-key.md",
-      "sha256": "d9ca209128f8fc4921aa1c01503c12513b18aaf542114db1759aeaed60f72ed9",
-      "bytes": 3773
+      "sha256": "c1f4ddef7465ff9d46782d299507bfb0f67dafe9e715c0b3845fe47817f7bb2e",
+      "bytes": 5756
     },
     {
       "path": "docs/fusion/decisions/google-oauth-external-config.md",
@@ -152,14 +152,19 @@
       "bytes": 2552
     },
     {
+      "path": "docs/fusion/examples/glm-claude-settings.example.json",
+      "sha256": "b1f4bc88612b02ca858c22473b4cd5e6ef2307b94b98df39c9b042d8d8c49e41",
+      "bytes": 217
+    },
+    {
       "path": "docs/fusion/planning/Fusion_Magpie_Fork_Agent工作包_v1.0.md",
-      "sha256": "2ae1f640d13ab257bfb4bb63a26d1518ca657598ea2c5f67455ee13f4ae1115b",
-      "bytes": 50295
+      "sha256": "61d4c0bd3b22808463e581247869add54278a946f246787374f2914815612da0",
+      "bytes": 50630
     },
     {
       "path": "docs/fusion/planning/Fusion_Magpie_Fork_实施计划_v1.0.md",
-      "sha256": "52c491ece13f60035330d09a773cc6b028713c6676af1d5259c28c6068b0c8c0",
-      "bytes": 32609
+      "sha256": "09e0198a89bb96cd89c2327999a88f85a2e9d649b71c66902c3f22fa413a9cbf",
+      "bytes": 33064
     },
     {
       "path": "docs/fusion/planning/Fusion_Magpie_Fork_验收矩阵_v1.0.md",
@@ -173,13 +178,13 @@
     },
     {
       "path": "docs/fusion/planning/implementation_tasks.json",
-      "sha256": "286125b00ef2a9ed249c9daadb3ec8ddc7f75b93766f6aaf414ef142bad2b4b1",
-      "bytes": 17416
+      "sha256": "2e9bda78765a913d5bc7166a0d1f4d1dd1633d0e91077cefb211c29ddb7b8640",
+      "bytes": 17476
     },
     {
       "path": "docs/fusion/preflight-review.md",
-      "sha256": "71d209af00e6d4bf45a8bcd4fb29688e78f16afcd2d21b339e8c8eccb9ef3558",
-      "bytes": 12708
+      "sha256": "e8ca925c8dfa7883cc4c13998e2fd85dd326cbb4f647c1dabb3edbbf9fb9a52f",
+      "bytes": 12779
     },
     {
       "path": "docs/fusion/push-protection-report.json",
@@ -188,8 +193,8 @@
     },
     {
       "path": "docs/fusion/requirements-summary.md",
-      "sha256": "4f85deff4c9eb0d5e8f687c5c209693e1aa9e383eb0163678904a7986c055798",
-      "bytes": 4837
+      "sha256": "fd8a352f6fe1c032ab2c4b8177328a4d837bf8920e0ffbcd972f85cec85dcdec",
+      "bytes": 4873
     },
     {
       "path": "docs/fusion/upstream/AGENTS.magpie.md",
@@ -226,7 +231,8 @@
     "codex": "0.160.0",
     "grok": "1.0.48 (b94d5072c95f)",
     "codexbar": "0.70.0",
-    "go": "1.26.3 darwin/arm64"
+    "go": "1.26.3 darwin/arm64",
+    "claude": "2.1.287 (Claude Code)"
   },
   "preparation_commit": "88c34a1ca336fdf8d43a3b2cde5a8621f177f8ac",
   "branch": "fusion/implementation",
@@ -248,7 +254,7 @@
       "x_login_authorization": "user_offers_authorization",
       "glm_region": "CN",
       "glm_plan_name": "Coding Plan",
-      "glm_coding_host": "codex",
+      "glm_coding_host": "claude_code",
       "official_login_completed": false,
       "real_smoke_tests_executed": false,
       "allow_paid_fallback": false,
@@ -262,16 +268,31 @@
           "answered_at": "2026-10-03",
           "user_answer": "Coding Plan 编码套餐",
           "decision": "CN GLM Coding Plan"
+        },
+        {
+          "answered_at": "2026-10-03",
+          "user_answer": "接入claude code里",
+          "decision": "Use Claude Code as GLM coding host"
         }
       ],
       "glm_authentication": "api_key",
       "glm_route_kind": "coding_plan",
       "glm_plan_tier": "not_verified",
-      "glm_coding_host_origin": "agent_selected_default_candidate_officially_listed",
+      "glm_coding_host_origin": "explicit_user_selection",
       "glm_coding_host_verified": false,
       "glm_credentials_provided": false,
       "glm_direct_gateway_generation_admitted": false,
-      "glm_decision": "docs/fusion/decisions/glm-coding-plan-api-key.md"
+      "glm_decision": "docs/fusion/decisions/glm-coding-plan-api-key.md",
+      "superseded_glm_host": {
+        "host": "codex",
+        "origin": "agent_selected_default_candidate",
+        "superseded_by": "explicit_user_selection"
+      },
+      "glm_coding_host_installed": true,
+      "glm_api_protocol": "anthropic_messages",
+      "glm_api_base_url": "https://open.bigmodel.cn/api/anthropic",
+      "glm_adapter_protocol": "claude_code_json_or_stream_json",
+      "glm_private_configuration_applied": false
     },
     "deployment_and_pilot_target": {
       "status": "confirmed",

@@ -390,19 +390,19 @@
 
 ---
 
-### WP-14 · 实现获准 GLM 编码宿主 Adapter
+### WP-14 · 实现 GLM / Claude Code Runtime Adapter
 
 **阶段：**M2　**负责人角色：**GLM 接入 Agent　**状态：**planned
 
-**输入/前置：**WP-08, WP-11, WP-12。同时读取这些前置包的合同、测试日志、阻断项与当前仓库 HEAD。
+**输入/前置：**WP-08, WP-11。同时读取这些前置包的合同、测试日志、阻断项与当前仓库 HEAD。
 
-**改动范围：**internal/fusion/runtime/glm/（拟新增）；已选宿主 Adapter 的可复用进程层。
+**改动范围：**internal/fusion/runtime/glm/（拟新增）；复用 WP-11 进程层，新增 Claude Code JSON/stream-json 协议层。
 
 **实施步骤**
 
-1. 按实际 CN/Global 套餐、Key 和官方支持工具完成集成；Codex 作为候选，不直接把 Global 文档换 host 当 CN 指南。
-2. 如果验证选择 Codex 宿主，复用 WP-12 的通用进程/RPC 部分，保持独立配置、认证、model catalog 与 quota pool。
-3. 记录 GLM 模型和 GLM 计费，不因宿主叫 Codex 标成 ChatGPT 消耗；未能确认二次封装用途时阻止该路线。
+1. 按用户指定的 CN Coding Plan + API key + Claude Code 完成集成，使用 Anthropic Messages 端点；实际 key/权益和二次封装用途仍按官方范围核验，不将 Global 文档换 host 当 CN 指南。
+2. 复用 WP-11 的公共进程生命周期，新增 Claude Code JSON/stream-json 事件、权限处理、取消/恢复协议；保持独立 HOME、配置、认证、model catalog 与 quota pool，核验配置优先级和后台/摘要/子 Agent 实际模型，不依赖 Codex RPC。
+3. 记录 GLM 实际模型和 Coding Plan 计费，不因宿主叫 Claude Code 标成 Claude 订阅消耗；未能确认调用边界、客户端配置或二次封装用途时阻止该路线，禁止自动转普通按量 API。
 
 **交付：**`glm-runtime-adapter`、`glm-integration-verification.md`、`glm-fixtures`。
 

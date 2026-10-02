@@ -49,4 +49,4 @@ python3 scripts/fusion/verify-baseline.py
 
 ## GLM 接入选择
 
-GLM 已确定为中国大陆 Coding Plan + API key；按现有计划以独立配置的受管 Codex 作为宿主候选。端点、认证/计费边界与未验证项见 [GLM 接入决定](decisions/glm-coding-plan-api-key.md)。这项配置选择不代表真实 key 已提供或 WP-14 已完成。
+GLM 已确定为中国大陆 Coding Plan + API key；按用户最新指定，以独立配置的 Claude Code 作为 GLM 编码宿主。端点、认证/计费边界与未验证项见 [GLM 接入决定](decisions/glm-coding-plan-api-key.md)。这项配置选择不代表真实 key 已提供或 WP-14 已完成。

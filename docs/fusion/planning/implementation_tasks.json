@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "provenance": "Locally derived from supplied v1.0 Markdown, not recovered from the original ZIP",
+  "provenance": "Locally derived from current repository v1.0 Markdown with approved requirement revisions, not recovered from the original ZIP",
   "source_documents": [
     "Fusion_Magpie_Fork_实施计划_v1.0.md",
     "Fusion_Magpie_Fork_Agent工作包_v1.0.md"
@@ -316,16 +316,15 @@
     },
     {
       "id": "WP-14",
-      "title": "实现获准 GLM 编码宿主 Adapter",
+      "title": "实现 GLM / Claude Code Runtime Adapter",
       "milestone": "M2",
       "status": "planned",
       "depends_on": [
         "WP-08",
-        "WP-11",
-        "WP-12"
+        "WP-11"
       ],
       "owner_role": "GLM 接入 Agent",
-      "scope": "internal/fusion/runtime/glm/（拟新增）；已选宿主 Adapter 的可复用进程层。",
+      "scope": "internal/fusion/runtime/glm/（拟新增）；复用 WP-11 进程层，新增 Claude Code JSON/stream-json 协议层。",
       "acceptance_tests": [
         "T01",
         "T02",

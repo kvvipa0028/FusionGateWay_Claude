@@ -1,0 +1,7 @@
+{
+  "env": {
+    "ANTHROPIC_BASE_URL": "https://open.bigmodel.cn/api/anthropic",
+    "ANTHROPIC_AUTH_TOKEN": "REPLACE_WITH_LOCAL_GLM_CODING_PLAN_KEY",
+    "ANTHROPIC_MODEL": "REPLACE_WITH_APPROVED_GLM_MODEL_ID"
+  }
+}

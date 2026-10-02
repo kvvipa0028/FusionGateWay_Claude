@@ -4,7 +4,7 @@
 | 项目 | 本计划约定 |
 |---|---|
 | 实施路线 | 以 `yetone/magpie` 为基座，沿用 Go、现有 GUI/CLI、模型接入与代理链路，增加受控工程工作流 |
-| 用户资产 | ChatGPT Pro、Grok Heavy、GLM Pro；实际套餐/地区/权益尚需本人账号验证 |
+| 用户资产 | ChatGPT Pro、Grok Heavy；GLM 已确认 CN Coding Plan + API key + Claude Code，实际权益尚需本人账号验证 |
 | 最重要的功能 | 设计与规划、实施与测试、审查与验收分别指定模型；展开后五角色独立设置 |
 | 产品范围 | 本人使用，首台 Mac mini 独立环境，单机控制服务与受管子进程 |
 | 本次交付 | 实施计划、30 个 Agent 工作包、60 类验收矩阵与机器可读任务清单 |
@@ -102,8 +102,9 @@ WP-01 → WP-02 → WP-03 → WP-04
 
 合同/鉴权稳定后：
     WP-08 路线核查 ─→ WP-09 额度 ─→ WP-10 准入
-    WP-11 Worker ─→ WP-12 Codex ─→ WP-14 GLM 宿主复用
-                 └→ WP-13 Grok
+    WP-11 Worker ─→ WP-12 Codex
+                 ├→ WP-13 Grok
+                 └→ WP-14 Claude Code / GLM
     WP-15 API/假 Runtime联调 ─→ WP-16 UI
                      上述合并后 → WP-17 真实核验 → WP-18 Gate A
 
@@ -136,7 +137,7 @@ Gate C → WP-27 auto规则 → WP-28 Jev shadow → WP-29 可选assist
 | WP-11 | 受管 Worker 隔离、取消与恢复 | WP-03, WP-05, WP-06 | Runtime 基础 Agent |
 | WP-12 | 实现 Codex 官方 Runtime Adapter | WP-08, WP-11 | Codex 接入 Agent |
 | WP-13 | 实现 Grok Build 官方 CLI Adapter | WP-08, WP-11 | Grok 接入 Agent |
-| WP-14 | 实现获准 GLM 编码宿主 Adapter | WP-08, WP-11, WP-12 | GLM 接入 Agent |
+| WP-14 | 实现 GLM / Claude Code Runtime Adapter | WP-08, WP-11 | GLM 接入 Agent |
 | WP-15 | 任务 API、阶段预览与事件流 | WP-04, WP-05, WP-06, WP-10, WP-11 | API Agent |
 | WP-16 | 阶段选择 UI 与单阶段工作台 | WP-04, WP-06, WP-15 | 前端 Agent |
 | WP-17 | 三条路线的真实受控 Smoke Test | WP-07, WP-09, WP-10, WP-12, WP-13, WP-14, WP-15, WP-16 | 验证 Agent + 用户 |
@@ -234,7 +235,7 @@ docs/fusion/
 |---|---|---|
 | ChatGPT Pro | 官方 Codex App Server，由本人登录的独立 home | 模型/effort、账号/workspace、子调用范围、quota、原生状态和取消 [S06] |
 | Grok Heavy | 官方 Grok Build headless CLI | 版本支持的结构化输出、会话、sandbox、费用与取消；不用任意 xAI API Key 代表 Heavy [S07] |
-| GLM Pro | 实际套餐支持的真实编码宿主；Codex 为候选 | CN/Global、Key/工具/用途、GLM 模型与费用归属；不能仅改 host 推定支持 [S08] |
+| GLM Coding Plan（CN） | 用户指定 Claude Code，独立 API key 配置与 Anthropic Messages 端点 | 实际 key/套餐权益、模型、受控子调用、取消/恢复和费用归属；不暗换普通 API [S11] |
 
 官方 Runtime 可直连供应商，不要求所有请求二次穿过 Magpie 的订阅代理。若采用 Magpie/插件的模型请求路径，则必须通过严格出口验证；不满足者仍禁用。控制和记录共用，执行路线分别准入。
 
@@ -431,3 +432,5 @@ DB 只在本地一致性备份；NAS 保存脱敏或加密归档，不作为多�
 ---
 
 **计划完成，不代表执行完成。** 下一阶段的授权可以逐工作包进行；任何真实账号导入、外发、付费或部署都在对应 Gate 单独记录。
+
+**[S11] 中国大陆 GLM Coding Plan / Claude Code 接入（2026-10-03 核对）**：用户指定 Claude Code 与 API key；按 CN 官方工具范围及 Anthropic 端点实施，具体合同见 [GLM 接入决定](../decisions/glm-coding-plan-api-key.md)。WP-14 复用 WP-11 公共进程层，独立适配 Claude Code 协议，不依赖 WP-12 的 Codex RPC。
