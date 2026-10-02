@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "base_preserved": "e2bdb7695a1188fa336cddd813be1a0d482df7d1",
+  "original_head": "6d00c46df67eb683310b4099a745fba2f5710ba3",
+  "cleaned_head": "5ca4caaa1b1f5aeb4a569ea54930db152c1b9ee1",
+  "commit_mapping": {
+    "7abfcb3574d79c50c599df841013001121c24c50": "88c34a1ca336fdf8d43a3b2cde5a8621f177f8ac",
+    "16d0aa8f04522d514c7601d1727abfc08a01e3c7": "86dede8b7a8ae132a8cceef5ddfcf632a490cd6b",
+    "fb24e918590729fdaa17a866d6d070cbb12336d7": "935685326a309410969986ffac9d81a3ff6d7d76",
+    "821a5e67a429e04c29b6013b052ea150ed5b857a": "67162c993f37814353af43c0c95b0b99b8a06f6e",
+    "56a847c7134ffe38468052d561d1bdd3fe186793": "a0d352ffbea418702dbcaf8518433251dfbd4011",
+    "13ed288b1cef4f24324ca2485410d1f4b256d99b": "1bce7aa4bd1d6f3b62175fc568a6e8fffca3fa59",
+    "ad6734d2a59b8abc2ff31f50761d88f8cd3de453": "6bf827281eb7af2babc558845f750b403c546097",
+    "88d42f04d4b9198b8ad2de84708247aa2e4c84c8": "f8a6736877c22393a7538c9c70f38d29cad4586e",
+    "6d00c46df67eb683310b4099a745fba2f5710ba3": "5ca4caaa1b1f5aeb4a569ea54930db152c1b9ee1"
+  },
+  "sanitized_commits": [
+    {
+      "original_commit": "7abfcb3574d79c50c599df841013001121c24c50",
+      "cleaned_commit": "88c34a1ca336fdf8d43a3b2cde5a8621f177f8ac",
+      "files": [
+        "internal/provider/google.go"
+      ]
+    },
+    {
+      "original_commit": "16d0aa8f04522d514c7601d1727abfc08a01e3c7",
+      "cleaned_commit": "86dede8b7a8ae132a8cceef5ddfcf632a490cd6b",
+      "files": [
+        "internal/provider/google.go"
+      ]
+    },
+    {
+      "original_commit": "fb24e918590729fdaa17a866d6d070cbb12336d7",
+      "cleaned_commit": "935685326a309410969986ffac9d81a3ff6d7d76",
+      "files": [
+        "internal/provider/google.go"
+      ]
+    },
+    {
+      "original_commit": "821a5e67a429e04c29b6013b052ea150ed5b857a",
+      "cleaned_commit": "67162c993f37814353af43c0c95b0b99b8a06f6e",
+      "files": [
+        "internal/provider/google.go"
+      ]
+    },
+    {
+      "original_commit": "56a847c7134ffe38468052d561d1bdd3fe186793",
+      "cleaned_commit": "a0d352ffbea418702dbcaf8518433251dfbd4011",
+      "files": [
+        "internal/provider/google.go"
+      ]
+    },
+    {
+      "original_commit": "13ed288b1cef4f24324ca2485410d1f4b256d99b",
+      "cleaned_commit": "1bce7aa4bd1d6f3b62175fc568a6e8fffca3fa59",
+      "files": [
+        "internal/provider/google.go"
+      ]
+    },
+    {
+      "original_commit": "ad6734d2a59b8abc2ff31f50761d88f8cd3de453",
+      "cleaned_commit": "6bf827281eb7af2babc558845f750b403c546097",
+      "files": [
+        "internal/provider/google.go"
+      ]
+    }
+  ],
+  "all_reachable_blobs_scanned": 1790,
+  "original_values_checked": 4,
+  "original_value_occurrences_after_cleanup": 0,
+  "tip_tree_unchanged": true,
+  "upstream_refs_unchanged": true,
+  "shared_history_rewritten": false,
+  "force_push_required": false,
+  "values_printed": false
+}

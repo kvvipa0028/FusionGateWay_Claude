@@ -43,8 +43,8 @@
   "documents": [
     {
       "path": "docs/fusion/README.md",
-      "sha256": "94d139f93133ee52ac82b2bc2d286c3d1cd1d86d63f8dd01ab384b490955433c",
-      "bytes": 3721
+      "sha256": "0231ec69c2d6882de63e768ba1c4cf26961657bd3e214d816117072077c444bd",
+      "bytes": 3980
     },
     {
       "path": "docs/fusion/baseline/artifacts.json",
@@ -117,9 +117,19 @@
       "bytes": 1575
     },
     {
+      "path": "docs/fusion/decisions/oauth-history-cleanup.json",
+      "sha256": "c8d2379bac84515feeaff8ce7436819eaa75f84643d1f0ea2a1c65357a75b40e",
+      "bytes": 2870
+    },
+    {
       "path": "docs/fusion/decisions/oauth-push-protection-options.md",
       "sha256": "3412e3166584929e18f789529c308a74078f2dfad03750e0e359e7d16d8606cf",
       "bytes": 8053
+    },
+    {
+      "path": "docs/fusion/decisions/oauth-push-readback.json",
+      "sha256": "2fc02d3f626489d1657b44fbad02e9928627fc218a2ea825b4631e3f7ab8b75f",
+      "bytes": 425
     },
     {
       "path": "docs/fusion/decisions/oauth-review-report.json",
@@ -128,13 +138,13 @@
     },
     {
       "path": "docs/fusion/decisions/oauth-validation-report.json",
-      "sha256": "cbb02c93b53d9558b3be99955c70e0cd634135a7c38239e72ccc2e7d82a8929a",
-      "bytes": 20349
+      "sha256": "5f5825d4b39b8e31bac554b493a8384a9abeccb4140d8d028bfa623415c00f69",
+      "bytes": 20694
     },
     {
       "path": "docs/fusion/decisions/oauth-validation-report.md",
-      "sha256": "ab0c6c8d55ea2febfa3285edc846793f1f99fe6aa00266576ff7a1681d76220f",
-      "bytes": 2307
+      "sha256": "5a1087ccba63fbfabecb37f7e73c96ad75c7fc24b78b575c0ac4206f2f57767b",
+      "bytes": 2552
     },
     {
       "path": "docs/fusion/planning/Fusion_Magpie_Fork_Agent工作包_v1.0.md",
@@ -163,13 +173,13 @@
     },
     {
       "path": "docs/fusion/preflight-review.md",
-      "sha256": "15d49d4ac134dfdd2bbf332f99a9d73e4e859e5efdfe68e42ef9ed706ae9dc4c",
-      "bytes": 12161
+      "sha256": "c7e2191a30275e41eab9f6fbfd2e1cf196446a9089adcadf8e345baa7d4c166f",
+      "bytes": 12287
     },
     {
       "path": "docs/fusion/push-protection-report.json",
-      "sha256": "3d276205165580fb160ffbe86d19ab025ac58462ba13cf17dbfe59630027c1fa",
-      "bytes": 2013
+      "sha256": "fc166ba95c780f11050f1ebc5077dc02bf94ae7b83b1e0cece0f0b0da5891bfa",
+      "bytes": 2698
     },
     {
       "path": "docs/fusion/requirements-summary.md",
@@ -198,8 +208,8 @@
     },
     {
       "path": "docs/fusion/upstream-lock.json",
-      "sha256": "79d5757b3507b840300c04e6bb0f825be8cad1cec9d8a268e90c55c539cea573",
-      "bytes": 2474
+      "sha256": "9f1f9acd1c365483e36fa0ea56d148912094062753d8c531d47d0e307f2edaec",
+      "bytes": 2709
     }
   ],
   "product_implementation_started": false,
@@ -215,9 +225,9 @@
     "codexbar": "0.70.0",
     "go": "1.26.3 darwin/arm64"
   },
-  "preparation_commit": "7abfcb3574d79c50c599df841013001121c24c50",
+  "preparation_commit": "88c34a1ca336fdf8d43a3b2cde5a8621f177f8ac",
   "branch": "fusion/implementation",
-  "push_status": "awaiting_unpublished_history_cleanup",
+  "push_status": "pushed_and_remote_readback_verified",
   "oauth_impact_review": "docs/fusion/decisions/oauth-push-protection-options.md",
   "oauth_implementation_changed": true,
   "user_decisions": {
@@ -285,5 +295,9 @@
       "unpublished_task_history_cleanup_authorized": true,
       "protection_exception_authorized": false
     }
-  }
+  },
+  "preparation_commit_original": "7abfcb3574d79c50c599df841013001121c24c50",
+  "oauth_implementation_verified": true,
+  "oauth_validation": "docs/fusion/decisions/oauth-validation-report.json",
+  "oauth_history_cleanup": "docs/fusion/decisions/oauth-history-cleanup.json"
 }

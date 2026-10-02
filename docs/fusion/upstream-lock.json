@@ -43,7 +43,8 @@
     "missing_files": [],
     "unexpected_deltas": [],
     "go_mod_and_sum_unchanged": true,
-    "upstream_notices_preserved": true
+    "upstream_notices_preserved": true,
+    "scope": "Original imported snapshot before authorized OAuth option A; historical source evidence retained"
   },
   "verification_results": "baseline/verification-results.json",
   "initial_environment_failure": "baseline/build-cli-initial.log",
@@ -53,6 +54,8 @@
     "private_config": "XDG_CONFIG_HOME/fusion-gateway/google-oauth-clients.json or HOME/.config/fusion-gateway/google-oauth-clients.json",
     "real_google_login_verified": false,
     "historical_baseline_preserved": true,
-    "verification_report": "decisions/oauth-validation-report.json"
+    "verification_report": "decisions/oauth-validation-report.json",
+    "history_cleanup": "decisions/oauth-history-cleanup.json",
+    "push_readback": "decisions/oauth-push-readback.json"
   }
 }

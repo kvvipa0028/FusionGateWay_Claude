@@ -45,4 +45,4 @@ python3 scripts/fusion/verify-baseline.py
 
 ## Google OAuth 前置修复
 
-用户已选择外部客户端配置方案，Google 订阅路径不再提供上游硬编码客户端值。配置和旧账号处理见 [Google OAuth 外部配置](decisions/google-oauth-external-config.md)；当前可以保持未配置。`baseline/` 是修改前的上游基线记录，修复后验证与历史清理另行留证，不能把原基线二进制视作当前代码。
+用户已选择外部客户端配置方案，Google 订阅路径不再提供上游硬编码客户端值。配置和旧账号处理见 [Google OAuth 外部配置](decisions/google-oauth-external-config.md)；当前可以保持未配置。`baseline/` 是修改前的上游基线记录，修复后的 [验证报告](decisions/oauth-validation-report.md)、[未发布历史清理](decisions/oauth-history-cleanup.json)、[GitHub 推送回读](decisions/oauth-push-readback.json) 和 [执行取舍](decisions/oauth-execution-decisions.md) 已归档；开发分支 `fusion/implementation` 已推送。原基线二进制不代表当前代码。

@@ -559,8 +559,19 @@
   ],
   "original_assertions_preserved": true,
   "fixture_changes": "Synthetic external clients; native matching id_token; loopback sign-in explicit config",
-  "history_cleanup": "pending",
-  "origin_push": "pending",
+  "history_cleanup": {
+    "status": "pass",
+    "report": "oauth-history-cleanup.json",
+    "all_reachable_blobs_scanned": 1790,
+    "original_values_checked": 4,
+    "original_value_occurrences": 0,
+    "tested_tip_tree_unchanged": true
+  },
+  "origin_push": {
+    "status": "pass",
+    "report": "oauth-push-readback.json",
+    "remote_readback_commit": "5ca4caaa1b1f5aeb4a569ea54930db152c1b9ee1"
+  },
   "real_google_authentication_executed": false,
   "real_provider_credentials_read": false,
   "protection_exception_requested": false,

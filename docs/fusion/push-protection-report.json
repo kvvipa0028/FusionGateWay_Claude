@@ -49,10 +49,25 @@
     "OAuth constants participate in native-account azp/aud matching, import and refresh, not only sign-in",
     "googleAccount.token returns a valid cached token before attempting a refresh; missing-client rejection must cover this path"
   ],
-  "status": "awaiting_user_decision",
+  "status": "resolved_option_A",
   "options": [
     "Remove hardcoded clients from the unpublished source commit, use external client configuration, test missing-client failure and compatibility",
     "Retain upstream source and request a push-protection exception only after explicit user authorization"
   ],
-  "secret_values": "not recorded"
+  "secret_values": "not recorded",
+  "original_push_result_preserved": true,
+  "resolution": {
+    "authorized_option": "A",
+    "resolved_at": "2026-10-02T21:49:39.194560+00:00",
+    "external_client_configuration": "decisions/google-oauth-external-config.md",
+    "history_cleanup": "decisions/oauth-history-cleanup.json",
+    "validation": "decisions/oauth-validation-report.json",
+    "push_readback": "decisions/oauth-push-readback.json",
+    "cleaned_import_commit": "88c34a1ca336fdf8d43a3b2cde5a8621f177f8ac",
+    "remote_branch": "fusion/implementation",
+    "push_exit_code": 0,
+    "remote_readback_commit": "5ca4caaa1b1f5aeb4a569ea54930db152c1b9ee1",
+    "exception_requested": false,
+    "force_push": false
+  }
 }

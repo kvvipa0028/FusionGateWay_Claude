@@ -16,8 +16,8 @@
 | OAUTH-A05 | pass | 修改/删除配置持续阻断至重启；旧账号版本不匹配拒绝，显式导入重新核验 |
 | OAUTH-A06 | pass | 缺配置的登录/交换/导入和变更后的回调不发请求；错误正文脱敏 |
 | OAUTH-A07/A09 | pass | 完整 nogui suite、OAuth race、vet、CLI/GUI 编译；对应源码 hash 见 JSON |
-| OAUTH-A08 | pending | 尚需清理并扫描完整拟推送历史 |
+| OAUTH-A08 | pass | 仅清理未发布历史；全部 1790 个可达 blob 中四个原值为 0，代码树保持一致；GitHub 推送成功并回读匹配 |
 
 独立审查发现的客户端 claim 类型绕过已按 RED→GREEN 修复，随后重新完成上述全部检查。Windows 私有配置 ACL 支持延期；当前本机 macOS 范围及其他未验证边界见 [审查记录](oauth-review-report.json)。
 
-命令、退出码、源码及日志 SHA256、完整 skip 清单见 [机器可读报告](oauth-validation-report.json)。原始日志暂存本机 `.fusion-dev/oauth-validation/`；历史清理和实际推送完成后补充报告。
+命令、退出码、源码及日志 SHA256、完整 skip 清单见 [机器可读报告](oauth-validation-report.json)。原始日志保存在本机 `.fusion-dev/oauth-validation/`。历史 SHA 映射见 [清理报告](oauth-history-cleanup.json)，实际首轮推送及远端回读见 [推送记录](oauth-push-readback.json)。后续仅记录证据的提交不改变已验证源码。

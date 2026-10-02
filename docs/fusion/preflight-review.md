@@ -9,7 +9,7 @@
 - 基线记录中的依赖完整性、CLI/GUI 编译、vet 和五个 targeted test 包均有 exit code 0；六份日志的 SHA256 与记录一致。本次未重复运行未发生变化的检查。完整测试套件和 GUI 交互尚未验证。
 - 30 个 WP 和 60 个验收场景族编号完整，工作包依赖无环。所有 WP 仍为 planned，Fusion 验收仍为 not_run；关联场景不能仅凭原版测试改成 pass。
 - `origin` 为本人的公开 GitHub 仓库 `kvvipa0028/FusionGateWay_Claude`，当前登录具有 push 权限。`upstream` 为只读来源，push URL 为 DISABLED。提交和推送开发成果已由当前用户任务授权。
-- 原基础准备已在 `fusion/implementation` 形成本地 commit `7abfcb3574d79c50c599df841013001121c24c50`；首次推送被 GitHub Push Protection 拒绝，尚未推送成功。新出现的 `.DS_Store`、`docs/.DS_Store` 不属于源码或实施交付，不加入提交、不删除。
+- 原基础准备已在 `fusion/implementation` 形成本地 commit `7abfcb3574d79c50c599df841013001121c24c50`；首次推送曾被 GitHub Push Protection 拒绝；选择 A 后已清理本任务未发布历史并成功推送同名开发分支，旧/新 SHA 映射见 `decisions/oauth-history-cleanup.json`。新出现的 `.DS_Store`、`docs/.DS_Store` 不属于源码或实施交付，不加入提交、不删除。
 - 全量 cached diff 的 whitespace 检查报告 `internal/provider/zcode_team.go:385: new blank line at EOF`。这是导入的上游原文问题，保持原版，不能将全仓 diff 检查写成无问题。
 
 ## 开始实现前的确认事项

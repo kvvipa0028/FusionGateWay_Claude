@@ -1,0 +1,11 @@
+{
+  "recorded_at": "2026-10-02T21:49:39.194560+00:00",
+  "branch": "fusion/implementation",
+  "push_exit_code": 0,
+  "pushed_commit": "5ca4caaa1b1f5aeb4a569ea54930db152c1b9ee1",
+  "remote_readback_commit": "5ca4caaa1b1f5aeb4a569ea54930db152c1b9ee1",
+  "remote_main_unchanged": "e2bdb7695a1188fa336cddd813be1a0d482df7d1",
+  "force_push": false,
+  "protection_exception_requested": false,
+  "protection_rules_changed": false
+}
