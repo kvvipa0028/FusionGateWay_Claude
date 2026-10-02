@@ -138,8 +138,8 @@
     },
     {
       "path": "docs/fusion/preflight-review.md",
-      "sha256": "edb660fde8da2fe6dbf6dd5bc8e8adcbc037bfacd492963cbd4e574f05290e03",
-      "bytes": 11072
+      "sha256": "99813135eacb29fad192b826e34a6d515292d82c07e42be7afd47e55140014a3",
+      "bytes": 11207
     },
     {
       "path": "docs/fusion/push-protection-report.json",
@@ -148,8 +148,8 @@
     },
     {
       "path": "docs/fusion/requirements-summary.md",
-      "sha256": "b13fe338b5564c817ae6d3771dcb992f2789c9e8e0f81dea8a5b738125b2b774",
-      "bytes": 3360
+      "sha256": "63463dfd576a87ae59b03369ef961c8ba433d4d0aa481c92c013df04451c91bb",
+      "bytes": 3557
     },
     {
       "path": "docs/fusion/upstream/AGENTS.magpie.md",
@@ -204,6 +204,19 @@
       "confirmed_at": "2026-10-03",
       "user_answer": "我逐一回答，1，是。",
       "decision": "Current repository implementation plan, all 30 work packages, 60 acceptance families and requirements summary are the complete requirements baseline"
+    },
+    "real_runtime_authorization_and_glm_scope": {
+      "status": "partially_confirmed",
+      "answered_at": "2026-10-03",
+      "user_answer": "2，openai和x我可以给你登录授权，glm是中国大陆地区套餐。",
+      "openai_login_authorization": "user_offers_authorization",
+      "x_login_authorization": "user_offers_authorization",
+      "glm_region": "CN",
+      "glm_plan_name": "awaiting_confirmation",
+      "glm_coding_host": "awaiting_confirmation",
+      "official_login_completed": false,
+      "real_smoke_tests_executed": false,
+      "allow_paid_fallback": false
     }
   }
 }
