@@ -138,8 +138,8 @@
     },
     {
       "path": "docs/fusion/preflight-review.md",
-      "sha256": "6d32ad35c3f7c11526dbb2ab1a8159b7883da01da244c63684bf89159266e6a9",
-      "bytes": 10929
+      "sha256": "edb660fde8da2fe6dbf6dd5bc8e8adcbc037bfacd492963cbd4e574f05290e03",
+      "bytes": 11072
     },
     {
       "path": "docs/fusion/push-protection-report.json",
@@ -148,8 +148,8 @@
     },
     {
       "path": "docs/fusion/requirements-summary.md",
-      "sha256": "c6d1082a774f43d2d9994a6bdc40f9db15ee383035b32d200796c1dfb9960752",
-      "bytes": 2934
+      "sha256": "b13fe338b5564c817ae6d3771dcb992f2789c9e8e0f81dea8a5b738125b2b774",
+      "bytes": 3360
     },
     {
       "path": "docs/fusion/upstream/AGENTS.magpie.md",
@@ -180,7 +180,6 @@
   "product_implementation_started": false,
   "product_tests_executed": false,
   "pending_user_answers": [
-    "requirements_baseline",
     "real_runtime_authorization_and_glm_scope",
     "deployment_and_pilot_target",
     "jev_evaluation_scope",
@@ -198,5 +197,13 @@
   "branch": "fusion/implementation",
   "push_status": "rejected_by_GitHub_push_protection",
   "oauth_impact_review": "docs/fusion/decisions/oauth-push-protection-options.md",
-  "oauth_implementation_changed": false
+  "oauth_implementation_changed": false,
+  "user_decisions": {
+    "requirements_baseline": {
+      "status": "confirmed",
+      "confirmed_at": "2026-10-03",
+      "user_answer": "我逐一回答，1，是。",
+      "decision": "Current repository implementation plan, all 30 work packages, 60 acceptance families and requirements summary are the complete requirements baseline"
+    }
+  }
 }
