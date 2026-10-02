@@ -9,3 +9,6 @@
 
 # Local Fusion baseline binaries, temporary data and compiler output.
 /.fusion-dev/
+
+# Private Google OAuth client configuration is never a repository artifact.
+google-oauth-clients.json

@@ -4,7 +4,7 @@
 
 ## 当前证据
 
-- 源码固定为 Magpie `1a50db1a8afd0849df2853f92a47da9d5e2f2cc9`。Go 应用实现及 go.mod/go.sum 与该基线相同，Fusion 产品模块尚未实现。
+- 源码固定为 Magpie `1a50db1a8afd0849df2853f92a47da9d5e2f2cc9`。go.mod/go.sum 保持该基线；按用户选择 A，Google OAuth 应用实现增加私有配置及身份检查这一项有意差异，Fusion 工作流产品模块尚未实现。
 - 本机 Go 为 `go1.26.3 darwin/arm64`；已安装 Codex CLI `0.160.0`、Grok Build `1.0.48 (b94d5072c95f)` 和 CodexBar `0.70.0`。版本和 help 检查没有运行模型、查询账号或证明套餐可用。
 - 基线记录中的依赖完整性、CLI/GUI 编译、vet 和五个 targeted test 包均有 exit code 0；六份日志的 SHA256 与记录一致。本次未重复运行未发生变化的检查。完整测试套件和 GUI 交互尚未验证。
 - 30 个 WP 和 60 个验收场景族编号完整，工作包依赖无环。所有 WP 仍为 planned，Fusion 验收仍为 not_run；关联场景不能仅凭原版测试改成 pass。
@@ -20,7 +20,7 @@
 2. **真实三路验证：部分已确认。** 用户于 2026-10-03 回复“2，openai和x我可以给你登录授权，glm是中国大陆地区套餐。”，说明可提供 OpenAI / X 登录授权，并确认 GLM 为 CN 套餐。实际官方登录及三路核验尚未执行；GLM 的具体套餐名称、受支持编码工具待补充。额外付费默认禁止，无法验证原生 on-demand 行为时保持 billing_unverified，不发生成探针。
 3. **部署与项目边界：已确认。** 用户于 2026-10-03 回复“本机操作，一个文件夹作为项目”，确认使用当前本机进行部署、运行与验证，项目以单个本地文件夹为边界。按此决定，WP-25 的宿主由原计划中的 Mac mini 改为当前 macOS/arm64 本机，采用本地操作与默认 loopback 访问。Agent 选定默认试点目录为 `/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/pilot-project`，在对应工作包实施时建立；这是本地默认值，不是用户提供的现有项目路径。目录位置无需另行确认。文件夹本身不要求预先具有 Git 仓库，执行副本和产物版本仍按计划管理。当前尚未部署、建立试点内容或执行真实个人项目试点；空目录或合成项目不作为真实项目试点通过证据，实际覆盖在 WP-26 报告中记录。
 4. **Jev 范围：已确认。** 用户于 2026-10-03 回复“先保持off”，确定当前模式为 `off`，不进行真实 Jev 分类调用、shadow 评估、assist 路由或评估数据外发。WP-28/WP-29 保留在实施范围内，使用离线 fixture 验证相关功能和关闭状态；真实 shadow 的样本、成本及效果尚未验证，不将离线结果作为启用依据。后续开启真实 shadow 需用户另行授权，assist 仍需满足评估证据及用户接受条件。本轮只记录决定，产品开关尚未实现。
-5. **上游 OAuth 常量与推送。** 首次实际推送被 GitHub GH013 / Push Protection 拒绝：`internal/provider/google.go:72/73/81/82` 的两组 OAuth client ID/secret。已按字节核对该文件与固定上游完全相同，没有读取用户认证文件。请选择移出硬编码并配置外部客户端，或明确授权本次保护例外。前者影响 Gemini CLI / Antigravity 订阅登录与刷新，必须补充缺配置拒绝及已有行为回归；Codex/Grok/GLM 的需求不变。源码与历史中的命中都需处理，不能只新增一个删除常量的 commit 后重推。当前没有改 OAuth 实现、修改保护规则、申请例外或强推。
+5. **上游 OAuth 常量与推送：已选择 A。** 用户于 2026-10-03 回复“选A”，授权移出四个硬编码值、使用本机私有客户端配置，并清理本任务未发布历史后推送 origin。实现覆盖缺配置拒绝、缓存前身份检查、客户端版本、固定登录回调和显式重新导入；没有申请保护例外或改变仓库规则。实际验证及历史/推送结果在 OAuth 交付报告中独立记录，不作为 Fusion 工作包验收。
 
 Google 的 [桌面 OAuth 文档](https://developers.google.com/identity/protocols/oauth2/native-app) 说明安装式客户端不能保持 client_secret 机密；这不替代 GitHub 对本次推送的放行，也不证明 Fusion 获准以第三方客户端身份登录。这里仅记录来源与需要决策的兼容性影响，不保存常量值。
 
@@ -72,4 +72,4 @@ Google 的 [桌面 OAuth 文档](https://developers.google.com/identity/protocol
 - `AGENTS.md` 的迁移说明：Moved provider 由社区 plugin host 执行；旧内置测试不能证明当前插件出口可控。
 - 本地 CLI help：Codex App Server 提供 schema 生成入口；Grok 提供结构化输出、model、reasoning-effort、sandbox、no-subagents 和独立 leader socket 参数。只说明接口存在，不证明实际隔离、恢复或锁定效果。
 
-审阅清单及文档 hash 见 [preflight-inventory.json](preflight-inventory.json)，首次推送的脱敏结果见 [push-protection-report.json](push-protection-report.json)。第五项的具体影响与验证范围见 [OAuth 处理方案](decisions/oauth-push-protection-options.md)。用户答案到达后补充本记录，再开始对应工作包。
+审阅清单及文档 hash 见 [preflight-inventory.json](preflight-inventory.json)，首次推送的脱敏结果见 [push-protection-report.json](push-protection-report.json)。第五项的具体影响与验证范围见 [OAuth 处理方案](decisions/oauth-push-protection-options.md)。用户答案已逐项记录；GLM 的具体套餐及编码工具仍待补充，OAuth 前置修复按本次明确授权推进。

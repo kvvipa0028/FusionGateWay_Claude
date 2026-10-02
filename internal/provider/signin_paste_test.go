@@ -172,6 +172,7 @@ func TestPastedAddressAndCallbackFinishOnce(t *testing.T) {
 // bar doesn't offer it. Claude's is Claude Code's own (signin_claude_test.go).
 func TestLoopbackSignInsTakePastedAddress(t *testing.T) {
 	claudeHome(t)
+	writeGoogleOAuthFixture(t, "fake-gemini-client")
 	fakeCodexTokens(t, nil)
 	for _, agent := range []string{"codex", "gemini", "antigravity", "kiro", "zed"} {
 		st, err := StartSignIn(agent)

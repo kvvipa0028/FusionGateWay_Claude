@@ -1,6 +1,6 @@
 # Fusion Gateway 开发入口
 
-本仓库以 Magpie 为基座，增加由用户指定阶段模型的工程工作流。当前只完成源码导入、文档归档与 Go 工具链准备；五角色配置、strict locked、任务管理和 Runtime 尚未实现。
+本仓库以 Magpie 为基座，增加由用户指定阶段模型的工程工作流。已完成源码导入、文档归档、Go 工具链准备及获准的 Google OAuth 外部配置修复；五角色配置、strict locked、任务管理和 Runtime 尚未实现。
 
 ## 阅读顺序
 
@@ -42,3 +42,7 @@ python3 scripts/fusion/verify-baseline.py
 ## 文档缺口
 
 当前工作区未提供《Fusion_最终实施方案_v1.1.md》《Fusion_简化审阅说明_v1.1.md》及原始交付 ZIP。现有需求摘录不能冒充这些文件全文；后续取得原件时应核对遗漏和差异。
+
+## Google OAuth 前置修复
+
+用户已选择外部客户端配置方案，Google 订阅路径不再提供上游硬编码客户端值。配置和旧账号处理见 [Google OAuth 外部配置](decisions/google-oauth-external-config.md)；当前可以保持未配置。`baseline/` 是修改前的上游基线记录，修复后验证与历史清理另行留证，不能把原基线二进制视作当前代码。

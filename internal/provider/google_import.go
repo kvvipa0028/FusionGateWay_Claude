@@ -173,6 +173,9 @@ func ImportGoogleAccounts(ctx context.Context, agent string, files []string) ([]
 	if !ok || agent != "antigravity" {
 		return nil, fmt.Errorf("accounts can't be imported for %s", agent)
 	}
+	if err := app.requireOAuth(); err != nil {
+		return nil, err
+	}
 	var all []googleImport
 	for _, f := range files {
 		es, err := parseGoogleImport(agent, f)
@@ -199,6 +202,10 @@ func ImportGoogleAccounts(ctx context.Context, agent string, files []string) ([]
 		}
 		var a googleAuth
 		_ = json.Unmarshal(l.Auth, &a)
+		if a.ClientRevision != app.clientRevision {
+			haveUser[strings.ToLower(l.User)] = "" // explicit reimport must verify legacy ownership
+			continue
+		}
 		haveUser[strings.ToLower(l.User)] = a.RefreshToken
 		if a.RefreshToken != "" {
 			haveTok[a.RefreshToken] = l.User
@@ -250,13 +257,16 @@ func importGoogleAccount(ctx context.Context, app googleApp, e googleImport, nam
 	fail := func(msg string) ImportedAccount {
 		return ImportedAccount{User: name, Status: "failed", Error: msg}
 	}
+	if err := app.requireOAuth(); err != nil {
+		return fail(err.Error())
+	}
 	form := url.Values{"grant_type": {"refresh_token"}, "refresh_token": {e.refreshToken},
-		"client_id": {app.clientID}, "client_secret": {app.clientSecret}}.Encode()
+		"client_id": {app.clientID}, "client_secret": {app.clientSecret}}
 	var tok struct {
 		AccessToken string `json:"access_token"`
 		ExpiresIn   int64  `json:"expires_in"`
 	}
-	if err := postToken(ctx, googleTokenURL, "application/x-www-form-urlencoded", []byte(form), &tok); err != nil {
+	if err := postGoogleOAuthToken(ctx, app, form, &tok); err != nil {
 		msg := err.Error()
 		if strings.Contains(msg, "(401)") || strings.Contains(strings.ToLower(msg), "unauthorized") {
 			msg += " — this sign-in was made for another app, not " + app.name
@@ -269,7 +279,7 @@ func importGoogleAccount(ctx context.Context, app googleApp, e googleImport, nam
 	if tok.AccessToken == "" {
 		return fail("Google sent back no token")
 	}
-	g := googleAccount{app: app, auth: googleAuth{AccessToken: tok.AccessToken, RefreshToken: e.refreshToken,
+	g := googleAccount{app: app, auth: googleAuth{ClientRevision: app.clientRevision, AccessToken: tok.AccessToken, RefreshToken: e.refreshToken,
 		Expiry: time.Now().Add(time.Duration(tok.ExpiresIn) * time.Second).UnixMilli()}}
 	who, err := googleWho(ctx, tok.AccessToken)
 	switch {
@@ -299,7 +309,7 @@ func importGoogleAccount(ctx context.Context, app googleApp, e googleImport, nam
 		return fail(err.Error())
 	}
 	googleState.Lock()
-	googleState.tokens[e.refreshToken] = g.auth
+	googleState.tokens[g.cacheKey()] = g.auth
 	googleState.Unlock()
 	return ImportedAccount{User: g.user, Status: status, Plan: plan}
 }

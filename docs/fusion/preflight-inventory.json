@@ -43,8 +43,8 @@
   "documents": [
     {
       "path": "docs/fusion/README.md",
-      "sha256": "7456ceb5177eecfb019a5e3ead8394e66a4e7ce3e78ce7d8fda091e65158a2b3",
-      "bytes": 3274
+      "sha256": "94d139f93133ee52ac82b2bc2d286c3d1cd1d86d63f8dd01ab384b490955433c",
+      "bytes": 3721
     },
     {
       "path": "docs/fusion/baseline/artifacts.json",
@@ -107,9 +107,24 @@
       "bytes": 0
     },
     {
+      "path": "docs/fusion/decisions/google-oauth-external-config.md",
+      "sha256": "ef76c26022b95fcc71c09cc0fea9c67b221cd037577df8efae01028d4b17b502",
+      "bytes": 2935
+    },
+    {
       "path": "docs/fusion/decisions/oauth-push-protection-options.md",
-      "sha256": "e49794bab959af6297c566d92d13598e26b3e95bd80eeedb4442f762d09746ec",
-      "bytes": 7883
+      "sha256": "3412e3166584929e18f789529c308a74078f2dfad03750e0e359e7d16d8606cf",
+      "bytes": 8053
+    },
+    {
+      "path": "docs/fusion/decisions/oauth-validation-report.json",
+      "sha256": "b4b89df42c8d82d24a62d750d19bbf3123fa0c41a95d4067e2bbfdab92ec786e",
+      "bytes": 18977
+    },
+    {
+      "path": "docs/fusion/decisions/oauth-validation-report.md",
+      "sha256": "0978bb51c43fe867bbaceabd743cf21f2ce8b45c153159d237f6aea31ee18193",
+      "bytes": 2021
     },
     {
       "path": "docs/fusion/planning/Fusion_Magpie_Fork_Agent工作包_v1.0.md",
@@ -138,8 +153,8 @@
     },
     {
       "path": "docs/fusion/preflight-review.md",
-      "sha256": "684e922bef9db9c14f73614fbf868d42f92b9f8842798a3a8209f1517281d444",
-      "bytes": 12201
+      "sha256": "15d49d4ac134dfdd2bbf332f99a9d73e4e859e5efdfe68e42ef9ed706ae9dc4c",
+      "bytes": 12161
     },
     {
       "path": "docs/fusion/push-protection-report.json",
@@ -148,8 +163,8 @@
     },
     {
       "path": "docs/fusion/requirements-summary.md",
-      "sha256": "980dff7383d493f509afa0c61fa621d7d37b8213b66a28773f9bb308170f072a",
-      "bytes": 4361
+      "sha256": "8c0750f0492928a74bb68ee1aec0ac60e2e2d261ea2698e4c12156b54cbd91f0",
+      "bytes": 4566
     },
     {
       "path": "docs/fusion/upstream/AGENTS.magpie.md",
@@ -173,15 +188,14 @@
     },
     {
       "path": "docs/fusion/upstream-lock.json",
-      "sha256": "9d933a250b51f4e665f656dc736e0680f1fd70eea0c26af4405e6926615f35f5",
-      "bytes": 1933
+      "sha256": "79d5757b3507b840300c04e6bb0f825be8cad1cec9d8a268e90c55c539cea573",
+      "bytes": 2474
     }
   ],
   "product_implementation_started": false,
   "product_tests_executed": false,
   "pending_user_answers": [
-    "real_runtime_authorization_and_glm_scope",
-    "upstream_oauth_constants_and_push_protection"
+    "real_runtime_authorization_and_glm_scope"
   ],
   "baseline_checks": "prior six logs verified against recorded SHA256; unchanged checks not rerun",
   "known_upstream_whitespace_issue": "internal/provider/zcode_team.go:385: new blank line at EOF",
@@ -193,9 +207,9 @@
   },
   "preparation_commit": "7abfcb3574d79c50c599df841013001121c24c50",
   "branch": "fusion/implementation",
-  "push_status": "rejected_by_GitHub_push_protection",
+  "push_status": "awaiting_unpublished_history_cleanup",
   "oauth_impact_review": "docs/fusion/decisions/oauth-push-protection-options.md",
-  "oauth_implementation_changed": false,
+  "oauth_implementation_changed": true,
   "user_decisions": {
     "requirements_baseline": {
       "status": "confirmed",
@@ -251,6 +265,15 @@
       "product_switch_implemented": false,
       "real_evaluation_executed": false,
       "future_activation": "requires_separate_user_authorization_and_applicable_evaluation_gates"
+    },
+    "upstream_oauth_constants_and_push_protection": {
+      "status": "confirmed",
+      "confirmed_at": "2026-10-03",
+      "user_answer": "选A",
+      "option": "A",
+      "external_client_configuration_authorized": true,
+      "unpublished_task_history_cleanup_authorized": true,
+      "protection_exception_authorized": false
     }
   }
 }

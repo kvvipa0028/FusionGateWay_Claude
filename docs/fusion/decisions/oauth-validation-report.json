@@ -1,0 +1,555 @@
+{
+  "schema_version": 1,
+  "authorized_option": "A",
+  "source_sha256": {
+    "internal/provider/google.go": "c906cb2158d6996234a568500eeb86aaf49accbf1cdfbe72445c7deaef76c34f",
+    "internal/provider/google_oauth.go": "7567ecbd5748d8270086808741f0ebae184aabf3c15e245aa5355f041c668076",
+    "internal/provider/google_import.go": "e4c4338ae6a65970239c7e13dea89ee3bef5dada192b4d753ae587feac662ffb",
+    "internal/provider/signin.go": "0b7bec100961343075160c6421797638d1da3c1739cfada224d8e7e87dd829b6",
+    "internal/provider/google_oauth_test.go": "462966581dcd286c6940d9346e305a44aa98fb60a5f256ea86b9acf5ac0e66ce",
+    "internal/provider/google_test.go": "4dde0fc97041674465143e55d8025c061eaa0556c67653e4aaafc48bf92fada4",
+    "internal/provider/google_import_test.go": "bf8bd1e26171870645df8214ef01c301790406d1007cc16ee698252f7d0459cb",
+    "internal/provider/signin_paste_test.go": "0af033ca26dd172ca86c1fb9c2a45bbdd9155d209dd633c98dabc023ddfe0c03"
+  },
+  "checks": [
+    {
+      "name": "full-nogui-suite",
+      "command": [
+        "/Users/zhaojianzhi/.local/bin/go",
+        "test",
+        "-mod=readonly",
+        "-tags",
+        "nogui",
+        "-timeout",
+        "5m",
+        "-count=1",
+        "-json",
+        "./..."
+      ],
+      "exit_code": 0,
+      "seconds": 97.71,
+      "log_sha256": "136fa3f4c0a0a614d1a5f6bd675fcff48f39e9ea6fda1c6abfb2694c56d88e64",
+      "credential_environment": "temporary HOME/XDG; allowlist; no live credentials",
+      "go_version": "go version go1.26.3 darwin/arm64"
+    },
+    {
+      "name": "race-oauth-extended",
+      "command": [
+        "/Users/zhaojianzhi/.local/bin/go",
+        "test",
+        "-mod=readonly",
+        "-tags",
+        "nogui",
+        "-race",
+        "-count=1",
+        "-json",
+        "./internal/provider",
+        "-run",
+        "^Test(GoogleOAuth|GeminiOwnLoginOnlyGeminiCLIsClient)"
+      ],
+      "exit_code": 0,
+      "seconds": 2.04,
+      "log_sha256": "8a0a610fb2c3d94d092473bf950bb63560f0468ba347c39c39b566c8e32ce597",
+      "credential_environment": "temporary HOME/XDG; allowlist; no live credentials",
+      "go_version": "go version go1.26.3 darwin/arm64"
+    },
+    {
+      "name": "vet",
+      "command": [
+        "/Users/zhaojianzhi/.local/bin/go",
+        "vet",
+        "-mod=readonly",
+        "-tags",
+        "nogui",
+        "./..."
+      ],
+      "exit_code": 0,
+      "seconds": 4.39,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "credential_environment": "temporary HOME/XDG; allowlist; no live credentials",
+      "go_version": "go version go1.26.3 darwin/arm64"
+    },
+    {
+      "name": "build-cli",
+      "command": [
+        "/Users/zhaojianzhi/.local/bin/go",
+        "build",
+        "-mod=readonly",
+        "-tags",
+        "nogui",
+        "-o",
+        ".fusion-dev/oauth-validation/fusion-cli",
+        "."
+      ],
+      "exit_code": 0,
+      "seconds": 5.85,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "credential_environment": "temporary HOME/XDG; allowlist; no live credentials",
+      "go_version": "go version go1.26.3 darwin/arm64"
+    },
+    {
+      "name": "build-gui",
+      "command": [
+        "/Users/zhaojianzhi/.local/bin/go",
+        "build",
+        "-mod=readonly",
+        "-o",
+        ".fusion-dev/oauth-validation/fusion-gui",
+        "."
+      ],
+      "exit_code": 0,
+      "seconds": 11.55,
+      "log_sha256": "bf6f7fe78b78b5c20d5e3ee9636b1c27b9641ed14ccc898b7f13209802ce893d",
+      "credential_environment": "temporary HOME/XDG; allowlist; no live credentials",
+      "go_version": "go version go1.26.3 darwin/arm64"
+    }
+  ],
+  "test_summary": {
+    "full-nogui-suite": {
+      "test_and_subtest_results": {
+        "pass": 3912,
+        "fail": 0,
+        "skip": 64
+      },
+      "packages": {
+        "github.com/yetone/magpie/internal/autostart": "pass",
+        "github.com/yetone/magpie/internal/appdir": "pass",
+        "github.com/yetone/magpie/internal/agentenv": "pass",
+        "github.com/yetone/magpie/internal/access": "pass",
+        "github.com/yetone/magpie/internal/codexcat": "pass",
+        "github.com/yetone/magpie/internal/filememo": "pass",
+        "github.com/yetone/magpie/internal/claudebridge": "pass",
+        "github.com/yetone/magpie/internal/fx": "pass",
+        "github.com/yetone/magpie/internal/catalog": "pass",
+        "github.com/yetone/magpie/internal/edit": "pass",
+        "github.com/yetone/magpie/internal/netproxy": "pass",
+        "github.com/yetone/magpie/internal/imagemcp": "pass",
+        "github.com/yetone/magpie/internal/omarchy": "pass",
+        "github.com/yetone/magpie/internal/qoder": "pass",
+        "github.com/yetone/magpie/internal/redact": "pass",
+        "github.com/yetone/magpie/internal/profile": "pass",
+        "github.com/yetone/magpie/internal/shortcut": "pass",
+        "github.com/yetone/magpie/internal/steady": "skip",
+        "github.com/yetone/magpie/internal/settings": "pass",
+        "github.com/yetone/magpie/internal/stats": "pass",
+        "github.com/yetone/magpie/internal/backup": "pass",
+        "github.com/yetone/magpie/internal/zed": "pass",
+        "github.com/yetone/magpie/internal/proc": "pass",
+        "github.com/yetone/magpie/internal/plugin": "pass",
+        "github.com/yetone/magpie/internal/tui": "pass",
+        "github.com/yetone/magpie/internal/sessions": "pass",
+        "github.com/yetone/magpie/internal/update": "pass",
+        "github.com/yetone/magpie": "pass",
+        "github.com/yetone/magpie/internal/agent": "pass",
+        "github.com/yetone/magpie/internal/usage": "pass",
+        "github.com/yetone/magpie/internal/library": "pass",
+        "github.com/yetone/magpie/internal/davsync": "pass",
+        "github.com/yetone/magpie/internal/gui": "pass",
+        "github.com/yetone/magpie/internal/gateway": "pass",
+        "github.com/yetone/magpie/internal/provider": "pass"
+      },
+      "skipped_tests": [
+        {
+          "package": "github.com/yetone/magpie/internal/appdir",
+          "test": "TestResolveAppImage"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/netproxy",
+          "test": "TestBunThroughBridge"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/provider",
+          "test": "TestAccountOrderPluginAccounts"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/plugin",
+          "test": "TestTryBunOnRealBun"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/plugin",
+          "test": "TestHostFallsBackWhenTheNewBunDies"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/plugin",
+          "test": "TestAuthorizeNoPrompts"
+        },
+        {
+          "package": "github.com/yetone/magpie",
+          "test": "TestAccountsOfAPlugin"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/plugin",
+          "test": "TestPluginOwnIconAndKeyHint"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/plugin",
+          "test": "TestFallenBackListKeepsTheLastOne/throws="
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/plugin",
+          "test": "TestFallenBackListKeepsTheLastOne/throws=1"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/plugin",
+          "test": "TestFallenBackListKeepsTheLastOne/throws=own"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/plugin",
+          "test": "TestPluginSOCKSProxy"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/plugin",
+          "test": "TestFakePlugin"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/plugin",
+          "test": "TestPluginAccounts"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/plugin",
+          "test": "TestUnloadedPluginKeepsProviders"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/plugin",
+          "test": "TestPluginProxy"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/plugin",
+          "test": "TestPluginsChangedElsewhere"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/plugin",
+          "test": "TestPluginSameNameOtherUID"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/plugin",
+          "test": "TestRefreshDeadlineLeavesHostStartupBudget"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/plugin",
+          "test": "TestRefreshDeadlineBoundsRealProviderCall"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/plugin",
+          "test": "TestRestartFinishesTheReply"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/agent",
+          "test": "TestHowInstalledWindowsShim"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/davsync",
+          "test": "TestLockHolder"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/library",
+          "test": "TestJunction"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/davsync",
+          "test": "TestS3Live"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/gui",
+          "test": "TestUsageScale"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/gateway",
+          "test": "TestPluginFailover"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/gateway",
+          "test": "TestPluginSaysSignIn"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/gateway",
+          "test": "TestCursorPluginGroupFast"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/gateway",
+          "test": "TestGrokPluginDraws"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/gateway",
+          "test": "TestGrokPluginGetsNamespacedTools"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/gateway",
+          "test": "TestPluginBesideBuiltinCountsByEstimate"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/gateway",
+          "test": "TestGrokPluginSearchesItself"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/gateway",
+          "test": "TestPluginModelListThroughAccountProxy"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/gateway",
+          "test": "TestMovedCountTokensEstimated"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/gateway",
+          "test": "TestPluginAccountLackingTheModelGoesLast"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/gateway",
+          "test": "TestPluginProxyDownDoesNotRest"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/gateway",
+          "test": "TestPluginProvider"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/gateway",
+          "test": "TestZedPluginGetsNoDeveloperRole"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/gateway",
+          "test": "TestLiveCodexSealedAgentGuidance"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/provider",
+          "test": "TestGrokPluginSignInInstallsCLI"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/gateway",
+          "test": "TestMovedZCodeCountTokensEstimated"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/provider",
+          "test": "TestHandOver"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/provider",
+          "test": "TestMoveBackKeepsLapse"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/provider",
+          "test": "TestMoveRefusedWhileListing"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/provider",
+          "test": "TestMoveExpiredInWords"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/provider",
+          "test": "TestMoveToPlugin"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/provider",
+          "test": "TestMoveCutShort"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/provider",
+          "test": "TestPutBackKeepsNewer"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/provider",
+          "test": "TestReleasePlugin"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/provider",
+          "test": "TestMoveTidiesItsPlugin"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/provider",
+          "test": "TestMoveProvesEachAccount"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/provider",
+          "test": "TestAdoptBeforeSigningIn"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/provider",
+          "test": "TestPluginFetchSignInExpiredLapses"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/provider",
+          "test": "TestFetchNewLeavesListedPlugins"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/provider",
+          "test": "TestPluginUsageReadOnceWhicheverName"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/provider",
+          "test": "TestPluginIDReservedSignedOut"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/provider",
+          "test": "TestMovedSignInAsBuiltIn"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/provider",
+          "test": "TestPluginUsage"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/provider",
+          "test": "TestPluginUsageLapse"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/provider",
+          "test": "TestPluginAccountModels"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/provider",
+          "test": "TestPluginModelsSayExpired"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/provider",
+          "test": "TestPluginSignIn"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/provider",
+          "test": "TestPluginAccounts"
+        }
+      ]
+    },
+    "race-oauth-extended": {
+      "test_and_subtest_results": {
+        "pass": 28,
+        "fail": 0,
+        "skip": 0
+      },
+      "packages": {
+        "github.com/yetone/magpie/internal/provider": "pass"
+      },
+      "skipped_tests": []
+    }
+  },
+  "red_evidence": [
+    {
+      "name": "red-missing",
+      "command": [
+        "/Users/zhaojianzhi/.local/bin/go",
+        "test",
+        "-mod=readonly",
+        "-tags",
+        "nogui",
+        "-count=1",
+        "./internal/provider",
+        "-run",
+        "^TestGoogleOAuthMissing"
+      ],
+      "exit_code": 1,
+      "seconds": 2.94,
+      "log_sha256": "f96af96b3eb4480bbc13e60aedda09d1ceacbe3cd76a07ab74893a2c373390f2",
+      "credential_environment": "temporary HOME/XDG; allowlist; no live credentials",
+      "go_version": "go version go1.26.3 darwin/arm64"
+    },
+    {
+      "name": "red-client-boundary",
+      "command": [
+        "/Users/zhaojianzhi/.local/bin/go",
+        "test",
+        "-mod=readonly",
+        "-tags",
+        "nogui",
+        "-count=1",
+        "./internal/provider",
+        "-run",
+        "^TestGoogleOAuth(Configured|Legacy)"
+      ],
+      "exit_code": 1,
+      "seconds": 2.52,
+      "log_sha256": "f30c53921d256e0054c3c426d093e3c74317b72f2a4fb8bbea00fbd6a5facf4f",
+      "credential_environment": "temporary HOME/XDG; allowlist; no live credentials",
+      "go_version": "go version go1.26.3 darwin/arm64"
+    },
+    {
+      "name": "red-error-redaction",
+      "command": [
+        "/Users/zhaojianzhi/.local/bin/go",
+        "test",
+        "-mod=readonly",
+        "-tags",
+        "nogui",
+        "-count=1",
+        "./internal/provider",
+        "-run",
+        "^TestGoogleOAuthTokenError"
+      ],
+      "exit_code": 1,
+      "seconds": 2.34,
+      "log_sha256": "ffc03d68b6969bd98ca5c7293faafb3b0d2fc55f1abd4c56e05f30c4c13e5847",
+      "credential_environment": "temporary HOME/XDG; allowlist; no live credentials",
+      "go_version": "go version go1.26.3 darwin/arm64"
+    },
+    {
+      "name": "red-restoration-and-import",
+      "command": [
+        "/Users/zhaojianzhi/.local/bin/go",
+        "test",
+        "-mod=readonly",
+        "-tags",
+        "nogui",
+        "-count=1",
+        "./internal/provider",
+        "-run",
+        "^TestGoogleOAuth(Observed|ImportRepairs)"
+      ],
+      "exit_code": 1,
+      "seconds": 2.48,
+      "log_sha256": "d62d345bd265da644e1fc6f6dbb8bfe92a5ef3cd106d972204c30a2f6d3f93f5",
+      "credential_environment": "temporary HOME/XDG; allowlist; no live credentials",
+      "go_version": "go version go1.26.3 darwin/arm64"
+    },
+    {
+      "name": "red-native-claims",
+      "command": [
+        "/Users/zhaojianzhi/.local/bin/go",
+        "test",
+        "-mod=readonly",
+        "-tags",
+        "nogui",
+        "-count=1",
+        "./internal/provider",
+        "-run",
+        "^TestGeminiOwnLoginOnlyGeminiCLIsClient$"
+      ],
+      "exit_code": 1,
+      "seconds": 2.51,
+      "log_sha256": "56966f24051c1bf5d4b89a14f6d1022983d91b8c505045c50907c80f00ca7b0a",
+      "credential_environment": "temporary HOME/XDG; allowlist; no live credentials",
+      "go_version": "go version go1.26.3 darwin/arm64"
+    },
+    {
+      "name": "red-cache-mutation",
+      "command": [
+        "/Users/zhaojianzhi/.local/bin/go",
+        "test",
+        "-mod=readonly",
+        "-tags",
+        "nogui",
+        "-count=1",
+        "./internal/provider",
+        "-run",
+        "^TestGoogleOAuthClientsAndTokenCacheAreSeparate$"
+      ],
+      "exit_code": 1,
+      "seconds": 2.3,
+      "log_sha256": "36863f80e5c395681a7dd89d9e0291c8cb4e0f918b31f2050ef1d934f949f4f2",
+      "credential_environment": "temporary HOME/XDG; allowlist; no live credentials",
+      "go_version": "go version go1.26.3 darwin/arm64"
+    }
+  ],
+  "known_warnings": [
+    "GUI link macOS 27.0 objects vs deployment target 11.0; exit 0, baseline warning also present"
+  ],
+  "original_assertions_preserved": true,
+  "fixture_changes": "Synthetic external clients; native matching id_token; loopback sign-in explicit config",
+  "history_cleanup": "pending",
+  "origin_push": "pending",
+  "real_google_authentication_executed": false,
+  "real_provider_credentials_read": false,
+  "protection_exception_requested": false,
+  "not_verified": [
+    "real Google subscription/client compatibility",
+    "GUI interaction",
+    "Windows/Linux execution",
+    "Fusion WP-01-WP-30 and T01-T60",
+    "OpenAI/Grok/GLM real subscriptions"
+  ]
+}

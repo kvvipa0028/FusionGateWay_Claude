@@ -48,6 +48,8 @@ const CodeAssist Protocol = "codeassist"
 type googleApp struct {
 	agent, name, icon, website string
 	clientID, clientSecret     string
+	clientRevision, configPath string
+	configErr                  error
 	scopes                     []string
 	callback                   string // the path the browser comes back to
 	loopback                   string // the host it comes back to
@@ -67,10 +69,6 @@ var (
 
 var geminiApp = googleApp{
 	agent: "gemini", name: "Gemini CLI", icon: "geminicli-color", website: "https://github.com/google-gemini/gemini-cli",
-	// Gemini CLI's own OAuth client, an installed app's (its "secret" is
-	// no secret: it ships in the CLI)
-	clientID:     "",
-	clientSecret: "",
 	scopes: []string{"https://www.googleapis.com/auth/cloud-platform",
 		"https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile"},
 	callback: "/oauth2callback", loopback: "127.0.0.1",
@@ -78,8 +76,6 @@ var geminiApp = googleApp{
 
 var antigravityApp = googleApp{
 	agent: "antigravity", name: "Antigravity", icon: "antigravity-color", website: "https://antigravity.google",
-	clientID:     "",
-	clientSecret: "",
 	scopes: []string{"https://www.googleapis.com/auth/cloud-platform",
 		"https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile",
 		"https://www.googleapis.com/auth/cclog", "https://www.googleapis.com/auth/experimentsandconfigs"},
@@ -91,11 +87,11 @@ func googleAppOf(agent string) (googleApp, bool) {
 	case "gemini":
 		a := geminiApp
 		a.base, a.loadBase = codeAssistProd, codeAssistProd
-		return a, true
+		return bindGoogleOAuth(a), true
 	case "antigravity":
 		a := antigravityApp
 		a.base, a.loadBase = codeAssistDaily, codeAssistProd
-		return a, true
+		return bindGoogleOAuth(a), true
 	}
 	return googleApp{}, false
 }
@@ -114,9 +110,10 @@ const geminiCLIVersion = "0.61.0"
 // googleAuth is a Google sign-in as logins.json keeps it; Gemini CLI's
 // oauth_creds.json has the same fields.
 type googleAuth struct {
-	AccessToken  string `json:"access_token,omitempty"`
-	RefreshToken string `json:"refresh_token"`
-	Expiry       int64  `json:"expiry_date,omitempty"` // Unix ms
+	ClientRevision string `json:"oauth_client_revision,omitempty"`
+	AccessToken    string `json:"access_token,omitempty"`
+	RefreshToken   string `json:"refresh_token"`
+	Expiry         int64  `json:"expiry_date,omitempty"` // Unix ms
 	// Project is the Google Cloud project requests are billed to: the one
 	// Code Assist gave the account, or one the user named (Code Assist
 	// Standard and Enterprise ask for one).
@@ -142,6 +139,10 @@ func geminiDir() string {
 // only for the client that minted it, so it is left alone. (Antigravity's
 // CLI, agy, keeps its sign-in in the system keyring, not here.)
 func geminiOwnLogin() (googleAccount, bool) {
+	app, _ := googleAppOf("gemini")
+	if app.requireOAuth() != nil {
+		return googleAccount{}, false
+	}
 	path := filepath.Join(geminiDir(), "oauth_creds.json")
 	var a googleAuth
 	if !readJSON(path, &a) || a.RefreshToken == "" {
@@ -151,8 +152,12 @@ func geminiOwnLogin() (googleAccount, bool) {
 		IDToken string `json:"id_token"`
 	}
 	readJSON(path, &id)
-	if c := googleClientOf(id.IDToken); c != "" && c != geminiApp.clientID {
-		return googleAccount{}, false
+	if id.IDToken != "" {
+		c := googleClientOf(id.IDToken)
+		if c == "" || c != app.clientID {
+			return googleAccount{}, false
+		}
+		a.ClientRevision = app.clientRevision
 	}
 	var accts struct {
 		Active string `json:"active"`
@@ -167,7 +172,6 @@ func geminiOwnLogin() (googleAccount, bool) {
 	if a.Project == "" {
 		a.Project = savedGoogleProject("gemini", user)
 	}
-	app, _ := googleAppOf("gemini")
 	return googleAccount{app: app, user: user, auth: a, own: true}, true
 }
 
@@ -176,6 +180,9 @@ func geminiOwnLogin() (googleAccount, bool) {
 func googleClientOf(idToken string) string {
 	c := jwtClaims(idToken)
 	if azp := claimString(c, "azp"); azp != "" {
+		if aud := claimString(c, "aud"); aud != "" && aud != azp {
+			return ""
+		}
 		return azp
 	}
 	return claimString(c, "aud")
@@ -267,6 +274,14 @@ func forgetGoogleLogin(agent, user string) error {
 
 // addGoogleLogin keeps an account magpie just signed in.
 func addGoogleLogin(agent, user, plan string, a googleAuth) error {
+	app, _ := googleAppOf(agent)
+	if err := app.requireOAuth(); err != nil {
+		return err
+	}
+	if a.ClientRevision != "" && a.ClientRevision != app.clientRevision {
+		return errors.New("Google account OAuth client identity changed")
+	}
+	a.ClientRevision = app.clientRevision
 	auth, _ := json.Marshal(a)
 	ownUser := ""
 	if own, ok := geminiOwnLogin(); ok && agent == "gemini" {
@@ -310,7 +325,7 @@ func SetGoogleProject(agent, user, project string) error {
 // Assist gave it.
 var googleState = struct {
 	sync.Mutex
-	tokens   map[string]googleAuth // by refresh token
+	tokens   map[string]googleAuth // by app, client revision and refresh token
 	projects map[string]googleProject
 	flags    map[string]geminiFlags // by refresh token and project
 }{tokens: map[string]googleAuth{}, projects: map[string]googleProject{}, flags: map[string]geminiFlags{}}
@@ -321,8 +336,12 @@ type googleProject struct {
 
 // token is a live access token for the account.
 func (g googleAccount) token(ctx context.Context) (string, error) {
+	if err := g.requireOAuth(); err != nil {
+		return "", err
+	}
+	key := g.cacheKey()
 	googleState.Lock()
-	t, ok := googleState.tokens[g.auth.RefreshToken]
+	t, ok := googleState.tokens[key]
 	googleState.Unlock()
 	if !ok {
 		t = g.auth
@@ -336,7 +355,7 @@ func (g googleAccount) token(ctx context.Context) (string, error) {
 		AccessToken string `json:"access_token"`
 		ExpiresIn   int64  `json:"expires_in"`
 	}
-	if err := postToken(ctx, googleTokenURL, "application/x-www-form-urlencoded", []byte(form.Encode()), &fresh); err != nil || fresh.AccessToken == "" {
+	if err := postGoogleOAuthToken(ctx, g.app, form, &fresh); err != nil || fresh.AccessToken == "" {
 		how := "sign in again from magpie"
 		if g.own {
 			how = "run gemini and sign in again"
@@ -347,10 +366,10 @@ func (g googleAccount) token(ctx context.Context) (string, error) {
 		}
 		return "", fmt.Errorf("%s is signed out (%s); %s", g.app.name, msg, how)
 	}
-	t = googleAuth{AccessToken: fresh.AccessToken, RefreshToken: g.auth.RefreshToken,
+	t = googleAuth{ClientRevision: g.app.clientRevision, AccessToken: fresh.AccessToken, RefreshToken: g.auth.RefreshToken,
 		Expiry: time.Now().Add(time.Duration(fresh.ExpiresIn) * time.Second).UnixMilli()}
 	googleState.Lock()
-	googleState.tokens[g.auth.RefreshToken] = t
+	googleState.tokens[key] = t
 	googleState.Unlock()
 	return t.AccessToken, nil
 }
@@ -474,7 +493,10 @@ func (p *companionProject) UnmarshalJSON(b []byte) error {
 // (and the account set up for Code Assist, the first time) the way the
 // app does it, and the plan it is on.
 func (g googleAccount) project(ctx context.Context) (googleProject, error) {
-	key := g.app.agent + "\x00" + g.auth.RefreshToken
+	if err := g.requireOAuth(); err != nil {
+		return googleProject{}, err
+	}
+	key := g.cacheKey()
 	googleState.Lock()
 	p, ok := googleState.projects[key]
 	googleState.Unlock()
@@ -708,7 +730,10 @@ const (
 // CLI does when it starts, at most every hour; none is on when it can't
 // say, as in the CLI.
 func (g googleAccount) flags(ctx context.Context, project string) geminiFlags {
-	key := g.auth.RefreshToken + "\x00" + project
+	if g.requireOAuth() != nil {
+		return geminiFlags{}
+	}
+	key := g.cacheKey() + "\x00" + project
 	googleState.Lock()
 	f, ok := googleState.flags[key]
 	googleState.Unlock()
@@ -1282,6 +1307,9 @@ func startGoogleSignIn(s *signInFlow, app googleApp, port int, challenge string)
 // googleExchange trades the code for tokens, finds whose account it is and
 // sets it up for Code Assist.
 func googleExchange(ctx context.Context, app googleApp, code, verifier, redirect string) (googleAccount, string, error) {
+	if err := app.requireOAuth(); err != nil {
+		return googleAccount{}, "", err
+	}
 	form := url.Values{"grant_type": {"authorization_code"}, "code": {code}, "redirect_uri": {redirect},
 		"client_id": {app.clientID}, "client_secret": {app.clientSecret}, "code_verifier": {verifier}}
 	var tok struct {
@@ -1289,13 +1317,13 @@ func googleExchange(ctx context.Context, app googleApp, code, verifier, redirect
 		RefreshToken string `json:"refresh_token"`
 		ExpiresIn    int64  `json:"expires_in"`
 	}
-	if err := postToken(ctx, googleTokenURL, "application/x-www-form-urlencoded", []byte(form.Encode()), &tok); err != nil {
+	if err := postGoogleOAuthToken(ctx, app, form, &tok); err != nil {
 		return googleAccount{}, "", err
 	}
 	if tok.AccessToken == "" || tok.RefreshToken == "" {
 		return googleAccount{}, "", errors.New("Google sent back no token")
 	}
-	g := googleAccount{app: app, auth: googleAuth{AccessToken: tok.AccessToken, RefreshToken: tok.RefreshToken,
+	g := googleAccount{app: app, auth: googleAuth{ClientRevision: app.clientRevision, AccessToken: tok.AccessToken, RefreshToken: tok.RefreshToken,
 		Expiry: time.Now().Add(time.Duration(tok.ExpiresIn) * time.Second).UnixMilli()}}
 	who, err := googleWho(ctx, tok.AccessToken)
 	if err != nil {

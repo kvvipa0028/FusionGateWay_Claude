@@ -85,6 +85,7 @@ func googleSandbox(t *testing.T, f *fakeGoogle) {
 	t.Setenv("USERPROFILE", home) // Windows's home
 	t.Setenv("XDG_CONFIG_HOME", filepath.Join(home, ".config"))
 	t.Setenv("XDG_CACHE_HOME", filepath.Join(home, ".cache"))
+	writeGoogleOAuthFixture(t, "fake-gemini-client")
 	srv := httptest.NewServer(f)
 	t.Cleanup(srv.Close)
 	oldToken, oldProd, oldDaily, oldVer, oldPoll := googleTokenURL, codeAssistProd, codeAssistDaily, antigravityVersionURL, onboardPoll
@@ -112,7 +113,8 @@ func writeGeminiLogin(t *testing.T, env string) {
 	t.Helper()
 	dir := geminiDir()
 	os.MkdirAll(dir, 0o700)
-	creds := `{"access_token":"old","refresh_token":"rt-own","expiry_date":1}`
+	claims := base64.RawURLEncoding.EncodeToString([]byte(`{"aud":"fake-gemini-client","azp":"fake-gemini-client"}`))
+	creds := `{"access_token":"old","refresh_token":"rt-own","expiry_date":1,"id_token":"e30.` + claims + `.sig"}`
 	os.WriteFile(filepath.Join(dir, "oauth_creds.json"), []byte(creds), 0o600)
 	os.WriteFile(filepath.Join(dir, "google_accounts.json"), []byte(`{"active":"me@example.com","old":[]}`), 0o600)
 	if env != "" {
@@ -159,9 +161,11 @@ func TestGeminiOwnLoginOnlyGeminiCLIsClient(t *testing.T) {
 		want          bool
 	}{
 		{"no id token", "", true},
-		{"gemini cli", idToken(map[string]any{"aud": geminiApp.clientID, "azp": geminiApp.clientID}), true},
-		{"antigravity", idToken(map[string]any{"aud": antigravityApp.clientID, "azp": antigravityApp.clientID}), false},
-		{"antigravity aud only", idToken(map[string]any{"aud": antigravityApp.clientID}), false},
+		{"gemini cli", idToken(map[string]any{"aud": "fake-gemini-client", "azp": "fake-gemini-client"}), true},
+		{"antigravity", idToken(map[string]any{"aud": "fake-antigravity-client", "azp": "fake-antigravity-client"}), false},
+		{"antigravity aud only", idToken(map[string]any{"aud": "fake-antigravity-client"}), false},
+		{"conflicting audience", idToken(map[string]any{"azp": "fake-gemini-client", "aud": "fake-antigravity-client"}), false},
+		{"malformed id token", "not-a-jwt", false},
 	} {
 		t.Run(c.name, func(t *testing.T) {
 			googleSandbox(t, &fakeGoogle{})

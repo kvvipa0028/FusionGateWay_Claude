@@ -165,7 +165,7 @@ func TestImportGoogleAccounts(t *testing.T) {
 	}
 	// refreshed with Antigravity's own client; b, already here, wasn't asked for
 	for _, c := range f.clients {
-		if c != antigravityApp.clientID {
+		if c != "fake-antigravity-client" {
 			t.Errorf("refreshed with client %q", c)
 		}
 	}

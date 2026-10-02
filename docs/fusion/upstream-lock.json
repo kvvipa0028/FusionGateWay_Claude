@@ -18,10 +18,15 @@
     "go.mod": "974f41ebe2d7ae63997920bf3cd842b6d6d8df0a5525b90bf963b3633c5adbc6",
     "go.sum": "5edecea73e88c553bd5e5afe8534d7199d2a7e881cb5e488566647737a028546",
     "LICENSE": "79d2c8444715d4bc453ec4f8a0aaf2051a4c1ee5ac08f5bd2e5848aef87c7572",
-    "AGENTS.md": "e66bb1f099a2bf3c70003b681bce099ab727db57de442da4e6cbc71564d8ee77",
+    "AGENTS.md": "858af3898453288fec48e23abe349df896f4bf5354aedc86c56abfc578d4fa47",
     "README.md": "d389bf3af99774d31554a4314b1dd944a446ffff6fa58c184508c0a647a74462"
   },
-  "application_changes": [],
+  "application_changes": [
+    "internal/provider/google.go",
+    "internal/provider/google_oauth.go",
+    "internal/provider/google_import.go",
+    "internal/provider/signin.go"
+  ],
   "validation_status": "source_import_verified; CLI/GUI builds, nogui vet and 5 targeted packages passed",
   "fork_changes": [
     ".github/workflows/docker.yml",
@@ -41,5 +46,13 @@
     "upstream_notices_preserved": true
   },
   "verification_results": "baseline/verification-results.json",
-  "initial_environment_failure": "baseline/build-cli-initial.log"
+  "initial_environment_failure": "baseline/build-cli-initial.log",
+  "oauth_external_configuration": {
+    "authorized_at": "2026-10-03",
+    "option": "A",
+    "private_config": "XDG_CONFIG_HOME/fusion-gateway/google-oauth-clients.json or HOME/.config/fusion-gateway/google-oauth-clients.json",
+    "real_google_login_verified": false,
+    "historical_baseline_preserved": true,
+    "verification_report": "decisions/oauth-validation-report.json"
+  }
 }

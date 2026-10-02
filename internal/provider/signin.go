@@ -83,8 +83,9 @@ type signInFlow struct {
 	claude   *claudeCLISignIn // Claude Code's own sign-in, run by magpie
 	// claimed is a callback being traded for the account: the browser's own
 	// or a pasted address, whichever came first
-	claimed bool
-	done    chan struct{}
+	googleApp *googleApp // frozen OAuth client for this authorization flow
+	claimed   bool
+	done      chan struct{}
 }
 
 var signIns = struct {
@@ -298,6 +299,10 @@ func (s *signInFlow) begin() error {
 	case "gemini", "antigravity":
 		// Google's sign-in, under the app's own OAuth client
 		app, _ := googleAppOf(agent)
+		if err := app.requireOAuth(); err != nil {
+			return err
+		}
+		s.googleApp = &app
 		if ln, err = net.Listen("tcp", "127.0.0.1:0"); err != nil {
 			return err
 		}
@@ -600,7 +605,11 @@ func (s *signInFlow) callback(w http.ResponseWriter, r *http.Request) {
 	}
 	ctx, cancel := context.WithTimeout(r.Context(), 30*time.Second)
 	defer cancel()
-	if app, ok := googleAppOf(s.st.Agent); ok {
+	if _, ok := googleAppOf(s.st.Agent); ok {
+		app := googleApp{}
+		if s.googleApp != nil {
+			app = *s.googleApp
+		}
 		s.googleDone(ctx, w, app, q.Get("code"))
 		return
 	}
