@@ -72,4 +72,4 @@ Google 的 [桌面 OAuth 文档](https://developers.google.com/identity/protocol
 - `AGENTS.md` 的迁移说明：Moved provider 由社区 plugin host 执行；旧内置测试不能证明当前插件出口可控。
 - 本地 CLI help：Codex App Server 提供 schema 生成入口；Grok 提供结构化输出、model、reasoning-effort、sandbox、no-subagents 和独立 leader socket 参数。只说明接口存在，不证明实际隔离、恢复或锁定效果。
 
-审阅清单及文档 hash 见 [preflight-inventory.json](preflight-inventory.json)，首次推送的脱敏结果见 [push-protection-report.json](push-protection-report.json)。用户答案到达后补充本记录，再开始对应工作包。
+审阅清单及文档 hash 见 [preflight-inventory.json](preflight-inventory.json)，首次推送的脱敏结果见 [push-protection-report.json](push-protection-report.json)。第五项的具体影响与验证范围见 [OAuth 处理方案](decisions/oauth-push-protection-options.md)。用户答案到达后补充本记录，再开始对应工作包。

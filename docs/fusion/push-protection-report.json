@@ -8,10 +8,26 @@
   "github_rule": "GH013 / GITHUB PUSH PROTECTION",
   "reason": "Push cannot contain secrets",
   "findings": [
-    {"type": "Google OAuth Client ID", "path": "internal/provider/google.go", "line": 72},
-    {"type": "Google OAuth Client Secret", "path": "internal/provider/google.go", "line": 73},
-    {"type": "Google OAuth Client ID", "path": "internal/provider/google.go", "line": 81},
-    {"type": "Google OAuth Client Secret", "path": "internal/provider/google.go", "line": 82}
+    {
+      "type": "Google OAuth Client ID",
+      "path": "internal/provider/google.go",
+      "line": 72
+    },
+    {
+      "type": "Google OAuth Client Secret",
+      "path": "internal/provider/google.go",
+      "line": 73
+    },
+    {
+      "type": "Google OAuth Client ID",
+      "path": "internal/provider/google.go",
+      "line": 81
+    },
+    {
+      "type": "Google OAuth Client Secret",
+      "path": "internal/provider/google.go",
+      "line": 82
+    }
   ],
   "matches_locked_upstream_file": true,
   "upstream_commit": "1a50db1a8afd0849df2853f92a47da9d5e2f2cc9",
@@ -19,6 +35,20 @@
   "exception_requested": false,
   "repository_protection_changed": false,
   "force_push_attempted": false,
+  "tracked_source_scan": {
+    "files_checked": 1797,
+    "original_values_checked": 4,
+    "occurrences": 4,
+    "only_file": "internal/provider/google.go",
+    "values_printed": false,
+    "user_auth_files_read": false,
+    "commit": "16d0aa8f04522d514c7601d1727abfc08a01e3c7"
+  },
+  "impact_review": "decisions/oauth-push-protection-options.md",
+  "new_evidence": [
+    "OAuth constants participate in native-account azp/aud matching, import and refresh, not only sign-in",
+    "googleAccount.token returns a valid cached token before attempting a refresh; missing-client rejection must cover this path"
+  ],
   "status": "awaiting_user_decision",
   "options": [
     "Remove hardcoded clients from the unpublished source commit, use external client configuration, test missing-client failure and compatibility",

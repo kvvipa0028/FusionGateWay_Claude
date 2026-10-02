@@ -107,6 +107,11 @@
       "bytes": 0
     },
     {
+      "path": "docs/fusion/decisions/oauth-push-protection-options.md",
+      "sha256": "e49794bab959af6297c566d92d13598e26b3e95bd80eeedb4442f762d09746ec",
+      "bytes": 7883
+    },
+    {
       "path": "docs/fusion/planning/Fusion_Magpie_Fork_Agent工作包_v1.0.md",
       "sha256": "2ae1f640d13ab257bfb4bb63a26d1518ca657598ea2c5f67455ee13f4ae1115b",
       "bytes": 50295
@@ -133,13 +138,13 @@
     },
     {
       "path": "docs/fusion/preflight-review.md",
-      "sha256": "41cb5914885413294b66d7bb6831ac1cd738a3d2d5a7ac0ce4ce4f1041b4fc6d",
-      "bytes": 10819
+      "sha256": "6d32ad35c3f7c11526dbb2ab1a8159b7883da01da244c63684bf89159266e6a9",
+      "bytes": 10929
     },
     {
       "path": "docs/fusion/push-protection-report.json",
-      "sha256": "d9103b1bcdfabe2a94fa7c5757b932c2027edd050438601e4bab1392799f2b31",
-      "bytes": 1305
+      "sha256": "3d276205165580fb160ffbe86d19ab025ac58462ba13cf17dbfe59630027c1fa",
+      "bytes": 2013
     },
     {
       "path": "docs/fusion/requirements-summary.md",
@@ -191,5 +196,7 @@
   },
   "preparation_commit": "7abfcb3574d79c50c599df841013001121c24c50",
   "branch": "fusion/implementation",
-  "push_status": "rejected_by_GitHub_push_protection"
+  "push_status": "rejected_by_GitHub_push_protection",
+  "oauth_impact_review": "docs/fusion/decisions/oauth-push-protection-options.md",
+  "oauth_implementation_changed": false
 }
