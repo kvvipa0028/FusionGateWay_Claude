@@ -138,8 +138,8 @@
     },
     {
       "path": "docs/fusion/preflight-review.md",
-      "sha256": "d7090a1dd15318643435f1c51347ac55ae104ff2fd6eb25f6da717b7949ffb91",
-      "bytes": 11867
+      "sha256": "684e922bef9db9c14f73614fbf868d42f92b9f8842798a3a8209f1517281d444",
+      "bytes": 12201
     },
     {
       "path": "docs/fusion/push-protection-report.json",
@@ -148,8 +148,8 @@
     },
     {
       "path": "docs/fusion/requirements-summary.md",
-      "sha256": "477dea434cb67adb15159792275a6c58d1228bcca7b482d780bb92e133a1c2d0",
-      "bytes": 4107
+      "sha256": "980dff7383d493f509afa0c61fa621d7d37b8213b66a28773f9bb308170f072a",
+      "bytes": 4361
     },
     {
       "path": "docs/fusion/upstream/AGENTS.magpie.md",
@@ -181,7 +181,6 @@
   "product_tests_executed": false,
   "pending_user_answers": [
     "real_runtime_authorization_and_glm_scope",
-    "jev_evaluation_scope",
     "upstream_oauth_constants_and_push_protection"
   ],
   "baseline_checks": "prior six logs verified against recorded SHA256; unchanged checks not rerun",
@@ -234,6 +233,24 @@
       "deployment_executed": false,
       "real_project_pilot_executed": false,
       "decision": "Use this local host and a single folder as the project; supersedes the original Mac mini host wording while retaining deployment, isolation, backup and recovery acceptance requirements"
+    },
+    "jev_evaluation_scope": {
+      "status": "confirmed",
+      "confirmed_at": "2026-10-03",
+      "user_answer": "先保持off",
+      "mode": "off",
+      "live_jev_calls_authorized": false,
+      "real_shadow_evaluation_authorized": false,
+      "assist_routing_authorized": false,
+      "evaluation_data_export_authorized": false,
+      "offline_fixture_validation": "in_scope",
+      "work_packages_retained": [
+        "WP-28",
+        "WP-29"
+      ],
+      "product_switch_implemented": false,
+      "real_evaluation_executed": false,
+      "future_activation": "requires_separate_user_authorization_and_applicable_evaluation_gates"
     }
   }
 }
