@@ -1,0 +1,79 @@
+name: Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: test-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: test (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      # The GUI links GTK 3 and WebKitGTK 4.1 through cgo on Linux (see the
+      # Makefile), so vet and test need their headers and the gtk3 tag.
+      - name: Install GTK and WebKitGTK
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.1-dev
+
+      - name: Tags
+        id: tags
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" = Linux ]; then echo "tags=gtk3" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Vet
+        run: go vet -tags "${{ steps.tags.outputs.tags }}" ./...
+
+      - name: Test
+        if: runner.os != 'Windows'
+        run: go test -tags "${{ steps.tags.outputs.tags }}" ./...
+
+      # The redaction tests reuse this binary in fresh processes to check
+      # first-use races, so it must include the race detector.
+      - name: Race
+        if: runner.os != 'Windows'
+        run: go test -race -tags "${{ steps.tags.outputs.tags }}" ./internal/gateway/ ./internal/redact/
+
+      # Account usage mixes cached results with concurrent fetches.
+      - name: Race account usage
+        if: runner.os != 'Windows'
+        run: go test -race -tags "${{ steps.tags.outputs.tags }}" ./internal/provider/ -run '^Test(LoginUsage|SubscriptionUsageEachAccount)'
+
+      # The tests fake a home through $HOME, which Windows doesn't read
+      # (USERPROFILE), and some assume Unix file modes; until they don't,
+      # Windows only compiles them.
+      - name: Compile tests
+        if: runner.os == 'Windows'
+        run: go test -run '^$' ./...
+
+  cli:
+    name: cli (nogui)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - name: Build the terminal-only magpie
+        env:
+          CGO_ENABLED: '0'
+        run: go build -tags nogui -o /dev/null .

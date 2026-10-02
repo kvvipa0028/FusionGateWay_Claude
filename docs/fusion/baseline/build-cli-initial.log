@@ -1,0 +1,492 @@
+# runtime/cgo
+In file included from gcc_context.c:7:
+In file included from ./libcgo.h:6:
+In file included from /usr/local/include/stdlib.h:58:
+/usr/local/include/_stdlib.h:152:25: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:152:25: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:152:25: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:154:25: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:154:25: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:154:25: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:155:22: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:155:22: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:155:22: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:156:23: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:156:23: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:156:23: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:159:20: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:159:20: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:159:20: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:161:26: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:161:26: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:161:26: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:161:45: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:161:45: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:161:45: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:162:59: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:162:59: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:162:59: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:162:73: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:162:73: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:162:73: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:161:6: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:161:6: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:161:6: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:167:36: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:167:36: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:167:36: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:167:6: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:167:6: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:167:6: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:176:23: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:176:23: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:176:23: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:177:26: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:177:26: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:177:26: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:177:68: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:177:68: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:177:68: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:178:21: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:178:21: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:178:21: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:178:46: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:178:46: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:178:46: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:180:18: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:180:18: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:180:18: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:181:43: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:181:43: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:181:43: note: insert '_Nonnull' if the pointer should never be null
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+# runtime/cgo
+In file included from gcc_util.c:5:
+In file included from ./libcgo.h:6:
+In file included from /usr/local/include/stdlib.h:58:
+/usr/local/include/_stdlib.h:152:25: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:152:25: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:152:25: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:154:25: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:154:25: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:154:25: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:155:22: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:155:22: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:155:22: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:156:23: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:156:23: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:156:23: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:159:20: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:159:20: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:159:20: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:161:26: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:161:26: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:161:26: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:161:45: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:161:45: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:161:45: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:162:59: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:162:59: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:162:59: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:162:73: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:162:73: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:162:73: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:161:6: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:161:6: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:161:6: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:167:36: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:167:36: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:167:36: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:167:6: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:167:6: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:167:6: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:176:23: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:176:23: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:176:23: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:177:26: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:177:26: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:177:26: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:177:68: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:177:68: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:177:68: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:178:21: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:178:21: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:178:21: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:178:46: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:178:46: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:178:46: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:180:18: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:180:18: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:180:18: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:181:43: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:181:43: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:181:43: note: insert '_Nonnull' if the pointer should never be null
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+# runtime/cgo
+In file included from gcc_stack_darwin.c:6:
+In file included from ./libcgo.h:6:
+In file included from /usr/local/include/stdlib.h:58:
+/usr/local/include/_stdlib.h:152:25: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:152:25: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:152:25: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:154:25: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:154:25: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:154:25: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:155:22: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:155:22: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:155:22: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:156:23: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:156:23: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:156:23: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:159:20: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:159:20: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:159:20: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:161:26: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:161:26: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:161:26: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:161:45: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:161:45: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:161:45: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:162:59: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:162:59: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:162:59: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:162:73: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:162:73: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:162:73: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:161:6: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:161:6: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:161:6: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:167:36: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:167:36: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:167:36: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:167:6: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:167:6: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:167:6: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:176:23: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:176:23: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:176:23: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:177:26: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:177:26: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:177:26: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:177:68: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:177:68: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:177:68: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:178:21: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:178:21: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:178:21: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:178:46: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:178:46: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:178:46: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:180:18: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:180:18: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:180:18: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:181:43: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:181:43: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:181:43: note: insert '_Nonnull' if the pointer should never be null
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+# runtime/cgo
+In file included from gcc_traceback.c:8:
+In file included from ./libcgo.h:6:
+In file included from /usr/local/include/stdlib.h:58:
+/usr/local/include/_stdlib.h:152:25: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:152:25: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:152:25: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:154:25: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:154:25: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:154:25: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:155:22: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:155:22: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:155:22: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:156:23: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:156:23: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:156:23: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:159:20: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:159:20: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:159:20: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:161:26: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:161:26: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:161:26: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:161:45: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:161:45: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:161:45: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:162:59: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:162:59: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:162:59: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:162:73: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:162:73: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:162:73: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:161:6: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:161:6: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:161:6: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:167:36: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:167:36: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:167:36: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:167:6: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:167:6: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:167:6: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:176:23: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:176:23: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:176:23: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:177:26: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:177:26: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:177:26: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:177:68: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:177:68: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:177:68: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:178:21: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:178:21: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:178:21: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:178:46: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:178:46: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:178:46: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:180:18: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:180:18: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:180:18: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:181:43: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:181:43: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:181:43: note: insert '_Nonnull' if the pointer should never be null
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+# runtime/cgo
+In file included from _cgo_export.c:3:
+In file included from /usr/local/include/stdlib.h:58:
+/usr/local/include/_stdlib.h:152:25: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:152:25: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:152:25: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:154:25: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:154:25: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:154:25: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:155:22: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:155:22: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:155:22: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:156:23: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:156:23: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:156:23: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:159:20: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:159:20: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:159:20: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:161:26: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:161:26: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:161:26: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:161:45: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:161:45: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:161:45: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:162:59: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:162:59: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:162:59: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:162:73: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:162:73: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:162:73: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:161:6: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:161:6: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:161:6: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:167:36: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:167:36: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:167:36: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:167:6: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:167:6: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:167:6: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:176:23: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:176:23: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:176:23: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:177:26: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:177:26: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:177:26: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:177:68: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:177:68: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:177:68: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:178:21: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:178:21: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:178:21: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:178:46: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:178:46: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:178:46: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:180:18: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:180:18: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:180:18: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:181:43: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:181:43: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:181:43: note: insert '_Nonnull' if the pointer should never be null
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+# runtime/cgo
+In file included from gcc_setenv.c:7:
+In file included from ./libcgo.h:6:
+In file included from /usr/local/include/stdlib.h:58:
+/usr/local/include/_stdlib.h:152:25: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:152:25: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:152:25: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:154:25: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:154:25: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:154:25: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:155:22: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:155:22: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:155:22: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:156:23: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:156:23: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:156:23: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:159:20: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:159:20: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:159:20: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:161:26: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:161:26: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:161:26: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:161:45: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:161:45: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:161:45: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:162:59: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:162:59: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:162:59: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:162:73: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:162:73: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:162:73: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:161:6: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:161:6: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:161:6: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:167:36: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:167:36: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:167:36: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:167:6: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:167:6: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:167:6: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:176:23: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:176:23: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:176:23: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:177:26: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:177:26: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:177:26: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:177:68: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:177:68: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:177:68: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:178:21: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:178:21: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:178:21: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:178:46: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:178:46: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:178:46: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:180:18: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:180:18: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:180:18: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdlib.h:181:43: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdlib.h:181:43: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdlib.h:181:43: note: insert '_Nonnull' if the pointer should never be null
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+# runtime/cgo
+In file included from gcc_libinit.c:16:
+In file included from /usr/local/include/stdio.h:61:
+/usr/local/include/_stdio.h:98:16: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdio.h:98:16: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdio.h:98:16: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdio.h:143:32: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdio.h:143:32: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdio.h:143:32: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdio.h:143:40: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdio.h:143:40: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdio.h:143:40: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdio.h:144:35: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdio.h:144:35: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdio.h:144:35: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdio.h:145:32: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdio.h:145:32: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdio.h:145:32: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdio.h:145:46: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdio.h:145:46: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdio.h:145:46: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdio.h:149:18: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdio.h:149:18: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdio.h:149:18: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdio.h:167:13: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdio.h:167:13: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdio.h:167:13: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdio.h:168:13: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdio.h:168:13: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdio.h:168:13: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdio.h:169:13: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdio.h:169:13: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdio.h:169:13: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdio.h:232:21: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdio.h:232:21: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdio.h:232:21: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdio.h:233:18: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdio.h:233:18: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdio.h:233:18: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdio.h:234:16: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdio.h:234:16: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdio.h:234:16: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdio.h:235:18: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdio.h:235:18: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdio.h:235:18: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdio.h:236:18: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdio.h:236:18: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdio.h:236:18: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdio.h:237:17: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdio.h:237:17: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdio.h:237:17: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdio.h:238:19: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdio.h:238:19: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdio.h:238:19: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdio.h:238:40: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdio.h:238:40: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdio.h:238:40: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/_stdio.h:239:29: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/_stdio.h:239:29: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/_stdio.h:239:29: note: insert '_Nonnull' if the pointer should never be null
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+# runtime/cgo
+In file included from gcc_darwin_arm64.c:7:
+/usr/local/include/signal.h:72:21: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/signal.h:72:21: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/signal.h:72:21: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/signal.h:85:18: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/signal.h:85:18: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/signal.h:85:18: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/signal.h:86:41: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/signal.h:86:41: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/signal.h:86:41: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/signal.h:86:53: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/signal.h:86:53: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/signal.h:86:53: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/signal.h:87:43: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/signal.h:87:43: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/signal.h:87:43: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/signal.h:88:23: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/signal.h:88:23: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/signal.h:88:23: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/signal.h:89:24: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/signal.h:89:24: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/signal.h:89:24: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/signal.h:90:31: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/signal.h:90:31: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/signal.h:90:31: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/signal.h:90:53: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/signal.h:90:53: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/signal.h:90:53: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/signal.h:91:24: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/signal.h:91:24: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/signal.h:91:24: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/signal.h:92:26: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/signal.h:92:26: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/signal.h:92:26: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/signal.h:93:25: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/signal.h:93:25: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/signal.h:93:25: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/signal.h:97:32: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/signal.h:97:32: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/signal.h:97:32: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/signal.h:99:25: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/signal.h:99:25: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/signal.h:99:25: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/signal.h:100:37: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/signal.h:100:37: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/signal.h:100:37: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/signal.h:100:60: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/signal.h:100:60: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/signal.h:100:60: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/signal.h:103:31: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/signal.h:103:31: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/signal.h:103:31: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/signal.h:104:28: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/signal.h:104:28: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/signal.h:104:28: note: insert '_Nonnull' if the pointer should never be null
+/usr/local/include/signal.h:104:46: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+/usr/local/include/signal.h:104:46: note: insert '_Nullable' if the pointer may be null
+/usr/local/include/signal.h:104:46: note: insert '_Nonnull' if the pointer should never be null
+fatal error: too many errors emitted, stopping now [-ferror-limit=]

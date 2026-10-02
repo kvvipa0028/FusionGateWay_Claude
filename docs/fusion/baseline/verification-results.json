@@ -1,0 +1,112 @@
+{
+  "upstream_commit": "1a50db1a8afd0849df2853f92a47da9d5e2f2cc9",
+  "go_version": "go version go1.26.3 darwin/arm64",
+  "go_executable": "/Users/zhaojianzhi/.local/bin/go",
+  "credential_environment": "allowlist and temporary HOME/XDG",
+  "macos_sdk": "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk",
+  "compiler": "/usr/bin/clang",
+  "checks": [
+    {
+      "check": "dependencies",
+      "command": [
+        "go",
+        "mod",
+        "download"
+      ],
+      "exit_code": 0,
+      "duration_seconds": 21.06,
+      "log": "docs/fusion/baseline/dependencies.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "check": "module-integrity",
+      "command": [
+        "go",
+        "mod",
+        "verify"
+      ],
+      "exit_code": 0,
+      "duration_seconds": 0.8,
+      "log": "docs/fusion/baseline/module-integrity.log",
+      "log_sha256": "b4537ed75f533f993f371954de47e42a793b8e5b0587577de7e27fb3e50696bd"
+    },
+    {
+      "check": "build-cli",
+      "command": [
+        "go",
+        "build",
+        "-mod=readonly",
+        "-tags",
+        "nogui",
+        "-o",
+        "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/fusion-gateway-cli",
+        "."
+      ],
+      "exit_code": 0,
+      "duration_seconds": 1.36,
+      "log": "docs/fusion/baseline/build-cli.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "cgo_enabled": "0"
+    },
+    {
+      "check": "build-gui",
+      "command": [
+        "go",
+        "build",
+        "-mod=readonly",
+        "-o",
+        "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/fusion-gateway-gui",
+        "."
+      ],
+      "exit_code": 0,
+      "duration_seconds": 13.65,
+      "log": "docs/fusion/baseline/build-gui.log",
+      "log_sha256": "894bbc449378776317a982ed24043e87736cf96b5eca8c9ee8995614b53f8a09",
+      "cgo_enabled": "1"
+    },
+    {
+      "check": "vet",
+      "command": [
+        "go",
+        "vet",
+        "-mod=readonly",
+        "-tags",
+        "nogui",
+        "./..."
+      ],
+      "exit_code": 0,
+      "duration_seconds": 3.04,
+      "log": "docs/fusion/baseline/vet.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "cgo_enabled": "0"
+    },
+    {
+      "check": "targeted-tests",
+      "command": [
+        "go",
+        "test",
+        "-mod=readonly",
+        "-tags",
+        "nogui",
+        "-count=1",
+        "./internal/appdir",
+        "./internal/access",
+        "./internal/provider",
+        "./internal/gateway",
+        "./internal/qoder"
+      ],
+      "exit_code": 0,
+      "duration_seconds": 87.03,
+      "log": "docs/fusion/baseline/targeted-tests.log",
+      "log_sha256": "fe5e418d8bf65cea22ae872d0c807186106cf7920aba7e3eafdc138f87d44b94",
+      "cgo_enabled": "0"
+    }
+  ],
+  "not_verified": [
+    "complete upstream test suite",
+    "GUI interaction",
+    "real subscription routes",
+    "Fusion T01-T60",
+    "deployment"
+  ]
+}

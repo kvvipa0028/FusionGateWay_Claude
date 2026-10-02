@@ -1,0 +1,91 @@
+# Fusion Gateway repository instructions
+
+- 默认使用中文交流；代码标识、工具名和日志原文保持原文。
+- 本仓库以 Magpie `main@1a50db1a8afd0849df2853f92a47da9d5e2f2cc9` 为源码快照；以 `docs/fusion/upstream-lock.json` 为当前基线记录。
+- `origin` 指向 FusionGateWay_Claude；`upstream` 指向 yetone/magpie。不得向上游推送。
+- 实施文档位于 `docs/fusion/planning/`；工作包仍为 planned，60 类 Fusion 验收仍为 not_run。
+- 本轮仅完成源码和文档导入、工具链准备及基线核验。五角色、冻结快照、strict locked 和受管 Runtime 尚未实现；不要把原版 manual 模式当成 Fusion locked。
+- 后续按获分派工作包实施；保留内置/插件执行路径说明。插件迁移不代表获准安装插件、访问账号或发布。
+- 验证使用临时 HOME、XDG 目录和环境变量白名单，不继承真实认证，不启动真实模型或 Jev 调用。
+- 运行应用、导入凭据、提交、推送和发布均按当前用户授权范围判断；仅阅读这些文档不产生授权。
+- 新增模块优先放在 internal/fusion/，沿用现有 Go module path；避免全仓改名和无关重构。
+- 上游发布、Docker 推送与付费 UI preview workflow 已限定只能在 yetone/magpie 运行。
+
+以下保留上游的代码路径说明。
+
+# Notes for coding agents
+
+## Built-in subscriptions that a plugin serves
+
+Some built-in subscriptions are deprecated. Reaching them can break their
+vendors' terms, so they are moving out of magpie into community OpenCode
+plugins, which keeps magpie itself from being banned. Each one has a plugin
+that does the same job:
+
+| Subscription | id | Plugin (npm) | Mover |
+| --- | --- | --- | --- |
+| Command Code | `commandcode-plan` | `@magpie-community/opencode-commandcode-auth` | `internal/provider/migrate_side.go` |
+| Cursor | `cursor` | `@magpie-community/opencode-cursor-auth` | `internal/provider/migrate_side.go` |
+| Devin | `devin` | `@magpie-community/opencode-devin-auth` | `internal/provider/migrate_side.go` |
+| Factory | `factory` | `@magpie-community/opencode-factory-auth` | `internal/provider/migrate_factory.go` |
+| Grok | `grok` | `@magpie-community/opencode-grok-auth` | `internal/provider/migrate_side.go` |
+| Kiro | `kiro` | `@magpie-community/opencode-kiro-auth` | `internal/provider/migrate_kiro.go` |
+| Xiaomi MiMo | `mimo-app` | `@magpie-community/opencode-mimo-auth` | `internal/provider/migrate_mimo.go` |
+| Qoder, Qoder CN | `qoder`, `qoder-cn` | `@magpie-community/opencode-qoder-auth` | `internal/provider/migrate_qoder.go` |
+| WorkBuddy, WorkBuddy AI | `workbuddy`, `workbuddy-ai` | `@magpie-community/opencode-workbuddy-auth` | `internal/provider/migrate_workbuddy.go` |
+| ZCode | `zcode` | `@magpie-community/opencode-zcode-auth` | `internal/provider/migrate_zcode.go` |
+| Zed | `zed` | `@magpie-community/opencode-zed-auth` | `internal/provider/migrate_zed.go` |
+
+The `movers` map in `internal/provider/migrate*.go` is the source of truth.
+`TestMovedBuiltinsSayTheirPlugin` fails when a mover has no notice in its
+code.
+
+### Which code actually runs
+
+Two cases decide it:
+
+- **Moved:** the user moved the subscription onto its plugin, from the
+  editor's "Move to plugin", or by clicking it in the Add sheet before
+  signing in (`provider.Adopt`). Its `migrations.json` state is `plugin`
+  (`provider.Moved(id)`). This is the default for new sign-ins since
+  v0.1.642. A user who installs the plugin themselves is moved too
+  (`provider.HandOver`): at once when the built-in has no accounts, from the
+  gateway's hourly loop (`KeepRetiringMoved`) when it has, unless they moved
+  back or the plugin is signed in under its own `-plugin` id already. Until
+  then the Add sheet shows the plugin's tile only (`replacedSub` in app.js).
+- **Not moved:** the user is still signed in through the built-in.
+
+For a moved subscription, the plugin does everything: sign-in, refresh,
+models, requests, usage and errors. It runs in the plugin host
+(`internal/plugin`). The built-in's code in `internal/provider/<name>*.go`,
+`internal/gateway/<name>.go`, `internal/zed` and `internal/qoder` doesn't run
+for it at all. The gateway sends its requests to the plugin's fetch, not to
+the built-in's translator.
+
+So a bug report about one of these subscriptions is usually about the
+plugin:
+
+1. Check whether the user's subscription is moved. A moved provider's row in
+   `/api/providers` has `move.state == "plugin"`; the provider id is in
+   `onPlugins`.
+2. Fix the plugin in the community repo,
+   [magpie-community/plugins](https://github.com/magpie-community/plugins)
+   (`packages/<name>`, provider id = the built-in's id; checked out locally
+   at `~/workspace/projects/magpie-commuity-plugins`). Publish a new version.
+3. Raise the mover's `min` to that version. `keepMovedCurrent` then updates
+   every moved user's plugin.
+4. Make the same fix in the built-in only if it should also reach users who
+   haven't moved. A fix made only in the built-in does nothing for moved
+   users.
+
+This magpie-side code still runs for moved subscriptions:
+
+- the plugin host: `internal/plugin`, `host.js`;
+- `internal/provider/plugins.go`, `plugin_usage.go` (`movedCards`) and
+  `pluginsignin.go`;
+- the move itself: `internal/provider/migrate*.go`;
+- the GUI's plugin paths in `internal/gui/assets/app.js`: `subOf`,
+  `pluginSubs` and `startPluginSignIn`.
+
+A test against the built-in alone doesn't prove anything for moved users. To
+compare the two, use the parity tests: `internal/gateway/plugin_*_test.go`.

@@ -1,0 +1,795 @@
+{
+  "schema_version": 1,
+  "provenance": "Locally derived from supplied v1.0 Markdown, not recovered from the original ZIP",
+  "source_documents": [
+    "Fusion_Magpie_Fork_实施计划_v1.0.md",
+    "Fusion_Magpie_Fork_Agent工作包_v1.0.md"
+  ],
+  "upstream_commit": "1a50db1a8afd0849df2853f92a47da9d5e2f2cc9",
+  "tasks": [
+    {
+      "id": "WP-01",
+      "title": "冻结上游与建立原版基线",
+      "milestone": "M0",
+      "status": "planned",
+      "depends_on": [],
+      "owner_role": "架构/基线 Agent",
+      "scope": "Magpie 仓库只读核查；docs/fusion/baseline/（拟新增）。",
+      "acceptance_tests": [
+        "T51",
+        "T60"
+      ],
+      "source_section": "WP-01"
+    },
+    {
+      "id": "WP-02",
+      "title": "建立轻量 Fork 的身份与隔离边界",
+      "milestone": "M0",
+      "status": "planned",
+      "depends_on": [
+        "WP-01"
+      ],
+      "owner_role": "集成维护 Agent",
+      "scope": "internal/appdir 等核查后确认的配置入口；应用标识/服务/更新配置；docs/fusion/decisions/。",
+      "acceptance_tests": [
+        "T26",
+        "T52",
+        "T60"
+      ],
+      "source_section": "WP-02"
+    },
+    {
+      "id": "WP-03",
+      "title": "建立离线假上游与假 Runtime",
+      "milestone": "M0",
+      "status": "planned",
+      "depends_on": [
+        "WP-01",
+        "WP-02"
+      ],
+      "owner_role": "测试 Agent",
+      "scope": "internal/fusion/testsupport/（拟新增）；tests/fusion/fixtures/（拟新增）。",
+      "acceptance_tests": [
+        "T05",
+        "T14",
+        "T15",
+        "T24",
+        "T25",
+        "T48",
+        "T59"
+      ],
+      "source_section": "WP-03"
+    },
+    {
+      "id": "WP-04",
+      "title": "定义五角色与阶段绑定解析合同",
+      "milestone": "M1",
+      "status": "planned",
+      "depends_on": [
+        "WP-03"
+      ],
+      "owner_role": "架构/合同 Agent",
+      "scope": "internal/fusion/stageplan/（拟新增）；docs/fusion/contracts/。",
+      "acceptance_tests": [
+        "T03",
+        "T27",
+        "T28",
+        "T31",
+        "T33",
+        "T37",
+        "T43",
+        "T44",
+        "T45",
+        "T46",
+        "T47"
+      ],
+      "source_section": "WP-04"
+    },
+    {
+      "id": "WP-05",
+      "title": "任务快照、事件与版本化存储",
+      "milestone": "M1",
+      "status": "planned",
+      "depends_on": [
+        "WP-04"
+      ],
+      "owner_role": "后端 Agent",
+      "scope": "internal/fusion/task/（拟新增）；internal/fusion/store/（拟新增）。",
+      "acceptance_tests": [
+        "T13",
+        "T16",
+        "T33",
+        "T34",
+        "T36",
+        "T58"
+      ],
+      "source_section": "WP-05"
+    },
+    {
+      "id": "WP-06",
+      "title": "强制入口鉴权与阶段调用身份",
+      "milestone": "M1",
+      "status": "planned",
+      "depends_on": [
+        "WP-02",
+        "WP-04",
+        "WP-05"
+      ],
+      "owner_role": "安全 Agent",
+      "scope": "internal/fusion/policy/（拟新增）；internal/access 与 GUI/API 路由的最小接入点。",
+      "acceptance_tests": [
+        "T17",
+        "T18",
+        "T45",
+        "T48",
+        "T49",
+        "T50",
+        "T59"
+      ],
+      "source_section": "WP-06"
+    },
+    {
+      "id": "WP-07",
+      "title": "严格路由出口与上游行为隔离",
+      "milestone": "M1",
+      "status": "planned",
+      "depends_on": [
+        "WP-04",
+        "WP-06"
+      ],
+      "owner_role": "网关 Agent",
+      "scope": "internal/gateway/ 的小范围 hook；internal/fusion/policy/；internal/provider/ 只读适配边界。",
+      "acceptance_tests": [
+        "T01",
+        "T03",
+        "T12",
+        "T24",
+        "T25",
+        "T29",
+        "T30",
+        "T31",
+        "T32",
+        "T40",
+        "T44",
+        "T46",
+        "T47",
+        "T51",
+        "T53",
+        "T54"
+      ],
+      "source_section": "WP-07"
+    },
+    {
+      "id": "WP-08",
+      "title": "建立三订阅路线及真实接入核查清单",
+      "milestone": "M2",
+      "status": "planned",
+      "depends_on": [
+        "WP-02",
+        "WP-03",
+        "WP-04",
+        "WP-06"
+      ],
+      "owner_role": "接入 Agent + 用户",
+      "scope": "internal/fusion/routes/（拟新增）；docs/fusion/integration/。",
+      "acceptance_tests": [
+        "T01",
+        "T02",
+        "T04",
+        "T11",
+        "T12",
+        "T32",
+        "T44",
+        "T51",
+        "T53"
+      ],
+      "source_section": "WP-08"
+    },
+    {
+      "id": "WP-09",
+      "title": "额度标准化与来源保真",
+      "milestone": "M2",
+      "status": "planned",
+      "depends_on": [
+        "WP-03",
+        "WP-04",
+        "WP-08"
+      ],
+      "owner_role": "额度 Agent",
+      "scope": "internal/fusion/quota/（拟新增）；现有 Magpie quota 读取适配。",
+      "acceptance_tests": [
+        "T05",
+        "T06",
+        "T07",
+        "T08",
+        "T09",
+        "T10",
+        "T11",
+        "T30",
+        "T55"
+      ],
+      "source_section": "WP-09"
+    },
+    {
+      "id": "WP-10",
+      "title": "执行准入与单机调度",
+      "milestone": "M2",
+      "status": "planned",
+      "depends_on": [
+        "WP-05",
+        "WP-07",
+        "WP-09"
+      ],
+      "owner_role": "调度 Agent",
+      "scope": "internal/fusion/task/；internal/fusion/policy/。",
+      "acceptance_tests": [
+        "T10",
+        "T11",
+        "T12",
+        "T21",
+        "T30",
+        "T32",
+        "T55",
+        "T58"
+      ],
+      "source_section": "WP-10"
+    },
+    {
+      "id": "WP-11",
+      "title": "受管 Worker 隔离、取消与恢复",
+      "milestone": "M2",
+      "status": "planned",
+      "depends_on": [
+        "WP-03",
+        "WP-05",
+        "WP-06"
+      ],
+      "owner_role": "Runtime 基础 Agent",
+      "scope": "internal/fusion/runtime/（拟新增）；internal/fusion/workspace/（拟新增）。",
+      "acceptance_tests": [
+        "T02",
+        "T14",
+        "T15",
+        "T16",
+        "T17",
+        "T18",
+        "T19",
+        "T25",
+        "T35",
+        "T56",
+        "T58",
+        "T59"
+      ],
+      "source_section": "WP-11"
+    },
+    {
+      "id": "WP-12",
+      "title": "实现 Codex 官方 Runtime Adapter",
+      "milestone": "M2",
+      "status": "planned",
+      "depends_on": [
+        "WP-08",
+        "WP-11"
+      ],
+      "owner_role": "Codex 接入 Agent",
+      "scope": "internal/fusion/runtime/codex/（拟新增）。",
+      "acceptance_tests": [
+        "T01",
+        "T02",
+        "T14",
+        "T15",
+        "T25",
+        "T31",
+        "T32",
+        "T35",
+        "T44",
+        "T53",
+        "T59"
+      ],
+      "source_section": "WP-12"
+    },
+    {
+      "id": "WP-13",
+      "title": "实现 Grok Build 官方 CLI Adapter",
+      "milestone": "M2",
+      "status": "planned",
+      "depends_on": [
+        "WP-08",
+        "WP-11"
+      ],
+      "owner_role": "Grok 接入 Agent",
+      "scope": "internal/fusion/runtime/grok/（拟新增）。",
+      "acceptance_tests": [
+        "T01",
+        "T02",
+        "T14",
+        "T15",
+        "T25",
+        "T31",
+        "T32",
+        "T35",
+        "T44",
+        "T56",
+        "T59"
+      ],
+      "source_section": "WP-13"
+    },
+    {
+      "id": "WP-14",
+      "title": "实现获准 GLM 编码宿主 Adapter",
+      "milestone": "M2",
+      "status": "planned",
+      "depends_on": [
+        "WP-08",
+        "WP-11",
+        "WP-12"
+      ],
+      "owner_role": "GLM 接入 Agent",
+      "scope": "internal/fusion/runtime/glm/（拟新增）；已选宿主 Adapter 的可复用进程层。",
+      "acceptance_tests": [
+        "T01",
+        "T02",
+        "T04",
+        "T12",
+        "T31",
+        "T32",
+        "T44",
+        "T53",
+        "T59"
+      ],
+      "source_section": "WP-14"
+    },
+    {
+      "id": "WP-15",
+      "title": "任务 API、阶段预览与事件流",
+      "milestone": "M2",
+      "status": "planned",
+      "depends_on": [
+        "WP-04",
+        "WP-05",
+        "WP-06",
+        "WP-10",
+        "WP-11"
+      ],
+      "owner_role": "API Agent",
+      "scope": "internal/fusion/api/（拟新增）；HTTP router 最小注册。",
+      "acceptance_tests": [
+        "T13",
+        "T25",
+        "T28",
+        "T33",
+        "T34",
+        "T35",
+        "T36",
+        "T43",
+        "T45",
+        "T49",
+        "T50",
+        "T56"
+      ],
+      "source_section": "WP-15"
+    },
+    {
+      "id": "WP-16",
+      "title": "阶段选择 UI 与单阶段工作台",
+      "milestone": "M2",
+      "status": "planned",
+      "depends_on": [
+        "WP-04",
+        "WP-06",
+        "WP-15"
+      ],
+      "owner_role": "前端 Agent",
+      "scope": "internal/gui/assets/ 下拟新增 fusion 模块；现有导航入口小范围改动。",
+      "acceptance_tests": [
+        "T27",
+        "T28",
+        "T30",
+        "T31",
+        "T33",
+        "T34",
+        "T36",
+        "T37",
+        "T43",
+        "T44",
+        "T46"
+      ],
+      "source_section": "WP-16"
+    },
+    {
+      "id": "WP-17",
+      "title": "三条路线的真实受控 Smoke Test",
+      "milestone": "M2",
+      "status": "planned",
+      "depends_on": [
+        "WP-07",
+        "WP-09",
+        "WP-10",
+        "WP-12",
+        "WP-13",
+        "WP-14",
+        "WP-15",
+        "WP-16"
+      ],
+      "owner_role": "验证 Agent + 用户",
+      "scope": "docs/fusion/integration/；用户已批准的独立测试宿主。",
+      "acceptance_tests": [
+        "T01",
+        "T02",
+        "T04",
+        "T11",
+        "T12",
+        "T31",
+        "T32",
+        "T44",
+        "T51",
+        "T53",
+        "T59"
+      ],
+      "source_section": "WP-17"
+    },
+    {
+      "id": "WP-18",
+      "title": "手动可用版 Gate A",
+      "milestone": "M2",
+      "status": "planned",
+      "depends_on": [
+        "WP-01",
+        "WP-02",
+        "WP-03",
+        "WP-04",
+        "WP-05",
+        "WP-06",
+        "WP-07",
+        "WP-08",
+        "WP-09",
+        "WP-10",
+        "WP-11",
+        "WP-12",
+        "WP-13",
+        "WP-14",
+        "WP-15",
+        "WP-16",
+        "WP-17"
+      ],
+      "owner_role": "独立验收 Agent + 用户",
+      "scope": "docs/fusion/releases/；测试与证据汇总。",
+      "acceptance_tests": [
+        "T01",
+        "T13",
+        "T15",
+        "T27",
+        "T28",
+        "T29",
+        "T30",
+        "T31",
+        "T32",
+        "T33",
+        "T36",
+        "T43",
+        "T44",
+        "T45",
+        "T46",
+        "T47",
+        "T48",
+        "T49",
+        "T50",
+        "T51",
+        "T52",
+        "T53",
+        "T54",
+        "T59"
+      ],
+      "source_section": "WP-18"
+    },
+    {
+      "id": "WP-19",
+      "title": "精简工作流与设计检查点",
+      "milestone": "M3",
+      "status": "planned",
+      "depends_on": [
+        "WP-18"
+      ],
+      "owner_role": "工作流 Agent",
+      "scope": "internal/fusion/workflow/（拟新增）；版本化 Playbook。",
+      "acceptance_tests": [
+        "T18",
+        "T21",
+        "T23",
+        "T29",
+        "T42",
+        "T43",
+        "T54"
+      ],
+      "source_section": "WP-19"
+    },
+    {
+      "id": "WP-20",
+      "title": "阶段产物、工作区交接与版本一致性",
+      "milestone": "M3",
+      "status": "planned",
+      "depends_on": [
+        "WP-11",
+        "WP-18"
+      ],
+      "owner_role": "工作区/Handoff Agent",
+      "scope": "internal/fusion/workspace/；internal/fusion/evidence/（拟新增）。",
+      "acceptance_tests": [
+        "T14",
+        "T17",
+        "T19",
+        "T32",
+        "T35",
+        "T39",
+        "T57",
+        "T58"
+      ],
+      "source_section": "WP-20"
+    },
+    {
+      "id": "WP-21",
+      "title": "真实验证和 EvidenceGate",
+      "milestone": "M3",
+      "status": "planned",
+      "depends_on": [
+        "WP-19",
+        "WP-20"
+      ],
+      "owner_role": "验证工程 Agent",
+      "scope": "internal/fusion/evidence/；获准的本地测试执行器。",
+      "acceptance_tests": [
+        "T22",
+        "T38",
+        "T39",
+        "T57"
+      ],
+      "source_section": "WP-21"
+    },
+    {
+      "id": "WP-22",
+      "title": "审查、返工与验收闭环",
+      "milestone": "M3",
+      "status": "planned",
+      "depends_on": [
+        "WP-19",
+        "WP-20",
+        "WP-21"
+      ],
+      "owner_role": "工作流 Agent",
+      "scope": "internal/fusion/workflow/；任务/UI 状态。",
+      "acceptance_tests": [
+        "T23",
+        "T29",
+        "T32",
+        "T35",
+        "T37",
+        "T38",
+        "T39",
+        "T57"
+      ],
+      "source_section": "WP-22"
+    },
+    {
+      "id": "WP-23",
+      "title": "五阶段端到端验收",
+      "milestone": "M3",
+      "status": "planned",
+      "depends_on": [
+        "WP-19",
+        "WP-20",
+        "WP-21",
+        "WP-22"
+      ],
+      "owner_role": "独立测试/验收 Agent",
+      "scope": "tests/fusion/e2e/；docs/fusion/releases/。",
+      "acceptance_tests": [
+        "T01",
+        "T14",
+        "T15",
+        "T16",
+        "T19",
+        "T22",
+        "T23",
+        "T27",
+        "T32",
+        "T34",
+        "T35",
+        "T37",
+        "T38",
+        "T39",
+        "T43",
+        "T57",
+        "T58"
+      ],
+      "source_section": "WP-23"
+    },
+    {
+      "id": "WP-24",
+      "title": "安全、故障和原版兼容回归",
+      "milestone": "M4",
+      "status": "planned",
+      "depends_on": [
+        "WP-18",
+        "WP-23"
+      ],
+      "owner_role": "独立安全/回归 Agent",
+      "scope": "tests/fusion/security/；tests/fusion/regression/。",
+      "acceptance_tests": [
+        "T02",
+        "T05",
+        "T06",
+        "T07",
+        "T10",
+        "T12",
+        "T14",
+        "T15",
+        "T16",
+        "T17",
+        "T18",
+        "T24",
+        "T25",
+        "T38",
+        "T40",
+        "T45",
+        "T46",
+        "T47",
+        "T48",
+        "T49",
+        "T50",
+        "T51",
+        "T52",
+        "T53",
+        "T55",
+        "T56",
+        "T58",
+        "T59"
+      ],
+      "source_section": "WP-24"
+    },
+    {
+      "id": "WP-25",
+      "title": "Mac mini 部署、备份与回滚",
+      "milestone": "M4",
+      "status": "planned",
+      "depends_on": [
+        "WP-24"
+      ],
+      "owner_role": "运维 Agent + 用户",
+      "scope": "docs/fusion/runbooks/；独立服务配置模板。",
+      "acceptance_tests": [
+        "T16",
+        "T26",
+        "T48",
+        "T52",
+        "T58",
+        "T59",
+        "T60"
+      ],
+      "source_section": "WP-25"
+    },
+    {
+      "id": "WP-26",
+      "title": "个人项目试点与受控闭环发布",
+      "milestone": "M4",
+      "status": "planned",
+      "depends_on": [
+        "WP-23",
+        "WP-25",
+        "WP-30"
+      ],
+      "owner_role": "用户 + 独立验收 Agent",
+      "scope": "获准项目副本；docs/fusion/releases/。",
+      "acceptance_tests": [
+        "T01",
+        "T04",
+        "T12",
+        "T22",
+        "T26",
+        "T30",
+        "T32",
+        "T38",
+        "T39",
+        "T52",
+        "T59",
+        "T60"
+      ],
+      "source_section": "WP-26"
+    },
+    {
+      "id": "WP-27",
+      "title": "受限 auto 阶段与纯规则路由",
+      "milestone": "M5",
+      "status": "planned",
+      "depends_on": [
+        "WP-07",
+        "WP-09",
+        "WP-10",
+        "WP-23",
+        "WP-26"
+      ],
+      "owner_role": "路由 Agent",
+      "scope": "internal/fusion/policy/；internal/fusion/assessor/（拟新增）。",
+      "acceptance_tests": [
+        "T20",
+        "T21",
+        "T29",
+        "T30",
+        "T40",
+        "T41",
+        "T42",
+        "T44",
+        "T54"
+      ],
+      "source_section": "WP-27"
+    },
+    {
+      "id": "WP-28",
+      "title": "Jev 旁路评估",
+      "milestone": "M5",
+      "status": "planned",
+      "depends_on": [
+        "WP-26",
+        "WP-27"
+      ],
+      "owner_role": "评估 Agent + 用户",
+      "scope": "internal/fusion/assessor/；脱敏评估数据与决策记录。",
+      "acceptance_tests": [
+        "T20",
+        "T21",
+        "T29",
+        "T41",
+        "T42",
+        "T54"
+      ],
+      "source_section": "WP-28"
+    },
+    {
+      "id": "WP-29",
+      "title": "低风险 assist 灰度与退出开关",
+      "milestone": "M5",
+      "status": "planned",
+      "depends_on": [
+        "WP-24",
+        "WP-28"
+      ],
+      "owner_role": "用户 + 路由/验收 Agent",
+      "scope": "internal/fusion/policy/；功能开关与审计。",
+      "acceptance_tests": [
+        "T20",
+        "T21",
+        "T29",
+        "T30",
+        "T40",
+        "T41",
+        "T42",
+        "T54"
+      ],
+      "source_section": "WP-29"
+    },
+    {
+      "id": "WP-30",
+      "title": "上游同步与长期维护演练",
+      "milestone": "M4",
+      "status": "planned",
+      "depends_on": [
+        "WP-02",
+        "WP-24"
+      ],
+      "owner_role": "集成维护 Agent",
+      "scope": "docs/fusion/upstream/；独立 upstream-sync 分支。",
+      "acceptance_tests": [
+        "T26",
+        "T40",
+        "T44",
+        "T46",
+        "T47",
+        "T48",
+        "T51",
+        "T52",
+        "T58",
+        "T60"
+      ],
+      "source_section": "WP-30"
+    }
+  ]
+}

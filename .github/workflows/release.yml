@@ -1,0 +1,50 @@
+name: Release
+
+# Pushing a v* tag hands off to yetone/magpie-releases, which builds, signs,
+# notarises and publishes magpie there; that repo is where people download
+# from, and the signing secrets live only there.
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (e.g., 0.1.0 — no v prefix; the v tag must exist)'
+        required: true
+        type: string
+
+jobs:
+  trigger-release:
+    if: github.repository == 'yetone/magpie'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get version
+        id: version
+        env:
+          INPUT_VERSION: ${{ github.event.inputs.version }}
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/* ]]; then
+            REF="$GITHUB_REF_NAME"
+            VERSION="${REF#v}"
+          else
+            VERSION="$INPUT_VERSION"
+            REF="v$INPUT_VERSION"
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "ref=$REF" >> $GITHUB_OUTPUT
+          echo "Triggering release for version: $VERSION (ref: $REF)"
+
+      - name: Trigger release workflow in magpie-releases
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          # PAT with contents write on yetone/magpie-releases.
+          token: ${{ secrets.RELEASES_REPO_TOKEN }}
+          repository: yetone/magpie-releases
+          event-type: release
+          client-payload: '{"ref": "${{ steps.version.outputs.ref }}", "version": "${{ steps.version.outputs.version }}"}'
+
+      - name: Output status
+        run: echo "Watch the build at https://github.com/yetone/magpie-releases/actions"

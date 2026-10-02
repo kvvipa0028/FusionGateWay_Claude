@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "repository": "https://github.com/yetone/magpie",
+  "branch": "main",
+  "commit": "1a50db1a8afd0849df2853f92a47da9d5e2f2cc9",
+  "tree": "0a63ef36060459f78a425fa0f8e26f31a69ea25e",
+  "fetched_and_locked_at": "2026-10-02T22:15:09+08:00",
+  "previous_plan_commit": "4afb69863849b44fa5983a483e36baeb29cd3f39",
+  "commits_since_plan": 10,
+  "import_method": "git archive snapshot; upstream history retained in refs/remotes/upstream/main; target origin and initial commit preserved",
+  "source_archive_sha256": "8121ae7bdbe94be8606001bc90a6292e6939ea65a689b4c875696786d9bc0176",
+  "go_version": "1.26.3",
+  "go_archive": {
+    "url": "https://go.dev/dl/go1.26.3.darwin-arm64.tar.gz",
+    "sha256": "875cf54a15311eee2c99b9dd67c68c4a49351d489ab622bf2cfd28c8f2078d3c"
+  },
+  "files_sha256": {
+    "go.mod": "974f41ebe2d7ae63997920bf3cd842b6d6d8df0a5525b90bf963b3633c5adbc6",
+    "go.sum": "5edecea73e88c553bd5e5afe8534d7199d2a7e881cb5e488566647737a028546",
+    "LICENSE": "79d2c8444715d4bc453ec4f8a0aaf2051a4c1ee5ac08f5bd2e5848aef87c7572",
+    "AGENTS.md": "e66bb1f099a2bf3c70003b681bce099ab727db57de442da4e6cbc71564d8ee77",
+    "README.md": "d389bf3af99774d31554a4314b1dd944a446ffff6fa58c184508c0a647a74462"
+  },
+  "application_changes": [],
+  "validation_status": "source_import_verified; CLI/GUI builds, nogui vet and 5 targeted packages passed",
+  "fork_changes": [
+    ".github/workflows/docker.yml",
+    ".github/workflows/release.yml",
+    ".github/workflows/ui-preview.yml",
+    ".gitignore",
+    "AGENTS.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "upstream_push_enabled": false,
+  "source_import_validation": {
+    "files_checked": 1769,
+    "missing_files": [],
+    "unexpected_deltas": [],
+    "go_mod_and_sum_unchanged": true,
+    "upstream_notices_preserved": true
+  },
+  "verification_results": "baseline/verification-results.json",
+  "initial_environment_failure": "baseline/build-cli-initial.log"
+}

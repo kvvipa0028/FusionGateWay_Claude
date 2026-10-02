@@ -1,0 +1,5 @@
+ok  	github.com/yetone/magpie/internal/appdir	0.333s
+ok  	github.com/yetone/magpie/internal/access	0.376s
+ok  	github.com/yetone/magpie/internal/provider	84.168s
+ok  	github.com/yetone/magpie/internal/gateway	40.362s
+ok  	github.com/yetone/magpie/internal/qoder	0.518s

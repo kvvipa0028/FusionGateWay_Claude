@@ -1,0 +1,8 @@
+{
+  "upstream_commit": "1a50db1a8afd0849df2853f92a47da9d5e2f2cc9",
+  "artifacts": {
+    "fusion-gateway-cli": "117696d4e55a1c7fd510072254e65f20c6924c9a70f940dbbf378c5670af8162",
+    "fusion-gateway-gui": "bb08e5146f9bb0dcb890b0dd295f8fc4e8825e01e1b75125cd27af289868775a"
+  },
+  "location": ".fusion-dev (ignored; build-only, not released)"
+}

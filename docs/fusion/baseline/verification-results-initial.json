@@ -1,0 +1,56 @@
+{
+  "upstream_commit": "1a50db1a8afd0849df2853f92a47da9d5e2f2cc9",
+  "go_version": "go version go1.26.3 darwin/arm64",
+  "go_executable": "/Users/zhaojianzhi/.local/bin/go",
+  "credential_environment": "allowlist and temporary HOME/XDG",
+  "checks": [
+    {
+      "check": "dependencies",
+      "command": [
+        "go",
+        "mod",
+        "download"
+      ],
+      "exit_code": 0,
+      "duration_seconds": 21.06,
+      "log": "docs/fusion/baseline/dependencies.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "check": "module-integrity",
+      "command": [
+        "go",
+        "mod",
+        "verify"
+      ],
+      "exit_code": 0,
+      "duration_seconds": 0.8,
+      "log": "docs/fusion/baseline/module-integrity.log",
+      "log_sha256": "b4537ed75f533f993f371954de47e42a793b8e5b0587577de7e27fb3e50696bd"
+    },
+    {
+      "check": "build-cli",
+      "command": [
+        "go",
+        "build",
+        "-mod=readonly",
+        "-tags",
+        "nogui",
+        "-o",
+        "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/fusion-gateway-cli",
+        "."
+      ],
+      "exit_code": 1,
+      "duration_seconds": 9.09,
+      "log": "docs/fusion/baseline/build-cli.log",
+      "log_sha256": "c548dda1c12afb6355254313c24471f7112a35c5a349203e0c7ebe8b890a3ee2"
+    }
+  ],
+  "not_verified": [
+    "complete upstream test suite",
+    "GUI interaction",
+    "real subscription routes",
+    "Fusion T01-T60",
+    "deployment"
+  ]
+}

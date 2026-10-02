@@ -1,0 +1,440 @@
+/* Library: instructions, MCP servers and skills for every agent. */
+#view-library { gap: 0; }
+/* The tabs stay at the top while the page scrolls under them, on a frosted
+   strip as wide as the view; a hairline shows once something is beneath. */
+.lib-head {
+  position: sticky; top: 0; z-index: 5;
+  display: flex; align-items: center; gap: 8px; flex: none;
+  margin: 0 -12px; padding: 6px 12px 4px;
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  -webkit-backdrop-filter: saturate(1.6) blur(16px); backdrop-filter: saturate(1.6) blur(16px);
+  box-shadow: 0 1px 0 transparent; transition: box-shadow .18s var(--ease);
+}
+/* the window's view is padded 2px at the top: the strip reaches over it */
+body.window .lib-head { top: -2px; margin: -2px -16px 0; padding: 8px 16px 4px; }
+@media (max-width: 760px), (pointer: coarse) and (max-width: 1024px) {
+  body.web .lib-head {
+    flex-wrap: wrap;
+    margin: -2px calc(-1 * var(--view-right)) 0 calc(-1 * var(--view-left));
+    padding: 8px var(--view-right) 4px var(--view-left);
+  }
+  body.web .lib-tabs { max-width: 100%; flex-wrap: wrap; }
+  body.web .lib-more { flex: none; }
+}
+.lib-head.stuck { box-shadow: 0 1px 0 var(--line-2); }
+.lib-tabs .opt { height: 24px; padding: 0 12px; font-size: 12.5px; }
+.lib-more { display: inline-flex; align-items: center; gap: 5px; }
+.lib-mini { display: inline-grid; place-items: center; color: var(--muted); }
+.lib-mini svg { width: 13px; height: 13px; }
+.lib-body { display: flex; flex-direction: column; flex: none; }
+.lib-body.enter { animation: content-in .22s var(--ease); }
+.lib-intro { margin: 8px 2px 10px; font-size: 12px; line-height: 1.5; color: var(--muted); max-width: 640px; }
+.lib-aside { margin: 8px 4px 0; font-size: 11.5px; line-height: 1.5; color: var(--faint); }
+.lib-aside.center { text-align: center; margin-top: 14px; }
+.lib-foot { margin: auto 0 0; padding: 18px 4px 6px; font-size: 11px; color: var(--faint); flex: none; }
+.lib-link { font-size: 11px; color: var(--muted); text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 2px; }
+.lib-link:hover { color: var(--fg); text-decoration-color: currentColor; }
+
+/* the glyph at the front of a row: drawn, in the text colour */
+.lib-glyph { flex: none; width: 26px; height: 26px; border-radius: 7px; display: grid; place-items: center; color: var(--fg-2); background: var(--pill); }
+.lib-glyph svg { width: 15px; height: 15px; }
+.lib-rtk-logo .mask { width: 20px; height: 20px; background: currentColor; -webkit-mask: var(--i) center / contain no-repeat; mask: var(--i) center / contain no-repeat; }
+.mk-icon.lib-logo { flex: none; width: 26px; height: 26px; border-radius: 7px; }
+.lib-editor .ehead .mk-icon.lib-logo { width: 24px; height: 24px; }
+
+/* cards: the shared text, the skill finder */
+.lib-card { display: flex; flex-direction: column; }
+.lib-cardhead { display: flex; align-items: center; gap: 9px; padding: 9px 12px 0; }
+.lib-cardhead b { font-weight: 600; font-size: 13px; }
+.lib-cardhead .note { font-size: 11px; color: var(--faint); }
+.lib-text {
+  display: block; width: 100%; box-sizing: border-box; resize: none; border: 0; outline: none; background: none; color: var(--fg);
+  padding: 10px 14px 14px; font: 12.5px/1.6 var(--code); tab-size: 2; min-height: 150px;
+}
+.lib-text::placeholder { color: var(--faint); font-family: var(--font); font-size: 12.5px; }
+.lib-text.small { min-height: 64px; border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; background: var(--card); transition: border-color .12s, box-shadow .12s; }
+.lib-text.small:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
+
+/* unsaved text: a bar that stays in view at the bottom until it's saved */
+.lib-savebar {
+  position: sticky; bottom: 8px; z-index: 3; margin-top: 12px; display: flex; align-items: center; gap: 6px;
+  padding: 7px 8px 7px 14px; border-radius: 11px; background: var(--pop-bg); box-shadow: var(--shadow);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); animation: lib-rise .22s var(--ease);
+}
+.lib-savebar[hidden] { display: none; }
+.lib-savebar .note { font-size: 12px; color: var(--fg-2); display: inline-flex; align-items: center; gap: 7px; }
+.lib-savebar .note::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--fg); }
+@keyframes lib-rise { from { opacity: 0; transform: translateY(8px); } }
+
+/* rows */
+.lib-list .row { min-height: 50px; padding: 7px 10px 7px 12px; gap: 11px; }
+.lib-row.click { cursor: default; transition: background .14s var(--ease); }
+.lib-row.click:hover { background: var(--card-2); }
+/* a long name, link or description breaks anywhere rather than pushing
+   the row wider than the list (#257) */
+.lib-row .who { flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
+/* a server's or skill's picture sits level with the top of its name */
+.lib-row > .lib-logo, .lib-row > .lib-glyph { align-self: flex-start; margin-top: 1px; }
+.lib-row .name.mono, .lib-pick .name.mono { font: 500 12.5px var(--code); }
+.lib-row .sub { max-width: 100%; }
+.lib-row .sub.mono, .lib-pick .sub.mono { font: 11px var(--code); color: var(--muted); }
+.lib-row .chev { flex: none; color: var(--faint); transition: transform .2s var(--ease); display: grid; place-items: center; }
+.lib-row.open .chev { transform: rotate(90deg); }
+.lib-row.open { background: var(--card-2); }
+.lib-skill .sub { white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.4; }
+.lib-skill.missing .name { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--faint); }
+.lib-skill.missing .sub { color: var(--amber); }
+.lib-src { display: flex; align-items: center; gap: 5px; margin-top: 3px; font-size: 11px; color: var(--faint); min-width: 0; }
+/* "linked from" stays whole, one line, and the path beside it gives way:
+   CJK can break after any character, so the label shrank to a column of
+   them and the row, a fixed height in a long list, lost its name (#257) */
+.lib-src > span { flex: none; white-space: nowrap; }
+.lib-src > .lib-path, .lib-src > .lib-srclink { flex: 0 1 auto; min-width: 0; }
+.lib-srclink { font: 11px var(--code); color: var(--muted); text-decoration: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lib-srclink:hover { color: var(--fg); text-decoration: underline; text-underline-offset: 2px; }
+
+/* a path: shown in the file manager on a click */
+.lib-path { font: 11px var(--code); color: var(--muted); padding: 0; max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left; border-radius: 3px; }
+.lib-path:hover { color: var(--fg); text-decoration: underline; text-underline-offset: 2px; }
+
+/* tags beside a name */
+.lib-tags { display: flex; gap: 5px; flex: none; flex-wrap: wrap; justify-content: flex-end; }
+.lib-tag { flex: none; display: inline-flex; align-items: center; gap: 5px; height: 20px; padding: 0 7px; border-radius: 6px; font-size: 11px; color: var(--fg-2); background: var(--pill); white-space: nowrap; }
+.lib-tag.warn { color: var(--amber); background: var(--amber-soft); }
+.lib-tag.warn::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+/* what a check for updates found, beside a skill's name */
+.lib-row .name .lib-tag { height: 17px; padding: 0 6px; margin-left: 7px; font-size: 10.5px; font-weight: 500; vertical-align: 1px; }
+.lib-tag.lib-new { color: var(--accent); background: var(--accent-soft); }
+.lib-tag.lib-new::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+.lib-tag.lib-new.link { cursor: pointer; }
+.lib-tag.lib-new.link:hover { background: color-mix(in srgb, var(--accent) 22%, var(--accent-soft)); }
+.lib-tag.lib-unchecked { color: var(--faint); font-weight: 400; }
+
+/* the switch */
+.lib-switch { flex: none; position: relative; width: 32px; height: 19px; border-radius: 10px; background: var(--line); transition: background .2s var(--ease); }
+.lib-switch i { position: absolute; top: 2px; left: 2px; width: 15px; height: 15px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgba(0, 0, 0, .25); transition: transform .22s var(--ease); }
+.lib-switch.on { background: var(--fg); }
+.lib-switch.on i { transform: translateX(13px); background: var(--card); }
+:root[data-theme="dark"] .lib-switch.on i { background: var(--bg); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .lib-switch.on i { background: var(--bg); } }
+
+/* the sets of shared instructions: a radio picks the one the agents read */
+.lib-sets .lib-cardhead { padding-bottom: 8px; }
+.lib-radio { flex: none; width: 17px; height: 17px; border-radius: 50%; border: 1.5px solid var(--faint); display: grid; place-items: center; transition: border-color .14s; }
+.lib-radio:hover { border-color: var(--fg-2); }
+.lib-radio.on { border-color: var(--fg); }
+.lib-radio.on::after { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--fg); }
+.lib-set.on .name { font-weight: 600; }
+.lib-sets .lib-detail { padding-left: 40px; }
+.lib-sets > .lib-cardhead + .row, .lib-sets .lib-detail + .row, .lib-sets .lib-detail + .lib-setadd, .lib-sets .row + .lib-setadd { border-top: 1px solid var(--line-2); }
+.lib-setadd { padding: 8px 10px 10px; }
+input.lib-setname { height: 28px; padding: 0 9px; border-radius: 7px; border: 1px solid var(--line); background: var(--card); font-size: 12.5px; outline: none; max-width: 280px; transition: border-color .12s, box-shadow .12s; }
+input.lib-setname.grow { flex: 1 1 auto; max-width: none; }
+input.lib-setname:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
+
+/* an agent's instructions, opened */
+.lib-detail { padding: 4px 14px 14px 50px; background: var(--card-2); display: flex; flex-direction: column; gap: 8px; border-top: 0 !important; animation: content-in .2s var(--ease); }
+.lib-lab { font-size: 11.5px; color: var(--muted); }
+.lib-detail .lib-aside { margin: 0; }
+.lib-acts { display: flex; gap: 6px; flex-wrap: wrap; }
+.lib-warn { font-size: 12px; line-height: 1.5; color: var(--fg); background: var(--amber-soft); border-radius: 8px; padding: 8px 10px; }
+.lib-warn .lib-path { display: inline; }
+/* what the last change couldn't write: for which agent, and why */
+.lib-problems { flex: none; margin: 8px 0 6px; padding: 9px 12px 10px; border-radius: 10px; background: var(--amber-soft); color: var(--fg); font-size: 12px; line-height: 1.45; min-width: 0; overflow-wrap: anywhere; }
+.lib-problems-head { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.lib-problems-head b { font-weight: 600; min-width: 0; }
+.lib-problems-head .action { flex: none; }
+.lib-problems-dot { flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--amber); }
+.lib-problems ul { list-style: none; margin: 6px 0 0; padding: 0 0 0 15px; display: grid; gap: 4px; }
+.lib-problems li { min-width: 0; }
+.lib-problems-sep { color: var(--muted); }
+.lib-problems-err { display: block; color: var(--fg-2); font: 11px var(--code); margin-top: 1px; }
+.lib-problems-fix { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 5px; }
+
+/* agents a server or skill is given to: an icon each, lit when it has it */
+.lib-agents { display: flex; flex-wrap: wrap; gap: 3px; flex: none; justify-content: flex-end; max-width: 50%; }
+.lib-ag {
+  position: relative; display: inline-flex; align-items: center; gap: 6px; height: 26px; min-width: 26px; padding: 0 5px; border-radius: 7px;
+  border: 1px solid transparent; font-size: 12px; color: var(--muted); transition: background .14s, border-color .14s, color .14s, transform .14s var(--ease);
+}
+.lib-ag .ic { width: 15px; height: 15px; filter: grayscale(1); opacity: .35; transition: filter .14s, opacity .14s; }
+.lib-ag:hover { background: var(--pill); }
+.lib-ag:hover .ic { opacity: .7; }
+.lib-ag.on { background: var(--card); border-color: var(--line); color: var(--fg); box-shadow: 0 1px 1px rgba(0, 0, 0, .05); }
+.lib-ag.on .ic { filter: none; opacity: 1; }
+/* an icon made grey once rather than through the filter on every paint
+   (library.js, greyIcon): a picture's grey copy stands in for it, and one
+   drawn in the text's colour takes that colour grey — the same pixels.
+   The copy is hidden wherever the icon goes, not only in a chip: an
+   agent's icon is copied from one made once (agentIcon), grey copy and
+   all, into the rows of what agents have of their own too */
+.ic > img.grey { display: none; }
+.lib-ag:not(.on) .ic.baked { filter: none; }
+.lib-ag:not(.on) .ic.baked > img:not(.grey) { display: none; }
+.lib-ag:not(.on) .ic.baked > img.grey { display: block; }
+@supports (color: rgb(from currentColor r g b)) {
+  .lib-ag:not(.on) .ic.flat { filter: none; color: rgb(from currentColor calc(r * .2126 + g * .7152 + b * .0722) calc(r * .2126 + g * .7152 + b * .0722) calc(r * .2126 + g * .7152 + b * .0722)); }
+}
+.lib-ag.via { border: 1px dashed var(--line); }
+.lib-ag.via .ic { opacity: .6; }
+.lib-ag.warn::after { content: ""; position: absolute; top: -2px; right: -2px; width: 7px; height: 7px; border-radius: 50%; background: var(--amber); box-shadow: 0 0 0 2px var(--card); }
+.lib-ag.blocked { opacity: .35; }
+.lib-ag.blocked:hover { background: none; }
+.lib-ag:active:not(:disabled) { transform: scale(.92); }
+.editor .lib-agents { max-width: none; justify-content: flex-start; gap: 5px; }
+.editor .lib-ag { padding: 0 9px 0 6px; border-color: var(--line); }
+.editor .lib-ag.on { background: var(--accent-soft); border-color: color-mix(in srgb, var(--fg) 30%, transparent); }
+.lib-probefoot .lib-agents { max-width: none; justify-content: flex-start; }
+
+/* in a list row they sit stacked like a hand of cards, on one line, and fan
+   out when the pointer or focus comes to them */
+.lib-row > .lib-agents { flex-wrap: nowrap; gap: 0; max-width: none; padding-left: 4px; }
+.lib-row > .lib-agents .lib-ag { flex: none; width: 24px; min-width: 0; height: 24px; padding: 0 0 0 4px; justify-content: flex-start; background: var(--card); border-color: var(--line-2); box-shadow: none; transition: margin .22s var(--ease), background .14s, border-color .14s, transform .14s var(--ease); }
+.lib-row > .lib-agents .lib-ag .ic { width: 14px; height: 14px; }
+/* the ring in the card's colour that cuts each chip out of the one under
+   it: an outline rather than a spread shadow, the same ring cheaper to
+   paint; a chip with the focus shows the focus ring instead */
+.lib-row > .lib-agents .lib-ag:not(:focus-visible) { outline: 1.5px solid var(--card); outline-offset: 0; }
+.lib-row > .lib-agents .lib-ag + .lib-ag { margin-left: -7px; }
+.lib-row > .lib-agents .lib-ag.on { border-color: var(--line); box-shadow: 0 1px 2px rgba(0, 0, 0, .08); }
+.lib-row > .lib-agents .lib-ag.via { border-style: dashed; }
+.lib-row > .lib-agents:hover .lib-ag + .lib-ag, .lib-row > .lib-agents:focus-within .lib-ag + .lib-ag { margin-left: 3px; }
+.lib-row > .lib-agents:hover .lib-ag, .lib-row > .lib-agents:focus-within .lib-ag { box-shadow: none; }
+.lib-row > .lib-agents:hover .lib-ag:not(:focus-visible), .lib-row > .lib-agents:focus-within .lib-ag:not(:focus-visible) { outline-color: transparent; }
+.lib-row > .lib-agents .lib-ag:hover { background: var(--pill); z-index: 1; }
+.lib-row.click:hover > .lib-agents .lib-ag { box-shadow: none; }
+.lib-row.click:hover > .lib-agents .lib-ag:not(:focus-visible) { outline-color: var(--card-2); }
+.lib-row.click:hover > .lib-agents:hover .lib-ag:not(:focus-visible) { outline-color: transparent; }
+/* All, ahead of the hand: a word, apart from the chips it lights */
+.lib-row > .lib-agents .lib-ag.all { width: auto; padding: 0 7px; margin-right: 6px; justify-content: center; font-size: 11px; font-weight: 500; color: var(--muted); }
+.lib-row > .lib-agents .lib-ag.all.on { color: var(--fg); }
+.lib-row > .lib-agents .lib-ag.all + .lib-ag { margin-left: 0; }
+
+/* agents that have one of their own, not in the library */
+.lib-have { display: flex; gap: 4px; flex: none; }
+.lib-have .ic { width: 15px; height: 15px; }
+
+/* a skill's actions show on hover */
+.lib-rowacts { display: flex; gap: 2px; flex: none; opacity: 0; transition: opacity .14s; }
+.lib-row:hover .lib-rowacts, .lib-rowacts:focus-within { opacity: 1; }
+.lib-icon { width: 26px; height: 26px; padding: 0; display: inline-grid; place-items: center; }
+.lib-icon.busy svg { animation: lib-bob .8s var(--ease) infinite alternate; }
+@keyframes lib-bob { to { transform: translateY(-2px); } }
+
+/* the skill finder */
+.lib-install { margin-bottom: 4px; }
+.lib-find { display: flex; align-items: center; gap: 8px; padding: 8px 8px 8px 12px; }
+.lib-find input { flex: 1; min-width: 0; height: 28px; border: 0; outline: none; background: none; font-size: 13px; color: var(--fg); }
+.lib-find input::placeholder { color: var(--faint); }
+.lib-find .text.busy { color: var(--muted); }
+.lib-err { padding: 0 14px 10px 36px; font-size: 12px; color: var(--red); line-height: 1.45; overflow-wrap: anywhere; }
+.lib-probe { border-top: 1px solid var(--line-2); padding: 8px 8px 8px; display: flex; flex-direction: column; gap: 6px; animation: content-in .22s var(--ease); }
+.lib-probehead { display: flex; align-items: center; gap: 6px; padding: 0 4px; }
+.lib-probehead .note { font-size: 11.5px; color: var(--muted); }
+.lib-filter { height: 26px; margin: 0 4px; padding: 0 9px; border-radius: 7px; border: 1px solid var(--line); background: var(--card); color: var(--fg); font-size: 12px; outline: none; }
+.lib-filter:focus { border-color: var(--accent); }
+.lib-picks { display: flex; flex-direction: column; max-height: 300px; overflow-y: auto; }
+.lib-pick { display: flex; align-items: flex-start; gap: 10px; padding: 7px 6px; border-radius: 8px; cursor: default; }
+.lib-pick:hover:not(.dim) { background: var(--pill); }
+.lib-pick.dim { opacity: .55; }
+.lib-pick input { margin: 2px 0 0; accent-color: var(--fg); flex: none; }
+.lib-pick .who { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.lib-pick .name { font-size: 13px; font-weight: 500; }
+.lib-pick .sub { font-size: 11.5px; color: var(--muted); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.lib-probefoot { display: flex; align-items: center; gap: 8px; padding: 8px 4px 0; border-top: 1px solid var(--line-2); flex-wrap: wrap; }
+.lib-probefoot .note { font-size: 12px; color: var(--muted); }
+
+/* nothing yet */
+.lib-empty { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 34px 20px 30px; text-align: center; background: var(--card); border: 1px dashed var(--line); border-radius: 12px; }
+.lib-empty b { font-weight: 600; font-size: 13px; }
+.lib-empty p { margin: 0 0 8px; font-size: 12px; color: var(--muted); max-width: 380px; line-height: 1.5; }
+.lib-none { padding: 14px; font-size: 12px; color: var(--muted); }
+/* the page in outline while the library loads: it comes in only after a
+   moment, so a quick load goes straight to the page; one sweep of light
+   runs across every bar at once */
+.lib-skel { animation: lib-skel-in .3s var(--ease) .18s both; }
+@keyframes lib-skel-in { from { opacity: 0; } }
+.lib-skel .skeleton { background-color: var(--skel, var(--pill)); background-attachment: fixed; background-size: 200vw 100%; background-repeat: no-repeat; background-position: 20vw 0; animation-name: lib-skel-shift; animation-duration: 1.8s; }
+@keyframes lib-skel-shift { from { background-position: 20vw 0; } to { background-position: -100vw 0; } }
+.lib-skel .who { display: flex; flex-direction: column; gap: 7px; }
+.lib-skel .lib-sk-icon { flex: none; border-radius: 7px; }
+.lib-skel .lib-sk-switch { flex: none; border-radius: 10px; margin-right: 22px; } /* the chevron after it */
+.lib-skel .lib-sk-intro { height: 18px; display: flex; align-items: center; }
+.lib-skel .row-head .skeleton { border-radius: 4px; }
+@media (prefers-reduced-motion: reduce) { .lib-skel, .lib-skel .skeleton { animation: none; } }
+
+/* the dialog */
+.lib-editor .ehead .lib-glyph { width: 24px; height: 24px; }
+.lib-editor .ehead .note { font-size: 11.5px; color: var(--faint); margin-left: auto; }
+.lib-editor .lib-slot { display: contents; }
+.lib-editor .lib-grid { display: contents; }
+.lib-editor input.mono { font-family: var(--code); font-size: 12px; }
+.lib-pairs { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+.lib-pair { display: flex; gap: 6px; width: 100%; align-items: center; }
+.lib-pair input { flex: 1; min-width: 0; font-family: var(--code); font-size: 12px; }
+.lib-pair input:first-child { flex: .8; }
+.lib-x { width: 24px; height: 24px; padding: 0; display: inline-grid; place-items: center; flex: none; }
+.lib-addpair { padding-left: 0; }
+.lib-addpair:hover { background: none; }
+.lib-editor .lib-picks { grid-column: 1 / -1; max-height: 320px; }
+.lib-editor .lib-keep { grid-column: 1 / -1; margin: 0 -6px; }
+.lib-confirm { grid-column: 1 / -1; margin: 0; font-size: 12.5px; line-height: 1.55; color: var(--fg-2); }
+.text.danger-fill { background: var(--red); color: #fff; }
+/* one agent's skills or servers on or off at once (#475) */
+.lib-byagent-sheet .lib-byagent-list { grid-column: 1 / -1; max-height: min(52vh, 420px); overflow: auto; }
+.lib-byagent-row { gap: 10px; }
+.lib-byagent-row > .ic { width: 20px; height: 20px; flex: none; }
+.lib-byagent-row .who { flex: 1; min-width: 0; }
+.lib-byagent-row .name { display: flex; align-items: center; gap: 6px; }
+.lib-byagent-row .lib-updall { height: 24px; padding: 0 9px; font-size: 12px; flex: none; }
+.lib-byagent-row .lib-updall:disabled { color: var(--faint); cursor: default; }
+.lib-reader { grid-template-columns: minmax(0, 1fr); }
+.lib-md { margin: 0; max-height: min(60vh, 520px); overflow: auto; font: 12px/1.6 var(--code); color: var(--fg-2); white-space: pre-wrap; overflow-wrap: anywhere; background: var(--card-2); border-radius: 8px; padding: 12px 14px; user-select: text; -webkit-user-select: text; }
+.lib-reader .bar .lib-path { max-width: 70%; }
+.editor .editor-error:empty { display: none; }
+
+@media (max-width: 560px) {
+  .lib-list .row { flex-wrap: wrap; }
+  .lib-agents { max-width: 100%; }
+}
+
+/* a list's heading: its label, and a quiet line of what it does */
+#view-library .row-head { height: auto; min-height: 26px; margin: 18px 0 6px; padding: 0 2px; gap: 12px; }
+#view-library .row-head .note { min-width: 0; font-size: 11px; color: var(--faint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#view-library .row-head .lib-updall { height: 24px; padding: 0 9px; font-size: 12px; }
+/* every skill out of the library at once (#449): red from the start */
+#view-library .row-head .lib-everyrm { color: var(--red); }
+#view-library .row-head .lib-everyrm:hover { background: var(--red-soft); }
+
+/* the market: servers and skills to add, each with its own picture */
+.mk { display: flex; flex-direction: column; }
+.mk-find { display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 12px; margin-bottom: 10px; border-radius: 10px; background: var(--card); border: 1px solid var(--line); transition: border-color .14s, box-shadow .14s; }
+.mk-find:focus-within { border-color: color-mix(in srgb, var(--fg) 35%, transparent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--fg) 7%, transparent); }
+.mk-find input { flex: 1; min-width: 0; height: 100%; border: 0; outline: none; background: none; font-size: 13px; color: var(--fg); }
+.mk-find input::placeholder { color: var(--faint); }
+.mk-find input::-webkit-search-cancel-button { -webkit-appearance: none; }
+.mk-spin { flex: none; width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--line); border-top-color: var(--fg-2); opacity: 0; transition: opacity .15s; }
+.mk.loading .mk-spin { opacity: 1; animation: mk-spin .7s linear infinite; }
+@keyframes mk-spin { to { transform: rotate(360deg); } }
+.mk-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(236px, 1fr)); gap: 10px; transition: opacity .2s var(--ease); }
+.mk.loading .mk-grid { opacity: .55; }
+.mk-card {
+  position: relative; display: flex; flex-direction: column; gap: 9px; min-width: 0; padding: 12px 12px 10px; border-radius: 12px;
+  background: var(--card); border: 1px solid var(--line); box-shadow: 0 1px 1px rgba(0, 0, 0, .03);
+  transition: border-color .16s var(--ease), box-shadow .16s var(--ease), transform .16s var(--ease);
+  animation: content-in .24s var(--ease) both;
+}
+.mk-card.click:hover { border-color: color-mix(in srgb, var(--fg) 22%, transparent); box-shadow: 0 6px 18px -8px rgba(0, 0, 0, .18); transform: translateY(-1px); }
+.mk-top { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.mk-icon {
+  flex: none; width: 36px; height: 36px; border-radius: 9px; overflow: hidden; display: grid; place-items: center;
+  background: #fff; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .07);
+}
+.mk-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.mk-icon.svg img { width: 72%; height: 72%; object-fit: contain; }
+.mk-icon.mono { background: var(--pill); box-shadow: none; }
+.mk-mono { font-size: 15px; font-weight: 600; color: var(--fg-2); }
+.mk-icon.skeleton { box-shadow: none; }
+:root[data-theme="dark"] .mk-icon:not(.mono):not(.skeleton) { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .mk-icon:not(.mono):not(.skeleton) { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); } }
+.mk-who { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.mk-name { display: flex; align-items: center; gap: 5px; min-width: 0; font-size: 13px; font-weight: 600; line-height: 1.2; }
+.mk-title { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mk-name.big { font-size: 15px; }
+.mk-meta { display: flex; align-items: center; gap: 6px; min-width: 0; font-size: 11px; color: var(--muted); }
+.mk-pub { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mk-badge { flex: none; display: inline-flex; align-items: center; gap: 3px; height: 17px; padding: 0 6px; border-radius: 5px; background: var(--pill); color: var(--fg-2); font-size: 10.5px; font-family: var(--code); }
+.mk-badge.mk-needs { width: 17px; padding: 0; justify-content: center; }
+.mk-official { flex: none; display: inline-grid; place-items: center; width: 13px; height: 13px; border-radius: 50%; background: var(--fg); color: var(--card); }
+.mk-desc { margin: 0; min-height: 2.9em; font-size: 12px; line-height: 1.45; color: var(--fg-2); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.mk-desc.wait { background: linear-gradient(90deg, var(--pill) 25%, var(--pill-hover) 45%, var(--pill) 65%); background-size: 240% 100%; animation: skeleton-shift 1.4s ease-in-out infinite; border-radius: 5px; min-height: 0; height: 8px; margin: 6px 20% 10px 0; }
+.mk-foot { display: flex; align-items: center; gap: 8px; min-height: 26px; margin-top: auto; }
+.mk-id { min-width: 0; font: 11px var(--code); color: var(--faint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mk-installs { display: inline-flex; align-items: center; gap: 3px; font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.mk-add { flex: none; height: 26px; }
+.mk-add.busy { color: var(--muted); }
+.mk-have { flex: none; display: inline-flex; align-items: center; gap: 4px; height: 26px; padding: 0 4px; font-size: 12px; color: var(--muted); }
+.mk-card.have .mk-icon { opacity: .9; }
+.mk-msg { grid-column: 1 / -1; padding: 22px 12px; text-align: center; font-size: 12px; color: var(--muted); }
+.mk-msg.err { padding: 8px 12px; color: var(--amber); background: var(--amber-soft); border-radius: 8px; text-align: left; line-height: 1.45; }
+.mk-skel { gap: 12px; min-height: 104px; }
+.mk-skel .mk-who { gap: 7px; }
+
+/* a market item up close */
+.mk-sheet .mk-sheethead { grid-column: 1 / -1; display: flex; align-items: center; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--line-2); }
+.mk-sheet .mk-icon { width: 44px; height: 44px; border-radius: 11px; }
+.mk-sheet .mk-about { grid-column: 1 / -1; margin: 0; font-size: 12.5px; line-height: 1.55; color: var(--fg-2); }
+.mk-sheet .mk-hint { grid-column: 1 / -1; display: flex; align-items: center; gap: 6px; margin: 0; font-size: 11.5px; color: var(--muted); }
+.mk-ext { flex: none; display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--muted); text-decoration: none; padding: 3px 6px; border-radius: 6px; }
+.mk-ext:hover { color: var(--fg); background: var(--pill); }
+.mk-sheet .mk-hint .mk-ext { padding: 0; font-family: var(--code); font-size: 11.5px; }
+.mk-sheet .mk-hint .mk-ext:hover { background: none; text-decoration: underline; text-underline-offset: 2px; }
+.mk-sheet .bar .mk-id { margin-left: 2px; }
+.lib-rtk-gain { margin: 6px 12px 10px; font-size: 12px; line-height: 1.5; color: var(--muted); }
+.lib-card > .lib-acts { padding: 0 12px 12px; }
+.lib-rtk-note { margin: 6px 12px 0; font-size: 12px; line-height: 1.5; color: var(--amber); }
+.lib-rtk-chart { margin: 0 12px 12px; padding: 10px 12px 8px; }
+.lib-rtk-chart .bars { height: 88px; }
+.lib-rtk-foot { display: flex; align-items: center; gap: 12px; margin-top: 8px; font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.lib-rtk-foot .grow { flex: 1; }
+.lib-rtk-key { display: inline-flex; align-items: center; gap: 5px; }
+.lib-rtk-key i { width: 8px; height: 8px; border-radius: 2px; background: var(--accent); }
+.lib-rtk-key i.in { opacity: .38; }
+.lib-cardhead button.text { height: 22px; font-size: 11.5px; }
+.lib-rtk-cmd { margin: -4px 12px 10px; font: 11.5px var(--code); color: var(--muted); user-select: text; }
+
+/* projects: a card each, its skills shown when it is opened */
+.lib-project { margin-bottom: 8px; }
+.lib-project.missing .lib-projhead .name { color: var(--muted); }
+.lib-projhead .lib-tags { max-width: 45%; overflow: hidden; flex-wrap: nowrap; }
+.lib-tag.lib-dot::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--muted); }
+.lib-projopts { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 8px 12px 8px 49px; border-top: 1px solid var(--line-2); background: var(--card-2); }
+.lib-projopts .note { font-size: 11px; color: var(--faint); line-height: 1.45; min-width: 0; flex: 1 1 220px; }
+.lib-projcopy { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: var(--fg-2); cursor: default; }
+.lib-project .lib-projskill { border-top: 1px solid var(--line-2); }
+.lib-projfoot { margin: 0; padding: 8px 12px 10px 49px; border-top: 1px solid var(--line-2); }
+.lib-projfoot + .lib-projfoot { border-top: 0; padding-top: 0; }
+
+/* the library's skills: a card for each GitHub repository they came from,
+   and one for those on this computer, folded to its heading line */
+.lib-groups { display: flex; flex-direction: column; gap: 8px; }
+.lib-grouphead .sub { font-size: 11px; }
+.lib-grouphead > .lib-logo, .lib-grouphead > .lib-glyph { align-self: center; margin-top: 0; }
+.lib-grouphead .lib-updall { height: 24px; padding: 0 9px; font-size: 12px; }
+.lib-have .ic.some { opacity: .4; }
+/* the skills' heading has the most on it: in a narrow window it goes on
+   to a second line rather than past the page's side */
+#view-library .row-head.lib-skillshead { flex-wrap: wrap; row-gap: 6px; }
+#view-library .row-head.lib-skillshead .lib-skillq { flex: 1 1 90px; max-width: 190px; }
+#view-library .row-head .lib-skillq { width: 190px; height: 24px; margin: 0; flex: 0 1 auto; min-width: 90px; }
+.lib-skillq::-webkit-search-cancel-button { -webkit-appearance: none; }
+/* a project's skills out of view are neither laid out nor painted until they near it */
+.lib-projskill { content-visibility: auto; contain-intrinsic-size: auto 76px; }
+.lib-grouphead .lib-rowacts { min-width: 26px; }
+/* A group's skills are drawn near the view first (library.js, windowed),
+   room kept for the rest, which are drawn in while nothing else is going
+   on and then stay. Every row is held to the height the list counts on —
+   its description one line, the whole of it in its tooltip — so the room
+   kept is exactly what's missing. */
+.lib-vl { flex: none; }
+/* each row kept to itself, as a skipped one was; and a row the pointer
+   passes over in a scroll shows its buttons at once rather than fading them
+   in — in WebKit each fade, given a layer of its own while it ran, cost a
+   long frame (library.js marks a list .scrolling while it scrolls) */
+.lib-vl > .row { border-top: 1px solid var(--line-2); overflow: hidden; flex-wrap: nowrap; contain: layout paint style; }
+.lib-vl.scrolling > .row .lib-rowacts { transition: none; }
+.lib-vl.bare > .row.first { border-top: 0; }
+.lib-vl > .row.lib-skill { height: 51px; min-height: 0; padding: 7px 10px 7px 12px; gap: 11px; }
+.lib-vl > .row.lib-skill.src { height: 67px; }
+.lib-vl > .lib-skill .sub { display: block; white-space: nowrap; -webkit-line-clamp: none; }
+.lib-vl > .lib-skill .lib-src { margin-top: 2px; }
+/* a part of a group: the folder its skills sit in, or the start of their names */
+.lib-vl > .row.lib-subhead { height: 36px; min-height: 0; padding: 0 12px 0 14px; gap: 8px; }
+.lib-subhead { background: var(--card-2); }
+.lib-subhead .name { font-size: 12px; color: var(--fg-2); }
+.lib-subhead .name.mono { font: 500 11.5px var(--code); }
+.lib-subhead .sub { margin: 0; font-size: 11px; color: var(--faint); font-variant-numeric: tabular-nums; }
+.lib-subhead .lib-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex: none; }
+.lib-row.lib-subhead:hover { background: color-mix(in srgb, var(--card-2) 70%, var(--pill)); }
+/* no color-mix() before Safari 16.2 (#220): the sticky head stays opaque */
+@supports not (color: color-mix(in srgb, red 50%, blue)) { .lib-head { background: var(--bg); } }

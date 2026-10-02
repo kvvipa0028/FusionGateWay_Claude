@@ -1,0 +1,102 @@
+package gui
+
+import (
+	"fmt"
+	"math"
+	"regexp"
+	"strconv"
+	"time"
+
+	"github.com/yetone/magpie/internal/provider"
+)
+
+// onAlerts is told when the Settings page turns a usage or balance alert
+// on, for the process that notifies to ask the system's leave to and look
+// at once; set by the process that has the tray.
+var onAlerts func()
+
+// notifyProblem says why magpie's notifications can't be shown, "" when
+// they can or it isn't known: "denied" (turned off for magpie in the
+// system's settings) or "unavailable" (a build or desktop without them).
+// Set by the process that has the tray.
+var notifyProblem func() string
+
+var (
+	hoursName = regexp.MustCompile(`^(\d+) hours?$`)
+	daysName  = regexp.MustCompile(`^(\d+) days?$`)
+)
+
+// alertWindowZh is a window's name in Chinese, as the page's i18n.js has
+// the common ones; one it doesn't know stays as the vendor named it.
+func alertWindowZh(name string) string {
+	if m := hoursName.FindStringSubmatch(name); m != nil {
+		return m[1] + " 小时"
+	}
+	if m := daysName.FindStringSubmatch(name); m != nil {
+		return m[1] + " 天"
+	}
+	switch name {
+	case "Weekly":
+		return "每周"
+	case "Monthly":
+		return "每月"
+	case "Daily":
+		return "每日"
+	}
+	return name
+}
+
+// alertClockZh is provider.ResetClock in Chinese.
+func alertClockZh(at, now time.Time) string {
+	at, now = at.Local(), now.Local()
+	day := func(t time.Time) time.Time { y, m, d := t.Date(); return time.Date(y, m, d, 0, 0, 0, 0, time.Local) }
+	switch days := int(math.Round(day(at).Sub(day(now)).Hours() / 24)); {
+	case days <= 0:
+		return at.Format("15:04")
+	case days == 1:
+		return "明天 " + at.Format("15:04")
+	case days < 7:
+		return [...]string{"周日", "周一", "周二", "周三", "周四", "周五", "周六"}[at.Weekday()] + " " + at.Format("15:04")
+	}
+	return fmt.Sprintf("%d月%d日 %s", at.Month(), at.Day(), at.Format("15:04"))
+}
+
+// alertText is a usage alert as a notification says it, in the language
+// (en or zh): the card, and what reached the line. left says a window by
+// how much of it is left, as the Usage page does when set to.
+func alertText(lang string, a provider.QuotaAlert, bal float64, left bool, now time.Time) (title, body string) {
+	title = a.Name
+	if a.User != "" {
+		title += " · " + a.User
+	}
+	if a.Window == "" {
+		line := strconv.FormatFloat(bal, 'f', -1, 64)
+		if lang == "zh" {
+			return title, fmt.Sprintf("余额已降至 %s（提醒线 %s）", a.Balance, line)
+		}
+		return title, fmt.Sprintf("Balance down to %s (alert at %s)", a.Balance, line)
+	}
+	n := a.Used
+	if left {
+		n = max(0, 100-n)
+	}
+	pct := strconv.FormatFloat(math.Round(n*10)/10, 'f', -1, 64) + "%"
+	if lang == "zh" {
+		body = fmt.Sprintf("%s窗口已用 %s", alertWindowZh(a.Window), pct)
+		if left {
+			body = fmt.Sprintf("%s窗口剩余 %s", alertWindowZh(a.Window), pct)
+		}
+		if a.ResetsAt != nil {
+			body += "，" + alertClockZh(*a.ResetsAt, now) + " 重置"
+		}
+		return title, body
+	}
+	body = fmt.Sprintf("%s: %s used", a.Window, pct)
+	if left {
+		body = fmt.Sprintf("%s: %s left", a.Window, pct)
+	}
+	if a.ResetsAt != nil {
+		body += ", resets " + provider.ResetClock(*a.ResetsAt, now)
+	}
+	return title, body
+}

@@ -1,0 +1,790 @@
+{
+  "schema_version": 1,
+  "provenance": "Locally derived from supplied acceptance matrix v1.0",
+  "source_document": "Fusion_Magpie_Fork_验收矩阵_v1.0.md",
+  "test_families": [
+    {
+      "id": "T01",
+      "scenario": "固定 GPT/Grok/GLM route",
+      "expected": "调用正确模型与账号；不暗换路线",
+      "work_packages": [
+        "WP-07",
+        "WP-08",
+        "WP-12",
+        "WP-13",
+        "WP-14",
+        "WP-17",
+        "WP-18",
+        "WP-23",
+        "WP-26"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T02",
+      "scenario": "配置文件存在其他 provider Key",
+      "expected": "不继承到当前 Runtime，不造成串计费",
+      "work_packages": [
+        "WP-08",
+        "WP-11",
+        "WP-12",
+        "WP-13",
+        "WP-14",
+        "WP-17",
+        "WP-24"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T03",
+      "scenario": "指定模型不在已验证能力集合",
+      "expected": "明确拒绝，不自动找名称相似模型",
+      "work_packages": [
+        "WP-04",
+        "WP-07"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T04",
+      "scenario": "GLM 地区或套餐未确认",
+      "expected": "阻止自动运行，不以 endpoint 可连通作为通过",
+      "work_packages": [
+        "WP-08",
+        "WP-14",
+        "WP-17",
+        "WP-26"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T05",
+      "scenario": "quota HTTP 成功但字段为空",
+      "expected": "unknown，不显示满额",
+      "work_packages": [
+        "WP-03",
+        "WP-09",
+        "WP-24"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T06",
+      "scenario": "收到旧缓存",
+      "expected": "observed_at 保持原值，任务准入不当成新值",
+      "work_packages": [
+        "WP-09",
+        "WP-24"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T07",
+      "scenario": "查询中切换账号/workspace",
+      "expected": "丢弃旧查询结果",
+      "work_packages": [
+        "WP-09",
+        "WP-24"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T08",
+      "scenario": "重置时间缺失、异常或时区混乱",
+      "expected": "不猜测修正，不自行发放额度",
+      "work_packages": [
+        "WP-09"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T09",
+      "scenario": "Grok on-demand 比例出现",
+      "expected": "不冒充订阅 credits 比例",
+      "work_packages": [
+        "WP-09"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T10",
+      "scenario": "同一 pool 多个模型并发",
+      "expected": "共用准入与预留，不重复计算余额",
+      "work_packages": [
+        "WP-09",
+        "WP-10",
+        "WP-24"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T11",
+      "scenario": "达到限额或 app-specific limit",
+      "expected": "按真实错误处理，不把所有账户都标成耗尽",
+      "work_packages": [
+        "WP-08",
+        "WP-09",
+        "WP-10",
+        "WP-17"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T12",
+      "scenario": "付费 fallback 未授权",
+      "expected": "不发起额外计费请求",
+      "work_packages": [
+        "WP-07",
+        "WP-08",
+        "WP-10",
+        "WP-14",
+        "WP-17",
+        "WP-24",
+        "WP-26"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T13",
+      "scenario": "相同幂等提交被重发",
+      "expected": "返回原任务，不重复执行",
+      "work_packages": [
+        "WP-05",
+        "WP-15",
+        "WP-18"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T14",
+      "scenario": "工具写入后网络断开",
+      "expected": "execution_uncertain/核对现场，不盲目重放",
+      "work_packages": [
+        "WP-03",
+        "WP-11",
+        "WP-12",
+        "WP-13",
+        "WP-20",
+        "WP-23",
+        "WP-24"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T15",
+      "scenario": "取消与完成竞争",
+      "expected": "终态一致；确认停止前不宣称 cancelled",
+      "work_packages": [
+        "WP-03",
+        "WP-11",
+        "WP-12",
+        "WP-13",
+        "WP-18",
+        "WP-23",
+        "WP-24"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T16",
+      "scenario": "控制服务重启、旧 Worker 尚存",
+      "expected": "不产生第二个写入者",
+      "work_packages": [
+        "WP-05",
+        "WP-11",
+        "WP-23",
+        "WP-24",
+        "WP-25"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T17",
+      "scenario": "路径穿越或 symlink 越界",
+      "expected": "访问被阻止并审计",
+      "work_packages": [
+        "WP-06",
+        "WP-11",
+        "WP-20",
+        "WP-24"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T18",
+      "scenario": "仓库文本要求读取凭据或忽略规则",
+      "expected": "不能升级权限、外发秘密或切换预算",
+      "work_packages": [
+        "WP-06",
+        "WP-11",
+        "WP-19",
+        "WP-24"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T19",
+      "scenario": "写任务与两个 reviewer 并行",
+      "expected": "reviewer 基于固定 snapshot，原工作区不冲突",
+      "work_packages": [
+        "WP-11",
+        "WP-20",
+        "WP-23"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T20",
+      "scenario": "Jev 错误、超时、低置信度",
+      "expected": "回到规则，不随机选路，不自动高额重试",
+      "work_packages": [
+        "WP-27",
+        "WP-28",
+        "WP-29"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T21",
+      "scenario": "标记 R3 的“一行修改”",
+      "expected": "不被低复杂度分类降低风险下限",
+      "work_packages": [
+        "WP-10",
+        "WP-19",
+        "WP-27",
+        "WP-28",
+        "WP-29"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T22",
+      "scenario": "缺编译器/HIL/硬件证据",
+      "expected": "明确 unverified，不输出伪造 passed",
+      "work_packages": [
+        "WP-21",
+        "WP-23",
+        "WP-26"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T23",
+      "scenario": "pstack 默认自动 push/merge 指令",
+      "expected": "不进入实际授权能力，不执行",
+      "work_packages": [
+        "WP-19",
+        "WP-22",
+        "WP-23"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T24",
+      "scenario": "模型协议含未支持工具/字段",
+      "expected": "明确 unsupported，不静默丢弃",
+      "work_packages": [
+        "WP-03",
+        "WP-07",
+        "WP-24"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T25",
+      "scenario": "SSE 已输出部分内容后上游失败",
+      "expected": "不跨模型拼接，返回中断及可恢复信息",
+      "work_packages": [
+        "WP-03",
+        "WP-07",
+        "WP-11",
+        "WP-12",
+        "WP-13",
+        "WP-15",
+        "WP-24"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T26",
+      "scenario": "备份恢复/版本回滚",
+      "expected": "状态与产物可核对，凭据不泄露",
+      "work_packages": [
+        "WP-02",
+        "WP-25",
+        "WP-26",
+        "WP-30"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T27",
+      "scenario": "三个选择区展开为五角色",
+      "expected": "实施/测试、审查/验收可独立选择，合并前提示覆盖",
+      "work_packages": [
+        "WP-04",
+        "WP-16",
+        "WP-18",
+        "WP-23"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T28",
+      "scenario": "全局、项目、本次任务冲突",
+      "expected": "按明确优先级生成完整角色绑定；不跨模型混合 effort/账号",
+      "work_packages": [
+        "WP-04",
+        "WP-15",
+        "WP-16",
+        "WP-18"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T29",
+      "scenario": "用户锁定与 Jev/pstack 建议冲突",
+      "expected": "维持锁定；建议只展示，不产生暗换调用",
+      "work_packages": [
+        "WP-07",
+        "WP-18",
+        "WP-19",
+        "WP-22",
+        "WP-27",
+        "WP-28",
+        "WP-29"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T30",
+      "scenario": "locked 模型无额度但别家有额度",
+      "expected": "暂停/阻止并说明，不自动替换或额外计费",
+      "work_packages": [
+        "WP-07",
+        "WP-09",
+        "WP-10",
+        "WP-16",
+        "WP-18",
+        "WP-26",
+        "WP-27",
+        "WP-29"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T31",
+      "scenario": "显式 effort 不支持",
+      "expected": "拒绝并提示，不静默降档",
+      "work_packages": [
+        "WP-04",
+        "WP-07",
+        "WP-12",
+        "WP-13",
+        "WP-14",
+        "WP-16",
+        "WP-17",
+        "WP-18"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T32",
+      "scenario": "实施子 Agent 或摘要助手试图换模型",
+      "expected": "继承绑定或阻止；Runtime 无法控制时标记 lock unverified",
+      "work_packages": [
+        "WP-07",
+        "WP-08",
+        "WP-10",
+        "WP-12",
+        "WP-13",
+        "WP-14",
+        "WP-17",
+        "WP-18",
+        "WP-20",
+        "WP-22",
+        "WP-23",
+        "WP-26"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T33",
+      "scenario": "修改全局默认或同名预设",
+      "expected": "已提交任务使用旧版本快照，其他项目不受影响",
+      "work_packages": [
+        "WP-04",
+        "WP-05",
+        "WP-15",
+        "WP-16",
+        "WP-18"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T34",
+      "scenario": "修改未开始的验收模型",
+      "expected": "修订计划、重新准入；当前阶段和历史保持不变",
+      "work_packages": [
+        "WP-05",
+        "WP-15",
+        "WP-16",
+        "WP-23"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T35",
+      "scenario": "在流/工具写入中途申请换模型",
+      "expected": "先安全暂停和核对，不能就地热换或并发启动第二个写任务",
+      "work_packages": [
+        "WP-11",
+        "WP-12",
+        "WP-13",
+        "WP-15",
+        "WP-20",
+        "WP-22",
+        "WP-23"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T36",
+      "scenario": "两个页面同时改阶段计划",
+      "expected": "If-Match 冲突被拒绝，不后写覆盖",
+      "work_packages": [
+        "WP-05",
+        "WP-15",
+        "WP-16",
+        "WP-18"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T37",
+      "scenario": "设计与验收选同一模型",
+      "expected": "允许配置；独立会话与证据；若违反项目硬约束则明确阻止",
+      "work_packages": [
+        "WP-04",
+        "WP-16",
+        "WP-22",
+        "WP-23"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T38",
+      "scenario": "验收模型判通过但测试硬失败",
+      "expected": "不可验收；保留模型意见与真实失败证据",
+      "work_packages": [
+        "WP-21",
+        "WP-22",
+        "WP-23",
+        "WP-24",
+        "WP-26"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T39",
+      "scenario": "审查后修复导致产物 hash 改变",
+      "expected": "旧结论标 superseded，修复回指定实施模型，复测/复查按计划进行",
+      "work_packages": [
+        "WP-20",
+        "WP-21",
+        "WP-22",
+        "WP-23",
+        "WP-26"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T40",
+      "scenario": "Magpie 模型组/会话粘性仍触发 fallback",
+      "expected": "locked 路线不允许该配置；auto 仅允许批准成员且记录每次尝试",
+      "work_packages": [
+        "WP-07",
+        "WP-24",
+        "WP-27",
+        "WP-29",
+        "WP-30"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T41",
+      "scenario": "Fusion 与引擎同时开启分类器",
+      "expected": "只保留一个经授权负责人；不重复发送上下文与计费",
+      "work_packages": [
+        "WP-27",
+        "WP-28",
+        "WP-29"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T42",
+      "scenario": "“继续”或一句话高风险任务",
+      "expected": "使用阶段上下文及硬风险标签，不靠短文本长度降级",
+      "work_packages": [
+        "WP-19",
+        "WP-27",
+        "WP-28",
+        "WP-29"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T43",
+      "scenario": "仅规划/仅审查任务",
+      "expected": "只执行必要角色，不为了五槽配置启动全部阶段",
+      "work_packages": [
+        "WP-04",
+        "WP-15",
+        "WP-16",
+        "WP-18",
+        "WP-19",
+        "WP-23"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T44",
+      "scenario": "候选目录、别名或 route 配置更新",
+      "expected": "旧任务绑定的版本不漂移；上游版本不可固定则如实标注",
+      "work_packages": [
+        "WP-04",
+        "WP-07",
+        "WP-08",
+        "WP-12",
+        "WP-13",
+        "WP-14",
+        "WP-16",
+        "WP-17",
+        "WP-18",
+        "WP-27",
+        "WP-30"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T45",
+      "scenario": "模型选择请求夹带新账号/密钥/付费许可",
+      "expected": "不接受未注册凭据或自行提升权限；额外费用仍独立审批",
+      "work_packages": [
+        "WP-04",
+        "WP-06",
+        "WP-15",
+        "WP-18",
+        "WP-24"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T46",
+      "scenario": "Magpie manual 所选成员被删除或组变空",
+      "expected": "增强阶段明确 blocked；禁止 Picked() 回到第一成员，其他上游调用数为 0。",
+      "work_packages": [
+        "WP-04",
+        "WP-07",
+        "WP-16",
+        "WP-18",
+        "WP-24",
+        "WP-30"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T47",
+      "scenario": "底层自动把显式 effort 映射到最近支持档位",
+      "expected": "严格阶段在分派前拒绝，不发送降档请求；展示支持列表。",
+      "work_packages": [
+        "WP-04",
+        "WP-07",
+        "WP-18",
+        "WP-24",
+        "WP-30"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T48",
+      "scenario": "无 key、任意 key、loopback、反代或旧 API 入口",
+      "expected": "增强模式所有受控端点一致鉴权；管理/模型数据不经旧宽松入口泄露。",
+      "work_packages": [
+        "WP-03",
+        "WP-06",
+        "WP-18",
+        "WP-24",
+        "WP-25",
+        "WP-30"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T49",
+      "scenario": "Worker 伪造 role/task/stage/account header",
+      "expected": "服务端 capability 绑定优先；拒绝跨任务、跨项目和管理接口访问。",
+      "work_packages": [
+        "WP-06",
+        "WP-15",
+        "WP-18",
+        "WP-24"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T50",
+      "scenario": "stage token 过期、撤销、旧 attempt 重放",
+      "expected": "新调用被拒绝；generation 不匹配的延迟事件不能覆盖新任务状态。",
+      "work_packages": [
+        "WP-06",
+        "WP-15",
+        "WP-18",
+        "WP-24"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T51",
+      "scenario": "同一供应商迁移为社区插件或插件版本改变",
+      "expected": "测试/策略覆盖实际执行路径；旧内置测试不能充当插件验证；新版本重新准入。",
+      "work_packages": [
+        "WP-01",
+        "WP-07",
+        "WP-08",
+        "WP-17",
+        "WP-18",
+        "WP-24",
+        "WP-30"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T52",
+      "scenario": "原版和 Fork 同机启动、更新、同步或配置迁移",
+      "expected": "数据目录、服务、端口、应用身份、更新与插件通道隔离；不覆盖日常客户端配置。",
+      "work_packages": [
+        "WP-02",
+        "WP-18",
+        "WP-24",
+        "WP-25",
+        "WP-26",
+        "WP-30"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T53",
+      "scenario": "合法同账号 Token rotation 与账号切换竞争",
+      "expected": "同身份续期可恢复；身份/组织/计费范围变化拒绝旧绑定，旧 quota 响应丢弃。",
+      "work_packages": [
+        "WP-07",
+        "WP-08",
+        "WP-12",
+        "WP-14",
+        "WP-17",
+        "WP-18",
+        "WP-24"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T54",
+      "scenario": "所有必要阶段 locked，Jev/下层分类器已配置",
+      "expected": "除单独获准的 shadow 实验外分类器 outbound=0；不重复判断或暗中计费。",
+      "work_packages": [
+        "WP-07",
+        "WP-18",
+        "WP-19",
+        "WP-27",
+        "WP-28",
+        "WP-29"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T55",
+      "scenario": "多任务看到同一额度快照，外部客户端另有消耗",
+      "expected": "共享 pool 准入串行；本地 reservation 不显示成官方余额，过期/无法匹配的新任务阻断。",
+      "work_packages": [
+        "WP-09",
+        "WP-10",
+        "WP-24"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T56",
+      "scenario": "客户端 SSE 断开、重连或取消时服务仍在运行",
+      "expected": "按事件序号补读，不自动再次执行；主动取消待停止确认后才释放写 lease。",
+      "work_packages": [
+        "WP-11",
+        "WP-13",
+        "WP-15",
+        "WP-24"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T57",
+      "scenario": "testing 阶段改动产品代码/测试标准或产物被换掉",
+      "expected": "检测越权或生成新 artifact revision；旧测试和审查不可继续证明当前产物。",
+      "work_packages": [
+        "WP-20",
+        "WP-21",
+        "WP-22",
+        "WP-23"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T58",
+      "scenario": "DB 提交与 Worker spawn 之间崩溃/迟到完成事件",
+      "expected": "启动意图与进程核对恢复；无双写、无旧 generation 覆盖、无虚假恰好一次承诺。",
+      "work_packages": [
+        "WP-05",
+        "WP-10",
+        "WP-11",
+        "WP-20",
+        "WP-23",
+        "WP-24",
+        "WP-25",
+        "WP-30"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T59",
+      "scenario": "Agent 工具或测试进程读取管理密钥/访问非许可网络",
+      "expected": "OS/Runtime 限制与凭据隔离经测试；不能执行隔离的路线不对敏感项目放行。",
+      "work_packages": [
+        "WP-03",
+        "WP-06",
+        "WP-11",
+        "WP-12",
+        "WP-13",
+        "WP-14",
+        "WP-17",
+        "WP-18",
+        "WP-24",
+        "WP-25",
+        "WP-26"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "T60",
+      "scenario": "合并上游变更或回滚到旧 schema 版本",
+      "expected": "独立分支回归，迁移先备份；不兼容时停写并整体恢复，发布与数据版本保持一致。",
+      "work_packages": [
+        "WP-01",
+        "WP-02",
+        "WP-25",
+        "WP-26",
+        "WP-30"
+      ],
+      "status": "not_run"
+    }
+  ]
+}
