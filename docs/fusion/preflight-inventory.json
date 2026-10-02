@@ -108,8 +108,13 @@
     },
     {
       "path": "docs/fusion/decisions/google-oauth-external-config.md",
-      "sha256": "ef76c26022b95fcc71c09cc0fea9c67b221cd037577df8efae01028d4b17b502",
-      "bytes": 2935
+      "sha256": "007006b739bf2cec4e9ebf692342582fdd9c4accbc5f4d924432b2f61a510060",
+      "bytes": 3423
+    },
+    {
+      "path": "docs/fusion/decisions/oauth-execution-decisions.md",
+      "sha256": "e9e38e2782afc094449fcb17791658ae8c14e4fc4f6310655e99ccae7905479e",
+      "bytes": 1575
     },
     {
       "path": "docs/fusion/decisions/oauth-push-protection-options.md",
@@ -117,14 +122,19 @@
       "bytes": 8053
     },
     {
+      "path": "docs/fusion/decisions/oauth-review-report.json",
+      "sha256": "2283703767d645003bddecbb4b51c90cfcb4a2baf76cc3e3caec4df49583c3fb",
+      "bytes": 1082
+    },
+    {
       "path": "docs/fusion/decisions/oauth-validation-report.json",
-      "sha256": "b4b89df42c8d82d24a62d750d19bbf3123fa0c41a95d4067e2bbfdab92ec786e",
-      "bytes": 18977
+      "sha256": "cbb02c93b53d9558b3be99955c70e0cd634135a7c38239e72ccc2e7d82a8929a",
+      "bytes": 20349
     },
     {
       "path": "docs/fusion/decisions/oauth-validation-report.md",
-      "sha256": "0978bb51c43fe867bbaceabd743cf21f2ce8b45c153159d237f6aea31ee18193",
-      "bytes": 2021
+      "sha256": "ab0c6c8d55ea2febfa3285edc846793f1f99fe6aa00266576ff7a1681d76220f",
+      "bytes": 2307
     },
     {
       "path": "docs/fusion/planning/Fusion_Magpie_Fork_Agent工作包_v1.0.md",

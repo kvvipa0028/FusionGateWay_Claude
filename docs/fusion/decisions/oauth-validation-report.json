@@ -2,12 +2,12 @@
   "schema_version": 1,
   "authorized_option": "A",
   "source_sha256": {
-    "internal/provider/google.go": "c906cb2158d6996234a568500eeb86aaf49accbf1cdfbe72445c7deaef76c34f",
+    "internal/provider/google.go": "d1a90306c012d550925665d20e58685525cfacd81797e819ffdd2f125f0b8431",
     "internal/provider/google_oauth.go": "7567ecbd5748d8270086808741f0ebae184aabf3c15e245aa5355f041c668076",
     "internal/provider/google_import.go": "e4c4338ae6a65970239c7e13dea89ee3bef5dada192b4d753ae587feac662ffb",
     "internal/provider/signin.go": "0b7bec100961343075160c6421797638d1da3c1739cfada224d8e7e87dd829b6",
     "internal/provider/google_oauth_test.go": "462966581dcd286c6940d9346e305a44aa98fb60a5f256ea86b9acf5ac0e66ce",
-    "internal/provider/google_test.go": "4dde0fc97041674465143e55d8025c061eaa0556c67653e4aaafc48bf92fada4",
+    "internal/provider/google_test.go": "e7ec1c6f9f7fed68ae7346a692fa151f68adf26ba9818ebe0a1b19a9739f22ec",
     "internal/provider/google_import_test.go": "bf8bd1e26171870645df8214ef01c301790406d1007cc16ee698252f7d0459cb",
     "internal/provider/signin_paste_test.go": "0af033ca26dd172ca86c1fb9c2a45bbdd9155d209dd633c98dabc023ddfe0c03"
   },
@@ -27,8 +27,8 @@
         "./..."
       ],
       "exit_code": 0,
-      "seconds": 97.71,
-      "log_sha256": "136fa3f4c0a0a614d1a5f6bd675fcff48f39e9ea6fda1c6abfb2694c56d88e64",
+      "seconds": 95.35,
+      "log_sha256": "4bffff836a5f663dfe857609d1cf1c69fbe194211f7d89c4570b2d386a09927d",
       "credential_environment": "temporary HOME/XDG; allowlist; no live credentials",
       "go_version": "go version go1.26.3 darwin/arm64"
     },
@@ -48,8 +48,8 @@
         "^Test(GoogleOAuth|GeminiOwnLoginOnlyGeminiCLIsClient)"
       ],
       "exit_code": 0,
-      "seconds": 2.04,
-      "log_sha256": "8a0a610fb2c3d94d092473bf950bb63560f0468ba347c39c39b566c8e32ce597",
+      "seconds": 9.54,
+      "log_sha256": "c5afb3d20090a69780a5a219d8342224998d935c1391810c83fc747820bf99b7",
       "credential_environment": "temporary HOME/XDG; allowlist; no live credentials",
       "go_version": "go version go1.26.3 darwin/arm64"
     },
@@ -64,7 +64,7 @@
         "./..."
       ],
       "exit_code": 0,
-      "seconds": 4.39,
+      "seconds": 4.0,
       "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "credential_environment": "temporary HOME/XDG; allowlist; no live credentials",
       "go_version": "go version go1.26.3 darwin/arm64"
@@ -82,7 +82,7 @@
         "."
       ],
       "exit_code": 0,
-      "seconds": 5.85,
+      "seconds": 4.96,
       "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "credential_environment": "temporary HOME/XDG; allowlist; no live credentials",
       "go_version": "go version go1.26.3 darwin/arm64"
@@ -98,8 +98,8 @@
         "."
       ],
       "exit_code": 0,
-      "seconds": 11.55,
-      "log_sha256": "bf6f7fe78b78b5c20d5e3ee9636b1c27b9641ed14ccc898b7f13209802ce893d",
+      "seconds": 9.7,
+      "log_sha256": "7f0d2d990adacc8f7e86f9a28b9c862a84f3d805c4e26a6b4d03d735d64c630d",
       "credential_environment": "temporary HOME/XDG; allowlist; no live credentials",
       "go_version": "go version go1.26.3 darwin/arm64"
     }
@@ -107,30 +107,30 @@
   "test_summary": {
     "full-nogui-suite": {
       "test_and_subtest_results": {
-        "pass": 3912,
+        "pass": 3919,
         "fail": 0,
         "skip": 64
       },
       "packages": {
-        "github.com/yetone/magpie/internal/autostart": "pass",
-        "github.com/yetone/magpie/internal/appdir": "pass",
-        "github.com/yetone/magpie/internal/agentenv": "pass",
-        "github.com/yetone/magpie/internal/access": "pass",
         "github.com/yetone/magpie/internal/codexcat": "pass",
-        "github.com/yetone/magpie/internal/filememo": "pass",
-        "github.com/yetone/magpie/internal/claudebridge": "pass",
+        "github.com/yetone/magpie/internal/autostart": "pass",
+        "github.com/yetone/magpie/internal/agentenv": "pass",
         "github.com/yetone/magpie/internal/fx": "pass",
-        "github.com/yetone/magpie/internal/catalog": "pass",
+        "github.com/yetone/magpie/internal/filememo": "pass",
+        "github.com/yetone/magpie/internal/access": "pass",
+        "github.com/yetone/magpie/internal/claudebridge": "pass",
         "github.com/yetone/magpie/internal/edit": "pass",
+        "github.com/yetone/magpie/internal/catalog": "pass",
+        "github.com/yetone/magpie/internal/appdir": "pass",
+        "github.com/yetone/magpie/internal/omarchy": "pass",
         "github.com/yetone/magpie/internal/netproxy": "pass",
         "github.com/yetone/magpie/internal/imagemcp": "pass",
-        "github.com/yetone/magpie/internal/omarchy": "pass",
+        "github.com/yetone/magpie/internal/profile": "pass",
         "github.com/yetone/magpie/internal/qoder": "pass",
         "github.com/yetone/magpie/internal/redact": "pass",
-        "github.com/yetone/magpie/internal/profile": "pass",
-        "github.com/yetone/magpie/internal/shortcut": "pass",
-        "github.com/yetone/magpie/internal/steady": "skip",
         "github.com/yetone/magpie/internal/settings": "pass",
+        "github.com/yetone/magpie/internal/steady": "skip",
+        "github.com/yetone/magpie/internal/shortcut": "pass",
         "github.com/yetone/magpie/internal/stats": "pass",
         "github.com/yetone/magpie/internal/backup": "pass",
         "github.com/yetone/magpie/internal/zed": "pass",
@@ -154,10 +154,6 @@
           "test": "TestResolveAppImage"
         },
         {
-          "package": "github.com/yetone/magpie/internal/netproxy",
-          "test": "TestBunThroughBridge"
-        },
-        {
           "package": "github.com/yetone/magpie/internal/provider",
           "test": "TestAccountOrderPluginAccounts"
         },
@@ -168,6 +164,10 @@
         {
           "package": "github.com/yetone/magpie/internal/plugin",
           "test": "TestHostFallsBackWhenTheNewBunDies"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/netproxy",
+          "test": "TestBunThroughBridge"
         },
         {
           "package": "github.com/yetone/magpie/internal/plugin",
@@ -306,12 +306,12 @@
           "test": "TestZedPluginGetsNoDeveloperRole"
         },
         {
-          "package": "github.com/yetone/magpie/internal/gateway",
-          "test": "TestLiveCodexSealedAgentGuidance"
-        },
-        {
           "package": "github.com/yetone/magpie/internal/provider",
           "test": "TestGrokPluginSignInInstallsCLI"
+        },
+        {
+          "package": "github.com/yetone/magpie/internal/gateway",
+          "test": "TestLiveCodexSealedAgentGuidance"
         },
         {
           "package": "github.com/yetone/magpie/internal/gateway",
@@ -409,7 +409,7 @@
     },
     "race-oauth-extended": {
       "test_and_subtest_results": {
-        "pass": 28,
+        "pass": 35,
         "fail": 0,
         "skip": 0
       },
@@ -533,6 +533,25 @@
       "log_sha256": "36863f80e5c395681a7dd89d9e0291c8cb4e0f918b31f2050ef1d934f949f4f2",
       "credential_environment": "temporary HOME/XDG; allowlist; no live credentials",
       "go_version": "go version go1.26.3 darwin/arm64"
+    },
+    {
+      "name": "red-review-claims",
+      "command": [
+        "/Users/zhaojianzhi/.local/bin/go",
+        "test",
+        "-mod=readonly",
+        "-tags",
+        "nogui",
+        "-count=1",
+        "./internal/provider",
+        "-run",
+        "^TestGeminiOwnLoginOnlyGeminiCLIsClient$"
+      ],
+      "exit_code": 1,
+      "seconds": 2.5,
+      "log_sha256": "5d142e8d8c5337c6c8756fac006f04405101b4ce2ce8b934051e057b6c083293",
+      "credential_environment": "temporary HOME/XDG; allowlist; no live credentials",
+      "go_version": "go version go1.26.3 darwin/arm64"
     }
   ],
   "known_warnings": [
@@ -551,5 +570,28 @@
     "Windows/Linux execution",
     "Fusion WP-01-WP-30 and T01-T60",
     "OpenAI/Grok/GLM real subscriptions"
+  ],
+  "review_fix_green_evidence": {
+    "name": "green-review-claims",
+    "command": [
+      "/Users/zhaojianzhi/.local/bin/go",
+      "test",
+      "-mod=readonly",
+      "-tags",
+      "nogui",
+      "-count=1",
+      "./internal/provider",
+      "-run",
+      "^Test(GoogleOAuth|GeminiOwnLoginOnlyGeminiCLIsClient)"
+    ],
+    "exit_code": 0,
+    "seconds": 2.37,
+    "log_sha256": "c091dd3b41686b703519d693bc21be42d7b44e5b37248bcc17e5b6a098882100",
+    "credential_environment": "temporary HOME/XDG; allowlist; no live credentials",
+    "go_version": "go version go1.26.3 darwin/arm64"
+  },
+  "independent_review": "oauth-review-report.json",
+  "unsupported": [
+    "Windows private Google OAuth clients: ACL validation not implemented; current check refuses synthetic POSIX modes"
   ]
 }

@@ -179,13 +179,47 @@ func geminiOwnLogin() (googleAccount, bool) {
 // when there is none to tell.
 func googleClientOf(idToken string) string {
 	c := jwtClaims(idToken)
-	if azp := claimString(c, "azp"); azp != "" {
-		if aud := claimString(c, "aud"); aud != "" && aud != azp {
+	azp := ""
+	if value, present := c["azp"]; present {
+		var ok bool
+		azp, ok = value.(string)
+		if !ok || azp == "" {
 			return ""
 		}
-		return azp
 	}
-	return claimString(c, "aud")
+	audiences := []string{}
+	if value, present := c["aud"]; present {
+		switch v := value.(type) {
+		case string:
+			if v == "" {
+				return ""
+			}
+			audiences = append(audiences, v)
+		case []any:
+			if len(v) == 0 {
+				return ""
+			}
+			for _, item := range v {
+				audience, ok := item.(string)
+				if !ok || audience == "" {
+					return ""
+				}
+				audiences = append(audiences, audience)
+			}
+		default:
+			return ""
+		}
+	}
+	client := azp
+	if client == "" && len(audiences) > 0 {
+		client = audiences[0]
+	}
+	for _, audience := range audiences {
+		if audience != client {
+			return ""
+		}
+	}
+	return client
 }
 
 // envFileValue is one KEY=value of a dotenv file.

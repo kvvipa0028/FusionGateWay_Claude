@@ -166,9 +166,17 @@ func TestGeminiOwnLoginOnlyGeminiCLIsClient(t *testing.T) {
 		{"antigravity aud only", idToken(map[string]any{"aud": "fake-antigravity-client"}), false},
 		{"conflicting audience", idToken(map[string]any{"azp": "fake-gemini-client", "aud": "fake-antigravity-client"}), false},
 		{"malformed id token", "not-a-jwt", false},
+		{"other audience array", idToken(map[string]any{"azp": "fake-gemini-client", "aud": []any{"fake-antigravity-client"}}), false},
+		{"numeric audience", idToken(map[string]any{"azp": "fake-gemini-client", "aud": 123}), false},
+		{"array authorized party", idToken(map[string]any{"azp": []any{"fake-antigravity-client"}, "aud": "fake-gemini-client"}), false},
+		{"mixed audience array", idToken(map[string]any{"azp": "fake-gemini-client", "aud": []any{"fake-gemini-client", "fake-antigravity-client"}}), false},
+		{"matching audience array", idToken(map[string]any{"azp": "fake-gemini-client", "aud": []any{"fake-gemini-client"}}), true},
+		{"audience array only", idToken(map[string]any{"aud": []any{"fake-gemini-client"}}), true},
+		{"null audience", idToken(map[string]any{"azp": "fake-gemini-client", "aud": nil}), false},
 	} {
 		t.Run(c.name, func(t *testing.T) {
-			googleSandbox(t, &fakeGoogle{})
+			fake := &fakeGoogle{}
+			googleSandbox(t, fake)
 			dir := geminiDir()
 			os.MkdirAll(dir, 0o700)
 			creds, _ := json.Marshal(map[string]any{"access_token": "old", "refresh_token": "rt-own", "expiry_date": 1, "id_token": c.idToken})
@@ -183,6 +191,9 @@ func TestGeminiOwnLoginOnlyGeminiCLIsClient(t *testing.T) {
 			}
 			if n := len(googleLoginList("antigravity")); n != 0 {
 				t.Errorf("antigravity lists %d accounts", n)
+			}
+			if len(fake.heads) != 0 {
+				t.Error("account identity check contacted upstream")
 			}
 		})
 	}
