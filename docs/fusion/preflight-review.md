@@ -16,8 +16,8 @@
 
 以下问题已一并提交给用户。答案到达前不开始依赖这些决定的产品实现；认证信息不写入聊天、计划、证据或 Git。
 
-1. **需求基线：已确认。** 用户于 2026-10-03 回复“我逐一回答，1，是。”，确认以当前仓库实施计划、工作包、验收矩阵和需求摘录作为本次完整需求基线，覆盖全部 30 个工作包及 60 类验收。未取得的原 v1.1 / ZIP 不作为等待开工的前置输入；缺少原件时，仍不能声称已核验 T01–T45 与原文逐字一致。其余四项按用户后续逐项答复记录。
-2. **真实三路验证：部分已确认。** 用户于 2026-10-03 回复“2，openai和x我可以给你登录授权，glm是中国大陆地区套餐。”，说明可提供 OpenAI / X 登录授权，并确认 GLM 为 CN 套餐。实际官方登录及三路核验尚未执行；GLM 的具体套餐名称、受支持编码工具待补充。额外付费默认禁止，无法验证原生 on-demand 行为时保持 billing_unverified，不发生成探针。
+1. **需求基线：已确认。** 用户于 2026-10-03 回复“我逐一回答，1，是。”，确认以当前仓库实施计划、工作包、验收矩阵和需求摘录作为本次完整需求基线，覆盖全部 30 个工作包及 60 类验收。未取得的原 v1.1 / ZIP 不作为等待开工的前置输入；缺少原件时，仍不能声称已核验 T01–T45 与原文逐字一致。其余四项的逐项答案见下文。
+2. **接入选择：已确认，真实三路验证未执行。** 用户于 2026-10-03 回复“2，openai和x我可以给你登录授权，glm是中国大陆地区套餐。”，说明可提供 OpenAI / X 登录授权，并确认 GLM 为 CN 套餐。随后用户明确 GLM 用 API key，并确认 Coding Plan 编码套餐；地区为 CN。Agent 默认选择官方列出的 Codex 作为独立 GLM 编码宿主候选，具体合同见 [GLM 接入决定](decisions/glm-coding-plan-api-key.md)。实际官方登录、私有 key 提供、套餐档位/权益核验及三路验证尚未执行；这些是执行输入，不再重复询问接入方式。额外付费默认禁止，无法验证原生 on-demand 行为时保持 billing_unverified，不发生成探针。
 3. **部署与项目边界：已确认。** 用户于 2026-10-03 回复“本机操作，一个文件夹作为项目”，确认使用当前本机进行部署、运行与验证，项目以单个本地文件夹为边界。按此决定，WP-25 的宿主由原计划中的 Mac mini 改为当前 macOS/arm64 本机，采用本地操作与默认 loopback 访问。Agent 选定默认试点目录为 `/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/pilot-project`，在对应工作包实施时建立；这是本地默认值，不是用户提供的现有项目路径。目录位置无需另行确认。文件夹本身不要求预先具有 Git 仓库，执行副本和产物版本仍按计划管理。当前尚未部署、建立试点内容或执行真实个人项目试点；空目录或合成项目不作为真实项目试点通过证据，实际覆盖在 WP-26 报告中记录。
 4. **Jev 范围：已确认。** 用户于 2026-10-03 回复“先保持off”，确定当前模式为 `off`，不进行真实 Jev 分类调用、shadow 评估、assist 路由或评估数据外发。WP-28/WP-29 保留在实施范围内，使用离线 fixture 验证相关功能和关闭状态；真实 shadow 的样本、成本及效果尚未验证，不将离线结果作为启用依据。后续开启真实 shadow 需用户另行授权，assist 仍需满足评估证据及用户接受条件。本轮只记录决定，产品开关尚未实现。
 5. **上游 OAuth 常量与推送：已选择 A。** 用户于 2026-10-03 回复“选A”，授权移出四个硬编码值、使用本机私有客户端配置，并清理本任务未发布历史后推送 origin。实现覆盖缺配置拒绝、缓存前身份检查、客户端版本、固定登录回调和显式重新导入；没有申请保护例外或改变仓库规则。实际验证及历史/推送结果在 OAuth 交付报告中独立记录，不作为 Fusion 工作包验收。
@@ -72,4 +72,4 @@ Google 的 [桌面 OAuth 文档](https://developers.google.com/identity/protocol
 - `AGENTS.md` 的迁移说明：Moved provider 由社区 plugin host 执行；旧内置测试不能证明当前插件出口可控。
 - 本地 CLI help：Codex App Server 提供 schema 生成入口；Grok 提供结构化输出、model、reasoning-effort、sandbox、no-subagents 和独立 leader socket 参数。只说明接口存在，不证明实际隔离、恢复或锁定效果。
 
-审阅清单及文档 hash 见 [preflight-inventory.json](preflight-inventory.json)，首次推送的脱敏结果见 [push-protection-report.json](push-protection-report.json)。第五项的具体影响与验证范围见 [OAuth 处理方案](decisions/oauth-push-protection-options.md)。用户答案已逐项记录；GLM 的具体套餐及编码工具仍待补充，OAuth 前置修复按本次明确授权推进。
+审阅清单及文档 hash 见 [preflight-inventory.json](preflight-inventory.json)，首次推送的脱敏结果见 [push-protection-report.json](push-protection-report.json)。第五项的具体影响与验证范围见 [OAuth 处理方案](decisions/oauth-push-protection-options.md)。五项预审的设计选择已逐项记录完整。GLM 确定为 CN Coding Plan + API key，受管 Codex 为 Agent 选择的宿主候选；真实凭据及三路验证仍待后续执行输入。OAuth 前置修复已独立验证、清理历史并推送。

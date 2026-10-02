@@ -46,3 +46,7 @@ python3 scripts/fusion/verify-baseline.py
 ## Google OAuth 前置修复
 
 用户已选择外部客户端配置方案，Google 订阅路径不再提供上游硬编码客户端值。配置和旧账号处理见 [Google OAuth 外部配置](decisions/google-oauth-external-config.md)；当前可以保持未配置。`baseline/` 是修改前的上游基线记录，修复后的 [验证报告](decisions/oauth-validation-report.md)、[未发布历史清理](decisions/oauth-history-cleanup.json)、[GitHub 推送回读](decisions/oauth-push-readback.json) 和 [执行取舍](decisions/oauth-execution-decisions.md) 已归档；开发分支 `fusion/implementation` 已推送。原基线二进制不代表当前代码。
+
+## GLM 接入选择
+
+GLM 已确定为中国大陆 Coding Plan + API key；按现有计划以独立配置的受管 Codex 作为宿主候选。端点、认证/计费边界与未验证项见 [GLM 接入决定](decisions/glm-coding-plan-api-key.md)。这项配置选择不代表真实 key 已提供或 WP-14 已完成。

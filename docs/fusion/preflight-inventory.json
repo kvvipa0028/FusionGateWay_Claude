@@ -43,8 +43,8 @@
   "documents": [
     {
       "path": "docs/fusion/README.md",
-      "sha256": "0231ec69c2d6882de63e768ba1c4cf26961657bd3e214d816117072077c444bd",
-      "bytes": 3980
+      "sha256": "80f37d164e41faf9f756e10d78d64ca7d64e95aff8ed41de6f866ea54ea27673",
+      "bytes": 4298
     },
     {
       "path": "docs/fusion/baseline/artifacts.json",
@@ -105,6 +105,11 @@
       "path": "docs/fusion/baseline/vet.log",
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "bytes": 0
+    },
+    {
+      "path": "docs/fusion/decisions/glm-coding-plan-api-key.md",
+      "sha256": "d9ca209128f8fc4921aa1c01503c12513b18aaf542114db1759aeaed60f72ed9",
+      "bytes": 3773
     },
     {
       "path": "docs/fusion/decisions/google-oauth-external-config.md",
@@ -173,8 +178,8 @@
     },
     {
       "path": "docs/fusion/preflight-review.md",
-      "sha256": "c7e2191a30275e41eab9f6fbfd2e1cf196446a9089adcadf8e345baa7d4c166f",
-      "bytes": 12287
+      "sha256": "71d209af00e6d4bf45a8bcd4fb29688e78f16afcd2d21b339e8c8eccb9ef3558",
+      "bytes": 12708
     },
     {
       "path": "docs/fusion/push-protection-report.json",
@@ -183,8 +188,8 @@
     },
     {
       "path": "docs/fusion/requirements-summary.md",
-      "sha256": "8c0750f0492928a74bb68ee1aec0ac60e2e2d261ea2698e4c12156b54cbd91f0",
-      "bytes": 4566
+      "sha256": "4f85deff4c9eb0d5e8f687c5c209693e1aa9e383eb0163678904a7986c055798",
+      "bytes": 4837
     },
     {
       "path": "docs/fusion/upstream/AGENTS.magpie.md",
@@ -214,9 +219,7 @@
   ],
   "product_implementation_started": false,
   "product_tests_executed": false,
-  "pending_user_answers": [
-    "real_runtime_authorization_and_glm_scope"
-  ],
+  "pending_user_answers": [],
   "baseline_checks": "prior six logs verified against recorded SHA256; unchanged checks not rerun",
   "known_upstream_whitespace_issue": "internal/provider/zcode_team.go:385: new blank line at EOF",
   "runtime_versions": {
@@ -238,17 +241,37 @@
       "decision": "Current repository implementation plan, all 30 work packages, 60 acceptance families and requirements summary are the complete requirements baseline"
     },
     "real_runtime_authorization_and_glm_scope": {
-      "status": "partially_confirmed",
+      "status": "configuration_confirmed_runtime_unverified",
       "answered_at": "2026-10-03",
       "user_answer": "2，openai和x我可以给你登录授权，glm是中国大陆地区套餐。",
       "openai_login_authorization": "user_offers_authorization",
       "x_login_authorization": "user_offers_authorization",
       "glm_region": "CN",
-      "glm_plan_name": "awaiting_confirmation",
-      "glm_coding_host": "awaiting_confirmation",
+      "glm_plan_name": "Coding Plan",
+      "glm_coding_host": "codex",
       "official_login_completed": false,
       "real_smoke_tests_executed": false,
-      "allow_paid_fallback": false
+      "allow_paid_fallback": false,
+      "followup_answers": [
+        {
+          "answered_at": "2026-10-03",
+          "user_answer": "Glm使用api key",
+          "decision": "API key authentication"
+        },
+        {
+          "answered_at": "2026-10-03",
+          "user_answer": "Coding Plan 编码套餐",
+          "decision": "CN GLM Coding Plan"
+        }
+      ],
+      "glm_authentication": "api_key",
+      "glm_route_kind": "coding_plan",
+      "glm_plan_tier": "not_verified",
+      "glm_coding_host_origin": "agent_selected_default_candidate_officially_listed",
+      "glm_coding_host_verified": false,
+      "glm_credentials_provided": false,
+      "glm_direct_gateway_generation_admitted": false,
+      "glm_decision": "docs/fusion/decisions/glm-coding-plan-api-key.md"
     },
     "deployment_and_pilot_target": {
       "status": "confirmed",
@@ -299,5 +322,11 @@
   "preparation_commit_original": "7abfcb3574d79c50c599df841013001121c24c50",
   "oauth_implementation_verified": true,
   "oauth_validation": "docs/fusion/decisions/oauth-validation-report.json",
-  "oauth_history_cleanup": "docs/fusion/decisions/oauth-history-cleanup.json"
+  "oauth_history_cleanup": "docs/fusion/decisions/oauth-history-cleanup.json",
+  "preflight_design_decisions_complete": true,
+  "remaining_execution_inputs": [
+    "actual_official_openai_x_login",
+    "local_private_glm_api_key",
+    "real_route_capability_billing_and_quota_evidence"
+  ]
 }
