@@ -1,0 +1,195 @@
+{
+  "schema_version": 1,
+  "kind": "preflight_review",
+  "reviewed_at": "2026-10-02T14:55:52.854914+00:00",
+  "upstream_commit": "1a50db1a8afd0849df2853f92a47da9d5e2f2cc9",
+  "observed_upstream_head": "bb42b476637d378981f633175fd48861381a3ef1",
+  "task_count": 30,
+  "test_family_count": 60,
+  "document_consistency": "pass",
+  "dependency_graph": "acyclic",
+  "topological_order": [
+    "WP-01",
+    "WP-02",
+    "WP-03",
+    "WP-04",
+    "WP-05",
+    "WP-06",
+    "WP-07",
+    "WP-08",
+    "WP-09",
+    "WP-10",
+    "WP-11",
+    "WP-12",
+    "WP-13",
+    "WP-14",
+    "WP-15",
+    "WP-16",
+    "WP-17",
+    "WP-18",
+    "WP-19",
+    "WP-20",
+    "WP-21",
+    "WP-22",
+    "WP-23",
+    "WP-24",
+    "WP-25",
+    "WP-30",
+    "WP-26",
+    "WP-27",
+    "WP-28",
+    "WP-29"
+  ],
+  "documents": [
+    {
+      "path": "docs/fusion/README.md",
+      "sha256": "7456ceb5177eecfb019a5e3ead8394e66a4e7ce3e78ce7d8fda091e65158a2b3",
+      "bytes": 3274
+    },
+    {
+      "path": "docs/fusion/baseline/artifacts.json",
+      "sha256": "dc5c7981ddf2b1fcb5fc5e988574b7e82736d44df0e15d721a92f07d2766b1e6",
+      "bytes": 342
+    },
+    {
+      "path": "docs/fusion/baseline/baseline-report.md",
+      "sha256": "72ce11f6398dbcc09e8691c1e5890143cf63193e5fcd220fd25839dc314b1702",
+      "bytes": 4987
+    },
+    {
+      "path": "docs/fusion/baseline/build-cli-initial.log",
+      "sha256": "c548dda1c12afb6355254313c24471f7112a35c5a349203e0c7ebe8b890a3ee2",
+      "bytes": 55907
+    },
+    {
+      "path": "docs/fusion/baseline/build-cli.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/fusion/baseline/build-gui.log",
+      "sha256": "894bbc449378776317a982ed24043e87736cf96b5eca8c9ee8995614b53f8a09",
+      "bytes": 5894
+    },
+    {
+      "path": "docs/fusion/baseline/dependencies.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/fusion/baseline/feature-to-code-map.md",
+      "sha256": "c30ee08e9920a885542ef4c5ec91cd4cf8db42b29a95e11c72c2e2868e847f7e",
+      "bytes": 1880
+    },
+    {
+      "path": "docs/fusion/baseline/module-integrity.log",
+      "sha256": "b4537ed75f533f993f371954de47e42a793b8e5b0587577de7e27fb3e50696bd",
+      "bytes": 21
+    },
+    {
+      "path": "docs/fusion/baseline/targeted-tests.log",
+      "sha256": "fe5e418d8bf65cea22ae872d0c807186106cf7920aba7e3eafdc138f87d44b94",
+      "bytes": 269
+    },
+    {
+      "path": "docs/fusion/baseline/verification-results-initial.json",
+      "sha256": "908036b3ecadb6cecf93967acbcce26ddc93fe5c43b1c130420fdad224351048",
+      "bytes": 1530
+    },
+    {
+      "path": "docs/fusion/baseline/verification-results.json",
+      "sha256": "0a45400d62edc6b7de8ae1b5fdbbd56742b689d31cae8ff639beec1260d9df90",
+      "bytes": 3108
+    },
+    {
+      "path": "docs/fusion/baseline/vet.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/fusion/planning/Fusion_Magpie_Fork_Agent工作包_v1.0.md",
+      "sha256": "2ae1f640d13ab257bfb4bb63a26d1518ca657598ea2c5f67455ee13f4ae1115b",
+      "bytes": 50295
+    },
+    {
+      "path": "docs/fusion/planning/Fusion_Magpie_Fork_实施计划_v1.0.md",
+      "sha256": "52c491ece13f60035330d09a773cc6b028713c6676af1d5259c28c6068b0c8c0",
+      "bytes": 32609
+    },
+    {
+      "path": "docs/fusion/planning/Fusion_Magpie_Fork_验收矩阵_v1.0.md",
+      "sha256": "13d34243622d483380e42f99d3ac031447bf1c07601bbed5bee2b5207f65a4e5",
+      "bytes": 11780
+    },
+    {
+      "path": "docs/fusion/planning/acceptance_tests.json",
+      "sha256": "4113c751bbab29a73b3c7e6baead540e38ccb04719bbc2d56764b2400cd5072e",
+      "bytes": 19602
+    },
+    {
+      "path": "docs/fusion/planning/implementation_tasks.json",
+      "sha256": "286125b00ef2a9ed249c9daadb3ec8ddc7f75b93766f6aaf414ef142bad2b4b1",
+      "bytes": 17416
+    },
+    {
+      "path": "docs/fusion/preflight-review.md",
+      "sha256": "41cb5914885413294b66d7bb6831ac1cd738a3d2d5a7ac0ce4ce4f1041b4fc6d",
+      "bytes": 10819
+    },
+    {
+      "path": "docs/fusion/push-protection-report.json",
+      "sha256": "d9103b1bcdfabe2a94fa7c5757b932c2027edd050438601e4bab1392799f2b31",
+      "bytes": 1305
+    },
+    {
+      "path": "docs/fusion/requirements-summary.md",
+      "sha256": "c6d1082a774f43d2d9994a6bdc40f9db15ee383035b32d200796c1dfb9960752",
+      "bytes": 2934
+    },
+    {
+      "path": "docs/fusion/upstream/AGENTS.magpie.md",
+      "sha256": "e66bb1f099a2bf3c70003b681bce099ab727db57de442da4e6cbc71564d8ee77",
+      "bytes": 4218
+    },
+    {
+      "path": "docs/fusion/upstream/LICENSE.magpie",
+      "sha256": "79d2c8444715d4bc453ec4f8a0aaf2051a4c1ee5ac08f5bd2e5848aef87c7572",
+      "bytes": 1063
+    },
+    {
+      "path": "docs/fusion/upstream/README.magpie.md",
+      "sha256": "d389bf3af99774d31554a4314b1dd944a446ffff6fa58c184508c0a647a74462",
+      "bytes": 56504
+    },
+    {
+      "path": "docs/fusion/upstream/delta-from-plan.txt",
+      "sha256": "dd39c5af3cfc0343f61d4a41b8fd7d810eb31e48ae3687f8828ed94c3503dfea",
+      "bytes": 3742
+    },
+    {
+      "path": "docs/fusion/upstream-lock.json",
+      "sha256": "9d933a250b51f4e665f656dc736e0680f1fd70eea0c26af4405e6926615f35f5",
+      "bytes": 1933
+    }
+  ],
+  "product_implementation_started": false,
+  "product_tests_executed": false,
+  "pending_user_answers": [
+    "requirements_baseline",
+    "real_runtime_authorization_and_glm_scope",
+    "deployment_and_pilot_target",
+    "jev_evaluation_scope",
+    "upstream_oauth_constants_and_push_protection"
+  ],
+  "baseline_checks": "prior six logs verified against recorded SHA256; unchanged checks not rerun",
+  "known_upstream_whitespace_issue": "internal/provider/zcode_team.go:385: new blank line at EOF",
+  "runtime_versions": {
+    "codex": "0.160.0",
+    "grok": "1.0.48 (b94d5072c95f)",
+    "codexbar": "0.70.0",
+    "go": "1.26.3 darwin/arm64"
+  },
+  "preparation_commit": "7abfcb3574d79c50c599df841013001121c24c50",
+  "branch": "fusion/implementation",
+  "push_status": "rejected_by_GitHub_push_protection"
+}
