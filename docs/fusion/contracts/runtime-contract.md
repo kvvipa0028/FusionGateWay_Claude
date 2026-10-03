@@ -37,3 +37,5 @@ WP-14-ADAPTER-01 的 glm.Adapter 实现公共 Runtime 接口。可信配置必�
 启动前 CheckPrepared 无调用计费地重查 starting/run owner/冻结 target、当前路线/权限/额度/验证证据与物理 reservation；加载凭据后再次检查。核对固定 CLI SHA256、生成 Native UUID、构造固定 argv、启动后的 model grant、CallGate 与可信协议 validator。凭据 Identity 必须等于冻结 credential_identity，真实 key 不进入 Spec/env/observation。所有 HTTP 使用 Scheduler.Permit，不能用任意回调替代持久预算。
 
 Adapter 的 Observation 仅在同 generation 的终态后读取，包含已解析 Native 输出与文本；未完成拒绝，非成功终态不返回成功文本或状态，所有独立验证 flags 保持 false。它不代表工程验收或恢复授权。每个 Adapter/Supervisor 最多保留 4096 条执行记录，Resume 仍 unsupported；Release 使用本 Adapter 的可信 Supervisor StopProof。产品控制器注册与真实路线证据仍未完成，详见 [Adapter 证据](../work-items/WP-14/ADAPTER-01/summary.md)。
+
+[READ-01](grok-read-tools.md) 提供绑定到同一任务Cwd的可选文本Read授权与Native trace/后续HTTP关联；公共Adapter/Worker注册、真正OS隔离、恢复与停止证明仍待接入。

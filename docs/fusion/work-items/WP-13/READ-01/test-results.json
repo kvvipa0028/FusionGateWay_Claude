@@ -1,0 +1,72 @@
+{
+  "work_item": "WP-13-READ-01",
+  "status": "done_component",
+  "parent_work_item": "WP-13",
+  "parent_status": "in_progress",
+  "checks": [
+    {
+      "command": "go test -race -v -count=1 -timeout=60s -mod=readonly -tags fusion,nogui ./internal/fusion/runtime/grok",
+      "exit_code": 0,
+      "top_level_pass": 34,
+      "top_level_fail": 0,
+      "top_level_skip": 3,
+      "log": "wp13-read-green.log"
+    },
+    {
+      "command": "go test -race -v -count=1 -timeout=60s -mod=readonly -tags fusion,nogui ./internal/fusion/...",
+      "exit_code": 0,
+      "top_level_pass": 399,
+      "top_level_fail": 0,
+      "top_level_skip": 13,
+      "log": "wp13-read-fusion-tagged-race.log"
+    },
+    {
+      "command": "go test -race -v -count=1 -timeout=150s -mod=readonly -tags fusion,nogui ./internal/fusion/runtime/grok -run '^TestGrok(CallGatePinnedNative|ControlledReadPinnedNative)' -fusion-native-grok /Users/zhaojianzhi/.grok/downloads/grok-1.0.48-macos-aarch64",
+      "exit_code": 0,
+      "top_level_pass": 3,
+      "top_level_fail": 0,
+      "top_level_skip": 0,
+      "log": "wp13-read-native-final.log"
+    }
+  ],
+  "build_report": "build-results.json",
+  "red_logs": [
+    "wp13-read-red.log",
+    "wp13-read-orphan-red.log",
+    "wp13-read-secret-red.log",
+    "wp13-read-type-harness-red.log",
+    "wp13-read-native-red.log"
+  ],
+  "new_native_cases": [
+    {
+      "mode": "controlled_read",
+      "native_exit_code": 0,
+      "http_permits": 3,
+      "persistent_used_calls": 3,
+      "end_model_calls": 2,
+      "tool_trace_verified_for_fixture": true
+    },
+    {
+      "mode": "controlled_private_config",
+      "native_exit_code": 1,
+      "http_permits": 2,
+      "persistent_used_calls": 2,
+      "tool_events": 0,
+      "grant_reflection": false
+    }
+  ],
+  "synthetic_inspection_only": true,
+  "real_model_calls": 0,
+  "real_quota_calls": 0,
+  "real_credentials_used": false,
+  "route_admitted": false,
+  "all_calls_verified": false,
+  "strict_lock_verified": false,
+  "billing_verified": false,
+  "quota_verified": false,
+  "production_worker_isolation_verified": false,
+  "resume_verified": false,
+  "cancel_stop_verified": false,
+  "write_tool_execution_verified": false,
+  "jev": "off"
+}

@@ -1,0 +1,38 @@
+=== RUN   TestGrokControlledReadPinnedNative
+=== RUN   TestGrokControlledReadPinnedNative/controlled_read
+    call_gate_native_test.go:48: synthetic Native error: Internal error: {
+          "message": "API error (status 400 Bad Request): invalid_request_error: Bad Request",
+          "http_status": 400,
+          "promptUsage": {
+            "inputTokens": 3,
+            "outputTokens": 2,
+            "totalTokens": 5,
+            "cachedReadTokens": 0,
+            "cacheCreationTokens": 0,
+            "reasoningTokens": 0,
+            "modelCalls": 1,
+            "apiDurationMs": 32,
+            "modelUsage": {
+              "fixture-model": {
+                "inputTokens": 3,
+                "outputTokens": 2,
+                "totalTokens": 5,
+                "cachedReadTokens": 0,
+                "cacheCreationTokens": 0,
+                "reasoningTokens": 0,
+                "modelCalls": 1,
+                "apiDurationMs": 32
+              }
+            },
+            "numTurns": 1
+          }
+        }
+    call_gate_native_test.go:48: synthetic Native failed exit status 1 {3 2 2 2 0 true} stdout bytes 3194 stderr bytes 1800
+=== RUN   TestGrokControlledReadPinnedNative/controlled_private_config
+    call_gate_native_test.go:48: Pinned Native private config tool instruction rejected before tool event; two synthetic HTTP/budget charges, Native exit1; no private grant reflection
+--- FAIL: TestGrokControlledReadPinnedNative (3.65s)
+    --- FAIL: TestGrokControlledReadPinnedNative/controlled_read (0.83s)
+    --- PASS: TestGrokControlledReadPinnedNative/controlled_private_config (2.82s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/grok	4.299s
+FAIL

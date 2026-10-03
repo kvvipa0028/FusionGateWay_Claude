@@ -1,0 +1,38 @@
+=== RUN   TestReadToolsOrphanEmptyIDIsRefused
+--- FAIL: TestReadToolsOrphanEmptyIDIsRefused (0.00s)
+panic: runtime error: invalid memory address or nil pointer dereference [recovered, repanicked]
+[signal SIGSEGV: segmentation violation code=0x2 addr=0x0 pc=0x104ba4b08]
+
+goroutine 21 [running]:
+testing.tRunner.func1.2({0x1051bf900, 0x1052eaf20})
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:1974 +0x2b8
+testing.tRunner.func1()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:1977 +0x460
+panic({0x1051bf900?, 0x1052eaf20?})
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/panic.go:860 +0x12c
+github.com/yetone/magpie/internal/fusion/runtime/grok.(*ReadTools).messages(0xc0000dc1e0, {0xc0001a8960, 0x1, 0x63?}, 0x0)
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/runtime/grok/read_tools.go:258 +0x5b8
+github.com/yetone/magpie/internal/fusion/runtime/grok.(*ReadTools).request(0xc0000dc1e0, {0xc0001a8960, 0x1, 0x1}, 0x0)
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/runtime/grok/read_tools.go:281 +0xc4
+github.com/yetone/magpie/internal/fusion/runtime/grok.(*CallGate).request(0xc0000e4008, {0xc0004e8600, 0x63, 0x200})
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/runtime/grok/call_gate.go:363 +0x794
+github.com/yetone/magpie/internal/fusion/runtime/grok.(*CallGate).call(0xc0000e4008, {0x105276058, 0xc0000d81c0}, 0xc000000c80)
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/runtime/grok/call_gate.go:197 +0x544
+net/http.HandlerFunc.ServeHTTP(0xc00019f710, {0x105276058, 0xc0000d81c0}, 0xc000000c80)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/net/http/server.go:2286 +0x4c
+github.com/yetone/magpie/internal/fusion/runtime/grok.NewCallGate.(*Manager).Stage.func2({0x105276058, 0xc0000d81c0}, 0xc000000b40)
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/policy/auth.go:327 +0x150
+net/http.HandlerFunc.ServeHTTP(0xc00017e240, {0x105276058, 0xc0000d81c0}, 0xc000000b40)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/net/http/server.go:2286 +0x4c
+github.com/yetone/magpie/internal/fusion/runtime/grok.(*CallGate).ServeHTTP(0xc0000e4008, {0x105276058, 0xc0000d81c0}, 0xc000000a00)
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/runtime/grok/call_gate.go:123 +0x200
+github.com/yetone/magpie/internal/fusion/runtime/grok.send(0xc0001ee488, 0xc0000e4008, 0xc0001ee6c8, {0x104c5f4eb, 0x63}, {0x104c47501, 0x14})
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/runtime/grok/call_gate_test.go:83 +0x62c
+github.com/yetone/magpie/internal/fusion/runtime/grok.TestReadToolsOrphanEmptyIDIsRefused(0xc0001ee488)
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/runtime/grok/read_tools_test.go:221 +0x6c
+testing.tRunner(0xc0001ee488, 0x10526c290)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2036 +0x168
+created by testing.(*T).Run in goroutine 1
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2101 +0x7c0
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/grok	0.642s
+FAIL

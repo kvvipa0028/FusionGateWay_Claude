@@ -1,0 +1,9 @@
+# github.com/yetone/magpie/internal/fusion/runtime/grok [github.com/yetone/magpie/internal/fusion/runtime/grok.test]
+internal/fusion/runtime/grok/read_tools_test.go:16:48: undefined: ReadTools
+internal/fusion/runtime/grok/read_tools_test.go:25:10: undefined: NewReadTools
+internal/fusion/runtime/grok/read_tools_test.go:30:11: f.config.ReadTools undefined (type CallGateConfig has no field or method ReadTools)
+internal/fusion/runtime/grok/read_tools_test.go:74:10: undefined: NewReadSession
+internal/fusion/runtime/grok/read_tools_test.go:208:13: undefined: NewReadSession
+internal/fusion/runtime/grok/read_tools_test.go:212:13: undefined: NewReadTools
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/grok [build failed]
+FAIL

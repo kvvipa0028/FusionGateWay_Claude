@@ -44,10 +44,11 @@ type ForwardResponse struct {
 func (ForwardResponse) String() string { return "Grok native response (private payload omitted)" }
 
 type CallGateConfig struct {
-	Binding GateBinding
-	Manager *policy.Manager
-	Claims  policy.Claims
-	Current func(GateBinding) bool
+	Binding   GateBinding
+	ReadTools *ReadTools // optional controller-owned pre-execution read scope
+	Manager   *policy.Manager
+	Claims    policy.Claims
+	Current   func(GateBinding) bool
 	// Must recheck route, quota, permissions, physical reservation and spend
 	// the shared persistent budget atomically (Scheduler.Permit in production).
 	Permit    func(context.Context, policy.Claims, stageplan.ExecutionTarget, int) error
@@ -58,6 +59,7 @@ type CallAudit struct {
 	Uncertain                                          bool
 }
 type CallGate struct {
+	read                                                       *ReadTools
 	binding                                                    GateBinding
 	manager                                                    *policy.Manager
 	claims                                                     policy.Claims
@@ -103,7 +105,10 @@ func NewCallGate(c CallGateConfig) (*CallGate, error) {
 	} else if (t.Effort.RequestedMode != stageplan.EffortExplicit && t.Effort.RequestedMode != stageplan.EffortDefault) || t.Effort.Value == nil || !modelID.MatchString(*t.Effort.Value) {
 		return nil, ErrUnverified
 	}
-	g := &CallGate{binding: copyGate(c.Binding), manager: c.Manager, claims: c.Claims, current: c.Current, permit: c.Permit, forwarder: c.Forwarder, queue: make(chan struct{}, 4)}
+	if c.ReadTools != nil && (!c.ReadTools.matches(b) || !c.ReadTools.valid()) {
+		return nil, ErrUnverified
+	}
+	g := &CallGate{read: c.ReadTools, binding: copyGate(c.Binding), manager: c.Manager, claims: c.Claims, current: c.Current, permit: c.Permit, forwarder: c.Forwarder, queue: make(chan struct{}, 4)}
 	g.handler = c.Manager.Stage(c.Claims, http.HandlerFunc(g.call))
 	return g, nil
 }
@@ -121,13 +126,13 @@ func (g *CallGate) Audit() CallAudit {
 	return CallAudit{Attempts: g.attempts.Load(), Permits: g.permits.Load(), Forwarded: g.forwarded.Load(), Completed: g.completed.Load(), Retryable: g.retryable.Load(), Uncertain: g.uncertain.Load()}
 }
 func (g *CallGate) live(ctx context.Context) bool {
-	return ctx.Err() == nil && !g.uncertain.Load() && g.manager.ModelCurrent(ctx, g.claims) && g.current(copyGate(g.binding))
+	return ctx.Err() == nil && (g.read == nil || g.read.valid()) && !g.uncertain.Load() && g.manager.ModelCurrent(ctx, g.claims) && g.current(copyGate(g.binding))
 }
 
 // Healthy observes this gate only. It is not admission/all-calls/stop proof.
 // Native's complete protocol and the managed Worker's stop must also validate.
 func (g *CallGate) Healthy(ctx context.Context) bool {
-	return g.live(ctx) && g.active.Load() == 0 && g.completed.Load() > 0 && g.forwarded.Load() == g.completed.Load()+g.retryable.Load()
+	return g.live(ctx) && g.active.Load() == 0 && g.completed.Load() > 0 && (g.read == nil || g.read.ready()) && g.forwarded.Load() == g.completed.Load()+g.retryable.Load()
 }
 func gateError(w http.ResponseWriter, status int) {
 	w.Header().Set("Cache-Control", "no-store")
@@ -146,6 +151,9 @@ func gateError(w http.ResponseWriter, status int) {
 }
 func (g *CallGate) reject(w http.ResponseWriter, status int) {
 	g.uncertain.Store(true)
+	if g.read != nil {
+		g.read.fail()
+	}
 	gateError(w, status)
 }
 func (g *CallGate) acquire(ctx context.Context) (func(), error) {
@@ -186,7 +194,7 @@ func (g *CallGate) call(w http.ResponseWriter, r *http.Request) {
 	defer cancel()
 	raw, e := io.ReadAll(io.LimitReader(r.Body, (1<<20)+1))
 	marker, _ := ctx.Value(markerKey{}).(string)
-	if e != nil || !g.request(raw) || marker != "" && bytes.Contains(raw, []byte(marker)) {
+	if e != nil || !g.request(raw) || marker != "" && (bytes.Contains(raw, []byte(marker)) || privateJSON(raw, []byte(marker))) {
 		g.reject(w, 400)
 		return
 	}
@@ -250,9 +258,21 @@ func (g *CallGate) call(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-	if !completionStream(body, g.binding.Target.ResolvedModel) || !g.live(ctx) {
+	secrets := append([][]byte(nil), response.PrivateMarkers...)
+	if marker != "" {
+		secrets = append(secrets, []byte(marker))
+	}
+	call, valid := parseCompletion(body, g.binding.Target.ResolvedModel, g.read != nil, secrets...)
+	if !valid || !g.live(ctx) {
 		g.reject(w, 502)
 		return
+	}
+	if g.read != nil {
+		messages, title, ok := readRequest(raw)
+		if !ok || g.read.response(messages, title, call, secrets) != nil || !g.live(ctx) {
+			g.reject(w, 502)
+			return
+		}
 	}
 	// Validate the full bounded SSE before releasing anything, so a late model
 	// mismatch, tool instruction, error or incomplete terminal cannot escape.
@@ -262,6 +282,9 @@ func (g *CallGate) call(w http.ResponseWriter, r *http.Request) {
 	n, e := w.Write(body)
 	if e != nil || n != len(body) {
 		g.uncertain.Store(true)
+		if g.read != nil {
+			g.read.fail()
+		}
 		return
 	}
 	g.completed.Add(1)
@@ -326,11 +349,18 @@ func (g *CallGate) request(raw []byte) bool {
 	if decode(f["messages"], &messages) != nil {
 		return false
 	}
-	for i, m := range r.Messages {
-		if m.Content == nil || (m.Role != "system" && m.Role != "user" && m.Role != "assistant") {
-			return false
+	if g.read == nil {
+		for i, m := range r.Messages {
+			if m.Content == nil || (m.Role != "system" && m.Role != "user" && m.Role != "assistant") {
+				return false
+			}
+			if _, ok := object(messages[i], "role", "content"); !ok {
+				return false
+			}
 		}
-		if _, ok := object(messages[i], "role", "content"); !ok {
+	} else {
+		msgs, title, ok := readRequest(raw)
+		if !ok || !g.read.request(msgs, title) {
 			return false
 		}
 	}
@@ -404,15 +434,20 @@ func (g *CallGate) request(raw []byte) bool {
 	return true
 }
 
-// The current native diagnostic establishes text-only Chat Completions SSE.
-// Tool execution, backend search and new delta types remain unsupported.
+// The default remains text-only. Opt-in reads additionally require a complete
+// function call, a pre-execution file grant, and a matched Native tool trace.
 func completionStream(raw []byte, model string) bool {
+	_, ok := parseCompletion(raw, model, false)
+	return ok
+}
+func parseCompletion(raw []byte, model string, allowRead bool, markers ...[]byte) (*readCall, bool) {
 	scanner := bufio.NewScanner(bytes.NewReader(raw))
 	scanner.Buffer(make([]byte, 4096), 1<<20)
 	var data []string
 	id := ""
 	started, stopped, done := false, false, false
 	frames := 0
+	var tool *readCall
 	consume := func() bool {
 		if len(data) == 0 {
 			return true
@@ -434,7 +469,7 @@ func completionStream(raw []byte, model string) bool {
 			return true
 		}
 		fields, ok := object([]byte(payload), "id", "object", "created", "model", "choices", "usage", "system_fingerprint")
-		if !ok {
+		if !ok || privateJSON([]byte(payload), markers...) {
 			return false
 		}
 		var f struct {
@@ -480,7 +515,7 @@ func completionStream(raw []byte, model string) bool {
 			if c.Index == nil || *c.Index != 0 {
 				return false
 			}
-			delta, ok := object(c.Delta, "role", "content")
+			delta, ok := object(c.Delta, "role", "content", "tool_calls")
 			if !ok {
 				return false
 			}
@@ -496,9 +531,67 @@ func completionStream(raw []byte, model string) bool {
 					return false
 				}
 			}
+			if v, ok := delta["tool_calls"]; ok {
+				if !allowRead {
+					return false
+				}
+				var list []json.RawMessage
+				if decode(v, &list) != nil || len(list) != 1 {
+					return false
+				}
+				tc, ok := object(list[0], "index", "id", "type", "function")
+				if !ok {
+					return false
+				}
+				var index int
+				if _, ok := tc["index"]; !ok || json.Unmarshal(tc["index"], &index) != nil || index != 0 {
+					return false
+				}
+				if tool == nil {
+					tool = &readCall{}
+				}
+				for _, field := range []string{"id", "type"} {
+					if value, ok := tc[field]; ok {
+						var text string
+						if json.Unmarshal(value, &text) != nil {
+							return false
+						}
+						if field == "type" {
+							if text != "function" {
+								return false
+							}
+							tool.typed = true
+						}
+						if field == "id" {
+							if !toolID.MatchString(text) || tool.ID != "" && tool.ID != text {
+								return false
+							}
+							tool.ID = text
+						}
+					}
+				}
+				fn, ok := object(tc["function"], "name", "arguments")
+				if !ok {
+					return false
+				}
+				if value, ok := fn["name"]; ok {
+					var name string
+					if json.Unmarshal(value, &name) != nil || name != "read_file" {
+						return false
+					}
+					tool.Name = name
+				}
+				if value, ok := fn["arguments"]; ok {
+					var text string
+					if json.Unmarshal(value, &text) != nil || len(tool.Arguments)+len(text) > 65536 {
+						return false
+					}
+					tool.Arguments += text
+				}
+			}
 			started = true
 			if c.Finish != nil {
-				if *c.Finish != "stop" {
+				if tool == nil && *c.Finish != "stop" || tool != nil && (*c.Finish != "tool_calls" || !tool.typed || tool.ID == "" || tool.Name != "read_file") {
 					return false
 				}
 				stopped = true
@@ -520,20 +613,37 @@ func completionStream(raw []byte, model string) bool {
 		line := scanner.Text()
 		if line == "" {
 			if !consume() {
-				return false
+				return nil, false
 			}
 			continue
 		}
 		if done {
-			return false
+			return nil, false
 		}
 		if strings.HasPrefix(line, ":") {
 			continue
 		}
 		if !strings.HasPrefix(line, "data:") {
-			return false
+			return nil, false
 		}
 		data = append(data, strings.TrimPrefix(strings.TrimPrefix(line, "data:"), " "))
 	}
-	return scanner.Err() == nil && consume() && started && stopped && done
+	return tool, scanner.Err() == nil && consume() && started && stopped && done
+}
+
+func readRequest(raw []byte) ([]json.RawMessage, bool, bool) {
+	var request struct {
+		Messages []json.RawMessage
+		Tools    []struct{ Function struct{ Name string } }
+	}
+	if decode(raw, &request) != nil {
+		return nil, false, false
+	}
+	title := false
+	for _, tool := range request.Tools {
+		if tool.Function.Name == "session_title" {
+			title = true
+		}
+	}
+	return request.Messages, title, true
 }

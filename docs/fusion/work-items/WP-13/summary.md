@@ -11,3 +11,5 @@ Parent 关联 T01/T02/T14/T15/T25/T31/T32/T35/T44/T56/T59 只新增了组件级�
 已完成 [CALLS-01](CALLS-01/summary.md)：每 HTTP 的冻结绑定/ModelAudience/Scheduler 预算、严格文本 SSE 验证和 Native 标题/重试合成诊断。真实 Store/Scheduler 持久化记账通过，但没有生产 NativeForwarder、真实额度准入或受管 Worker。合同：[grok-call-gate.md](../../contracts/grok-call-gate.md)。
 
 [TOOLS-01](TOOLS-01/summary.md) 调查了实际 read_file/后续请求与原生配置读取：较宽 private HOME profile 下合成 key 会进入工具输出，而工具被 OS 拒绝后 Native 仍可能 exit0。现有文本 Gate 的实际 Native 攻击回归在工具开始前拦截；继续不支持生产工具。
+
+[READ-01](READ-01/summary.md) 已完成可选受控文本Read：Native前路径/文件批准、trace/后续HTTP关联、JSON转义凭据保护，真实固定Native+Store/Scheduler的13行项目读取与私有config拦截通过。生产NativeForwarder/Worker、OS隔离、写工具、Resume和真实准入继续未完成。

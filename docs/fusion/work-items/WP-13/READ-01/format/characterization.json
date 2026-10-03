@@ -1,0 +1,100 @@
+{
+  "mode": "read",
+  "native_version": "1.0.48/b94d5072c95f",
+  "executable_sha256": "1ed292eb62206b1a2ec3d17dc69c9c8406a07f5ff414305f953baee5b72a4a05",
+  "exit": 0,
+  "timeout": false,
+  "http": [
+    {
+      "path": "/v1/chat/completions",
+      "model": "fixture-model",
+      "tools": [
+        "session_title"
+      ],
+      "purpose": "title",
+      "message_roles": [
+        "system",
+        "user"
+      ],
+      "tool_messages": [],
+      "assistant_tool_calls": [],
+      "private_marker_in_body": false,
+      "read_marker_in_body": false,
+      "denied_marker_in_body": false
+    },
+    {
+      "path": "/v1/chat/completions",
+      "model": "fixture-model",
+      "tools": [
+        "read_file"
+      ],
+      "purpose": "agent",
+      "message_roles": [
+        "system",
+        "user",
+        "user",
+        "user"
+      ],
+      "tool_messages": [],
+      "assistant_tool_calls": [],
+      "private_marker_in_body": false,
+      "read_marker_in_body": false,
+      "denied_marker_in_body": false
+    },
+    {
+      "path": "/v1/chat/completions",
+      "model": "fixture-model",
+      "tools": [
+        "read_file"
+      ],
+      "purpose": "agent",
+      "message_roles": [
+        "system",
+        "user",
+        "user",
+        "user",
+        "assistant",
+        "tool"
+      ],
+      "tool_messages": [
+        {
+          "role": "tool",
+          "content": "1\u2192FUSION_OWNED_READ_MARKER\nline2\nline3\nline4\nline5\nline6\nline7\nline8\nline9\n10\u2192line10\nline11\nline12\nline13\n",
+          "tool_call_id": "call_fixture_read"
+        }
+      ],
+      "assistant_tool_calls": [
+        [
+          {
+            "id": "call_fixture_read",
+            "type": "function",
+            "function": {
+              "name": "read_file",
+              "arguments": "{\"target_file\": \"<fixture-root>/workspace/fixture.txt\"}"
+            }
+          }
+        ]
+      ],
+      "private_marker_in_body": false,
+      "read_marker_in_body": true,
+      "denied_marker_in_body": false
+    }
+  ],
+  "frame_types": [
+    "available_commands",
+    "available_commands",
+    "available_commands",
+    "usage",
+    "tool_call",
+    "tool_call_update",
+    "tool_call_update",
+    "text",
+    "available_commands",
+    "usage",
+    "end"
+  ],
+  "real_model_calls": 0,
+  "real_credentials_used": false,
+  "production_isolation_verified": false,
+  "route_admitted": false
+}

@@ -40,6 +40,14 @@ func TestGrokCallGatePinnedNativeRejectsPrivateConfigTool(t *testing.T) {
 	nativeGateDiagnostic(t, "private_config_tool")
 }
 
+func TestGrokControlledReadPinnedNative(t *testing.T) {
+	if *nativeGateCLI == "" {
+		t.Skip("explicit pinned Native diagnostic only")
+	}
+	for _, mode := range []string{"controlled_read", "controlled_private_config"} {
+		t.Run(mode, func(t *testing.T) { nativeGateDiagnostic(t, mode) })
+	}
+}
 func nativeGateDiagnostic(t *testing.T, mode string) {
 	t.Helper()
 	exe, e := filepath.EvalSymlinks(*nativeGateCLI)
@@ -65,6 +73,21 @@ func nativeGateDiagnostic(t *testing.T, mode string) {
 	}
 	f, s, _ := storedGateFixture(t, maxCalls)
 	f.config.Binding.Observer.Cwd = filepath.Join(root, "project")
+	var read *ReadTools
+	controlled := mode == "controlled_read" || mode == "controlled_private_config"
+	if controlled {
+		f.config.Binding.Observer.MaxTurns = 3
+		if e = os.WriteFile(filepath.Join(root, "project/fixture.txt"), []byte("FUSION_OWNED_READ_MARKER\nline2\nline3\nline4\nline5\nline6\nline7\nline8\nline9\nline10\nline11\nline12\nline13\n"), 0600); e != nil {
+			t.Fatal(e)
+		}
+		read, e = NewReadTools(f.config.Binding.Observer, func(Binding) bool { return f.current.Load() })
+		if e != nil {
+			t.Fatal(e)
+		}
+		defer read.Close()
+		f.config.ReadTools = read
+	}
+
 	var mainCalls atomic.Int64
 	f.config.Forwarder = fakeForwarder(func(ctx context.Context, target stageplan.ExecutionTarget, raw []byte) (ForwardResponse, error) {
 		f.calls.Add(1)
@@ -75,8 +98,12 @@ func nativeGateDiagnostic(t *testing.T, mode string) {
 			t.Error("request decode failed")
 		}
 		for _, tool := range req.Tools {
-			if tool.Function.Name == "read_file" && mode == "private_config_tool" {
-				args, _ := json.Marshal(map[string]string{"target_file": filepath.Join(root, "grok/config.toml")})
+			if tool.Function.Name == "read_file" && (mode == "private_config_tool" || controlled && mainCalls.Add(1) == 1) {
+				targetFile := filepath.Join(root, "grok/config.toml")
+				if mode == "controlled_read" {
+					targetFile = filepath.Join(root, "project/fixture.txt")
+				}
+				args, _ := json.Marshal(map[string]string{"target_file": targetFile})
 				delta := `"content":null,"tool_calls":[{"index":0,"id":"call_fixture_read","type":"function","function":{"name":"read_file","arguments":` + strconv.Quote(string(args)) + `}}]`
 				reply := strings.Replace(gateSSE, `"content":"fixture"`, delta, 1)
 				reply = strings.Replace(reply, `"finish_reason":"stop"`, `"finish_reason":"tool_calls"`, 1)
@@ -110,7 +137,11 @@ func nativeGateDiagnostic(t *testing.T, mode string) {
 	profile += fmt.Sprintf("(allow process-exec (literal %s))\n(allow file-read* file-map-executable (literal %s))\n(allow file-write* (subpath %s))\n(allow file-read* file-write* (literal \"/dev/null\"))\n(allow file-read* (literal \"/dev/urandom\"))\n(allow network-outbound (remote tcp \"localhost:%s\"))\n", strconv.Quote(exe), strconv.Quote(exe), strconv.Quote(root), port)
 	ctx, cancel := context.WithTimeout(context.Background(), 25*time.Second)
 	defer cancel()
-	args := []string{"-p", profile, exe, "--single", "Reply Fixture ready.", "--model", "fixture", "--output-format", "streaming-json", "--permission-mode", "dontAsk", "--no-subagents", "--max-turns", "1", "--tools", "Read", "--disallowed-tools", "search_tool,use_tool", "--disable-web-search", "--no-auto-update", "--cwd", f.config.Binding.Observer.Cwd, "--session-id", f.config.Binding.Observer.NativeSessionID}
+	turns := "1"
+	if controlled {
+		turns = "3"
+	}
+	args := []string{"-p", profile, exe, "--single", "Reply Fixture ready.", "--model", "fixture", "--output-format", "streaming-json", "--permission-mode", "dontAsk", "--no-subagents", "--max-turns", turns, "--tools", "Read", "--disallowed-tools", "search_tool,use_tool", "--disable-web-search", "--no-auto-update", "--cwd", f.config.Binding.Observer.Cwd, "--session-id", f.config.Binding.Observer.NativeSessionID}
 	if mode == "implicit_tools" {
 		for i, arg := range args {
 			if arg == "--disallowed-tools" {
@@ -138,7 +169,7 @@ func nativeGateDiagnostic(t *testing.T, mode string) {
 	if e != nil || int64(budget.UsedCalls) != a.Forwarded {
 		t.Fatal("persistent budget mismatch", budget, e, a)
 	}
-	if mode == "private_config_tool" {
+	if mode == "private_config_tool" || mode == "controlled_private_config" {
 		if err == nil || cmd.ProcessState.ExitCode() != 1 || !a.Uncertain || healthy(g, f) || a.Forwarded != 2 || a.Completed != 1 || budget.UsedCalls != 2 {
 			t.Fatal("private file instruction escaped gate", a, budget, err)
 		}
@@ -171,6 +202,9 @@ func nativeGateDiagnostic(t *testing.T, mode string) {
 		t.Fatal("synthetic Native failed", err, g.Audit(), "stdout bytes", stdout.Len(), "stderr bytes", stderr.Len())
 	}
 	observer, e := New(f.config.Binding.Observer, func(Binding) bool { return f.current.Load() })
+	if controlled {
+		observer, e = NewReadSession(f.config.Binding.Observer, func(Binding) bool { return f.current.Load() }, read)
+	}
 	if e != nil {
 		t.Fatal(e)
 	}
@@ -183,11 +217,16 @@ func nativeGateDiagnostic(t *testing.T, mode string) {
 	}
 	out, e := observer.Finish(cmd.ProcessState.ExitCode())
 	want := int64(2)
+	wantNativeCalls := int64(1)
+	if controlled {
+		want = 3
+		wantNativeCalls = 2
+	}
 	if mode == "sdk_retry" {
 		want = 3
 	}
-	if e != nil || out.State != "succeeded" || out.NativeModelCalls != 1 || a.Forwarded != want || f.permits.Load() != want || f.calls.Load() != want || !healthy(g, f) || out.AllCallsVerified || out.StoppedVerified {
+	if e != nil || out.State != "succeeded" || out.NativeModelCalls != wantNativeCalls || a.Forwarded != want || f.permits.Load() != want || f.calls.Load() != want || !healthy(g, f) || out.AllCallsVerified || out.StoppedVerified {
 		t.Fatal("Native gate mismatch", out.State, e, a, f.permits.Load())
 	}
-	t.Logf("Pinned Native1.0.48 %s -> %d synthetic HTTP/permits; terminal modelCalls1; actual wait done, managed StopProof/route/billing/quota unverified", mode, want)
+	t.Logf("Pinned Native1.0.48 %s -> %d synthetic HTTP/permits; terminal modelCalls%d; actual wait done, managed StopProof/route/billing/quota unverified", mode, want, out.NativeModelCalls)
 }

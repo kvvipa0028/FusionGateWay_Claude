@@ -1,0 +1,38 @@
+=== RUN   TestGrokControlledReadPinnedNative
+=== RUN   TestGrokControlledReadPinnedNative/controlled_read
+    call_gate_native_test.go:138: Native continuation message fields assistant [content tool_calls model_id role]
+    call_gate_native_test.go:138: Native continuation message fields tool [role content tool_call_id]
+    call_gate_native_test.go:144: Native result byte count/matches snapshot 110 110 true
+    call_gate_native_test.go:49: synthetic Native error: Internal error: {
+          "message": "API error (status 400 Bad Request): invalid_request_error: Bad Request",
+          "http_status": 400,
+          "promptUsage": {
+            "inputTokens": 3,
+            "outputTokens": 2,
+            "totalTokens": 5,
+            "cachedReadTokens": 0,
+            "cacheCreationTokens": 0,
+            "reasoningTokens": 0,
+            "modelCalls": 1,
+            "apiDurationMs": 31,
+            "modelUsage": {
+              "fixture-model": {
+                "inputTokens": 3,
+                "outputTokens": 2,
+                "totalTokens": 5,
+                "cachedReadTokens": 0,
+                "cacheCreationTokens": 0,
+                "reasoningTokens": 0,
+                "modelCalls": 1,
+                "apiDurationMs": 31
+              }
+            },
+            "numTurns": 1
+          }
+        }
+    call_gate_native_test.go:49: synthetic Native failed exit status 1 {3 2 2 2 0 true} stdout bytes 3188 stderr bytes 1798
+--- FAIL: TestGrokControlledReadPinnedNative (0.85s)
+    --- FAIL: TestGrokControlledReadPinnedNative/controlled_read (0.85s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/grok	1.479s
+FAIL

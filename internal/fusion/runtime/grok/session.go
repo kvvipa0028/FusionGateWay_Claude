@@ -25,6 +25,7 @@ var (
 	ErrUnverified  = errors.New("Grok execution boundary unverified")
 	ErrUnsupported = errors.New("Grok native capability unsupported")
 	uuid           = regexp.MustCompile(`^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$`)
+	toolID         = regexp.MustCompile(`^[A-Za-z0-9_-]{1,128}$`)
 	modelID        = regexp.MustCompile(`^[a-z0-9][a-z0-9._-]{0,127}$`)
 )
 
@@ -49,6 +50,7 @@ type Outcome struct {
 	StrictLockVerified, AllCallsVerified, BillingVerified, QuotaVerified, StoppedVerified bool
 }
 type Session struct {
+	read                          *ReadTools
 	mu                            sync.Mutex
 	binding                       Binding
 	current                       func(Binding) bool
@@ -85,6 +87,19 @@ func New(b Binding, current func(Binding) bool) (*Session, error) {
 		return nil, ErrUnsupported
 	}
 	return &Session{binding: clone(b), current: current, state: "awaiting_declaration", outcome: Outcome{SessionID: b.NativeSessionID}}, nil
+}
+
+// NewReadSession observes only tools pre-authorized by the same CallGate scope.
+func NewReadSession(b Binding, current func(Binding) bool, read *ReadTools) (*Session, error) {
+	if read == nil || !read.matches(b) || !read.valid() {
+		return nil, ErrUnverified
+	}
+	s, e := New(b, current)
+	if e != nil {
+		return nil, e
+	}
+	s.read = read
+	return s, nil
 }
 func hasNUL(s string) bool       { return bytes.ContainsRune([]byte(s), 0) }
 func (s *Session) State() string { s.mu.Lock(); defer s.mu.Unlock(); return s.state }
@@ -150,9 +165,19 @@ func (s *Session) Event(run string, generation int64, raw []byte) error {
 		}
 		// Informational, potentially repeated. Only the terminal aggregate is
 		// recorded; adding this to end.usage would double-count the same turn.
+	case "tool_call", "tool_call_update":
+		if !s.declared || s.read == nil {
+			return s.fail(ErrUnsupported)
+		}
+		if e := s.read.event(raw); e != nil {
+			return s.fail(e)
+		}
 	case "end":
 		if !s.declared {
 			return s.fail(ErrProtocol)
+		}
+		if s.read != nil && !s.read.ready() && !s.cancelled {
+			return s.fail(ErrUnverified)
 		}
 		if e := s.end(raw); e != nil {
 			return s.fail(e)
@@ -291,7 +316,7 @@ func (s *Session) Finish(exitCode int) (Outcome, error) {
 		s.outcome.State = s.state
 		return s.outcome, e
 	}
-	if s.state == "execution_uncertain" || s.pending == "" || s.pending == "succeeded" && exitCode != 0 {
+	if s.state == "execution_uncertain" || s.pending == "" || s.pending == "succeeded" && (exitCode != 0 || s.read != nil && !s.read.ready()) {
 		s.state = "execution_uncertain"
 	} else {
 		s.state = s.pending
