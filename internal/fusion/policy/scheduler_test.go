@@ -18,6 +18,67 @@ func inspection(f *dispatchFixture) Inspection {
 	used := float64(20)
 	return Inspection{Route: f.route, Provider: "fixture-provider", QueryAdmitted: true, DataAllowed: true, SandboxVerified: true, VerificationAvailable: true, AllCallsCounted: true, ManagedExecutions: 1, ProofHash: proofHash("fixture-admission"), Quota: quota.Snapshot{Identity: quota.Identity{Provider: "fixture-provider", Account: f.route.Account, Workspace: f.route.Workspace, Region: "fixture-region", Generation: 1}, Source: "fixture-source", ObservedAt: &now, ReceivedAt: now, Complete: true, Status: quota.Available, Pool: quota.Pool{ID: "fixture-pool", Provider: "fixture-provider", Region: "fixture-region", Scope: "account", Owner: f.route.Account, Verified: true}, Windows: []quota.Window{{Kind: "subscription", Unit: "percent", UsedPercent: &used}}}}
 }
+
+func TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls(t *testing.T) {
+	for _, mode := range []string{"valid", "quota", "proof", "owner", "target", "running"} {
+		t.Run(mode, func(t *testing.T) {
+			f := newDispatchFixture(t)
+			env := inspection(f)
+			// Use a new task; the dispatch fixture's own run is already running.
+			plan, e := f.s.Plan(f.c.TaskID, 1)
+			if e != nil {
+				t.Fatal(e)
+			}
+			task, e := f.s.Create("prepared-check", store.CreateRequest{ProjectID: f.c.ProjectID, Goal: "fixture", Plan: plan})
+			if e != nil {
+				t.Fatal(e)
+			}
+			if e = f.s.ConfigureBudget(task.ID, store.Budget{MaxCalls: 1}); e != nil {
+				t.Fatal(e)
+			}
+			scheduler := Scheduler{Store: f.s, Inspect: func(context.Context, store.Task, stageplan.Role, stageplan.ExecutionTarget) (Inspection, error) {
+				return env, nil
+			}}
+			// The other fixture run does not own a scheduler reservation.
+			r, e := scheduler.Prepare(context.Background(), store.StartRequest{TaskID: task.ID, Role: f.c.Role, PlanRevision: 1, Owner: "fixture-prepared-owner", TTL: time.Minute, Target: f.target})
+			if e != nil {
+				t.Fatal(e)
+			}
+			switch mode {
+			case "quota":
+				env.Quota.Status = quota.Unknown
+			case "proof":
+				env.ProofHash = proofHash("fixture-other-proof")
+			case "owner":
+				r.Owner = "fixture-other-owner"
+			case "target":
+				r.Target.Account = "fixture-other-account"
+			case "running":
+				if e = f.s.ConfirmStarted(r.ID, r.Generation, r.Owner, "fixture-prepared-session"); e != nil {
+					t.Fatal(e)
+				}
+				if e = f.s.ReserveCall(r.ID, r.Generation); e != nil {
+					t.Fatal(e)
+				}
+			}
+			e = scheduler.CheckPrepared(context.Background(), r)
+			if (e == nil) != (mode == "valid") {
+				t.Fatal("prepared launch check wrong", mode, e)
+			}
+			b, e := f.s.Budget(task.ID)
+			if e != nil {
+				t.Fatal(e)
+			}
+			want := 0
+			if mode == "running" {
+				want = 1
+			}
+			if b.UsedCalls != want {
+				t.Fatal("startup recheck consumed budget")
+			}
+		})
+	}
+}
 func TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification(t *testing.T) {
 	for _, change := range []string{"quota", "stale", "billing", "permission", "sandbox", "verification", "subagents", "query", "identity"} {
 		t.Run(change, func(t *testing.T) {

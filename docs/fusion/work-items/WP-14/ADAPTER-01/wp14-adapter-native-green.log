@@ -1,0 +1,22 @@
+=== RUN   TestGLMAdapterPinnedNativeLifecycle
+=== RUN   TestGLMAdapterPinnedNativeLifecycle/design
+    adapter_native_test.go:153: production GLM Adapter -> fixed Native -> 1 synthetic HTTP/persisted calls -> validated result and verified stop; real model calls=0, actual route/admission/billing/quota unverified
+=== RUN   TestGLMAdapterPinnedNativeLifecycle/implementation
+    adapter_native_test.go:153: production GLM Adapter -> fixed Native -> 2 synthetic HTTP/persisted calls -> validated result and verified stop; real model calls=0, actual route/admission/billing/quota unverified
+=== RUN   TestGLMAdapterPinnedNativeLifecycle/sdk_retry
+    adapter_native_test.go:153: production GLM Adapter -> fixed Native -> 2 synthetic HTTP/persisted calls -> validated result and verified stop; real model calls=0, actual route/admission/billing/quota unverified
+=== RUN   TestGLMAdapterPinnedNativeLifecycle/wrong_credential
+=== RUN   TestGLMAdapterPinnedNativeLifecycle/late_quota
+=== RUN   TestGLMAdapterPinnedNativeLifecycle/current_identity
+=== RUN   TestGLMAdapterPinnedNativeLifecycle/cancel_inflight
+    adapter_native_test.go:153: production GLM Adapter -> fixed Native -> 1 synthetic HTTP/persisted calls -> validated result and verified stop; real model calls=0, actual route/admission/billing/quota unverified
+--- PASS: TestGLMAdapterPinnedNativeLifecycle (3.43s)
+    --- PASS: TestGLMAdapterPinnedNativeLifecycle/design (0.59s)
+    --- PASS: TestGLMAdapterPinnedNativeLifecycle/implementation (0.63s)
+    --- PASS: TestGLMAdapterPinnedNativeLifecycle/sdk_retry (1.14s)
+    --- PASS: TestGLMAdapterPinnedNativeLifecycle/wrong_credential (0.17s)
+    --- PASS: TestGLMAdapterPinnedNativeLifecycle/late_quota (0.17s)
+    --- PASS: TestGLMAdapterPinnedNativeLifecycle/current_identity (0.17s)
+    --- PASS: TestGLMAdapterPinnedNativeLifecycle/cancel_inflight (0.57s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime/glm	5.075s

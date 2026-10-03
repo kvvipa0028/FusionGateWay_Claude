@@ -1,6 +1,6 @@
 # WP-14 进度与私有临时目录修复
 
-状态：`in_progress`。最新完成子工作项 `WP-14-TOOLS-01`：验证固定 Claude Code 的受管 Read/Edit/文件创建，并修复 Native 工具失败仍被判成功的问题。此前 CHANNEL-01 已接入 Supervisor、受控双栈 loopback、启动后 grant 激活与真实 Store 预算。下文保留各轮证据边界；完整产品 Adapter、真实路线准入和 Gate A 仍未完成。
+状态：`in_progress`。最新完成子工作项 `WP-14-ADAPTER-01`：组装可信 GLM Native Adapter，接入 Scheduler、凭据身份、固定执行配置、逐调用预算和退出证据。此前 TOOLS-01 验证 Read/Edit/文件创建并修复工具失败误判；CHANNEL-01 接入受管通道。下文保留各轮证据边界；产品控制器注册、真实路线准入和 Gate A 仍未完成。
 
 ## 修复与验证
 
@@ -49,3 +49,7 @@ TEMP-01 当时仍缺 GLM protocol state machine 与受管执行出口，后续�
 ## WP-14-TOOLS-01
 
 固定 Native 在同一生产边界内完成 Read、Edit 和 Edit 创建新文件，实际工作区内容回读通过。越界读、越界创建和只读创建均不能成功；Native bare 模式的 Write 没有出现在实际 init tools 中，不能准入。发现只读创建失败后 Native 仍返回最终 success，补充 tool_result.is_error 检查后由 RED 转 GREEN，工具错误不再被成功文本掩盖。详见 [文件工具交付记录](TOOLS-01/summary.md)。完整 Adapter、真实准入、工程测试 Executor 与 Gate A 仍未完成。
+
+## WP-14-ADAPTER-01
+
+glm.Adapter 已实现公共 Probe/Start/Resume 接口，并自建可信 Supervisor。固定 executable/argv/UUID/工具集合与 validator 均由 Adapter 生成；启动前及加载凭据后重查 Scheduler，所有实际模型 HTTP 使用 Scheduler.Permit。实际固定 Native 的设计、实施创建、SDK 重试、取消，以及错误凭据/晚到额度失效/当前身份失效七个场景通过；全部使用假上游。详见 [Adapter 交付记录](ADAPTER-01/summary.md) 与 [当前集成核验](glm-integration-verification.md)。WP-14 保持 in_progress，产品控制器和真实账号/地区/额度/计费/effort 尚未准入。

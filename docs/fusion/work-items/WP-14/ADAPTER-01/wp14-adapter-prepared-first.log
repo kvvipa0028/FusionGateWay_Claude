@@ -1,0 +1,18 @@
+=== RUN   TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls
+=== RUN   TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/valid
+=== RUN   TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/quota
+=== RUN   TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/proof
+=== RUN   TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/owner
+=== RUN   TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/target
+=== RUN   TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/budget
+    scheduler_test.go:58: execution fenced
+--- FAIL: TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls (0.20s)
+    --- PASS: TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/valid (0.04s)
+    --- PASS: TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/quota (0.03s)
+    --- PASS: TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/proof (0.03s)
+    --- PASS: TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/owner (0.03s)
+    --- PASS: TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/target (0.03s)
+    --- FAIL: TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/budget (0.03s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/policy	0.833s
+FAIL

@@ -1,0 +1,32 @@
+=== RUN   TestGLMAdapterRequiresTrustedServicesAndRedactsCredential
+--- PASS: TestGLMAdapterRequiresTrustedServicesAndRedactsCredential (0.03s)
+=== RUN   TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn
+=== RUN   TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/args
+=== RUN   TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/executable
+=== RUN   TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/hash
+=== RUN   TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/environment
+=== RUN   TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/validator
+=== RUN   TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/session
+=== RUN   TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/empty_prompt
+=== RUN   TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/bad_utf8
+=== RUN   TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/timeout
+=== RUN   TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/write_role
+=== RUN   TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/quota
+=== RUN   TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/identity
+=== RUN   TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/owner
+--- PASS: TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn (0.32s)
+    --- PASS: TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/args (0.03s)
+    --- PASS: TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/executable (0.02s)
+    --- PASS: TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/hash (0.02s)
+    --- PASS: TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/environment (0.02s)
+    --- PASS: TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/validator (0.02s)
+    --- PASS: TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/session (0.02s)
+    --- PASS: TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/empty_prompt (0.02s)
+    --- PASS: TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/bad_utf8 (0.02s)
+    --- PASS: TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/timeout (0.02s)
+    --- PASS: TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/write_role (0.02s)
+    --- PASS: TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/quota (0.03s)
+    --- PASS: TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/identity (0.02s)
+    --- PASS: TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/owner (0.02s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime/glm	1.987s

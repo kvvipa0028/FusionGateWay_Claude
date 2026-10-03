@@ -155,6 +155,39 @@ func (s *Scheduler) Prepare(ctx context.Context, in store.StartRequest) (store.S
 	return r, nil
 }
 
+// CheckPrepared repeats current admission immediately before an external
+// launch, without issuing a model credential or spending a call. Preparation
+// alone cannot preserve permissions, quota or a changed physical reservation.
+func (s *Scheduler) CheckPrepared(ctx context.Context, expected store.StageRun) error {
+	if s == nil || s.Store == nil {
+		return blocked("admission_unavailable")
+	}
+	r, e := s.Store.CheckActive(expected.ID, expected.Generation)
+	if e != nil || r.State != "starting" || r.Owner != expected.Owner || r.TaskID != expected.TaskID || r.Role != expected.Role || r.Attempt != expected.Attempt || r.PlanRevision != expected.PlanRevision || !sameJSON(r.Target, expected.Target) {
+		return blocked("execution_fenced")
+	}
+	t, e := s.Store.Task(r.TaskID)
+	if e != nil {
+		return blocked("task_unavailable")
+	}
+	in, e := s.inspect(ctx, t, r.Role, r.Target)
+	if e != nil {
+		return e
+	}
+	reservation, e := s.Store.Reservation(r.ID)
+	if e != nil || reservation.PoolKey != physicalPool(in.Quota.Pool) || reservation.WriteKey != in.WriteKey || reservation.AdmissionHash != in.ProofHash {
+		return blocked("reservation_changed")
+	}
+	b, e := s.Store.Budget(r.TaskID)
+	if e != nil {
+		return blocked("budget_missing")
+	}
+	if b.UsedCalls >= b.MaxCalls {
+		return blocked("budget_exhausted")
+	}
+	return nil
+}
+
 // Permit is passed to Dispatcher, after issuer authentication. It rechecks
 // scope/current services and spends the persisted shared budget before sending.
 func (s *Scheduler) Permit(ctx context.Context, c Claims, target stageplan.ExecutionTarget, ordinal int) error {

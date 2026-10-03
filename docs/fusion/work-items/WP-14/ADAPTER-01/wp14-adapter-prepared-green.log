@@ -1,0 +1,16 @@
+=== RUN   TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls
+=== RUN   TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/valid
+=== RUN   TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/quota
+=== RUN   TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/proof
+=== RUN   TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/owner
+=== RUN   TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/target
+=== RUN   TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/running
+--- PASS: TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls (0.21s)
+    --- PASS: TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/valid (0.04s)
+    --- PASS: TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/quota (0.03s)
+    --- PASS: TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/proof (0.03s)
+    --- PASS: TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/owner (0.03s)
+    --- PASS: TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/target (0.03s)
+    --- PASS: TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/running (0.03s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/policy	1.858s

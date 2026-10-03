@@ -1,0 +1,10 @@
+# github.com/yetone/magpie/internal/fusion/runtime/glm [github.com/yetone/magpie/internal/fusion/runtime/glm.test]
+internal/fusion/runtime/glm/adapter_test.go:21:69: undefined: AdapterConfig
+internal/fusion/runtime/glm/adapter_test.go:65:12: undefined: AdapterConfig
+internal/fusion/runtime/glm/adapter_test.go:65:254: undefined: Credential
+internal/fusion/runtime/glm/adapter_test.go:67:10: undefined: Credential
+internal/fusion/runtime/glm/adapter_test.go:96:14: undefined: NewAdapter
+internal/fusion/runtime/glm/adapter_test.go:100:25: undefined: Credential
+internal/fusion/runtime/glm/adapter_test.go:138:12: undefined: NewAdapter
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/glm [build failed]
+FAIL

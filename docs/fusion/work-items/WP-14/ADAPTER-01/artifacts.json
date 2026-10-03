@@ -1,0 +1,29 @@
+{
+  "base_commit": "cd0888ed9dda39411933b74ed1c2eaae31fe9c3d",
+  "source_files_sha256": {
+    "internal/fusion/policy/scheduler.go": "f8c4ea85435f2d603a9c0ffdcfb066cd3798f705d5ac40e8a32bd9c98f95838c",
+    "internal/fusion/policy/scheduler_test.go": "95ce6daab837cf349c9c151b8869237b40f51018107c7fcc5d0100c4a3d0a0f0",
+    "internal/fusion/runtime/glm/adapter.go": "fdf7f71497c6d78f42e0b3c9b4d07cee07061933e74671c7f56d8dc20b83f01b",
+    "internal/fusion/runtime/glm/adapter_test.go": "5dfb5e57592bda53290298c3742a341c9f407635b9070203eda273973cff492c",
+    "internal/fusion/runtime/glm/adapter_native_test.go": "d66cf4c440d0af323f6afa757edfaa925f74b40644cb58bdfe053b8d3ddb7ae5",
+    "docs/fusion/contracts/runtime-contract.md": "21416328a7f0e718050a1c6517324a7a4866b94449ef376330cbd6bea41edf0a",
+    "docs/fusion/work-items/WP-14/summary.md": "908771890e9a2baad98662c1809b7d0f934db1649194ac5e104ba1f8dba6755a",
+    "docs/fusion/work-items/WP-14/glm-integration-verification.md": "b4613de3cdea8b3e4f861858dd499267d8f052eb355780fc3d42812cbc31ba7b"
+  },
+  "packet_files_sha256": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "14e6cc7b1c20239654216c2a7bf529aa1986a7f72ad6555708763c14ba6a051b",
+    "build-results.json": "bdf913d362700687fbb124c35f48dd4ec6174ab6e4342849e37bac03019f4133",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "summary.md": "16c2c518f840ffa2b4c5376e7be8e43cf4e6306574016b4fb41b2c3650721d6e",
+    "test-results.json": "c10daad66e127b8b9e0a2ef41676ed562b4bd5f99a9f661bf12c37bbcbad6e29",
+    "wp14-adapter-api-green.log": "1a8e981a47af41e79bca04f9fa813c402b2d3f3e8b336e8e0125651629e5464d",
+    "wp14-adapter-api-red.log": "4379d6ee61f44216908932679684bab2fb7bb3b41c9bf20b313b0581e3b1e6ff",
+    "wp14-adapter-fusion-race.log": "eec945250cdfbfbbd48b3d3cd6a539d64caafeba91d9fd09c495372bddb2f721",
+    "wp14-adapter-native-first.log": "8008835229a92cd6871ff4b023f691974d73c5c73b4c443eab70a0b400638ae3",
+    "wp14-adapter-native-green.log": "356457f475365704a263c7b2e5cfdc17afcbe00581c248d06e243aaca67abaaa",
+    "wp14-adapter-prepared-first.log": "96eac98db8b95194e1b415a91539b0ed88e43f9357c70484fa4ded0e7e02ccdb",
+    "wp14-adapter-prepared-green.log": "e74973243b74e633c4590e64082fc8e66dfa6f37d7c479e943357888d9e21c1f",
+    "wp14-adapter-prepared-red.log": "223bdca833d3e85682a1f57a03e8a5e26a09ab9db503e92d49ee01b0cf056ce2"
+  }
+}

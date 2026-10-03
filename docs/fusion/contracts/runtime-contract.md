@@ -27,3 +27,9 @@ Supervisor 从持久 Store 重核冻结 target、role/attempt/revision/generatio
 WP-14-TOOLS-01 在同一生产边界证明固定 Native 的 bare/restricted 模式可使用 Read 与 Edit，Edit 的空 old_string 可以创建项目新文件。Write 不在该 pin/mode 的实际 init tools 中，不能因协议 schema 允许 Write 就将它准入；Bash/其他需子进程的工具仍未验证。工具许可只来自冻结可信配置的 tools/allowedTools 与 OS 工作区边界，不使用 bypassPermissions 或扩大目录权限。
 
 Native 可以在 tool_result.is_error=true 后返回 result/success。协议观察器必须拒绝 true、null 或非 boolean is_error；只有省略或明确 false 才可完成该工具。真实只读项目写入拒绝的 fixture 先 RED 后 GREEN，不会被最终成功文本掩盖；越界读/创建、未支持的工具同样不能成功，写角色失败保留 interrupted 状态。细节见 [工具证据](../work-items/WP-14/TOOLS-01/summary.md)。
+
+WP-14-ADAPTER-01 的 glm.Adapter 实现公共 Runtime 接口。可信配置必须提供 Scheduler/Inspector、Manager、固定 executable、当前身份检查、私有 Credential loader 和已准入 single-send Transport。Adapter 自建绑定同一 Store 的 Supervisor，不接受 caller 的 executable/hash/argv/env/session/validator/channel；请求只含私有 Root/Workspace、UTF-8 prompt、时限和受许可的 writable 范围。只读角色使用 Read，可写 implementation/testing 使用 Read/Edit；不存在 Write、Bash 或跳过权限的退路。
+
+启动前 CheckPrepared 无调用计费地重查 starting/run owner/冻结 target、当前路线/权限/额度/验证证据与物理 reservation；加载凭据后再次检查。核对固定 CLI SHA256、生成 Native UUID、构造固定 argv、启动后的 model grant、CallGate 与可信协议 validator。凭据 Identity 必须等于冻结 credential_identity，真实 key 不进入 Spec/env/observation。所有 HTTP 使用 Scheduler.Permit，不能用任意回调替代持久预算。
+
+Adapter 的 Observation 仅在同 generation 的终态后读取，包含已解析 Native 输出与文本；未完成拒绝，非成功终态不返回成功文本或状态，所有独立验证 flags 保持 false。它不代表工程验收或恢复授权。每个 Adapter/Supervisor 最多保留 4096 条执行记录，Resume 仍 unsupported；Release 使用本 Adapter 的可信 Supervisor StopProof。产品控制器注册与真实路线证据仍未完成，详见 [Adapter 证据](../work-items/WP-14/ADAPTER-01/summary.md)。
