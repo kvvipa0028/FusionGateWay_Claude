@@ -1,0 +1,94 @@
+=== RUN   TestRestoreScopeBindsSealedCheckpointToFreshPreparedRun
+--- PASS: TestRestoreScopeBindsSealedCheckpointToFreshPreparedRun (0.21s)
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/id
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/generation
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/task
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/role
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/attempt
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/revision
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/owner
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/account
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/model
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/route
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/credential
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/effort
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/cwd
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/source
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/seal
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/closed
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/quota
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/permission
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/cancel
+--- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority (3.69s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/id (0.19s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/generation (0.20s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/task (0.19s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/role (0.19s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/attempt (0.19s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/revision (0.20s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/owner (0.20s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/account (0.20s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/model (0.20s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/route (0.20s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/credential (0.19s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/effort (0.19s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/cwd (0.19s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/source (0.19s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/seal (0.19s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/closed (0.20s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/quota (0.19s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/permission (0.20s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/cancel (0.19s)
+=== RUN   TestRestoreReadHistoryUsesFreshGateBudgetAndRejectsMissingPairs
+--- PASS: TestRestoreReadHistoryUsesFreshGateBudgetAndRejectsMissingPairs (0.26s)
+=== RUN   TestRestoreReadHistoryRejectsForgedReplayAndChangedSource
+=== RUN   TestRestoreReadHistoryRejectsForgedReplayAndChangedSource/missing
+=== RUN   TestRestoreReadHistoryRejectsForgedReplayAndChangedSource/text
+=== RUN   TestRestoreReadHistoryRejectsForgedReplayAndChangedSource/id
+=== RUN   TestRestoreReadHistoryRejectsForgedReplayAndChangedSource/args
+=== RUN   TestRestoreReadHistoryRejectsForgedReplayAndChangedSource/orphan
+=== RUN   TestRestoreReadHistoryRejectsForgedReplayAndChangedSource/duplicate
+=== RUN   TestRestoreReadHistoryRejectsForgedReplayAndChangedSource/model
+=== RUN   TestRestoreReadHistoryRejectsForgedReplayAndChangedSource/source
+=== RUN   TestRestoreReadHistoryRejectsForgedReplayAndChangedSource/replace
+=== RUN   TestRestoreReadHistoryRejectsForgedReplayAndChangedSource/current
+=== RUN   TestRestoreReadHistoryRejectsForgedReplayAndChangedSource/closed
+=== RUN   TestRestoreReadHistoryRejectsForgedReplayAndChangedSource/event_replay
+--- PASS: TestRestoreReadHistoryRejectsForgedReplayAndChangedSource (2.38s)
+    --- PASS: TestRestoreReadHistoryRejectsForgedReplayAndChangedSource/missing (0.20s)
+    --- PASS: TestRestoreReadHistoryRejectsForgedReplayAndChangedSource/text (0.20s)
+    --- PASS: TestRestoreReadHistoryRejectsForgedReplayAndChangedSource/id (0.20s)
+    --- PASS: TestRestoreReadHistoryRejectsForgedReplayAndChangedSource/args (0.20s)
+    --- PASS: TestRestoreReadHistoryRejectsForgedReplayAndChangedSource/orphan (0.20s)
+    --- PASS: TestRestoreReadHistoryRejectsForgedReplayAndChangedSource/duplicate (0.20s)
+    --- PASS: TestRestoreReadHistoryRejectsForgedReplayAndChangedSource/model (0.20s)
+    --- PASS: TestRestoreReadHistoryRejectsForgedReplayAndChangedSource/source (0.20s)
+    --- PASS: TestRestoreReadHistoryRejectsForgedReplayAndChangedSource/replace (0.20s)
+    --- PASS: TestRestoreReadHistoryRejectsForgedReplayAndChangedSource/current (0.20s)
+    --- PASS: TestRestoreReadHistoryRejectsForgedReplayAndChangedSource/closed (0.20s)
+    --- PASS: TestRestoreReadHistoryRejectsForgedReplayAndChangedSource/event_replay (0.20s)
+=== RUN   TestRestoreReadHistoryDoesNotSpendNewToolTurn
+--- PASS: TestRestoreReadHistoryDoesNotSpendNewToolTurn (0.20s)
+=== RUN   TestRestoreReadHistoryImportRechecksScopeAndPrivateMarkers
+=== RUN   TestRestoreReadHistoryImportRechecksScopeAndPrivateMarkers/scope
+=== RUN   TestRestoreReadHistoryImportRechecksScopeAndPrivateMarkers/cwd
+=== RUN   TestRestoreReadHistoryImportRechecksScopeAndPrivateMarkers/uuid
+=== RUN   TestRestoreReadHistoryImportRechecksScopeAndPrivateMarkers/model
+=== RUN   TestRestoreReadHistoryImportRechecksScopeAndPrivateMarkers/pin
+=== RUN   TestRestoreReadHistoryImportRechecksScopeAndPrivateMarkers/current
+=== RUN   TestRestoreReadHistoryImportRechecksScopeAndPrivateMarkers/marker
+=== RUN   TestRestoreReadHistoryImportRechecksScopeAndPrivateMarkers/encoded_marker
+=== RUN   TestRestoreReadHistoryImportRechecksScopeAndPrivateMarkers/source
+--- PASS: TestRestoreReadHistoryImportRechecksScopeAndPrivateMarkers (1.73s)
+    --- PASS: TestRestoreReadHistoryImportRechecksScopeAndPrivateMarkers/scope (0.19s)
+    --- PASS: TestRestoreReadHistoryImportRechecksScopeAndPrivateMarkers/cwd (0.19s)
+    --- PASS: TestRestoreReadHistoryImportRechecksScopeAndPrivateMarkers/uuid (0.19s)
+    --- PASS: TestRestoreReadHistoryImportRechecksScopeAndPrivateMarkers/model (0.19s)
+    --- PASS: TestRestoreReadHistoryImportRechecksScopeAndPrivateMarkers/pin (0.19s)
+    --- PASS: TestRestoreReadHistoryImportRechecksScopeAndPrivateMarkers/current (0.20s)
+    --- PASS: TestRestoreReadHistoryImportRechecksScopeAndPrivateMarkers/marker (0.19s)
+    --- PASS: TestRestoreReadHistoryImportRechecksScopeAndPrivateMarkers/encoded_marker (0.19s)
+    --- PASS: TestRestoreReadHistoryImportRechecksScopeAndPrivateMarkers/source (0.19s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime/grok	10.126s

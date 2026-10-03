@@ -1,0 +1,92 @@
+{
+  "base_commit": "e9aeb1fcc625e3f191fceb26694e22a989e931ba",
+  "go_version": "1.26.3",
+  "jev": "off",
+  "parent_wp13": "in_progress",
+  "final_gate": "not_run",
+  "checks": {
+    "wp13-restore-fusion-tagged-race.log": {
+      "pass": 426,
+      "skip": 18,
+      "fail": 0,
+      "passed_subtests": 568,
+      "compile_red": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/workspace\t1.345s"
+    },
+    "wp13-restore-history-first.log": {
+      "pass": 6,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 40,
+      "compile_red": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/runtime/grok\t10.126s"
+    },
+    "wp13-restore-host-final.log": {
+      "pass": 8,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 39,
+      "compile_red": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/runtime/grok\t10.941s"
+    },
+    "wp13-restore-native-regression.log": {
+      "pass": 7,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 30,
+      "compile_red": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/runtime/grok\t58.967s"
+    },
+    "wp13-restore-red.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 0,
+      "compile_red": true,
+      "terminal_line": "FAIL"
+    },
+    "wp13-restore-scope-green.log": {
+      "pass": 2,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 19,
+      "compile_red": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/runtime/grok\t5.456s"
+    }
+  },
+  "history_checks": {
+    "new_top_level_host_tests": 8,
+    "host_passed_subtests": 39,
+    "private_seal_and_authoritative_old_run": true,
+    "fresh_prepared_attempt_generation_and_frozen_target": true,
+    "quota_permission_and_source_rechecked": true,
+    "history_pairs_required_on_each_main_http": true,
+    "history_event_replay_refused": true,
+    "new_tool_turn_independent_history": true,
+    "fresh_model_audience_and_persistent_per_http_budget": true,
+    "old_budget_refunded": false,
+    "fixture_old_call_count": 1,
+    "fixture_new_calls": 2,
+    "fixture_combined_persistent_calls": 3,
+    "actual_native_resume": false,
+    "resume_capability_registered": false
+  },
+  "native_regression": {
+    "pin": "1.0.48/b94d5072c95f",
+    "sha256": "1ed292eb62206b1a2ec3d17dc69c9c8406a07f5ff414305f953baee5b72a4a05",
+    "scenarios": 31,
+    "native_launch_scenarios": 30,
+    "prelaunch_drift_scenarios": 1,
+    "actual_stop_and_release": true,
+    "new_restore_consumer_exercised_by_native": false,
+    "upstream_inspection_quota": "synthetic"
+  },
+  "real_model_calls": 0,
+  "real_quota_calls": 0,
+  "scope_limits": [
+    "private preparation/history only; no native seed/launch/durable restore receipt",
+    "full Source immutability/current project service/production upstream and quota admission pending",
+    "generic Adapter/Session Resume remains unsupported"
+  ],
+  "post_checks_changes": "documentation/packet only"
+}

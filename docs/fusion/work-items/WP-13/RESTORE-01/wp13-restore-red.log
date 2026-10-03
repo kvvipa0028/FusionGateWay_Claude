@@ -1,0 +1,5 @@
+# github.com/yetone/magpie/internal/fusion/runtime/grok [github.com/yetone/magpie/internal/fusion/runtime/grok.test]
+internal/fusion/runtime/grok/restore_test.go:83:12: a.prepareRestore undefined (type *Archives has no field or method prepareRestore)
+internal/fusion/runtime/grok/restore_test.go:153:17: a.prepareRestore undefined (type *Archives has no field or method prepareRestore)
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/grok [build failed]
+FAIL

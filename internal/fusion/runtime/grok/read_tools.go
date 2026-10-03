@@ -24,6 +24,7 @@ type ReadTools struct {
 	records        map[string]*readRecord
 	pending        string
 	bytes          int
+	history        int
 	closed, failed bool
 }
 type readCall struct {
@@ -35,6 +36,7 @@ type readRecord struct {
 	argument, path, relative, raw, text string
 	info                                os.FileInfo
 	started, located, done, continued   bool
+	historical                          bool
 }
 
 func (*ReadTools) String() string { return "Grok read scope (private snapshots omitted)" }
@@ -177,7 +179,7 @@ func readText(raw string) string {
 	return strings.Join(lines, "\n")
 }
 func (r *ReadTools) snapshot(call readCall, markers [][]byte) (*readRecord, error) {
-	if call.Name != "read_file" || !toolID.MatchString(call.ID) || r.records[call.ID] != nil || len(r.records) >= 64 || int64(len(r.records)) >= r.binding.MaxTurns {
+	if call.Name != "read_file" || !toolID.MatchString(call.ID) || r.records[call.ID] != nil || len(r.records) >= 64 || int64(len(r.records)-r.history) >= r.binding.MaxTurns {
 		return nil, ErrUnverified
 	}
 	argument, ok := readArgument([]byte(call.Arguments))
@@ -278,6 +280,13 @@ func (r *ReadTools) messages(messages []json.RawMessage, title bool) (map[string
 	}
 	if waiting != "" || !title && r.pending != "" && !seen[r.pending] {
 		return nil, ErrUnverified
+	}
+	if !title {
+		for id, record := range r.records {
+			if record.historical && !seen[id] {
+				return nil, ErrUnverified
+			}
+		}
 	}
 	return seen, nil
 }

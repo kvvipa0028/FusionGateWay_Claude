@@ -1,0 +1,37 @@
+{
+  "base_commit": "e9aeb1fcc625e3f191fceb26694e22a989e931ba",
+  "source_files_sha256": {
+    "docs/fusion/contracts/grok-resume.md": "53186463f827e5931efb421df0a418976e791ef3a4f6f3ffaa12147db4f2d773",
+    "docs/fusion/work-items/WP-13/ARCHIVE-01/summary.md": "f719c0ab8de58b18bd424c2516a599b3d652a823a8eeea93513e559d537f0d0e",
+    "docs/fusion/work-items/WP-13/summary.md": "104639a2ab6a8556bb493e8236d991e21c441af06f3aac641de1e7a2a2d7a7a3",
+    "internal/fusion/runtime/grok/read_tools.go": "254532ea999cc8c28942a4727bb66e8c6210a50c58bb7705ecfb747ea79b48aa",
+    "docs/fusion/contracts/grok-restore.md": "9dc8abcf6538d88878d31ed9261dbf611c613d4402ccc17b9621bd34575d8a7d",
+    "internal/fusion/runtime/grok/restore.go": "5b73b4eff5ba32feca9c1385616752ef60132e6369df12df6af1ce7aa3a56865",
+    "internal/fusion/runtime/grok/restore_test.go": "0c3e40f1e38afda96d9c38a4827992ed1e37101640e710f544444e55e5b32961",
+    "AGENTS.md": "55e3aaaef560dbc84c036c667dee4fb3dd1a14e0acf6e2ad385dce5e1527648a",
+    "docs/fusion/planning/Fusion_Magpie_Fork_Agent工作包_v1.0.md": "220282eeed8d4a55444b2ab26d23b6d0ea8beea8f62b839f125e93d2420b0bb0",
+    "internal/fusion/runtime/grok/archive.go": "5442f6d52cfcb0d7670d12d6bf237a0c464d5871d4842529c7da76a976990694",
+    "internal/fusion/runtime/grok/checkpoint.go": "073580ecfee84d0b06fff6d26b5f4d11673348f0a1f99a16adfe1c451aa21298",
+    "internal/fusion/runtime/grok/adapter.go": "d8dba705c67798c625fc21bca4619d2a3ae939ab8acaf6853fc5fdb4169201e6",
+    "internal/fusion/runtime/grok/managed_native_test.go": "9081462d990c96e8ab973b84adc78a0c00b77785a23777dd5bbc41bf2d5282cd",
+    "internal/fusion/runtime/grok/call_gate.go": "fe4c9549a9a1d947419fea74ad6c0636243c159255f849016a13d3a87d3df260",
+    "internal/fusion/runtime/grok/session.go": "b6181092bcb6e2e5a92e034240e145d61269b09f5bf3073b2639df17a8cbbf6b",
+    "internal/fusion/runtime/supervisor.go": "9ad608314cdcc16d3f444497a4748a47cd3524712f3467807485171ac072acde",
+    "internal/fusion/policy/scheduler.go": "c7188dd31516fd12c8e99e3d6b60a8ec4ece5feafd6264d4702f0d85dd98c793",
+    "internal/fusion/store/runs.go": "82bac1db4f5a872ada947990ea48cbd49930fbfd74867989a2f10a2f3849be41"
+  },
+  "packet_files_sha256": {
+    "test-results.json": "9f491d60b472f5105f16539f045f8ab1c6f4a7e6ab31a6c2a26a82b1981762c8",
+    "summary.md": "2fbe672c8e2f39bd71d9f3a064eb17165fcb62a1a5eff8985d37639c03a77ed8",
+    "wp13-restore-red.log": "3c3bbf5a5c2660aa0901d1290ba3b1b61a2d9391a08cf7e4a1e6ea8d639a54fe",
+    "wp13-restore-host-final.log": "9ef03e0cc8790efcc54fedc5341dbca59e880ca864674a375d8beaff27472015",
+    "wp13-restore-fusion-tagged-race.log": "519f21034b948916c4ebc61a0faf16b15b38d2f7bffa9c7fcbcd1c38adbd92c8",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-results.json": "bbb6497ddaee6ae048f0cdc8180ab5fded96fc643e31dac95f81e093549fc79b",
+    "wp13-restore-history-first.log": "c30d05f76c8fbbeeb0936e0ca38238a9e95c4bd11c0bf00707c7fcfa9af0af56",
+    "wp13-restore-native-regression.log": "d85c0292fb047ddf8f4e31ed8ef8f3678804694c702df37e73c8cbcf8c1ae524",
+    "build-gui.log": "2f20947da76d7c09cfcdc0fc81c341a7fa8f994c3873281b26daea6f866e6a54",
+    "wp13-restore-scope-green.log": "6320605800341466f3b4583d33b390f0f699ae6578bb9cee2e47d108259f6700",
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

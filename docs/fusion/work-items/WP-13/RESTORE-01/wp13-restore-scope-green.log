@@ -1,0 +1,44 @@
+=== RUN   TestRestoreScopeBindsSealedCheckpointToFreshPreparedRun
+--- PASS: TestRestoreScopeBindsSealedCheckpointToFreshPreparedRun (0.22s)
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/id
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/generation
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/task
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/role
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/attempt
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/revision
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/owner
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/account
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/model
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/route
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/credential
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/effort
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/cwd
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/source
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/seal
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/closed
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/quota
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/permission
+=== RUN   TestRestoreScopeRejectsDriftAndCallerAuthority/cancel
+--- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority (3.56s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/id (0.19s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/generation (0.19s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/task (0.19s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/role (0.19s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/attempt (0.19s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/revision (0.19s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/owner (0.19s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/account (0.19s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/model (0.19s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/route (0.19s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/credential (0.19s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/effort (0.19s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/cwd (0.19s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/source (0.19s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/seal (0.18s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/closed (0.18s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/quota (0.19s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/permission (0.19s)
+    --- PASS: TestRestoreScopeRejectsDriftAndCallerAuthority/cancel (0.19s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime/grok	5.456s

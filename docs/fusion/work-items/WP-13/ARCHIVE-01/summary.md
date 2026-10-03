@@ -20,7 +20,7 @@ RED→GREEN 留存：初次缺接口编译 RED；Host fixture 的 lock 误写 `{
 复现（在仓库根目录运行，Native flag 只用于明确固定 executable）：
 
 ```sh
-PATH="$HOME/.local/bin:$PATH" python3 docs/fusion/work-items/WP-13/CALLS-01/run-go.py test -race -v -count=1 -timeout=150s -mod=readonly -tags fusion,nogui ./internal/fusion/runtime/grok -run '^Test(Grok(CallGatePinnedNative|ControlledReadPinnedNative|AdapterPinnedNative)|ManagedPinnedNativeGrokChannel)' -fusion-native-grok /Users/zhaojianzhi/.grok/downloads/grok-1.0.48-macos-aarch64
+PATH="$HOME/.local/bin:$PATH" python3 docs/fusion/work-items/WP-13/CALLS-01/run-go.py /tmp/fusion-grok-archive-check.log test -race -v -count=1 -timeout=150s -mod=readonly -tags fusion,nogui ./internal/fusion/runtime/grok -run '^Test(Grok(CallGatePinnedNative|ControlledReadPinnedNative|AdapterPinnedNative)|ManagedPinnedNativeGrokChannel)' -fusion-native-grok /Users/zhaojianzhi/.grok/downloads/grok-1.0.48-macos-aarch64
 PATH="$HOME/.local/bin:$PATH" python3 scripts/fusion/build-dev.py
 ```
 
