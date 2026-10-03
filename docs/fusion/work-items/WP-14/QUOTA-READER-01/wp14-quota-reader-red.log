@@ -1,0 +1,8 @@
+# github.com/yetone/magpie/internal/fusion/runtime/glm [github.com/yetone/magpie/internal/fusion/runtime/glm.test]
+internal/fusion/runtime/glm/quota_reader_test.go:19:41: undefined: QuotaReader
+internal/fusion/runtime/glm/quota_reader_test.go:23:10: undefined: NewQuotaReader
+internal/fusion/runtime/glm/quota_reader_test.go:23:25: undefined: QuotaReaderConfig
+internal/fusion/runtime/glm/quota_reader_test.go:30:58: undefined: QuotaEndpoint
+internal/fusion/runtime/glm/quota_reader_test.go:39:48: undefined: QuotaEndpoint
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/glm [build failed]
+FAIL

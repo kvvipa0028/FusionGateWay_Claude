@@ -1,0 +1,23 @@
+{
+  "base_commit": "b06e440f20bfe57695a000268619b2f7cbb2bb7a",
+  "source_files_sha256": {
+    "internal/fusion/runtime/glm/quota_reader.go": "e8d0bb0b5114c8134c7e81ac28008c9065ca7ec70c4d90cce4b826b958b6c145",
+    "internal/fusion/runtime/glm/quota_reader_test.go": "b211c5cb63fce269aa6a68c9f1695b3b6201e138dd77715fc5ab80bbbc709152",
+    "internal/fusion/runtime/glm/quota_reader_live_test.go": "c7c70660a8721b204e0517d74d76a96e93572e37ed3653f786e462d64dd6bb71",
+    "docs/fusion/work-items/WP-14/summary.md": "4fdf52b2be99f8b940e470da01253f83fe32b8b8be0f31a77042ad66aaf30e61",
+    "docs/fusion/work-items/WP-14/glm-integration-verification.md": "784cf94564a26dff99aea5d5fe4547dea54b0f23e1a56d18e4cd8356c74874bd"
+  },
+  "packet_files_sha256": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "eb8fc58def8c1a7b204eff48b47100b97fec0dfb64cb5d6e660eaa06cac6a47a",
+    "build-results.json": "cbc99333d4de612a4a07b3149bbb6c01b062a2e1eb38275ed2120959912d2d75",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "summary.md": "4e8251e528eef236bb062bc94069a93fbb940923ba933d88d9907555b7746bd1",
+    "test-results.json": "eadf9cb5347a3ce726c395172f14743938a98fbc3ceaefdb0e63d551eba07486",
+    "wp14-quota-reader-final.log": "5f7ee0cd257044c67de048046f9667db2669dd4997fb36543909edbc85da7002",
+    "wp14-quota-reader-fusion-race.log": "ac15edcc9a3c52a534100b5c38b917235b144f71aa4af2f981393dba6c08647a",
+    "wp14-quota-reader-green.log": "4a34f909eef2855e150a0604a0f488768e754f0e4d3f800cf8ce758d6f34c3fd",
+    "wp14-quota-reader-live.log": "da01f75f411e28001dc3f01dbd31417d716bad8dfe14fc1137198508622f94f7",
+    "wp14-quota-reader-red.log": "aa44eb7df538f2bb67ca980d147d844c5e143c0e54b72b9205d06abd89ea76d9"
+  }
+}

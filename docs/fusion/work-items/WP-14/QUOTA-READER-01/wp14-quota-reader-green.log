@@ -1,0 +1,54 @@
+=== RUN   TestGLMQuotaReaderFixedQueryKeepsAdmissionUnverified
+--- PASS: TestGLMQuotaReaderFixedQueryKeepsAdmissionUnverified (0.00s)
+=== RUN   TestGLMQuotaReaderRefusesBeforeSecretOrNetwork
+=== RUN   TestGLMQuotaReaderRefusesBeforeSecretOrNetwork/account
+=== RUN   TestGLMQuotaReaderRefusesBeforeSecretOrNetwork/generation
+=== RUN   TestGLMQuotaReaderRefusesBeforeSecretOrNetwork/region
+=== RUN   TestGLMQuotaReaderRefusesBeforeSecretOrNetwork/denied
+=== RUN   TestGLMQuotaReaderRefusesBeforeSecretOrNetwork/cancelled
+=== RUN   TestGLMQuotaReaderRefusesBeforeSecretOrNetwork/credential
+=== RUN   TestGLMQuotaReaderRefusesBeforeSecretOrNetwork/late_denied
+--- PASS: TestGLMQuotaReaderRefusesBeforeSecretOrNetwork (0.00s)
+    --- PASS: TestGLMQuotaReaderRefusesBeforeSecretOrNetwork/account (0.00s)
+    --- PASS: TestGLMQuotaReaderRefusesBeforeSecretOrNetwork/generation (0.00s)
+    --- PASS: TestGLMQuotaReaderRefusesBeforeSecretOrNetwork/region (0.00s)
+    --- PASS: TestGLMQuotaReaderRefusesBeforeSecretOrNetwork/denied (0.00s)
+    --- PASS: TestGLMQuotaReaderRefusesBeforeSecretOrNetwork/cancelled (0.00s)
+    --- PASS: TestGLMQuotaReaderRefusesBeforeSecretOrNetwork/credential (0.00s)
+    --- PASS: TestGLMQuotaReaderRefusesBeforeSecretOrNetwork/late_denied (0.00s)
+=== RUN   TestGLMQuotaReaderBoundsAndStaticErrors
+=== RUN   TestGLMQuotaReaderBoundsAndStaticErrors/redirect
+=== RUN   TestGLMQuotaReaderBoundsAndStaticErrors/auth
+=== RUN   TestGLMQuotaReaderBoundsAndStaticErrors/forbidden
+=== RUN   TestGLMQuotaReaderBoundsAndStaticErrors/not_found
+=== RUN   TestGLMQuotaReaderBoundsAndStaticErrors/rate_limit
+=== RUN   TestGLMQuotaReaderBoundsAndStaticErrors/server
+=== RUN   TestGLMQuotaReaderBoundsAndStaticErrors/network
+=== RUN   TestGLMQuotaReaderBoundsAndStaticErrors/large
+=== RUN   TestGLMQuotaReaderBoundsAndStaticErrors/duplicate
+=== RUN   TestGLMQuotaReaderBoundsAndStaticErrors/missing_success
+=== RUN   TestGLMQuotaReaderBoundsAndStaticErrors/null
+=== RUN   TestGLMQuotaReaderBoundsAndStaticErrors/trailing
+=== RUN   TestGLMQuotaReaderBoundsAndStaticErrors/body_key
+=== RUN   TestGLMQuotaReaderBoundsAndStaticErrors/read_failure
+=== RUN   TestGLMQuotaReaderBoundsAndStaticErrors/date
+=== RUN   TestGLMQuotaReaderBoundsAndStaticErrors/late_identity
+--- PASS: TestGLMQuotaReaderBoundsAndStaticErrors (0.00s)
+    --- PASS: TestGLMQuotaReaderBoundsAndStaticErrors/redirect (0.00s)
+    --- PASS: TestGLMQuotaReaderBoundsAndStaticErrors/auth (0.00s)
+    --- PASS: TestGLMQuotaReaderBoundsAndStaticErrors/forbidden (0.00s)
+    --- PASS: TestGLMQuotaReaderBoundsAndStaticErrors/not_found (0.00s)
+    --- PASS: TestGLMQuotaReaderBoundsAndStaticErrors/rate_limit (0.00s)
+    --- PASS: TestGLMQuotaReaderBoundsAndStaticErrors/server (0.00s)
+    --- PASS: TestGLMQuotaReaderBoundsAndStaticErrors/network (0.00s)
+    --- PASS: TestGLMQuotaReaderBoundsAndStaticErrors/large (0.00s)
+    --- PASS: TestGLMQuotaReaderBoundsAndStaticErrors/duplicate (0.00s)
+    --- PASS: TestGLMQuotaReaderBoundsAndStaticErrors/missing_success (0.00s)
+    --- PASS: TestGLMQuotaReaderBoundsAndStaticErrors/null (0.00s)
+    --- PASS: TestGLMQuotaReaderBoundsAndStaticErrors/trailing (0.00s)
+    --- PASS: TestGLMQuotaReaderBoundsAndStaticErrors/body_key (0.00s)
+    --- PASS: TestGLMQuotaReaderBoundsAndStaticErrors/read_failure (0.00s)
+    --- PASS: TestGLMQuotaReaderBoundsAndStaticErrors/date (0.00s)
+    --- PASS: TestGLMQuotaReaderBoundsAndStaticErrors/late_identity (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime/glm	1.681s

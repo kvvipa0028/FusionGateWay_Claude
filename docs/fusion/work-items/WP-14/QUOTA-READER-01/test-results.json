@@ -1,0 +1,40 @@
+{
+  "work_item": "WP-14-QUOTA-READER-01",
+  "status": "done",
+  "parent_status": "in_progress",
+  "checks": [
+    {
+      "command": "go test -race -v -count=1 -mod=readonly -tags fusion,nogui ./internal/fusion/...",
+      "exit_code": 0,
+      "top_level_pass": 217,
+      "top_level_skip": 7,
+      "log": "wp14-quota-reader-fusion-race.log"
+    },
+    {
+      "command": "go test -race -v -count=1 -mod=readonly -tags fusion,nogui ./internal/fusion/runtime/glm -run ^TestGLMQuotaReader",
+      "exit_code": 0,
+      "top_level_pass": 5,
+      "subcase_pass": 25,
+      "live_test_skipped": true,
+      "log": "wp14-quota-reader-final.log"
+    },
+    {
+      "command": "go test -race -v -count=1 -mod=readonly -tags fusion,nogui ./internal/fusion/runtime/glm -run ^TestGLMQuotaReaderLiveCN$ -args -fusion-live-glm-quota-key PRIVATE_FILE",
+      "exit_code": 0,
+      "top_level_pass": 1,
+      "log": "wp14-quota-reader-live.log"
+    }
+  ],
+  "red_logs": [
+    "wp14-quota-reader-red.log"
+  ],
+  "build_report": "build-results.json",
+  "real_model_calls": 0,
+  "real_quota_requests": 1,
+  "product_registered": false,
+  "snapshot_complete": false,
+  "pool_verified": false,
+  "real_route_admitted": false,
+  "billing_verified": false,
+  "real_key_excluded_from_packet": true
+}
