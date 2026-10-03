@@ -1,6 +1,6 @@
 # WP-14 进度与私有临时目录修复
 
-状态：`in_progress`。最新完成子工作项 `WP-14-CHANNEL-01`：将固定 Claude Code 接入生产 Supervisor、受控双栈 loopback、启动后 grant 激活与真实 Store 预算。下文保留各轮证据边界；完整产品 Adapter、真实路线准入和 Gate A 仍未完成。
+状态：`in_progress`。最新完成子工作项 `WP-14-TOOLS-01`：验证固定 Claude Code 的受管 Read/Edit/文件创建，并修复 Native 工具失败仍被判成功的问题。此前 CHANNEL-01 已接入 Supervisor、受控双栈 loopback、启动后 grant 激活与真实 Store 预算。下文保留各轮证据边界；完整产品 Adapter、真实路线准入和 Gate A 仍未完成。
 
 ## 修复与验证
 
@@ -45,3 +45,7 @@ TEMP-01 当时仍缺 GLM protocol state machine 与受管执行出口，后续�
 ## WP-14-CHANNEL-01
 
 原生受管通道已接入 Supervisor。macOS 的 localhost 沙箱规则同时允许 IPv4/IPv6，因此控制器必须占有两边同一端口，Worker 存活时不能释放。真实固定 Native 无工具测试完成正常调用、SDK 重试、预算耗尽和调用中取消；使用 fake upstream 和 synthetic key，真实模型调用数 0。详见 [受管通道交付记录](CHANNEL-01/summary.md)。本项不注册产品任务 API，不升级实际账号/地区/额度/计费/effort 证据，父 WP-14 保持 in_progress。
+
+## WP-14-TOOLS-01
+
+固定 Native 在同一生产边界内完成 Read、Edit 和 Edit 创建新文件，实际工作区内容回读通过。越界读、越界创建和只读创建均不能成功；Native bare 模式的 Write 没有出现在实际 init tools 中，不能准入。发现只读创建失败后 Native 仍返回最终 success，补充 tool_result.is_error 检查后由 RED 转 GREEN，工具错误不再被成功文本掩盖。详见 [文件工具交付记录](TOOLS-01/summary.md)。完整 Adapter、真实准入、工程测试 Executor 与 Gate A 仍未完成。

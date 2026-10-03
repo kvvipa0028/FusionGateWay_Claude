@@ -15,3 +15,5 @@ WP-14-SYSTEM-DATA-01 增加 `/usr/share/icu` 与 `/private/var/db/timezone` 的�
 WP-14-CHANNEL-01 的本机实验发现 remote tcp 数字 IP 规则被 sandbox-exec 拒绝；localhost:port 实际匹配 127.0.0.1 与 ::1，同端口均通过，对有阳性对照的邻端口拒绝。127.0.0.2 在本机不能绑定，明确不计作沙箱反例。对应生产通道必须同时独占两个 loopback 地址，只增加该一个端口；没有开放任意 localhost、network-bind、fork 或 Mach 服务。
 
 更新后的原生 C fixture 在同一生产 Supervisor 内证明双栈通道均可达、邻端口仍拒绝、SecurityServer lookup 与 fork 仍拒绝。固定 Native CLI 另经生产 Supervisor、真实 Store 和 CallGate 完成四个合成场景及真实 wait/reap/StopProof。证据只覆盖这个宿主和固定 Native 的无工具模式，Bash/多进程工具仍未支持，真实账号/额度/计费与产品 Adapter 准入保持未验证。详见 [通道证据](../work-items/WP-14/CHANNEL-01/summary.md)。
+
+WP-14-TOOLS-01 补充真实 Native 文件工具场景：Read 读取指定项目文件并在第二次假上游请求中携带合成内容，Edit 在三个模型回合中先读后修改，Edit 创建新文件在两个回合中完成，实际文件回读符合预期。三个阳性场景与越界读、越界创建、只读创建负例使用相同固定 Native、生产 profile、Store/CallGate 与许可 flags；只读创建和可写创建仅改变 OS workspace 写权限。负例均不产生禁止的文件变化，且获得真实 StopProof；没有开放 fork、兄弟目录文件读取或外部 network。Native bare 的 Write 工具未出现于 init，保留为 unsupported fixture，不声称 Write 能力已通过。

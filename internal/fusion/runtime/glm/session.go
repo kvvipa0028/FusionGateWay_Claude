@@ -292,13 +292,24 @@ func (s *Session) Event(run string, generation int64, raw []byte) (json.RawMessa
 		var message struct {
 			Content []struct {
 				Type      string
-				ToolUseID string `json:"tool_use_id"`
+				ToolUseID string          `json:"tool_use_id"`
+				Error     json.RawMessage `json:"is_error"`
 			}
 		}
 		if decode(frame.Message, &message) != nil || len(message.Content) == 0 {
 			return s.fail(ErrProtocol)
 		}
 		for _, content := range message.Content {
+			// Native can report tool failure (for example an OS-denied write)
+			// and still emit result/success. That terminal cannot certify a
+			// successful engineering stage. Omitted/false matches native success;
+			// null, non-boolean and true do not establish a completed tool.
+			if len(content.Error) != 0 {
+				var failed bool
+				if bytes.Equal(bytes.TrimSpace(content.Error), []byte("null")) || json.Unmarshal(content.Error, &failed) != nil || failed {
+					return s.fail(ErrUnverified)
+				}
+			}
 			complete, known := s.tools[content.ToolUseID]
 			if content.Type != "tool_result" || !known || complete {
 				return s.fail(ErrUnsupported)

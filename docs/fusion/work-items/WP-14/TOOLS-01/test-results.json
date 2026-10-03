@@ -1,0 +1,39 @@
+{
+  "work_item": "WP-14-TOOLS-01",
+  "status": "done",
+  "parent_status": "in_progress",
+  "checks": [
+    {
+      "command": "go test -race -v -count=1 -mod=readonly -tags fusion,nogui ./internal/fusion/...",
+      "exit_code": 0,
+      "top_level_pass": 209,
+      "top_level_skip": 5,
+      "log": "wp14-tools-fusion-race.log"
+    },
+    {
+      "command": "go test -race -v -count=1 -mod=readonly -tags fusion,nogui ./internal/fusion/runtime/glm -run ^TestManagedPinnedNative(ClaudeChannel|BuiltinTools)$ -args -fusion-native-claude PINNED_2.1.287",
+      "exit_code": 0,
+      "top_level_pass": 2,
+      "subcase_pass": 11,
+      "log": "wp14-tools-managed-native-green.log"
+    }
+  ],
+  "red_logs": [
+    "wp14-tools-native-first.log",
+    "wp14-tools-init-shape.log",
+    "wp14-tools-native-second.log",
+    "wp14-tools-error-red.log"
+  ],
+  "build_report": "build-results.json",
+  "real_model_calls": 0,
+  "native_tools_verified": [
+    "Read",
+    "Edit",
+    "Edit creates new file"
+  ],
+  "write_native_mode_supported": false,
+  "real_route_admitted": false,
+  "billing_verified": false,
+  "quota_verified": false,
+  "real_key_excluded_from_packet": true
+}

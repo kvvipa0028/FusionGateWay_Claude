@@ -1,0 +1,30 @@
+=== RUN   TestManagedPinnedNativeBuiltinTools
+=== RUN   TestManagedPinnedNativeBuiltinTools/read
+    managed_native_test.go:41: Pinned Native 2.1.287 -> production Supervisor/dual-loopback CallGate -> 2 fake upstream requests, 2 persisted calls -> succeeded, exit=0, verified reaping; real model calls=0, admission/billing/quota unverified
+=== RUN   TestManagedPinnedNativeBuiltinTools/edit
+    managed_native_test.go:41: Pinned Native 2.1.287 -> production Supervisor/dual-loopback CallGate -> 3 fake upstream requests, 3 persisted calls -> succeeded, exit=0, verified reaping; real model calls=0, admission/billing/quota unverified
+=== RUN   TestManagedPinnedNativeBuiltinTools/create
+    managed_native_test.go:41: Pinned Native 2.1.287 -> production Supervisor/dual-loopback CallGate -> 2 fake upstream requests, 2 persisted calls -> succeeded, exit=0, verified reaping; real model calls=0, admission/billing/quota unverified
+=== RUN   TestManagedPinnedNativeBuiltinTools/outside_read
+    managed_native_test.go:238: tool fixture protocol failure: system/permission_denied
+    managed_native_test.go:41: Pinned Native 2.1.287 -> production Supervisor/dual-loopback CallGate -> 2 fake upstream requests, 2 persisted calls -> failed, exit=0, verified reaping; real model calls=0, admission/billing/quota unverified
+=== RUN   TestManagedPinnedNativeBuiltinTools/outside_create
+    managed_native_test.go:238: tool fixture protocol failure: system/permission_denied
+    managed_native_test.go:41: Pinned Native 2.1.287 -> production Supervisor/dual-loopback CallGate -> 2 fake upstream requests, 2 persisted calls -> interrupted, exit=0, verified reaping; real model calls=0, admission/billing/quota unverified
+=== RUN   TestManagedPinnedNativeBuiltinTools/readonly_create
+    managed_native_test.go:41: cancelled or exhausted task succeeded
+=== RUN   TestManagedPinnedNativeBuiltinTools/write_unsupported
+    managed_native_test.go:238: tool fixture protocol failure: system/init
+    managed_native_test.go:242: synthetic init tools: []
+    managed_native_test.go:41: Pinned Native 2.1.287 -> production Supervisor/dual-loopback CallGate -> 2 fake upstream requests, 2 persisted calls -> interrupted, exit=0, verified reaping; real model calls=0, admission/billing/quota unverified
+--- FAIL: TestManagedPinnedNativeBuiltinTools (3.91s)
+    --- PASS: TestManagedPinnedNativeBuiltinTools/read (0.57s)
+    --- PASS: TestManagedPinnedNativeBuiltinTools/edit (0.58s)
+    --- PASS: TestManagedPinnedNativeBuiltinTools/create (0.55s)
+    --- PASS: TestManagedPinnedNativeBuiltinTools/outside_read (0.56s)
+    --- PASS: TestManagedPinnedNativeBuiltinTools/outside_create (0.55s)
+    --- FAIL: TestManagedPinnedNativeBuiltinTools/readonly_create (0.56s)
+    --- PASS: TestManagedPinnedNativeBuiltinTools/write_unsupported (0.55s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/glm	4.565s
+FAIL

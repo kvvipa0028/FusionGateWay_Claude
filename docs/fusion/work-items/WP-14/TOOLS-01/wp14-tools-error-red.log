@@ -1,0 +1,14 @@
+=== RUN   TestNativeToolErrorCannotValidateSuccess
+=== RUN   TestNativeToolErrorCannotValidateSuccess/true
+    session_test.go:323: Native tool error accepted despite a later success result
+=== RUN   TestNativeToolErrorCannotValidateSuccess/null
+    session_test.go:323: Native tool error accepted despite a later success result
+=== RUN   TestNativeToolErrorCannotValidateSuccess/"true"
+    session_test.go:323: Native tool error accepted despite a later success result
+--- FAIL: TestNativeToolErrorCannotValidateSuccess (0.01s)
+    --- FAIL: TestNativeToolErrorCannotValidateSuccess/true (0.00s)
+    --- FAIL: TestNativeToolErrorCannotValidateSuccess/null (0.00s)
+    --- FAIL: TestNativeToolErrorCannotValidateSuccess/"true" (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/glm	0.660s
+FAIL

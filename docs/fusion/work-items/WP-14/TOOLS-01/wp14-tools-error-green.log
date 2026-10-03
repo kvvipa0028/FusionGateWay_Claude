@@ -1,0 +1,10 @@
+=== RUN   TestNativeToolErrorCannotValidateSuccess
+=== RUN   TestNativeToolErrorCannotValidateSuccess/true
+=== RUN   TestNativeToolErrorCannotValidateSuccess/null
+=== RUN   TestNativeToolErrorCannotValidateSuccess/"true"
+--- PASS: TestNativeToolErrorCannotValidateSuccess (0.01s)
+    --- PASS: TestNativeToolErrorCannotValidateSuccess/true (0.00s)
+    --- PASS: TestNativeToolErrorCannotValidateSuccess/null (0.00s)
+    --- PASS: TestNativeToolErrorCannotValidateSuccess/"true" (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime/glm	1.502s

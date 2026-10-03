@@ -23,3 +23,7 @@ WP-14 的 CallGate 是独立可信 Handler。ClaudeChannel 构造时必须同时
 Supervisor 从持久 Store 重核冻结 target、role/attempt/revision/generation/project，独占 acquire 通道后才写启动 intent。prepared TTL 须覆盖执行时限加 20 秒，通道执行最长四分钟。ConfirmStarted 后激活一次；激活失败返回已知 Handle 加错误，撤销身份并 TERM/KILL/wait，不丢掉已启动进程。取消、心跳失败、超时、listener 异常与终态均撤销 grant；存活 Worker 的 Close 被拒绝，只有实际 wait/reap 后释放两个端口。原启动失败路径完成 wait 或确认未启动后才能释放端口，不能用 token 撤销代替进程退出。
 
 固定 Claude 2.1.287 在真实 Supervisor/profile 内，通过 CallGate 与真实 Store 完成无工具合成成功、429 重试、预算耗尽和调用中取消，已产生当前控制器 StopProof。Native api_retry 仅是有界信息，实际每个 HTTP 仍各自 Permit；原手工 profile 的历史诊断不升级为本次证据。产品 Adapter/任务 API 尚未注册，实际 Transport、账号、地区、额度、计费与 GLM 执行 effort 仍需独立准入，详见 [本项证据](../work-items/WP-14/CHANNEL-01/summary.md)。
+
+WP-14-TOOLS-01 在同一生产边界证明固定 Native 的 bare/restricted 模式可使用 Read 与 Edit，Edit 的空 old_string 可以创建项目新文件。Write 不在该 pin/mode 的实际 init tools 中，不能因协议 schema 允许 Write 就将它准入；Bash/其他需子进程的工具仍未验证。工具许可只来自冻结可信配置的 tools/allowedTools 与 OS 工作区边界，不使用 bypassPermissions 或扩大目录权限。
+
+Native 可以在 tool_result.is_error=true 后返回 result/success。协议观察器必须拒绝 true、null 或非 boolean is_error；只有省略或明确 false 才可完成该工具。真实只读项目写入拒绝的 fixture 先 RED 后 GREEN，不会被最终成功文本掩盖；越界读/创建、未支持的工具同样不能成功，写角色失败保留 interrupted 状态。细节见 [工具证据](../work-items/WP-14/TOOLS-01/summary.md)。

@@ -1,0 +1,26 @@
+{
+  "base_commit": "ec9ca16ef4fcd5f7d9ca3823ac428f9ab0d370f3",
+  "source_files_sha256": {
+    "internal/fusion/runtime/glm/session.go": "b3dd4efdc834cbd2e835b40b49968a62f43e56c0222e3d27c5af51df9a9693fc",
+    "internal/fusion/runtime/glm/session_test.go": "c755fe61e8c223d9be8e7923d8d3661831b5b8bcbafac7e38e4f2db571c4de57",
+    "internal/fusion/runtime/glm/managed_native_test.go": "e6ef746f833ee4053f181f94bc707e873c896047ae04783b99d5d14ec64ecd60",
+    "docs/fusion/contracts/runtime-contract.md": "4f56707710d53d8627ab4f9bac7a335f9a495605fe8f4c2938f9432b815072db",
+    "docs/fusion/contracts/sandbox-proof.md": "0c39cc5a6197060f14f2b2ea644d1cc8dd207f49857ecf2a7cae9dccc6cbefe7",
+    "docs/fusion/work-items/WP-14/summary.md": "745d49df08034a5c7e8a44bf1c876f4a34d31922c27b94784c91051d02c85295"
+  },
+  "packet_files_sha256": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "49b9b6865f602b9195c23dd2cc5fc1732a5851a9821f902de3ccacc6d14de049",
+    "build-results.json": "117126b3a117fc09d18bdad2f57c0cde0f19fc66b2796b1561b9a03839d2688b",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "summary.md": "4efcf435664915247fc471de4e80f50194c1e6d05f2eccd775e525f426da56a5",
+    "test-results.json": "1da72a4308fe4842b1962da2db23787e1653b653184b5a03c08f4a7f22a16771",
+    "wp14-tools-error-green.log": "94c4f8f763b088ce7e03f47148090f08f1886c490705aec7c1b31a0bd49d406d",
+    "wp14-tools-error-red.log": "0ca0c413d3845f38967ccccbfed1e27de97ee21377eeb20cf404e9b4c12e6c8e",
+    "wp14-tools-fusion-race.log": "ce8de72ef28aa38593fac44be8012eb5816b714e677441ca7e749a600010dedf",
+    "wp14-tools-init-shape.log": "d47e94056d45f702028730f471bf905c15c2f8aff88f678a28df4d012a0e0fbd",
+    "wp14-tools-managed-native-green.log": "0dce2d3ce9894e5a50f8a04daf2b2dbf528b0f18547c1977e1f3987503bff398",
+    "wp14-tools-native-first.log": "5aef3cf3968ac62cd0ae20b613c534bc094ea5fda78da5759885997508a84b87",
+    "wp14-tools-native-second.log": "79dd5973b9af7378e13dccd0d959f1a29f6d33d762e69533f4e0a6c0f805b534"
+  }
+}

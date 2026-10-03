@@ -1,0 +1,27 @@
+=== RUN   TestManagedPinnedNativeBuiltinTools
+=== RUN   TestManagedPinnedNativeBuiltinTools/read
+    managed_native_test.go:41: Pinned Native 2.1.287 -> production Supervisor/dual-loopback CallGate -> 2 fake upstream requests, 2 persisted calls -> succeeded, exit=0, verified reaping; real model calls=0, admission/billing/quota unverified
+=== RUN   TestManagedPinnedNativeBuiltinTools/write
+    managed_native_test.go:228: tool fixture protocol failure: system/init
+    managed_native_test.go:41: Native protocol outcome mismatch interrupted 0
+=== RUN   TestManagedPinnedNativeBuiltinTools/edit
+    managed_native_test.go:41: Pinned Native 2.1.287 -> production Supervisor/dual-loopback CallGate -> 3 fake upstream requests, 3 persisted calls -> succeeded, exit=0, verified reaping; real model calls=0, admission/billing/quota unverified
+=== RUN   TestManagedPinnedNativeBuiltinTools/outside_read
+    managed_native_test.go:228: tool fixture protocol failure: system/permission_denied
+    managed_native_test.go:41: Pinned Native 2.1.287 -> production Supervisor/dual-loopback CallGate -> 2 fake upstream requests, 2 persisted calls -> failed, exit=0, verified reaping; real model calls=0, admission/billing/quota unverified
+=== RUN   TestManagedPinnedNativeBuiltinTools/outside_write
+    managed_native_test.go:228: tool fixture protocol failure: system/init
+    managed_native_test.go:41: Pinned Native 2.1.287 -> production Supervisor/dual-loopback CallGate -> 2 fake upstream requests, 2 persisted calls -> interrupted, exit=0, verified reaping; real model calls=0, admission/billing/quota unverified
+=== RUN   TestManagedPinnedNativeBuiltinTools/readonly_write
+    managed_native_test.go:228: tool fixture protocol failure: system/init
+    managed_native_test.go:41: Pinned Native 2.1.287 -> production Supervisor/dual-loopback CallGate -> 2 fake upstream requests, 2 persisted calls -> failed, exit=0, verified reaping; real model calls=0, admission/billing/quota unverified
+--- FAIL: TestManagedPinnedNativeBuiltinTools (3.34s)
+    --- PASS: TestManagedPinnedNativeBuiltinTools/read (0.59s)
+    --- FAIL: TestManagedPinnedNativeBuiltinTools/write (0.54s)
+    --- PASS: TestManagedPinnedNativeBuiltinTools/edit (0.58s)
+    --- PASS: TestManagedPinnedNativeBuiltinTools/outside_read (0.55s)
+    --- PASS: TestManagedPinnedNativeBuiltinTools/outside_write (0.54s)
+    --- PASS: TestManagedPinnedNativeBuiltinTools/readonly_write (0.54s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/glm	3.979s
+FAIL

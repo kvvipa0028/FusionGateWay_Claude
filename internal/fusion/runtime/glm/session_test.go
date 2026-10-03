@@ -286,6 +286,56 @@ func TestNativeOwnedReadSupportsTwoBudgetedModelRounds(t *testing.T) {
 		t.Fatal("observed fake requests promoted to all-calls control")
 	}
 }
+
+func TestNativeToolErrorCannotValidateSuccess(t *testing.T) {
+	for _, flag := range []string{"true", "null", `"true"`} {
+		t.Run(flag, func(t *testing.T) {
+			raw, e := os.ReadFile("testdata/native-2.1.287/read-tool-stream.jsonl")
+			if e != nil {
+				t.Fatal(e)
+			}
+			frames := bytes.Split(bytes.TrimSpace(bytes.ReplaceAll(raw, []byte("<fixture-root>"), []byte("/fixture-root"))), []byte("\n"))
+			_, b, _ := fixtureSession(t)
+			var init struct {
+				SessionID string `json:"session_id"`
+			}
+			json.Unmarshal(frames[1], &init)
+			b.NativeSessionID = init.SessionID
+			b.Tools = []string{"Read"}
+			b.MaxTurns = 2
+			s, e := New(b, func(Binding) bool { return true })
+			if e != nil {
+				t.Fatal(e)
+			}
+			for _, frame := range frames {
+				var fields map[string]json.RawMessage
+				json.Unmarshal(frame, &fields)
+				if string(fields["type"]) == `"user"` {
+					var message map[string]json.RawMessage
+					json.Unmarshal(fields["message"], &message)
+					var content []map[string]json.RawMessage
+					json.Unmarshal(message["content"], &content)
+					content[0]["is_error"] = json.RawMessage(flag)
+					message["content"], _ = json.Marshal(content)
+					fields["message"], _ = json.Marshal(message)
+					frame, _ = json.Marshal(fields)
+					if _, e = s.Event(b.RunID, b.Generation, frame); e == nil {
+						t.Fatal("Native tool error accepted despite a later success result")
+					}
+					out, e := s.Finish(0)
+					if out.State == "succeeded" {
+						t.Fatal("Native tool error promoted to stage success", e)
+					}
+					return
+				}
+				if _, e = s.Event(b.RunID, b.Generation, frame); e != nil {
+					t.Fatal(e)
+				}
+			}
+			t.Fatal("fixture has no tool result")
+		})
+	}
+}
 func TestCaseFoldAliasesAndInvalidUTF8CannotOverrideNativeFields(t *testing.T) {
 	for _, raw := range [][]byte{[]byte(`{"ſession_id":"fixture-other","session_id":"fixture","type":"system"}`), append([]byte(`{"type":"system","text":"`), 0xff, '"', '}')} {
 		var v any
