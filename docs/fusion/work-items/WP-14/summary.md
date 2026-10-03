@@ -29,3 +29,7 @@ Native stream 出现 system/ui_invalidate、init、status、stream_event、assis
 ## WP-14-PROTOCOL-01
 
 新增被动事件协议与两轮 Native Read fixture，子工作项已完成，详见 [协议交付记录](PROTOCOL-01/summary.md)。14 个 GLM tests、142 个 Fusion tagged race tests、CLI/GUI 编译及 vet 通过。协议成功与生产执行准入继续分别记录；原 TEMP-01 的 artifact manifest 是其历史交付快照。完整 WP-14 保持 in_progress。
+
+## WP-14-SYSTEM-DATA-01
+
+修复已定位的 Native 启动数据依赖：生产 profile 增加系统 ICU 与时区目录只读权限，真实系统 ICU 在 Supervisor 内完成枚举，既有隔离反例继续通过。固定 Native 的无工具 loopback 消融诊断证明两个数据目录共同消除请求前启动超时。详见 [系统数据交付记录](SYSTEM-DATA-01/summary.md)。该修复没有开放生产网络、fork 或实际凭据注入；完整 WP-14 与 Gate A 仍未通过。

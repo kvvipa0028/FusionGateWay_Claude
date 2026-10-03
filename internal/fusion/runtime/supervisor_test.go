@@ -130,7 +130,7 @@ func setup(t *testing.T, mode string, write bool) (*Supervisor, *Handle, *store.
 		t.Fatal(e)
 	}
 	root, work := pdir(t), pdir(t)
-	if mode == "mach_network_fork" {
+	if mode == "mach_network_fork" || mode == "icu_timezone" {
 		exe = compileProbe(t)
 		hash, e = FileHash(exe)
 		if e != nil {
@@ -138,6 +138,14 @@ func setup(t *testing.T, mode string, write bool) (*Supervisor, *Handle, *store.
 		}
 	}
 	spec := Spec{Executable: exe, ExecutableHash: hash, Args: []string{"-test.run=^TestWorkerFixture$"}, Root: root, Workspace: work, Writable: write, Timeout: 3 * time.Second, NativeSessionID: "fixture-session", FixtureEnvironment: map[string]string{"FUSION_WORKER_FIXTURE": mode}, ValidateOutcome: func(out []byte) bool { return string(out) == "fixture-completed\n" }}
+	if mode == "icu_timezone" {
+		spec.Args = []string{"--timezone"}
+		control := exec.Command(exe, "--timezone")
+		control.Env = []string{}
+		if b, e := control.CombinedOutput(); e != nil || string(b) != "fixture-completed\n" {
+			t.Fatalf("system ICU positive control unavailable: %v (synthetic output %s)", e, b)
+		}
+	}
 	if mode == "mach_network_fork" {
 		listener, e := net.Listen("tcp", "127.0.0.1:0")
 		if e != nil {
@@ -419,5 +427,13 @@ func TestNativeMachNetworkAndForkBoundariesHavePositiveControls(t *testing.T) {
 	got := wait(t, h)
 	if got.State != "succeeded" || !got.StoppedVerified {
 		t.Fatal("native kernel boundaries unverified", got.State, got.ExitCode)
+	}
+}
+
+func TestNativeSystemTimezoneEnumerationUnderManagedSandbox(t *testing.T) {
+	sup, h, _, _, _, _ := setup(t, "icu_timezone", false)
+	got := wait(t, h)
+	if got.State != "succeeded" || !got.StoppedVerified || !sup.VerifyStop(got.Proof) {
+		t.Fatal("system ICU timezone data unavailable under managed sandbox", got.State, got.ExitCode)
 	}
 }

@@ -6,6 +6,8 @@
 
 Spec 的路径、argv、stdin 与 validator 只由注册的可信 Adapter 构造。argv 是数组，stdin 有界 64KiB；没有 shell 拼接、ambient env 或 ExtraFiles。环境仅固定 HOME/XDG/TMP/PATH，额外 fixture 字段有白名单，不接受管理/API/OAuth secret env。真实 Adapter 的授权通道必须单独验证。本包不读取任何真实凭据。
 
+macOS profile 可只读系统 ICU 与时区数据目录，供 Native 初始化使用；不开放父目录或这些数据目录的写/执行权限。该启动依赖修复不授予网络、fork 或 Native 凭据环境，GLM 的受管通信仍需独立 Adapter 与执行出口准入。
+
 stdout/stderr 各最大 64KiB，超限取消且不判成功；总时限最大 10 分钟。心跳每 2 秒按 generation 续租。TERM 后 200ms KILL，只针对出生身份匹配的进程；Wait/reap 前不会提供退出证明。派生被 kernel 拒绝，不用 PID 组推断逃逸子进程已停止。
 
 需要源目录批准和稳定源数据，才调用 Copy；复制到仓库外私有目录，源不改写。排除 .git/.claude/.codex/.grok/.fusion-dev/.env；拒绝 symlink/hardlink/特殊文件，使用 os.Root + O_NOFOLLOW 限定读边界。上限 10000 文件、单文件 20MiB/总量 100MiB。只读角色由沙箱拒绝 workspace 写，HOME/缓存仍可写。写 lease 由持久化 reservations 控制。

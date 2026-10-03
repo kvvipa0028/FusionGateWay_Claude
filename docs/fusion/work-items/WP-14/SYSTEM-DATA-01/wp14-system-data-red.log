@@ -1,0 +1,6 @@
+=== RUN   TestNativeSystemTimezoneEnumerationUnderManagedSandbox
+    supervisor_test.go:437: system ICU timezone data unavailable under managed sandbox failed 98
+--- FAIL: TestNativeSystemTimezoneEnumerationUnderManagedSandbox (0.51s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime	1.148s
+FAIL

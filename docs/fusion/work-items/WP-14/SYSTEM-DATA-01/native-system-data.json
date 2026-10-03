@@ -1,0 +1,146 @@
+{
+  "diagnostic_only": true,
+  "fixture_only": true,
+  "actual_account_used": false,
+  "real_model_calls": 0,
+  "strict_lock_verified": false,
+  "billing_verified": false,
+  "quota_verified": false,
+  "runtime_version": "2.1.287",
+  "executable_sha256": "6eab8333fe2121553100d8f40bfada384a3e989b94f947e18ba6677a6fcb41ea",
+  "ablation_verified": true,
+  "cases": [
+    {
+      "case": "baseline",
+      "data_read_paths": [],
+      "timeout": true,
+      "exit_code": -9,
+      "native_result_verified": false,
+      "parent_wait_completed": true,
+      "supervisor_stop_proof": false,
+      "fork_allowed": false,
+      "network_scope": "synthetic localhost port only",
+      "profile_sha256": "61d11e41bf3fa9e6d5a10c4838a6cf6c228888dd914104e402be792f33e46045",
+      "calls": [],
+      "stdout_bytes": 0,
+      "stderr_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "event_types": []
+    },
+    {
+      "case": "icu_only",
+      "data_read_paths": [
+        "/usr/share/icu"
+      ],
+      "timeout": true,
+      "exit_code": -9,
+      "native_result_verified": false,
+      "parent_wait_completed": true,
+      "supervisor_stop_proof": false,
+      "fork_allowed": false,
+      "network_scope": "synthetic localhost port only",
+      "profile_sha256": "ee2b3c08a3204284ba6cecb6d60c6bbcea2a2c833eb3130266f3d0f22f74e4d9",
+      "calls": [],
+      "stdout_bytes": 0,
+      "stderr_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "event_types": []
+    },
+    {
+      "case": "timezone_only",
+      "data_read_paths": [
+        "/private/var/db/timezone"
+      ],
+      "timeout": true,
+      "exit_code": -9,
+      "native_result_verified": false,
+      "parent_wait_completed": true,
+      "supervisor_stop_proof": false,
+      "fork_allowed": false,
+      "network_scope": "synthetic localhost port only",
+      "profile_sha256": "76bef9bd5e556d3aaa17c92c637157e8f4091094c26fb2acc022fa1c362c92f2",
+      "calls": [],
+      "stdout_bytes": 0,
+      "stderr_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "event_types": []
+    },
+    {
+      "case": "both",
+      "data_read_paths": [
+        "/usr/share/icu",
+        "/private/var/db/timezone"
+      ],
+      "timeout": false,
+      "exit_code": 0,
+      "native_result_verified": true,
+      "parent_wait_completed": true,
+      "supervisor_stop_proof": false,
+      "fork_allowed": false,
+      "network_scope": "synthetic localhost port only",
+      "profile_sha256": "e40737ea301257912ceccafbf95ce4cdcbe03091fc01e269e61c1619dd2a1768",
+      "calls": [
+        {
+          "path": "/api/anthropic/v1/messages?beta=true",
+          "model": "glm-5.3",
+          "tool_count": 0,
+          "bearer_fixture": true,
+          "api_key_fixture": true
+        }
+      ],
+      "stdout_bytes": 4987,
+      "stderr_bytes": 74,
+      "stdout_sha256": "191d17a4589cf19f915fb3277eded9307b95e7e0ca3a4f5e8379cc919512034c",
+      "stderr_sha256": "089dbf616da27f2f327878d5fb2ed70fd63a63b259b7c648536429d4b1c68609",
+      "event_types": [
+        {
+          "type": "system",
+          "subtype": "ui_invalidate"
+        },
+        {
+          "type": "system",
+          "subtype": "init"
+        },
+        {
+          "type": "system",
+          "subtype": "status"
+        },
+        {
+          "type": "stream_event",
+          "subtype": null
+        },
+        {
+          "type": "stream_event",
+          "subtype": null
+        },
+        {
+          "type": "stream_event",
+          "subtype": null
+        },
+        {
+          "type": "assistant",
+          "subtype": null
+        },
+        {
+          "type": "stream_event",
+          "subtype": null
+        },
+        {
+          "type": "stream_event",
+          "subtype": null
+        },
+        {
+          "type": "stream_event",
+          "subtype": null
+        },
+        {
+          "type": "result",
+          "subtype": "success"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "work_item": "WP-14-SYSTEM-DATA-01",
+  "status": "done",
+  "parent_status": "in_progress",
+  "red_logs": [
+    "wp14-system-data-red.log"
+  ],
+  "checks": [
+    {
+      "command": "go test -race -v -count=1 -mod=readonly -tags fusion,nogui ./internal/fusion/runtime",
+      "exit_code": 0,
+      "top_level_pass": 11,
+      "top_level_skip": 1,
+      "log": "wp14-system-data-green.log"
+    },
+    {
+      "command": "go test -race -v -count=1 -mod=readonly -tags fusion,nogui ./internal/fusion/...",
+      "exit_code": 0,
+      "top_level_pass": 190,
+      "top_level_skip": 2,
+      "log": "wp14-system-data-fusion-race.log"
+    }
+  ],
+  "build_report": "build-results.json",
+  "native_diagnostic": "native-system-data.json",
+  "real_model_calls": 0,
+  "production_native_admitted": false
+}

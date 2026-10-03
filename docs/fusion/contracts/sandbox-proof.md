@@ -7,3 +7,7 @@
 记录 PID 与 kernel P_starttime，不把 PID 单独作为身份；错出生时间拒绝 signal。实际 WaitStatus exited/signaled 后才核实退出。禁止所有派生使孙进程不能创建；这不是支持多进程工具的证明。实际 PID reuse 未强制产生，多进程/网络/原生 resume 尚 unsupported，真实 Native 路线另行准入。
 
 本机 man 标注 sandbox-exec DEPRECATED。本能力仅本机已验证版本；环境漂移需重新执行 native fixture。沙箱与签名/模型路由/计费/额度是独立证据，不能相互替代。
+
+WP-14-SYSTEM-DATA-01 增加 `/usr/share/icu` 与 `/private/var/db/timezone` 的只读数据访问。未开放整个 /usr 或 /var，未授予这两个目录写权限或可执行映射。系统 libicucore 的真实时区枚举在旧 profile 返回错误，新增只读权限后在 Supervisor 内成功并获得当前控制器 StopProof；既有 Keychain/Mach、网络、fork、兄弟目录读取和越界写反例继续验证。
+
+固定 Claude Code 2.1.287 的独立无工具诊断进行四组消融：无权限、仅 ICU、仅时区均在首个请求前超时；同时开放两个目录后完成一次本地假上游请求。诊断额外授予唯一 loopback 端口与 synthetic env，不经过生产 Supervisor，因此其 parent wait 不代表生产 Native StopProof 或网络准入。生产 profile 仍拒绝所有网络与 fork；实际 GLM Adapter、全部调用预算、真实计费与额度未因此通过。详见 [本项证据](../work-items/WP-14/SYSTEM-DATA-01/summary.md)。

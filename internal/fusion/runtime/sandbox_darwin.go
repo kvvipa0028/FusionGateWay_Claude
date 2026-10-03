@@ -34,6 +34,11 @@ func sandbox(spec Spec) (string, []string, error) {
 	for _, p := range []string{"/System/Library", "/usr/lib", "/Library/Apple/System/Library"} {
 		profile += fmt.Sprintf("(allow file-read* file-map-executable (subpath %s))\n", strconv.Quote(p))
 	}
+	// System ICU enumerates timezone IDs from both data directories during
+	// Native startup. Permit data reads only, without broader /usr or /var access.
+	for _, p := range []string{"/usr/share/icu", "/private/var/db/timezone"} {
+		profile += fmt.Sprintf("(allow file-read* (subpath %s))\n", strconv.Quote(p))
+	}
 	for _, p := range []string{spec.Root, spec.Workspace} {
 		profile += fmt.Sprintf("(allow file-read* (subpath %s))\n", strconv.Quote(p))
 	}

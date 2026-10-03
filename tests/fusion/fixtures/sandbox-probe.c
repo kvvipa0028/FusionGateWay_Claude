@@ -9,8 +9,31 @@
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
+#include <stdint.h>
+#include <dlfcn.h>
+
+/* Use the system ICU ABI without bundling headers or an alternate data set. */
+static int timezone_probe(void) {
+    void *icu = dlopen("/usr/lib/libicucore.A.dylib", RTLD_NOW | RTLD_LOCAL);
+    if (icu == NULL) return 96;
+    void *(*open_zones)(int, const char *, const int32_t *, int32_t *) =
+        dlsym(icu, "ucal_openTimeZoneIDEnumeration");
+    int32_t (*count_zones)(void *, int32_t *) = dlsym(icu, "uenum_count");
+    void (*close_zones)(void *) = dlsym(icu, "uenum_close");
+    if (open_zones == NULL || count_zones == NULL || close_zones == NULL) return 97;
+    int32_t status = 0;
+    void *zones = open_zones(0, NULL, NULL, &status); /* UCAL_ZONE_TYPE_ANY */
+    if (zones == NULL || status > 0) return 98;
+    int32_t count = count_zones(zones, &status);
+    close_zones(zones);
+    dlclose(icu);
+    if (status > 0 || count < 1) return 99;
+    puts("fixture-completed");
+    return 0;
+}
 
 int main(int argc, char **argv) {
+    if (argc == 2 && strcmp(argv[1], "--timezone") == 0) return timezone_probe();
     int control = argc == 2 && strcmp(argv[1], "--control") == 0;
     mach_port_t port = MACH_PORT_NULL;
     kern_return_t lookup = bootstrap_look_up(bootstrap_port, "com.apple.SecurityServer", &port);
