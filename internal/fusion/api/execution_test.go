@@ -65,12 +65,19 @@ func executionPrivate(t *testing.T) string {
 }
 func setupExecution(t *testing.T, mode string) *executionFixture {
 	t.Helper()
-	s, st, h := setup(t)
-	p := preview(t, h)
-	w := submit(t, h, p, "fixture-execution-submit")
+	var s *Server
+	var st *store.Store
+	var h http.Handler
 	var task store.Task
-	if w.Code != 201 || json.Unmarshal(w.Body.Bytes(), &task) != nil {
-		t.Fatal("task setup failed")
+	if mode == "revision" {
+		s, st, h, task = revisionSetup(t)
+	} else {
+		s, st, h = setup(t)
+		p := preview(t, h)
+		w := submit(t, h, p, "fixture-execution-submit")
+		if w.Code != 201 || json.Unmarshal(w.Body.Bytes(), &task) != nil {
+			t.Fatal("task setup failed")
+		}
 	}
 	f := &executionFixture{server: s, st: st, h: h, task: task, finish: make(chan struct{}), mode: mode}
 	route := configuration().Routes[0]

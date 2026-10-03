@@ -1,0 +1,25 @@
+{
+  "base_commit": "1e0894a98e2224d6a32898bd62168ced63b87dd8",
+  "source_files_sha256": {
+    "internal/fusion/store/runs.go": "511bab0a077473f88e15b54563ca9807333e25402288359493a744a46ee6730f",
+    "internal/fusion/store/cancel_revision_test.go": "7b3a464bbc60c0c40cb75bceb4fdc60e584fe5d7446c5a3f2134ac72aa11c9e5",
+    "internal/fusion/control/controller.go": "452b40739475bdaa96fd76a430afe2adb91efd6270e7f4e73bc887a4bf9efe02",
+    "internal/fusion/api/execution.go": "066e7211a49b4c6b9e15be77e6c038592f80729b568b10333ad6ed862c5fa76a",
+    "internal/fusion/api/execution_test.go": "0fca5220ebebc44b73b9e789e9968e7e5d669ac4b75790e0b1701ceec8c189f9",
+    "internal/fusion/api/cancel_revision_test.go": "789ebe911538ea8f6a60ef5f8c55d9a5119ec8dfb82704685eb3684c26844e94",
+    "docs/fusion/contracts/task-execution-api.md": "b4adb5147e60e7d402947e3e3e084068061f1d57281014cae49a8363eaacab8c",
+    "docs/fusion/work-items/WP-15/summary.md": "81e663a7f50184fffe9fb61e0e52ea566abbcbe261851485e3b5a58cb0c3db71"
+  },
+  "packet_files_sha256": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "d009a95902fffe2762bed20375229d13dabcd3501a694dc883dbb0f6cde6886b",
+    "build-results.json": "14005ca00fdc0f5f316dd5ad9195c6b65defbbd5be25e2ac3f1f53089adc4780",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "summary.md": "549e3c7d5aa677e84dfa0af68a840db873a8341268f4cfdb177f37e77fdfb6a6",
+    "test-results.json": "492b25dec2ec20a4f742e68e31dfcfbe2f707a2ef6ab607062fe7cb723be2f7d",
+    "wp15-cancel-revision-behavior-red.log": "a6a8f46b34a41fa9c8fb24bb13da974d15b9a57a4a894fa20217107e014f98ec",
+    "wp15-cancel-revision-fusion-race.log": "ce6c1b435281ada3490f5de8e699275f44e8fdbf3357086e2bbe091712f93101",
+    "wp15-cancel-revision-green.log": "0b0e98d747cbcd6f99be011203bef8f18c065906ce7b46e1f4d06b10565f5ca6",
+    "wp15-cancel-revision-red.log": "05db84a14c9446dff6e67f01f029e624c4ded076f30bead2b4a3cb32ae491d95"
+  }
+}

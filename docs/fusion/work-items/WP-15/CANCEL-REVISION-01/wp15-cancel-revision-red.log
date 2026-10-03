@@ -1,0 +1,7 @@
+# github.com/yetone/magpie/internal/fusion/store [github.com/yetone/magpie/internal/fusion/store.test]
+internal/fusion/store/cancel_revision_test.go:25:13: s.CancelIntentAtRevision undefined (type *Store has no field or method CancelIntentAtRevision)
+internal/fusion/store/cancel_revision_test.go:34:12: s.CancelIntentAtRevision undefined (type *Store has no field or method CancelIntentAtRevision)
+internal/fusion/store/cancel_revision_test.go:37:12: s.CancelIntentAtRevision undefined (type *Store has no field or method CancelIntentAtRevision)
+internal/fusion/store/cancel_revision_test.go:43:12: s.CancelIntentAtRevision undefined (type *Store has no field or method CancelIntentAtRevision)
+FAIL	github.com/yetone/magpie/internal/fusion/store [build failed]
+FAIL

@@ -288,8 +288,11 @@ func (s *Server) executionControl(w http.ResponseWriter, r *http.Request) {
 		controlFailure(w, control.ErrForbidden)
 		return
 	}
-	current, e := c.Cancel(task.ID, run.ID, run.Generation)
+	current, e := c.CancelAtRevision(task.ID, run.ID, run.Generation, condition.revision)
 	if e != nil {
+		if errors.Is(e, store.ErrConflict) {
+			e = errTaskPrecondition
+		}
 		controlFailure(w, e)
 		return
 	}

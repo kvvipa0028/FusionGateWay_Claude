@@ -1,0 +1,27 @@
+{
+  "work_item": "WP-15-CANCEL-REVISION-01",
+  "status": "done",
+  "parent_status": "in_progress",
+  "new_tests": 2,
+  "checks": [
+    {
+      "check": "targeted store/control/api cancellation regression",
+      "exit_code": 0,
+      "log": "wp15-cancel-revision-green.log",
+      "top_level_pass": 7,
+      "top_level_skip": 0
+    },
+    {
+      "check": "full fusion tagged race",
+      "exit_code": 0,
+      "log": "wp15-cancel-revision-fusion-race.log",
+      "top_level_pass": 260,
+      "top_level_skip": 8
+    }
+  ],
+  "build_report": "build-results.json",
+  "real_model_calls": 0,
+  "real_quota_queries": 0,
+  "native_runtime": "synthetic fixture in new tests",
+  "production_registered": false
+}

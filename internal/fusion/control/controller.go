@@ -349,6 +349,18 @@ func (c *Controller) observe(j *executionJob, h Execution, b Backend) {
 	close(j.done)
 }
 func (c *Controller) Cancel(taskID, runID string, generation int64) (store.StageRun, error) {
+	return c.cancelRun(taskID, runID, generation, 0)
+}
+
+// CancelAtRevision applies the public task revision precondition atomically
+// with a cancellation intent. Cancel remains available for owned shutdowns.
+func (c *Controller) CancelAtRevision(taskID, runID string, generation, revision int64) (store.StageRun, error) {
+	if revision < 1 {
+		return store.StageRun{}, store.ErrInvalid
+	}
+	return c.cancelRun(taskID, runID, generation, revision)
+}
+func (c *Controller) cancelRun(taskID, runID string, generation, revision int64) (store.StageRun, error) {
 	if c == nil {
 		return store.StageRun{}, ErrUnsupported
 	}
@@ -357,6 +369,12 @@ func (c *Controller) Cancel(taskID, runID string, generation int64) (store.Stage
 		return store.StageRun{}, ErrIdentity
 	}
 	if terminal(r.State) {
+		if revision > 0 {
+			task, e := c.config.Scheduler.Store.Task(taskID)
+			if e != nil || task.PlanRevision != revision || task.Generation != generation {
+				return r, store.ErrConflict
+			}
+		}
 		return r, nil
 	}
 	if r.State == "unknown" {
@@ -368,9 +386,23 @@ func (c *Controller) Cancel(taskID, runID string, generation int64) (store.Stage
 	if j == nil || j.run.Generation != generation || j.run.TaskID != taskID {
 		return r, ErrReconcile
 	}
-	if e = c.config.Scheduler.Store.CancelIntent(runID, generation, j.run.Owner); e != nil {
+	if revision > 0 {
+		e = c.config.Scheduler.Store.CancelIntentAtRevision(runID, generation, j.run.Owner, revision)
+	} else {
+		e = c.config.Scheduler.Store.CancelIntent(runID, generation, j.run.Owner)
+	}
+	if e != nil {
+		if errors.Is(e, store.ErrConflict) {
+			return r, e
+		}
 		current, re := c.config.Scheduler.Store.Run(runID)
 		if re == nil && current.Generation == generation && terminal(current.State) {
+			if revision > 0 {
+				task, te := c.config.Scheduler.Store.Task(taskID)
+				if te != nil || task.PlanRevision != revision || task.Generation != generation {
+					return current, store.ErrConflict
+				}
+			}
 			return current, nil
 		}
 		return r, ErrIdentity

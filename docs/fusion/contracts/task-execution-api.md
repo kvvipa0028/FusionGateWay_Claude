@@ -13,6 +13,8 @@ Task ETag 与 `/plan` 的整数 revision ETag 是不同资源合同，不混用�
 
 重试保存原始 key/role/If-Match（ready 状态的原版本/generation）。已有启动映射在当前 Task 状态校验之前只读，所以运行、终态及 unknown 可以重读；不同身份/角色不能用相同 key 改写原请求。新 key 不能借旧 tag 重启。取消不采用调用者提供的 role/owner/attempt，按路径 run 与当前 Task 的 plan/generation 校验；未知执行不能自动接管。终态取消只读，可接受原同 plan/generation 的状态 tag，不取消其他 attempt，也不改变终态。
 
+取消的计划条件使用当前 Task revision，而不是活动 run 的历史 PlanRevision。合法的未来角色修订可保持 run/generation 不变；因此 HTTP 预检查之后，Controller.CancelAtRevision 必须在写入 cancel_intent 的同一 Store 事务重查 Task revision。失配为 412，不调用 Handle.Cancel、不改变运行或增加取消事件；cancelling 重读也不能跳过版本检查。内部 owned shutdown 仍使用无外部 If-Match 的 Cancel，继续按 owner/generation/lease fencing 执行。终态路径核对当前 Task revision/generation后只读。
+
 RunView 包含 run/task ID、role、attempt、generation、plan revision、state、intent/confirmed 标志和冻结 Target；不包含 Owner、lease、Native session、原始输出、凭据或私有 Spec。首次启动后无 Handle 的失败为 409 reconciliation，保留已提交 intent 的 RunView/Created，不能把它隐藏成“未提交”；调用者重试只读同一记录。所有异常只返回固定 code/message，不回显 Native/Resolver 错误或拒绝输入。
 
 Run/start/cancel 响应的 `X-Fusion-Task-ETag` 是相关 Task 当前条件，Location 指向 run 读取路径；不把 Task tag 标成这些不同响应体的 ETag。HTTP 断线不能取消已提交 execution，当前管理撤销检查用于提交前授权，模型 grant/route/权限/额度仍在 Adapter/Permit 独立强制检查。

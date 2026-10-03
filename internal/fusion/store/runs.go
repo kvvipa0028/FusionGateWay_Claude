@@ -177,11 +177,32 @@ func (s *Store) RenewLease(runID string, gen int64, owner string, ttl time.Durat
 		return e
 	})
 }
+func (s *Store) CancelIntentAtRevision(runID string, gen int64, owner string, revision int64) error {
+	if revision < 1 {
+		return ErrInvalid
+	}
+	return s.cancelIntent(runID, gen, owner, revision)
+}
 func (s *Store) CancelIntent(runID string, gen int64, owner string) error {
+	return s.cancelIntent(runID, gen, owner, 0)
+}
+func (s *Store) cancelIntent(runID string, gen int64, owner string, revision int64) error {
 	return s.transaction(func(tx *sql.Tx) error {
 		r, e := s.fenced(tx, runID, gen, owner)
 		if e != nil {
 			return e
+		}
+		// The task revision may change without changing the active run's
+		// frozen plan or generation. Check the HTTP precondition in this
+		// transaction, including a repeated cancelling intent.
+		if revision > 0 {
+			t, e := taskIn(tx, r.TaskID)
+			if e != nil {
+				return e
+			}
+			if t.PlanRevision != revision {
+				return ErrConflict
+			}
 		}
 		if r.State == "cancelling" {
 			return nil

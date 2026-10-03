@@ -17,3 +17,5 @@
 [WP-15-CONTROLLER-01](CONTROLLER-01/summary.md) 已实现可信服务端控制器的启动、幂等重读、owned lifetime、取消/Close、未知执行保留及可信退出释放。固定 Claude Code 经此控制器完成合成上游一次执行/Permit、HTTP 断线与重试不重复执行、真实 Supervisor StopProof 释放。248 个 Fusion race tests 通过，8 个条件跳过；编译/vet 通过。产品 HTTP 鉴权与接口注册、实际项目/账户配置、暂停/恢复/返工、预设/额度、OpenAPI 和 UI 仍未完成。
 
 [WP-15-EXECUTION-API-01](EXECUTION-API-01/summary.md) 已将内部 Handler 的受管理鉴权启动/取消/运行记录读取接到可信 Controller；Task strong ETag 跟踪 revision/generation/state，重读原启动映射不重复执行，慢预检查期间管理身份撤销会阻止新 intent。258 个 Fusion race tests、CLI/GUI 和 vet 通过，新增执行接口 OpenAPI draft。完整 OpenAPI、产品 listener/GUI 注册、实际配置、暂停/恢复/返工、预设/额度仍未完成，父包继续 in_progress。
+
+[WP-15-CANCEL-REVISION-01](CANCEL-REVISION-01/summary.md) 将取消的 Task revision 条件放入 cancel_intent 写入事务，关闭未来角色修订保持活动 generation 时的预检查竞态。旧版本不会取消 Worker，当前版本可取消历史计划的活动 run；终态重读仍检查当前版本。父包继续 in_progress。

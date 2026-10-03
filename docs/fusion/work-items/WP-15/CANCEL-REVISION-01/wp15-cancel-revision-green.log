@@ -1,0 +1,20 @@
+=== RUN   TestCancelIntentChecksCurrentTaskRevisionBeforeMutation
+--- PASS: TestCancelIntentChecksCurrentTaskRevisionBeforeMutation (0.04s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/store	1.661s
+=== RUN   TestControllerRetriesStartRuntimeOnlyOnceAndHTTPDisconnectDoesNotCancel
+--- PASS: TestControllerRetriesStartRuntimeOnlyOnceAndHTTPDisconnectDoesNotCancel (0.06s)
+=== RUN   TestControllerKnownHandleErrorIsCancelledWaitedAndReleased
+--- PASS: TestControllerKnownHandleErrorIsCancelledWaitedAndReleased (0.04s)
+=== RUN   TestControllerCancelRequiresOwnedRunAndGeneration
+--- PASS: TestControllerCancelRequiresOwnedRunAndGeneration (0.04s)
+=== RUN   TestControllerCancellationBeforeHandlePublicationStillWaitsAndReleases
+--- PASS: TestControllerCancellationBeforeHandlePublicationStillWaitsAndReleases (0.04s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/control	1.776s
+=== RUN   TestExecutionCancelRevisionRejectsStalePrecheckWithoutStopping
+--- PASS: TestExecutionCancelRevisionRejectsStalePrecheckWithoutStopping (0.06s)
+=== RUN   TestExecutionReadAndCancelCannotAdoptAnotherTaskOrGeneration
+--- PASS: TestExecutionReadAndCancelCannotAdoptAnotherTaskOrGeneration (0.04s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/api	1.696s
