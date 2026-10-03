@@ -33,3 +33,5 @@
 [CHANNEL-01](CHANNEL-01/summary.md) 增加实际1.0.48在生产Supervisor/profile中的停止证据。该证明只覆盖本控制器的进程/端口/grant/reservation生命周期；冻结模型HTTP Gate与StopProof不能替代真实X上游身份、subscription计费、quota/pool、准确Resume和工程验收。未注册真实Grok Worker，Jev off。
 
 [ADAPTER-01](ADAPTER-01/summary.md) 将上述组件组成公共readonly Runtime Adapter，固定argv/session/prompt与真实预算/停止链。它只接受effort=none，显式其它档位拒绝，Resume/write仍unsupported；真实NativeForwarder/账号/Heavy/计费/Quota证明和产品注册未完成。不能将Observer flags自动升级为独立严格锁定结论。
+
+[RESUME-PROBE-01](RESUME-PROBE-01/summary.md) 调查固定 Native 的明确 UUID 恢复、私有会话目录复制、缺文件、模型/cwd 变化和历史 Read。15 个实际行为断言通过：准确 UUID 能保留旧对话，但 transcript 缺失可空历史 exit0，model alias 可覆盖原模型，旧工具输出不在 stdout 重放而进入 HTTP。因此产品 Resume 继续 unsupported；完整归档/冻结绑定/历史授权及真实受管恢复按 [grok-resume.md](../../contracts/grok-resume.md) 实施，不能把诊断成功升级为 capability 或准入。

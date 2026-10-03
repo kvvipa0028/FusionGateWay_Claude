@@ -2,6 +2,8 @@
 
 状态：in_progress。已完成 [PROTOCOL-01](PROTOCOL-01/summary.md)：固定 Native headless fixture、辅助调用/工具声明调查、有界协议观察器及回归。
 
+[RESUME-PROBE-01](RESUME-PROBE-01/summary.md) 已完成固定版本 15 个实际恢复诊断：准确 UUID 与复制会话目录可保留旧对话；缺 transcript 可空历史成功，更换模型和另一 cwd 参数被接受，旧工具结果进入后续 HTTP。此项只完成调查，不启用 Resume；完整归档、可信 stopped owner/目标绑定、历史授权及受管持久恢复仍待按 [grok-resume.md](../../contracts/grok-resume.md) 实施。
+
 [WP-15-GROK-01](../WP-15/GROK-01/summary.md) 已通过固定 Grok 1.0.48 的 7 个实际控制器/Adapter 生命周期场景及真实停止证明释放，包含 Read、幂等 receipt、断线、暂停、两类取消和关闭；合成上游与准入没有升级为真实 subscription 准入，产品 Worker/Native Resume 仍待完成。
 
 受管只读 grok.Adapter 已实现生产启动、协议/text终态观察及取消/StopProof/release；完整接入中的真实NativeForwarder/私有X认证/额度计费、稳定Source、写权限、准确Resume与产品注册仍待完成。当前Session/Adapter.Resume明确unsupported，未注册真实Grok Worker。

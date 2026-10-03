@@ -1,0 +1,22 @@
+{
+  "base_commit": "b45d895ae4c34ca7fd75c0903c5e3f1e444c1f5f",
+  "source_files_sha256": {
+    "AGENTS.md": "55e3aaaef560dbc84c036c667dee4fb3dd1a14e0acf6e2ad385dce5e1527648a",
+    "docs/fusion/contracts/grok-resume.md": "01a7f2b3df61e1c84e01b3dcb46c02c44572df87214fa732b1ebbdd1e24f28e2",
+    "docs/fusion/contracts/grok-headless-protocol.md": "33f3691a08de8a55709936d3b04af37497c11a9bac776123703fe4d012f31988",
+    "docs/fusion/contracts/grok-read-tools.md": "fb9bc5fff640eada0333bb1a903db5bcd581544488cdecdd93f778ca035d15ef",
+    "docs/fusion/work-items/WP-13/summary.md": "b67c11e05daff64ba94a9b28045ae4372f7e36418cc553c8e732704ce345981a",
+    "docs/fusion/work-items/WP-13/grok-lock-capability.md": "34760518fd8b1af9a7c57d9e7b6523416fe64cca90ad27edc03d2613d434c5bb",
+    "docs/fusion/planning/Fusion_Magpie_Fork_Agent工作包_v1.0.md": "220282eeed8d4a55444b2ab26d23b6d0ea8beea8f62b839f125e93d2420b0bb0",
+    "internal/fusion/runtime/grok/adapter.go": "210a12920e7e08284c605b2b2644c250a93b0552d4a53c81bb6e82add0646b6b",
+    "internal/fusion/runtime/grok/session.go": "b6181092bcb6e2e5a92e034240e145d61269b09f5bf3073b2639df17a8cbbf6b",
+    "internal/fusion/runtime/grok/read_tools.go": "a90717dadc83a2362a712dc571c25550d8cadbbbd4922ed5ee9cc327b4093730",
+    "internal/fusion/runtime/supervisor.go": "9ad608314cdcc16d3f444497a4748a47cd3524712f3467807485171ac072acde"
+  },
+  "packet_files_sha256": {
+    "characterize-resume.py": "a8a1c3ad9f6845e502f69e4088610499a83c496d6cf48e4c105367550700b7c4",
+    "native-probe.log": "89d0d2a530f1448d07510360d0b830d3221ae4d6d67920e35a0ee163da8a5009",
+    "summary.md": "9e921f0f799abd43665da2b7d75bec36a0cef115af8cd02390ffae7f7cb2bc13",
+    "test-results.json": "0255e3f6120bfba9ccfee747d683e2137c588271a13c2274aabd99fb0ec57206"
+  }
+}
