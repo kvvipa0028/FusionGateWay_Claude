@@ -1,0 +1,69 @@
+{
+  "work_item": "WP-15-CONTROL-HOST-01",
+  "status": "done",
+  "parent_status": "in_progress",
+  "new_host_tests": 5,
+  "new_cli_tests": 2,
+  "checks": [
+    {
+      "check": "full Fusion race",
+      "exit_code": 0,
+      "log": "wp15-control-host-complete-race.log",
+      "pass": 365,
+      "skip": 10,
+      "fail": 0
+    },
+    {
+      "check": "main CLI targeted race",
+      "exit_code": 0,
+      "pass": 2,
+      "skip": 0,
+      "log": "wp15-control-host-cli-green.log"
+    },
+    {
+      "check": "actual isolated launcher / product CLI / HTTP / SIGTERM",
+      "exit_code": 0,
+      "result": "wp15-control-host-launcher-smoke-final.json"
+    },
+    {
+      "check": "CLI/GUI/full tagged vet",
+      "exit_code": 0,
+      "result": "build-results.json"
+    },
+    {
+      "check": "untagged upstream nogui build",
+      "exit_code": 0,
+      "log": "wp15-control-host-untagged-build.log"
+    },
+    {
+      "check": "OpenAPI metadata / official schema / prior unchanged Handler49samples",
+      "exit_code": 0,
+      "result": "wp15-control-host-openapi-check.json"
+    },
+    {
+      "check": "Python / runbook zsh / gofmt / source-document diff",
+      "exit_code": 0
+    }
+  ],
+  "failed_runs_preserved": {
+    "wp15-control-host-red.log": "missing Host implementation",
+    "wp15-control-host-first.log": "fixture parent not private; fixture moved under private config",
+    "wp15-control-host-cli-smoke-red.log": "launcher missing data/fusion-gateway parent",
+    "wp15-control-host-launcher-signal-red.log": "launcher SIGTERM left child service holding stdout; owned smoke process group cleaned before temp deletion"
+  },
+  "schema_version": 5,
+  "schema_changed": false,
+  "handler_dto_changed": false,
+  "draft_control_registered": true,
+  "execution_controller_registered": false,
+  "native_registered": false,
+  "real_quota_registered": false,
+  "gui_registered": false,
+  "legacy_model_exit_opened": false,
+  "real_model_calls": 0,
+  "real_quota_queries": 0,
+  "real_provider_credentials_used": false,
+  "real_project_installed": false,
+  "jev": "off",
+  "platform_verified": "macOS/arm64"
+}

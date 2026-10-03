@@ -2,9 +2,10 @@ openapi: 3.1.0
 info:
   title: Fusion task control API
   version: 0.1.0-draft
-  description: 当前已实现 Handler 合同；23 paths、27 operations。产品 listener 尚未注册。pause/continue 使用完整 Task If-Match，暂停中不宣称已停，continue 仅解除可靠暂停，不隐式启动或恢复 Native。全局/项目默认层只允许绑定，历史快照保持冻结。
+  description: 当前已实现 Handler 合同；24 paths、28 operations。独立 fusion-control 草稿 listener 已注册；生产执行 Controller/GUI 尚未接线。pause/continue 使用完整 Task If-Match，暂停中不宣称已停，continue 仅解除可靠暂停，不隐式启动或恢复 Native。全局/项目默认层只允许绑定，历史快照保持冻结。
 x-fusion-status: implemented-handler-contract
 x-fusion-production-registered: false
+x-fusion-draft-control-registered: true
 security:
 - ManagementBearer: []
 paths:

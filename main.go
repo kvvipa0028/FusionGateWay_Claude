@@ -128,6 +128,13 @@ func main() {
 		})
 		return
 	}
+	if handled, err := fusionControlCommand(os.Args[1:]); handled {
+		if err != nil {
+			fmt.Fprintln(os.Stderr, isolation.Name+":", err)
+			os.Exit(1)
+		}
+		return
+	}
 
 	if provider.TookOpenedURL(os.Args[1:]) {
 		// Claude Code, signing in for magpie, handed over the page to open

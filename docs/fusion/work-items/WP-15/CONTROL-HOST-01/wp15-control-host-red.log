@@ -1,0 +1,8 @@
+# github.com/yetone/magpie/internal/fusion/bootstrap [github.com/yetone/magpie/internal/fusion/bootstrap.test]
+internal/fusion/bootstrap/host_test.go:19:10: undefined: OpenControl
+internal/fusion/bootstrap/host_test.go:82:13: undefined: OpenControl
+internal/fusion/bootstrap/host_test.go:124:12: undefined: OpenControl
+internal/fusion/bootstrap/host_test.go:128:12: undefined: ErrControlHost
+internal/fusion/bootstrap/host_test.go:140:12: undefined: OpenControl
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap [build failed]
+FAIL

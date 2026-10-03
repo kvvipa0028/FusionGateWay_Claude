@@ -1,0 +1,34 @@
+=== RUN   TestControlHostAuthenticatedLoopbackAndRestart
+--- PASS: TestControlHostAuthenticatedLoopbackAndRestart (0.07s)
+=== RUN   TestControlHostPrivateLocationAndSourceRefusal
+=== RUN   TestControlHostPrivateLocationAndSourceRefusal/invalid-source
+=== RUN   TestControlHostPrivateLocationAndSourceRefusal/lan
+=== RUN   TestControlHostPrivateLocationAndSourceRefusal/hostname
+=== RUN   TestControlHostPrivateLocationAndSourceRefusal/port-overflow
+=== RUN   TestControlHostPrivateLocationAndSourceRefusal/project-root
+=== RUN   TestControlHostPrivateLocationAndSourceRefusal/public-root
+=== RUN   TestControlHostPrivateLocationAndSourceRefusal/linked-root
+=== RUN   TestControlHostPrivateLocationAndSourceRefusal/public-token
+=== RUN   TestControlHostPrivateLocationAndSourceRefusal/stage-token
+--- PASS: TestControlHostPrivateLocationAndSourceRefusal (0.01s)
+    --- PASS: TestControlHostPrivateLocationAndSourceRefusal/invalid-source (0.00s)
+    --- PASS: TestControlHostPrivateLocationAndSourceRefusal/lan (0.00s)
+    --- PASS: TestControlHostPrivateLocationAndSourceRefusal/hostname (0.00s)
+    --- PASS: TestControlHostPrivateLocationAndSourceRefusal/port-overflow (0.00s)
+    --- PASS: TestControlHostPrivateLocationAndSourceRefusal/project-root (0.00s)
+    --- PASS: TestControlHostPrivateLocationAndSourceRefusal/public-root (0.00s)
+    --- PASS: TestControlHostPrivateLocationAndSourceRefusal/linked-root (0.00s)
+    --- PASS: TestControlHostPrivateLocationAndSourceRefusal/public-token (0.00s)
+    --- PASS: TestControlHostPrivateLocationAndSourceRefusal/stage-token (0.00s)
+=== RUN   TestControlHostRevokesSourceAndTokenRotation
+=== RUN   TestControlHostRevokesSourceAndTokenRotation/source
+=== RUN   TestControlHostRevokesSourceAndTokenRotation/folder
+=== RUN   TestControlHostRevokesSourceAndTokenRotation/token
+=== RUN   TestControlHostRevokesSourceAndTokenRotation/token-permissions
+--- PASS: TestControlHostRevokesSourceAndTokenRotation (0.16s)
+    --- PASS: TestControlHostRevokesSourceAndTokenRotation/source (0.04s)
+    --- PASS: TestControlHostRevokesSourceAndTokenRotation/folder (0.04s)
+    --- PASS: TestControlHostRevokesSourceAndTokenRotation/token (0.04s)
+    --- PASS: TestControlHostRevokesSourceAndTokenRotation/token-permissions (0.04s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	1.901s

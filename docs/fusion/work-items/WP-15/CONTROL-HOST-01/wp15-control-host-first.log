@@ -1,0 +1,40 @@
+=== RUN   TestControlHostAuthenticatedLoopbackAndRestart
+    host_test.go:21: Fusion local control host unavailable
+--- FAIL: TestControlHostAuthenticatedLoopbackAndRestart (0.00s)
+=== RUN   TestControlHostPrivateLocationAndSourceRefusal
+=== RUN   TestControlHostPrivateLocationAndSourceRefusal/invalid-source
+=== RUN   TestControlHostPrivateLocationAndSourceRefusal/lan
+=== RUN   TestControlHostPrivateLocationAndSourceRefusal/hostname
+=== RUN   TestControlHostPrivateLocationAndSourceRefusal/port-overflow
+=== RUN   TestControlHostPrivateLocationAndSourceRefusal/project-root
+=== RUN   TestControlHostPrivateLocationAndSourceRefusal/public-root
+=== RUN   TestControlHostPrivateLocationAndSourceRefusal/linked-root
+=== RUN   TestControlHostPrivateLocationAndSourceRefusal/public-token
+=== RUN   TestControlHostPrivateLocationAndSourceRefusal/stage-token
+--- PASS: TestControlHostPrivateLocationAndSourceRefusal (0.01s)
+    --- PASS: TestControlHostPrivateLocationAndSourceRefusal/invalid-source (0.00s)
+    --- PASS: TestControlHostPrivateLocationAndSourceRefusal/lan (0.00s)
+    --- PASS: TestControlHostPrivateLocationAndSourceRefusal/hostname (0.00s)
+    --- PASS: TestControlHostPrivateLocationAndSourceRefusal/port-overflow (0.00s)
+    --- PASS: TestControlHostPrivateLocationAndSourceRefusal/project-root (0.00s)
+    --- PASS: TestControlHostPrivateLocationAndSourceRefusal/public-root (0.00s)
+    --- PASS: TestControlHostPrivateLocationAndSourceRefusal/linked-root (0.00s)
+    --- PASS: TestControlHostPrivateLocationAndSourceRefusal/public-token (0.00s)
+    --- PASS: TestControlHostPrivateLocationAndSourceRefusal/stage-token (0.00s)
+=== RUN   TestControlHostRevokesSourceAndTokenRotation
+=== RUN   TestControlHostRevokesSourceAndTokenRotation/source
+    host_test.go:142: Fusion local control host unavailable
+=== RUN   TestControlHostRevokesSourceAndTokenRotation/folder
+    host_test.go:142: Fusion local control host unavailable
+=== RUN   TestControlHostRevokesSourceAndTokenRotation/token
+    host_test.go:142: Fusion local control host unavailable
+=== RUN   TestControlHostRevokesSourceAndTokenRotation/token-permissions
+    host_test.go:142: Fusion local control host unavailable
+--- FAIL: TestControlHostRevokesSourceAndTokenRotation (0.01s)
+    --- FAIL: TestControlHostRevokesSourceAndTokenRotation/source (0.00s)
+    --- FAIL: TestControlHostRevokesSourceAndTokenRotation/folder (0.00s)
+    --- FAIL: TestControlHostRevokesSourceAndTokenRotation/token (0.00s)
+    --- FAIL: TestControlHostRevokesSourceAndTokenRotation/token-permissions (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	0.651s
+FAIL

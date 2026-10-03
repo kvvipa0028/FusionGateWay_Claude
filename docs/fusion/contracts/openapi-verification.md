@@ -1,6 +1,6 @@
 # 当前 Handler 的 OpenAPI 合同验证
 
-`openapi-fusion.yaml` 描述当前内部 Handler 已实现的 24 个路径、28 个操作。无调用预览、提交/读取、阶段计划预览/修订、预算、事件流、启动/取消/run 读取、配置只读、五角色预设版本、任务预设来源、额度读取/刷新与全局/项目默认层读写/历史及任务 pause/continue/cancel 均纳入合同。产品 listener 尚未注册；内部 Handler 校验不能视为产品部署完成。
+`openapi-fusion.yaml` 描述当前内部 Handler 已实现的 24 个路径、28 个操作。无调用预览、提交/读取、阶段计划预览/修订、预算、事件流、启动/取消/run 读取、配置只读、五角色预设版本、任务预设来源、额度读取/刷新与全局/项目默认层读写/历史及任务 pause/continue/cancel 均纳入合同。独立 [fusion-control 草稿 listener](control-host.md) 已注册，生产执行 Controller/GUI 仍未接线；内部 Handler 校验不能视为真实路线或完整产品部署完成。
 
 OPENAPI-01 只补合同；后续 DEFAULTS-01 新增了运行期默认层，并同步更新合同。OpenAPI 是人工维护的接口合同；Go DTO、现有行为合同与实际 Handler 返回是字段核对来源。以后新增接口或改变 DTO，要同时更新 YAML、样本采集与 checker 的明确操作清单，禁止只为通过检查删掉已有操作。尚未实现的操作不占用实际合同路径。
 

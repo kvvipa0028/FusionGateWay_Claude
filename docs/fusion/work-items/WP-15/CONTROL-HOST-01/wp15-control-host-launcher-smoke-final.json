@@ -1,0 +1,12 @@
+{
+  "actual_cli": true,
+  "authenticated_configuration": true,
+  "unselected_preview_rejected": true,
+  "legacy_exit_closed": true,
+  "stale_source_rejected": true,
+  "sigterm_exit": 0,
+  "private_token_not_output": true,
+  "real_model_calls": 0,
+  "real_quota_queries": 0,
+  "jev": "off"
+}

@@ -2,7 +2,7 @@
 
 状态：`in_progress`。子工作项 [WP-15-PREVIEW-01](PREVIEW-01/summary.md) 已完成：受鉴权的无调用计划预览、冻结提交和任务读取组件。
 
-当前 Handler 尚未注册到生产 listener/GUI，旧执行入口继续关闭。完整 WP-15 仍需真实项目/Runtime/额度来源接线及新增行为对应的合同扩展；当前已实现 Handler 的 OpenAPI 合同已按下述 OPENAPI-01 及后续扩展完成。预算与输入事务、阶段计划修订、启动/阶段取消、暂停/继续、默认层读写、额度、预设组件及持久 sequence SSE 的已完成子项见下文。实际 UI 合同随后按最终接口交付。此组件测试不作为 T13/T25/T28/T33–T36/T43/T45/T49/T50/T56 的完整最终验收。
+当前 Handler 已由 fusion-control 注册到独立草稿 listener；生产执行 Controller/GUI 尚未接线，旧执行入口继续关闭。完整 WP-15 仍需真实项目/Runtime/额度来源接线及新增行为对应的合同扩展；当前已实现 Handler 的 OpenAPI 合同已按下述 OPENAPI-01 及后续扩展完成。预算与输入事务、阶段计划修订、启动/阶段取消、暂停/继续、默认层读写、额度、预设组件及持久 sequence SSE 的已完成子项见下文。实际 UI 合同随后按最终接口交付。此组件测试不作为 T13/T25/T28/T33–T36/T43/T45/T49/T50/T56 的完整最终验收。
 
 [WP-15-BUDGET-01](BUDGET-01/summary.md) 已完成预览预算、提交预算事务和预算读取；任务、快照、幂等与预算共同提交，重试不退还已消耗的次数。162 个 Fusion tagged race tests 通过。剩余阶段修订、控制、事件流与接线继续实施。
 
@@ -37,3 +37,5 @@
 [WP-15-CANCEL-API-01](CANCEL-API-01/summary.md) 已完成 Controller owned 整项取消、Management/全 Task If-Match 的 HTTP cancel、安全意图 receipt 和 OpenAPI/capture。12 新测试；固定 Native inflight 整项取消真实 wait/StopProof/release→cancelled，预算不退/旧启动不重放。全量 Fusion race 352 PASS / 10 SKIP，CLI/GUI/vet 通过；当前24路径/28操作/49样本。产品 bootstrap/listener/GUI、真实路线准入和剩余工程闭环继续实施，父包 in_progress。
 
 [WP-15-PROJECT-SOURCE-01](PROJECT-SOURCE-01/summary.md) 已完成 Git 外私有本机项目配置加载组件：已有文件夹及明确 read/write、精确内置路线元数据、五角色空选继承、预算边界与来源/文件夹身份重查。配置不能授予真实准入，实际 Handler 可读未准入登记而 preview 拒绝；产品 CLI/listener/Resolver/GUI 尚未接线。父包保持 in_progress，真实项目选取与账号/计费/额度仍待验证。
+
+[WP-15-CONTROL-HOST-01](CONTROL-HOST-01/summary.md) 已完成独立本机 fusion-control 草稿服务：私有随机管理文件、loopback/Host/Origin、源/目录/管理文件变化撤销、持久重启、SSE及Close，并修复run-dev缺data子目录与SIGTERM不转发。实际隔离launcher→CLI→HTTP→SIGTERM退出验证通过。全量Fusion race365 PASS/10 SKIP，CLI参数2 PASS、编译/vet与无tag编译通过。路线未准入，Controller/Native/额度/GUI及工程闭环仍待接线，父包保持in_progress。

@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 import re
 import shutil
+import signal
 import subprocess
 import sys
 
@@ -29,7 +30,7 @@ def environment(root):
         credentials.check_directory(path)
         env[key] = str(path)
     env["USERPROFILE"] = env["HOME"]
-    for name in ("config", "cache"):
+    for name in ("config", "cache", "data"):
         path = root / name / "fusion-gateway"
         path.mkdir(mode=0o700, exist_ok=True)
         credentials.check_directory(path)
@@ -58,7 +59,21 @@ def main():
             raise ValueError("Expected an explicit fusion-tag binary")
         env = environment(args.root)
         arguments = args.arguments[1:] if args.arguments[:1] == ["--"] else args.arguments
-        return subprocess.call([str(args.binary), *arguments], env=env)
+        process = subprocess.Popen([str(args.binary), *arguments], env=env)
+        previous = {}
+        def forward(signum, frame):
+            if process.poll() is None:
+                try:
+                    process.send_signal(signum)
+                except ProcessLookupError:
+                    pass
+        try:
+            for signum in (signal.SIGINT, signal.SIGTERM):
+                previous[signum] = signal.signal(signum, forward)
+            return process.wait()
+        finally:
+            for signum, handler in previous.items():
+                signal.signal(signum, handler)
     except (credentials.KeyError, OSError, ValueError, subprocess.TimeoutExpired):
         print("Fusion launch refused; check fusion build tag and private state permissions", file=sys.stderr)
         return 1

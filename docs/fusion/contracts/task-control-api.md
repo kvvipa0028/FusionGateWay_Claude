@@ -1,6 +1,6 @@
 # 任务控制 API 与 Controller
 
-内部 Handler 已实现此合同，产品 listener/GUI 尚未注册。所有请求走同一 Management middleware，stage/query credential 不能调用。可信 SetController 仅登记一次，并且 Controller 与 Server 必须使用同一 Store；客户端不能提供 owner、Native session、账号、workspace、Runtime 参数或 StopProof。
+内部 Handler 已实现此合同；[fusion-control 草稿服务](control-host.md) 已注册独立 listener，执行 Controller/GUI 尚未注册。所有请求走同一 Management middleware，stage/query credential 不能调用。可信 SetController 仅登记一次，并且 Controller 与 Server 必须使用同一 Store；客户端不能提供 owner、Native session、账号、workspace、Runtime 参数或 StopProof。
 
 | 方法/路径 | 条件、请求与返回 |
 |---|---|
@@ -38,7 +38,7 @@ PAUSE-API-01 历史新增 6 个 Controller 和 6 个 API 测试通过，覆盖�
 
 CANCEL-API-01 新增 6 个 Controller、5 个 API、1 个 Native 测试：空闲/paused 不启动，owned 停止/旧映射只读，不可信 stop/释放失败保留 held，owner/条件/管理撤销，晚到 Handle，真实 loopback HTTP，越权 body/header，未知/no-handle 固定拒绝和 409 receipt。实际固定 Native TaskCancel 经 Controller/Store/Adapter/CallGate，在合成上游 HTTP 正在等待时取消，真正 Wait/StopProof/release 后为 cancelled；一次 HTTP/Permit，不退款/重放，普通 continue 拒绝。当前三个固定 Controller Native 场景显式 3 PASS；真实账户/计费/额度准入仍不由 fixtures 证明。
 
-最新 full Fusion tagged race **352 PASS / 10 SKIP / 0 FAIL**，CLI/GUI build 和全仓 tagged vet exit 0。十项 skip 为七个显式 Native（独立执行其中三个 Controller Native）、一个真实额度 opt-in、两个 helper。OpenAPI 当前 **24 paths / 28 operations / 43 schemas**，49 个实际 Handler 样本覆盖成功操作，另有六个越权字段 schema 反例与暂停/取消不确定意图 409 样本。历史 PAUSE-API-01 的 331/9、23/27/44 和 2 Native PASS 保留在其证据包，不作为当前计数。
+CANCEL-API-01 时 full Fusion tagged race **352 PASS / 10 SKIP / 0 FAIL**，CLI/GUI build 和全仓 tagged vet exit 0。十项 skip 为七个显式 Native（独立执行其中三个 Controller Native）、一个真实额度 opt-in、两个 helper。OpenAPI 当前 **24 paths / 28 operations / 43 schemas**，49 个实际 Handler 样本覆盖成功操作，另有六个越权字段 schema 反例与暂停/取消不确定意图 409 样本。历史 PAUSE-API-01 的 331/9、23/27/44 和 2 Native PASS 保留在其证据包，不作为当前计数。后续草稿 bootstrap 回归为365 PASS / 10 SKIP，见 [control-host.md](control-host.md)；本项未重跑真实 Native。
 
 在仓库根目录执行下面的独立 HOME/XDG 复核，不读取日常认证。需预先准备 Go 1.26.3、公开 module/cache、Xcode SDK 和已固定的 Claude Code 2.1.287：
 

@@ -1,6 +1,6 @@
 # 本机项目登记来源
 
-`internal/fusion/bootstrap` 提供只读的本机启动配置加载组件，供后续产品 bootstrap 使用。当前未接入产品 CLI/listener/GUI，不会启动 Worker、读取 API key、查询额度或调用模型。Jev off。配置声明与真实路线准入分别验证；只有声明不能创建可执行计划。
+`internal/fusion/bootstrap` 提供只读的本机启动配置加载组件，供后续产品 bootstrap 使用。已由后续 [control-host.md](control-host.md) 接入独立 fusion-control 草稿 CLI/listener，GUI及真实执行尚未接线；不会启动 Worker、读取 API key、查询额度或调用模型。Jev off。配置声明与真实路线准入分别验证；只有声明不能创建可执行计划。
 
 ## 文件与权限
 
@@ -76,4 +76,4 @@ env -i PATH="$HOME/.local/bin:/usr/bin:/bin" \
 
 预期8项顶层测试 PASS；包含非阻塞 FIFO、symlink/hardlink/Git、字段别名、预算边界、来源/目录替换、深复制及实际受鉴权 Handler 的未准入拒绝。失败保留日志，不调整权限保护或准入断言掩盖失败。仅产生本人临时测试数据，可按本人策略清理该临时目录。
 
-证据见 [PROJECT-SOURCE-01](../work-items/WP-15/PROJECT-SOURCE-01/summary.md)。产品 listener/GUI、真实项目选取、路线验证、额度和工程闭环仍待接线，此组件完成不等于 WP-15 或整体验收完成。
+证据见 [PROJECT-SOURCE-01](../work-items/WP-15/PROJECT-SOURCE-01/summary.md)。产品执行 Controller/GUI、真实项目选取、路线验证、额度和工程闭环仍待接线，此组件完成不等于 WP-15 或整体验收完成。
