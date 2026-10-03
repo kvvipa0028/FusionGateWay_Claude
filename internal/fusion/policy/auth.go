@@ -53,6 +53,7 @@ type Manager struct {
 	validate     func(Claims) bool
 	origins      map[string]bool
 	now          func() time.Time
+	activeCalls  map[string]bool
 }
 
 // validate must consult current server task/run generation, lease and admission;

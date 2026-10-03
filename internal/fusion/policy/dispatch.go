@@ -16,6 +16,7 @@ var (
 	ErrRouteChanged   = errors.New("frozen route unavailable or changed")
 	ErrCallFailed     = errors.New("controlled upstream call failed")
 	ErrModelMismatch  = errors.New("upstream reported a different model")
+	ErrDispatchBusy   = errors.New("stage already has an active model call")
 )
 
 type Message struct {
@@ -134,6 +135,21 @@ func (d *Dispatcher) Dispatch(ctx context.Context, in DispatchRequest, maxCalls 
 	if d == nil || d.Manager == nil || d.Store == nil || d.Lookup == nil || d.Permit == nil || maxCalls < 1 || maxCalls > 3 {
 		return out, ErrDispatchDenied
 	}
+	c, err := d.Manager.authorizeContext(ctx)
+	if err != nil {
+		return out, err
+	}
+	d.Manager.mu.Lock()
+	if d.Manager.activeCalls == nil {
+		d.Manager.activeCalls = map[string]bool{}
+	}
+	if d.Manager.activeCalls[c.RunID] {
+		d.Manager.mu.Unlock()
+		return out, ErrDispatchBusy
+	}
+	d.Manager.activeCalls[c.RunID] = true
+	d.Manager.mu.Unlock()
+	defer func() { d.Manager.mu.Lock(); delete(d.Manager.activeCalls, c.RunID); d.Manager.mu.Unlock() }()
 	var transportID string
 	for ordinal := 1; ordinal <= maxCalls; ordinal++ {
 		if ctx.Err() != nil {

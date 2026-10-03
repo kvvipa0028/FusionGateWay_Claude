@@ -214,7 +214,7 @@
       "id": "WP-10",
       "title": "执行准入与单机调度",
       "milestone": "M2",
-      "status": "planned",
+      "status": "done",
       "depends_on": [
         "WP-05",
         "WP-07",

@@ -1,0 +1,309 @@
+=== RUN   TestFusionRejectsUnisolatedHomeBeforeStarting
+--- PASS: TestFusionRejectsUnisolatedHomeBeforeStarting (0.00s)
+=== RUN   TestFusionRejectsMissingStateRoot
+--- PASS: TestFusionRejectsMissingStateRoot (0.00s)
+=== RUN   TestFusionRejectsPublicOrLinkedState
+--- PASS: TestFusionRejectsPublicOrLinkedState (0.00s)
+=== RUN   TestFusionAcceptsPrivateIsolatedState
+--- PASS: TestFusionAcceptsPrivateIsolatedState (0.00s)
+=== RUN   TestFusionRejectsStateInsideGitWorkspace
+--- PASS: TestFusionRejectsStateInsideGitWorkspace (0.00s)
+=== RUN   TestFusionRejectsAmbientProviderCredentials
+--- PASS: TestFusionRejectsAmbientProviderCredentials (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/isolation	1.342s
+=== RUN   TestStageScopeUsesPersistedRunAndRejectsCompletedGeneration
+--- PASS: TestStageScopeUsesPersistedRunAndRejectsCompletedGeneration (0.04s)
+=== RUN   TestStageCredentialScopeRevocationAndExpiry
+--- PASS: TestStageCredentialScopeRevocationAndExpiry (0.00s)
+=== RUN   TestWorkerCannotFallBackToManagementOrChangeRoleHeaders
+--- PASS: TestWorkerCannotFallBackToManagementOrChangeRoleHeaders (0.00s)
+=== RUN   TestQueryKeyAndCrossOriginRequestsNeverReachHandler
+--- PASS: TestQueryKeyAndCrossOriginRequestsNeverReachHandler (0.00s)
+=== RUN   TestCredentialIssuanceRejectsUnknownScopesAndUnsafeTTL
+--- PASS: TestCredentialIssuanceRejectsUnknownScopesAndUnsafeTTL (0.00s)
+=== RUN   TestManagementRevocationAndFailuresDoNotEchoCredentials
+--- PASS: TestManagementRevocationAndFailuresDoNotEchoCredentials (0.00s)
+=== RUN   TestStageDoesNotForwardNoncanonicalAuthorityHeaders
+--- PASS: TestStageDoesNotForwardNoncanonicalAuthorityHeaders (0.00s)
+=== RUN   TestStrictDispatchFrozenTargetAndCredentialRenewal
+--- PASS: TestStrictDispatchFrozenTargetAndCredentialRenewal (0.04s)
+=== RUN   TestStrictDispatchRejectsTargetDriftBeforeProvider
+=== RUN   TestStrictDispatchRejectsTargetDriftBeforeProvider/removed
+=== RUN   TestStrictDispatchRejectsTargetDriftBeforeProvider/model
+=== RUN   TestStrictDispatchRejectsTargetDriftBeforeProvider/account
+=== RUN   TestStrictDispatchRejectsTargetDriftBeforeProvider/identity
+=== RUN   TestStrictDispatchRejectsTargetDriftBeforeProvider/effort
+=== RUN   TestStrictDispatchRejectsTargetDriftBeforeProvider/default
+=== RUN   TestStrictDispatchRejectsTargetDriftBeforeProvider/runtime
+=== RUN   TestStrictDispatchRejectsTargetDriftBeforeProvider/plugin
+=== RUN   TestStrictDispatchRejectsTargetDriftBeforeProvider/billing
+=== RUN   TestStrictDispatchRejectsTargetDriftBeforeProvider/admission
+=== RUN   TestStrictDispatchRejectsTargetDriftBeforeProvider/lock
+=== RUN   TestStrictDispatchRejectsTargetDriftBeforeProvider/capability
+--- PASS: TestStrictDispatchRejectsTargetDriftBeforeProvider (0.37s)
+    --- PASS: TestStrictDispatchRejectsTargetDriftBeforeProvider/removed (0.03s)
+    --- PASS: TestStrictDispatchRejectsTargetDriftBeforeProvider/model (0.03s)
+    --- PASS: TestStrictDispatchRejectsTargetDriftBeforeProvider/account (0.03s)
+    --- PASS: TestStrictDispatchRejectsTargetDriftBeforeProvider/identity (0.03s)
+    --- PASS: TestStrictDispatchRejectsTargetDriftBeforeProvider/effort (0.03s)
+    --- PASS: TestStrictDispatchRejectsTargetDriftBeforeProvider/default (0.03s)
+    --- PASS: TestStrictDispatchRejectsTargetDriftBeforeProvider/runtime (0.03s)
+    --- PASS: TestStrictDispatchRejectsTargetDriftBeforeProvider/plugin (0.03s)
+    --- PASS: TestStrictDispatchRejectsTargetDriftBeforeProvider/billing (0.03s)
+    --- PASS: TestStrictDispatchRejectsTargetDriftBeforeProvider/admission (0.03s)
+    --- PASS: TestStrictDispatchRejectsTargetDriftBeforeProvider/lock (0.03s)
+    --- PASS: TestStrictDispatchRejectsTargetDriftBeforeProvider/capability (0.03s)
+=== RUN   TestStrictDispatchRetriesRecheckIdentityAndNeverFallback
+=== RUN   TestStrictDispatchRetriesRecheckIdentityAndNeverFallback/none
+=== RUN   TestStrictDispatchRetriesRecheckIdentityAndNeverFallback/route
+=== RUN   TestStrictDispatchRetriesRecheckIdentityAndNeverFallback/revoked
+=== RUN   TestStrictDispatchRetriesRecheckIdentityAndNeverFallback/budget
+=== RUN   TestStrictDispatchRetriesRecheckIdentityAndNeverFallback/cancelled
+--- PASS: TestStrictDispatchRetriesRecheckIdentityAndNeverFallback (0.17s)
+    --- PASS: TestStrictDispatchRetriesRecheckIdentityAndNeverFallback/none (0.04s)
+    --- PASS: TestStrictDispatchRetriesRecheckIdentityAndNeverFallback/route (0.03s)
+    --- PASS: TestStrictDispatchRetriesRecheckIdentityAndNeverFallback/revoked (0.03s)
+    --- PASS: TestStrictDispatchRetriesRecheckIdentityAndNeverFallback/budget (0.03s)
+    --- PASS: TestStrictDispatchRetriesRecheckIdentityAndNeverFallback/cancelled (0.03s)
+=== RUN   TestStrictDispatchMissingAuthorityAndOverrides
+--- PASS: TestStrictDispatchMissingAuthorityAndOverrides (0.04s)
+=== RUN   TestStrictDispatchUnknownAndMismatchedUpstreamModel
+--- PASS: TestStrictDispatchUnknownAndMismatchedUpstreamModel (0.06s)
+=== RUN   TestStrictDispatchGateCannotChangeRouteOrMutateFrozenTarget
+=== RUN   TestStrictDispatchGateCannotChangeRouteOrMutateFrozenTarget/route
+=== RUN   TestStrictDispatchGateCannotChangeRouteOrMutateFrozenTarget/transport
+=== RUN   TestStrictDispatchGateCannotChangeRouteOrMutateFrozenTarget/revoke
+=== RUN   TestStrictDispatchGateCannotChangeRouteOrMutateFrozenTarget/copy
+--- PASS: TestStrictDispatchGateCannotChangeRouteOrMutateFrozenTarget (0.12s)
+    --- PASS: TestStrictDispatchGateCannotChangeRouteOrMutateFrozenTarget/route (0.03s)
+    --- PASS: TestStrictDispatchGateCannotChangeRouteOrMutateFrozenTarget/transport (0.03s)
+    --- PASS: TestStrictDispatchGateCannotChangeRouteOrMutateFrozenTarget/revoke (0.03s)
+    --- PASS: TestStrictDispatchGateCannotChangeRouteOrMutateFrozenTarget/copy (0.03s)
+=== RUN   TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse
+=== RUN   TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/identity
+=== RUN   TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/account
+=== RUN   TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/redirect
+=== RUN   TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/503
+=== RUN   TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/partial
+=== RUN   TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/duplicate
+=== RUN   TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/unknown
+=== RUN   TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/oversize
+--- PASS: TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse (0.25s)
+    --- PASS: TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/identity (0.03s)
+    --- PASS: TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/account (0.03s)
+    --- PASS: TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/redirect (0.04s)
+    --- PASS: TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/503 (0.03s)
+    --- PASS: TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/partial (0.03s)
+    --- PASS: TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/duplicate (0.03s)
+    --- PASS: TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/unknown (0.03s)
+    --- PASS: TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/oversize (0.03s)
+=== RUN   TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification
+=== RUN   TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/quota
+=== RUN   TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/stale
+=== RUN   TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/billing
+=== RUN   TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/permission
+=== RUN   TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/sandbox
+=== RUN   TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/verification
+=== RUN   TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/subagents
+=== RUN   TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/query
+=== RUN   TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/identity
+--- PASS: TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification (0.22s)
+    --- PASS: TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/quota (0.02s)
+    --- PASS: TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/stale (0.02s)
+    --- PASS: TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/billing (0.02s)
+    --- PASS: TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/permission (0.02s)
+    --- PASS: TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/sandbox (0.02s)
+    --- PASS: TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/verification (0.02s)
+    --- PASS: TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/subagents (0.02s)
+    --- PASS: TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/query (0.02s)
+    --- PASS: TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/identity (0.02s)
+=== RUN   TestSchedulerPrepareRequiresBudgetAndNoImplicitFallback
+--- PASS: TestSchedulerPrepareRequiresBudgetAndNoImplicitFallback (0.02s)
+=== RUN   TestConcurrentDispatchesCannotRunSameStageInParallel
+--- PASS: TestConcurrentDispatchesCannotRunSameStageInParallel (0.03s)
+=== RUN   TestSchedulerPrepareSpendAndVerifiedReleaseUseOnePersistentContract
+--- PASS: TestSchedulerPrepareSpendAndVerifiedReleaseUseOnePersistentContract (0.05s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/policy	2.927s
+=== RUN   TestEmptyFieldsAndCacheAgeNeverBecomeFreshQuota
+--- PASS: TestEmptyFieldsAndCacheAgeNeverBecomeFreshQuota (0.00s)
+=== RUN   TestQuotaStatesUnitsAndRawWindowsRemainDistinct
+--- PASS: TestQuotaStatesUnitsAndRawWindowsRemainDistinct (0.00s)
+=== RUN   TestCodexAndGLMAdaptersKeepMissingValuesAndSeparateMCP
+--- PASS: TestCodexAndGLMAdaptersKeepMissingValuesAndSeparateMCP (0.00s)
+=== RUN   TestSharedPoolAliasesAreNeverAddedAndUnknownPoolNotMerged
+--- PASS: TestSharedPoolAliasesAreNeverAddedAndUnknownPoolNotMerged (0.00s)
+=== RUN   TestBrokerCoalescesAndDiscardsOldIdentityGeneration
+--- PASS: TestBrokerCoalescesAndDiscardsOldIdentityGeneration (0.02s)
+=== RUN   TestBrokerDeadlineAndFailuresDoNotReplaceObservationTime
+--- PASS: TestBrokerDeadlineAndFailuresDoNotReplaceObservationTime (0.02s)
+=== RUN   TestQuotaJSONRejectsAmbiguityAndFutureClock
+--- PASS: TestQuotaJSONRejectsAmbiguityAndFutureClock (0.00s)
+=== RUN   TestContradictoryRemainingAndMalformedSourceTimestampCannotAdmit
+--- PASS: TestContradictoryRemainingAndMalformedSourceTimestampCannotAdmit (0.00s)
+=== RUN   TestNewPartialPoolObservationDoesNotHideBehindOlderGoodAlias
+--- PASS: TestNewPartialPoolObservationDoesNotHideBehindOlderGoodAlias (0.00s)
+=== RUN   TestBrokerDoesNotEchoReaderSecrets
+--- PASS: TestBrokerDoesNotEchoReaderSecrets (0.00s)
+=== RUN   TestRetiredAccountResponseAndGenerationRollbackAreRefused
+--- PASS: TestRetiredAccountResponseAndGenerationRollbackAreRefused (0.00s)
+=== RUN   TestBalancesAndCreditsArePreservedWithoutBecomingModelQuota
+--- PASS: TestBalancesAndCreditsArePreservedWithoutBecomingModelQuota (0.00s)
+=== RUN   TestPublishedQuotaStatusIsNotOptimisticAndZeroExpires
+--- PASS: TestPublishedQuotaStatusIsNotOptimisticAndZeroExpires (0.00s)
+=== RUN   TestWrappedQuotaErrorsCannotLeakSecrets
+--- PASS: TestWrappedQuotaErrorsCannotLeakSecrets (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/quota	1.407s
+=== RUN   TestThreeOfficialCandidatesRemainSeparatelyUnverified
+--- PASS: TestThreeOfficialCandidatesRemainSeparatelyUnverified (0.00s)
+=== RUN   TestCandidateReturnedCopiesCannotGrantAdmission
+--- PASS: TestCandidateReturnedCopiesCannotGrantAdmission (0.00s)
+=== RUN   TestAdmissionRequiresTrustedVersionBoundEvidence
+--- PASS: TestAdmissionRequiresTrustedVersionBoundEvidence (0.00s)
+=== RUN   TestUnverifiedBillingOrCommunityPluginCannotExecute
+--- PASS: TestUnverifiedBillingOrCommunityPluginCannotExecute (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/routes	1.359s
+=== RUN   TestWholeBindingPrecedenceAndGroupExpansion
+--- PASS: TestWholeBindingPrecedenceAndGroupExpansion (0.00s)
+=== RUN   TestTaskBindingDoesNotBorrowModelOrEffort
+--- PASS: TestTaskBindingDoesNotBorrowModelOrEffort (0.00s)
+=== RUN   TestExactRevisionModelIdentityAndAdmission
+--- PASS: TestExactRevisionModelIdentityAndAdmission (0.00s)
+=== RUN   TestMissingAndUnresolvedRolesAreRejected
+--- PASS: TestMissingAndUnresolvedRolesAreRejected (0.00s)
+=== RUN   TestUnknownRoleGroupAndIllegalBindings
+--- PASS: TestUnknownRoleGroupAndIllegalBindings (0.00s)
+=== RUN   TestEffortNullUnknownDefaultAndNone
+--- PASS: TestEffortNullUnknownDefaultAndNone (0.00s)
+=== RUN   TestLockCoverageRequiresExplicitPrimaryOnlyAcceptance
+--- PASS: TestLockCoverageRequiresExplicitPrimaryOnlyAcceptance (0.00s)
+=== RUN   TestCapabilitiesAndDuplicateRouteRevisions
+--- PASS: TestCapabilitiesAndDuplicateRouteRevisions (0.00s)
+=== RUN   TestAutoApprovedCandidatesAreFrozenWithoutEarlySelection
+--- PASS: TestAutoApprovedCandidatesAreFrozenWithoutEarlySelection (0.00s)
+=== RUN   TestAutoNeedsApprovedUniqueCandidates
+--- PASS: TestAutoNeedsApprovedUniqueCandidates (0.00s)
+=== RUN   TestSnapshotHashAndReportedModelUnknown
+--- PASS: TestSnapshotHashAndReportedModelUnknown (0.00s)
+=== RUN   TestParsePlanRejectsUnknownDuplicateAndTrailingFields
+--- PASS: TestParsePlanRejectsUnknownDuplicateAndTrailingFields (0.00s)
+=== RUN   TestParseRejectsNullLayersAndNullScalarSettings
+--- PASS: TestParseRejectsNullLayersAndNullScalarSettings (0.00s)
+=== RUN   TestRouteCapabilitiesAreKnownAndUnique
+--- PASS: TestRouteCapabilitiesAreKnownAndUnique (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/stageplan	1.350s
+=== RUN   TestScheduledPoolGlobalAndWriterReservationsAreAtomic
+--- PASS: TestScheduledPoolGlobalAndWriterReservationsAreAtomic (0.05s)
+=== RUN   TestSharedCallAndReworkBudgetDoesNotResetAtAttempt
+--- PASS: TestSharedCallAndReworkBudgetDoesNotResetAtAttempt (0.03s)
+=== RUN   TestConcurrentPoolStartsAndBudgetCallsHaveOneWinner
+--- PASS: TestConcurrentPoolStartsAndBudgetCallsHaveOneWinner (0.04s)
+=== RUN   TestReservationAndBudgetSurviveUnknownRecovery
+--- PASS: TestReservationAndBudgetSurviveUnknownRecovery (0.04s)
+=== RUN   TestMigrationTwoPreservesVerifiedVersionOneDatabase
+--- PASS: TestMigrationTwoPreservesVerifiedVersionOneDatabase (0.02s)
+=== RUN   TestFinishedProtocolCannotFreeSameTaskBeforeProcessStop
+--- PASS: TestFinishedProtocolCannotFreeSameTaskBeforeProcessStop (0.03s)
+=== RUN   TestAdvisoryAndInterruptedTerminalsCanReleaseWithStopProof
+=== RUN   TestAdvisoryAndInterruptedTerminalsCanReleaseWithStopProof/advisory_only
+=== RUN   TestAdvisoryAndInterruptedTerminalsCanReleaseWithStopProof/interrupted
+--- PASS: TestAdvisoryAndInterruptedTerminalsCanReleaseWithStopProof (0.06s)
+    --- PASS: TestAdvisoryAndInterruptedTerminalsCanReleaseWithStopProof/advisory_only (0.03s)
+    --- PASS: TestAdvisoryAndInterruptedTerminalsCanReleaseWithStopProof/interrupted (0.03s)
+=== RUN   TestReservationAndCallEventFailuresRollbackAllEffects
+--- PASS: TestReservationAndCallEventFailuresRollbackAllEffects (0.03s)
+=== RUN   TestCapacityCannotChangeWithHeldOrUnknownExecutions
+--- PASS: TestCapacityCannotChangeWithHeldOrUnknownExecutions (0.03s)
+=== RUN   TestTaskIdempotencyAndPayloadConflict
+--- PASS: TestTaskIdempotencyAndPayloadConflict (0.02s)
+=== RUN   TestSnapshotRevisionsAndIfMatch
+--- PASS: TestSnapshotRevisionsAndIfMatch (0.02s)
+=== RUN   TestUniqueActiveAttemptAndOrderedEvents
+--- PASS: TestUniqueActiveAttemptAndOrderedEvents (0.03s)
+=== RUN   TestLeaseGenerationFencesLateEvents
+--- PASS: TestLeaseGenerationFencesLateEvents (0.03s)
+=== RUN   TestRestartPreservesIntentAndBlocksBlindRerun
+--- PASS: TestRestartPreservesIntentAndBlocksBlindRerun (0.03s)
+=== RUN   TestCancellationCompletionRaceIsSingleTerminal
+--- PASS: TestCancellationCompletionRaceIsSingleTerminal (0.03s)
+=== RUN   TestControllerAndPathIsolation
+--- PASS: TestControllerAndPathIsolation (0.02s)
+=== RUN   TestForgedExecutionTargetAndSnapshotRefused
+--- PASS: TestForgedExecutionTargetAndSnapshotRefused (0.02s)
+=== RUN   TestImmutableRoutesAndEvidenceRefs
+--- PASS: TestImmutableRoutesAndEvidenceRefs (0.03s)
+=== RUN   TestConcurrentDuplicateSubmissionCreatesOneTask
+--- PASS: TestConcurrentDuplicateSubmissionCreatesOneTask (0.02s)
+=== RUN   TestStartupIntentWriteFailureRollsBackAllState
+--- PASS: TestStartupIntentWriteFailureRollsBackAllState (0.03s)
+=== RUN   TestStoreCrashHelper
+    store_test.go:295: isolated helper child only
+--- SKIP: TestStoreCrashHelper (0.00s)
+=== RUN   TestNativeControllerCrashIsUnknownWithoutEffectReplay
+--- PASS: TestNativeControllerCrashIsUnknownWithoutEffectReplay (0.06s)
+=== RUN   TestExpiredLeaseIsDurablyFencedAcrossClockRollback
+--- PASS: TestExpiredLeaseIsDurablyFencedAcrossClockRollback (0.03s)
+=== RUN   TestSuccessfulStageIsNotTaskAcceptance
+--- PASS: TestSuccessfulStageIsNotTaskAcceptance (0.03s)
+=== RUN   TestPrivateSidecarsAndUnrelatedDatabaseAreRefused
+--- PASS: TestPrivateSidecarsAndUnrelatedDatabaseAreRefused (0.01s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/store	2.075s
+?   	github.com/yetone/magpie/internal/fusion/task	[no test files]
+=== RUN   TestProviderMarkersAndQuotaUnknown
+--- PASS: TestProviderMarkersAndQuotaUnknown (0.00s)
+=== RUN   TestDeniedRequestsHaveZeroOutbound
+--- PASS: TestDeniedRequestsHaveZeroOutbound (0.00s)
+=== RUN   TestProviderFaultScenarios
+=== RUN   TestProviderFaultScenarios/rate_limit
+=== RUN   TestProviderFaultScenarios/error
+=== RUN   TestProviderFaultScenarios/config_changed
+--- PASS: TestProviderFaultScenarios (0.00s)
+    --- PASS: TestProviderFaultScenarios/rate_limit (0.00s)
+    --- PASS: TestProviderFaultScenarios/error (0.00s)
+    --- PASS: TestProviderFaultScenarios/config_changed (0.00s)
+=== RUN   TestProviderStreamToolAndInterruption
+=== RUN   TestProviderStreamToolAndInterruption/stream
+=== RUN   TestProviderStreamToolAndInterruption/broken_stream
+--- PASS: TestProviderStreamToolAndInterruption (0.00s)
+    --- PASS: TestProviderStreamToolAndInterruption/stream (0.00s)
+    --- PASS: TestProviderStreamToolAndInterruption/broken_stream (0.00s)
+=== RUN   TestProviderDelayCanBeCancelled
+--- PASS: TestProviderDelayCanBeCancelled (0.03s)
+=== RUN   TestProviderRefusesRealNamesAndAuthentication
+--- PASS: TestProviderRefusesRealNamesAndAuthentication (0.00s)
+=== RUN   TestRuntimeRPCMarkersToolsAndWriteLoss
+=== RUN   TestRuntimeRPCMarkersToolsAndWriteLoss/ok
+=== RUN   TestRuntimeRPCMarkersToolsAndWriteLoss/rpc
+=== RUN   TestRuntimeRPCMarkersToolsAndWriteLoss/tool
+=== RUN   TestRuntimeRPCMarkersToolsAndWriteLoss/write_loss
+=== RUN   TestRuntimeRPCMarkersToolsAndWriteLoss/crash
+=== RUN   TestRuntimeRPCMarkersToolsAndWriteLoss/config_changed
+=== RUN   TestRuntimeRPCMarkersToolsAndWriteLoss/quota_unknown
+=== RUN   TestRuntimeRPCMarkersToolsAndWriteLoss/rate_limit
+--- PASS: TestRuntimeRPCMarkersToolsAndWriteLoss (0.00s)
+    --- PASS: TestRuntimeRPCMarkersToolsAndWriteLoss/ok (0.00s)
+    --- PASS: TestRuntimeRPCMarkersToolsAndWriteLoss/rpc (0.00s)
+    --- PASS: TestRuntimeRPCMarkersToolsAndWriteLoss/tool (0.00s)
+    --- PASS: TestRuntimeRPCMarkersToolsAndWriteLoss/write_loss (0.00s)
+    --- PASS: TestRuntimeRPCMarkersToolsAndWriteLoss/crash (0.00s)
+    --- PASS: TestRuntimeRPCMarkersToolsAndWriteLoss/config_changed (0.00s)
+    --- PASS: TestRuntimeRPCMarkersToolsAndWriteLoss/quota_unknown (0.00s)
+    --- PASS: TestRuntimeRPCMarkersToolsAndWriteLoss/rate_limit (0.00s)
+=== RUN   TestRuntimeRefusesUnsafeInput
+--- PASS: TestRuntimeRefusesUnsafeInput (0.00s)
+=== RUN   TestFixtureEnvironmentDropsAmbientSecrets
+--- PASS: TestFixtureEnvironmentDropsAmbientSecrets (0.00s)
+=== RUN   TestSyntheticRepoKnownBugAndEscapeFixtures
+--- PASS: TestSyntheticRepoKnownBugAndEscapeFixtures (0.00s)
+=== RUN   TestFixtureEnvironmentRejectsLinkedRoot
+--- PASS: TestFixtureEnvironmentRejectsLinkedRoot (0.00s)
+=== RUN   TestProviderRejectsTrailingAndOversizedInput
+--- PASS: TestProviderRejectsTrailingAndOversizedInput (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/testsupport	1.422s
+?   	github.com/yetone/magpie/internal/fusion/testsupport/cmd/fake-runtime	[no test files]

@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/store [github.com/yetone/magpie/internal/fusion/store.test]
+internal/fusion/store/scheduling_test.go:20:11: s.ConfigureBudget undefined (type *Store has no field or method ConfigureBudget)
+internal/fusion/store/scheduling_test.go:20:36: undefined: Budget
+internal/fusion/store/scheduling_test.go:30:9: undefined: ReservationRequest
+internal/fusion/store/scheduling_test.go:31:12: s.StartReserved undefined (type *Store has no field or method StartReserved)
+internal/fusion/store/scheduling_test.go:35:24: undefined: ReservationRequest
+internal/fusion/store/scheduling_test.go:36:15: s.StartReserved undefined (type *Store has no field or method StartReserved)
+internal/fusion/store/scheduling_test.go:46:14: s.StartReserved undefined (type *Store has no field or method StartReserved)
+internal/fusion/store/scheduling_test.go:51:14: s.StartReserved undefined (type *Store has no field or method StartReserved)
+internal/fusion/store/scheduling_test.go:54:11: s.ReleaseReserved undefined (type *Store has no field or method ReleaseReserved)
+internal/fusion/store/scheduling_test.go:60:11: s.ReleaseReserved undefined (type *Store has no field or method ReleaseReserved)
+internal/fusion/store/scheduling_test.go:60:11: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/store [build failed]
+FAIL

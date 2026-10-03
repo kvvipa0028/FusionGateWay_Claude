@@ -306,7 +306,9 @@
 
 ### WP-10 · 执行准入与单机调度
 
-**阶段：**M2　**负责人角色：**调度 Agent　**状态：**planned
+**阶段：**M2　**负责人角色：**调度 Agent　**状态：**done
+
+**Completion evidence:**`../work-items/WP-10/summary.md`.
 
 **输入/前置：**WP-05, WP-07, WP-09。同时读取这些前置包的合同、测试日志、阻断项与当前仓库 HEAD。
 

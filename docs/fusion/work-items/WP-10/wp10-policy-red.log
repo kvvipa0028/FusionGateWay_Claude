@@ -1,0 +1,11 @@
+# github.com/yetone/magpie/internal/fusion/policy [github.com/yetone/magpie/internal/fusion/policy.test]
+internal/fusion/policy/scheduler_test.go:16:37: undefined: Inspection
+internal/fusion/policy/scheduler_test.go:19:9: undefined: Inspection
+internal/fusion/policy/scheduler_test.go:47:17: undefined: Scheduler
+internal/fusion/policy/scheduler_test.go:47:126: undefined: Inspection
+internal/fusion/policy/scheduler_test.go:63:15: undefined: Scheduler
+internal/fusion/policy/scheduler_test.go:63:124: undefined: Inspection
+internal/fusion/policy/scheduler_test.go:70:15: undefined: Blocker
+internal/fusion/policy/scheduler_test.go:95:121: undefined: ErrDispatchBusy
+FAIL	github.com/yetone/magpie/internal/fusion/policy [build failed]
+FAIL

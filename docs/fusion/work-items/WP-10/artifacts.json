@@ -1,0 +1,31 @@
+{
+  "base_commit": "f8617ef22be3313ed3e183507c94f6cb889320ca",
+  "source_files_sha256": {
+    "AGENTS.md": "3e6d54a3bbece9c861ceb1c7a0ff07c91fcc22fe650ce66255a7d12245a41945",
+    "README.md": "314e376df96059e372be7999dc6de784c4ef371c528ba7b5794682a5c46fe64c",
+    "docs/fusion/README.md": "fb26f388c245967a33e2d4c7a788f3f84e9c1c39d30d074f733d67c81cf4fae9",
+    "docs/fusion/contracts/blocked-reason-catalog.md": "677c601a37f898e857933b938c7af2bfcafc884d8a0b534f772b7801a4ef9df0",
+    "docs/fusion/contracts/state-transition-contract.md": "3190748ffa5c0e664ba71792a5da335f3348cb7a58aa6bab958f05c65f4d163d",
+    "docs/fusion/planning/Fusion_Magpie_Fork_Agent\u5de5\u4f5c\u5305_v1.0.md": "a2f7b3ee3866348ee16892d2c0bd8928b42aa915d37004f3430ffc402087a1cf",
+    "docs/fusion/planning/implementation_tasks.json": "1b7e92e56bbf05b0fb3ff16b132cfc1a3320e49837fdedc02192eec736d00946",
+    "internal/fusion/policy/auth.go": "a9fa4ea3e513ce4974c9ba7770c82de0fb18e5f97e8274e9624639ec69e592f4",
+    "internal/fusion/policy/dispatch.go": "fc8092337a7031001970d1bee400be9c11cce076395305de313334955de7c1f6",
+    "internal/fusion/policy/scheduler.go": "5ee454cc2198403e4d7b91d80562cf3c932ee74b3441b394463f7b0a6134e1b4",
+    "internal/fusion/policy/scheduler_test.go": "90643995e0a7285d3e82016ae7dbe833d3d92453f4341f7c74eda3c9dc39a7a5",
+    "internal/fusion/store/migrations/002.sql": "2ac90103b11f3d5f44e18a058eec152a6d7971c750148bd014ee6b5eb6f4d061",
+    "internal/fusion/store/runs.go": "ff96b2ebc8d62d2f8ca2058b98232e2b38cd57bddfc0f4adb83b86f507848bcb",
+    "internal/fusion/store/scheduling.go": "ecb9e3fa421bc689bf5ee40dabca3e60f72fda627d85ff8110e410e1d0b5f933",
+    "internal/fusion/store/scheduling_test.go": "82bff9ba905333f934396fbf86dd1053a1d5a6d4f03c7f369080c5a9d600bb7c",
+    "internal/fusion/store/store.go": "3fcb8cce772a38ff3acb9831b404fd64fc85c80181c9222da30d93645e74c56e"
+  },
+  "logs_sha256": {
+    "wp10-store-red.log": "0b3a31e3333c077ae9d82c64f083d2bb26d5346e19027119e5821a36d23c0318",
+    "wp10-stop-red.log": "82f74ffea02842247841b847eccd9036555e97e9350f1d27fad034a2ccc12168",
+    "wp10-race-green.log": "4b10c2be19d86fa7255535226402a13171f7e96266591dfe7a13d2e2964859e2",
+    "wp10-policy-red.log": "7adfcaf6cc5f27f1b6820e90820d0393c5daa4e0cb2f0523935278a01ca6291d",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "287a317785e506a6d10f52eb60d6ab84baf8a96ee333efd2e9c787263083658f",
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "credentials": "No private credential or real account records in this packet"
+}

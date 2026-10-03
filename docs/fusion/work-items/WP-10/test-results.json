@@ -1,0 +1,27 @@
+{
+  "checks": [
+    {
+      "command": "go test -race -v -count=1 -mod=readonly -tags fusion,nogui ./internal/fusion/...",
+      "exit_code": 0,
+      "passed_top_level_tests": 92,
+      "skips": 1,
+      "log": "wp10-race-green.log"
+    },
+    {
+      "command": "python3 scripts/fusion/build-dev.py (CLI, GUI, full vet)",
+      "exit_code": 0
+    }
+  ],
+  "red_evidence": [
+    "wp10-store-red.log",
+    "wp10-policy-red.log",
+    "wp10-stop-red.log"
+  ],
+  "build_report": true,
+  "not_verified": [
+    "actual native process-tree stop proof",
+    "real quota query/admission",
+    "official Runtime model-call accounting",
+    "final T10/T11/T12/T21/T30/T32/T55/T58 E2E"
+  ]
+}

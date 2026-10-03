@@ -1,0 +1,14 @@
+=== RUN   TestFinishedProtocolCannotFreeSameTaskBeforeProcessStop
+    scheduling_test.go:223: same task resumed before verified stop <nil>
+--- FAIL: TestFinishedProtocolCannotFreeSameTaskBeforeProcessStop (0.01s)
+=== RUN   TestAdvisoryAndInterruptedTerminalsCanReleaseWithStopProof
+=== RUN   TestAdvisoryAndInterruptedTerminalsCanReleaseWithStopProof/advisory_only
+    scheduling_test.go:237: execution fenced
+=== RUN   TestAdvisoryAndInterruptedTerminalsCanReleaseWithStopProof/interrupted
+    scheduling_test.go:237: execution fenced
+--- FAIL: TestAdvisoryAndInterruptedTerminalsCanReleaseWithStopProof (0.01s)
+    --- FAIL: TestAdvisoryAndInterruptedTerminalsCanReleaseWithStopProof/advisory_only (0.00s)
+    --- FAIL: TestAdvisoryAndInterruptedTerminalsCanReleaseWithStopProof/interrupted (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/store	0.575s
+FAIL

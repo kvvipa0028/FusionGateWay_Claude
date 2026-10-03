@@ -53,68 +53,69 @@ func (s *Store) StartIntent(in StartRequest) (StageRun, error) {
 		return StageRun{}, ErrInvalid
 	}
 	var result StageRun
-	e := s.transaction(func(tx *sql.Tx) error {
-		t, e := taskIn(tx, in.TaskID)
-		if e != nil {
-			return e
-		}
-		if t.PlanRevision != in.PlanRevision || t.State != "ready" {
-			return ErrConflict
-		}
-		p, e := planIn(tx, t.ID, in.PlanRevision)
-		if e != nil {
-			return e
-		}
-		b, ok := p.Bindings[in.Role]
-		if !ok {
-			return ErrInvalid
-		}
-		raw, _ := json.Marshal(in.Target)
-		admitted := false
-		if b.Mode == stageplan.Locked && b.Target != nil {
-			expected, _ := json.Marshal(b.Target)
-			admitted = string(expected) == string(raw)
-		} else if b.Mode == stageplan.Auto {
-			for _, c := range b.Candidates {
-				expected, _ := json.Marshal(c)
-				if string(expected) == string(raw) {
-					admitted = true
-				}
+	e := s.transaction(func(tx *sql.Tx) error { return s.startIntentIn(tx, in, &result) })
+	return result, e
+}
+func (s *Store) startIntentIn(tx *sql.Tx, in StartRequest, result *StageRun) error {
+	t, e := taskIn(tx, in.TaskID)
+	if e != nil {
+		return e
+	}
+	if t.PlanRevision != in.PlanRevision || t.State != "ready" {
+		return ErrConflict
+	}
+	p, e := planIn(tx, t.ID, in.PlanRevision)
+	if e != nil {
+		return e
+	}
+	b, ok := p.Bindings[in.Role]
+	if !ok {
+		return ErrInvalid
+	}
+	raw, _ := json.Marshal(in.Target)
+	admitted := false
+	if b.Mode == stageplan.Locked && b.Target != nil {
+		expected, _ := json.Marshal(b.Target)
+		admitted = string(expected) == string(raw)
+	} else if b.Mode == stageplan.Auto {
+		for _, c := range b.Candidates {
+			expected, _ := json.Marshal(c)
+			if string(expected) == string(raw) {
+				admitted = true
 			}
 		}
-		if !admitted {
-			return ErrInvalid
-		}
-		var active int
-		if e = tx.QueryRow("SELECT COUNT(*) FROM stage_runs WHERE task_id=? AND state IN ('starting','running','cancelling','unknown')", t.ID).Scan(&active); e != nil {
-			return e
-		}
-		if active > 0 {
-			return ErrConflict
-		}
-		var attempt int64
-		if e = tx.QueryRow("SELECT COALESCE(MAX(attempt),0)+1 FROM stage_runs WHERE task_id=? AND role=?", t.ID, in.Role).Scan(&attempt); e != nil {
-			return e
-		}
-		runID, e := id("run-")
-		if e != nil {
-			return e
-		}
-		gen := t.Generation + 1
-		expiry := s.now().Add(in.TTL).UnixMilli()
-		if _, e = tx.Exec("INSERT INTO stage_runs(id,task_id,role,attempt,generation,plan_revision,state,lease_owner,lease_until,startup_intent,target) VALUES(?,?,?,?,?,?,'starting',?,?,1,?)", runID, t.ID, in.Role, attempt, gen, in.PlanRevision, in.Owner, expiry, string(raw)); e != nil {
-			return e
-		}
-		if _, e = tx.Exec("UPDATE tasks SET state='running',generation=? WHERE id=?", gen, t.ID); e != nil {
-			return e
-		}
-		if e = event(tx, t.ID, "start_intent", runID, gen); e != nil {
-			return e
-		}
-		result, e = runIn(tx, runID)
+	}
+	if !admitted {
+		return ErrInvalid
+	}
+	var active int
+	if e = tx.QueryRow("SELECT COUNT(*) FROM stage_runs WHERE task_id=? AND state IN ('starting','running','cancelling','unknown')", t.ID).Scan(&active); e != nil {
 		return e
-	})
-	return result, e
+	}
+	if active > 0 {
+		return ErrConflict
+	}
+	var attempt int64
+	if e = tx.QueryRow("SELECT COALESCE(MAX(attempt),0)+1 FROM stage_runs WHERE task_id=? AND role=?", t.ID, in.Role).Scan(&attempt); e != nil {
+		return e
+	}
+	runID, e := id("run-")
+	if e != nil {
+		return e
+	}
+	gen := t.Generation + 1
+	expiry := s.now().Add(in.TTL).UnixMilli()
+	if _, e = tx.Exec("INSERT INTO stage_runs(id,task_id,role,attempt,generation,plan_revision,state,lease_owner,lease_until,startup_intent,target) VALUES(?,?,?,?,?,?,'starting',?,?,1,?)", runID, t.ID, in.Role, attempt, gen, in.PlanRevision, in.Owner, expiry, string(raw)); e != nil {
+		return e
+	}
+	if _, e = tx.Exec("UPDATE tasks SET state='running',generation=? WHERE id=?", gen, t.ID); e != nil {
+		return e
+	}
+	if e = event(tx, t.ID, "start_intent", runID, gen); e != nil {
+		return e
+	}
+	*result, e = runIn(tx, runID)
+	return e
 }
 func (s *Store) fenced(tx *sql.Tx, runID string, gen int64, owner string) (StageRun, error) {
 	r, e := runIn(tx, runID)
