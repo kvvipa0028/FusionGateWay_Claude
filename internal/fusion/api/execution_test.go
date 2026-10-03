@@ -123,6 +123,17 @@ func setupExecution(t *testing.T, mode string) *executionFixture {
 			}()
 			return h, nil
 		}, Release: func(p policy.StopProof) error { return st.ReleaseReserved(p.RunID, p.Generation, p.ReportHash, true) }}}
+		if strings.HasPrefix(mode, "checkpoint") {
+			launch.Backend.Checkpoint = func(context.Context, store.StageRun) (control.CheckpointRef, error) {
+				if mode == "checkpoint_revoke" {
+					s.auth.RevokeManagement()
+				}
+				if mode == "checkpoint_error" {
+					return control.CheckpointRef{}, errors.New("fixture-sensitive-checkpoint")
+				}
+				return control.CheckpointRef{ID: strings.Repeat("b", 64), Digest: strings.Repeat("c", 64)}, nil
+			}
+		}
 		if strings.HasPrefix(mode, "restore") {
 			launch.Backend.CheckRestore = func(context.Context, store.StageRun, stageplan.ExecutionTarget, managed.Spec, store.RestoreIdentity) error {
 				if mode == "restore_bad" {

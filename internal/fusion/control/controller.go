@@ -42,6 +42,7 @@ type Backend struct {
 	// intent. Restore must repeat those checks for the fresh prepared run.
 	CheckRestore func(context.Context, store.StageRun, stageplan.ExecutionTarget, managed.Spec, store.RestoreIdentity) error
 	Restore      func(context.Context, store.StageRun, managed.Spec, store.RestoreIdentity) (Execution, error)
+	Checkpoint   func(context.Context, store.StageRun) (CheckpointRef, error)
 }
 type ReleasingAdapter interface {
 	managed.Adapter
@@ -84,6 +85,8 @@ type executionJob struct {
 	cancel     context.CancelFunc
 	done       chan struct{}
 	completion Completion
+	stoppedRun store.StageRun
+	checkpoint func(context.Context, store.StageRun) (CheckpointRef, error)
 }
 type Controller struct {
 	config     Config
@@ -258,7 +261,7 @@ func (c *Controller) start(request context.Context, key string, in store.StartId
 	// From this commit onward, HTTP cancellation cannot terminate an owned
 	// lifetime or drop a known process. Close/cancel/Runtime deadline can.
 	lifetime, cancel := context.WithCancel(c.lifetime)
-	job := &executionJob{run: clone(receipt.Run), cancel: cancel, done: make(chan struct{})}
+	job := &executionJob{run: clone(receipt.Run), cancel: cancel, done: make(chan struct{}), checkpoint: launch.Backend.Checkpoint}
 	c.mu.Lock()
 	c.pending--
 	pending = false
@@ -385,6 +388,7 @@ func (c *Controller) observe(j *executionJob, h Execution, b Backend) {
 		if e == nil && result.StoppedVerified && p.RunID == r.ID && p.Generation == r.Generation && p.NativeSessionID == r.NativeSessionID && p.DescendantsStopped && b.Release(p) == nil {
 			completion.StoppedVerified = true
 			completion.Released = true
+			j.stoppedRun = clone(r)
 		}
 	}
 	j.cancel()

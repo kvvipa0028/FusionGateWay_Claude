@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Fusion task control API
   version: 0.1.0-draft
-  description: 当前已实现 Handler 合同；25 paths、29 operations。独立 fusion-control 草稿 listener 已注册；生产执行 Controller/GUI 尚未接线。pause/continue 使用完整 Task If-Match，暂停中不宣称已停，continue 仅解除可靠暂停，不隐式启动或恢复 Native。全局/项目默认层只允许绑定，历史快照保持冻结。
+  description: 当前已实现 Handler 合同；26 paths、30 operations。独立 fusion-control 草稿 listener 已注册；生产执行 Controller/GUI 尚未接线。pause/continue 使用完整 Task If-Match，暂停中不宣称已停，continue 仅解除可靠暂停，不隐式启动或恢复 Native。全局/项目默认层只允许绑定，历史快照保持冻结。
 x-fusion-status: implemented-handler-contract
 x-fusion-production-registered: false
 x-fusion-draft-control-registered: true
@@ -443,6 +443,75 @@ paths:
           $ref: '#/components/responses/Error500'
         '503':
           $ref: '#/components/responses/Error503'
+  /control/v1/tasks/{task_id}/runs/{run_id}/checkpoint:
+    post:
+      operationId: createCheckpointRun
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      - name: If-Match
+        in: header
+        required: true
+        schema:
+          type: string
+        description: 单个 strong Task ETag，例如 "p1-g0-ready"；不是 plan revision tag
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmptyRequest'
+      responses:
+        '200':
+          description: Opaque checkpoint reference and safe original RunView
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckpointReply'
+          headers:
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '412':
+          $ref: '#/components/responses/Error412'
+        '428':
+          $ref: '#/components/responses/Error428'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+
   /control/v1/projects/{project_id}/quota:
     get:
       operationId: readProjectQuota
@@ -2648,6 +2717,26 @@ components:
         checkpoint_digest:
           type: string
           pattern: ^[a-f0-9]{64}$
+    CheckpointRef:
+      type: object
+      additionalProperties: false
+      required: [id, digest]
+      properties:
+        id:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+        digest:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+    CheckpointReply:
+      type: object
+      additionalProperties: false
+      required: [checkpoint, run]
+      properties:
+        checkpoint:
+          $ref: '#/components/schemas/CheckpointRef'
+        run:
+          $ref: '#/components/schemas/RunView'
     EmptyRequest:
       type: object
       additionalProperties: false

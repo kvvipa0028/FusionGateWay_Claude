@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/scripts/fusion/check-openapi.py", line 161, in <module>
+    print(json.dumps(verify(args.contract, args.standard_schema, args.samples), indent=2))
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/scripts/fusion/check-openapi.py", line 112, in verify
+    assert len(matches) == 1, "captured response has no unique documented path"
+AssertionError: captured response has no unique documented path

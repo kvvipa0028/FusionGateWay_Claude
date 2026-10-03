@@ -25,3 +25,5 @@ WP-15-CANCEL-API-01 新增 CancelTask/CancelTaskAuthorized：全 TaskVersion Sto
 [WP-15-GROK-01](../work-items/WP-15/GROK-01/summary.md) 补齐原始 GrokChannel 在 intent 前的拒绝，固定 Grok 1.0.48 经可信 Adapter 绑定完成 7 个真实 Native 控制器场景：成功、Read、断线、Pause、TaskCancel、Stage Cancel、Close。幂等 receipt 不重复执行，停止后核验实际 proof/release；独立模型/计费/额度证据未升级。固定 Claude 2.1.287 的 3 项控制器回归通过。产品 Worker/真实 Forwarder/准入未注册，同 key 重读不代表 Native Resume。
 
 [RESUME-API-01](../work-items/WP-15/RESUME-API-01/summary.md) 新增 Restore/RestoreAuthorized 与明确 CheckRestore/Restore 后端。归档来源、冻结 Target、scope 与当前 Source 在 intent 前核验，Store 同事务重查成功 released origin；restore 身份参与 StartOnce hash，普通 Start 拒绝该身份。实际固定 Grok 恢复、恢复中取消和请求断线均通过同一 owned lifetime/实际 proof/release 链；产品注册/真实账号准入仍待完成。
+
+[CHECKPOINT-API-01](../work-items/WP-15/CHECKPOINT-API-01/summary.md) 新增可信归档入口：保留启动时生产callback及释放时私有终态，只有成功owned Wait/proof/release允许归档；前后Task/管理/关闭状态重查。归档计入原work slots/WaitGroup，Close取消并等待；补齐关闭标志先到、取消回调后到的RED→GREEN竞态。实际Native取得稳定reference再恢复原UUID通过，包括批准Read，未新增真实准入声明。

@@ -1,0 +1,48 @@
+=== RUN   TestControllerPinnedNativeRunsOnceAndReleasesActualStopProof
+    controller_native_test.go:95: Controller -> PrepareOnce/CheckPrepared -> pinned GLM Adapter/owned loopback -> one synthetic HTTP/Permit -> validated Native result -> actual Supervisor wait/stop proof -> released; real model calls=0; product route/admission/billing/quota unverified
+--- PASS: TestControllerPinnedNativeRunsOnceAndReleasesActualStopProof (0.73s)
+=== RUN   TestControllerPinnedNativePauseStopsInFlightAndRequiresReview
+    controller_native_test.go:168: Controller Pause -> persisted cancelling/pausing -> owned Native cancel -> actual wait/StopProof/release -> needs_review; one synthetic HTTP/Permit; continue and old start cannot replay; real model/quota calls=0
+--- PASS: TestControllerPinnedNativePauseStopsInFlightAndRequiresReview (0.68s)
+=== RUN   TestControllerPinnedNativeTaskCancelStopsInFlightAndCloses
+    controller_native_test.go:241: Controller CancelTask -> persisted run/task cancelling -> owned Native cancel -> actual wait/StopProof/release -> cancelled; one synthetic HTTP/Permit; continue and old start cannot replay; real model/quota calls=0
+--- PASS: TestControllerPinnedNativeTaskCancelStopsInFlightAndCloses (0.68s)
+=== RUN   TestControllerPinnedGrokNativeLifecycle
+=== RUN   TestControllerPinnedGrokNativeLifecycle/success
+    grok_native_test.go:45: synthetic Controller mode=success state=succeeded HTTP/budget=2 actualStop/release=true sourceUnchanged=true; Native/route/billing/quota proof independent
+=== RUN   TestControllerPinnedGrokNativeLifecycle/read
+    grok_native_test.go:45: synthetic Controller mode=read state=succeeded HTTP/budget=3 actualStop/release=true sourceUnchanged=true; Native/route/billing/quota proof independent
+=== RUN   TestControllerPinnedGrokNativeLifecycle/disconnect
+    grok_native_test.go:45: synthetic Controller mode=disconnect state=succeeded HTTP/budget=2 actualStop/release=true sourceUnchanged=true; Native/route/billing/quota proof independent
+=== RUN   TestControllerPinnedGrokNativeLifecycle/pause
+    grok_native_test.go:45: synthetic Controller mode=pause state=cancelled HTTP/budget=2 actualStop/release=true sourceUnchanged=true; Native/route/billing/quota proof independent
+=== RUN   TestControllerPinnedGrokNativeLifecycle/task_cancel
+    grok_native_test.go:45: synthetic Controller mode=task_cancel state=cancelled HTTP/budget=2 actualStop/release=true sourceUnchanged=true; Native/route/billing/quota proof independent
+=== RUN   TestControllerPinnedGrokNativeLifecycle/stage_cancel
+    grok_native_test.go:45: synthetic Controller mode=stage_cancel state=cancelled HTTP/budget=2 actualStop/release=true sourceUnchanged=true; Native/route/billing/quota proof independent
+=== RUN   TestControllerPinnedGrokNativeLifecycle/close
+    grok_native_test.go:45: synthetic Controller mode=close state=cancelled HTTP/budget=2 actualStop/release=true sourceUnchanged=true; Native/route/billing/quota proof independent
+--- PASS: TestControllerPinnedGrokNativeLifecycle (7.94s)
+    --- PASS: TestControllerPinnedGrokNativeLifecycle/success (1.18s)
+    --- PASS: TestControllerPinnedGrokNativeLifecycle/read (1.27s)
+    --- PASS: TestControllerPinnedGrokNativeLifecycle/disconnect (1.21s)
+    --- PASS: TestControllerPinnedGrokNativeLifecycle/pause (1.06s)
+    --- PASS: TestControllerPinnedGrokNativeLifecycle/task_cancel (1.09s)
+    --- PASS: TestControllerPinnedGrokNativeLifecycle/stage_cancel (1.06s)
+    --- PASS: TestControllerPinnedGrokNativeLifecycle/close (1.08s)
+=== RUN   TestControllerPinnedGrokCheckpointRestore
+=== RUN   TestControllerPinnedGrokCheckpointRestore/restore
+    grok_native_test.go:347: actual Controller restore exactUUID/newRun/newGrant/HTTP3-total/Wait/StopProof/release/duplicate-read passed; real upstream/quota synthetic
+    grok_native_test.go:347: synthetic Controller mode=restore state=succeeded HTTP/budget=2 actualStop/release=true sourceUnchanged=true; Native/route/billing/quota proof independent
+=== RUN   TestControllerPinnedGrokCheckpointRestore/restore_cancel
+    grok_native_test.go:347: actual Controller restore exactUUID/newRun/newGrant/HTTP3-total/Wait/StopProof/release/duplicate-read passed; real upstream/quota synthetic
+    grok_native_test.go:347: synthetic Controller mode=restore_cancel state=succeeded HTTP/budget=2 actualStop/release=true sourceUnchanged=true; Native/route/billing/quota proof independent
+=== RUN   TestControllerPinnedGrokCheckpointRestore/restore_disconnect
+    grok_native_test.go:347: actual Controller restore exactUUID/newRun/newGrant/HTTP3-total/Wait/StopProof/release/duplicate-read passed; real upstream/quota synthetic
+    grok_native_test.go:347: synthetic Controller mode=restore_disconnect state=succeeded HTTP/budget=2 actualStop/release=true sourceUnchanged=true; Native/route/billing/quota proof independent
+--- PASS: TestControllerPinnedGrokCheckpointRestore (7.05s)
+    --- PASS: TestControllerPinnedGrokCheckpointRestore/restore (2.39s)
+    --- PASS: TestControllerPinnedGrokCheckpointRestore/restore_cancel (2.26s)
+    --- PASS: TestControllerPinnedGrokCheckpointRestore/restore_disconnect (2.40s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/control	18.744s

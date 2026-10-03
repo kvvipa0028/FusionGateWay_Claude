@@ -29,3 +29,5 @@ HTTP Context 只用于提交前预检查，提交后由 Controller owned lifetim
 
 验证包括 10 个 Host 顶层/30 子测试、实际 loopback HTTP；固定 Grok Controller 3 个新增恢复场景（成功、恢复中取消、请求断线）共 6 次 Native 启动，与原 Grok 7 场景及 Claude 3 场景一起回归。合成 upstream/inspection/Quota 为零真实调用，不能代替真实 subscription、账号/计费/Quota/pool、整个 Source 的稳定性或当前项目授权服务。当前 [OpenAPI](../openapi-fusion.yaml) 为 25 paths/29 operations，52 个实际 Handler 样本、8 个 schema 越权反例通过离线标准校验。
 
+
+所需opaque checkpoint reference可由 [task-checkpoint-api.md](task-checkpoint-api.md) 的可信owned成功run生产；归档入口不会启动/取消Native或构造unowned stop proof，引用不能覆盖本接口的当前目标/权限/准入核验。

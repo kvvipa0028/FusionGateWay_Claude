@@ -57,6 +57,17 @@ func controllerGrokNative(t *testing.T, mode string) {
 	}
 	route := stageplan.Route{ID: "fixture-grok", Revision: 1, Model: "fixture-model", Account: "fixture-account", Workspace: "fixture-workspace", CredentialIdentity: "fixture-credential", RuntimeVersion: grok.CLIVersion, BillingPath: "subscription", BillingKnown: true, Admitted: true, NoEffort: true, Capabilities: []string{"text"}, LockEnforcement: stageplan.ControlledCalls}
 	f := controlRouteFixture(t, route, stageplan.EffortSelection{Mode: stageplan.EffortNone})
+	if mode == "restore_read" {
+		plan, err := f.st.Plan(f.in.TaskID, 1)
+		if err != nil {
+			t.Fatal(err)
+		}
+		task, err := f.st.Create("fixture-restore-read-task", store.CreateRequest{ProjectID: "fixture-project", Goal: "fixture restore Read", Plan: plan, Budget: &store.Budget{MaxCalls: 4}})
+		if err != nil {
+			t.Fatal(err)
+		}
+		f.in.TaskID = task.ID
+	}
 	f.launch.Spec.Timeout = 15 * time.Second
 	f.launch.Spec.Input = []byte("Reply Fixture ready.")
 	owned := filepath.Join(f.launch.Spec.Workspace, "fixture.txt")
@@ -97,7 +108,7 @@ func controllerGrokNative(t *testing.T, mode string) {
 				case <-release:
 				}
 			}
-			if mode == "read" && ordinal == 1 {
+			if (mode == "read" || mode == "restore_read") && ordinal == 1 {
 				args, _ := json.Marshal(map[string]string{"target_file": owned})
 				delta := `"content":null,"tool_calls":[{"index":0,"id":"call_controller_read","type":"function","function":{"name":"read_file","arguments":` + strconv.Quote(string(args)) + `}}]`
 				reply := strings.Replace(controlGrokSSE, `"content":"Fixture ready."`, delta, 1)
@@ -110,7 +121,17 @@ func controllerGrokNative(t *testing.T, mode string) {
 	if e != nil {
 		t.Fatal(e)
 	}
-	f.launch.Backend = BindAdapter(adapter)
+	var archives *grok.Archives
+	if strings.HasPrefix(mode, "restore") {
+		archives, e = grok.NewArchives(fixturePrivate(t))
+		if e != nil {
+			t.Fatal(e)
+		}
+		defer archives.Close()
+		f.launch.Backend = BindGrokCheckpoint(adapter, archives)
+	} else {
+		f.launch.Backend = BindAdapter(adapter)
+	}
 	c := f.controller(t)
 	request, disconnect := context.WithCancel(context.Background())
 	defer disconnect()
@@ -201,7 +222,7 @@ func controllerGrokNative(t *testing.T, mode string) {
 	}
 	budget, e := f.st.Budget(f.in.TaskID)
 	wantCalls := int64(2)
-	if mode == "read" {
+	if mode == "read" || mode == "restore_read" {
 		wantCalls = 3
 	}
 	if e != nil || int64(budget.UsedCalls) != wantCalls || calls.Load() != wantCalls {
@@ -250,21 +271,17 @@ func controllerGrokNative(t *testing.T, mode string) {
 		t.Fatal("public Completion contains private data")
 	}
 	if strings.HasPrefix(mode, "restore") {
-		archives, err := grok.NewArchives(fixturePrivate(t))
+		checkpointTask, err := f.st.Task(f.in.TaskID)
 		if err != nil {
 			t.Fatal(err)
 		}
-		defer archives.Close()
-		j := c.jobs[first.Run.ID]
-		j.mu.Lock()
-		h, ok := j.handle.(*managed.Handle)
-		j.mu.Unlock()
-		if !ok || h == nil {
-			t.Fatal("owned native handle absent")
-		}
-		ref, err := adapter.Checkpoint(ctx, first.Run.ID, first.Run.Generation, archives)
+		ref, err := c.Checkpoint(ctx, f.in.TaskID, first.Run.ID, controlVersion(checkpointTask))
 		if err != nil {
-			t.Fatal("owned checkpoint failed", err)
+			t.Fatal("owned Controller checkpoint failed", err)
+		}
+		again, err := c.Checkpoint(ctx, f.in.TaskID, first.Run.ID, controlVersion(checkpointTask))
+		if err != nil || again != ref || calls.Load() != wantCalls {
+			t.Fatal("checkpoint recreated execution or changed ref", err)
 		}
 		task, err := f.st.Task(f.in.TaskID)
 		if err != nil {
@@ -319,17 +336,17 @@ func controllerGrokNative(t *testing.T, mode string) {
 			t.Fatal("wrong exact native restore identity")
 		}
 		b, err := f.st.Budget(f.in.TaskID)
-		if err != nil || b.UsedCalls != 3 || calls.Load() != 3 {
+		if err != nil || int64(b.UsedCalls) != wantCalls+1 || calls.Load() != wantCalls+1 {
 			t.Fatal("restore perHTTP accounting changed")
 		}
 		retry, err := c.Restore(ctx, "fixture-native-resume", in)
-		if err != nil || retry.Created || retry.Run.ID != got.Run.ID || calls.Load() != 3 {
+		if err != nil || retry.Created || retry.Run.ID != got.Run.ID || calls.Load() != wantCalls+1 {
 			t.Fatal("restore receipt replayed")
 		}
 		if _, err = f.st.Reservation(got.Run.ID); !errors.Is(err, store.ErrNotFound) {
 			t.Fatal("restore capacity held after real stop")
 		}
-		t.Log("actual Controller restore exactUUID/newRun/newGrant/HTTP3-total/Wait/StopProof/release/duplicate-read passed; real upstream/quota synthetic")
+		t.Logf("actual Controller checkpoint/restore exactUUID/newRun/newGrant/HTTP%d-total/Wait/StopProof/release/duplicate-read passed; real upstream/quota synthetic", wantCalls+1)
 	}
 	t.Logf("synthetic Controller mode=%s state=%s HTTP/budget=%d actualStop/release=true sourceUnchanged=true; Native/route/billing/quota proof independent", mode, done.State, wantCalls)
 }
@@ -337,7 +354,7 @@ func TestControllerPinnedGrokCheckpointRestore(t *testing.T) {
 	if *nativeGrokControlCLI == "" {
 		t.Skip("explicit pinned Grok restore fixture only")
 	}
-	for _, mode := range []string{"restore", "restore_cancel", "restore_disconnect"} {
+	for _, mode := range []string{"restore", "restore_read", "restore_cancel", "restore_disconnect"} {
 		t.Run(mode, func(t *testing.T) { controllerGrokNative(t, mode) })
 	}
 }

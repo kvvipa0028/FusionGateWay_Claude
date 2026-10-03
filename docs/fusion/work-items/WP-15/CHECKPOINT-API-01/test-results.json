@@ -1,0 +1,174 @@
+{
+  "base_commit": "7c26dc367124966d71bc2588daa79411cba1f740",
+  "go_version": "1.26.3",
+  "jev": "off",
+  "parent_wp13": "in_progress",
+  "parent_wp15": "in_progress",
+  "final_gate": "not_run",
+  "checks": {
+    "wp15-checkpoint-api-red.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 3,
+      "passed_subtests": 2,
+      "failed_subtests": 11,
+      "compile_red": false,
+      "terminal_line": "FAIL"
+    },
+    "wp15-checkpoint-close-red.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 1,
+      "passed_subtests": 0,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "terminal_line": "FAIL"
+    },
+    "wp15-checkpoint-controller-final.log": {
+      "pass": 2,
+      "skip": 0,
+      "fail": 1,
+      "passed_subtests": 12,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "terminal_line": "FAIL"
+    },
+    "wp15-checkpoint-controller-green.log": {
+      "pass": 1,
+      "skip": 0,
+      "fail": 1,
+      "passed_subtests": 10,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "terminal_line": "FAIL"
+    },
+    "wp15-checkpoint-controller-red.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 0,
+      "failed_subtests": 0,
+      "compile_red": true,
+      "terminal_line": "FAIL"
+    },
+    "wp15-checkpoint-fusion-complete-final.log": {
+      "pass": 449,
+      "skip": 20,
+      "fail": 0,
+      "passed_subtests": 643,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/workspace\t1.350s"
+    },
+    "wp15-checkpoint-fusion-final.log": {
+      "pass": 448,
+      "skip": 20,
+      "fail": 0,
+      "passed_subtests": 643,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/workspace\t1.338s"
+    },
+    "wp15-checkpoint-host-final.log": {
+      "pass": 7,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 23,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/api\t2.014s"
+    },
+    "wp15-checkpoint-host-green.log": {
+      "pass": 6,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 23,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/api\t1.960s"
+    },
+    "wp15-checkpoint-native-complete-final.log": {
+      "pass": 5,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 11,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/control\t26.265s"
+    },
+    "wp15-checkpoint-native-final.log": {
+      "pass": 5,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 10,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/control\t18.744s"
+    },
+    "wp15-checkpoint-native-read-final.log": {
+      "pass": 5,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 11,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/control\t21.317s"
+    },
+    "wp15-checkpoint-openapi-red.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 0,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "terminal_line": "AssertionError: captured response has no unique documented path"
+    },
+    "wp15-checkpoint-openapi-samples.log": {
+      "pass": 1,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 0,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/api\t2.191s"
+    }
+  },
+  "checkpoint": {
+    "producer_original_backend_retained": true,
+    "success_owned_actual_wait_stop_release_required": true,
+    "release_snapshot_rechecked": true,
+    "reference_repeat_stable": true,
+    "close_flag_race_red_green": true,
+    "close_waits_for_producer": true,
+    "source_archive_and_ref_persisted": true,
+    "unowned_recapture_allowed": false,
+    "new_database_schema": false,
+    "model_or_quota_call_for_capture": false
+  },
+  "native_controller": {
+    "top_pass": 5,
+    "passed_subtests": 11,
+    "scenarios": 14,
+    "native_processes": 18,
+    "checkpoint_restore_scenarios": 4,
+    "checkpoint_restore_native_processes": 8,
+    "success": 3,
+    "cancelled": 1
+  },
+  "openapi": {
+    "official_openapi_document_schema": "3.1/2022-10-07",
+    "paths": 26,
+    "operations": 30,
+    "handler_samples": 53,
+    "covered_operations": 30,
+    "negative_schema_cases": 9,
+    "offline": true,
+    "production_registered": false
+  },
+  "real_model_calls": 0,
+  "real_quota_calls": 0,
+  "actual_native_via_management_http_verified": false,
+  "actual_native_via_trusted_controller_verified": true,
+  "production_execution_registered": false,
+  "post_checks_changes": "documentation/packet only"
+}

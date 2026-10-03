@@ -340,7 +340,7 @@ func (s *Server) Handler() http.Handler {
 			s.quotaControl(w, r)
 		case strings.HasPrefix(r.URL.Path, "/control/v1/tasks/") && (strings.HasSuffix(r.URL.Path, "/pause") || strings.HasSuffix(r.URL.Path, "/continue") || strings.HasSuffix(r.URL.Path, "/cancel") && strings.Count(r.URL.Path, "/") == 5):
 			s.taskControl(w, r)
-		case strings.HasPrefix(r.URL.Path, "/control/v1/tasks/") && (strings.HasSuffix(r.URL.Path, "/start") || strings.HasSuffix(r.URL.Path, "/resume") || strings.HasSuffix(r.URL.Path, "/cancel")):
+		case strings.HasPrefix(r.URL.Path, "/control/v1/tasks/") && (strings.HasSuffix(r.URL.Path, "/start") || strings.HasSuffix(r.URL.Path, "/resume") || strings.HasSuffix(r.URL.Path, "/cancel") || strings.HasSuffix(r.URL.Path, "/checkpoint")):
 			s.executionControl(w, r)
 		case strings.HasPrefix(r.URL.Path, "/control/v1/tasks/") && (strings.HasSuffix(r.URL.Path, "/plan") || strings.HasSuffix(r.URL.Path, "/plan/preview")):
 			s.planControl(w, r)

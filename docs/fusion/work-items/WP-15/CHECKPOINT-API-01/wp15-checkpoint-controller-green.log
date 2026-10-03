@@ -1,0 +1,28 @@
+=== RUN   TestControllerCheckpointUsesOriginalOwnedSuccessfulBackend
+    checkpoint_test.go:30: running checkpoint accepted
+--- FAIL: TestControllerCheckpointUsesOriginalOwnedSuccessfulBackend (0.06s)
+=== RUN   TestControllerCheckpointRejectsFailureScopeAndRevocation
+=== RUN   TestControllerCheckpointRejectsFailureScopeAndRevocation/no_stop
+=== RUN   TestControllerCheckpointRejectsFailureScopeAndRevocation/release_error
+=== RUN   TestControllerCheckpointRejectsFailureScopeAndRevocation/no_handle
+=== RUN   TestControllerCheckpointRejectsFailureScopeAndRevocation/unbound
+=== RUN   TestControllerCheckpointRejectsFailureScopeAndRevocation/wrong_task
+=== RUN   TestControllerCheckpointRejectsFailureScopeAndRevocation/stale
+=== RUN   TestControllerCheckpointRejectsFailureScopeAndRevocation/revoked_before
+=== RUN   TestControllerCheckpointRejectsFailureScopeAndRevocation/revoked_during
+=== RUN   TestControllerCheckpointRejectsFailureScopeAndRevocation/malformed
+=== RUN   TestControllerCheckpointRejectsFailureScopeAndRevocation/backend_error
+--- PASS: TestControllerCheckpointRejectsFailureScopeAndRevocation (0.46s)
+    --- PASS: TestControllerCheckpointRejectsFailureScopeAndRevocation/no_stop (0.05s)
+    --- PASS: TestControllerCheckpointRejectsFailureScopeAndRevocation/release_error (0.04s)
+    --- PASS: TestControllerCheckpointRejectsFailureScopeAndRevocation/no_handle (0.04s)
+    --- PASS: TestControllerCheckpointRejectsFailureScopeAndRevocation/unbound (0.05s)
+    --- PASS: TestControllerCheckpointRejectsFailureScopeAndRevocation/wrong_task (0.05s)
+    --- PASS: TestControllerCheckpointRejectsFailureScopeAndRevocation/stale (0.05s)
+    --- PASS: TestControllerCheckpointRejectsFailureScopeAndRevocation/revoked_before (0.05s)
+    --- PASS: TestControllerCheckpointRejectsFailureScopeAndRevocation/revoked_during (0.05s)
+    --- PASS: TestControllerCheckpointRejectsFailureScopeAndRevocation/malformed (0.05s)
+    --- PASS: TestControllerCheckpointRejectsFailureScopeAndRevocation/backend_error (0.05s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/control	1.158s
+FAIL

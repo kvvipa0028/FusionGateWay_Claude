@@ -142,6 +142,8 @@ func TestImplementedAPIContractSamples(t *testing.T) {
 
 	f := setupExecution(t, "normal")
 	resumeFixture, resumeBody, resumeTag := apiRestoreFixture(t, "restore")
+	checkpointFixture, checkpointURL, checkpointTag := apiCheckpointFixture(t, "checkpoint")
+	add("POST", checkpointURL, `{}`, 200, executionRequest(checkpointFixture.h, "POST", checkpointURL, `{}`, "", checkpointTag, "fixture-management"), map[string]string{"If-Match": checkpointTag})
 	resumeURL := restorePath(resumeFixture)
 	resumeHeaders := map[string]string{"If-Match": resumeTag, "Idempotency-Key": "fixture-contract-resume"}
 	w = executionRequest(resumeFixture.h, "POST", resumeURL, resumeBody, "fixture-contract-resume", resumeTag, "fixture-management")

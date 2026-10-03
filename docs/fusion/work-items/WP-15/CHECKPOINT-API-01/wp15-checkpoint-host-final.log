@@ -1,0 +1,64 @@
+=== RUN   TestControllerCheckpointRejectsClosingBeforeCancellationCallback
+--- PASS: TestControllerCheckpointRejectsClosingBeforeCancellationCallback (0.06s)
+=== RUN   TestControllerCheckpointUsesOriginalOwnedSuccessfulBackend
+--- PASS: TestControllerCheckpointUsesOriginalOwnedSuccessfulBackend (0.06s)
+=== RUN   TestControllerCheckpointRejectsFailureScopeAndRevocation
+=== RUN   TestControllerCheckpointRejectsFailureScopeAndRevocation/no_stop
+=== RUN   TestControllerCheckpointRejectsFailureScopeAndRevocation/release_error
+=== RUN   TestControllerCheckpointRejectsFailureScopeAndRevocation/no_handle
+=== RUN   TestControllerCheckpointRejectsFailureScopeAndRevocation/unbound
+=== RUN   TestControllerCheckpointRejectsFailureScopeAndRevocation/wrong_task
+=== RUN   TestControllerCheckpointRejectsFailureScopeAndRevocation/stale
+=== RUN   TestControllerCheckpointRejectsFailureScopeAndRevocation/revoked_before
+=== RUN   TestControllerCheckpointRejectsFailureScopeAndRevocation/revoked_during
+=== RUN   TestControllerCheckpointRejectsFailureScopeAndRevocation/malformed
+=== RUN   TestControllerCheckpointRejectsFailureScopeAndRevocation/backend_error
+--- PASS: TestControllerCheckpointRejectsFailureScopeAndRevocation (0.60s)
+    --- PASS: TestControllerCheckpointRejectsFailureScopeAndRevocation/no_stop (0.06s)
+    --- PASS: TestControllerCheckpointRejectsFailureScopeAndRevocation/release_error (0.06s)
+    --- PASS: TestControllerCheckpointRejectsFailureScopeAndRevocation/no_handle (0.05s)
+    --- PASS: TestControllerCheckpointRejectsFailureScopeAndRevocation/unbound (0.06s)
+    --- PASS: TestControllerCheckpointRejectsFailureScopeAndRevocation/wrong_task (0.06s)
+    --- PASS: TestControllerCheckpointRejectsFailureScopeAndRevocation/stale (0.06s)
+    --- PASS: TestControllerCheckpointRejectsFailureScopeAndRevocation/revoked_before (0.06s)
+    --- PASS: TestControllerCheckpointRejectsFailureScopeAndRevocation/revoked_during (0.07s)
+    --- PASS: TestControllerCheckpointRejectsFailureScopeAndRevocation/malformed (0.06s)
+    --- PASS: TestControllerCheckpointRejectsFailureScopeAndRevocation/backend_error (0.07s)
+=== RUN   TestControllerCheckpointCloseWaitsAndSuppressesProducerOutput
+=== RUN   TestControllerCheckpointCloseWaitsAndSuppressesProducerOutput/cancel
+=== RUN   TestControllerCheckpointCloseWaitsAndSuppressesProducerOutput/wait
+--- PASS: TestControllerCheckpointCloseWaitsAndSuppressesProducerOutput (0.14s)
+    --- PASS: TestControllerCheckpointCloseWaitsAndSuppressesProducerOutput/cancel (0.06s)
+    --- PASS: TestControllerCheckpointCloseWaitsAndSuppressesProducerOutput/wait (0.08s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/control	2.529s
+=== RUN   TestCheckpointAPIRealHTTPPublishesSafeOwnedReference
+--- PASS: TestCheckpointAPIRealHTTPPublishesSafeOwnedReference (0.07s)
+=== RUN   TestCheckpointAPIRefusesBodyConditionAuthorityAndUnboundProducer
+=== RUN   TestCheckpointAPIRefusesBodyConditionAuthorityAndUnboundProducer/body
+=== RUN   TestCheckpointAPIRefusesBodyConditionAuthorityAndUnboundProducer/ref
+=== RUN   TestCheckpointAPIRefusesBodyConditionAuthorityAndUnboundProducer/null
+=== RUN   TestCheckpointAPIRefusesBodyConditionAuthorityAndUnboundProducer/missing_tag
+=== RUN   TestCheckpointAPIRefusesBodyConditionAuthorityAndUnboundProducer/weak
+=== RUN   TestCheckpointAPIRefusesBodyConditionAuthorityAndUnboundProducer/stale
+=== RUN   TestCheckpointAPIRefusesBodyConditionAuthorityAndUnboundProducer/no_auth
+=== RUN   TestCheckpointAPIRefusesBodyConditionAuthorityAndUnboundProducer/stage
+--- PASS: TestCheckpointAPIRefusesBodyConditionAuthorityAndUnboundProducer (0.13s)
+    --- PASS: TestCheckpointAPIRefusesBodyConditionAuthorityAndUnboundProducer/body (0.00s)
+    --- PASS: TestCheckpointAPIRefusesBodyConditionAuthorityAndUnboundProducer/ref (0.00s)
+    --- PASS: TestCheckpointAPIRefusesBodyConditionAuthorityAndUnboundProducer/null (0.00s)
+    --- PASS: TestCheckpointAPIRefusesBodyConditionAuthorityAndUnboundProducer/missing_tag (0.00s)
+    --- PASS: TestCheckpointAPIRefusesBodyConditionAuthorityAndUnboundProducer/weak (0.00s)
+    --- PASS: TestCheckpointAPIRefusesBodyConditionAuthorityAndUnboundProducer/stale (0.00s)
+    --- PASS: TestCheckpointAPIRefusesBodyConditionAuthorityAndUnboundProducer/no_auth (0.00s)
+    --- PASS: TestCheckpointAPIRefusesBodyConditionAuthorityAndUnboundProducer/stage (0.00s)
+=== RUN   TestCheckpointAPIFailureAndRevocationExposeNoReference
+=== RUN   TestCheckpointAPIFailureAndRevocationExposeNoReference/checkpoint_error
+=== RUN   TestCheckpointAPIFailureAndRevocationExposeNoReference/checkpoint_revoke
+=== RUN   TestCheckpointAPIFailureAndRevocationExposeNoReference/no_stop
+--- PASS: TestCheckpointAPIFailureAndRevocationExposeNoReference (0.19s)
+    --- PASS: TestCheckpointAPIFailureAndRevocationExposeNoReference/checkpoint_error (0.06s)
+    --- PASS: TestCheckpointAPIFailureAndRevocationExposeNoReference/checkpoint_revoke (0.07s)
+    --- PASS: TestCheckpointAPIFailureAndRevocationExposeNoReference/no_stop (0.06s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/api	2.014s

@@ -15,6 +15,10 @@ func BindGrokCheckpoint(a *grok.Adapter, archives *grok.Archives) Backend {
 		return Backend{}
 	}
 	b := BindAdapter(a)
+	b.Checkpoint = func(ctx context.Context, run store.StageRun) (CheckpointRef, error) {
+		ref, e := a.Checkpoint(ctx, run.ID, run.Generation, archives)
+		return CheckpointRef{ID: ref.ID, Digest: ref.Digest}, e
+	}
 	b.CheckRestore = func(ctx context.Context, origin store.StageRun, target stageplan.ExecutionTarget, spec managed.Spec, identity store.RestoreIdentity) error {
 		if ctx == nil || ctx.Err() != nil || identity.OriginRunID != origin.ID {
 			return ErrIdentity

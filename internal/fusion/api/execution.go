@@ -38,6 +38,10 @@ type ResumeRoleRequest struct {
 	Role    stageplan.Role        `json:"role"`
 	Restore store.RestoreIdentity `json:"restore"`
 }
+type CheckpointReply struct {
+	Checkpoint control.CheckpointRef `json:"checkpoint"`
+	Run        RunView               `json:"run"`
+}
 type RunView struct {
 	ID              string                    `json:"id"`
 	TaskID          string                    `json:"task_id"`
@@ -183,7 +187,8 @@ func (s *Server) executionControl(w http.ResponseWriter, r *http.Request) {
 	start := len(parts) == 2 && parts[1] == "start"
 	resume := len(parts) == 2 && parts[1] == "resume"
 	cancel := len(parts) == 4 && parts[1] == "runs" && parts[3] == "cancel"
-	if !start && !resume && !cancel || !opaque(parts[0]) || cancel && !opaque(parts[2]) {
+	checkpoint := len(parts) == 4 && parts[1] == "runs" && parts[3] == "checkpoint"
+	if !start && !resume && !cancel && !checkpoint || !opaque(parts[0]) || (cancel || checkpoint) && !opaque(parts[2]) {
 		controlFailure(w, errInvalid)
 		return
 	}
@@ -286,6 +291,29 @@ func (s *Server) executionControl(w http.ResponseWriter, r *http.Request) {
 	var body struct{}
 	if read(r, &body) != nil {
 		controlFailure(w, errInvalid)
+		return
+	}
+	if checkpoint {
+		ref, e := c.CheckpointAuthorized(r.Context(), parts[0], parts[2], store.TaskVersion{PlanRevision: condition.revision, Generation: condition.generation, State: condition.state}, s.auth.ManagementCurrent)
+		if errors.Is(e, store.ErrConflict) {
+			e = errTaskPrecondition
+		}
+		if e != nil {
+			controlFailure(w, e)
+			return
+		}
+		run, e := s.store.Run(parts[2])
+		if e != nil || run.TaskID != parts[0] {
+			controlFailure(w, control.ErrIdentity)
+			return
+		}
+		if !s.auth.ManagementCurrent(r.Context()) {
+			controlFailure(w, control.ErrForbidden)
+			return
+		}
+		s.taskHeader(w, parts[0])
+		w.Header().Set("Location", "/agent/v1/tasks/"+parts[0]+"/runs/"+run.ID)
+		respond(w, 200, CheckpointReply{Checkpoint: ref, Run: runView(run)})
 		return
 	}
 	task, e := s.store.Task(parts[0])

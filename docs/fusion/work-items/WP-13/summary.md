@@ -27,3 +27,5 @@ Parent 关联 T01/T02/T14/T15/T25/T31/T32/T35/T44/T56/T59 只新增了组件级�
 [CHANNEL-01](CHANNEL-01/summary.md) 已连接可信 GrokChannel、独占双栈端口、私有GROK_HOME/config与公共Supervisor。实际固定Native8场景通过真实Store/Manager/Scheduler和default-deny profile，包含读取、拒绝、重试、预算、取消/StopProof/release；C探针验证OS边界，Claude兼容性回归。完整Adapter/真实NativeForwarder/准入、Resume/写权限/产品注册仍未完成。合同：[grok-managed-channel.md](../../contracts/grok-managed-channel.md)。
 
 [ADAPTER-01](ADAPTER-01/summary.md) 已实现可信readonly Adapter：Scheduler重核、复制prompt、私有prompt-file、全新UUID/固定argv、ReadTools/Gate/channel/Supervisor、终态Observation与可信release。实际Native8场景及snapshot/40KB/drift3场景通过；完整真实路线、写/effort/Resume、产品注册与final Gate仍未完成。合同：[grok-adapter.md](../../contracts/grok-adapter.md)。
+
+[WP-15-CHECKPOINT-API-01](../WP-15/CHECKPOINT-API-01/summary.md) 已把同Adapter成功归档接到owned Controller/Management生产入口，取得stable opaque reference后再调用明确恢复；真实Native的批准Read、取消及断线回归通过。进程重启不通过producer重造停止证明，产品注册/真实准入/整个Source仍待完成。

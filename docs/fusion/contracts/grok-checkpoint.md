@@ -1,6 +1,6 @@
 # Grok 可信会话归档合同
 
-对应 [WP-13-ARCHIVE-01](../work-items/WP-13/ARCHIVE-01/summary.md)。`Adapter.Checkpoint` 是可信内部归档生产端，`NewArchives` / `Archives.Info` 提供私有持久核验；没有 HTTP 接口；可信内部 Native Resume 已由 [RESUME-01](grok-managed-resume.md) 接通，真实路线准入仍待完成。
+对应 [WP-13-ARCHIVE-01](../work-items/WP-13/ARCHIVE-01/summary.md)。`Adapter.Checkpoint` 是可信内部归档生产端，`NewArchives` / `Archives.Info` 提供私有持久核验；原 ARCHIVE-01 未提供 HTTP 接口；后续 [CHECKPOINT-API-01](task-checkpoint-api.md) 已接通可信 Controller/Management 生产入口；可信内部 Native Resume 已由 [RESUME-01](grok-managed-resume.md) 接通，真实路线准入仍待完成。
 
 只能归档同一 Adapter 持有的成功 Handle。必须完成实际 wait、同一 Supervisor 的 VerifyStop、同一 Adapter 的可信 Release；Store 中 run/generation/task/role/attempt/plan revision/frozen Target/Native UUID 必须一致，reservation 已释放，task 未取消。终态 Store 清空 lease owner，因此归档分别保存原 owner 和已完成终态，不能要求终态继续持有 lease，也不能仅凭 Native 文件推断停止。失败、取消、未知 Handle、其它 Adapter 或 generation 均拒绝。
 

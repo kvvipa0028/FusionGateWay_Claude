@@ -1,0 +1,53 @@
+=== RUN   TestCheckpointAPIRealHTTPPublishesSafeOwnedReference
+    checkpoint_test.go:46: checkpoint reply absent 404 404 page not found
+        
+--- FAIL: TestCheckpointAPIRealHTTPPublishesSafeOwnedReference (0.06s)
+=== RUN   TestCheckpointAPIRefusesBodyConditionAuthorityAndUnownedRuns
+=== RUN   TestCheckpointAPIRefusesBodyConditionAuthorityAndUnownedRuns/body
+    checkpoint_test.go:79: 404 404 page not found
+        
+=== RUN   TestCheckpointAPIRefusesBodyConditionAuthorityAndUnownedRuns/ref
+    checkpoint_test.go:79: 404 404 page not found
+        
+=== RUN   TestCheckpointAPIRefusesBodyConditionAuthorityAndUnownedRuns/null
+    checkpoint_test.go:79: 404 404 page not found
+        
+=== RUN   TestCheckpointAPIRefusesBodyConditionAuthorityAndUnownedRuns/missing_tag
+    checkpoint_test.go:79: 404 404 page not found
+        
+=== RUN   TestCheckpointAPIRefusesBodyConditionAuthorityAndUnownedRuns/weak
+    checkpoint_test.go:79: 404 404 page not found
+        
+=== RUN   TestCheckpointAPIRefusesBodyConditionAuthorityAndUnownedRuns/stale
+    checkpoint_test.go:79: 404 404 page not found
+        
+=== RUN   TestCheckpointAPIRefusesBodyConditionAuthorityAndUnownedRuns/no_auth
+=== RUN   TestCheckpointAPIRefusesBodyConditionAuthorityAndUnownedRuns/stage
+=== NAME  TestCheckpointAPIRefusesBodyConditionAuthorityAndUnownedRuns
+    checkpoint_test.go:86: unbound producer accepted 404
+--- FAIL: TestCheckpointAPIRefusesBodyConditionAuthorityAndUnownedRuns (0.11s)
+    --- FAIL: TestCheckpointAPIRefusesBodyConditionAuthorityAndUnownedRuns/body (0.00s)
+    --- FAIL: TestCheckpointAPIRefusesBodyConditionAuthorityAndUnownedRuns/ref (0.00s)
+    --- FAIL: TestCheckpointAPIRefusesBodyConditionAuthorityAndUnownedRuns/null (0.00s)
+    --- FAIL: TestCheckpointAPIRefusesBodyConditionAuthorityAndUnownedRuns/missing_tag (0.00s)
+    --- FAIL: TestCheckpointAPIRefusesBodyConditionAuthorityAndUnownedRuns/weak (0.00s)
+    --- FAIL: TestCheckpointAPIRefusesBodyConditionAuthorityAndUnownedRuns/stale (0.00s)
+    --- PASS: TestCheckpointAPIRefusesBodyConditionAuthorityAndUnownedRuns/no_auth (0.00s)
+    --- PASS: TestCheckpointAPIRefusesBodyConditionAuthorityAndUnownedRuns/stage (0.00s)
+=== RUN   TestCheckpointAPIFailureAndRevocationExposeNoReference
+=== RUN   TestCheckpointAPIFailureAndRevocationExposeNoReference/checkpoint_error
+    checkpoint_test.go:101: unsafe failure 404 404 page not found
+        
+=== RUN   TestCheckpointAPIFailureAndRevocationExposeNoReference/checkpoint_revoke
+    checkpoint_test.go:101: unsafe failure 404 404 page not found
+        
+=== RUN   TestCheckpointAPIFailureAndRevocationExposeNoReference/no_stop
+    checkpoint_test.go:101: unsafe failure 404 404 page not found
+        
+--- FAIL: TestCheckpointAPIFailureAndRevocationExposeNoReference (0.14s)
+    --- FAIL: TestCheckpointAPIFailureAndRevocationExposeNoReference/checkpoint_error (0.05s)
+    --- FAIL: TestCheckpointAPIFailureAndRevocationExposeNoReference/checkpoint_revoke (0.05s)
+    --- FAIL: TestCheckpointAPIFailureAndRevocationExposeNoReference/no_stop (0.05s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/api	0.914s
+FAIL

@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/control [github.com/yetone/magpie/internal/fusion/control.test]
+internal/fusion/control/checkpoint_test.go:13:12: undefined: CheckpointRef
+internal/fusion/control/checkpoint_test.go:14:19: f.launch.Backend.Checkpoint undefined (type Backend has no field or method Checkpoint)
+internal/fusion/control/checkpoint_test.go:14:73: undefined: CheckpointRef
+internal/fusion/control/checkpoint_test.go:20:11: c.Checkpoint undefined (type *Controller has no field or method Checkpoint)
+internal/fusion/control/checkpoint_test.go:24:19: f.launch.Backend.Checkpoint undefined (type Backend has no field or method Checkpoint)
+internal/fusion/control/checkpoint_test.go:24:67: undefined: CheckpointRef
+internal/fusion/control/checkpoint_test.go:25:28: c.Checkpoint undefined (type *Controller has no field or method Checkpoint)
+internal/fusion/control/checkpoint_test.go:28:15: other.Checkpoint undefined (type *Controller has no field or method Checkpoint)
+internal/fusion/control/checkpoint_test.go:35:21: f.launch.Backend.Checkpoint undefined (type Backend has no field or method Checkpoint)
+internal/fusion/control/checkpoint_test.go:35:69: undefined: CheckpointRef
+internal/fusion/control/checkpoint_test.go:35:69: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/control [build failed]
+FAIL
