@@ -118,7 +118,7 @@ func setupExecution(t *testing.T, mode string) *executionFixture {
 				if e := st.Finish(r.ID, r.Generation, r.Owner, state); e != nil {
 					t.Error(e)
 				}
-				h.result = managed.Result{State: state, StoppedVerified: true, Proof: policy.StopProof{RunID: r.ID, Generation: r.Generation, NativeSessionID: "fixture-native-session", ProcessIdentityHash: strings.Repeat("b", 64), ReportHash: strings.Repeat("c", 64), DescendantsStopped: true}}
+				h.result = managed.Result{State: state, StoppedVerified: mode != "no_stop", Proof: policy.StopProof{RunID: r.ID, Generation: r.Generation, NativeSessionID: "fixture-native-session", ProcessIdentityHash: strings.Repeat("b", 64), ReportHash: strings.Repeat("c", 64), DescendantsStopped: true}}
 				close(h.done)
 			}()
 			return h, nil

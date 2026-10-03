@@ -1,6 +1,6 @@
 # 任务暂停/继续的存储合同
 
-本项为内部 Store 基础，尚未增加 Controller 方法、HTTP pause/continue endpoint 或产品 UI。现有 Handler OpenAPI 路径保持原样。调用方必须是已鉴权的可信控制器；owner 来自该控制器，不能由 HTTP body 或 Worker header 提供。
+本合同描述内部 Store 基础；后续 Controller/HTTP 接线见 [task-control-api.md](task-control-api.md)，产品 UI 尚未注册。存储方法本身不注册 HTTP 路径。调用方必须是已鉴权的可信控制器；owner 来自该控制器，不能由 HTTP body 或 Worker header 提供。
 
 `TaskVersion` 包含 plan revision、generation 与 state，全部在写事务内与当前 Task 比较。单独计划 revision 不能代替 Task 条件。版本不符返回 ErrConflict；非法或溢出条件返回 ErrInvalid；未知/缺少执行停止证明返回 ErrPauseReconcile。PauseTask 的 TaskControlReceipt 返回 Task、可选待处理 Run 和 Changed；这些内部类型不能直接序列化成公开响应，Run 含私有 owner/session 等，HTTP 层仍须使用受限 view。
 
@@ -35,4 +35,4 @@ ReleaseReserved 中预留释放、reservation_released、Task 收尾及其事件
 
 最终全量 Fusion race 319 PASS / 8 SKIP / 0 FAIL；CLI/GUI build 与全仓 tagged vet exit 0。既有固定 Claude Code 2.1.287 的 Controller 合成一次 HTTP/Permit、实际 wait/StopProof/release 回归通过；该 Native 回归没有触发新 PauseTask，不是 Native pause/resume 的验收。本项真实模型与额度查询为 0，Jev off。
 
-证据见 [PAUSE-STORE-01](../work-items/WP-15/PAUSE-STORE-01/summary.md)。后续必须把 Store 意图接到持有 Handle 的 Controller、鉴权/完整 Task If-Match 的 HTTP 控制、OpenAPI、真实合成取消验证和 GUI 后，才可声明完整暂停/继续接口完成。
+证据见 [PAUSE-STORE-01](../work-items/WP-15/PAUSE-STORE-01/summary.md)。Controller、鉴权/完整 Task If-Match 的 HTTP 控制、OpenAPI 和固定 Native 合成取消已由 PAUSE-API-01 接入并验证；产品 listener/GUI 与 Native session/检查点恢复仍待实施。以上 Store 基础测试与未执行 Pause 的 Native 证据属于 PAUSE-STORE-01 历史记录。

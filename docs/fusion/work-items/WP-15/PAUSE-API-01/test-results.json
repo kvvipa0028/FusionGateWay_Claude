@@ -1,0 +1,94 @@
+{
+  "work_item": "WP-15-PAUSE-API-01",
+  "status": "done",
+  "parent_status": "in_progress",
+  "new_tests": 13,
+  "new_controller_tests": 6,
+  "new_api_tests": 6,
+  "new_native_tests": 1,
+  "checks": [
+    {
+      "check": "Controller pause/continue/late Handle targeted race",
+      "exit_code": 0,
+      "log": "wp15-pause-controller-green.log",
+      "top_level_pass": 6,
+      "top_level_skip": 0,
+      "top_level_fail": 0
+    },
+    {
+      "check": "API task control and actual Handler capture race",
+      "exit_code": 0,
+      "log": "wp15-pause-api-target-green.log",
+      "top_level_pass": 7,
+      "top_level_skip": 0,
+      "top_level_fail": 0
+    },
+    {
+      "check": "full Fusion tagged race",
+      "exit_code": 0,
+      "log": "wp15-pause-api-final-race.log",
+      "top_level_pass": 331,
+      "top_level_skip": 9,
+      "top_level_fail": 0
+    },
+    {
+      "check": "explicit pinned Controller Native success and inflight Pause",
+      "exit_code": 0,
+      "log": "wp15-pause-native-green.log",
+      "top_level_pass": 2,
+      "top_level_skip": 0,
+      "top_level_fail": 0,
+      "new_pause_exercised": true
+    },
+    {
+      "check": "CLI/GUI build and full tagged vet",
+      "exit_code": 0,
+      "result": "build-results.json"
+    },
+    {
+      "check": "official OpenAPI document/components/refs/DTO/header samples",
+      "exit_code": 0,
+      "log": "wp15-pause-openapi-green.log",
+      "result": {
+        "official_openapi_document_schema": "3.1/2022-10-07",
+        "paths": 23,
+        "operations": 27,
+        "handler_samples": 44,
+        "covered_operations": 27,
+        "negative_schema_cases": 6,
+        "offline": true,
+        "production_registered": false
+      }
+    },
+    {
+      "check": "published runbook zsh -n syntax",
+      "exit_code": 0
+    }
+  ],
+  "failed_runs_preserved": {
+    "wp15-pause-controller-red.log": "Controller methods missing",
+    "wp15-pause-api-red.log": "API DTO missing",
+    "wp15-pause-late-handle-red.log": "Backend ignored canceled lifetime before returning Handle; late Handle was not canceled; corrected in Start",
+    "wp15-pause-openapi-red.log": "new implemented paths omitted before contract update"
+  },
+  "schema_version": 5,
+  "schema_changed": false,
+  "migration_001_005_unchanged": true,
+  "existing_task_and_start_payload_hashes_unchanged": true,
+  "native_version": "Claude Code 2.1.287",
+  "native_runtime_sha256": "6eab8333fe2121553100d8f40bfada384a3e989b94f947e18ba6677a6fcb41ea",
+  "synthetic_native_http_per_case": 1,
+  "synthetic_native_permit_per_case": 1,
+  "actual_native_wait_stop_proof_release_verified": true,
+  "native_session_resume_implemented": false,
+  "http_control_is_internal_handler_only": true,
+  "production_registered": false,
+  "real_model_calls": 0,
+  "real_quota_queries": 0,
+  "jev": "off",
+  "skip_explanation": [
+    "six explicit Native opt-ins; two Controller Native tests were independently executed",
+    "one private-key live quota opt-in not enabled",
+    "two isolated helper child tests"
+  ]
+}

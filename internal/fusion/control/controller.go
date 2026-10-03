@@ -241,7 +241,10 @@ func (c *Controller) start(request context.Context, key string, in store.StartId
 	job.mu.Lock()
 	job.handle = h
 	job.mu.Unlock()
-	if e != nil {
+	// Pause/Close can cancel the owned lifetime before Start returns its
+	// Handle. Deliver that cancellation once the exact handle is known even
+	// when the backend did not observe the context while launching.
+	if e != nil || lifetime.Err() != nil {
 		cancel()
 		_ = h.Cancel()
 	}

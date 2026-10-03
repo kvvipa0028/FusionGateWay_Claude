@@ -1,0 +1,7 @@
+# github.com/yetone/magpie/internal/fusion/api [github.com/yetone/magpie/internal/fusion/api.test]
+internal/fusion/api/pause_test.go:12:67: undefined: TaskControlReply
+internal/fusion/api/pause_test.go:14:10: undefined: TaskControlReply
+internal/fusion/api/pause_test.go:32:35: undefined: TaskControlReply
+internal/fusion/api/pause_test.go:42:11: undefined: TaskControlReply
+FAIL	github.com/yetone/magpie/internal/fusion/api [build failed]
+FAIL

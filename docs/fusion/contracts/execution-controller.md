@@ -16,4 +16,6 @@ Backend.Start 没有返回 Handle 时，控制器标记 interrupted/needs_review
 
 控制器最多同时拥有 16 个启动/等待工作，与持久全局容量、物理池、同任务和 writer 预留独立限制；本地 job/pending 记录共最多 4096，达到限额拒绝新启动，已有映射仍可读取。Close 停派单、取消 owned lifetime 并等待实际执行/退出核验工作结束。Close 超时只返回超时，不能声称已停止；后续可等待原 job，不重启或重放。
 
-11 个控制器离线测试通过，另以冻结 Claude Code 2.1.287 验证 Controller→PrepareOnce/CheckPrepared→GLM Adapter→owned loopback/CallGate→合成上游→Native validator/实际 wait→Supervisor StopProof→release。仅一个合成 HTTP/持久 Permit，重复请求没有再次执行；HTTP 请求取消未取消 Native。真实账户、计费、模型/effort 和池的准入仍未核验，假 Inspection 不提升为真实权限。暂停/恢复/有限返工及实际管理端接线由后续工作完成。
+11 个控制器离线测试通过，另以冻结 Claude Code 2.1.287 验证 Controller→PrepareOnce/CheckPrepared→GLM Adapter→owned loopback/CallGate→合成上游→Native validator/实际 wait→Supervisor StopProof→release。仅一个合成 HTTP/持久 Permit，重复请求没有再次执行；HTTP 请求取消未取消 Native。真实账户、计费、模型/effort 和池的准入仍未核验，假 Inspection 不提升为真实权限。上述为初始控制器证据；后续暂停和派单继续已接入，见 [task-control-api.md](task-control-api.md)。Native session 恢复、有限返工及实际产品管理端仍需继续实施。
+
+WP-15-PAUSE-API-01 新增 Pause/Continue 与同 issuer 管理重查，Store 全 TaskVersion CAS 后仅取消 owned job，已提交意图不随 HTTP 消失。Start 返回晚到 Handle 后仍交付已取消 lifetime 的 Cancel，RED→GREEN 验证。新增固定 Native inflight Pause 实际 wait/proof/release 通过，停止后需核对，不隐式恢复。

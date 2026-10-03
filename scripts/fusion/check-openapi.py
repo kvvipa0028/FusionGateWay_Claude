@@ -16,6 +16,8 @@ from referencing import Registry, Resource
 from referencing.jsonschema import DRAFT202012
 
 EXPECTED = {
+    "/control/v1/tasks/{task_id}/pause": {"post"},
+    "/control/v1/tasks/{task_id}/continue": {"post"},
     "/control/v1/defaults/global": {"get", "put"},
     "/control/v1/defaults/global/versions/{revision}": {"get"},
     "/control/v1/projects/{project_id}/defaults": {"get", "put"},
@@ -134,6 +136,7 @@ def verify(contract, official, samples):
     # guard the documentation's input boundary; runtime authorization has its
     # own tests and is not proven by a JSON schema.
     negative = {
+        "EmptyRequest": {"stopped_verified": True},
         "SubmitRequest": {"preview_id": "fixture", "plan_hash": "a" * 64, "api_key": "fixture-forbidden"},
         "StartRoleRequest": {"role": "design", "workspace": "/fixture-outside"},
         "PresetInput": {"name": "fixture", "layer": {}, "admitted": True},

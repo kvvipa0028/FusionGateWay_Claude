@@ -1,0 +1,18 @@
+=== RUN   TestControllerPauseContinueIdleNeverInvokesRuntime
+--- PASS: TestControllerPauseContinueIdleNeverInvokesRuntime (0.05s)
+=== RUN   TestControllerPauseOwnedRunStopsAndRetainsReviewWithoutReplay
+--- PASS: TestControllerPauseOwnedRunStopsAndRetainsReviewWithoutReplay (0.06s)
+=== RUN   TestControllerPauseUnverifiedOrFailedReleaseKeepsHeld
+=== RUN   TestControllerPauseUnverifiedOrFailedReleaseKeepsHeld/no_stop
+=== RUN   TestControllerPauseUnverifiedOrFailedReleaseKeepsHeld/release_error
+--- PASS: TestControllerPauseUnverifiedOrFailedReleaseKeepsHeld (0.11s)
+    --- PASS: TestControllerPauseUnverifiedOrFailedReleaseKeepsHeld/no_stop (0.05s)
+    --- PASS: TestControllerPauseUnverifiedOrFailedReleaseKeepsHeld/release_error (0.06s)
+=== RUN   TestControllerPauseForeignOwnershipAndStaleVersionCannotCancel
+--- PASS: TestControllerPauseForeignOwnershipAndStaleVersionCannotCancel (0.05s)
+=== RUN   TestControllerPauseContinueManagementRecheckedBeforeMutation
+--- PASS: TestControllerPauseContinueManagementRecheckedBeforeMutation (0.04s)
+=== RUN   TestControllerPauseCancelsHandleReturnedAfterIntent
+--- PASS: TestControllerPauseCancelsHandleReturnedAfterIntent (0.05s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/control	1.845s

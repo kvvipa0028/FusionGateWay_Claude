@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Fusion task control API
   version: 0.1.0-draft
-  description: 当前已实现 Handler 合同；21 paths、25 operations。产品 listener 尚未注册；pause/continue 未实现。全局/项目默认层只允许绑定，不可改 route/账号/凭据/预算；新任务和计划修订在事务中重查默认版本，历史保持冻结。
+  description: 当前已实现 Handler 合同；23 paths、27 operations。产品 listener 尚未注册。pause/continue 使用完整 Task If-Match，暂停中不宣称已停，continue 仅解除可靠暂停，不隐式启动或恢复 Native。全局/项目默认层只允许绑定，历史快照保持冻结。
 x-fusion-status: implemented-handler-contract
 x-fusion-production-registered: false
 security:
@@ -1619,6 +1619,166 @@ paths:
           $ref: '#/components/responses/Error500'
         '503':
           $ref: '#/components/responses/Error503'
+  /control/v1/tasks/{task_id}/pause:
+    post:
+      operationId: pauseTask
+      description: 完整 TaskVersion 在 Store 事务内 CAS。body 只能是 {}，不接受 owner、StopProof、账号、workspace、Native session 或 flags。旧条件为412；重试需先读 Task，当前同状态操作不重复事件。 暂停意图可能已提交但实际停止尚未确认；409
+        可以携带安全 receipt，不能丢弃已有意图。
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      - name: If-Match
+        in: header
+        required: true
+        schema:
+          type: string
+        description: 单个 strong Task ETag，例如 "p1-g0-ready"；不是 plan revision tag
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmptyRequest'
+      responses:
+        '200':
+          description: 当前 Task、安全可选 Run、是否提交变更；无私有 owner/session/原始输出。
+          headers:
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 与 reply.task 同一次读取的完整 Task 条件；不是 TaskControlReply 的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: 对应 /agent/v1/tasks/{task_id} 读取路径。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskControlReply'
+        '202':
+          description: 已接受暂停中意图；即使回复前实际停止完成仍为202，Task 为当前读取。
+          headers:
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 与 reply.task 同一次读取的完整 Task 条件；不是 TaskControlReply 的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: 对应 /agent/v1/tasks/{task_id} 读取路径。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskControlReply'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          description: 需要核对；已提交暂停意图的失败含安全 TaskControlReply，也可能是未提交的普通 ErrorResponse。
+          headers:
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 与 reply.task 同一次读取的完整 Task 条件；不是 TaskControlReply 的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: 对应 /agent/v1/tasks/{task_id} 读取路径。
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/ErrorResponse'
+                - $ref: '#/components/schemas/TaskControlReply'
+        '412':
+          $ref: '#/components/responses/Error412'
+        '428':
+          $ref: '#/components/responses/Error428'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+  /control/v1/tasks/{task_id}/continue:
+    post:
+      operationId: continueTask
+      description: 完整 TaskVersion 在 Store 事务内 CAS。body 只能是 {}，不接受 owner、StopProof、账号、workspace、Native session 或 flags。旧条件为412；重试需先读 Task，当前同状态操作不重复事件。 仅解除 quiescent
+        paused 的派单冻结，不调用 Native Start/Resume，不重置预算。pausing/needs_review 为409，需显式核对副作用。
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      - name: If-Match
+        in: header
+        required: true
+        schema:
+          type: string
+        description: 单个 strong Task ETag，例如 "p1-g0-ready"；不是 plan revision tag
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmptyRequest'
+      responses:
+        '200':
+          description: 当前 Task、安全可选 Run、是否提交变更；无私有 owner/session/原始输出。
+          headers:
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 与 reply.task 同一次读取的完整 Task 条件；不是 TaskControlReply 的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: 对应 /agent/v1/tasks/{task_id} 读取路径。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskControlReply'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '412':
+          $ref: '#/components/responses/Error412'
+        '428':
+          $ref: '#/components/responses/Error428'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
 components:
   securitySchemes:
     ManagementBearer:
@@ -2451,8 +2611,7 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/QuotaResource'
-      description: Handler 序列化的可信 Snapshot；nil slices 为 null，raw 保留 JSON。规范化 reader 的更强约束另见 quota-snapshot.schema.json；DTO
-        本身不授予额度准入。
+      description: Handler 序列化的可信 Snapshot；nil slices 为 null，raw 保留 JSON。规范化 reader 的更强约束另见 quota-snapshot.schema.json；DTO 本身不授予额度准入。
     PoolView:
       type: object
       additionalProperties: false
@@ -2617,6 +2776,21 @@ components:
             created_at:
               type: string
               format: date-time
+    TaskControlReply:
+      type: object
+      additionalProperties: false
+      required:
+      - task
+      - changed
+      properties:
+        task:
+          $ref: '#/components/schemas/Task'
+        run:
+          $ref: '#/components/schemas/RunView'
+        changed:
+          type: boolean
+        error:
+          $ref: '#/components/schemas/ControlError'
   responses:
     Error400:
       description: 固定拒绝/错误；不回显敏感输入。

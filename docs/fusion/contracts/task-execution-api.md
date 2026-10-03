@@ -21,4 +21,4 @@ Run/start/cancel 响应的 `X-Fusion-Task-ETag` 是相关 Task 当前条件，Lo
 
 10 个 API 测试覆盖真实 loopback HTTP、合法启动/重读/取消/运行读取、强条件与状态变化、15 类越权 body、重复 header、管理撤销发生在 Resolve/Inspection 时、同 key 冲突、失败 intent 与错误脱敏、跨 task/gen 读取取消，以及跨 Store/热替换控制器拒绝。这里的 Runtime/StopProof 为合成 fixture；真实 Native 停止证明的控制器链路证据见 CONTROLLER-01，不能把此接口测试当作真实账号 smoke。
 
-[openapi-fusion.yaml](../openapi-fusion.yaml) 当前覆盖全部已实现 Handler 的 21 路径/25 操作，包括 submit/plan/budget/events、额度、预设及默认层读写/历史。标准结构及实际样本验证见 [openapi-verification.md](openapi-verification.md)。额度见 [quota-api.md](quota-api.md)，固定版本预设见 [preset-api.md](preset-api.md)，默认层配置见 [default-layer-api.md](default-layer-api.md)。实际账户/项目配置、产品注册、暂停/恢复/返工与 UI 继续实施。Jev off。
+[openapi-fusion.yaml](../openapi-fusion.yaml) 当前覆盖全部已实现 Handler 的 23 路径/27 操作，包括 submit/plan/budget/events、额度、预设及默认层读写/历史及任务 pause/continue。标准结构及实际样本验证见 [openapi-verification.md](openapi-verification.md)。额度见 [quota-api.md](quota-api.md)，固定版本预设见 [preset-api.md](preset-api.md)，默认层配置见 [default-layer-api.md](default-layer-api.md)。任务控制见 [task-control-api.md](task-control-api.md)。实际账户/项目配置、产品注册、Native 恢复/副作用核对/返工与 UI 继续实施。Jev off。

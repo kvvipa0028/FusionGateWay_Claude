@@ -1,0 +1,16 @@
+=== RUN   TestTaskControlAPIIdlePauseContinueAndNoReplayOverHTTP
+--- PASS: TestTaskControlAPIIdlePauseContinueAndNoReplayOverHTTP (0.06s)
+=== RUN   TestTaskControlAPIPauseRunningStopsWithoutBlindContinue
+--- PASS: TestTaskControlAPIPauseRunningStopsWithoutBlindContinue (0.06s)
+=== RUN   TestTaskControlAPIRejectsUnsafeBodyHeadersScopeAndMethod
+--- PASS: TestTaskControlAPIRejectsUnsafeBodyHeadersScopeAndMethod (0.04s)
+=== RUN   TestTaskControlAPIUnavailableControllerAndStalePostPauseStayClosed
+--- PASS: TestTaskControlAPIUnavailableControllerAndStalePostPauseStayClosed (0.07s)
+=== RUN   TestTaskControlAPIRevocationDuringBodyReadStopsMutation
+=== RUN   TestTaskControlAPIRevocationDuringBodyReadStopsMutation/pause
+=== RUN   TestTaskControlAPIRevocationDuringBodyReadStopsMutation/continue
+--- PASS: TestTaskControlAPIRevocationDuringBodyReadStopsMutation (0.07s)
+    --- PASS: TestTaskControlAPIRevocationDuringBodyReadStopsMutation/pause (0.03s)
+    --- PASS: TestTaskControlAPIRevocationDuringBodyReadStopsMutation/continue (0.04s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/api	1.944s

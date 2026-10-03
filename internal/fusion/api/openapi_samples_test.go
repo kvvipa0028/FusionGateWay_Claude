@@ -99,6 +99,27 @@ func TestImplementedAPIContractSamples(t *testing.T) {
 	q := setupQuotaAPI(t)
 	add("GET", quotaPath, "", 200, request(q.h, "GET", quotaPath, "", "", "fixture-management"), nil)
 	add("POST", quotaRefreshPath, `{}`, 200, request(q.h, "POST", quotaRefreshPath, `{}`, "", "fixture-management"), nil)
+	pausedFixture := setupExecution(t, "")
+	controlPath := "/control/v1/tasks/" + pausedFixture.task.ID
+	for _, action := range []string{"pause", "pause", "continue", "continue"} {
+		tag := pausedFixture.tag(t)
+		path := controlPath + "/" + action
+		add("POST", path, `{}`, 200, executionRequest(pausedFixture.h, "POST", path, `{}`, "", tag, "fixture-management"), map[string]string{"If-Match": tag})
+	}
+	held := setupExecution(t, "no_stop")
+	tag := held.tag(t)
+	w = executionRequest(held.h, "POST", held.startPath(), `{"role":"design"}`, "fixture-contract-held", tag, "fixture-management")
+	add("POST", held.startPath(), `{"role":"design"}`, 202, w, map[string]string{"If-Match": tag, "Idempotency-Key": "fixture-contract-held"})
+	var heldReply ExecutionReply
+	json.Unmarshal(w.Body.Bytes(), &heldReply)
+	tag = held.tag(t)
+	heldPath := "/control/v1/tasks/" + held.task.ID
+	add("POST", heldPath+"/pause", `{}`, 202, executionRequest(held.h, "POST", heldPath+"/pause", `{}`, "", tag, "fixture-management"), map[string]string{"If-Match": tag})
+	waitAPIExecution(t, held, heldReply.Run.ID)
+	tag = held.tag(t)
+	for _, action := range []string{"pause", "continue"} {
+		add("POST", heldPath+"/"+action, `{}`, 409, executionRequest(held.h, "POST", heldPath+"/"+action, `{}`, "", tag, "fixture-management"), map[string]string{"If-Match": tag})
+	}
 	f := setupExecution(t, "normal")
 	startPath := "/control/v1/tasks/" + f.task.ID + "/start"
 	w = executionRequest(f.h, "POST", startPath, `{"role":"design"}`, "fixture-contract-start", taskETag(f.task), "fixture-management")

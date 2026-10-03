@@ -338,6 +338,8 @@ func (s *Server) Handler() http.Handler {
 			s.taskPreset(w, r)
 		case strings.HasPrefix(r.URL.Path, "/control/v1/projects/") && (strings.HasSuffix(r.URL.Path, "/quota") || strings.HasSuffix(r.URL.Path, "/refresh")):
 			s.quotaControl(w, r)
+		case strings.HasPrefix(r.URL.Path, "/control/v1/tasks/") && (strings.HasSuffix(r.URL.Path, "/pause") || strings.HasSuffix(r.URL.Path, "/continue")):
+			s.taskControl(w, r)
 		case strings.HasPrefix(r.URL.Path, "/control/v1/tasks/") && (strings.HasSuffix(r.URL.Path, "/start") || strings.HasSuffix(r.URL.Path, "/cancel")):
 			s.executionControl(w, r)
 		case strings.HasPrefix(r.URL.Path, "/control/v1/tasks/") && (strings.HasSuffix(r.URL.Path, "/plan") || strings.HasSuffix(r.URL.Path, "/plan/preview")):

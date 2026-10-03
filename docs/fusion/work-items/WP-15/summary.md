@@ -29,3 +29,5 @@
 [WP-15-DEFAULTS-01](DEFAULTS-01/summary.md) 已完成持久化 global/project 默认层、五角色整体覆盖/继承、不可变历史与 If-Match、当前配置投影和事务内 stamp 检查。跨 Server 已提交请求重读保持原任务，额度来源与选择版本分离且不刷新观测。schema 5 保留历史数据与原 payload hash，005 失败回滚；21 路径/25 操作、36 样本合同已校验。产品接线、暂停/继续和 GUI 仍未完成，父包保持 in_progress。
 
 [WP-15-PAUSE-STORE-01](PAUSE-STORE-01/summary.md) 已完成完整 TaskVersion 的原子暂停/继续存储基础、空闲 generation fencing、活动停止意图，以及 Finish/可信 release 的暂停收尾。当前执行 proof 不能代替旧执行证明；未知/取消副作用保持 needs_review。新增 11 测试通过，全量 Fusion race 319 PASS / 8 SKIP，CLI/GUI/vet 与既有 Native 合成回归通过。Controller、HTTP、OpenAPI 和实际暂停 Native 验证未接入，完整功能继续实施。
+
+[WP-15-PAUSE-API-01](PAUSE-API-01/summary.md) 已完成 Controller owned Pause/Continue、晚到 Handle 取消竞态修复、Management/完整 Task If-Match 的 HTTP 两操作和安全不确定意图回复。新增固定 Native inflight Pause 实际 wait/StopProof/release→needs_review 验证，继续不会盲重跑；全量 Fusion race 331 PASS / 9 SKIP，CLI/GUI/vet 通过。当前合同 23 路径/27 操作/44 样本。产品 bootstrap/listener/GUI、真实路线准入、Native session/检查点恢复和其他闭环控制仍待实施，父包保持 in_progress。

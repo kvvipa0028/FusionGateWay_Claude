@@ -5,6 +5,7 @@ package control
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"flag"
 	"fmt"
 	"io"
@@ -92,4 +93,77 @@ func TestControllerPinnedNativeRunsOnceAndReleasesActualStopProof(t *testing.T) 
 		t.Fatal("Native result unavailable", e)
 	}
 	t.Log("Controller -> PrepareOnce/CheckPrepared -> pinned GLM Adapter/owned loopback -> one synthetic HTTP/Permit -> validated Native result -> actual Supervisor wait/stop proof -> released; real model calls=0; product route/admission/billing/quota unverified")
+}
+
+func TestControllerPinnedNativePauseStopsInFlightAndRequiresReview(t *testing.T) {
+	if *nativeControlCLI == "" {
+		t.Skip("explicit pinned Controller Native pause fixture only")
+	}
+	exe, e := filepath.EvalSymlinks(*nativeControlCLI)
+	if e != nil {
+		t.Fatal(e)
+	}
+	f := newControlFixture(t)
+	entered := make(chan struct{})
+	var calls atomic.Int64
+	adapter, e := glm.NewAdapter(glm.AdapterConfig{Scheduler: f.config.Scheduler, Manager: policy.NewManager("fixture-management", policy.StoreValidator(f.st), nil), Executable: exe, LoadCredential: func(_ context.Context, target stageplan.ExecutionTarget) (glm.Credential, error) {
+		return glm.Credential{Identity: target.CredentialIdentity, Key: "fixture-control-key"}, nil
+	}, Current: func(glm.Binding) bool { return true }, Transport: controlTransport(func(r *http.Request) (*http.Response, error) {
+		if r.URL.String() != "https://open.bigmodel.cn/api/anthropic/v1/messages?beta=true" || r.Header.Get("Authorization") != "Bearer fixture-control-key" {
+			t.Error("pause fixture route drift")
+		}
+		if calls.Add(1) == 1 {
+			close(entered)
+		}
+		<-r.Context().Done()
+		return nil, r.Context().Err()
+	})})
+	if e != nil {
+		t.Fatal(e)
+	}
+	f.launch.Backend = BindAdapter(adapter)
+	f.launch.Spec.Timeout = 15 * time.Second
+	c := f.controller(t)
+	first, e := c.Start(context.Background(), "fixture-native-pause-start", f.in)
+	if e != nil {
+		t.Fatal(e)
+	}
+	select {
+	case <-entered:
+	case <-time.After(10 * time.Second):
+		t.Fatal("Native never reached inflight fixture")
+	}
+	task, e := f.st.Task(f.in.TaskID)
+	if e != nil {
+		t.Fatal(e)
+	}
+	paused, e := c.Pause(context.Background(), task.ID, controlVersion(task))
+	if e != nil || paused.Task.State != "pausing" {
+		t.Fatal("Native pause not accepted", e)
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	defer cancel()
+	done, e := c.Wait(ctx, first.Run.ID)
+	if e != nil || done.State != "cancelled" || !done.StoppedVerified || !done.Released {
+		t.Fatal("Native pause did not actually stop/release", done, e)
+	}
+	task, e = f.st.Task(task.ID)
+	if e != nil || task.State != "needs_review" {
+		t.Fatal("Native cancellation effects auto-resumed", e)
+	}
+	if _, e = c.Continue(context.Background(), task.ID, controlVersion(task)); !errors.Is(e, store.ErrPauseReconcile) {
+		t.Fatal("Native blindly continued", e)
+	}
+	retry, e := c.Start(context.Background(), "fixture-native-pause-start", f.in)
+	if e != nil || retry.Created || retry.Run.ID != first.Run.ID {
+		t.Fatal("Native pause retry replayed", e)
+	}
+	budget, e := f.st.Budget(task.ID)
+	if e != nil || budget.UsedCalls != 1 || calls.Load() != 1 {
+		t.Fatal("pause retried/refunded model call", e, calls.Load())
+	}
+	if _, e = f.st.Reservation(first.Run.ID); !errors.Is(e, store.ErrNotFound) {
+		t.Fatal("actual pause stop proof not released", e)
+	}
+	t.Log("Controller Pause -> persisted cancelling/pausing -> owned Native cancel -> actual wait/StopProof/release -> needs_review; one synthetic HTTP/Permit; continue and old start cannot replay; real model/quota calls=0")
 }

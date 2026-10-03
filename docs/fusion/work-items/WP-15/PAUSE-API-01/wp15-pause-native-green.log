@@ -1,0 +1,8 @@
+=== RUN   TestControllerPinnedNativeRunsOnceAndReleasesActualStopProof
+    controller_native_test.go:95: Controller -> PrepareOnce/CheckPrepared -> pinned GLM Adapter/owned loopback -> one synthetic HTTP/Permit -> validated Native result -> actual Supervisor wait/stop proof -> released; real model calls=0; product route/admission/billing/quota unverified
+--- PASS: TestControllerPinnedNativeRunsOnceAndReleasesActualStopProof (0.72s)
+=== RUN   TestControllerPinnedNativePauseStopsInFlightAndRequiresReview
+    controller_native_test.go:168: Controller Pause -> persisted cancelling/pausing -> owned Native cancel -> actual wait/StopProof/release -> needs_review; one synthetic HTTP/Permit; continue and old start cannot replay; real model/quota calls=0
+--- PASS: TestControllerPinnedNativePauseStopsInFlightAndRequiresReview (0.69s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/control	3.056s

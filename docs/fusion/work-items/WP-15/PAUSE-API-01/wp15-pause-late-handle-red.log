@@ -1,0 +1,6 @@
+=== RUN   TestControllerPauseCancelsHandleReturnedAfterIntent
+    pause_test.go:228: known handle returned after pause was not cancelled
+--- FAIL: TestControllerPauseCancelsHandleReturnedAfterIntent (0.17s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/control	0.638s
+FAIL

@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/control [github.com/yetone/magpie/internal/fusion/control.test]
+internal/fusion/control/pause_test.go:22:16: c.Pause undefined (type *Controller has no field or method Pause)
+internal/fusion/control/pause_test.go:26:15: c.Continue undefined (type *Controller has no field or method Continue)
+internal/fusion/control/pause_test.go:46:17: c.Pause undefined (type *Controller has no field or method Pause)
+internal/fusion/control/pause_test.go:59:14: c.Continue undefined (type *Controller has no field or method Continue)
+internal/fusion/control/pause_test.go:84:16: c.Pause undefined (type *Controller has no field or method Pause)
+internal/fusion/control/pause_test.go:95:20: c.Pause undefined (type *Controller has no field or method Pause)
+internal/fusion/control/pause_test.go:99:16: c.Continue undefined (type *Controller has no field or method Continue)
+internal/fusion/control/pause_test.go:124:18: other.Pause undefined (type *Controller has no field or method Pause)
+internal/fusion/control/pause_test.go:129:14: c.Pause undefined (type *Controller has no field or method Pause)
+internal/fusion/control/pause_test.go:148:14: c.PauseAuthorized undefined (type *Controller has no field or method PauseAuthorized)
+internal/fusion/control/pause_test.go:148:14: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/control [build failed]
+FAIL
