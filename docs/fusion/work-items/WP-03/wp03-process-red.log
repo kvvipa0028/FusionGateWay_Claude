@@ -1,0 +1,29 @@
+test_binary_refuses_missing_fixture_environment (test_offline_runtime.OfflineRuntimeTests) ... ok
+test_cancel_before_completion_barrier (test_offline_runtime.OfflineRuntimeTests) ... ok
+test_completion_after_release_barrier (test_offline_runtime.OfflineRuntimeTests) ... FAIL
+test_real_cli_rpc_identity_and_order (test_offline_runtime.OfflineRuntimeTests) ... ok
+test_real_cli_write_loss_preserves_effect_without_success (test_offline_runtime.OfflineRuntimeTests) ... ok
+test_real_grandchild_can_be_cancelled_as_process_group (test_offline_runtime.OfflineRuntimeTests) ... FAIL
+
+======================================================================
+FAIL: test_completion_after_release_barrier (test_offline_runtime.OfflineRuntimeTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/tests/fusion/test_offline_runtime.py", line 94, in test_completion_after_release_barrier
+    self.assertEqual(self.event(child)["kind"],"waiting")
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/tests/fusion/test_offline_runtime.py", line 54, in event
+    self.assertTrue(ready,"fixture event timeout")
+AssertionError: [] is not true : fixture event timeout
+
+======================================================================
+FAIL: test_real_grandchild_can_be_cancelled_as_process_group (test_offline_runtime.OfflineRuntimeTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/tests/fusion/test_offline_runtime.py", line 79, in test_real_grandchild_can_be_cancelled_as_process_group
+    self.assertIsNone(child.poll(),"parent exited before cancellation")
+AssertionError: 2 is not None : parent exited before cancellation
+
+----------------------------------------------------------------------
+Ran 6 tests in 2.746s
+
+FAILED (failures=2)

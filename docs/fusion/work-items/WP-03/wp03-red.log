@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/testsupport [github.com/yetone/magpie/internal/fusion/testsupport.test]
+internal/fusion/testsupport/fixtures_test.go:18:5: undefined: NewProvider
+internal/fusion/testsupport/fixtures_test.go:18:17: undefined: Scenario
+internal/fusion/testsupport/fixtures_test.go:19:6: undefined: NewTransport
+internal/fusion/testsupport/fixtures_test.go:25:6: undefined: NewTransport
+internal/fusion/testsupport/fixtures_test.go:27:77: undefined: ErrOutboundDenied
+internal/fusion/testsupport/fixtures_test.go:33:6: undefined: NewProvider
+internal/fusion/testsupport/fixtures_test.go:33:18: undefined: Scenario
+internal/fusion/testsupport/fixtures_test.go:34:32: undefined: NewTransport
+internal/fusion/testsupport/fixtures_test.go:39:6: undefined: NewProvider
+internal/fusion/testsupport/fixtures_test.go:39:18: undefined: Scenario
+internal/fusion/testsupport/fixtures_test.go:39:18: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/testsupport [build failed]
+FAIL

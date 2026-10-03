@@ -1,0 +1,53 @@
+=== RUN   TestProviderMarkersAndQuotaUnknown
+--- PASS: TestProviderMarkersAndQuotaUnknown (0.00s)
+=== RUN   TestDeniedRequestsHaveZeroOutbound
+--- PASS: TestDeniedRequestsHaveZeroOutbound (0.00s)
+=== RUN   TestProviderFaultScenarios
+=== RUN   TestProviderFaultScenarios/rate_limit
+=== RUN   TestProviderFaultScenarios/error
+=== RUN   TestProviderFaultScenarios/config_changed
+--- PASS: TestProviderFaultScenarios (0.00s)
+    --- PASS: TestProviderFaultScenarios/rate_limit (0.00s)
+    --- PASS: TestProviderFaultScenarios/error (0.00s)
+    --- PASS: TestProviderFaultScenarios/config_changed (0.00s)
+=== RUN   TestProviderStreamToolAndInterruption
+=== RUN   TestProviderStreamToolAndInterruption/stream
+=== RUN   TestProviderStreamToolAndInterruption/broken_stream
+--- PASS: TestProviderStreamToolAndInterruption (0.00s)
+    --- PASS: TestProviderStreamToolAndInterruption/stream (0.00s)
+    --- PASS: TestProviderStreamToolAndInterruption/broken_stream (0.00s)
+=== RUN   TestProviderDelayCanBeCancelled
+--- PASS: TestProviderDelayCanBeCancelled (0.03s)
+=== RUN   TestProviderRefusesRealNamesAndAuthentication
+--- PASS: TestProviderRefusesRealNamesAndAuthentication (0.00s)
+=== RUN   TestRuntimeRPCMarkersToolsAndWriteLoss
+=== RUN   TestRuntimeRPCMarkersToolsAndWriteLoss/ok
+=== RUN   TestRuntimeRPCMarkersToolsAndWriteLoss/rpc
+=== RUN   TestRuntimeRPCMarkersToolsAndWriteLoss/tool
+=== RUN   TestRuntimeRPCMarkersToolsAndWriteLoss/write_loss
+=== RUN   TestRuntimeRPCMarkersToolsAndWriteLoss/crash
+=== RUN   TestRuntimeRPCMarkersToolsAndWriteLoss/config_changed
+=== RUN   TestRuntimeRPCMarkersToolsAndWriteLoss/quota_unknown
+=== RUN   TestRuntimeRPCMarkersToolsAndWriteLoss/rate_limit
+--- PASS: TestRuntimeRPCMarkersToolsAndWriteLoss (0.00s)
+    --- PASS: TestRuntimeRPCMarkersToolsAndWriteLoss/ok (0.00s)
+    --- PASS: TestRuntimeRPCMarkersToolsAndWriteLoss/rpc (0.00s)
+    --- PASS: TestRuntimeRPCMarkersToolsAndWriteLoss/tool (0.00s)
+    --- PASS: TestRuntimeRPCMarkersToolsAndWriteLoss/write_loss (0.00s)
+    --- PASS: TestRuntimeRPCMarkersToolsAndWriteLoss/crash (0.00s)
+    --- PASS: TestRuntimeRPCMarkersToolsAndWriteLoss/config_changed (0.00s)
+    --- PASS: TestRuntimeRPCMarkersToolsAndWriteLoss/quota_unknown (0.00s)
+    --- PASS: TestRuntimeRPCMarkersToolsAndWriteLoss/rate_limit (0.00s)
+=== RUN   TestRuntimeRefusesUnsafeInput
+--- PASS: TestRuntimeRefusesUnsafeInput (0.00s)
+=== RUN   TestFixtureEnvironmentDropsAmbientSecrets
+--- PASS: TestFixtureEnvironmentDropsAmbientSecrets (0.00s)
+=== RUN   TestSyntheticRepoKnownBugAndEscapeFixtures
+--- PASS: TestSyntheticRepoKnownBugAndEscapeFixtures (0.00s)
+=== RUN   TestFixtureEnvironmentRejectsLinkedRoot
+--- PASS: TestFixtureEnvironmentRejectsLinkedRoot (0.00s)
+=== RUN   TestProviderRejectsTrailingAndOversizedInput
+--- PASS: TestProviderRejectsTrailingAndOversizedInput (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/testsupport	0.595s
+?   	github.com/yetone/magpie/internal/fusion/testsupport/cmd/fake-runtime	[no test files]

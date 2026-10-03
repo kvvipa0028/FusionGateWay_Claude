@@ -1,0 +1,7 @@
+--- FAIL: TestFixtureEnvironmentRejectsLinkedRoot (0.00s)
+    fixtures_test.go:203: linked fixture root accepted
+--- FAIL: TestProviderRejectsTrailingAndOversizedInput (0.00s)
+    fixtures_test.go:209: unbounded/trailing request accepted
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/testsupport	0.634s
+FAIL

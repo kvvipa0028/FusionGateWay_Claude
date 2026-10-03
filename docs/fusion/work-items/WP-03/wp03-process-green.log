@@ -1,0 +1,11 @@
+test_binary_refuses_missing_fixture_environment (test_offline_runtime.OfflineRuntimeTests) ... ok
+test_cancel_before_completion_barrier (test_offline_runtime.OfflineRuntimeTests) ... ok
+test_completion_after_release_barrier (test_offline_runtime.OfflineRuntimeTests) ... ok
+test_real_cli_rpc_identity_and_order (test_offline_runtime.OfflineRuntimeTests) ... ok
+test_real_cli_write_loss_preserves_effect_without_success (test_offline_runtime.OfflineRuntimeTests) ... ok
+test_real_grandchild_can_be_cancelled_as_process_group (test_offline_runtime.OfflineRuntimeTests) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.760s
+
+OK

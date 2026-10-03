@@ -1,0 +1,91 @@
+{
+  "checks": [
+    {
+      "command": [
+        "go",
+        "test",
+        "-v",
+        "-count=1",
+        "-mod=readonly",
+        "-tags",
+        "fusion,nogui",
+        "./internal/fusion/testsupport/..."
+      ],
+      "exit_code": 0,
+      "top_level_tests_passed": 12,
+      "log": "wp03-green.log"
+    },
+    {
+      "command": [
+        "go",
+        "test",
+        "-race",
+        "-v",
+        "-count=1",
+        "-mod=readonly",
+        "-tags",
+        "fusion,nogui",
+        "./internal/fusion/testsupport/..."
+      ],
+      "exit_code": 0,
+      "top_level_tests_passed": 12,
+      "log": "wp03-race-green.log"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/fusion",
+        "-p",
+        "test_offline_runtime.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "tests_passed": 6,
+      "log": "wp03-process-green.log"
+    },
+    {
+      "command": [
+        "go",
+        "test",
+        "-v",
+        "-count=1",
+        "-mod=readonly",
+        "./..."
+      ],
+      "working_directory": "temporary synthetic copy",
+      "exit_code": 1,
+      "expected_failure": true,
+      "log": "wp03-synthetic-red.log"
+    },
+    {
+      "command": [
+        "go",
+        "test",
+        "-v",
+        "-count=1",
+        "-mod=readonly",
+        "./..."
+      ],
+      "working_directory": "temporary synthetic copy after Add fix",
+      "exit_code": 0,
+      "log": "wp03-synthetic-green.log"
+    }
+  ],
+  "red_evidence": [
+    "wp03-red.log",
+    "wp03-boundary-red.log",
+    "wp03-process-red.log"
+  ],
+  "environment": "Go1.26.3, macOS/arm64, temporary HOME/XDG, auth absent, GOPROXY/GOSUMDB off",
+  "not_verified": [
+    "product Runtime sandbox",
+    "product locked enforcement",
+    "product persistence/cancel reconciliation",
+    "real account admission",
+    "T05/T14/T15/T24/T25/T48/T59 final E2E"
+  ]
+}

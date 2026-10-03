@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "kind": "synthetic-only",
+  "models": [
+    "fixture-model-a",
+    "fixture-model-b"
+  ],
+  "accounts": [
+    "fixture-account-a",
+    "fixture-account-b"
+  ],
+  "provider_modes": [
+    "ok",
+    "quota_unknown",
+    "rate_limit",
+    "error",
+    "config_changed",
+    "stream",
+    "broken_stream"
+  ],
+  "runtime_modes": [
+    "ok",
+    "rpc",
+    "tool",
+    "delay",
+    "crash",
+    "write_loss",
+    "config_changed",
+    "quota_unknown",
+    "rate_limit",
+    "grandchild",
+    "cancel_race"
+  ],
+  "runtime_protocol": "one JSON request on stdin, ordered NDJSON events on stdout; synthetic RPC, not vendor protocol",
+  "network": "numeric HTTP loopback URL allowlist; no proxy or DNS; denied requests counted before transport",
+  "credential_environment": "child PATH fixed, private temporary HOME/XDG/TMP; no ambient auth",
+  "synthetic_repo": {
+    "intentional_defect": "Add subtracts b; TestAdd expects addition",
+    "read_only": "readonly.txt becomes 0444 in the generated copy",
+    "escape_link": "generated escape-link -> ../outside-fixture.txt, synthetic sibling only",
+    "no_user_code": true,
+    "no_git_required": true
+  },
+  "files": [
+    {
+      "path": "synthetic-repo/calc.go",
+      "sha256": "7b75a0a653308b76493cca5f1e472c4f8fda4e1a41cb48f51d8b3909a6c2d9d5"
+    },
+    {
+      "path": "synthetic-repo/calc_test.go",
+      "sha256": "bd9dec867b5e9dfd1edc948336be897da0c36cf1d29ad01c9f2913ed3625f895"
+    },
+    {
+      "path": "synthetic-repo/go.mod",
+      "sha256": "49e79a2f7b0d87ddd2bfe5ad6c6448d86f7876e48cdfa68bb29d0c5a0d10c5ac"
+    },
+    {
+      "path": "synthetic-repo/readonly.txt",
+      "sha256": "c03fdafbd5650bcc55c5a9331793dd9bf9a11acc8186f580f320bcb702dc75fc"
+    }
+  ]
+}

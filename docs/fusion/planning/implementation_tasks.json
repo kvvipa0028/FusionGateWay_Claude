@@ -42,7 +42,7 @@
       "id": "WP-03",
       "title": "建立离线假上游与假 Runtime",
       "milestone": "M0",
-      "status": "planned",
+      "status": "done",
       "depends_on": [
         "WP-01",
         "WP-02"

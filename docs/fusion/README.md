@@ -53,3 +53,5 @@ python3 scripts/fusion/run-dev.py -- fusion-status
 ## GLM 接入选择
 
 GLM 已确定为中国大陆 Coding Plan + API key，通过私有入口录入并完成 Claude Code 真实连接诊断。端点、认证/计费边界与未验证项见 [GLM 接入决定](decisions/glm-coding-plan-api-key.md)。诊断不代表 WP-14、额度、计费或严格模型锁定已验收。
+
+WP-03 离线 fixtures 已完成，见 [证据](work-items/WP-03/summary.md) 与 [fixture-index](../../tests/fusion/fixtures/fixture-index.json)。五角色、strict locked、产品 Runtime 与最终 Gate 尚未完成。

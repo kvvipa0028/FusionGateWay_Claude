@@ -1,0 +1,7 @@
+=== RUN   TestAdd
+    calc_test.go:7: Add(2,3)=-1, want 5
+    calc_test.go:7: Add(-2,3)=-5, want 1
+--- FAIL: TestAdd (0.00s)
+FAIL
+FAIL	fusion.fixture/calculator	0.544s
+FAIL

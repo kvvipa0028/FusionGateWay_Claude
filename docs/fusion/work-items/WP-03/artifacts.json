@@ -1,0 +1,33 @@
+{
+  "base_commit": "2d5fdd219326c5b18e1102972e1154c37eda4e95",
+  "source_files_sha256": {
+    "AGENTS.md": "684a2065a4bbca9d6cc588d9539e1451227501a8689481cad89d29e32c295857",
+    "docs/fusion/README.md": "08223a269cc107fe7ca2fc0b266f6700a767c237e22b804c933f1885b9db24d4",
+    "docs/fusion/planning/Fusion_Magpie_Fork_Agent\u5de5\u4f5c\u5305_v1.0.md": "fdfae1b0a9ddaa63f799d689f83ef4e878a45bbe45811cc2f6742d21a111e351",
+    "docs/fusion/planning/implementation_tasks.json": "b73d21b1733496d45e3cd9434be3c92404f7bfffbe76a6c291f31edf8e5d283c",
+    "internal/fusion/testsupport/cmd/fake-runtime/main.go": "86daf08925d0527b408e75da0869ea8578b6871df6a8db51fdaa0b6529267008",
+    "internal/fusion/testsupport/fixtures_test.go": "92dadeb030b024e98d7bdf4ab66615867cce351f30e3c92dcf5c7cc3ee3759f2",
+    "internal/fusion/testsupport/provider.go": "d5b97d94804e93692cf76cc0840991ecb950875b0c0a50e71e9fb836fb10b2e6",
+    "internal/fusion/testsupport/runtime.go": "462fa40785b709ae65f88baa82daec5a61451f1b0eac2ec5c4ecc75e06103f44",
+    "internal/fusion/testsupport/synthetic.go": "5b39f250b91cb04a8d4b89745372783d669c82eecf8967968bf00ddde1aefc02",
+    "tests/fusion/fixtures/README.md": "e7b21f1845c82c2bd9080dc66b8947f0fa4ee9fc61e82cbe17f94d463c3f1747",
+    "tests/fusion/fixtures/fixture-index.json": "bb03bd4b4f8ddbed30aa5d824acb8e7ba509d1948338760b959959d978530b15",
+    "tests/fusion/fixtures/synthetic-repo/calc.go": "7b75a0a653308b76493cca5f1e472c4f8fda4e1a41cb48f51d8b3909a6c2d9d5",
+    "tests/fusion/fixtures/synthetic-repo/calc_test.go": "bd9dec867b5e9dfd1edc948336be897da0c36cf1d29ad01c9f2913ed3625f895",
+    "tests/fusion/fixtures/synthetic-repo/go.mod": "49e79a2f7b0d87ddd2bfe5ad6c6448d86f7876e48cdfa68bb29d0c5a0d10c5ac",
+    "tests/fusion/fixtures/synthetic-repo/readonly.txt": "c03fdafbd5650bcc55c5a9331793dd9bf9a11acc8186f580f320bcb702dc75fc",
+    "tests/fusion/test_offline_runtime.py": "ae1f3723853c338e3beaa2afdfffdea3eb2c464e1871d32fd724f40eb0b0b5eb"
+  },
+  "logs_sha256": {
+    "wp03-red.log": "b1bb940ebfed6b733b66eba20212aa49a8b4f1e42b18eb81749eaf0c62d7dca3",
+    "wp03-boundary-red.log": "d467c4f14895fbeb3c8ead4f00d0083486788d5c76cdedc74fc9002b635e7af4",
+    "wp03-process-red.log": "9db6d79a4f9335f3f012d8e79c6b1c376424eb724f8805f16ed42bfafc8acb17",
+    "wp03-green.log": "8deb053654438fd1fc03a67df2803637da4affd1356a19f10a8afeb94b608f50",
+    "wp03-process-green.log": "aa2ddcb7d03e20bc832ed3c8e45ef5743154fe275772da9a6440078430c0554c",
+    "wp03-race-green.log": "dcd54097e1f965b2c99bcff33d3bd761f3f3accc0c7d9baa1038c08c9a820dc8",
+    "wp03-synthetic-red.log": "e0995567a2bcdcf9cca6531ac6379d27db1807ad812d74c9c746fcced0112523",
+    "wp03-synthetic-green.log": "4398ee8338a363f4577067b016228404e568810d0e4d8f4dab41dbd79688335d"
+  },
+  "fixture_index": "../../../tests/fusion/fixtures/fixture-index.json",
+  "binaries": "test temporary executable compiled and removed; no distributable product"
+}
