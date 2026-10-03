@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/runtime/glm [github.com/yetone/magpie/internal/fusion/runtime/glm.test]
+internal/fusion/runtime/glm/session_test.go:20:37: undefined: Session
+internal/fusion/runtime/glm/session_test.go:20:46: undefined: Binding
+internal/fusion/runtime/glm/session_test.go:25:5: undefined: Binding
+internal/fusion/runtime/glm/session_test.go:25:136: undefined: Endpoint
+internal/fusion/runtime/glm/session_test.go:25:254: undefined: CLIVersion
+internal/fusion/runtime/glm/session_test.go:27:7: undefined: New
+internal/fusion/runtime/glm/session_test.go:27:22: undefined: Binding
+internal/fusion/runtime/glm/session_test.go:30:27: undefined: Session
+internal/fusion/runtime/glm/session_test.go:30:37: undefined: Binding
+internal/fusion/runtime/glm/session_test.go:49:118: undefined: ErrIdentity
+internal/fusion/runtime/glm/session_test.go:49:118: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/glm [build failed]
+FAIL

@@ -25,3 +25,7 @@ Native stream 出现 system/ui_invalidate、init、status、stream_event、assis
 本轮发现 `~/.local/bin/claude` 已指向 2.1.288。2.1.287 的冻结文件仍存在且 hash 与 WP-08 相同；characterization 直接使用该文件。未把 symlink 更新视为旧任务版本已更新，也没有把 2.1.288 标为已准入。
 
 仍需实现 GLM protocol state machine、受管执行出口、取消/恢复与全部模型调用控制，以及真实套餐/额度/计费核验。WP-14、WP-17、Gate A 和相关最终 T 场景保持未完成。
+
+## WP-14-PROTOCOL-01
+
+新增被动事件协议与两轮 Native Read fixture，子工作项已完成，详见 [协议交付记录](PROTOCOL-01/summary.md)。14 个 GLM tests、142 个 Fusion tagged race tests、CLI/GUI 编译及 vet 通过。协议成功与生产执行准入继续分别记录；原 TEMP-01 的 artifact manifest 是其历史交付快照。完整 WP-14 保持 in_progress。

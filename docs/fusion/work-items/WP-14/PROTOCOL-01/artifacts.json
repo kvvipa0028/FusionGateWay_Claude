@@ -1,0 +1,24 @@
+{
+  "base_commit": "ab91ac280870a48eee0754de25ad72e497af78b8",
+  "source_files_sha256": {
+    "internal/fusion/runtime/glm/session.go": "47f1322c79279d9a2efd8e972b013086da0d69b4aaf75c900beb646774dfb805",
+    "internal/fusion/runtime/glm/session_test.go": "8583a466f0da93b5f9c1e490ffa58b0596397e0eb9ea646735d06298a9b29cdf",
+    "internal/fusion/runtime/glm/testdata/native-2.1.287/tool-free-stream.jsonl": "d6302a8dd2706e24a0841f8689cbae0d34a3b138a4068181bfeb1db4b805aae0",
+    "internal/fusion/runtime/glm/testdata/native-2.1.287/read-tool-stream.jsonl": "093c2925d429a5e31f0978039592c0766bcb11d7f4cdc16e0c545ef7e3dd152c"
+  },
+  "packet_files_sha256": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "01d094f208c33eab1faa987b746d1c2dcb0f8410e209ffd2db98091d1cc91da4",
+    "build-results.json": "d463160a4933babaa6dd61e8cda71418bb2071a7d1c3566277c08faa4a5e5683",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "characterize-native-read.py": "871e236e48794858cf0a18f59f1b08c48a9a9ece9ecfe789c99ede6c981b2cec",
+    "native-read-characterization.json": "1cfa6e05539fb72b7fa43f49a8a6debdb5726a47d354ad793113260d02b33239",
+    "summary.md": "20a5c585b34d9bf3535f3b5b0f7864ad2a73dbc96338e37abf043cb9b748a414",
+    "test-results.json": "58ae65109520de5639012abda3eae2ae916cf86989db4ca975e7cf776993ff24",
+    "wp14-boundary-red.log": "55087658774631e600880f45868af6e4852487097540c8feaf99b88374cb2bfb",
+    "wp14-fusion-tagged-race.log": "ad2a9ae8e550ecc9ab05ab2cea65d4074cae6fb855a888c6efe9be08704c2f5b",
+    "wp14-order-red.log": "5e6abf4ec4e5aa3165ef3405d737aab872fa7b1fbc074c3085ebddf869ded435",
+    "wp14-protocol-green.log": "15a5c8f071324b323d9a37a6512c434182161b75f79b58c2caf6d503d36e2a46",
+    "wp14-protocol-red.log": "ba1fbc38d7bca7de8df15885c8532a0f4254dfa1d6005da87d10ea67ce47e511"
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "fixture_only": true,
+  "actual_account_used": false,
+  "runtime_version": "2.1.287",
+  "real_model_calls": 0,
+  "strict_lock_verified": false,
+  "worker_isolation_verified": false,
+  "probe_context": "trusted synthetic owned-file Read characterization; not a production worker",
+  "exit_code": 0,
+  "os_reaped": true,
+  "profile_sha256": "6cdd04ffdbde54c2d9319362ccf3a8bc05da90a0e4d80e7fbdd026a84ae7f232",
+  "executable_sha256": "6eab8333fe2121553100d8f40bfada384a3e989b94f947e18ba6677a6fcb41ea",
+  "fork_allowed": true,
+  "network_scope": "synthetic localhost port only",
+  "stdout_bytes": 8037,
+  "stderr_bytes": 74,
+  "stdout_sha256": "3fa927698cc40bc3f9385612ba1e40a78cf4b26076a8946152d5ef11f3ace661",
+  "stderr_sha256": "089dbf616da27f2f327878d5fb2ed70fd63a63b259b7c648536429d4b1c68609",
+  "calls": [
+    {
+      "path": "/api/anthropic/v1/messages?beta=true",
+      "model": "glm-5.3",
+      "tool_count": 1,
+      "bearer_fixture": true,
+      "api_key_fixture": true
+    },
+    {
+      "path": "/api/anthropic/v1/messages?beta=true",
+      "model": "glm-5.3",
+      "tool_count": 1,
+      "bearer_fixture": true,
+      "api_key_fixture": true
+    }
+  ],
+  "event_types": [
+    {
+      "type": "system",
+      "subtype": "ui_invalidate"
+    },
+    {
+      "type": "system",
+      "subtype": "init"
+    },
+    {
+      "type": "system",
+      "subtype": "status"
+    },
+    {
+      "type": "stream_event",
+      "subtype": null
+    },
+    {
+      "type": "stream_event",
+      "subtype": null
+    },
+    {
+      "type": "stream_event",
+      "subtype": null
+    },
+    {
+      "type": "assistant",
+      "subtype": null
+    },
+    {
+      "type": "stream_event",
+      "subtype": null
+    },
+    {
+      "type": "stream_event",
+      "subtype": null
+    },
+    {
+      "type": "stream_event",
+      "subtype": null
+    },
+    {
+      "type": "user",
+      "subtype": null
+    },
+    {
+      "type": "system",
+      "subtype": "status"
+    },
+    {
+      "type": "stream_event",
+      "subtype": null
+    },
+    {
+      "type": "stream_event",
+      "subtype": null
+    },
+    {
+      "type": "stream_event",
+      "subtype": null
+    },
+    {
+      "type": "assistant",
+      "subtype": null
+    },
+    {
+      "type": "stream_event",
+      "subtype": null
+    },
+    {
+      "type": "stream_event",
+      "subtype": null
+    },
+    {
+      "type": "stream_event",
+      "subtype": null
+    },
+    {
+      "type": "result",
+      "subtype": "success"
+    }
+  ]
+}

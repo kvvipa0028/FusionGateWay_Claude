@@ -1,0 +1,32 @@
+{
+  "work_item": "WP-14-PROTOCOL-01",
+  "status": "done",
+  "parent_work_item": "WP-14",
+  "parent_status": "in_progress",
+  "checks": [
+    {
+      "command": "go test -race -v -count=1 -mod=readonly ./internal/fusion/runtime/glm",
+      "exit_code": 0,
+      "top_level_pass": 14,
+      "log": "wp14-protocol-green.log"
+    },
+    {
+      "command": "go test -race -v -count=1 -mod=readonly -tags fusion,nogui ./internal/fusion/...",
+      "exit_code": 0,
+      "top_level_pass": 142,
+      "top_level_skip": 2,
+      "log": "wp14-fusion-tagged-race.log"
+    }
+  ],
+  "red_logs": [
+    "wp14-protocol-red.log",
+    "wp14-boundary-red.log",
+    "wp14-order-red.log"
+  ],
+  "build_report": "build-results.json",
+  "real_model_calls_this_item": 0,
+  "route_admitted": false,
+  "billing_verified": false,
+  "quota_verified": false,
+  "production_worker_isolation_verified": false
+}

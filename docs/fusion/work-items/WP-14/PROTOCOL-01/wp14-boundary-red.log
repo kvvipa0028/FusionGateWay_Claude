@@ -1,0 +1,11 @@
+=== RUN   TestNativeOwnedReadSupportsTwoBudgetedModelRounds
+--- PASS: TestNativeOwnedReadSupportsTwoBudgetedModelRounds (0.01s)
+=== RUN   TestCaseFoldAliasesAndInvalidUTF8CannotOverrideNativeFields
+    session_test.go:231: ambiguous native frame accepted
+--- FAIL: TestCaseFoldAliasesAndInvalidUTF8CannotOverrideNativeFields (0.00s)
+=== RUN   TestUnmatchedToolResultCannotValidateNativeSuccess
+    session_test.go:237: unmatched tool result accepted
+--- FAIL: TestUnmatchedToolResultCannotValidateNativeSuccess (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/glm	0.551s
+FAIL

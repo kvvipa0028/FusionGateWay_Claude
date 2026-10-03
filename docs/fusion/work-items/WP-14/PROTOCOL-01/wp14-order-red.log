@@ -1,0 +1,63 @@
+=== RUN   TestNativeStreamResultAndEOFRequiredTogether
+--- PASS: TestNativeStreamResultAndEOFRequiredTogether (0.01s)
+=== RUN   TestLostResultOrExitErrorNeverSucceeds
+--- PASS: TestLostResultOrExitErrorNeverSucceeds (0.01s)
+=== RUN   TestFrozenIdentitySessionVersionAndModelDriftAreRejected
+=== RUN   TestFrozenIdentitySessionVersionAndModelDriftAreRejected/model
+=== RUN   TestFrozenIdentitySessionVersionAndModelDriftAreRejected/claude_code_version
+=== RUN   TestFrozenIdentitySessionVersionAndModelDriftAreRejected/cwd
+=== RUN   TestFrozenIdentitySessionVersionAndModelDriftAreRejected/session_id
+--- PASS: TestFrozenIdentitySessionVersionAndModelDriftAreRejected (0.01s)
+    --- PASS: TestFrozenIdentitySessionVersionAndModelDriftAreRejected/model (0.00s)
+    --- PASS: TestFrozenIdentitySessionVersionAndModelDriftAreRejected/claude_code_version (0.00s)
+    --- PASS: TestFrozenIdentitySessionVersionAndModelDriftAreRejected/cwd (0.00s)
+    --- PASS: TestFrozenIdentitySessionVersionAndModelDriftAreRejected/session_id (0.00s)
+=== RUN   TestStaleScopeDoesNotPoisonCurrentNativeSession
+--- PASS: TestStaleScopeDoesNotPoisonCurrentNativeSession (0.00s)
+=== RUN   TestDuplicateMalformedAndUnknownFramesFailClosed
+--- PASS: TestDuplicateMalformedAndUnknownFramesFailClosed (0.00s)
+=== RUN   TestResultModelUsageAndHiddenCallsCannotPass
+=== RUN   TestResultModelUsageAndHiddenCallsCannotPass/second_model
+=== RUN   TestResultModelUsageAndHiddenCallsCannotPass/subagent
+=== RUN   TestResultModelUsageAndHiddenCallsCannotPass/missing_subagent_stats
+=== RUN   TestResultModelUsageAndHiddenCallsCannotPass/permission_denial
+=== RUN   TestResultModelUsageAndHiddenCallsCannotPass/turn_count
+=== RUN   TestResultModelUsageAndHiddenCallsCannotPass/result_index
+--- PASS: TestResultModelUsageAndHiddenCallsCannotPass (0.02s)
+    --- PASS: TestResultModelUsageAndHiddenCallsCannotPass/second_model (0.00s)
+    --- PASS: TestResultModelUsageAndHiddenCallsCannotPass/subagent (0.00s)
+    --- PASS: TestResultModelUsageAndHiddenCallsCannotPass/missing_subagent_stats (0.00s)
+    --- PASS: TestResultModelUsageAndHiddenCallsCannotPass/permission_denial (0.00s)
+    --- PASS: TestResultModelUsageAndHiddenCallsCannotPass/turn_count (0.00s)
+    --- PASS: TestResultModelUsageAndHiddenCallsCannotPass/result_index (0.00s)
+=== RUN   TestNativeFailureIsSanitizedAndCancellationCannotInventCompletion
+--- PASS: TestNativeFailureIsSanitizedAndCancellationCannotInventCompletion (0.00s)
+=== RUN   TestPermissionRequestsAlwaysReturnNativeDeny
+--- PASS: TestPermissionRequestsAlwaysReturnNativeDeny (0.00s)
+=== RUN   TestSessionNeverAdoptsChangedBindingOrAccountAtResume
+--- PASS: TestSessionNeverAdoptsChangedBindingOrAccountAtResume (0.00s)
+=== RUN   TestNativeOwnedReadSupportsTwoBudgetedModelRounds
+--- PASS: TestNativeOwnedReadSupportsTwoBudgetedModelRounds (0.00s)
+=== RUN   TestCaseFoldAliasesAndInvalidUTF8CannotOverrideNativeFields
+--- PASS: TestCaseFoldAliasesAndInvalidUTF8CannotOverrideNativeFields (0.00s)
+=== RUN   TestUnmatchedToolResultCannotValidateNativeSuccess
+--- PASS: TestUnmatchedToolResultCannotValidateNativeSuccess (0.00s)
+=== RUN   TestIncompleteOrDuplicateNativeMessagesCannotSucceed
+=== RUN   TestIncompleteOrDuplicateNativeMessagesCannotSucceed/assistant
+    session_test.go:282: incomplete native message succeeded
+=== RUN   TestIncompleteOrDuplicateNativeMessagesCannotSucceed/message_stop
+    session_test.go:282: incomplete native message succeeded
+=== RUN   TestIncompleteOrDuplicateNativeMessagesCannotSucceed/content_block_stop
+    session_test.go:282: incomplete native message succeeded
+=== NAME  TestIncompleteOrDuplicateNativeMessagesCannotSucceed
+    session_test.go:295: duplicate assistant aggregate accepted
+--- FAIL: TestIncompleteOrDuplicateNativeMessagesCannotSucceed (0.01s)
+    --- FAIL: TestIncompleteOrDuplicateNativeMessagesCannotSucceed/assistant (0.00s)
+    --- FAIL: TestIncompleteOrDuplicateNativeMessagesCannotSucceed/message_stop (0.00s)
+    --- FAIL: TestIncompleteOrDuplicateNativeMessagesCannotSucceed/content_block_stop (0.00s)
+=== RUN   TestOrphanNativeStreamTransitionsAreRejected
+    session_test.go:307: orphan stream transition accepted
+--- FAIL: TestOrphanNativeStreamTransitionsAreRejected (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/glm	0.600s
+FAIL
