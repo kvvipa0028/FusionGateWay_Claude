@@ -1,6 +1,7 @@
 package policy
 
 import (
+	"context"
 	"github.com/yetone/magpie/internal/fusion/stageplan"
 	"net/http"
 	"net/http/httptest"
@@ -206,5 +207,37 @@ func TestStageDoesNotForwardNoncanonicalAuthorityHeaders(t *testing.T) {
 	h.ServeHTTP(w, r)
 	if w.Code != 204 || leaked {
 		t.Fatal("noncanonical authority header leaked")
+	}
+}
+
+func TestManagementContextRemainsIssuerBoundAndRevocable(t *testing.T) {
+	m := NewManager("fixture-management", nil, nil)
+	other := NewManager("fixture-management", nil, nil)
+	var saved context.Context
+	h := m.Management(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		saved = r.Context()
+		if r.Header.Get("Authorization") != "" {
+			t.Fatal("management secret forwarded")
+		}
+		w.WriteHeader(200)
+	}))
+	req := httptest.NewRequest("GET", "/", nil)
+	req.Header.Set("Authorization", "Bearer fixture-management")
+	w := httptest.NewRecorder()
+	h.ServeHTTP(w, req)
+	if w.Code != 200 || saved == nil || !m.ManagementCurrent(saved) {
+		t.Fatal("missing authenticated management context")
+	}
+	if m.ManagementCurrent(nil) || m.ManagementCurrent(context.Background()) || other.ManagementCurrent(saved) {
+		t.Fatal("management context forged or crossed issuer")
+	}
+	closed, cancel := context.WithCancel(saved)
+	cancel()
+	if m.ManagementCurrent(closed) {
+		t.Fatal("cancelled request context retained management authority")
+	}
+	m.RevokeManagement()
+	if m.ManagementCurrent(saved) {
+		t.Fatal("revoked connection remained authenticated")
 	}
 }

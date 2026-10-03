@@ -1,0 +1,26 @@
+{
+  "work_item": "WP-15-EVENTS-01",
+  "status": "done",
+  "parent_status": "in_progress",
+  "checks": [
+    {
+      "command": "go test -race -v -count=1 -mod=readonly -tags fusion,nogui ./internal/fusion/...",
+      "exit_code": 0,
+      "top_level_pass": 173,
+      "top_level_skip": 2,
+      "log": "wp15-events-fusion-tagged-race-release.log"
+    }
+  ],
+  "red_logs": [
+    "wp15-events-red.log",
+    "wp15-events-tail-red.log",
+    "wp15-events-context-red.log",
+    "wp15-events-transport-red.log"
+  ],
+  "build_report": "build-results.json",
+  "actual_loopback_http_verified": true,
+  "test_poll_ms": 10,
+  "default_poll_ms": 1000,
+  "real_model_calls": 0,
+  "production_registered": false
+}

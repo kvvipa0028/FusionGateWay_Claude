@@ -10,6 +10,7 @@ WP-06 对 Fusion 构建封闭全部旧入口；无 tag 构建保持原版回归�
 | `/_magpie/claude-mcp/{token}` | 同一 Handler | 不能以 URL 中旧 token 绕过阶段身份 |
 | GUI assets、boot.js、所有 `/api/*` 管理/导入/账号/设置/会话/备份/窗口入口 | gui.Handler | 在 mux 注册前拒绝，覆盖 HTTP 与 Wails AssetOptions native bridge |
 | 未来任务/事件/SSE 与未知 GUI 路径 | 同一 GUI Handler | 默认拒绝；新接口按管理或准确 stage audience 接入 |
+| 新任务预览、提交、读取、budget 与 SSE 组件 | fusion/api.Server.Handler | policy.Manager.Management 强鉴权；SSE 持续检查当前 issuer/撤销；仅组件 HTTP 测试，尚未注册生产 GUI/gateway |
 | 原版 query-key Web | gui.StartWeb | 在生成 Key、创建 listener 或打印 URL 前拒绝；没有新的监听端口 |
 | 原版开发 backend/shell/listen | gui.Run、Handler | Fusion Run 拒绝 devRole；旧 devRoutes/devListen 不执行 |
 | URI 导入与单实例导入 | gui.Run、host.Import | 拒绝/忽略旧导入入口，不改变受控路线 |
@@ -20,3 +21,5 @@ WP-06 对 Fusion 构建封闭全部旧入口；无 tag 构建保持原版回归�
 GUI startBackend 在 Fusion 中跳过 catalog/provider 发现和日常客户端目录同步；原版 watch/keep-fresh 不运行，stats 不启动。负向 GUI RED 测试使用 macOS deny-network-outbound 防止旧发现副作用；GREEN 不再进入发现逻辑。
 
 证据覆盖 handler、作用域、撤销/过期、跨 Origin/query key、权限 header 清除和编译。尚未启动真实 Wails 窗口交互或受管供应商进程；完整 UI/SSE/原生运行与最终 T17/T18/T45/T48/T49/T50/T59 仍在后续 Gate 验收。
+
+WP-15-EVENTS-01 已验证组件的实际 loopback SSE、持久 sequence 重连补读、断线不取消/启动任务和授权撤销后关闭连接；这不代表生产 UI 接线或真实供应商任务已通过。

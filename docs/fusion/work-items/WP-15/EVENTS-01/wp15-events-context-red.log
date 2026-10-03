@@ -1,0 +1,6 @@
+=== RUN   TestManagementContextRemainsIssuerBoundAndRevocable
+    auth_test.go:237: cancelled request context retained management authority
+--- FAIL: TestManagementContextRemainsIssuerBoundAndRevocable (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/policy	0.636s
+FAIL

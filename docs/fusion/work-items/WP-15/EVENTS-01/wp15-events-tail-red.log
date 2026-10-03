@@ -1,0 +1,8 @@
+=== RUN   TestEventsPageIsBoundedOrderedAndTaskScoped
+--- PASS: TestEventsPageIsBoundedOrderedAndTaskScoped (0.04s)
+=== RUN   TestEventsPageRejectsMissingDurableTail
+    events_test.go:62: missing durable event accepted as full page <nil>
+--- FAIL: TestEventsPageRejectsMissingDurableTail (0.02s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/store	0.732s
+FAIL

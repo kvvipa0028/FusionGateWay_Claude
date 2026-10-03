@@ -1,0 +1,26 @@
+{
+  "base_commit": "c741179ec17273cbbde9a35c0c0f9aa40beb6a45",
+  "source_files_sha256": {
+    "internal/fusion/api/preview.go": "bcbb51327f58ec474b1a7a5d37f43856b8a96b71a8f8e79b3b1fa5b06ef321b1",
+    "internal/fusion/api/events.go": "dbfea99d9215859c2989b4ffc343e5477170916fe2e6c5d6f8faf8ceb064f9e5",
+    "internal/fusion/api/events_test.go": "0eeda595e62bc71e8d390139c72b40a9c48bbfea116e12f492e125c7774252bc",
+    "internal/fusion/store/events.go": "ba9e616118022e2f377cbf05d3e7aaa06de472da4fcf9477c0b676ee31d663ba",
+    "internal/fusion/store/events_test.go": "5537ce457d19b221357710de00b5b406b9a0a98eafa24698f1f4a87a6d1251ed",
+    "internal/fusion/policy/auth.go": "b60e267925bec72883f1c745870f3831f09465c7b9001a3161dd65cacc837923",
+    "internal/fusion/policy/auth_test.go": "7f68b8dff4c2f363a6e077b8731fa98440549aa61c8993bcfaf7fdf75369f846"
+  },
+  "packet_files_sha256": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "a886a1d640dc848a0d3c182fa7f1fe51ecc9afab91f6bfc57537d61e21e3a60a",
+    "build-results.json": "42bec26f5552e5bef488e62676980ba5ff72882a38d8918bd210267c394e9c9f",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "summary.md": "ddf42297ce4825ff7cb9c3847619f96fc09d846666c8c5d465ce45b48285c177",
+    "test-results.json": "58fcf991297a0b0edf6df1a157eb6f335005d9cf94c0cccc3b647fc6982a1fba",
+    "wp15-events-context-red.log": "5b24dcecdbe4a8c7ebeeb653f35066d7cb181ab9d72ee3577506d90f9a910b26",
+    "wp15-events-fusion-tagged-race-release.log": "1f201c7d4ed6b5a7d7c3c7618f6ab9fd7b4af07e29fe606530b0e3e10fc7928f",
+    "wp15-events-green.log": "96681ed3a09b4bd737c999f41723a0fca548adbc4f004e1edcd15f49ef71844c",
+    "wp15-events-red.log": "367feb0cfcc9ceab0df12ba385387aa03473e5360511ee567a37bd8b5c374d22",
+    "wp15-events-tail-red.log": "e7ea3f24ac25c58aef1ec533a2fee5ecb2051d15364672b4b35b8a779f0a2a76",
+    "wp15-events-transport-red.log": "bc9ee5f55ae13d168217b35d14afd703d3f84dd4d2e5fd9866f4f0a2daa4d491"
+  }
+}

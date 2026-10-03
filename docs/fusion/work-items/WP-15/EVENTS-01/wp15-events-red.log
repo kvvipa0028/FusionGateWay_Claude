@@ -1,0 +1,23 @@
+# github.com/yetone/magpie/internal/fusion/api [github.com/yetone/magpie/internal/fusion/api.test]
+internal/fusion/api/events_test.go:82:4: s.eventPoll undefined (type *Server has no field or method eventPoll)
+internal/fusion/api/events_test.go:114:4: s.eventPoll undefined (type *Server has no field or method eventPoll)
+internal/fusion/api/events_test.go:147:4: s.eventPoll undefined (type *Server has no field or method eventPoll)
+FAIL	github.com/yetone/magpie/internal/fusion/api [build failed]
+# github.com/yetone/magpie/internal/fusion/policy [github.com/yetone/magpie/internal/fusion/policy.test]
+internal/fusion/policy/auth_test.go:215:12: undefined: context
+internal/fusion/policy/auth_test.go:227:41: m.ManagementCurrent undefined (type *Manager has no field or method ManagementCurrent)
+internal/fusion/policy/auth_test.go:230:7: m.ManagementCurrent undefined (type *Manager has no field or method ManagementCurrent)
+internal/fusion/policy/auth_test.go:230:25: undefined: context
+internal/fusion/policy/auth_test.go:230:56: other.ManagementCurrent undefined (type *Manager has no field or method ManagementCurrent)
+internal/fusion/policy/auth_test.go:234:7: m.ManagementCurrent undefined (type *Manager has no field or method ManagementCurrent)
+# github.com/yetone/magpie/internal/fusion/store [github.com/yetone/magpie/internal/fusion/store.test]
+internal/fusion/store/events_test.go:20:15: s.EventsPage undefined (type *Store has no field or method EventsPage)
+internal/fusion/store/events_test.go:24:15: s.EventsPage undefined (type *Store has no field or method EventsPage)
+internal/fusion/store/events_test.go:28:15: s.EventsPage undefined (type *Store has no field or method EventsPage)
+internal/fusion/store/events_test.go:32:16: s.EventsPage undefined (type *Store has no field or method EventsPage)
+internal/fusion/store/events_test.go:40:15: s.EventsPage undefined (type *Store has no field or method EventsPage)
+internal/fusion/store/events_test.go:44:14: s.EventsPage undefined (type *Store has no field or method EventsPage)
+internal/fusion/store/events_test.go:47:14: s.EventsPage undefined (type *Store has no field or method EventsPage)
+FAIL	github.com/yetone/magpie/internal/fusion/store [build failed]
+FAIL	github.com/yetone/magpie/internal/fusion/policy [build failed]
+FAIL

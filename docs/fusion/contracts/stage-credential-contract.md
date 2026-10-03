@@ -13,3 +13,5 @@ HTTP 只接受单个 Authorization Bearer；不接受 cookie、URL query key 或
 通过鉴权后清除 Authorization、API key、账号 header 和全部 X-Fusion-* 权限声明（包括非 canonical 大小写），仅在服务端 Context 放入经核对的 Claims。执行层仍需按冻结目标、当前路线准入、额度、工作区权限和预算核验；鉴权通过本身不能代替 strict-policy。长调用取消与已启动进程停止由 WP-11 的受管 Runtime 控制，不把 HTTP token 撤销冒充写进程已停止。
 
 Manager 的 StoreValidator 为已验证的默认作用域检查器。其他 validator 仅限受信任服务端逻辑，不从请求提供；缺少 validator、缺少管理身份或无效 Claims 时不能签发。Stage secret 只能经受保护的服务端编排逻辑交给 Worker，不能公开一个接受任意客户端 Claims 的签发接口。
+
+WP-15 长连接管理 Context 仅保存当前 issuer 的私有标识，不携带原始管理秘密。ManagementCurrent 必须核对同一 issuer、未取消/过期的 Context 和仍有效的管理身份；其他 Context 或 issuer 的值不获授权。SSE 每次发送及轮询都重查，撤销后关闭 stream；已发送字节不会被追回，HTTP EOF 不改变 Worker 状态或提供 stop proof。管理 Key 引导和真实 GUI 接入仍待后续完成。

@@ -1,0 +1,6 @@
+=== RUN   TestSSEUnsupportedTransportCannotOpenAnUnboundedStream
+    events_test.go:265: deadline-unavailable transport streamed task data 200
+--- FAIL: TestSSEUnsupportedTransportCannotOpenAnUnboundedStream (0.53s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/api	1.180s
+FAIL

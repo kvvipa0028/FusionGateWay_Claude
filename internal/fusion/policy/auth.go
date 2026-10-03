@@ -142,6 +142,23 @@ func (m *Manager) AuthenticateStage(raw string, expected Claims) (Claims, error)
 
 type claimsKey struct{}
 type grantKey struct{}
+type managementKey struct{}
+
+// ManagementCurrent rechecks a context authenticated by this exact issuer.
+// Long-lived connections carry no raw management secret and become invalid on
+// revocation; a context from another issuer cannot inherit the authority.
+func (m *Manager) ManagementCurrent(ctx context.Context) bool {
+	if ctx == nil || ctx.Err() != nil {
+		return false
+	}
+	issuer, ok := ctx.Value(managementKey{}).(*Manager)
+	if !ok || issuer != m {
+		return false
+	}
+	m.mu.Lock()
+	defer m.mu.Unlock()
+	return m.adminEnabled
+}
 
 // WithStage carries an issuer-owned capability in a private context key. The
 // secret itself is not passed to an executor, transport or request body.
@@ -241,7 +258,7 @@ func (m *Manager) Management(next http.Handler) http.Handler {
 			authFailure(w, ErrUnauthenticated)
 			return
 		}
-		clean := r.Clone(r.Context())
+		clean := r.Clone(context.WithValue(r.Context(), managementKey{}, m))
 		stripAuthority(clean)
 		next.ServeHTTP(w, clean)
 	})

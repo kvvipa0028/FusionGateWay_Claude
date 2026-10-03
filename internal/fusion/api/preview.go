@@ -77,19 +77,21 @@ type receipt struct {
 	key       string
 }
 type Server struct {
-	mu       sync.Mutex
-	store    *store.Store
-	auth     *policy.Manager
-	projects map[string]project
-	previews map[string]*receipt
-	now      func() time.Time
+	mu         sync.Mutex
+	store      *store.Store
+	auth       *policy.Manager
+	projects   map[string]project
+	previews   map[string]*receipt
+	now        func() time.Time
+	eventPoll  time.Duration
+	eventSlots chan struct{}
 }
 
 func New(st *store.Store, auth *policy.Manager) (*Server, error) {
 	if st == nil || auth == nil {
 		return nil, errInvalid
 	}
-	return &Server{store: st, auth: auth, projects: map[string]project{}, previews: map[string]*receipt{}, now: time.Now}, nil
+	return &Server{store: st, auth: auth, projects: map[string]project{}, previews: map[string]*receipt{}, now: time.Now, eventPoll: time.Second, eventSlots: make(chan struct{}, 8)}, nil
 }
 func opaque(s string) bool {
 	return s != "" && len(s) <= 256 && !strings.ContainsAny(s, "/\\") && !strings.ContainsFunc(s, func(r rune) bool { return unicode.IsSpace(r) || unicode.IsControl(r) })
@@ -238,6 +240,15 @@ func failure(w http.ResponseWriter, e error) {
 	case errors.Is(e, errCapacity):
 		code = 429
 		reason = "preview_capacity_reached"
+	case errors.Is(e, errEventCapacity):
+		code = 429
+		reason = "event_capacity_reached"
+	case errors.Is(e, errCursor):
+		code = 409
+		reason = "event_cursor_ahead"
+	case errors.Is(e, errStreamTransport):
+		code = 503
+		reason = "stream_transport_unsupported"
 	}
 	// Never echo native errors, rejected JSON or caller-provided credentials.
 	respond(w, code, map[string]any{"error": map[string]string{"code": reason, "message": http.StatusText(code)}})
@@ -309,6 +320,8 @@ func (s *Server) Handler() http.Handler {
 				return
 			}
 			respond(w, 200, budget)
+		case strings.HasPrefix(r.URL.Path, "/agent/v1/tasks/") && strings.HasSuffix(r.URL.Path, "/events"):
+			s.events(w, r)
 		case strings.HasPrefix(r.URL.Path, "/agent/v1/tasks/"):
 			if r.Method != http.MethodGet {
 				http.Error(w, "Method Not Allowed", 405)
