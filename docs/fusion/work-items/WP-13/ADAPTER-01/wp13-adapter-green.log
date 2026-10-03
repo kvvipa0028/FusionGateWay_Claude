@@ -1,0 +1,46 @@
+=== RUN   TestGrokAdapterRequiresTrustedServices
+--- PASS: TestGrokAdapterRequiresTrustedServices (0.05s)
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/args
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/executable
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/hash
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/env
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/validator
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/session
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/claude
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/grok
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/empty
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/utf8
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/nul
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/oversize
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/timeout
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/write
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/quota
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/owner
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/identity
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/root
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/workspace
+--- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls (0.74s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/args (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/executable (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/hash (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/env (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/validator (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/session (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/claude (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/grok (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/empty (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/utf8 (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/nul (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/oversize (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/timeout (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/write (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/quota (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/owner (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/identity (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/root (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/workspace (0.04s)
+=== RUN   TestGrokAdapterProbeResumeAndObservationStayExplicit
+--- PASS: TestGrokAdapterProbeResumeAndObservationStayExplicit (0.04s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime/grok	2.478s

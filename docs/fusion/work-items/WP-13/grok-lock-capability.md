@@ -31,3 +31,5 @@
 [READ-01](READ-01/summary.md) 在显式只读scope中实际完成项目文本读取，title+两轮main三次持久化预算/endcalls2；相同scope在工具开始前拒绝私有config读取。范围限合同中的单个文本Read，Unix path重查不是生产Worker隔离或并发物理读取证明。未注册真实路线。
 
 [CHANNEL-01](CHANNEL-01/summary.md) 增加实际1.0.48在生产Supervisor/profile中的停止证据。该证明只覆盖本控制器的进程/端口/grant/reservation生命周期；冻结模型HTTP Gate与StopProof不能替代真实X上游身份、subscription计费、quota/pool、准确Resume和工程验收。未注册真实Grok Worker，Jev off。
+
+[ADAPTER-01](ADAPTER-01/summary.md) 将上述组件组成公共readonly Runtime Adapter，固定argv/session/prompt与真实预算/停止链。它只接受effort=none，显式其它档位拒绝，Resume/write仍unsupported；真实NativeForwarder/账号/Heavy/计费/Quota证明和产品注册未完成。不能将Observer flags自动升级为独立严格锁定结论。

@@ -1,0 +1,28 @@
+=== RUN   TestGrokAdapterPinnedNative
+=== RUN   TestGrokAdapterPinnedNative/success
+    managed_native_test.go:37: synthetic Adapter mode=success state=succeeded exit=0 stop=true HTTP/budget=2 model-label-calls=1
+=== RUN   TestGrokAdapterPinnedNative/read
+    managed_native_test.go:37: synthetic Adapter mode=read state=succeeded exit=0 stop=true HTTP/budget=3 model-label-calls=2
+=== RUN   TestGrokAdapterPinnedNative/private_config
+    managed_native_test.go:37: synthetic Adapter mode=private_config state=failed exit=1 stop=true HTTP/budget=2 model-label-calls=0
+=== RUN   TestGrokAdapterPinnedNative/outside_read
+    managed_native_test.go:37: synthetic Adapter mode=outside_read state=failed exit=1 stop=true HTTP/budget=2 model-label-calls=0
+=== RUN   TestGrokAdapterPinnedNative/write_unsupported
+    managed_native_test.go:37: synthetic Adapter mode=write_unsupported state=failed exit=1 stop=true HTTP/budget=2 model-label-calls=0
+=== RUN   TestGrokAdapterPinnedNative/budget_exhausted
+    managed_native_test.go:37: synthetic Adapter mode=budget_exhausted state=failed exit=1 stop=true HTTP/budget=1 model-label-calls=0
+=== RUN   TestGrokAdapterPinnedNative/cancel_inflight
+    managed_native_test.go:37: synthetic Adapter mode=cancel_inflight state=cancelled exit=143 stop=true HTTP/budget=2 model-label-calls=0
+=== RUN   TestGrokAdapterPinnedNative/sdk_retry
+    managed_native_test.go:37: synthetic Adapter mode=sdk_retry state=succeeded exit=0 stop=true HTTP/budget=3 model-label-calls=1
+--- PASS: TestGrokAdapterPinnedNative (16.88s)
+    --- PASS: TestGrokAdapterPinnedNative/success (1.12s)
+    --- PASS: TestGrokAdapterPinnedNative/read (1.19s)
+    --- PASS: TestGrokAdapterPinnedNative/private_config (3.13s)
+    --- PASS: TestGrokAdapterPinnedNative/outside_read (3.13s)
+    --- PASS: TestGrokAdapterPinnedNative/write_unsupported (3.13s)
+    --- PASS: TestGrokAdapterPinnedNative/budget_exhausted (1.04s)
+    --- PASS: TestGrokAdapterPinnedNative/cancel_inflight (0.98s)
+    --- PASS: TestGrokAdapterPinnedNative/sdk_retry (3.16s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime/grok	18.534s

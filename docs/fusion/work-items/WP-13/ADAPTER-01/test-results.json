@@ -1,0 +1,55 @@
+{
+  "base_commit": "8303873fb88156a2f3235dbe71672a03bb339fda",
+  "go_version": "1.26.3",
+  "real_model_calls": 0,
+  "real_quota_calls": 0,
+  "jev": "off",
+  "parent_wp13": "in_progress",
+  "final_gate": "not_run",
+  "checks": {
+    "wp13-adapter-green.log": {
+      "pass": 3,
+      "skip": 0,
+      "fail": 0
+    },
+    "wp13-adapter-input-green.log": {
+      "pass": 1,
+      "skip": 0,
+      "fail": 0
+    },
+    "wp13-adapter-fusion-tagged-race.log": {
+      "pass": 409,
+      "skip": 16,
+      "fail": 0
+    },
+    "wp13-adapter-native-final.log": {
+      "pass": 6,
+      "skip": 0,
+      "fail": 0
+    },
+    "wp13-adapter-inflight-observation.log": {
+      "pass": 1,
+      "skip": 0,
+      "fail": 0
+    }
+  },
+  "native_adapter": {
+    "scenarios": 11,
+    "native_launch_scenarios": 10,
+    "prelaunch_drift_scenarios": 1,
+    "production_profile": true,
+    "upstream_quota_inspection": "synthetic",
+    "actual_uuid_stop_proof_and_release": true,
+    "prompt_snapshot": true,
+    "actual_large_prompt_bytes": 40020,
+    "readonly": true,
+    "strict_lock_verified": false,
+    "billing_verified": false,
+    "quota_verified": false,
+    "native_resume_verified": false,
+    "native_effort_verified": false,
+    "production_forwarder_supplied": false,
+    "registered_in_product": false
+  },
+  "post_full_changes": "only strengthened inflight observation assertion; targeted Native executed; production unchanged"
+}

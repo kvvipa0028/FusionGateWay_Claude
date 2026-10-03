@@ -1,0 +1,6 @@
+# github.com/yetone/magpie/internal/fusion/runtime/grok [github.com/yetone/magpie/internal/fusion/runtime/grok.test]
+internal/fusion/runtime/grok/managed_native_test.go:29:57: not enough arguments in call to managedNativeGrok
+	have (*testing.T, string)
+	want (*testing.T, string, bool)
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/grok [build failed]
+FAIL

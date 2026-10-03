@@ -1,0 +1,12 @@
+=== RUN   TestGrokAdapterPinnedNativeInputSnapshotAndRecheck
+=== RUN   TestGrokAdapterPinnedNativeInputSnapshotAndRecheck/input_snapshot
+    managed_native_test.go:435: synthetic prompt mode=input_snapshot bytes=20 HTTP=2 private0600 snapshot=true stop=true
+=== RUN   TestGrokAdapterPinnedNativeInputSnapshotAndRecheck/long_prompt
+    managed_native_test.go:435: synthetic prompt mode=long_prompt bytes=40020 HTTP=2 private0600 snapshot=true stop=true
+=== RUN   TestGrokAdapterPinnedNativeInputSnapshotAndRecheck/current_drift
+--- PASS: TestGrokAdapterPinnedNativeInputSnapshotAndRecheck (2.16s)
+    --- PASS: TestGrokAdapterPinnedNativeInputSnapshotAndRecheck/input_snapshot (1.04s)
+    --- PASS: TestGrokAdapterPinnedNativeInputSnapshotAndRecheck/long_prompt (1.00s)
+    --- PASS: TestGrokAdapterPinnedNativeInputSnapshotAndRecheck/current_drift (0.13s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime/grok	3.827s

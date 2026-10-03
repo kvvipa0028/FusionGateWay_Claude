@@ -41,3 +41,5 @@ Adapter 的 Observation 仅在同 generation 的终态后读取，包含已解�
 [READ-01](grok-read-tools.md) 提供绑定到同一任务Cwd的可选文本Read授权与Native trace/后续HTTP关联；公共Adapter/Worker注册、真正OS隔离、恢复与停止证明仍待接入。
 
 [WP-13-CHANNEL-01](../work-items/WP-13/CHANNEL-01/summary.md) 将可信GrokChannel接入同一私有lease/Supervisor。Spec拒绝双typed channel/零值wrapper；GLM拒绝caller注入GrokChannel。冻结1.0.48实际hash、subscription target与独占双栈/v1 endpoint，config0600/privateGROK_HOME只含stage grant、标题同模型/禁用turn summary与auto update，保持Mach/fork/其它网络拒绝。实际Native合成读取/重试/预算/拒绝/取消/reap/StopProof/release已验证；完整Grok Adapter、真实Forwarder/准入/Resume/写权限与源目录稳定性仍待完成，详见[专门合同](grok-managed-channel.md)。
+
+[WP-13-ADAPTER-01](../work-items/WP-13/ADAPTER-01/summary.md) 新增grok.Adapter：可信Scheduler/Manager/Current/NativeForwarder-wired只读启动，拒绝caller所有launch controls、write/effort overrides。私有64KiB prompt在服务前复制，通过固定--prompt-file/新UUID/argv，三次prepared复核后交Supervisor。只有完整Session+Gate+actualexit0/EOF才保留text；Observation只读本实例同generation终态，失败无成功text，独立flags保持false，Release核验本SupervisorStopProof。真实X Forwarder/准入、Source稳定性/Resume/write/产品注册继续未完成，详见[grok-adapter.md](grok-adapter.md)。

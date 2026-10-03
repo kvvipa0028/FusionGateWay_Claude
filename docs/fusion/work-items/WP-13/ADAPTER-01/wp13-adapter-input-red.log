@@ -1,0 +1,8 @@
+=== RUN   TestGrokAdapterPinnedNativeInputSnapshotAndRecheck
+=== RUN   TestGrokAdapterPinnedNativeInputSnapshotAndRecheck/input_snapshot
+    managed_native_test.go:427: private prompt changed with caller input
+--- FAIL: TestGrokAdapterPinnedNativeInputSnapshotAndRecheck (1.04s)
+    --- FAIL: TestGrokAdapterPinnedNativeInputSnapshotAndRecheck/input_snapshot (1.04s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/grok	1.696s
+FAIL

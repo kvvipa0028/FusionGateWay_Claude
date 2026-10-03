@@ -2,7 +2,7 @@
 
 状态：in_progress。已完成 [PROTOCOL-01](PROTOCOL-01/summary.md)：固定 Native headless fixture、辅助调用/工具声明调查、有界协议观察器及回归。
 
-交付中的 grok-adapter 尚未完成：生产启动与 stdout/stderr/产物连接、私有认证、生产完整模型调用许可与额度/计费、准确 Resume、取消后不继续写以及真实路线准入仍待验证。当前 `Session.Resume` 明确 unsupported，未注册任何 Grok Worker。
+受管只读 grok.Adapter 已实现生产启动、协议/text终态观察及取消/StopProof/release；完整接入中的真实NativeForwarder/私有X认证/额度计费、稳定Source、写权限、准确Resume与产品注册仍待完成。当前Session/Adapter.Resume明确unsupported，未注册真实Grok Worker。
 
 Parent 关联 T01/T02/T14/T15/T25/T31/T32/T35/T44/T56/T59 只新增了组件级证据，60 类最终 Gate 全部仍 not_run。Jev off，现有 GLM/Codex 行为和产品执行开关保持原状。
 
@@ -15,3 +15,5 @@ Parent 关联 T01/T02/T14/T15/T25/T31/T32/T35/T44/T56/T59 只新增了组件级�
 [READ-01](READ-01/summary.md) 已完成可选受控文本Read：Native前路径/文件批准、trace/后续HTTP关联、JSON转义凭据保护，真实固定Native+Store/Scheduler的13行项目读取与私有config拦截通过。生产NativeForwarder/Worker、OS隔离、写工具、Resume和真实准入继续未完成。
 
 [CHANNEL-01](CHANNEL-01/summary.md) 已连接可信 GrokChannel、独占双栈端口、私有GROK_HOME/config与公共Supervisor。实际固定Native8场景通过真实Store/Manager/Scheduler和default-deny profile，包含读取、拒绝、重试、预算、取消/StopProof/release；C探针验证OS边界，Claude兼容性回归。完整Adapter/真实NativeForwarder/准入、Resume/写权限/产品注册仍未完成。合同：[grok-managed-channel.md](../../contracts/grok-managed-channel.md)。
+
+[ADAPTER-01](ADAPTER-01/summary.md) 已实现可信readonly Adapter：Scheduler重核、复制prompt、私有prompt-file、全新UUID/固定argv、ReadTools/Gate/channel/Supervisor、终态Observation与可信release。实际Native8场景及snapshot/40KB/drift3场景通过；完整真实路线、写/effort/Resume、产品注册与final Gate仍未完成。合同：[grok-adapter.md](../../contracts/grok-adapter.md)。

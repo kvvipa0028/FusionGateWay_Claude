@@ -11,6 +11,7 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
+	"sync"
 	"sync/atomic"
 	"testing"
 	"time"
@@ -26,10 +27,18 @@ func TestManagedPinnedNativeGrokChannel(t *testing.T) {
 		t.Skip("explicit pinned Native fixture only")
 	}
 	for _, mode := range []string{"success", "read", "private_config", "outside_read", "write_unsupported", "budget_exhausted", "cancel_inflight", "sdk_retry"} {
-		t.Run(mode, func(t *testing.T) { managedNativeGrok(t, mode) })
+		t.Run(mode, func(t *testing.T) { managedNativeGrok(t, mode, false) })
 	}
 }
-func managedNativeGrok(t *testing.T, mode string) {
+func TestGrokAdapterPinnedNative(t *testing.T) {
+	if *nativeGateCLI == "" {
+		t.Skip("explicit pinned Native Adapter fixture only")
+	}
+	for _, mode := range []string{"success", "read", "private_config", "outside_read", "write_unsupported", "budget_exhausted", "cancel_inflight", "sdk_retry"} {
+		t.Run(mode, func(t *testing.T) { managedNativeGrok(t, mode, true) })
+	}
+}
+func managedNativeGrok(t *testing.T, mode string, viaAdapter bool) {
 	t.Helper()
 	exe, e := filepath.EvalSymlinks(*nativeGateCLI)
 	if e != nil {
@@ -73,15 +82,19 @@ func managedNativeGrok(t *testing.T, mode string) {
 	f.config.Current = func(got GateBinding) bool {
 		return current(got.Observer) && managedFixtureEqualTarget(got.Target, run.Target)
 	}
-	read, e := NewReadTools(b, current)
-	if e != nil {
-		t.Fatal(e)
-	}
-	defer read.Close()
-	f.config.ReadTools = read
-	observer, e := NewReadSession(b, current, read)
-	if e != nil {
-		t.Fatal(e)
+	var read *ReadTools
+	var observer *Session
+	if !viaAdapter {
+		read, e = NewReadTools(b, current)
+		if e != nil {
+			t.Fatal(e)
+		}
+		defer read.Close()
+		f.config.ReadTools = read
+		observer, e = NewReadSession(b, current, read)
+		if e != nil {
+			t.Fatal(e)
+		}
 	}
 	var mainCalls atomic.Int64
 	entered, transportDone := make(chan struct{}, 1), make(chan struct{}, 1)
@@ -135,12 +148,16 @@ func managedNativeGrok(t *testing.T, mode string) {
 		reply := strings.Replace(gateSSE, `"content":"fixture"`, `"content":"Fixture ready."`, 1)
 		return ForwardResponse{StatusCode: 200, ContentType: "text/event-stream", Body: io.NopCloser(strings.NewReader(reply))}, nil
 	})
-	gate := newGate(t, f)
-	channel, e := managed.NewGrokChannel(gate, pending, run.Target)
-	if e != nil {
-		t.Fatal(e)
+	var gate *CallGate
+	var channel *managed.GrokChannel
+	if !viaAdapter {
+		gate = newGate(t, f)
+		channel, e = managed.NewGrokChannel(gate, pending, run.Target)
+		if e != nil {
+			t.Fatal(e)
+		}
+		defer channel.Close()
 	}
-	defer channel.Close()
 	var observed atomic.Bool
 	var outcome Outcome
 	args := []string{"--single", "Reply Fixture ready.", "--model", "fusion", "--output-format", "streaming-json", "--permission-mode", "dontAsk", "--no-subagents", "--max-turns", "3", "--tools", "Read", "--disallowed-tools", "search_tool,use_tool", "--disable-web-search", "--no-auto-update", "--cwd", cwd, "--session-id", b.NativeSessionID}
@@ -166,7 +183,22 @@ func managedNativeGrok(t *testing.T, mode string) {
 	}}
 	sup := managed.NewSupervisor(s)
 	scheduler.VerifyStop = sup.VerifyStop
-	h, e := sup.Start(context.Background(), run, spec)
+	var adapter *Adapter
+	var h *managed.Handle
+	verifyStop := sup.VerifyStop
+	release := scheduler.Release
+	if viaAdapter {
+		pending.Cancel() // Adapter must create its own grant and lease
+		adapter, e = NewAdapter(AdapterConfig{Scheduler: *scheduler, Manager: f.manager, Executable: exe, Current: func(got GateBinding) bool { return got.Target.CredentialIdentity == run.Target.CredentialIdentity }, Forwarder: f.config.Forwarder})
+		if e != nil {
+			t.Fatal(e)
+		}
+		verifyStop = adapter.VerifyStop
+		release = adapter.Release
+		h, e = adapter.Start(context.Background(), run, managed.Spec{Root: root, Workspace: cwd, Timeout: 15 * time.Second, Input: []byte("Reply Fixture ready.")})
+	} else {
+		h, e = sup.Start(context.Background(), run, spec)
+	}
 	if e != nil {
 		if h != nil {
 			h.Cancel()
@@ -180,7 +212,12 @@ func managedNativeGrok(t *testing.T, mode string) {
 		case <-time.After(10 * time.Second):
 			t.Fatal("Native controlled request absent")
 		}
-		if channel.Close() == nil {
+		if viaAdapter {
+			if _, text, e := adapter.Observation(run.ID, run.Generation); e == nil || text != "" {
+				t.Fatal("running Adapter exposed terminal output")
+			}
+		}
+		if !viaAdapter && channel.Close() == nil {
 			t.Fatal("active process lost owned ports")
 		}
 		if e := h.Cancel(); e != nil {
@@ -195,8 +232,59 @@ func managedNativeGrok(t *testing.T, mode string) {
 	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 	defer cancel()
 	result, e := h.Wait(ctx)
-	if e != nil || !result.StoppedVerified || !sup.VerifyStop(result.Proof) {
+	if e != nil || !result.StoppedVerified || !verifyStop(result.Proof) {
 		t.Fatal("Native stop not proven", e, result.State, result.ExitCode)
+	}
+	if viaAdapter {
+		outcome, text, observeErr := adapter.Observation(run.ID, run.Generation)
+		if observeErr != nil {
+			t.Fatal("Adapter terminal observation refused", observeErr)
+		}
+		// Native protocol labels remain separate from stop/admission proof.
+		if outcome.StrictLockVerified || outcome.BillingVerified || outcome.QuotaVerified || outcome.StoppedVerified {
+			t.Fatal("Adapter promoted independent evidence")
+		}
+		if mode == "success" || mode == "read" || mode == "sdk_retry" {
+			if outcome.State != "succeeded" || text != "Fixture ready." || outcome.SessionID != result.Proof.NativeSessionID || !uuid.MatchString(outcome.SessionID) {
+				t.Fatal("Adapter outcome/text/session mismatch", outcome.State, len(text))
+			}
+		} else if outcome.State == "succeeded" || text != "" {
+			t.Fatal("failed Adapter returned success text")
+		}
+		if _, _, e := adapter.Observation(run.ID, run.Generation+1); e == nil {
+			t.Fatal("foreign generation observed")
+		}
+		budget, _ := s.Budget(run.TaskID)
+		want := int64(2)
+		if mode == "read" || mode == "sdk_retry" {
+			want = 3
+		}
+		if mode == "budget_exhausted" {
+			want = 1
+		}
+		if int64(budget.UsedCalls) != want || f.calls.Load() != want {
+			t.Fatal("Adapter persistent count mismatch", budget.UsedCalls, f.calls.Load())
+		}
+		if mode == "cancel_inflight" && result.State != "cancelled" {
+			t.Fatal("Adapter cancel not persisted", result.State)
+		}
+		if e := release(result.Proof); e != nil {
+			t.Fatal("Adapter stop release refused", e)
+		}
+		after, e := os.ReadFile(owned)
+		if e != nil || !bytes.Equal(after, ownedText) {
+			t.Fatal("Adapter readonly file changed")
+		}
+		after, e = os.ReadFile(forbidden)
+		if e != nil || string(after) != "FUSION_FORBIDDEN_MARKER\n" {
+			t.Fatal("Adapter outside file changed")
+		}
+		promptInfo, e := os.Stat(filepath.Join(root, "grok-prompt.txt"))
+		if e != nil || promptInfo.Mode().Perm() != 0600 {
+			t.Fatal("Adapter prompt not private")
+		}
+		t.Logf("synthetic Adapter mode=%s state=%s exit=%d stop=true HTTP/budget=%d model-label-calls=%d", mode, result.State, result.ExitCode, want, outcome.NativeModelCalls)
+		return
 	}
 	audit := gate.Audit()
 	budget, e := s.Budget(run.TaskID)
@@ -242,7 +330,7 @@ func managedNativeGrok(t *testing.T, mode string) {
 	if e != nil || bytes.Contains(encoded, []byte(f.token)) || bytes.Contains(journal, []byte(f.token)) {
 		t.Fatal("report/journal exposed grant")
 	}
-	if e := scheduler.Release(result.Proof); e != nil {
+	if e := release(result.Proof); e != nil {
 		t.Fatal("stop proof did not release reservation", e)
 	}
 	after, e := os.ReadFile(owned)
@@ -260,4 +348,96 @@ func managedFixtureEqualTarget(a, b stageplan.ExecutionTarget) bool {
 	x, e := json.Marshal(a)
 	y, f := json.Marshal(b)
 	return e == nil && f == nil && bytes.Equal(x, y)
+}
+
+func TestGrokAdapterPinnedNativeInputSnapshotAndRecheck(t *testing.T) {
+	if *nativeGateCLI == "" {
+		t.Skip("explicit pinned Native input/recheck fixture only")
+	}
+	exe, e := filepath.EvalSymlinks(*nativeGateCLI)
+	if e != nil {
+		t.Fatal(e)
+	}
+	for _, mode := range []string{"input_snapshot", "long_prompt", "current_drift"} {
+		t.Run(mode, func(t *testing.T) {
+			c, r, in, calls, _ := adapterFixture(t)
+			c.Executable = exe
+			input := []byte("Reply Fixture ready.")
+			if mode == "long_prompt" {
+				input = append(input, bytes.Repeat([]byte("x"), 40000)...)
+			}
+			want := append([]byte(nil), input...)
+			in.Input = input
+			var once sync.Once
+			var checks atomic.Int64
+			c.Current = func(got GateBinding) bool {
+				if mode == "input_snapshot" {
+					once.Do(func() {
+						for i := range input {
+							input[i] = 'Y'
+						}
+					})
+				}
+				if mode == "current_drift" && checks.Add(1) > 1 {
+					return false
+				}
+				// Caller can mutate its received copy, never the Adapter's frozen binding.
+				got.Observer.Tools[0] = "caller-changed"
+				got.Target.Capabilities[0] = "caller-changed"
+				return true
+			}
+			c.Forwarder = fakeForwarder(func(ctx context.Context, target stageplan.ExecutionTarget, raw []byte) (ForwardResponse, error) {
+				calls.Add(1)
+				if target.RequestedModel != "fixture-model" || target.CredentialIdentity != r.Target.CredentialIdentity {
+					return ForwardResponse{}, ErrIdentity
+				}
+				return ForwardResponse{StatusCode: 200, ContentType: "text/event-stream", Body: io.NopCloser(strings.NewReader(strings.Replace(gateSSE, `"content":"fixture"`, `"content":"Fixture ready."`, 1)))}, nil
+			})
+			a, e := NewAdapter(c)
+			if e != nil {
+				t.Fatal(e)
+			}
+			h, e := a.Start(context.Background(), r, in)
+			if mode == "current_drift" {
+				if e == nil || h != nil || calls.Load() != 0 {
+					t.Fatal("drift reached Native")
+				}
+				if _, e := os.Stat(filepath.Join(in.Root, "launch.json")); !os.IsNotExist(e) {
+					t.Fatal("drift spawned")
+				}
+				if _, e := os.Stat(filepath.Join(in.Root, "grok-prompt.txt")); !os.IsNotExist(e) {
+					t.Fatal("drift published private input")
+				}
+				b, e := c.Scheduler.Store.Budget(r.TaskID)
+				if e != nil || b.UsedCalls != 0 {
+					t.Fatal("drift spent")
+				}
+				return
+			}
+			if e != nil || h == nil {
+				if h != nil {
+					h.Cancel()
+				}
+				t.Fatal("Native prompt launch failed", e)
+			}
+			defer h.Cancel()
+			ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+			defer cancel()
+			result, e := h.Wait(ctx)
+			if e != nil || result.State != "succeeded" || !result.StoppedVerified || !a.VerifyStop(result.Proof) {
+				t.Fatal("prompt Native failed", e, result.State)
+			}
+			got, e := os.ReadFile(filepath.Join(in.Root, "grok-prompt.txt"))
+			if e != nil || !bytes.Equal(got, want) {
+				t.Fatal("private prompt changed with caller input")
+			}
+			if calls.Load() != 2 {
+				t.Fatal("prompt changed call count")
+			}
+			if e := a.Release(result.Proof); e != nil {
+				t.Fatal(e)
+			}
+			t.Logf("synthetic prompt mode=%s bytes=%d HTTP=2 private0600 snapshot=true stop=true", mode, len(want))
+		})
+	}
 }

@@ -75,3 +75,5 @@ WP-11 Worker/项目副本基础已完成本机原生沙箱验证：[Runtime 合�
 Grok 固定 Native 的 headless 观察器、逐 HTTP Gate 和可选受控文本Read已完成本机合成诊断与真实 Store/Scheduler 预算回归，WP-13 仍在实施中：[进度](work-items/WP-13/summary.md)、[锁定边界](work-items/WP-13/grok-lock-capability.md)。真实 Grok Worker、订阅准入及准确恢复尚未完成。
 
 Grok受管生命周期组件：[CHANNEL-01证据](work-items/WP-13/CHANNEL-01/summary.md)、[channel合同](contracts/grok-managed-channel.md)。实际固定Native合成8场景与StopProof已验证；完整Adapter/真实X路线与产品执行仍未准入。
+
+Grok只读Runtime Adapter：[ADAPTER-01证据](work-items/WP-13/ADAPTER-01/summary.md)、[Adapter合同](contracts/grok-adapter.md)。实际固定Native/private prompt/read/取消/停止已验证；真实X准入、Resume/write/工程闭环与final Gate继续待完成。

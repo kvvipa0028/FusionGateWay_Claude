@@ -1,0 +1,8 @@
+# github.com/yetone/magpie/internal/fusion/runtime/grok [github.com/yetone/magpie/internal/fusion/runtime/grok.test]
+internal/fusion/runtime/grok/adapter_test.go:19:36: undefined: AdapterConfig
+internal/fusion/runtime/grok/adapter_test.go:25:12: undefined: AdapterConfig
+internal/fusion/runtime/grok/adapter_test.go:59:14: undefined: NewAdapter
+internal/fusion/runtime/grok/adapter_test.go:108:12: undefined: NewAdapter
+internal/fusion/runtime/grok/adapter_test.go:130:10: undefined: NewAdapter
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/grok [build failed]
+FAIL
