@@ -20,6 +20,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/yetone/magpie/internal/fusion/isolation"
 	"github.com/yetone/magpie/internal/proc"
 	"golang.org/x/text/unicode/norm"
 )
@@ -45,6 +46,9 @@ func claudeDirService(dir string) string {
 // readClaudeDir is the sign-in Claude Code keeps in config directory dir,
 // where it looks first: the keychain on a Mac, then the file.
 func readClaudeDir(dir string) (claudeCredentials, bool) {
+	if isolation.Development {
+		return claudeCredentials{}, false
+	}
 	if claudeKeychain {
 		out, err := proc.Command("security", "find-generic-password", "-s", claudeDirService(dir), "-a", claudeKeychainAccount(), "-w").Output()
 		if err == nil {

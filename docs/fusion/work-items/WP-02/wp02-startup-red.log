@@ -1,0 +1,7 @@
+--- FAIL: TestFusionRejectsStateInsideGitWorkspace (0.00s)
+    isolation_test.go:76: state inside Git workspace accepted
+--- FAIL: TestFusionRejectsAmbientProviderCredentials (0.00s)
+    isolation_test.go:82: ambient provider credentials accepted
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/isolation	0.337s
+FAIL

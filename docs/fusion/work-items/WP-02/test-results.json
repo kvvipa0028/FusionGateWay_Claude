@@ -1,0 +1,133 @@
+{
+  "checks": [
+    {
+      "command": [
+        "go",
+        "test",
+        "-mod=readonly",
+        "-tags",
+        "fusion,nogui",
+        "./internal/fusion/isolation",
+        "./internal/appdir",
+        "./internal/update",
+        "./internal/gateway",
+        "./internal/plugin",
+        "./internal/davsync",
+        "./internal/autostart",
+        "./internal/provider",
+        "-run",
+        "^TestFusion",
+        "-count=1",
+        "-v"
+      ],
+      "exit_code": 0,
+      "tests_passed": 14,
+      "log": "wp02-targeted-final.log"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/fusion",
+        "-v"
+      ],
+      "exit_code": 0,
+      "tests_passed": 24,
+      "log": "wp02-python-green.log"
+    },
+    {
+      "check": "upstream-regression",
+      "command": [
+        "go",
+        "test",
+        "-mod=readonly",
+        "-tags",
+        "nogui",
+        "-count=1",
+        "-json",
+        ".",
+        "./internal/appdir",
+        "./internal/autostart",
+        "./internal/davsync",
+        "./internal/gateway",
+        "./internal/plugin",
+        "./internal/update"
+      ],
+      "exit_code": 0,
+      "log": "wp02-upstream-regression.log"
+    },
+    {
+      "check": "credential-regression",
+      "command": [
+        "go",
+        "test",
+        "-mod=readonly",
+        "-tags",
+        "nogui",
+        "-count=1",
+        "-json",
+        "./internal/provider",
+        "./internal/agent"
+      ],
+      "exit_code": 0,
+      "log": "wp02-credential-regression.log"
+    },
+    {
+      "command": [
+        "python3",
+        "scripts/fusion/build-dev.py"
+      ],
+      "exit_code": 0,
+      "report": "build-results.json"
+    },
+    {
+      "command": [
+        "python3",
+        "scripts/fusion/run-dev.py",
+        "--",
+        "fusion-status"
+      ],
+      "exit_code": 0,
+      "report": "native-status.json"
+    },
+    {
+      "check": "unisolated binary startup refusal",
+      "exit_code": 1,
+      "expected_refusal": true,
+      "report": "unisolated-refusal.json"
+    },
+    {
+      "check": "daily Claude settings and auth file before/after SHA256",
+      "result": "unchanged"
+    }
+  ],
+  "upstream_regression_test_totals": {
+    "pass": 2892,
+    "skip": 61,
+    "fail": 0
+  },
+  "red_evidence": [
+    "wp02-red.log",
+    "wp02-policy-red.log",
+    "wp02-autostart-red.log",
+    "wp02-launcher-red.log",
+    "wp02-keychain-red.log",
+    "wp02-startup-red.log"
+  ],
+  "scope": [
+    "macOS/arm64 development build",
+    "T26/T52/T60 WP-02 isolation assertions only"
+  ],
+  "not_verified": [
+    "GUI interaction",
+    "simultaneous running original GUI and Fusion GUI",
+    "new task API authentication",
+    "strict locked",
+    "real Runtime account admission",
+    "data backup/migration/restore",
+    "Windows isolation"
+  ]
+}

@@ -3,7 +3,10 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"github.com/yetone/magpie/internal/appdir"
+	"github.com/yetone/magpie/internal/fusion/isolation"
 	"os"
 	"strings"
 	"time"
@@ -109,6 +112,23 @@ var (
 )
 
 func main() {
+	if err := isolation.ValidateEnvironment(); err != nil {
+		fmt.Fprintln(os.Stderr, isolation.Name+":", err)
+		os.Exit(1)
+	}
+	if isolation.Development && appdir.Portable() != "" {
+		fmt.Fprintln(os.Stderr, "Fusion development requires its isolated launcher, without portable state")
+		os.Exit(1)
+	}
+	if isolation.Development && len(os.Args) == 2 && os.Args[1] == "fusion-status" {
+		_ = json.NewEncoder(os.Stdout).Encode(map[string]any{
+			"product": isolation.Name, "state_root": os.Getenv("FUSION_STATE_ROOT"),
+			"gateway_address": gateway.Addr(), "features_enabled": isolation.Enabled(),
+			"upstream_updates": false, "plugins": false, "cloud_sync": false, "autostart": false,
+		})
+		return
+	}
+
 	if provider.TookOpenedURL(os.Args[1:]) {
 		// Claude Code, signing in for magpie, handed over the page to open
 		return
@@ -121,7 +141,7 @@ func main() {
 	proc.EndProbes() // a CLI still being asked something isn't left to init
 	sessions.Saved() // the session index kept, for the next run
 	if err != nil {
-		fmt.Fprintln(os.Stderr, "magpie:", err)
+		fmt.Fprintln(os.Stderr, isolation.Name+":", err)
 		os.Exit(1)
 	}
 }
@@ -147,22 +167,24 @@ func run(args []string) error {
 	agent.MoveOffAccountIDs()
 	// a provider added, edited or removed, or a list fetched anew, reaches
 	// the model lists agents keep in files of their own
-	catalog.Changed = agent.SyncCatalog
-	// a model Claude Code names that magpie doesn't serve goes to the one
-	// it is set to use for that tier
-	gateway.StandIn = agent.StandIn
-	// the setup kept the same on every computer, by whichever serves
-	gateway.WhileServing = append(gateway.WhileServing, davsync.Run)
-	// and dsh's patch lists, which dsh reads live: a route left behind by
-	// something else writing the file fails every session there until
-	// magpie writes its own list again
-	gateway.WhileServing = append(gateway.WhileServing, agent.KeepDshWired)
-	// and the request archive, when it is on, goes to the bucket sync is to
-	gateway.ArchiveBucket = func() (gateway.Putter, bool) {
-		if b, ok := davsync.S3Bucket(); ok {
-			return b, true
+	if !isolation.Development {
+		catalog.Changed = agent.SyncCatalog
+		// a model Claude Code names that magpie doesn't serve goes to the one
+		// it is set to use for that tier
+		gateway.StandIn = agent.StandIn
+		// the setup kept the same on every computer, by whichever serves
+		gateway.WhileServing = append(gateway.WhileServing, davsync.Run)
+		// and dsh's patch lists, which dsh reads live: a route left behind by
+		// something else writing the file fails every session there until
+		// magpie writes its own list again
+		gateway.WhileServing = append(gateway.WhileServing, agent.KeepDshWired)
+		// and the request archive, when it is on, goes to the bucket sync is to
+		gateway.ArchiveBucket = func() (gateway.Putter, bool) {
+			if b, ok := davsync.S3Bucket(); ok {
+				return b, true
+			}
+			return nil, false
 		}
-		return nil, false
 	}
 	if len(args) == 0 {
 		if hasGUI {
@@ -205,7 +227,7 @@ func run(args []string) error {
 		fmt.Print(usage)
 		return nil
 	case "-v", "--version", "version":
-		fmt.Println("magpie", version)
+		fmt.Println(isolation.Name, version)
 		return nil
 	case "ls", "list":
 		// in the order the app lists them; those hidden there come last, dimmed

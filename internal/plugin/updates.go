@@ -23,6 +23,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/yetone/magpie/internal/fusion/isolation"
 	"github.com/yetone/magpie/internal/settings"
 	"github.com/yetone/magpie/internal/steady"
 	"github.com/yetone/magpie/internal/update"
@@ -206,6 +207,9 @@ func CheckUpdates(ctx context.Context) (Updates, error) {
 // every updateEvery, run by the magpie serving the gateway (one magpie,
 // never two at once).
 func KeepUpdated(ctx context.Context) {
+	if isolation.Development {
+		return
+	}
 	t := time.NewTimer(30 * time.Second)
 	defer t.Stop()
 	for {

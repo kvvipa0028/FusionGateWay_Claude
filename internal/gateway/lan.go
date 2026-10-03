@@ -12,6 +12,7 @@ import (
 	"sync"
 
 	"github.com/yetone/magpie/internal/access"
+	"github.com/yetone/magpie/internal/fusion/isolation"
 	"github.com/yetone/magpie/internal/provider"
 	"github.com/yetone/magpie/internal/settings"
 	"github.com/yetone/magpie/internal/usage"
@@ -23,6 +24,9 @@ import (
 // listenAddr is where the gateway listens: every interface while it is
 // shared, on its port, else its address.
 func listenAddr() string {
+	if isolation.Development {
+		return DefaultAddr
+	}
 	if s := settings.Load(); s.LAN {
 		return "0.0.0.0:" + Port()
 	}

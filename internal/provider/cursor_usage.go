@@ -27,6 +27,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/yetone/magpie/internal/fusion/isolation"
 	"github.com/yetone/magpie/internal/proc"
 )
 
@@ -35,11 +36,14 @@ var cursorBase = "https://api2.cursor.sh"
 
 // cursorKeychain reads cursor-agent's token from the macOS Keychain; a var
 // so tests stay off the real one.
-var cursorKeychain = runtime.GOOS == "darwin"
+var cursorKeychain = runtime.GOOS == "darwin" && !isolation.Development
 
 // cursorToken is the access token cursor-agent signed in with: in the
 // Keychain on a Mac, in its auth.json elsewhere.
 func cursorToken() (string, error) {
+	if isolation.Development {
+		return "", isolation.ErrDisabled
+	}
 	if cursorKeychain {
 		out, err := proc.Command("security", "find-generic-password", "-s", "cursor-access-token", "-a", "cursor-user", "-w").Output()
 		if tok := strings.TrimSpace(string(out)); err == nil && tok != "" {

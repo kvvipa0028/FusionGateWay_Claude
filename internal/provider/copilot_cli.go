@@ -22,6 +22,7 @@ import (
 
 	"github.com/tidwall/jsonc"
 
+	"github.com/yetone/magpie/internal/fusion/isolation"
 	"github.com/yetone/magpie/internal/proc"
 )
 
@@ -95,6 +96,9 @@ var copilotSecrets struct {
 // copilotCLISecret reads the CLI's token from the keychain, once in a
 // while: each read may ask the user to allow it.
 var copilotCLISecret = func(account string) string {
+	if isolation.Development {
+		return ""
+	}
 	c := &copilotSecrets
 	c.Lock()
 	defer c.Unlock()

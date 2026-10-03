@@ -7,9 +7,11 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+
+	"github.com/yetone/magpie/internal/fusion/isolation"
 )
 
-const label = "com.yetone.magpie"
+const label = isolation.ServiceName
 
 func record() string {
 	home, _ := os.UserHomeDir()

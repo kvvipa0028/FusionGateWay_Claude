@@ -25,6 +25,7 @@ import (
 
 	"github.com/tidwall/gjson"
 
+	"github.com/yetone/magpie/internal/fusion/isolation"
 	"github.com/yetone/magpie/internal/netproxy"
 	"github.com/yetone/magpie/internal/plugin"
 	"github.com/yetone/magpie/internal/provider"
@@ -34,7 +35,7 @@ import (
 )
 
 // DefaultAddr is where the gateway listens unless MAGPIE_ADDR says otherwise.
-const DefaultAddr = "127.0.0.1:3425"
+const DefaultAddr = isolation.DefaultAddr
 
 // Token is the bearer token agents are told to use. The gateway only
 // listens on loopback and accepts anything, but agents insist on one.
@@ -141,6 +142,9 @@ var Version = "dev"
 
 // Addr is the listen address.
 func Addr() string {
+	if isolation.Development {
+		return DefaultAddr
+	}
 	if a := os.Getenv("MAGPIE_ADDR"); a != "" {
 		return a
 	}
@@ -346,20 +350,22 @@ func (s *Server) ListenAndServe(ctx context.Context) error {
 	srv := &http.Server{Handler: lanGuard(s.Handler()), ReadHeaderTimeout: 30 * time.Second, IdleTimeout: 5 * time.Minute}
 	// the magpie serving the gateway, and only it, keeps the saved accounts
 	// signed in, so two never refresh one sign-in at once
-	go provider.KeepLoginsAlive(ctx)
-	// and signs Codex and Claude Code in to their next account when the
-	// one they are on is spent
-	go provider.KeepOnAnAccountWithRoom(ctx)
-	// and, when settings say to, starts its accounts' next windows as the last reset
-	go provider.KeepCodexWindowsWarm(ctx)
-	go provider.KeepClaudeWindowsWarm(ctx, warmClaude)
-	// and checks the WorkBuddy accounts in for the day's credits
-	go provider.KeepWorkBuddyCheckedIn(ctx)
-	// and moves the built-in subscriptions being retired onto their plugins
-	go provider.KeepRetiringMoved(ctx)
-	// and keeps the community's plugins up to date, noting others' updates, and the Bun they run on
-	go plugin.KeepUpdated(ctx)
-	go plugin.KeepBunUpdated(ctx)
+	if !isolation.Development {
+		go provider.KeepLoginsAlive(ctx)
+		// and signs Codex and Claude Code in to their next account when the
+		// one they are on is spent
+		go provider.KeepOnAnAccountWithRoom(ctx)
+		// and, when settings say to, starts its accounts' next windows as the last reset
+		go provider.KeepCodexWindowsWarm(ctx)
+		go provider.KeepClaudeWindowsWarm(ctx, warmClaude)
+		// and checks the WorkBuddy accounts in for the day's credits
+		go provider.KeepWorkBuddyCheckedIn(ctx)
+		// and moves the built-in subscriptions being retired onto their plugins
+		go provider.KeepRetiringMoved(ctx)
+		// and keeps the community's plugins up to date, noting others' updates, and the Bun they run on
+		go plugin.KeepUpdated(ctx)
+		go plugin.KeepBunUpdated(ctx)
+	}
 	for _, f := range WhileServing {
 		go f(ctx)
 	}

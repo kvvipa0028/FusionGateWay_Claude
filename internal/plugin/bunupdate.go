@@ -24,6 +24,7 @@ import (
 	"time"
 
 	"github.com/yetone/magpie/internal/catalog"
+	"github.com/yetone/magpie/internal/fusion/isolation"
 	"github.com/yetone/magpie/internal/steady"
 	"github.com/yetone/magpie/internal/update"
 )
@@ -277,6 +278,9 @@ func pruneBuns(s bunState) {
 // KeepBunUpdated looks for a newer Bun a little after magpie starts, then
 // every updateEvery, while there are plugins to run on it.
 func KeepBunUpdated(ctx context.Context) {
+	if isolation.Development {
+		return
+	}
 	t := time.NewTimer(2 * time.Minute)
 	defer t.Stop()
 	for {

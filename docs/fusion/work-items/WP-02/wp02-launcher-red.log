@@ -1,0 +1,50 @@
+test_existing_daily_files_are_not_changed (test_dev_launcher.DevLauncherTests) ... FAIL
+test_no_daily_auth_or_provider_environment_is_inherited (test_dev_launcher.DevLauncherTests) ... FAIL
+test_only_explicit_fusion_build_is_admitted (test_dev_launcher.DevLauncherTests) ... FAIL
+test_state_and_client_home_are_private_and_separate (test_dev_launcher.DevLauncherTests) ... FAIL
+test_unsafe_state_is_refused_without_chmod_or_redirect (test_dev_launcher.DevLauncherTests) ... FAIL
+
+======================================================================
+FAIL: test_existing_daily_files_are_not_changed (test_dev_launcher.DevLauncherTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/tests/fusion/test_dev_launcher.py", line 15, in setUp
+    self.assertTrue(SCRIPT.is_file(), "isolated development launcher missing")
+AssertionError: False is not true : isolated development launcher missing
+
+======================================================================
+FAIL: test_no_daily_auth_or_provider_environment_is_inherited (test_dev_launcher.DevLauncherTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/tests/fusion/test_dev_launcher.py", line 15, in setUp
+    self.assertTrue(SCRIPT.is_file(), "isolated development launcher missing")
+AssertionError: False is not true : isolated development launcher missing
+
+======================================================================
+FAIL: test_only_explicit_fusion_build_is_admitted (test_dev_launcher.DevLauncherTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/tests/fusion/test_dev_launcher.py", line 15, in setUp
+    self.assertTrue(SCRIPT.is_file(), "isolated development launcher missing")
+AssertionError: False is not true : isolated development launcher missing
+
+======================================================================
+FAIL: test_state_and_client_home_are_private_and_separate (test_dev_launcher.DevLauncherTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/tests/fusion/test_dev_launcher.py", line 15, in setUp
+    self.assertTrue(SCRIPT.is_file(), "isolated development launcher missing")
+AssertionError: False is not true : isolated development launcher missing
+
+======================================================================
+FAIL: test_unsafe_state_is_refused_without_chmod_or_redirect (test_dev_launcher.DevLauncherTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/tests/fusion/test_dev_launcher.py", line 15, in setUp
+    self.assertTrue(SCRIPT.is_file(), "isolated development launcher missing")
+AssertionError: False is not true : isolated development launcher missing
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.001s
+
+FAILED (failures=5)

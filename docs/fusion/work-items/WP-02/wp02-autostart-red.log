@@ -1,0 +1,9 @@
+--- FAIL: TestFusionCannotChangeMagpieLaunchAgent (0.00s)
+    fusion_darwin_test.go:21: autostart(false) = <nil>, want disabled
+    fusion_darwin_test.go:23: original launch agent changed: open /tmp/TestFusionCannotChangeMagpieLaunchAgent4230416129/001/Library/LaunchAgents/com.yetone.magpie.plist: no such file or directory
+    fusion_darwin_test.go:21: autostart(true) = <nil>, want disabled
+    fusion_darwin_test.go:23: original launch agent changed: <nil>
+    fusion_darwin_test.go:25: Fusion inherited original autostart
+FAIL
+FAIL	github.com/yetone/magpie/internal/autostart	0.559s
+FAIL

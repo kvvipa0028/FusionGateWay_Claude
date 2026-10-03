@@ -25,7 +25,7 @@
       "id": "WP-02",
       "title": "建立轻量 Fork 的身份与隔离边界",
       "milestone": "M0",
-      "status": "planned",
+      "status": "done",
       "depends_on": [
         "WP-01"
       ],

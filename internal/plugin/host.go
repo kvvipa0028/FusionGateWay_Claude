@@ -22,6 +22,7 @@ import (
 	"time"
 
 	"github.com/yetone/magpie/internal/catalog"
+	"github.com/yetone/magpie/internal/fusion/isolation"
 	"github.com/yetone/magpie/internal/netproxy"
 	"github.com/yetone/magpie/internal/settings"
 )
@@ -241,6 +242,9 @@ func get(ctx context.Context) (*host, error) {
 }
 
 func start(ctx context.Context) (*host, error) {
+	if isolation.Development {
+		return nil, isolation.ErrDisabled
+	}
 	bun, err := Bun(ctx)
 	if err != nil {
 		return nil, err

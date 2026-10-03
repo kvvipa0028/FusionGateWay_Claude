@@ -1,0 +1,44 @@
+=== RUN   TestFusionRejectsUnisolatedHomeBeforeStarting
+--- PASS: TestFusionRejectsUnisolatedHomeBeforeStarting (0.00s)
+=== RUN   TestFusionRejectsMissingStateRoot
+--- PASS: TestFusionRejectsMissingStateRoot (0.00s)
+=== RUN   TestFusionRejectsPublicOrLinkedState
+--- PASS: TestFusionRejectsPublicOrLinkedState (0.00s)
+=== RUN   TestFusionAcceptsPrivateIsolatedState
+--- PASS: TestFusionAcceptsPrivateIsolatedState (0.00s)
+=== RUN   TestFusionRejectsStateInsideGitWorkspace
+--- PASS: TestFusionRejectsStateInsideGitWorkspace (0.00s)
+=== RUN   TestFusionRejectsAmbientProviderCredentials
+--- PASS: TestFusionRejectsAmbientProviderCredentials (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/isolation	0.510s
+=== RUN   TestFusionDirectoriesDoNotUseMagpieState
+--- PASS: TestFusionDirectoriesDoNotUseMagpieState (0.00s)
+=== RUN   TestFusionPortableDoesNotAdoptMagpieMarkers
+--- PASS: TestFusionPortableDoesNotAdoptMagpieMarkers (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/appdir	0.651s
+=== RUN   TestFusionCannotFetchUpstreamUpdate
+--- PASS: TestFusionCannotFetchUpstreamUpdate (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/update	0.522s
+=== RUN   TestFusionDefaultPortIsIndependent
+--- PASS: TestFusionDefaultPortIsIndependent (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/gateway	0.472s
+=== RUN   TestFusionCannotAdoptUnapprovedPlugin
+--- PASS: TestFusionCannotAdoptUnapprovedPlugin (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/plugin	0.383s
+=== RUN   TestFusionCannotConfigureCloudSync
+--- PASS: TestFusionCannotConfigureCloudSync (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/davsync	0.596s
+=== RUN   TestFusionCannotChangeMagpieLaunchAgent
+--- PASS: TestFusionCannotChangeMagpieLaunchAgent (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/autostart	0.346s
+=== RUN   TestFusionDoesNotReadSharedKeychain
+--- PASS: TestFusionDoesNotReadSharedKeychain (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/provider	0.601s

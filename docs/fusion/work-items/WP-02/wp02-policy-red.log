@@ -1,0 +1,22 @@
+--- FAIL: TestFusionRejectsUnisolatedHomeBeforeStarting (0.00s)
+    isolation_test.go:26: unisolated HOME accepted
+--- FAIL: TestFusionRejectsMissingStateRoot (0.00s)
+    isolation_test.go:32: missing isolation root accepted
+--- FAIL: TestFusionRejectsPublicOrLinkedState (0.00s)
+    isolation_test.go:38: public config accepted
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/isolation	0.488s
+--- FAIL: TestFusionCannotAdoptUnapprovedPlugin (0.00s)
+    fusion_test.go:21: plugin adoption = <nil>, want disabled
+    fusion_test.go:22: unapproved plugin persisted
+FAIL
+FAIL	github.com/yetone/magpie/internal/plugin	0.513s
+--- FAIL: TestFusionCannotConfigureCloudSync (0.00s)
+    fusion_test.go:19: configure = <nil>, want disabled
+FAIL
+FAIL	github.com/yetone/magpie/internal/davsync	0.475s
+--- FAIL: TestFusionDefaultPortIsIndependent (0.00s)
+    fusion_test.go:9: address = "127.0.0.1:3425", want independent loopback
+FAIL
+FAIL	github.com/yetone/magpie/internal/gateway	0.459s
+FAIL

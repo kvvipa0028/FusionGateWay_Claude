@@ -34,6 +34,7 @@ import (
 	"github.com/yetone/magpie/internal/agent"
 	"github.com/yetone/magpie/internal/backup"
 	"github.com/yetone/magpie/internal/edit"
+	"github.com/yetone/magpie/internal/fusion/isolation"
 	"github.com/yetone/magpie/internal/library"
 	"github.com/yetone/magpie/internal/profile"
 	"github.com/yetone/magpie/internal/provider"
@@ -159,6 +160,9 @@ func Load() (Config, bool) {
 // empty keeps the one set before — the password only for the same server
 // and user: it is never sent to another, and is asked for again there.
 func Configure(c Config) error {
+	if isolation.Development {
+		return isolation.ErrDisabled
+	}
 	c.Other = nil // kept here, never given
 	c.URL, c.User = strings.TrimSpace(c.URL), strings.TrimSpace(c.User)
 	c.Endpoint, c.Region = strings.TrimSpace(c.Endpoint), strings.TrimSpace(c.Region)
@@ -441,6 +445,9 @@ func Now(ctx context.Context) error { return syncNow(ctx, false) }
 func SyncNow(ctx context.Context) error { return syncNow(ctx, true) }
 
 func syncNow(ctx context.Context, force bool) error {
+	if isolation.Development {
+		return isolation.ErrDisabled
+	}
 	if _, ok := Load(); !ok { // off: no lock taken, so none made
 		return nil
 	}
@@ -503,6 +510,9 @@ func backoff(err error, prev time.Duration) time.Duration {
 // ctx ends — less often while the server is limiting requests. A failure
 // is logged once, not on every try.
 func Run(ctx context.Context) {
+	if isolation.Development {
+		return
+	}
 	t := time.NewTimer(20 * time.Second)
 	defer t.Stop()
 	last, next := "", Every

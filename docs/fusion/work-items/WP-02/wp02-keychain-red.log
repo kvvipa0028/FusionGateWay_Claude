@@ -1,0 +1,10 @@
+=== RUN   TestFusionDoesNotReadSharedKeychain
+    fusion_darwin_test.go:22: shared Claude credential accepted
+    fusion_darwin_test.go:23: shared saved-account keychain read
+    fusion_darwin_test.go:24: shared Cursor credential accepted
+    fusion_darwin_test.go:25: shared Copilot credential accepted
+    fusion_darwin_test.go:26: Fusion accessed shared keychain
+--- FAIL: TestFusionDoesNotReadSharedKeychain (0.45s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/provider	1.094s
+FAIL

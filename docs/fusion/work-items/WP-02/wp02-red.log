@@ -1,0 +1,12 @@
+--- FAIL: TestFusionDirectoriesDoNotUseMagpieState (0.00s)
+    fusion_test.go:18: config = "/tmp/TestFusionDirectoriesDoNotUseMagpieState1885778481/001/config/magpie", want independent "/tmp/TestFusionDirectoriesDoNotUseMagpieState1885778481/001/config/fusion-gateway"
+--- FAIL: TestFusionPortableDoesNotAdoptMagpieMarkers (0.00s)
+    fusion_test.go:31: adopted Magpie portable data: "/private/tmp/TestFusionPortableDoesNotAdoptMagpieMarkers3978756053/001/data"
+FAIL
+FAIL	github.com/yetone/magpie/internal/appdir	0.542s
+--- FAIL: TestFusionCannotFetchUpstreamUpdate (0.00s)
+    fusion_test.go:22: upstream update was accepted
+    fusion_test.go:23: denied update made 1 outbound calls
+FAIL
+FAIL	github.com/yetone/magpie/internal/update	0.571s
+FAIL

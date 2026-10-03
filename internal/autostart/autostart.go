@@ -11,16 +11,26 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/yetone/magpie/internal/fusion/isolation"
 )
 
 // Arg is what magpie is started with at login: the tray, no window.
 const Arg = "tray"
 
 // Enabled reports whether magpie opens at login.
-func Enabled() bool { return enabled() }
+func Enabled() bool {
+	if isolation.Development {
+		return false
+	}
+	return enabled()
+}
 
 // Set has magpie open at login, or not, as this copy of it.
 func Set(on bool) error {
+	if isolation.Development {
+		return isolation.ErrDisabled
+	}
 	if !on {
 		return disable()
 	}
@@ -33,7 +43,12 @@ func Set(on bool) error {
 
 // Refresh brings the system's record up to date when magpie opens at
 // login, for a record an older version wrote; it never turns it on.
-func Refresh() error { return refresh() }
+func Refresh() error {
+	if isolation.Development {
+		return nil
+	}
+	return refresh()
+}
 
 // self is the program to start: this one, where it will be at login.
 func self() (string, error) {

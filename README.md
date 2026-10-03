@@ -2,7 +2,7 @@
 
 基于 [Magpie](https://github.com/yetone/magpie) 的个人 AI 工程工作平台，计划增加按阶段指定模型、受控任务执行、阶段交接与真实验证证据。
 
-**当前状态：**已导入 Magpie 最新源码快照、归档实施文档并准备 Go 1.26.3；Fusion 增强功能尚未实现，三家账号尚未验证。
+**当前状态：**已完成源码/文档导入、Go 1.26.3、WP-01 基线及 WP-02 开发隔离；GLM/Claude Code 连接诊断通过。五角色、strict locked、任务闭环和三路准入尚未验收。
 
 - [开发入口与当前状态](docs/fusion/README.md)
 - [需求摘录](docs/fusion/requirements-summary.md)

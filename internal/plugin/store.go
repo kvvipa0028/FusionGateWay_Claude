@@ -30,6 +30,7 @@ import (
 	"sync"
 	"sync/atomic"
 
+	"github.com/yetone/magpie/internal/fusion/isolation"
 	"github.com/yetone/magpie/internal/netproxy"
 	"github.com/yetone/magpie/internal/proc"
 	"github.com/yetone/magpie/internal/settings"
@@ -228,6 +229,9 @@ func Target(spec string) string {
 // Add installs a plugin and adds it to the list, in place of one of the
 // same package. A package is installed with its scripts left unrun.
 func Add(ctx context.Context, spec string) (Entry, error) {
+	if isolation.Development {
+		return Entry{}, isolation.ErrDisabled
+	}
 	spec = strings.TrimSpace(spec)
 	if spec == "" {
 		return Entry{}, errors.New("no plugin given")
@@ -289,6 +293,9 @@ func Add(ctx context.Context, spec string) (Entry, error) {
 // Update installs the version of each npm plugin its spec says now
 // (latest, for the most part), and fetches each git one again.
 func Update(ctx context.Context) error {
+	if isolation.Development {
+		return isolation.ErrDisabled
+	}
 	var errs []error
 	for _, e := range Load().Plugins {
 		if IsPath(e.Spec) {

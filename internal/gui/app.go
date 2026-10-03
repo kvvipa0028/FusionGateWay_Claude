@@ -22,6 +22,7 @@ import (
 
 	"github.com/yetone/magpie/internal/appdir"
 	"github.com/yetone/magpie/internal/autostart"
+	"github.com/yetone/magpie/internal/fusion/isolation"
 	"github.com/yetone/magpie/internal/library"
 	"github.com/yetone/magpie/internal/omarchy"
 	"github.com/yetone/magpie/internal/proc"
@@ -252,18 +253,20 @@ func Run(version string, showMain bool, link string) error {
 	// After an update off the Mac, the old process starts this one and then
 	// quits; let it go before looking for the gateway.
 	update.AwaitPredecessor()
-	go func() {
-		if err := registerScheme(); err != nil {
-			log.Println("magpie:// links:", err)
-		}
-		// Windows has no installer to put magpie in the Start menu
-		shortcut.Ensure()
-		// Open at login as this version writes it (the Mac's, so a restart
-		// to update from a magpie opened at login comes back)
-		if err := autostart.Refresh(); err != nil {
-			log.Println("open at login:", err)
-		}
-	}()
+	if !isolation.Development {
+		go func() {
+			if err := registerScheme(); err != nil {
+				log.Println("magpie:// links:", err)
+			}
+			// Windows has no installer to put magpie in the Start menu
+			shortcut.Ensure()
+			// Open at login as this version writes it (the Mac's, so a restart
+			// to update from a magpie opened at login comes back)
+			if err := autostart.Refresh(); err != nil {
+				log.Println("open at login:", err)
+			}
+		}()
+	}
 	// MAGPIE_THEME=light|dark forces the palette; handy for screenshots.
 	theme := ""
 	if t := os.Getenv("MAGPIE_THEME"); t != "" {
@@ -285,7 +288,7 @@ func Run(version string, showMain bool, link string) error {
 		// second launch); it hands its arguments to the running one and quits.
 		// The Mac sends the link to the running app itself.
 		SingleInstance: singleInstance(h),
-		Name:           "magpie",
+		Name:           isolation.Title,
 		Description:    "one place to pick every agent's model",
 		Icon:           appIconFor(),
 		Assets:         application.AssetOptions{Handler: handler},
@@ -330,7 +333,7 @@ func Run(version string, showMain bool, link string) error {
 	winOpts, winBg := windowChrome(cmp.Or(os.Getenv("MAGPIE_THEME"), settings.Load().Theme))
 	h.main = h.app.Window.NewWithOptions(application.WebviewWindowOptions{
 		Name:             "main",
-		Title:            "magpie",
+		Title:            isolation.Title,
 		URL:              "/?" + theme,
 		Width:            max(width, minW),
 		Height:           max(height, minH),
@@ -418,24 +421,26 @@ func Run(version string, showMain bool, link string) error {
 	news.start()
 	// the library written into the agents again, once: one installed or
 	// updated since (or an edit by hand) gets it without a visit to the page
-	go func() {
-		if res, err := library.Sync(); err != nil {
-			log.Println("library sync:", err)
-		} else {
-			for _, p := range res.Problems {
-				log.Println("library sync:", p.Agent, p.What, p.Error)
+	if !isolation.Development {
+		go func() {
+			if res, err := library.Sync(); err != nil {
+				log.Println("library sync:", err)
+			} else {
+				for _, p := range res.Problems {
+					log.Println("library sync:", p.Agent, p.What, p.Error)
+				}
 			}
-		}
-	}()
+		}()
+	}
 
 	h.tray = h.app.SystemTray.New()
 	if runtime.GOOS == "linux" {
 		// set before the tray starts, it is the item's id too, which
 		// Omarchy's bar pins it by (Wails calls it "Wails" otherwise)
-		h.tray.SetLabel("magpie")
+		h.tray.SetLabel(isolation.Name)
 		go dropTrayName()
 	}
-	h.tray.SetTooltip("magpie")
+	h.tray.SetTooltip(isolation.Title)
 	if runtime.GOOS == "darwin" {
 		h.tray.SetTemplateIcon(trayIcon)
 	} else {

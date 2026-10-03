@@ -29,6 +29,7 @@ import (
 	"time"
 
 	"github.com/yetone/magpie/internal/appdir"
+	"github.com/yetone/magpie/internal/fusion/isolation"
 	"github.com/yetone/magpie/internal/netproxy"
 	"github.com/yetone/magpie/internal/proc"
 )
@@ -78,6 +79,9 @@ func Latest(ctx context.Context) (*Release, error) { return LatestIn(ctx, "") }
 // LatestIn asks the feed for the newest release, its notes in lang (see
 // InLang): the app's language, which What's new follows.
 func LatestIn(ctx context.Context, lang string) (*Release, error) {
+	if isolation.Development {
+		return nil, isolation.ErrDisabled
+	}
 	req, err := http.NewRequestWithContext(ctx, "GET", withLang(Feed(), lang), nil)
 	if err != nil {
 		return nil, err
@@ -225,6 +229,9 @@ func Writable(dir string) bool {
 // Stage downloads the app in rel and unpacks it next to the installed
 // bundle, ready for Install. It returns the unpacked app.
 func Stage(ctx context.Context, rel *Release, bundle string) (string, error) {
+	if isolation.Development {
+		return "", isolation.ErrDisabled
+	}
 	a, ok := rel.Assets[AppAsset()]
 	if !ok {
 		return "", fmt.Errorf("release %s has no %s", rel.Version, AppAsset())
@@ -293,6 +300,9 @@ func stageDir(dir string) string {
 // magpie's to change the error is a permission one (NeedsAdmin), and
 // InstallAsAdmin can do it instead.
 func Install(staged, bundle string) error {
+	if isolation.Development {
+		return isolation.ErrDisabled
+	}
 	old := filepath.Join(filepath.Dir(staged), "old.app")
 	os.RemoveAll(old)
 	if err := os.Rename(bundle, old); err != nil {
@@ -309,6 +319,9 @@ func Install(staged, bundle string) error {
 // InstallAsAdmin is Install with the administrator's password, asked for
 // by the system.
 func InstallAsAdmin(staged, bundle string) error {
+	if isolation.Development {
+		return isolation.ErrDisabled
+	}
 	old := filepath.Join(filepath.Dir(staged), "old.app")
 	err := asAdmin(swapScript(staged, bundle, old))
 	if err == nil {
@@ -328,6 +341,9 @@ func Relaunch(bundle string) error {
 // ReplaceBinary puts the release's build for this binary where the
 // running one is.
 func ReplaceBinary(ctx context.Context, rel *Release) error {
+	if isolation.Development {
+		return isolation.ErrDisabled
+	}
 	exe, err := Executable()
 	if err != nil {
 		return err
@@ -346,6 +362,9 @@ func ReplaceBinary(ctx context.Context, rel *Release) error {
 // StageBinary downloads the release's build for this binary next to it (or
 // to the cache, where magpie may not write there), ready for InstallBinary.
 func StageBinary(ctx context.Context, rel *Release) (string, error) {
+	if isolation.Development {
+		return "", isolation.ErrDisabled
+	}
 	a, ok := rel.Assets[BinaryAsset()]
 	if !ok {
 		return "", fmt.Errorf("release %s has no %s", rel.Version, BinaryAsset())
@@ -375,6 +394,9 @@ func StageBinary(ctx context.Context, rel *Release) (string, error) {
 // InstallBinary swaps a staged binary in for exe, the running one, which
 // keeps going until it exits.
 func InstallBinary(staged, exe string) error {
+	if isolation.Development {
+		return isolation.ErrDisabled
+	}
 	if runtime.GOOS == "windows" {
 		// A running .exe cannot be overwritten, but it can be moved aside.
 		// What the last update moved aside may still be running too (a
@@ -504,6 +526,9 @@ func fileHash(path string) string {
 
 // InstallBinaryAsAdmin is InstallBinary with the administrator's password.
 func InstallBinaryAsAdmin(staged, exe string) error {
+	if isolation.Development {
+		return isolation.ErrDisabled
+	}
 	err := asAdmin("mv -f " + shellQuote(staged) + " " + shellQuote(exe))
 	if err != nil && !errors.Is(err, ErrCanceled) {
 		os.Remove(staged)

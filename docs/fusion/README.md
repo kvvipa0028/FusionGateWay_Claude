@@ -1,6 +1,6 @@
 # Fusion Gateway 开发入口
 
-本仓库以 Magpie 为基座，增加由用户指定阶段模型的工程工作流。已完成源码导入、文档归档、Go 工具链准备及获准的 Google OAuth 外部配置修复；五角色配置、strict locked、任务管理和 Runtime 尚未实现。
+本仓库以 Magpie 为基座，增加由用户指定阶段模型的工程工作流。已完成源码导入、文档归档、Go 工具链、获准的 Google OAuth 修复、WP-01 基线和 WP-02 开发隔离。GLM/Claude Code 连接诊断通过；五角色配置、strict locked、任务管理和 Runtime Adapter 尚未实现。
 
 ## 阅读顺序
 
@@ -10,7 +10,7 @@
 4. [验收矩阵](planning/Fusion_Magpie_Fork_验收矩阵_v1.0.md)：T01–T60；当前均为 `not_run`。
 5. [源码与工具链锁](upstream-lock.json)、[基线报告](baseline/baseline-report.md)：本轮实际准备与验证证据。
 
-`planning/implementation_tasks.json` 和 `planning/acceptance_tests.json` 由本地三份 Markdown 提取，已核对编号、引用及依赖无环；它们是本轮派生文件，不是原 ZIP 的恢复副本。工作包状态仍是 `planned`。
+`planning/implementation_tasks.json` 和 `planning/acceptance_tests.json` 由本地三份 Markdown 提取，已核对编号、引用及依赖无环；它们不是原 ZIP 的恢复副本。WP-01/WP-02 为 `done`，其他包为 `planned`；最终验收仍为 `not_run`。
 
 ## 源码与 Git
 
@@ -25,17 +25,20 @@
 
 源码、文档、来源/许可证记录、发布 workflow 隔离和 Go 1.26.3 已准备。上游 release、Docker 与 UI preview job 限定仅在 `yetone/magpie` 运行，避免本 Fork 继承发布或付费调用。普通 Test workflow 保留。
 
-原版 `Group.Picked()` 的 fallback、loopback 鉴权语义和插件请求路径未修改。Fusion 的严格锁定由 WP-04–WP-07 建立完整合同后实施；插件/账号/effort 路径需纳入同一个严格出口。应用身份、默认目录、端口、更新与插件自动更新的全面隔离仍属于 WP-02，尚未完成。
+未加 `fusion` tag 时保留原版回归语义。Fusion 产品构建已有独立身份、目录和端口；旧插件/更新/同步等入口被关闭，共享 Keychain 发现被阻断。原版 `Group.Picked()` fallback 和 loopback 鉴权不能用于严格任务执行；WP-04–WP-07 仍需落实完整合同和鉴权出口。隔离范围见 [fork-isolation.md](decisions/fork-isolation.md)。
 
 ## 本地验证
 
 要求 `go version` 返回 `go1.26.3`，以及可用的 Python 3 和 macOS 编译工具。执行：
 
 ```sh
-python3 scripts/fusion/verify-baseline.py
+python3 scripts/fusion/build-dev.py
+python3 scripts/fusion/run-dev.py -- fusion-status
 ```
 
-脚本下载锁定的公开 Go 依赖，执行 CLI/GUI 编译、vet 和相关包测试。运行测试使用临时 HOME/XDG 目录和环境白名单，不继承供应商 Token 或 live-test 开关；不运行应用登录、真实模型或 Jev。二进制留在 `.fusion-dev/`，命令、退出码和日志摘要留在 `docs/fusion/baseline/`。
+构建脚本使用临时 HOME/XDG 和环境白名单，执行 Fusion CLI/GUI 编译与 vet。启动入口使用仓库外私有状态，不继承供应商 Token 或原客户端目录。二进制及构建记录保存在 `.fusion-dev/`。完整操作步骤见 [开发隔离说明](decisions/fork-isolation.md)。
+
+`verify-baseline.py` 保留为当前 Fork 的无 tag 检查工具，结果写入 `.fusion-dev/baseline-validation/`，不覆盖原始 `docs/fusion/baseline/` 或 Fusion 产品二进制。无 tag 的结果不是产品隔离验收。
 
 这次验证不覆盖真实账号、GUI 交互、多设备部署或尚未实现的 Fusion 验收。
 
@@ -49,4 +52,4 @@ python3 scripts/fusion/verify-baseline.py
 
 ## GLM 接入选择
 
-GLM 已确定为中国大陆 Coding Plan + API key；按用户最新指定，以独立配置的 Claude Code 作为 GLM 编码宿主。端点、认证/计费边界与未验证项见 [GLM 接入决定](decisions/glm-coding-plan-api-key.md)。这项配置选择不代表真实 key 已提供或 WP-14 已完成。
+GLM 已确定为中国大陆 Coding Plan + API key，通过私有入口录入并完成 Claude Code 真实连接诊断。端点、认证/计费边界与未验证项见 [GLM 接入决定](decisions/glm-coding-plan-api-key.md)。诊断不代表 WP-14、额度、计费或严格模型锁定已验收。

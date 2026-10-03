@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compile and check the imported baseline without inheriting account secrets."""
+"""Check current untagged fork source without overwriting historical baseline evidence."""
 
 import hashlib
 import json
@@ -14,10 +14,10 @@ import time
 
 def main():
     root = Path(__file__).resolve().parents[2]
-    evidence = root / "docs/fusion/baseline"
+    evidence = root / ".fusion-dev/baseline-validation"
     evidence.mkdir(parents=True, exist_ok=True)
-    output = root / ".fusion-dev"
-    output.mkdir(exist_ok=True)
+    output = evidence / "bin"
+    output.mkdir(parents=True, exist_ok=True)
     go = shutil.which("go")
     if not go:
         raise SystemExit("Go 1.26.3 is required on PATH")
@@ -77,9 +77,9 @@ def main():
             ("dependencies", ["mod", "download"]),
             ("module-integrity", ["mod", "verify"]),
             ("build-cli", ["build", "-mod=readonly", "-tags", "nogui", "-o",
-                           str(output / "fusion-gateway-cli"), "."]),
+                           str(output / "untagged-cli"), "."]),
             ("build-gui", ["build", "-mod=readonly", "-o",
-                           str(output / "fusion-gateway-gui"), "."]),
+                           str(output / "untagged-gui"), "."]),
             ("vet", ["vet", "-mod=readonly", "-tags", "nogui", "./..."]),
             ("targeted-tests", ["test", "-mod=readonly", "-tags", "nogui",
                                 "-count=1", "./internal/appdir",
@@ -112,6 +112,8 @@ def main():
                 print(log.read_text()[-6000:], flush=True)
                 break
     report = {
+        "source_scope": "current fork source without fusion tag; not the original upstream snapshot or Fusion product",
+        "git_head": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=root, text=True).strip(),
         "upstream_commit": lock["commit"], "go_version": version,
         "go_executable": go, "credential_environment": "allowlist and temporary HOME/XDG",
         "macos_sdk": sdk, "compiler": "/usr/bin/clang",

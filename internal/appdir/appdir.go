@@ -32,15 +32,17 @@ import (
 	"runtime"
 	"strings"
 	"sync"
+
+	"github.com/yetone/magpie/internal/fusion/isolation"
 )
 
 const (
 	// DataName is the folder beside magpie that makes it portable and
 	// holds its files.
-	DataName = "data"
+	DataName = isolation.DataName
 	// MarkerName is a file beside magpie that makes it portable too, its
 	// files then going into a data folder made beside it.
-	MarkerName = ".portable"
+	MarkerName = isolation.MarkerName
 )
 
 var (
@@ -119,10 +121,10 @@ func Config() string {
 		return p
 	}
 	if x := os.Getenv("XDG_CONFIG_HOME"); x != "" {
-		return filepath.Join(x, "magpie")
+		return filepath.Join(x, isolation.Name)
 	}
 	home, _ := os.UserHomeDir()
-	return filepath.Join(home, ".config", "magpie")
+	return filepath.Join(home, ".config", isolation.Name)
 }
 
 // Cache is the folder for what magpie can fetch again (the models.dev
@@ -132,10 +134,10 @@ func Cache() string {
 		return filepath.Join(p, "cache")
 	}
 	if x := os.Getenv("XDG_CACHE_HOME"); x != "" {
-		return filepath.Join(x, "magpie")
+		return filepath.Join(x, isolation.Name)
 	}
 	home, _ := os.UserHomeDir()
-	return filepath.Join(home, ".cache", "magpie")
+	return filepath.Join(home, ".cache", isolation.Name)
 }
 
 // WebView is the folder the Windows webview (WebView2) keeps its profile
@@ -161,5 +163,5 @@ func SystemCache() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return filepath.Join(d, "magpie"), nil
+	return filepath.Join(d, isolation.Name), nil
 }

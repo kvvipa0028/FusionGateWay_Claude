@@ -32,6 +32,7 @@ import (
 	"time"
 
 	"github.com/yetone/magpie/internal/catalog"
+	"github.com/yetone/magpie/internal/fusion/isolation"
 	"github.com/yetone/magpie/internal/plugin"
 	"github.com/yetone/magpie/internal/proc"
 )
@@ -254,7 +255,7 @@ var claudeBase = "https://api.anthropic.com"
 
 // claudeKeychain reads credentials from the macOS Keychain; a var so tests
 // never touch the machine's own login.
-var claudeKeychain = runtime.GOOS == "darwin"
+var claudeKeychain = runtime.GOOS == "darwin" && !isolation.Development
 
 var (
 	claudeStatusMu   sync.Mutex
@@ -352,6 +353,9 @@ func claudeCredentialsPath() string {
 }
 
 func readClaudeCredential() (claudeCredentials, claudeCredentialLocation, bool) {
+	if isolation.Development {
+		return claudeCredentials{}, claudeCredentialLocation{}, false
+	}
 	path := claudeCredentialsPath()
 	if b, err := os.ReadFile(path); err == nil {
 		if c, ok := parseClaudeCredentials(b); ok {
@@ -447,6 +451,9 @@ func forgetClaudeCredential() {
 }
 
 func saveClaudeCredential(loc claudeCredentialLocation, c claudeCredentials) error {
+	if isolation.Development && loc.keychain {
+		return isolation.ErrDisabled
+	}
 	b, err := c.marshal()
 	if err != nil {
 		return err

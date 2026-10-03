@@ -1,0 +1,6 @@
+{
+  "exit_code": 1,
+  "stdout_empty": true,
+  "home_unchanged": true,
+  "error": "fusion-gateway: use the Fusion isolated launcher"
+}

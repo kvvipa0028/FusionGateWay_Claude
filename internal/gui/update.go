@@ -12,6 +12,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/yetone/magpie/internal/fusion/isolation"
 	"github.com/yetone/magpie/internal/settings"
 	"github.com/yetone/magpie/internal/update"
 )
@@ -65,10 +66,17 @@ var updates = &updater{}
 // settings' interval is up. The settings are read again each minute, so
 // one changed (in Settings or the CLI) counts from the last check.
 func updateDue(s settings.Settings, last, now time.Time) bool {
+	if isolation.Development {
+		return false
+	}
 	return !s.NoAutoUpdate && now.Sub(last) >= time.Duration(s.UpdateEvery)*time.Minute
 }
 
 func (u *updater) start() {
+	if isolation.Development {
+		u.state = "source"
+		return
+	}
 	if b := update.Bundle(); b != "" {
 		if u.stuck = update.Stuck(b); u.stuck == "" {
 			u.bundle = b
