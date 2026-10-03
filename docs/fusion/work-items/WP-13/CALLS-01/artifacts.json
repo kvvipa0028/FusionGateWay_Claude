@@ -1,0 +1,37 @@
+{
+  "base_commit": "929d2e3d2ade59bdf287b54ee213ed93440589d4",
+  "source_files_sha256": {
+    "internal/fusion/runtime/grok/call_gate.go": "18db0160c3b762e4e971317e0339edfab27746b4bb170f3974048f29182419d4",
+    "internal/fusion/runtime/grok/call_gate_test.go": "c7d674f97d4c0e4091de41230cc23971dd94787a00aa92b011e9cbea1f567442",
+    "internal/fusion/runtime/grok/call_gate_store_test.go": "fb7335feb4e233cfdc0e73cd9835c70504902490a259839d5b3659307908fede",
+    "internal/fusion/runtime/grok/call_gate_native_test.go": "5f7bda1c0112d3b56f69047843f1faec13304f98d141d3c88b24ea3e1d330e82",
+    "docs/fusion/contracts/grok-call-gate.md": "6fa01d600a77610be4843e192f3739fe79d3fc8cd63a1df6dfbffde0aac3b8ae",
+    "docs/fusion/contracts/grok-headless-protocol.md": "db340da67a7924da06ea27b4842390112f5fd61d762b2eb3be86678e6f968dc1",
+    "docs/fusion/contracts/runtime-contract.md": "d21e1522282496c0c4520b8d7799b2d9ca4b18c90b0c80d80bbf986ea6a764c4",
+    "docs/fusion/work-items/WP-13/summary.md": "6a10305e84f1ca81803c6ea93d53c858d8a45be151d1a0416542e3bd7c338e4d",
+    "docs/fusion/work-items/WP-13/grok-lock-capability.md": "dc24640d5acbdfeeafce597376bada8dfce4f5da7c90a033f5e81f862c06d5bd",
+    "docs/fusion/README.md": "fd71ec1852eb40d87cf45c8640c2a8ec18100efb438023643b117593287496d9",
+    "AGENTS.md": "55e3aaaef560dbc84c036c667dee4fb3dd1a14e0acf6e2ad385dce5e1527648a",
+    "internal/fusion/runtime/grok/session.go": "ad67e2aa629a8ea1f65e04a6617d9ae961d8197b8b6f67e282d39d7983653b89",
+    "internal/fusion/policy/scheduler.go": "c7188dd31516fd12c8e99e3d6b60a8ec4ece5feafd6264d4702f0d85dd98c793"
+  },
+  "packet_files_sha256": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "0a9f7cb07645f47363431ef10d5498c2c3489beba81c63342002ff367ae49668",
+    "build-results.json": "f21da8b0705ccdb3bf6a72e2a96e3736db14d429b3be669491a66714e6ae74d8",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "run-go.py": "06f43aaaf4b5e69da752113b89f30ea6c7e93d3d436f80fc7181c835c3085ea8",
+    "summary.md": "28ae5719aa221bbec3eb926ca171f3b7944251925bbd9255b8df6b3739c34f6f",
+    "test-results.json": "7a42a3f7877422e26bd7053acba2d55a291adac39a46f5dfdfec5810638b03be",
+    "wp13-calls-boundary-red.log": "a2fd6cab27e717fcc423a69c93059923bcd8fc7c7d3e184d3d6aaef2f00a5b54",
+    "wp13-calls-compile-red.log": "88e4873200394e703f94e7ccc89a569b27c3e50d1f1acad5f8665c6ecb4e2b0d",
+    "wp13-calls-fusion-tagged-race.log": "9c76582053426c17258a6963b10c78281942d215d9d23027eed9901d34ca4a3f",
+    "wp13-calls-green.log": "b375080e8756167e996c1b7fcb25a903d7a597c3557e1c8360132f536a958816",
+    "wp13-calls-native-rate-red.log": "8052e762d23dd8fd9ed15b83b7ee2f18baa58c6ede3f0f1157d59e47f0690d56",
+    "wp13-calls-native.log": "c77e7f97710394843af648e925a319aacf339ad1f494332a101672c5176a518d",
+    "wp13-calls-red.log": "2f1ffe5a47538f745ada9c67fc04d58db47e1999f8762acd707792168cda45d7",
+    "wp13-calls-scope-red.log": "873d06c87e1fe8942f8773aed5bea889cc192a0a707f40e81abc0162752f19c8",
+    "wp13-calls-store-compile-red.log": "0c033b908a6f2907d03931bab806ecadddc69775f01a5373e0bca9b6e59d7213",
+    "wp13-calls-store.log": "3f7adc9f99c5f6869f34180a1d9ff59056b9181c845dcdbf0ba33cb7f67f8b0b"
+  }
+}

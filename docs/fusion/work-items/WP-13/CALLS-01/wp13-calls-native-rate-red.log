@@ -1,0 +1,17 @@
+=== RUN   TestGrokCallGatePinnedNativeDiagnostic
+=== RUN   TestGrokCallGatePinnedNativeDiagnostic/success
+    call_gate_native_test.go:35: Pinned Native1.0.48 success -> 2 synthetic HTTP/permits; terminal modelCalls1; actual wait done, managed StopProof/route/billing/quota unverified
+=== RUN   TestGrokCallGatePinnedNativeDiagnostic/default_title_model
+    call_gate_native_test.go:35: Pinned Native rejected default_title_model; Native exit=1, requests=2 forwarded=0; gate unhealthy, real model calls0
+=== RUN   TestGrokCallGatePinnedNativeDiagnostic/budget_second
+    call_gate_native_test.go:35: Pinned Native rejected budget_second; Native exit=1, requests=2 forwarded=1; gate unhealthy, real model calls0
+=== RUN   TestGrokCallGatePinnedNativeDiagnostic/sdk_retry
+    call_gate_native_test.go:35: synthetic Native failed exit status 1 {2 2 2 1 1 false} stdout bytes 326 stderr bytes 988
+--- FAIL: TestGrokCallGatePinnedNativeDiagnostic (2.90s)
+    --- PASS: TestGrokCallGatePinnedNativeDiagnostic/success (0.73s)
+    --- PASS: TestGrokCallGatePinnedNativeDiagnostic/default_title_model (0.73s)
+    --- PASS: TestGrokCallGatePinnedNativeDiagnostic/budget_second (0.73s)
+    --- FAIL: TestGrokCallGatePinnedNativeDiagnostic/sdk_retry (0.72s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/grok	3.535s
+FAIL

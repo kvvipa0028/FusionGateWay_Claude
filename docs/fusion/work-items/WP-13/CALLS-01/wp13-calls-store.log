@@ -1,0 +1,12 @@
+=== RUN   TestGrokGateUsesPersistentSchedulerBudgetForEveryCall
+--- PASS: TestGrokGateUsesPersistentSchedulerBudgetForEveryCall (0.09s)
+=== RUN   TestGrokGateRechecksQuotaPermissionAndReservationBeforeNextCall
+=== RUN   TestGrokGateRechecksQuotaPermissionAndReservationBeforeNextCall/quota
+=== RUN   TestGrokGateRechecksQuotaPermissionAndReservationBeforeNextCall/permission
+=== RUN   TestGrokGateRechecksQuotaPermissionAndReservationBeforeNextCall/proof
+--- PASS: TestGrokGateRechecksQuotaPermissionAndReservationBeforeNextCall (0.18s)
+    --- PASS: TestGrokGateRechecksQuotaPermissionAndReservationBeforeNextCall/quota (0.06s)
+    --- PASS: TestGrokGateRechecksQuotaPermissionAndReservationBeforeNextCall/permission (0.06s)
+    --- PASS: TestGrokGateRechecksQuotaPermissionAndReservationBeforeNextCall/proof (0.06s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime/grok	1.924s

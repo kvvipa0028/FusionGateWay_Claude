@@ -1,0 +1,52 @@
+=== RUN   TestGrokGateEffortAndCopiesRemainFrozen
+=== RUN   TestGrokGateEffortAndCopiesRemainFrozen/explicit
+=== RUN   TestGrokGateEffortAndCopiesRemainFrozen/default
+--- PASS: TestGrokGateEffortAndCopiesRemainFrozen (0.00s)
+    --- PASS: TestGrokGateEffortAndCopiesRemainFrozen/explicit (0.00s)
+    --- PASS: TestGrokGateEffortAndCopiesRemainFrozen/default (0.00s)
+=== RUN   TestGrokGateRejectsUntrustedConstructorControls
+=== RUN   TestGrokGateRejectsUntrustedConstructorControls/nil_manager
+=== RUN   TestGrokGateRejectsUntrustedConstructorControls/nil_permit
+=== RUN   TestGrokGateRejectsUntrustedConstructorControls/nil_forwarder
+=== RUN   TestGrokGateRejectsUntrustedConstructorControls/nil_current
+=== RUN   TestGrokGateRejectsUntrustedConstructorControls/claims
+=== RUN   TestGrokGateRejectsUntrustedConstructorControls/billing
+=== RUN   TestGrokGateRejectsUntrustedConstructorControls/model
+=== RUN   TestGrokGateRejectsUntrustedConstructorControls/runtime
+=== RUN   TestGrokGateRejectsUntrustedConstructorControls/plugin
+=== RUN   TestGrokGateRejectsUntrustedConstructorControls/primary_only
+=== RUN   TestGrokGateRejectsUntrustedConstructorControls/effort
+=== RUN   TestGrokGateRejectsUntrustedConstructorControls/revision
+=== RUN   TestGrokGateRejectsUntrustedConstructorControls/hash
+--- PASS: TestGrokGateRejectsUntrustedConstructorControls (0.00s)
+    --- PASS: TestGrokGateRejectsUntrustedConstructorControls/nil_manager (0.00s)
+    --- PASS: TestGrokGateRejectsUntrustedConstructorControls/nil_permit (0.00s)
+    --- PASS: TestGrokGateRejectsUntrustedConstructorControls/nil_forwarder (0.00s)
+    --- PASS: TestGrokGateRejectsUntrustedConstructorControls/nil_current (0.00s)
+    --- PASS: TestGrokGateRejectsUntrustedConstructorControls/claims (0.00s)
+    --- PASS: TestGrokGateRejectsUntrustedConstructorControls/billing (0.00s)
+    --- PASS: TestGrokGateRejectsUntrustedConstructorControls/model (0.00s)
+    --- PASS: TestGrokGateRejectsUntrustedConstructorControls/runtime (0.00s)
+    --- PASS: TestGrokGateRejectsUntrustedConstructorControls/plugin (0.00s)
+    --- PASS: TestGrokGateRejectsUntrustedConstructorControls/primary_only (0.00s)
+    --- PASS: TestGrokGateRejectsUntrustedConstructorControls/effort (0.00s)
+    --- PASS: TestGrokGateRejectsUntrustedConstructorControls/revision (0.00s)
+    --- PASS: TestGrokGateRejectsUntrustedConstructorControls/hash (0.00s)
+=== RUN   TestGrokGateGrantReflectionAndLateRevocationFailClosed
+=== RUN   TestGrokGateGrantReflectionAndLateRevocationFailClosed/request_grant
+=== RUN   TestGrokGateGrantReflectionAndLateRevocationFailClosed/response_grant
+=== RUN   TestGrokGateGrantReflectionAndLateRevocationFailClosed/response_revoke
+=== RUN   TestGrokGateGrantReflectionAndLateRevocationFailClosed/encoding
+=== RUN   TestGrokGateGrantReflectionAndLateRevocationFailClosed/choice_extension
+    call_gate_test.go:398: choice_extension 200 {1 1 1 1 0 false}
+--- FAIL: TestGrokGateGrantReflectionAndLateRevocationFailClosed (0.00s)
+    --- PASS: TestGrokGateGrantReflectionAndLateRevocationFailClosed/request_grant (0.00s)
+    --- PASS: TestGrokGateGrantReflectionAndLateRevocationFailClosed/response_grant (0.00s)
+    --- PASS: TestGrokGateGrantReflectionAndLateRevocationFailClosed/response_revoke (0.00s)
+    --- PASS: TestGrokGateGrantReflectionAndLateRevocationFailClosed/encoding (0.00s)
+    --- FAIL: TestGrokGateGrantReflectionAndLateRevocationFailClosed/choice_extension (0.00s)
+=== RUN   TestGrokGateSerializesConcurrentAuxiliaryCalls
+--- PASS: TestGrokGateSerializesConcurrentAuxiliaryCalls (0.01s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/grok	0.650s
+FAIL

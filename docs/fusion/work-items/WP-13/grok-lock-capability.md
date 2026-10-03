@@ -23,3 +23,5 @@
 官方 [headless 文档](https://docs.x.ai/build/cli/headless-scripting) 说明结构化输出和关闭更新；[settings 文档](https://docs.x.ai/build/settings) 说明 GROK_HOME。其会话参数概述不替代本机 help：当前 session-id 仅创建新 UUID 会话，恢复应使用准确 resume UUID，不能使用标题或 continue。参考源码独立固定于 [xai-org/grok-build@2bdd1d6a6369de0e8c68132ea4539e9abd9e14a8](https://github.com/xai-org/grok-build/tree/2bdd1d6a6369de0e8c68132ea4539e9abd9e14a8)，SOURCE_REV=`559751fdcec02d413e4c57c8832ab275e4f44980`，与本机 b94d5072 不同，只用于定位调查，不能当成 Native 等价源码。
 
 证据：[PROTOCOL-01](PROTOCOL-01/summary.md)。旧 WP-08 未检查 publisher 的记录保持历史事实，本次签名报告不回写旧报告、也不修改准入 flags。
+
+2026-10-04 [CALLS-01](CALLS-01/summary.md) 新增每 HTTP Gate：实际固定 Native + 真实 Store/Scheduler + 合成 inspection 证明正常 title/main 两次记账、SDK retry 三次记账；默认 title 模型、第二次预算不足和隐式 tools 被拒绝。这里只完成本机组件诊断，不回写任何真实准入 flag，未支持生产 Native transport、受管取消、工具或 Resume。

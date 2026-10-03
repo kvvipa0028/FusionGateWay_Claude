@@ -1,0 +1,5 @@
+# github.com/yetone/magpie/internal/fusion/runtime/grok [github.com/yetone/magpie/internal/fusion/runtime/grok.test]
+internal/fusion/runtime/grok/call_gate.go:426:3: declared and not used: fields
+internal/fusion/runtime/grok/call_gate_test.go:7:2: "net/http" imported and not used
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/grok [build failed]
+FAIL

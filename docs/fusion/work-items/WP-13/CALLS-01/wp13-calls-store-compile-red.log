@@ -1,0 +1,4 @@
+# github.com/yetone/magpie/internal/fusion/runtime/grok [github.com/yetone/magpie/internal/fusion/runtime/grok.test]
+internal/fusion/runtime/grok/call_gate_native_test.go:22:2: "github.com/yetone/magpie/internal/fusion/policy" imported and not used
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/grok [build failed]
+FAIL

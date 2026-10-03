@@ -72,4 +72,4 @@ WP-11 Worker/项目副本基础已完成本机原生沙箱验证：[Runtime 合�
 
 ## Grok 接入进度
 
-Grok 固定 Native 的 headless 观察器已有本机合成诊断和回归，WP-13 仍在实施中：[进度](work-items/WP-13/summary.md)、[锁定边界](work-items/WP-13/grok-lock-capability.md)。真实 Grok Worker、订阅准入及准确恢复尚未完成。
+Grok 固定 Native 的 headless 观察器和逐 HTTP Gate 已有本机合成诊断与真实 Store/Scheduler 预算回归，WP-13 仍在实施中：[进度](work-items/WP-13/summary.md)、[锁定边界](work-items/WP-13/grok-lock-capability.md)。真实 Grok Worker、订阅准入及准确恢复尚未完成。

@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/runtime/grok [github.com/yetone/magpie/internal/fusion/runtime/grok.test]
+internal/fusion/runtime/grok/call_gate_test.go:18:75: undefined: ForwardResponse
+internal/fusion/runtime/grok/call_gate_test.go:19:83: undefined: ForwardResponse
+internal/fusion/runtime/grok/call_gate_test.go:23:32: undefined: CallGateConfig
+internal/fusion/runtime/grok/call_gate_test.go:30:11: undefined: CallGateConfig
+internal/fusion/runtime/grok/call_gate_test.go:30:34: undefined: GateBinding
+internal/fusion/runtime/grok/call_gate_test.go:30: undefined: ForwardResponse
+internal/fusion/runtime/grok/call_gate_test.go:33:43: undefined: CallGate
+internal/fusion/runtime/grok/call_gate_test.go:33:68: undefined: NewCallGate
+internal/fusion/runtime/grok/call_gate_test.go:34:27: undefined: CallGate
+internal/fusion/runtime/grok/call_gate_test.go:57: undefined: ForwardResponse
+internal/fusion/runtime/grok/call_gate_test.go:57: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/grok [build failed]
+FAIL

@@ -1,0 +1,104 @@
+{
+  "work_item": "WP-13-CALLS-01",
+  "status": "done",
+  "parent_work_item": "WP-13",
+  "parent_status": "in_progress",
+  "checks": [
+    {
+      "command": "go test -race -v -count=1 -timeout=60s -mod=readonly -tags fusion,nogui ./internal/fusion/runtime/grok",
+      "exit_code": 0,
+      "top_level_pass": 22,
+      "top_level_fail": 0,
+      "top_level_skip": 1,
+      "log": "wp13-calls-green.log"
+    },
+    {
+      "command": "go test -race -v -count=1 -timeout=60s -mod=readonly -tags fusion,nogui ./internal/fusion/runtime/grok -run 'TestGrokGateUsesPersistent|TestGrokGateRechecks'",
+      "exit_code": 0,
+      "top_level_pass": 2,
+      "top_level_fail": 0,
+      "top_level_skip": 0,
+      "log": "wp13-calls-store.log"
+    },
+    {
+      "command": "go test -race -v -count=1 -timeout=150s -mod=readonly -tags fusion,nogui ./internal/fusion/runtime/grok -run '^TestGrokCallGatePinnedNativeDiagnostic$' -fusion-native-grok /Users/zhaojianzhi/.grok/downloads/grok-1.0.48-macos-aarch64",
+      "exit_code": 0,
+      "top_level_pass": 1,
+      "top_level_fail": 0,
+      "top_level_skip": 0,
+      "log": "wp13-calls-native.log"
+    },
+    {
+      "command": "go test -race -v -count=1 -timeout=60s -mod=readonly -tags fusion,nogui ./internal/fusion/...",
+      "exit_code": 0,
+      "top_level_pass": 387,
+      "top_level_fail": 0,
+      "top_level_skip": 11,
+      "log": "wp13-calls-fusion-tagged-race.log"
+    }
+  ],
+  "native_cases": [
+    {
+      "mode": "success",
+      "native_exit_code": 0,
+      "http_requests": 2,
+      "forwarded": 2,
+      "persistent_used_calls": 2,
+      "healthy": true
+    },
+    {
+      "mode": "default_title_model",
+      "native_exit_code": 1,
+      "http_requests": 2,
+      "forwarded": 0,
+      "persistent_used_calls": 0,
+      "healthy": false
+    },
+    {
+      "mode": "budget_second",
+      "native_exit_code": 1,
+      "http_requests": 2,
+      "forwarded": 1,
+      "persistent_used_calls": 1,
+      "healthy": false
+    },
+    {
+      "mode": "implicit_tools",
+      "native_exit_code": 1,
+      "http_requests": 2,
+      "forwarded": 1,
+      "persistent_used_calls": 1,
+      "healthy": false
+    },
+    {
+      "mode": "sdk_retry",
+      "native_exit_code": 0,
+      "http_requests": 3,
+      "forwarded": 3,
+      "persistent_used_calls": 3,
+      "healthy": true
+    }
+  ],
+  "red_logs": [
+    "wp13-calls-red.log",
+    "wp13-calls-compile-red.log",
+    "wp13-calls-scope-red.log",
+    "wp13-calls-native-rate-red.log",
+    "wp13-calls-boundary-red.log",
+    "wp13-calls-store-compile-red.log"
+  ],
+  "build_report": "build-results.json",
+  "synthetic_inspection_only": true,
+  "real_model_calls_this_item": 0,
+  "real_quota_calls_this_item": 0,
+  "real_credentials_used": false,
+  "route_admitted": false,
+  "all_calls_verified": false,
+  "strict_lock_verified": false,
+  "billing_verified": false,
+  "quota_verified": false,
+  "production_worker_isolation_verified": false,
+  "resume_verified": false,
+  "cancel_stop_verified": false,
+  "jev": "off"
+}

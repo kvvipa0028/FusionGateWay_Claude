@@ -13,3 +13,5 @@
 Outcome 的 NativeModel 来自匹配的 end.modelUsage key；NativeModelCalls 仅表示其声明的调用数。UpstreamReportedModel 保持 null，StrictLockVerified/AllCallsVerified/BillingVerified/QuotaVerified/StoppedVerified 始终 false。cwd、effort、账号和上游身份没有由该 stdout 协议独立证明。完整 Adapter 还须接入 Scheduler 的每次调用许可、严格执行出口、受管 Worker 的实际停止证明、私有会话存储和独立准入证据。
 
 实测边界与可复现诊断见 [锁定能力](../work-items/WP-13/grok-lock-capability.md) 和 [PROTOCOL-01](../work-items/WP-13/PROTOCOL-01/summary.md)。
+
+后续 [逐 HTTP Gate](grok-call-gate.md) 使用真实 Scheduler 预算验证了标题/重试；headless end.modelCalls 继续只作观测，不作为总调用证明。生产 NativeForwarder/Worker 与真实准入仍未提供。
