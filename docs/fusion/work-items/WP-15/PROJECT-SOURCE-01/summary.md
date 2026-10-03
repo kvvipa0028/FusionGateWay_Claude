@@ -8,8 +8,10 @@
 
 新增8项顶层 race tests，含实际受鉴权 Handler SetProject→GET配置→preview 422 / route_revision_not_admitted，无项目绝对路径公开。RED为缺实现；增加API兼容测试时临时Store根目录非私有而失败，修正fixture为0700，不削弱Store检查。加强preview原因断言时先误用扁平error格式；实际API合同为error.code，纠正测试字段而未修改生产API。所有失败日志保留。
 
-最终全量 Fusion race **360 PASS / 10 SKIP / 0 FAIL**。CLI/GUI build与全仓tagged vet exit0；模板JSON、复核命令zsh语法、gofmt、diff检查通过。运行环境临时HOME/XDG、Go1.26.3、macOS/arm64。十项skip仍为七项Native显式opt-in、一项真实额度opt-in、两项helper；本项未改Native/controller，不重跑或宣称新的Native验证。
+最终全量 Fusion race **360 PASS / 10 SKIP / 0 FAIL**。CLI/GUI build与全仓tagged vet exit0；模板JSON、复核命令zsh语法、gofmt、源码/文档diff检查通过（排除保留原始字节的*.log）。运行环境临时HOME/XDG、Go1.26.3、macOS/arm64。十项skip仍为七项Native显式opt-in、一项真实额度opt-in、两项helper；本项未改Native/controller，不重跑或宣称新的Native验证。
 
 本轮真实模型调用0、额度查询0、凭据读取0（发布排除检查仅以内存比对私有key与交付内容，不调用上游）。schema5/001–005、Store/API/controller/Native/OpenAPI源码未改；现有24路径/28操作合同沿用。本机实际配置与试点文件夹未创建，未注册产品listener/CLI/GUI或开放旧入口，Jev off。下一项接线可信产品宿主，实际路线/计费/额度、工程闭环和最终Gate仍待实施。
 
 合同与复制模板见 [local-project-source.md](../../../contracts/local-project-source.md)。组件完成不表示WP-15或整体目标完成。
+
+原始失败日志中的API换行输出含一行空白缩进，原样保留，因此未排除日志的git diff --check会报告该行；源码/文档的检查排除*.log后通过。未更改日志以伪造检查结果。

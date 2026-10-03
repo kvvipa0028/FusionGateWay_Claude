@@ -18,7 +18,7 @@
       "result": "build-results.json"
     },
     {
-      "check": "JSON / zsh syntax / gofmt / diff",
+      "check": "JSON / zsh syntax / gofmt / source-document diff (raw *.log excluded)",
       "exit_code": 0
     }
   ],
@@ -37,5 +37,6 @@
   "real_project_created": false,
   "jev": "off",
   "platform_verified": "macOS/arm64",
-  "other_platforms": "not_verified"
+  "other_platforms": "not_verified",
+  "raw_log_whitespace": "preserved: wp15-project-source-admission-final.log line77; unfiltered diff check reports this original blank indentation"
 }
