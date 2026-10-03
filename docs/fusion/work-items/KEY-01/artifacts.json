@@ -1,0 +1,8 @@
+{
+  "base_commit": "50780e240614af7437278c1d459d6c9f3d5c28b7",
+  "files_sha256": {
+    "scripts/fusion/private-glm-key.py": "5dd0db48a3ade8354648e3fa0977090ceb85351bd14b1778ddd0a6848a9779cb",
+    "tests/fusion/test_private_glm_key.py": "f57cded8db1195215dbbea157dd3f832fb251505bb8fa51c7ac0d2bee4fc9dce",
+    "docs/fusion/private-credentials.md": "87d8db1195a00c45403dace1829ad239344135586ed8dff2f6241315c249ffd0"
+  }
+}

@@ -1,0 +1,14 @@
+test_hidden_entry_prints_only_path_and_status (test_private_glm_key.PrivateGLMKeyTests) ... ok
+test_invalid_key_is_not_persisted_or_in_error (test_private_glm_key.PrivateGLMKeyTests) ... ok
+test_missing_status_does_not_create_directories (test_private_glm_key.PrivateGLMKeyTests) ... ok
+test_refuse_key_in_git_checkout (test_private_glm_key.PrivateGLMKeyTests) ... ok
+test_refuse_overwriting_existing_key (test_private_glm_key.PrivateGLMKeyTests) ... ok
+test_refuse_public_directory (test_private_glm_key.PrivateGLMKeyTests) ... ok
+test_refuse_public_key_file_and_symlink (test_private_glm_key.PrivateGLMKeyTests) ... ok
+test_refuse_symlink_root (test_private_glm_key.PrivateGLMKeyTests) ... ok
+test_store_private_readable_key (test_private_glm_key.PrivateGLMKeyTests) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.007s
+
+OK

@@ -1,0 +1,20 @@
+{
+  "command": [
+    "python3",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests/fusion",
+    "-p",
+    "test_private_glm_key.py",
+    "-v"
+  ],
+  "exit_code": 0,
+  "tests_passed": 9,
+  "log": "tests.log",
+  "log_sha256": "65ae06fd7247d41983bc4dca07c24ba0cacd31d2f798f750af7729c286fb3a9d",
+  "red_evidence": "Initial run had 9 failures because entry utility was absent; captured in session, no raw log persisted",
+  "real_key_entry": "saved via hidden macOS dialog; content never included in tool output",
+  "real_model_request_executed": false
+}

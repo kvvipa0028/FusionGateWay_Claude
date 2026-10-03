@@ -187,6 +187,11 @@
       "bytes": 12779
     },
     {
+      "path": "docs/fusion/private-credentials.md",
+      "sha256": "87d8db1195a00c45403dace1829ad239344135586ed8dff2f6241315c249ffd0",
+      "bytes": 1256
+    },
+    {
       "path": "docs/fusion/push-protection-report.json",
       "sha256": "fc166ba95c780f11050f1ebc5077dc02bf94ae7b83b1e0cece0f0b0da5891bfa",
       "bytes": 2698
@@ -220,6 +225,41 @@
       "path": "docs/fusion/upstream-lock.json",
       "sha256": "9f1f9acd1c365483e36fa0ea56d148912094062753d8c531d47d0e307f2edaec",
       "bytes": 2709
+    },
+    {
+      "path": "docs/fusion/work-items/KEY-01/artifacts.json",
+      "sha256": "21b07990114b000e85ffa3082fef817a9dc73a20ac5378bd0835d079785f7ad6",
+      "bytes": 419
+    },
+    {
+      "path": "docs/fusion/work-items/KEY-01/blockers.md",
+      "sha256": "025bc263caebe00c7cb45ddc8f6d3b2c50a28660abf1edb5d31295b1ee94db5f",
+      "bytes": 103
+    },
+    {
+      "path": "docs/fusion/work-items/KEY-01/changed-files.txt",
+      "sha256": "a6c5b0bc396dc8ab02bacc4fdd0ba568631b6379416df4ee6e2f1ba8e56a3f3c",
+      "bytes": 106
+    },
+    {
+      "path": "docs/fusion/work-items/KEY-01/handoff.md",
+      "sha256": "086cbcc6e70e3a4cf2d9059074f86b4c64a70ab62efec51000dbb85ced7757c1",
+      "bytes": 190
+    },
+    {
+      "path": "docs/fusion/work-items/KEY-01/summary.md",
+      "sha256": "2710baa5d4712cfb3a3a1ef2d86a43ed0fe04319690662052166c0f4d0ae8b9d",
+      "bytes": 186
+    },
+    {
+      "path": "docs/fusion/work-items/KEY-01/test-results.json",
+      "sha256": "930a7ac9dc515e016be283f3d8aa086547dc1808a24cd16259ff033df6edadd6",
+      "bytes": 561
+    },
+    {
+      "path": "docs/fusion/work-items/KEY-01/tests.log",
+      "sha256": "65ae06fd7247d41983bc4dca07c24ba0cacd31d2f798f750af7729c286fb3a9d",
+      "bytes": 874
     }
   ],
   "product_implementation_started": false,
@@ -280,7 +320,7 @@
       "glm_plan_tier": "not_verified",
       "glm_coding_host_origin": "explicit_user_selection",
       "glm_coding_host_verified": false,
-      "glm_credentials_provided": false,
+      "glm_credentials_provided": true,
       "glm_direct_gateway_generation_admitted": false,
       "glm_decision": "docs/fusion/decisions/glm-coding-plan-api-key.md",
       "superseded_glm_host": {
@@ -292,7 +332,9 @@
       "glm_api_protocol": "anthropic_messages",
       "glm_api_base_url": "https://open.bigmodel.cn/api/anthropic",
       "glm_adapter_protocol": "claude_code_json_or_stream_json",
-      "glm_private_configuration_applied": false
+      "glm_private_configuration_applied": false,
+      "glm_credentials_storage": "external_private_file",
+      "glm_credentials_provided_at": "2026-10-03"
     },
     "deployment_and_pilot_target": {
       "status": "confirmed",
@@ -347,7 +389,6 @@
   "preflight_design_decisions_complete": true,
   "remaining_execution_inputs": [
     "actual_official_openai_x_login",
-    "local_private_glm_api_key",
     "real_route_capability_billing_and_quota_evidence"
   ]
 }
