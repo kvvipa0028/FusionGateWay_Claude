@@ -55,23 +55,23 @@ type quotaQueryContext struct {
 
 func (c quotaQueryContext) Value(key any) any { return c.authority.Value(key) }
 
-// SetQuotaSources registers one immutable catalogue per project configuration
-// revision. A new SetProject revision requires a new registration, never a
-// silent replacement of a live source or reuse of its cached observations.
+// SetQuotaSources registers one immutable catalogue per trusted route registry
+// revision. SetProject requires new registration; saved default selections do
+// not replace source authority or refresh cached observation times.
 func (s *Server) SetQuotaSources(projectID string, sources []QuotaSource) error {
 	if s == nil || !opaque(projectID) || len(sources) > 256 {
 		return errInvalid
 	}
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	p, ok := s.projects[projectID]
-	if !ok {
-		return errProject
+	p, e := s.currentProjectLocked(projectID)
+	if e != nil {
+		return e
 	}
-	if old := s.quotaProjects[projectID]; old != nil && old.revision == p.revision {
+	if old := s.quotaProjects[projectID]; old != nil && old.revision == p.routeRevision {
 		return store.ErrConflict
 	}
-	reg := &quotaRegistration{revision: p.revision, broker: quota.NewBroker(10 * time.Second), sources: map[string]QuotaSource{}, failures: map[string]quota.Status{}}
+	reg := &quotaRegistration{revision: p.routeRevision, broker: quota.NewBroker(10 * time.Second), sources: map[string]QuotaSource{}, failures: map[string]quota.Status{}}
 	for _, source := range sources {
 		if !opaque(source.Route.ID) || source.Route.Revision < 1 || source.Current == nil {
 			return errInvalid
@@ -100,16 +100,19 @@ func (s *Server) SetQuotaSources(projectID string, sources []QuotaSource) error 
 func (s *Server) quotaConfiguration(projectID string) (project, *quotaRegistration, error) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	p, ok := s.projects[projectID]
-	if !ok {
+	p, e := s.currentProjectLocked(projectID)
+	if errors.Is(e, errProject) {
 		return project{}, nil, store.ErrNotFound
+	}
+	if e != nil {
+		return project{}, nil, e
 	}
 	return p, s.quotaProjects[projectID], nil
 }
 func (s *Server) quotaCurrent(projectID string, reg *quotaRegistration) bool {
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	return reg != nil && s.quotaProjects[projectID] == reg && s.projects[projectID].revision == reg.revision
+	return reg != nil && s.quotaProjects[projectID] == reg && s.projects[projectID].routeRevision == reg.revision
 }
 func publishedQuota(snapshot quota.Snapshot, now time.Time) quota.Snapshot {
 	snapshot.Status = quota.State(snapshot, now, time.Minute)

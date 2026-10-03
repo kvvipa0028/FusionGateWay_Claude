@@ -4,7 +4,7 @@
 
 | 方法/路径 | 行为 |
 |---|---|
-| GET `/control/v1/projects/{project_id}/configuration` | 返回 revision/configuration 与整数 ETag；仅 GET，默认层的公开写入入口尚待实现 |
+| GET `/control/v1/projects/{project_id}/configuration` | 返回 revision/configuration 与整数 ETag；仅 GET；保存的全局/项目层通过独立 defaults API 写入 |
 | GET `/control/v1/projects/{project_id}/presets` | 只读各预设的最新版本，返回 `presets` 数组，最多 128 个名称 |
 | GET `/control/v1/projects/{project_id}/presets/{preset_id}` | 浏览当前 head，返回完整 Preset 与 revision ETag |
 | GET `/control/v1/projects/{project_id}/presets/{preset_id}/versions/{revision}` | 读取明确、不可变的历史版本；revision 必须为规范正整数 |
@@ -25,3 +25,5 @@ PUT 的基版本和规范 payload 构成幂等身份：对原 `"N"`/payload 的�
 schema 4 新增 preset_revisions、preset_heads、task_preset_refs，版本记录有 UPDATE/DELETE 保护，任务引用有项目与版本/hash FK。004 checksum 独立，001–003 保持不变；schema 1/2/3 顺序升级后为 4。已验证 schema 3 的提交/启动幂等记录、已消耗预算、held 预留、历史事件与 controller policy 保留；没有为旧任务制造预设来源。向 schema 3 或更早 binary 回滚必须恢复相应一致性数据库备份，不能只换 binary；旧 binary 会拒绝 4，未来 5 与 checksum 异常也拒绝打开。
 
 新增 19 个 stageplan/Store/API 测试，另重跑两项旧版本迁移；覆盖不可变历史、重启保留、并发 PUT、head 写入失败与任务引用失败的事务回滚、跨项目/非法 hash、容量、明确应用版本、五角色与全绑定覆盖、失效路线不准入、预览与已提交任务的版本边界、实际 loopback HTTP 和路由/Location。固定 Claude Code 2.1.287 在 schema 4 上通过既有 Controller/Adapter 的合成上游一次调用、实际 wait/StopProof 与释放回归；它未验证新 preset HTTP 到真实账号的工程执行。本项真实模型/额度调用均为 0，Jev off。
+
+当前 schema 已由后续 [默认层 API](default-layer-api.md) 扩展到 5；上述 schema 4 验证为 PRESETS-01 的历史证据，当前 binary 拒绝未来 schema 6。预设的固定版本应用与任务 FK 合同保持不变。

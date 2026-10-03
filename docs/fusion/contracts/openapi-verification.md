@@ -1,8 +1,8 @@
 # 当前 Handler 的 OpenAPI 合同验证
 
-`openapi-fusion.yaml` 描述当前内部 Handler 已实现的 17 个路径、19 个操作。无调用预览、提交/读取、阶段计划预览/修订、预算、事件流、启动/取消/run 读取、配置只读、五角色预设版本、任务预设来源和额度读取/刷新均纳入合同。产品 listener 尚未注册；暂停/继续及默认层写入尚未实现，不能因文档可解析而视为可调用。
+`openapi-fusion.yaml` 描述当前内部 Handler 已实现的 21 个路径、25 个操作。无调用预览、提交/读取、阶段计划预览/修订、预算、事件流、启动/取消/run 读取、配置只读、五角色预设版本、任务预设来源、额度读取/刷新与全局/项目默认层读写/历史均纳入合同。产品 listener 尚未注册；暂停/继续尚未实现，不能因文档可解析而视为可调用。
 
-本项不修改运行期 Handler、Store 或调度行为。OpenAPI 是人工维护的接口合同；Go DTO、现有行为合同与实际 Handler 返回是字段核对来源。以后新增接口或改变 DTO，要同时更新 YAML、样本采集与 checker 的明确操作清单，禁止只为通过检查删掉已有操作。尚未实现的操作不占用实际合同路径。
+OPENAPI-01 只补合同；后续 DEFAULTS-01 新增了运行期默认层，并同步更新合同。OpenAPI 是人工维护的接口合同；Go DTO、现有行为合同与实际 Handler 返回是字段核对来源。以后新增接口或改变 DTO，要同时更新 YAML、样本采集与 checker 的明确操作清单，禁止只为通过检查删掉已有操作。尚未实现的操作不占用实际合同路径。
 
 ## 验证内容与边界
 
@@ -10,8 +10,8 @@
 
 - 官方 OpenAPI 3.1 文档 schema 校验，组件 JSON Schema 的 Draft 2020-12 语法校验，所有引用解析，path 参数及唯一 operationId 检查。
 - 已实现路径/方法清单比对，以及每一个成功操作的实际 Handler 样本覆盖。
-- 27 份 Handler 返回、成功请求和所需 header 与对应 schema 的核对。包含实际本机 SSE 连接；事件帧的 `data` 用 Event schema 检查，完整 SSE 格式/重连行为仍由原事件测试验证。
-- 4 个越权字段输入 schema 的拒绝检查，以及临时删除 submit path、破坏 Snapshot hash 类型、错误禁止 nil capabilities 的三项反例。反例修改只在临时合同副本中，不修改正式文件。
+- 36 份 Handler 返回、成功请求和所需 header 与对应 schema 的核对。包含实际本机 SSE 连接；事件帧的 `data` 用 Event schema 检查，完整 SSE 格式/重连行为仍由原事件测试验证。
+- 5 个越权字段输入 schema 的拒绝检查，以及临时删除 submit path、破坏 Snapshot hash 类型、错误禁止 nil capabilities 的三项反例。反例修改只在临时合同副本中，不修改正式文件。
 
 样本来自 `TestImplementedAPIContractSamples`。模型、账号、额度 reader 和执行 backend 都是 fixture，本项实际上游模型调用和额度查询为 0。capture 正常参与 API 测试，仅显式传入绝对输出路径时导出 JSON；不读取真实 key。
 
@@ -50,6 +50,6 @@ python3 scripts/fusion/check-openapi.py \
   --samples .fusion-dev/openapi-check/samples.json
 ```
 
-预期输出：17 paths、19 operations、27 handler samples、19 covered operations、4 negative schema cases；生产注册为 false。测试失败时先保留日志和临时目录，依据具体字段/行为修正合同或实现，不能删除不匹配样本来获得成功。成功后可用 `rmdir` 删除上述空临时目录；若 Go 测试产生缓存子目录，保留或按本人清理策略处理，不宽泛删除其他临时目录。
+预期输出：21 paths、25 operations、36 handler samples、25 covered operations、5 negative schema cases；生产注册为 false。测试失败时先保留日志和临时目录，依据具体字段/行为修正合同或实现，不能删除不匹配样本来获得成功。成功后可用 `rmdir` 删除上述空临时目录；若 Go 测试产生缓存子目录，保留或按本人清理策略处理，不宽泛删除其他临时目录。
 
-完整证据见 [OPENAPI-01/summary.md](../work-items/WP-15/OPENAPI-01/summary.md)。本轮 API race 67 PASS、0 SKIP、0 FAIL，API vet 通过。生产源码未变化，因此未重复上一项已通过的 CLI/GUI build、全仓 vet 或 Native 验证。
+原 17 路径/19 操作的历史证据见 [OPENAPI-01/summary.md](../work-items/WP-15/OPENAPI-01/summary.md)。当前默认层扩展及全量 Fusion race、CLI/GUI build、full vet 和固定 Native 合成回归证据见 [DEFAULTS-01/summary.md](../work-items/WP-15/DEFAULTS-01/summary.md)。标准校验与 fixture 样本不能证明产品 listener 或真实账号准入。

@@ -4,7 +4,7 @@
 
 ## 持久化与事务
 
-schema 当前为 4，依次使用 `migrations/001.sql`、`002.sql`、`003.sql`、`004.sql`；初始表包含 Task、StagePlanRevision、StageRun、RouteRevision、EvidenceRef、idempotency 和带 task 内序号的 Event，扩展表见下文。版本及每份迁移 SHA256 校验失败拒绝打开；现存未知数据库不能当成空数据库迁移。WAL、foreign_keys 和 synchronous=FULL 启用，单连接配合控制器锁与事务串行写入。
+schema 当前为 5，依次使用 `migrations/001.sql`、`002.sql`、`003.sql`、`004.sql`、`005.sql`；初始表包含 Task、StagePlanRevision、StageRun、RouteRevision、EvidenceRef、idempotency 和带 task 内序号的 Event，扩展表见下文。版本及每份迁移 SHA256 校验失败拒绝打开；现存未知数据库不能当成空数据库迁移。WAL、foreign_keys 和 synchronous=FULL 启用，单连接配合控制器锁与事务串行写入。
 
 Create 的幂等键限定在 project 内，payload hash 包含项目、目标、完整快照、预算及可选预设引用。相同键和 payload 返回同一个 task；不同 payload 拒绝。未用预设时新增字段省略，旧提交的 payload hash 保持兼容。数据库事务不会调用 Runtime，也不隐式执行任务。
 
@@ -57,3 +57,11 @@ task 内事件 seq 由同一事务分配，从 1 连续增长；失败事务不�
 新增项目范围的不可变 preset_revisions、CAS latest preset_heads 与 task_preset_refs。Task 创建事务核对明确版本/hash 并原子保存引用，FK 保证同一项目且引用正确 hash。版本化 PUT 的幂等重读不追随 latest，不消费新 revision 或改变 created_at；新的 head 与版本同事务提交。详见 [preset-api.md](preset-api.md)。
 
 004 checksum 独立保存，001–003 未改；已验证 schema 3 任务/提交和启动映射/预算/held 容量/事件与政策保留，以及 004 checksum 异常和未来 schema 拒绝。原 schema 1/2 回归的最终版本断言改为当前 4，原历史数据和 checksum 断言保留。回滚至 schema 3 或更早需恢复对应一致性数据库备份，旧 binary 不能打开 4。产品启动 endpoint 尚未注册；Controller 的实际 Native 合成回归已在 schema 4 独立通过，不构成三路线真实账号验收。
+
+## WP-15 schema 5 默认配置层
+
+新增独立的 default_layer_revisions 与 default_layer_heads，scope 为唯一 global 或确切 project。完整五角色 canonical 层形成不可变版本/hash，head 的 FK 指向历史；显式 inherit 以新版本保存，不删除 head。005 checksum 独立，001–004 保持原样。未保存表示无覆盖，不为旧任务制造模型默认值或来源引用。
+
+创建新任务/修订计划通过 CreateCurrent/RevisePlanCurrent 在同一事务检查当前 global/project DefaultStamp；私有 stamp 不加入原 CreateRequest JSON，因此旧 payload hash 与幂等记录不改变。LookupCreation 只读精确 project/key/payload 的既有任务；已有 receipt 优先于新建的当前条件，不退款、不刷新租约、不执行 Runtime。冻结 Snapshot、预算、generation、run 与历史事件保持原合同。
+
+schema 4 数据保留及 005 写入失败回滚、checksum 异常已验证；原 schema 1–3 测试的最终版本断言调整为 5，未来拒绝用 6，历史数据断言保留。回滚到 schema 4 或更早须恢复对应一致性备份。Controller 的固定 Native 合成回归在 schema 5 上通过；不代替真实账号验收。完整 API 合同见 [default-layer-api.md](default-layer-api.md)。

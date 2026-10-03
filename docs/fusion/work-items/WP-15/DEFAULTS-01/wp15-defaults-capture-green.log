@@ -1,0 +1,7 @@
+=== RUN   TestImplementedAPIContractSamples
+    openapi_samples_test.go:164: captured 36 actual Handler response samples, including real loopback SSE; real models/quota 0
+--- PASS: TestImplementedAPIContractSamples (0.22s)
+=== RUN   TestQuotaAPIRejectsUnsafeCallsBeforeFetch
+--- PASS: TestQuotaAPIRejectsUnsafeCallsBeforeFetch (0.03s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/api	1.919s

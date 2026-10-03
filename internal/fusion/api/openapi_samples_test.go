@@ -82,6 +82,13 @@ func TestImplementedAPIContractSamples(t *testing.T) {
 	add("POST", "/agent/v1/tasks", string(sbody), 201, w, map[string]string{"Idempotency-Key": "fixture-contract-preset-submit"})
 	json.Unmarshal(w.Body.Bytes(), &task)
 	add("GET", "/control/v1/tasks/"+task.ID+"/preset", "", 200, request(h, "GET", "/control/v1/tasks/"+task.ID+"/preset", "", "", "fixture-management"), nil)
+	for _, path := range []string{globalDefaultsPath, projectDefaultsPath} {
+		add("GET", path, "", 200, request(h, "GET", path, "", "", "fixture-management"), nil)
+		add("PUT", path, defaultsA, 201, revisionRequest(h, "PUT", path, defaultsA, `"0"`), map[string]string{"If-Match": `"0"`})
+		add("GET", path, "", 200, request(h, "GET", path, "", "", "fixture-management"), nil)
+		add("GET", path+"/versions/1", "", 200, request(h, "GET", path+"/versions/1", "", "", "fixture-management"), nil)
+	}
+	add("PUT", projectDefaultsPath, defaultsA, 200, revisionRequest(h, "PUT", projectDefaultsPath, defaultsA, `"0"`), map[string]string{"If-Match": `"0"`})
 	_, _, rh, rt := revisionSetup(t)
 	rpath := "/control/v1/tasks/" + rt.ID + "/plan/preview"
 	w = revisionRequest(rh, "POST", rpath, reviewChange, `"1"`)

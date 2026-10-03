@@ -1,0 +1,22 @@
+# github.com/yetone/magpie/internal/fusion/store [github.com/yetone/magpie/internal/fusion/store.test]
+internal/fusion/store/defaults_test.go:15:80: undefined: snapshot
+FAIL	github.com/yetone/magpie/internal/fusion/store [build failed]
+=== RUN   TestDefaultsAPIPeerCommittedReceiptReadsOriginalBeforeCurrentDefaults
+--- PASS: TestDefaultsAPIPeerCommittedReceiptReadsOriginalBeforeCurrentDefaults (0.05s)
+=== RUN   TestDefaultsAPIChangesNewPreviewsWithoutRewritingCommittedTasks
+--- PASS: TestDefaultsAPIChangesNewPreviewsWithoutRewritingCommittedTasks (0.05s)
+=== RUN   TestDefaultsAPIPeerWritesAndServerRestartLoadPersistentLayers
+--- PASS: TestDefaultsAPIPeerWritesAndServerRestartLoadPersistentLayers (0.04s)
+=== RUN   TestDefaultsAPIRejectsUnsafeWritesAndKeepsAbsenceExplicit
+--- PASS: TestDefaultsAPIRejectsUnsafeWritesAndKeepsAbsenceExplicit (0.03s)
+=== RUN   TestDefaultsAPIGlobalAmbiguityAndHistoricalRetryCannotReplaceHead
+--- PASS: TestDefaultsAPIGlobalAmbiguityAndHistoricalRetryCannotReplaceHead (0.04s)
+=== RUN   TestDefaultsAPIRegisteredDraftDoesNotGrantAdmission
+--- PASS: TestDefaultsAPIRegisteredDraftDoesNotGrantAdmission (0.04s)
+=== RUN   TestDefaultsAPIQuotaRegistrationRetainsSourceAgeUntilTrustedRouteChanges
+--- PASS: TestDefaultsAPIQuotaRegistrationRetainsSourceAgeUntilTrustedRouteChanges (0.04s)
+=== RUN   TestDefaultsAPIRevisionReceiptsCheckCurrentDefaultsAndCommittedApplyStaysFrozen
+--- PASS: TestDefaultsAPIRevisionReceiptsCheckCurrentDefaultsAndCommittedApplyStaysFrozen (0.05s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/api	1.982s
+FAIL

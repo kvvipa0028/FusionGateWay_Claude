@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/store [github.com/yetone/magpie/internal/fusion/store.test]
+internal/fusion/store/defaults_test.go:15:16: s.SaveDefaultLayer undefined (type *Store has no field or method SaveDefaultLayer)
+internal/fusion/store/defaults_test.go:19:17: s.SaveDefaultLayer undefined (type *Store has no field or method SaveDefaultLayer)
+internal/fusion/store/defaults_test.go:23:17: s.SaveDefaultLayer undefined (type *Store has no field or method SaveDefaultLayer)
+internal/fusion/store/defaults_test.go:27:14: s.SaveDefaultLayer undefined (type *Store has no field or method SaveDefaultLayer)
+internal/fusion/store/defaults_test.go:30:14: s.SaveDefaultLayer undefined (type *Store has no field or method SaveDefaultLayer)
+internal/fusion/store/defaults_test.go:33:14: s.DefaultLayer undefined (type *Store has no field or method DefaultLayer)
+internal/fusion/store/defaults_test.go:36:14: s.SaveDefaultLayer undefined (type *Store has no field or method SaveDefaultLayer)
+internal/fusion/store/defaults_test.go:51:14: s.DefaultLayer undefined (type *Store has no field or method DefaultLayer)
+internal/fusion/store/defaults_test.go:55:17: s.DefaultLayers undefined (type *Store has no field or method DefaultLayers)
+internal/fusion/store/defaults_test.go:69:14: s.SaveDefaultLayer undefined (type *Store has no field or method SaveDefaultLayer)
+internal/fusion/store/defaults_test.go:69:14: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/store [build failed]
+FAIL

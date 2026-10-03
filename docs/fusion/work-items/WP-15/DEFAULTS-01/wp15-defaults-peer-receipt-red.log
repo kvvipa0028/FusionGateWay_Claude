@@ -1,0 +1,6 @@
+=== RUN   TestDefaultsAPIPeerCommittedReceiptReadsOriginalBeforeCurrentDefaults
+    defaults_test.go:45: existing durable receipt blocked by new defaults 409
+--- FAIL: TestDefaultsAPIPeerCommittedReceiptReadsOriginalBeforeCurrentDefaults (0.05s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/api	0.684s
+FAIL

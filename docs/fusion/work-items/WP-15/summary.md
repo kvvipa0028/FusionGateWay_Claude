@@ -22,6 +22,8 @@
 
 [WP-15-QUOTA-API-01](QUOTA-API-01/summary.md) 已完成 Management 保护的项目额度缓存读取/手动刷新、精确来源登记、过期/撤销/失败状态和共享 pool 展示，以及全服务八个采集 Worker 名额。采集器为 fixture；真实额度来源与产品注册继续接线，完整 OpenAPI、预设/暂停/恢复及 UI 未完成。
 
-[WP-15-PRESETS-01](PRESETS-01/summary.md) 已完成独立持久化的五角色预设版本、明确版本应用、全绑定覆盖、Task 原子来源引用、配置只读与受鉴权的列表/读写 API。schema 4 迁移保留旧任务/幂等/预算/事件/容量；实际固定 Native 合成回归通过。默认层公开写入、产品接线、暂停/恢复、完整 OpenAPI 与 GUI 继续实施。
+[WP-15-PRESETS-01](PRESETS-01/summary.md) 已完成独立持久化的五角色预设版本、明确版本应用、全绑定覆盖、Task 原子来源引用、配置只读与受鉴权的列表/读写 API。schema 4 迁移保留旧任务/幂等/预算/事件/容量；实际固定 Native 合成回归通过。默认层及完整 OpenAPI 已由后续工作完成；产品接线、暂停/恢复与 GUI 继续实施。
 
 [WP-15-OPENAPI-01](OPENAPI-01/summary.md) 已完成当前 Handler 的 17 路径/19 操作合同、字段/nullable/error media type 核对、官方文档 schema 和 27 个实际返回样本的离线检查。API race 67 项全部通过，API vet 通过。未来控制与产品接线仍须扩展合同，父包继续 in_progress。
+
+[WP-15-DEFAULTS-01](DEFAULTS-01/summary.md) 已完成持久化 global/project 默认层、五角色整体覆盖/继承、不可变历史与 If-Match、当前配置投影和事务内 stamp 检查。跨 Server 已提交请求重读保持原任务，额度来源与选择版本分离且不刷新观测。schema 5 保留历史数据与原 payload hash，005 失败回滚；21 路径/25 操作、36 样本合同已校验。产品接线、暂停/继续和 GUI 仍未完成，父包保持 in_progress。

@@ -58,9 +58,9 @@ func (s *Server) previewRevision(id string, base int64, in RevisionRequest) (Pre
 	if task.PlanRevision != base {
 		return Preview{}, errPlanConflict
 	}
-	c, ok := s.projects[task.ProjectID]
-	if !ok {
-		return Preview{}, errProject
+	c, e := s.currentProjectLocked(task.ProjectID)
+	if e != nil {
+		return Preview{}, e
 	}
 	old, e := s.store.Plan(id, base)
 	if e != nil {
@@ -91,7 +91,7 @@ func (s *Server) previewRevision(id string, base int64, in RevisionRequest) (Pre
 		return Preview{}, e
 	}
 	p := Preview{ID: "preview-" + hex.EncodeToString(entropy[:]), ConfigurationRevision: c.revision, ExpiresAt: now.Add(5 * time.Minute), Plan: plan, Budget: BudgetLimits{MaxCalls: b.MaxCalls, MaxReworks: b.MaxReworks}}
-	s.previews[p.ID] = &receipt{preview: copyPreview(p), request: PreviewRequest{ProjectID: task.ProjectID}, taskID: id, base: base}
+	s.previews[p.ID] = &receipt{preview: copyPreview(p), request: PreviewRequest{ProjectID: task.ProjectID}, taskID: id, base: base, defaults: c.defaults}
 	return p, nil
 }
 
@@ -110,10 +110,17 @@ func (s *Server) applyRevision(id string, base int64, in SubmitRequest) (stagepl
 		// This receipt never resets counters, starts work, or writes a new event.
 		return copyPreview(r.preview).Plan, nil
 	}
-	if !s.now().Before(r.preview.ExpiresAt) || s.projects[r.request.ProjectID].revision != r.preview.ConfigurationRevision {
+	p, e := s.currentProjectLocked(r.request.ProjectID)
+	if e != nil {
+		return stageplan.Snapshot{}, e
+	}
+	if !s.now().Before(r.preview.ExpiresAt) || p.revision != r.preview.ConfigurationRevision || p.defaults != r.defaults {
 		return stageplan.Snapshot{}, errPreview
 	}
-	if e := s.store.RevisePlan(id, base, r.preview.Plan); e != nil {
+	if e := s.store.RevisePlanCurrent(id, base, r.preview.Plan, r.defaults); e != nil {
+		if errors.Is(e, store.ErrDefaultsChanged) {
+			return stageplan.Snapshot{}, errPreview
+		}
 		return stageplan.Snapshot{}, planError(e)
 	}
 	r.applied = true

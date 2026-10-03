@@ -1,0 +1,10 @@
+=== RUN   TestDefaultsVersionsCanonicalScopedImmutableAndRestartSafe
+--- PASS: TestDefaultsVersionsCanonicalScopedImmutableAndRestartSafe (0.06s)
+=== RUN   TestDefaultsConcurrentSaveAndHeadFailureAreAtomic
+--- PASS: TestDefaultsConcurrentSaveAndHeadFailureAreAtomic (0.05s)
+=== RUN   TestDefaultsStampFencesNewTaskInTransactionWithoutChangingOldPayloadHash
+--- PASS: TestDefaultsStampFencesNewTaskInTransactionWithoutChangingOldPayloadHash (0.05s)
+=== RUN   TestDefaultsStampFencesPlanRevisionAndCommittedRetryIsReadOnly
+--- PASS: TestDefaultsStampFencesPlanRevisionAndCommittedRetryIsReadOnly (0.04s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/store	2.822s

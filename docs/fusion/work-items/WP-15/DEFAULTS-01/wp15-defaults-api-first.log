@@ -1,0 +1,16 @@
+=== RUN   TestDefaultsAPIChangesNewPreviewsWithoutRewritingCommittedTasks
+--- PASS: TestDefaultsAPIChangesNewPreviewsWithoutRewritingCommittedTasks (0.06s)
+=== RUN   TestDefaultsAPIPeerWritesAndServerRestartLoadPersistentLayers
+--- PASS: TestDefaultsAPIPeerWritesAndServerRestartLoadPersistentLayers (0.04s)
+=== RUN   TestDefaultsAPIRejectsUnsafeWritesAndKeepsAbsenceExplicit
+--- PASS: TestDefaultsAPIRejectsUnsafeWritesAndKeepsAbsenceExplicit (0.03s)
+=== RUN   TestDefaultsAPIGlobalAmbiguityAndHistoricalRetryCannotReplaceHead
+--- PASS: TestDefaultsAPIGlobalAmbiguityAndHistoricalRetryCannotReplaceHead (0.05s)
+=== RUN   TestDefaultsAPIRegisteredDraftDoesNotGrantAdmission
+--- PASS: TestDefaultsAPIRegisteredDraftDoesNotGrantAdmission (0.04s)
+=== RUN   TestDefaultsAPIQuotaRegistrationRetainsSourceAgeUntilTrustedRouteChanges
+--- PASS: TestDefaultsAPIQuotaRegistrationRetainsSourceAgeUntilTrustedRouteChanges (0.04s)
+=== RUN   TestDefaultsAPIRevisionReceiptsCheckCurrentDefaultsAndCommittedApplyStaysFrozen
+--- PASS: TestDefaultsAPIRevisionReceiptsCheckCurrentDefaultsAndCommittedApplyStaysFrozen (0.05s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/api	1.968s

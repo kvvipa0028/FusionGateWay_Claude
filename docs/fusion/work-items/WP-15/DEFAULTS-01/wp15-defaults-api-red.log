@@ -1,0 +1,4 @@
+# github.com/yetone/magpie/internal/fusion/api [github.com/yetone/magpie/internal/fusion/api.test]
+internal/fusion/api/defaults_test.go:102:13: undefined: DefaultLayerView
+FAIL	github.com/yetone/magpie/internal/fusion/api [build failed]
+FAIL

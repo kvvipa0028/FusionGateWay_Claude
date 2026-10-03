@@ -110,10 +110,10 @@ func (s *Server) presetControl(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	s.mu.Lock()
-	p, ok := s.projects[parts[0]]
+	p, e := s.currentProjectLocked(parts[0])
 	s.mu.Unlock()
-	if !ok {
-		presetFailure(w, errProject)
+	if e != nil {
+		presetFailure(w, e)
 		return
 	}
 	if parts[1] == "configuration" && len(parts) == 2 {

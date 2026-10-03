@@ -29,8 +29,9 @@ var errPreview = errors.New("task preview expired or changed")
 var errProject = errors.New("project unavailable")
 var errCapacity = errors.New("task preview capacity reached")
 
-// ProjectConfiguration is supplied only by the trusted controller. HTTP callers
-// select a known project and task-level bindings; they cannot supply this object.
+// ProjectConfiguration's registry/budget/bootstrap come from the trusted
+// controller. HTTP callers can persist separate global/project binding layers,
+// but cannot supply this whole object or change its route authority.
 type ProjectConfiguration struct {
 	Global        stageplan.Layer   `json:"global"`
 	Project       stageplan.Layer   `json:"project"`
@@ -50,8 +51,11 @@ func validLimits(b BudgetLimits) bool {
 }
 
 type project struct {
-	configuration ProjectConfiguration
-	revision      int64
+	configuration           ProjectConfiguration
+	revision                int64
+	routeRevision           int64
+	baseGlobal, baseProject stageplan.Layer
+	defaults                store.DefaultStamp
 }
 type PreviewRequest struct {
 	ProjectID     string           `json:"project_id"`
@@ -81,6 +85,7 @@ type receipt struct {
 	taskID    string
 	base      int64
 	applied   bool
+	defaults  store.DefaultStamp
 }
 type Server struct {
 	mu            sync.Mutex
@@ -129,10 +134,14 @@ func (s *Server) SetProject(id string, c ProjectConfiguration) error {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	old := s.projects[id]
-	if old.revision == 0 && len(s.projects) >= 128 || old.revision == int64(1<<63-1) {
+	if old.revision == 0 && len(s.projects) >= 128 || old.revision == int64(1<<63-1) || old.routeRevision == int64(1<<63-1) {
 		return errCapacity
 	}
-	s.projects[id] = project{configuration: copied, revision: old.revision + 1}
+	d, e := s.store.DefaultLayers(id)
+	if e != nil {
+		return e
+	}
+	s.projects[id] = applyDefaults(project{configuration: copied, baseGlobal: copied.Global, baseProject: copied.Project, revision: old.revision + 1, routeRevision: old.routeRevision + 1}, d)
 	return nil
 }
 func copyPreview(p Preview) Preview {
@@ -147,9 +156,9 @@ func (s *Server) preview(in PreviewRequest) (Preview, error) {
 	}
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	p, ok := s.projects[in.ProjectID]
-	if !ok {
-		return Preview{}, errProject
+	p, e := s.currentProjectLocked(in.ProjectID)
+	if e != nil {
+		return Preview{}, e
 	}
 	var presetRef *store.PresetRef
 	if in.Preset != nil {
@@ -202,7 +211,7 @@ func (s *Server) preview(in PreviewRequest) (Preview, error) {
 		return Preview{}, e
 	}
 	out := Preview{ID: "preview-" + hex.EncodeToString(entropy[:]), ConfigurationRevision: p.revision, ExpiresAt: now.Add(5 * time.Minute), Plan: plan, Budget: budget, Preset: presetRef}
-	s.previews[out.ID] = &receipt{preview: copyPreview(out), request: PreviewRequest{ProjectID: in.ProjectID, Goal: in.Goal}}
+	s.previews[out.ID] = &receipt{preview: copyPreview(out), request: PreviewRequest{ProjectID: in.ProjectID, Goal: in.Goal}, defaults: p.defaults}
 	return out, nil
 }
 func (s *Server) submit(in SubmitRequest, key string) (store.Task, error) {
@@ -223,11 +232,35 @@ func (s *Server) submit(in SubmitRequest, key string) (store.Task, error) {
 		}
 		return s.store.Task(r.committed.ID)
 	}
-	if !s.now().Before(r.preview.ExpiresAt) || s.projects[r.request.ProjectID].revision != r.preview.ConfigurationRevision {
+	budget := store.Budget{MaxCalls: r.preview.Budget.MaxCalls, MaxReworks: r.preview.Budget.MaxReworks}
+	request := store.CreateRequest{ProjectID: r.request.ProjectID, Goal: r.request.Goal, Plan: r.preview.Plan, Budget: &budget, Preset: r.preview.Preset}
+	readCommitted := func() (store.Task, error) {
+		task, e := s.store.LookupCreation(key, request)
+		if e == nil {
+			r.committed, r.key = task, key
+		}
+		return task, e
+	}
+	// A peer may have committed this exact request. Read its durable receipt
+	// before checking eligibility to create a new task.
+	if task, e := readCommitted(); !errors.Is(e, store.ErrNotFound) {
+		return task, e
+	}
+	p, e := s.currentProjectLocked(r.request.ProjectID)
+	if e != nil || !s.now().Before(r.preview.ExpiresAt) || p.revision != r.preview.ConfigurationRevision || p.defaults != r.defaults {
+		// The peer can commit between the first lookup and the current check.
+		if task, lookupErr := readCommitted(); !errors.Is(lookupErr, store.ErrNotFound) {
+			return task, lookupErr
+		}
+		if e != nil {
+			return store.Task{}, e
+		}
 		return store.Task{}, errPreview
 	}
-	budget := store.Budget{MaxCalls: r.preview.Budget.MaxCalls, MaxReworks: r.preview.Budget.MaxReworks}
-	task, e := s.store.Create(key, store.CreateRequest{ProjectID: r.request.ProjectID, Goal: r.request.Goal, Plan: r.preview.Plan, Budget: &budget, Preset: r.preview.Preset})
+	task, e := s.store.CreateCurrent(key, request, r.defaults)
+	if errors.Is(e, store.ErrDefaultsChanged) {
+		return store.Task{}, errPreview
+	}
 	if e != nil {
 		return store.Task{}, e
 	}
@@ -297,6 +330,8 @@ func (s *Server) Handler() http.Handler {
 			return
 		}
 		switch {
+		case defaultsPath(r.URL.Path):
+			s.defaultsControl(w, r)
 		case projectSettingsPath(r.URL.Path):
 			s.presetControl(w, r)
 		case strings.HasPrefix(r.URL.Path, "/control/v1/tasks/") && strings.HasSuffix(r.URL.Path, "/preset"):

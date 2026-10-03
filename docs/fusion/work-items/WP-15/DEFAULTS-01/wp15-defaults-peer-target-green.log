@@ -1,0 +1,36 @@
+=== RUN   TestDefaultsMigrationFivePreservesPresetReferencesAndRejectsChecksumDrift
+--- PASS: TestDefaultsMigrationFivePreservesPresetReferencesAndRejectsChecksumDrift (0.06s)
+=== RUN   TestDefaultsMigrationFailureRollsBackTablesVersionAndLeavesSchemaFourData
+--- PASS: TestDefaultsMigrationFailureRollsBackTablesVersionAndLeavesSchemaFourData (0.07s)
+=== RUN   TestCreationLookupIsExactScopedReadOnly
+--- PASS: TestCreationLookupIsExactScopedReadOnly (0.04s)
+=== RUN   TestDefaultsCapacityAndSubjectBoundsKeepExistingRevisionsAvailable
+--- PASS: TestDefaultsCapacityAndSubjectBoundsKeepExistingRevisionsAvailable (0.20s)
+=== RUN   TestDefaultsVersionsCanonicalScopedImmutableAndRestartSafe
+--- PASS: TestDefaultsVersionsCanonicalScopedImmutableAndRestartSafe (0.05s)
+=== RUN   TestDefaultsConcurrentSaveAndHeadFailureAreAtomic
+--- PASS: TestDefaultsConcurrentSaveAndHeadFailureAreAtomic (0.05s)
+=== RUN   TestDefaultsStampFencesNewTaskInTransactionWithoutChangingOldPayloadHash
+--- PASS: TestDefaultsStampFencesNewTaskInTransactionWithoutChangingOldPayloadHash (0.04s)
+=== RUN   TestDefaultsStampFencesPlanRevisionAndCommittedRetryIsReadOnly
+--- PASS: TestDefaultsStampFencesPlanRevisionAndCommittedRetryIsReadOnly (0.04s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/store	2.153s
+=== RUN   TestDefaultsAPIPeerCommittedReceiptReadsOriginalBeforeCurrentDefaults
+--- PASS: TestDefaultsAPIPeerCommittedReceiptReadsOriginalBeforeCurrentDefaults (0.05s)
+=== RUN   TestDefaultsAPIChangesNewPreviewsWithoutRewritingCommittedTasks
+--- PASS: TestDefaultsAPIChangesNewPreviewsWithoutRewritingCommittedTasks (0.05s)
+=== RUN   TestDefaultsAPIPeerWritesAndServerRestartLoadPersistentLayers
+--- PASS: TestDefaultsAPIPeerWritesAndServerRestartLoadPersistentLayers (0.04s)
+=== RUN   TestDefaultsAPIRejectsUnsafeWritesAndKeepsAbsenceExplicit
+--- PASS: TestDefaultsAPIRejectsUnsafeWritesAndKeepsAbsenceExplicit (0.03s)
+=== RUN   TestDefaultsAPIGlobalAmbiguityAndHistoricalRetryCannotReplaceHead
+--- PASS: TestDefaultsAPIGlobalAmbiguityAndHistoricalRetryCannotReplaceHead (0.04s)
+=== RUN   TestDefaultsAPIRegisteredDraftDoesNotGrantAdmission
+--- PASS: TestDefaultsAPIRegisteredDraftDoesNotGrantAdmission (0.04s)
+=== RUN   TestDefaultsAPIQuotaRegistrationRetainsSourceAgeUntilTrustedRouteChanges
+--- PASS: TestDefaultsAPIQuotaRegistrationRetainsSourceAgeUntilTrustedRouteChanges (0.04s)
+=== RUN   TestDefaultsAPIRevisionReceiptsCheckCurrentDefaultsAndCommittedApplyStaysFrozen
+--- PASS: TestDefaultsAPIRevisionReceiptsCheckCurrentDefaultsAndCommittedApplyStaysFrozen (0.06s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/api	1.623s

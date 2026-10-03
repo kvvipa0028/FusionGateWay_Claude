@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Fusion task control API
   version: 0.1.0-draft
-  description: 当前已实现 Handler 的完整路径/DTO 合同；17 paths、19 operations。产品 listener 尚未注册；pause/continue 与默认层写入未实现，不声明为可调用接口。
+  description: 当前已实现 Handler 合同；21 paths、25 operations。产品 listener 尚未注册；pause/continue 未实现。全局/项目默认层只允许绑定，不可改 route/账号/凭据/预算；新任务和计划修订在事务中重查默认版本，历史保持冻结。
 x-fusion-status: implemented-handler-contract
 x-fusion-production-registered: false
 security:
@@ -1239,6 +1239,386 @@ paths:
       x-fusion-stream-slots: 8
       x-fusion-page-events: 256
       x-fusion-write-deadline-seconds: 5
+  /control/v1/defaults/global:
+    get:
+      operationId: readGlobalDefaults
+      parameters: []
+      responses:
+        '200':
+          description: 持久化最新默认层；无保存为 configured:false/revision:0/layer:null。项目有效配置另见 configuration；读不会发起模型/额度调用。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultLayerView'
+          headers:
+            ETag:
+              schema:
+                type: string
+              description: 当前读取资源的 strong revision 或 Task 状态 tag，见对应资源说明。
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 相关 Task 当前条件，不是 RunView 本身的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: run 或明确 preset 历史版本相对路径。
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '412':
+          $ref: '#/components/responses/Error412'
+        '428':
+          $ref: '#/components/responses/Error428'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+    put:
+      operationId: saveGlobalDefaults
+      parameters:
+      - name: If-Match
+        in: header
+        required: true
+        schema:
+          type: string
+          pattern: ^"(0|[1-9][0-9]*)"$
+          maxLength: 21
+        description: 单个 strong int64 base；"0" 新建，"N" 保存 N+1；不得溢出。同 base/payload 重读明确历史，不回滚 latest。
+      responses:
+        '200':
+          description: 同 base/payload 只读历史；不把旧版本重新应用为当前默认。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultLayerReceipt'
+          headers:
+            ETag:
+              schema:
+                type: string
+              description: 当前读取资源的 strong revision 或 Task 状态 tag，见对应资源说明。
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 相关 Task 当前条件，不是 RunView 本身的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: run 或明确 preset 历史版本相对路径。
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '412':
+          $ref: '#/components/responses/Error412'
+        '428':
+          $ref: '#/components/responses/Error428'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+        '201':
+          description: 新建不可变默认层。registered 草稿不授予生成准入；Global ref 不得在当前注册项目中歧义。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultLayerReceipt'
+          headers:
+            ETag:
+              schema:
+                type: string
+              description: 当前读取资源的 strong revision 或 Task 状态 tag，见对应资源说明。
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 相关 Task 当前条件，不是 RunView 本身的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: run 或明确 preset 历史版本相对路径。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DefaultLayerInput'
+  /control/v1/defaults/global/versions/{revision}:
+    get:
+      operationId: readGlobalDefaultsVersion
+      parameters:
+      - name: revision
+        in: path
+        required: true
+        schema:
+          type: integer
+          minimum: 1
+      responses:
+        '200':
+          description: 读取明确不可变历史，无此版本为404；不跟随 latest。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultLayerView'
+          headers:
+            ETag:
+              schema:
+                type: string
+              description: 当前读取资源的 strong revision 或 Task 状态 tag，见对应资源说明。
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 相关 Task 当前条件，不是 RunView 本身的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: run 或明确 preset 历史版本相对路径。
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '412':
+          $ref: '#/components/responses/Error412'
+        '428':
+          $ref: '#/components/responses/Error428'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+  /control/v1/projects/{project_id}/defaults:
+    get:
+      operationId: readProjectDefaults
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+          x-fusion-max-utf8-bytes: 256
+      responses:
+        '200':
+          description: 持久化最新默认层；无保存为 configured:false/revision:0/layer:null。项目有效配置另见 configuration；读不会发起模型/额度调用。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultLayerView'
+          headers:
+            ETag:
+              schema:
+                type: string
+              description: 当前读取资源的 strong revision 或 Task 状态 tag，见对应资源说明。
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 相关 Task 当前条件，不是 RunView 本身的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: run 或明确 preset 历史版本相对路径。
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '412':
+          $ref: '#/components/responses/Error412'
+        '428':
+          $ref: '#/components/responses/Error428'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+    put:
+      operationId: saveProjectDefaults
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+          x-fusion-max-utf8-bytes: 256
+      - name: If-Match
+        in: header
+        required: true
+        schema:
+          type: string
+          pattern: ^"(0|[1-9][0-9]*)"$
+          maxLength: 21
+        description: 单个 strong int64 base；"0" 新建，"N" 保存 N+1；不得溢出。同 base/payload 重读明确历史，不回滚 latest。
+      responses:
+        '200':
+          description: 同 base/payload 只读历史；不把旧版本重新应用为当前默认。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultLayerReceipt'
+          headers:
+            ETag:
+              schema:
+                type: string
+              description: 当前读取资源的 strong revision 或 Task 状态 tag，见对应资源说明。
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 相关 Task 当前条件，不是 RunView 本身的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: run 或明确 preset 历史版本相对路径。
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '412':
+          $ref: '#/components/responses/Error412'
+        '428':
+          $ref: '#/components/responses/Error428'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+        '201':
+          description: 新建不可变默认层。registered 草稿不授予生成准入；Global ref 不得在当前注册项目中歧义。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultLayerReceipt'
+          headers:
+            ETag:
+              schema:
+                type: string
+              description: 当前读取资源的 strong revision 或 Task 状态 tag，见对应资源说明。
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 相关 Task 当前条件，不是 RunView 本身的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: run 或明确 preset 历史版本相对路径。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DefaultLayerInput'
+  /control/v1/projects/{project_id}/defaults/versions/{revision}:
+    get:
+      operationId: readProjectDefaultsVersion
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+          x-fusion-max-utf8-bytes: 256
+      - name: revision
+        in: path
+        required: true
+        schema:
+          type: integer
+          minimum: 1
+      responses:
+        '200':
+          description: 读取明确不可变历史，无此版本为404；不跟随 latest。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultLayerView'
+          headers:
+            ETag:
+              schema:
+                type: string
+              description: 当前读取资源的 strong revision 或 Task 状态 tag，见对应资源说明。
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 相关 Task 当前条件，不是 RunView 本身的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: run 或明确 preset 历史版本相对路径。
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '412':
+          $ref: '#/components/responses/Error412'
+        '428':
+          $ref: '#/components/responses/Error428'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
 components:
   securitySchemes:
     ManagementBearer:
@@ -2089,6 +2469,154 @@ components:
             $ref: '#/components/schemas/QuotaIdentity'
         snapshot:
           $ref: '#/components/schemas/QuotaSnapshot'
+    DefaultLayerInput:
+      type: object
+      additionalProperties: false
+      required:
+      - layer
+      properties:
+        layer:
+          $ref: ./contracts/stage-plan.schema.json#/$defs/layer
+    DefaultLayer:
+      type: object
+      additionalProperties: false
+      required:
+      - scope
+      - id
+      - revision
+      - layer
+      - hash
+      - created_at
+      properties:
+        scope:
+          enum:
+          - global
+          - project
+        id:
+          type: string
+          minLength: 1
+          maxLength: 256
+          x-fusion-max-utf8-bytes: 256
+        revision:
+          type: integer
+          minimum: 1
+        layer:
+          allOf:
+          - $ref: ./contracts/stage-plan.schema.json#/$defs/layer
+          - type: object
+            required:
+            - roles
+            properties:
+              roles:
+                minProperties: 5
+                maxProperties: 5
+              groups:
+                maxProperties: 0
+        hash:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+        created_at:
+          type: string
+          format: date-time
+    DefaultLayerReceipt:
+      type: object
+      additionalProperties: false
+      required:
+      - default_layer
+      - created
+      properties:
+        default_layer:
+          $ref: '#/components/schemas/DefaultLayer'
+        created:
+          type: boolean
+    DefaultLayerView:
+      type: object
+      additionalProperties: false
+      required:
+      - scope
+      - id
+      - revision
+      - configured
+      - layer
+      - hash
+      - created_at
+      properties:
+        scope:
+          enum:
+          - global
+          - project
+        id:
+          type: string
+          minLength: 1
+          maxLength: 256
+          x-fusion-max-utf8-bytes: 256
+        revision:
+          type: integer
+          minimum: 0
+        configured:
+          type: boolean
+        layer:
+          oneOf:
+          - allOf:
+            - $ref: ./contracts/stage-plan.schema.json#/$defs/layer
+            - type: object
+              required:
+              - roles
+              properties:
+                roles:
+                  minProperties: 5
+                  maxProperties: 5
+                groups:
+                  maxProperties: 0
+          - type: 'null'
+        hash:
+          type:
+          - string
+          - 'null'
+          pattern: ^[a-f0-9]{64}$
+        created_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+      allOf:
+      - if:
+          properties:
+            configured:
+              const: false
+        then:
+          properties:
+            revision:
+              const: 0
+            layer:
+              type: 'null'
+            hash:
+              type: 'null'
+            created_at:
+              type: 'null'
+        else:
+          properties:
+            revision:
+              type: integer
+              minimum: 1
+            layer:
+              allOf:
+              - $ref: ./contracts/stage-plan.schema.json#/$defs/layer
+              - type: object
+                required:
+                - roles
+                properties:
+                  roles:
+                    minProperties: 5
+                    maxProperties: 5
+                  groups:
+                    maxProperties: 0
+            hash:
+              type: string
+              pattern: ^[a-f0-9]{64}$
+            created_at:
+              type: string
+              format: date-time
   responses:
     Error400:
       description: 固定拒绝/错误；不回显敏感输入。

@@ -30,6 +30,9 @@ var migrationThree string
 
 //go:embed migrations/004.sql
 var migrationFour string
+
+//go:embed migrations/005.sql
+var migrationFive string
 var (
 	ErrConflict         = errors.New("store conflict")
 	ErrFenced           = errors.New("execution fenced")
@@ -154,7 +157,7 @@ func Open(root string) (*Store, error) {
 		}); e != nil {
 			return fail(e)
 		}
-	} else if version != 1 && version != 2 && version != 3 && version != 4 {
+	} else if version != 1 && version != 2 && version != 3 && version != 4 && version != 5 {
 		return fail(ErrUnsupported)
 	}
 	var checksum string
@@ -201,6 +204,20 @@ func Open(root string) (*Store, error) {
 		}
 	}
 	if e = s.db.QueryRow("SELECT value FROM metadata WHERE key='migration_004_sha256'").Scan(&checksum); e != nil || checksum != hash([]byte(migrationFour)) {
+		return fail(ErrUnsupported)
+	}
+	if version < 5 {
+		if e = s.transaction(func(tx *sql.Tx) error {
+			if _, e := tx.Exec(migrationFive); e != nil {
+				return e
+			}
+			_, e := tx.Exec("INSERT INTO metadata VALUES('migration_005_sha256',?)", hash([]byte(migrationFive)))
+			return e
+		}); e != nil {
+			return fail(e)
+		}
+	}
+	if e = s.db.QueryRow("SELECT value FROM metadata WHERE key='migration_005_sha256'").Scan(&checksum); e != nil || checksum != hash([]byte(migrationFive)) {
 		return fail(ErrUnsupported)
 	}
 	if e = s.recover(); e != nil {
@@ -296,28 +313,66 @@ func event(tx *sql.Tx, t string, kind, run string, gen int64) error {
 	return e
 }
 func (s *Store) Create(key string, in CreateRequest) (Task, error) {
+	return s.create(key, in, nil)
+}
+func (s *Store) CreateCurrent(key string, in CreateRequest, expected DefaultStamp) (Task, error) {
+	return s.create(key, in, &expected)
+}
+func creationPayload(key string, in CreateRequest) (CreateRequest, string, error) {
 	if !opaque(key) || !opaque(in.ProjectID) || in.Goal == "" || len(in.Goal) > 65536 || in.Plan.Revision != 1 || stageplan.VerifySnapshot(in.Plan) != nil {
-		return Task{}, ErrInvalid
+		return in, "", ErrInvalid
 	}
 	if in.Budget != nil {
 		b := *in.Budget
 		if !initialBudget(b) {
-			return Task{}, ErrInvalid
+			return in, "", ErrInvalid
 		}
 		in.Budget = &b
 	}
 	if in.Preset != nil {
 		ref := *in.Preset
 		if !presetID(ref.ID) || ref.Revision < 1 || len(ref.Hash) != 64 {
-			return Task{}, ErrInvalid
+			return in, "", ErrInvalid
 		}
 		in.Preset = &ref
 	}
 	raw, e := json.Marshal(in)
 	if e != nil {
+		return in, "", e
+	}
+	return in, hash(raw), nil
+}
+
+// LookupCreation reads an exact committed request without evaluating current
+// defaults or creating an intent. The project is part of its identity.
+func (s *Store) LookupCreation(key string, in CreateRequest) (Task, error) {
+	in, payloadHash, e := creationPayload(key, in)
+	if e != nil {
 		return Task{}, e
 	}
-	payloadHash := hash(raw)
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	if s.db == nil {
+		return Task{}, ErrClosed
+	}
+	var oldHash, taskID string
+	e = s.db.QueryRow("SELECT payload_hash,task_id FROM idempotency WHERE project_id=? AND key=?", in.ProjectID, key).Scan(&oldHash, &taskID)
+	if errors.Is(e, sql.ErrNoRows) {
+		return Task{}, ErrNotFound
+	}
+	if e != nil {
+		return Task{}, e
+	}
+	if oldHash != payloadHash {
+		return Task{}, ErrConflict
+	}
+	return taskIn(s.db, taskID)
+}
+func (s *Store) create(key string, in CreateRequest, expected *DefaultStamp) (Task, error) {
+	in, payloadHash, e := creationPayload(key, in)
+	if e != nil {
+		return Task{}, e
+	}
 	var result Task
 	e = s.transaction(func(tx *sql.Tx) error {
 		var oldHash, taskID string
@@ -330,6 +385,9 @@ func (s *Store) Create(key string, in CreateRequest) (Task, error) {
 			return e
 		}
 		if !errors.Is(e, sql.ErrNoRows) {
+			return e
+		}
+		if e = checkDefaults(tx, in.ProjectID, expected); e != nil {
 			return e
 		}
 		if in.Preset != nil {
@@ -374,9 +432,18 @@ func (s *Store) Create(key string, in CreateRequest) (Task, error) {
 	return result, e
 }
 func (s *Store) RevisePlan(taskID string, ifMatch int64, p stageplan.Snapshot) error {
+	return s.revisePlan(taskID, ifMatch, p, nil)
+}
+func (s *Store) RevisePlanCurrent(taskID string, ifMatch int64, p stageplan.Snapshot, expected DefaultStamp) error {
+	return s.revisePlan(taskID, ifMatch, p, &expected)
+}
+func (s *Store) revisePlan(taskID string, ifMatch int64, p stageplan.Snapshot, expected *DefaultStamp) error {
 	return s.transaction(func(tx *sql.Tx) error {
 		t, e := revisionIn(tx, taskID, ifMatch, p)
 		if e != nil {
+			return e
+		}
+		if e = checkDefaults(tx, t.ProjectID, expected); e != nil {
 			return e
 		}
 		raw, e := json.Marshal(p)

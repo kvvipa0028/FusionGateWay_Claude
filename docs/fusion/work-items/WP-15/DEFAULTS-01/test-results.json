@@ -1,0 +1,74 @@
+{
+  "work_item": "WP-15-DEFAULTS-01",
+  "status": "done",
+  "parent_status": "in_progress",
+  "new_tests": 16,
+  "checks": [
+    {
+      "check": "new defaults/receipt targeted race",
+      "exit_code": 0,
+      "log": "wp15-defaults-peer-target-green.log",
+      "top_level_pass": 16,
+      "top_level_skip": 0,
+      "top_level_fail": 0
+    },
+    {
+      "check": "full Fusion tagged race",
+      "exit_code": 0,
+      "log": "wp15-defaults-peer-final-race.log",
+      "top_level_pass": 308,
+      "top_level_skip": 8,
+      "top_level_fail": 0
+    },
+    {
+      "check": "explicit pinned Controller Native synthetic regression",
+      "exit_code": 0,
+      "log": "wp15-defaults-peer-native-green.log",
+      "top_level_pass": 1,
+      "top_level_skip": 0,
+      "top_level_fail": 0
+    },
+    {
+      "check": "CLI/GUI build and full tagged vet",
+      "exit_code": 0,
+      "result": "build-results.json"
+    },
+    {
+      "check": "official document/component schema and existing actual Handler samples",
+      "exit_code": 0,
+      "log": "wp15-defaults-peer-openapi-green.log",
+      "result": {
+        "official_openapi_document_schema": "3.1/2022-10-07",
+        "paths": 21,
+        "operations": 25,
+        "handler_samples": 36,
+        "covered_operations": 25,
+        "negative_schema_cases": 5,
+        "offline": true,
+        "production_registered": false
+      }
+    }
+  ],
+  "skip_explanation": [
+    "five explicit Native fixtures require opt-in; Controller fixture independently run once",
+    "one live quota fixture requires private-key opt-in, not enabled",
+    "two helpers only run in isolated child processes"
+  ],
+  "schema_version": 5,
+  "migration_001_004_unchanged": true,
+  "real_model_calls": 0,
+  "real_quota_queries": 0,
+  "production_registered": false,
+  "jev": "off",
+  "native_version": "Claude Code 2.1.287",
+  "native_runtime_sha256": "6eab8333fe2121553100d8f40bfada384a3e989b94f947e18ba6677a6fcb41ea",
+  "sample_origin": "36 actual Handler request/response/header samples captured before final peer receipt fix; schemas and sample generator unchanged by that fix; generator also passed final full race",
+  "failed_runs_preserved": {
+    "wp15-defaults-store-red.log": "methods not implemented",
+    "wp15-defaults-api-red.log": "API DTO not implemented",
+    "wp15-defaults-openapi-red.log": "implemented paths missing from contract",
+    "wp15-defaults-fusion-race.log": "introduced unknown-project quota HTTP500 instead of404; fixed mapping, original assertion preserved",
+    "wp15-defaults-peer-receipt-red.log": "peer durable receipt incorrectly rejected after defaults change",
+    "wp15-defaults-peer-green.log": "peer API passed; additional Store test initially used nonexistent helper; corrected to existing plan helper, target and full suite green"
+  }
+}
