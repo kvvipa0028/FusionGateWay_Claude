@@ -28,6 +28,11 @@
       "fail": 0
     },
     "wp13-adapter-inflight-observation.log": {
+      "pass": 2,
+      "skip": 0,
+      "fail": 0
+    },
+    "wp13-adapter-inflight-exact.log": {
       "pass": 1,
       "skip": 0,
       "fail": 0
@@ -51,5 +56,5 @@
     "production_forwarder_supplied": false,
     "registered_in_product": false
   },
-  "post_full_changes": "only strengthened inflight observation assertion; targeted Native executed; production unchanged"
+  "post_full_changes": "only inflight observation assertion strengthened and targeted Native executed; initial unanchored filter also ran empty InputSnapshot parent; anchored exact filter runs one parent/one scenario; production unchanged"
 }

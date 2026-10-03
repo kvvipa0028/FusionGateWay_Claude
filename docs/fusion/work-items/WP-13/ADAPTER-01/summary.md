@@ -31,3 +31,5 @@ python3 scripts/fusion/build-dev.py
 本项交付可由可信control wiring调用的readonly Adapter，未注册产品Worker或真实Forwarder。Current/Inspector必须对实际项目权限/Source稳定性/账号/Quota/计费做独立验证；Host TOCTOU、敏感Source与准入没有因fixed argv消失。Native文本属于未独立核验产物，外层必须task/project鉴权再展示，不作为最终工程验收。写/多工具/offset/binary、Native effort/Resume、X登录/Heavy/pool/生产Forwarder与完整WP13/final Gate仍未完成。
 
 全回归后只加强Native inflight阶段的Observation负断言：[定向复核](wp13-adapter-inflight-observation.log)PASS，running时不能拿到terminal文本；生产代码未改，不重复full/build。该用例随后取消/wait/StopProof/可信release均通过。
+
+证据复核：首次inflight filter的父test regex未结尾锚定，除了实际1场景外还有空的InputSnapshot parent PASS；metadata原手记1top有误，改为按日志提取2top，并以[精确filter](wp13-adapter-inflight-exact.log)重新证明1top/1实际场景PASS。原日志保留；未改变生产代码、测试预期或版本。

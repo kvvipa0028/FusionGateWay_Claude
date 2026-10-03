@@ -1,0 +1,7 @@
+=== RUN   TestGrokAdapterPinnedNative
+=== RUN   TestGrokAdapterPinnedNative/cancel_inflight
+    managed_native_test.go:38: synthetic Adapter mode=cancel_inflight state=cancelled exit=143 stop=true HTTP/budget=2 model-label-calls=0
+--- PASS: TestGrokAdapterPinnedNative (0.99s)
+    --- PASS: TestGrokAdapterPinnedNative/cancel_inflight (0.99s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime/grok	2.456s
