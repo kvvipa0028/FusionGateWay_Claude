@@ -1,0 +1,45 @@
+{
+  "work_item": "WP-14-CALLS-01",
+  "status": "done",
+  "parent_status": "in_progress",
+  "new_tests": {
+    "call_gate": 8,
+    "retry_protocol": 1,
+    "native_diagnostic": 1
+  },
+  "checks": [
+    {
+      "command": "go test -race -v -count=1 -mod=readonly -tags fusion,nogui ./internal/fusion/...",
+      "exit_code": 0,
+      "top_level_pass": 199,
+      "top_level_skip": 3,
+      "log": "wp14-calls-fusion-race-final.log"
+    },
+    {
+      "command": "go test -race -v -count=1 -mod=readonly -tags fusion,nogui ./internal/fusion/runtime/glm -run ^TestCallGatePinnedNativeLoopbackDiagnostic$ -args -fusion-native-claude <pinned-installation>",
+      "exit_code": 0,
+      "top_level_pass": 1,
+      "subcase_pass": 2,
+      "log": "wp14-calls-native-green.log"
+    }
+  ],
+  "red_logs": [
+    "wp14-calls-red.log",
+    "wp14-calls-alias-red.log",
+    "wp14-calls-tool-choice-red.log",
+    "wp14-calls-native-retry-red.log",
+    "wp14-calls-native-retry-shape.log",
+    "wp14-calls-retry-protocol-red.log"
+  ],
+  "build_report": "build-results.json",
+  "real_model_calls": 0,
+  "production_native_admitted": false,
+  "native_fixture_http_requests": {
+    "success": 1,
+    "sdk_retry": 2
+  },
+  "native_fixture_permits": {
+    "success": 1,
+    "sdk_retry": 2
+  }
+}

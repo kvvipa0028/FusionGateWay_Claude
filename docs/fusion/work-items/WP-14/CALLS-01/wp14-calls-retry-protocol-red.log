@@ -1,0 +1,22 @@
+=== RUN   TestPinnedAPIRetryIsBoundedInformationNotACallPermit
+=== RUN   TestPinnedAPIRetryIsBoundedInformationNotACallPermit/valid
+    session_test.go:109: pinned retry metadata rejected GLM native capability unsupported
+=== RUN   TestPinnedAPIRetryIsBoundedInformationNotACallPermit/missing
+=== RUN   TestPinnedAPIRetryIsBoundedInformationNotACallPermit/attempt
+=== RUN   TestPinnedAPIRetryIsBoundedInformationNotACallPermit/max
+=== RUN   TestPinnedAPIRetryIsBoundedInformationNotACallPermit/delay
+=== RUN   TestPinnedAPIRetryIsBoundedInformationNotACallPermit/status
+=== RUN   TestPinnedAPIRetryIsBoundedInformationNotACallPermit/active_message
+=== RUN   TestPinnedAPIRetryIsBoundedInformationNotACallPermit/cancelled
+--- FAIL: TestPinnedAPIRetryIsBoundedInformationNotACallPermit (0.01s)
+    --- FAIL: TestPinnedAPIRetryIsBoundedInformationNotACallPermit/valid (0.00s)
+    --- PASS: TestPinnedAPIRetryIsBoundedInformationNotACallPermit/missing (0.00s)
+    --- PASS: TestPinnedAPIRetryIsBoundedInformationNotACallPermit/attempt (0.00s)
+    --- PASS: TestPinnedAPIRetryIsBoundedInformationNotACallPermit/max (0.00s)
+    --- PASS: TestPinnedAPIRetryIsBoundedInformationNotACallPermit/delay (0.00s)
+    --- PASS: TestPinnedAPIRetryIsBoundedInformationNotACallPermit/status (0.00s)
+    --- PASS: TestPinnedAPIRetryIsBoundedInformationNotACallPermit/active_message (0.00s)
+    --- PASS: TestPinnedAPIRetryIsBoundedInformationNotACallPermit/cancelled (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/glm	0.619s
+FAIL

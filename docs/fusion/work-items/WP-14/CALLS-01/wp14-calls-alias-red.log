@@ -1,0 +1,24 @@
+=== RUN   TestCallGateRejectsUntrustedUpstreamWithoutDeliveringStream
+=== RUN   TestCallGateRejectsUntrustedUpstreamWithoutDeliveringStream/model
+=== RUN   TestCallGateRejectsUntrustedUpstreamWithoutDeliveringStream/alias
+    call_gate_test.go:207: upstream drift, redirect or raw content delivered 200
+=== RUN   TestCallGateRejectsUntrustedUpstreamWithoutDeliveringStream/duplicate
+=== RUN   TestCallGateRejectsUntrustedUpstreamWithoutDeliveringStream/missing_stop
+=== RUN   TestCallGateRejectsUntrustedUpstreamWithoutDeliveringStream/extra_message
+=== RUN   TestCallGateRejectsUntrustedUpstreamWithoutDeliveringStream/error
+=== RUN   TestCallGateRejectsUntrustedUpstreamWithoutDeliveringStream/redirect
+=== RUN   TestCallGateRejectsUntrustedUpstreamWithoutDeliveringStream/content_type
+=== RUN   TestCallGateRejectsUntrustedUpstreamWithoutDeliveringStream/too_large
+--- FAIL: TestCallGateRejectsUntrustedUpstreamWithoutDeliveringStream (0.03s)
+    --- PASS: TestCallGateRejectsUntrustedUpstreamWithoutDeliveringStream/model (0.00s)
+    --- FAIL: TestCallGateRejectsUntrustedUpstreamWithoutDeliveringStream/alias (0.00s)
+    --- PASS: TestCallGateRejectsUntrustedUpstreamWithoutDeliveringStream/duplicate (0.00s)
+    --- PASS: TestCallGateRejectsUntrustedUpstreamWithoutDeliveringStream/missing_stop (0.00s)
+    --- PASS: TestCallGateRejectsUntrustedUpstreamWithoutDeliveringStream/extra_message (0.00s)
+    --- PASS: TestCallGateRejectsUntrustedUpstreamWithoutDeliveringStream/error (0.00s)
+    --- PASS: TestCallGateRejectsUntrustedUpstreamWithoutDeliveringStream/redirect (0.00s)
+    --- PASS: TestCallGateRejectsUntrustedUpstreamWithoutDeliveringStream/content_type (0.00s)
+    --- PASS: TestCallGateRejectsUntrustedUpstreamWithoutDeliveringStream/too_large (0.02s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/glm	0.642s
+FAIL

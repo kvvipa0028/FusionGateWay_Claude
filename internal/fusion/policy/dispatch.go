@@ -139,17 +139,11 @@ func (d *Dispatcher) Dispatch(ctx context.Context, in DispatchRequest, maxCalls 
 	if err != nil {
 		return out, err
 	}
-	d.Manager.mu.Lock()
-	if d.Manager.activeCalls == nil {
-		d.Manager.activeCalls = map[string]bool{}
+	release, err := d.Manager.BeginModelCall(ctx, c)
+	if err != nil {
+		return out, err
 	}
-	if d.Manager.activeCalls[c.RunID] {
-		d.Manager.mu.Unlock()
-		return out, ErrDispatchBusy
-	}
-	d.Manager.activeCalls[c.RunID] = true
-	d.Manager.mu.Unlock()
-	defer func() { d.Manager.mu.Lock(); delete(d.Manager.activeCalls, c.RunID); d.Manager.mu.Unlock() }()
+	defer release()
 	var transportID string
 	for ordinal := 1; ordinal <= maxCalls; ordinal++ {
 		if ctx.Err() != nil {

@@ -1,0 +1,8 @@
+=== RUN   TestCallGateDeniedInputsNeverSpendOrForward
+=== RUN   TestCallGateDeniedInputsNeverSpendOrForward/tool_choice
+    call_gate_test.go:141: unsafe input reached upstream 200
+--- FAIL: TestCallGateDeniedInputsNeverSpendOrForward (0.00s)
+    --- FAIL: TestCallGateDeniedInputsNeverSpendOrForward/tool_choice (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/glm	0.635s
+FAIL

@@ -17,3 +17,5 @@ stdout/stderr 各最大 64KiB，超限取消且不判成功；总时限最大 10
 生命周期 channel 是临时进度，不作审计回放；Store.Events 保持 task 内连续序号和 generation。正式 Native parser 必须解析成功/错误/中断及实际 model/session 等字段，不能使用本包 fixture marker 作为上线判据。
 
 控制器每次最多保留 4096 个 launch/proof 防止无限内存增长；到限拒绝新启动，需停派单并对账后重启。
+
+WP-14 的 CallGate 是独立可信 Handler；当前不授予 Spec 新环境或 loopback 权限。固定 Native 的手工 profile 诊断证明 HTTP/SDK retry 经 gate 逐次核验，生产 Native Adapter、启动后 capability 交付与受管 OS 通信边界仍需完成。Native api_retry 仅是有界信息，不能当作新调用 Permit、stop proof、严格锁定或真实计费证明。

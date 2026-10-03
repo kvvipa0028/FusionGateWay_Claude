@@ -1,0 +1,11 @@
+=== RUN   TestCallGatePinnedNativeLoopbackDiagnostic
+=== RUN   TestCallGatePinnedNativeLoopbackDiagnostic/success
+    call_gate_native_test.go:31: Pinned Native 2.1.287 -> authenticated CallGate -> 1 synthetic HTTP requests/permits -> full protocol success; real model calls 0, Supervisor StopProof/admission/billing/quota unverified
+=== RUN   TestCallGatePinnedNativeLoopbackDiagnostic/sdk_retry
+    call_gate_native_test.go:32: Native protocol mismatch GLM native capability unsupported
+--- FAIL: TestCallGatePinnedNativeLoopbackDiagnostic (1.20s)
+    --- PASS: TestCallGatePinnedNativeLoopbackDiagnostic/success (0.33s)
+    --- FAIL: TestCallGatePinnedNativeLoopbackDiagnostic/sdk_retry (0.87s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/glm	1.856s
+FAIL

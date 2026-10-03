@@ -138,8 +138,8 @@
     },
     {
       "path": "docs/fusion/contracts/runtime-contract.md",
-      "sha256": "46f5deff6a5b06e6c514a02768fff1f2dd6a1ecef75be0d841f6ad05dbdea55b",
-      "bytes": 2823
+      "sha256": "42c6b695ca8b98e74a4404541a1ce29f74fffd8e47c7f9f75312c930589e660f",
+      "bytes": 3215
     },
     {
       "path": "docs/fusion/contracts/sandbox-proof.md",
@@ -148,8 +148,8 @@
     },
     {
       "path": "docs/fusion/contracts/stage-credential-contract.md",
-      "sha256": "a4ad629153fbb8c745b92b8225c4427b8f1dd506872cfd46f903875ca515fe58",
-      "bytes": 3084
+      "sha256": "32a246992507cad95dd0129ca21d84eef3168d4844c7fe2368a0b18f6b36bc50",
+      "bytes": 3641
     },
     {
       "path": "docs/fusion/contracts/stage-plan.schema.json",
@@ -1307,6 +1307,81 @@
       "bytes": 999
     },
     {
+      "path": "docs/fusion/work-items/WP-14/CALLS-01/artifacts.json",
+      "sha256": "171cdd2806649f55a5cead0d61a7dbc85639842a8b53d85f2f99b1b41f95fa5e",
+      "bytes": 2674
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/CALLS-01/build-cli.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/CALLS-01/build-gui.log",
+      "sha256": "8bafbc58cd3501daeff8b7461695b200cc6d586cf4ecc7876dff2e70fa3509ee",
+      "bytes": 5431
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/CALLS-01/build-results.json",
+      "sha256": "b44b3a1edd9a28c3bf83f2a7160628d18909a7240fda3423d8a4c8346477596e",
+      "bytes": 1651
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/CALLS-01/build-vet.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/CALLS-01/summary.md",
+      "sha256": "f4d7b30071a2607c27d6556c25ff9c65772c994c08024042b96b290928cd6131",
+      "bytes": 5073
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/CALLS-01/test-results.json",
+      "sha256": "c11bf9bfe7bdd1ad7a87526e4f4e8e64ce8739c3429575f45190044fca036f03",
+      "bytes": 1272
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/CALLS-01/wp14-calls-alias-red.log",
+      "sha256": "3dfca19bf8466b1eb8fc20721d1f3406fd7522cf7936ba67cef6d22475fc993f",
+      "bytes": 1846
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/CALLS-01/wp14-calls-fusion-race-final.log",
+      "sha256": "05c911681645aa89e27892b14474ad3064764d40b87685b974e031e1d60723e9",
+      "bytes": 48431
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/CALLS-01/wp14-calls-native-green.log",
+      "sha256": "b0c0f8ef0ed361b9dfe4d5fff4a205c78935d11b9115661b62d7f295a5ac9199",
+      "bytes": 896
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/CALLS-01/wp14-calls-native-retry-red.log",
+      "sha256": "20ff20e1fa2c41f677035a830d5b44a84578dda36fccda32828ee908dc6931a4",
+      "bytes": 773
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/CALLS-01/wp14-calls-native-retry-shape.log",
+      "sha256": "84a7c8c80e56f2102164a1b77ef669dca0266c97b480cdda3fc2d6131975f5d7",
+      "bytes": 625
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/CALLS-01/wp14-calls-red.log",
+      "sha256": "115b2eb515d3911fcd5c5f281f436bbd8029aaea397a9953eaf3c35e1eec53e5",
+      "bytes": 578
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/CALLS-01/wp14-calls-retry-protocol-red.log",
+      "sha256": "420ff460f2d691ac7ec4e4919d09137f7e73a4f1527f1b87ca35b1b6a7faf64e",
+      "bytes": 1531
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/CALLS-01/wp14-calls-tool-choice-red.log",
+      "sha256": "3b8f8d9a18ad5d6a7d9109cda4acf5b04e478753fa1908cd2f0f743843a78854",
+      "bytes": 396
+    },
+    {
       "path": "docs/fusion/work-items/WP-14/PROTOCOL-01/artifacts.json",
       "sha256": "58497c940042f294943d82aa1b551f284f4eb4baac2d4d46246319dcd5f5288c",
       "bytes": 1901
@@ -1458,8 +1533,8 @@
     },
     {
       "path": "docs/fusion/work-items/WP-14/summary.md",
-      "sha256": "5b2d90129c27e580f57d5c63753466169a535a5a6aa57a90f9baa24b29e76ae7",
-      "bytes": 4009
+      "sha256": "886823edea24787831336fb517e095aadcae5ca6655bd9fba04460ff4dd9da25",
+      "bytes": 4480
     },
     {
       "path": "docs/fusion/work-items/WP-14/test-results.json",

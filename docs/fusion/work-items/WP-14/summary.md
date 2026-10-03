@@ -33,3 +33,7 @@ Native stream 出现 system/ui_invalidate、init、status、stream_event、assis
 ## WP-14-SYSTEM-DATA-01
 
 修复已定位的 Native 启动数据依赖：生产 profile 增加系统 ICU 与时区目录只读权限，真实系统 ICU 在 Supervisor 内完成枚举，既有隔离反例继续通过。固定 Native 的无工具 loopback 消融诊断证明两个数据目录共同消除请求前启动超时。详见 [系统数据交付记录](SYSTEM-DATA-01/summary.md)。该修复没有开放生产网络、fork 或实际凭据注入；完整 WP-14 与 Gate A 仍未通过。
+
+## WP-14-CALLS-01
+
+新增 authenticated Messages CallGate、共享 run 调用互斥、逐 HTTP Permit 与响应 model 核对。实际固定 Native 的成功和 429/SDK retry 诊断分别有 1/2 次 HTTP 与 Permit，协议完成；持久 Store 预算另经真实 loopback 验证。详情见 [调用出口交付记录](CALLS-01/summary.md)。该 Handler 尚未注册生产；Native 环境、启动后 grant 交付和实际 Transport/额度/计费仍待接线与验证。

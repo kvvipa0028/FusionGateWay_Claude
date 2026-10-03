@@ -1,0 +1,31 @@
+{
+  "base_commit": "c2353eb689fb2f13fcf783a58aa2fa79ac6cf67a",
+  "source_files_sha256": {
+    "internal/fusion/policy/auth.go": "01821eb2afb07ab1b7dcb58fd25a93649ac4913cc83cd66d98fff1a34adcd2f7",
+    "internal/fusion/policy/dispatch.go": "5dd7fbe2d7ae0c8dd8152351ed42b1290705770f634dbcfd2ca9ba24713b1570",
+    "internal/fusion/runtime/glm/call_gate.go": "ecbe77f3fbc6ef18d4659f1260222d49be798e8ecdf8783a03c503e3f9cb17c9",
+    "internal/fusion/runtime/glm/call_gate_test.go": "ca56c153df8a954615d1174f4c5b2cf07390d4039bd2e8570a474ebe633785ff",
+    "internal/fusion/runtime/glm/call_gate_native_test.go": "6f854257cf3fcdf05725470d28bed9ee0414bff3b4bae710c53e1c367de5a317",
+    "internal/fusion/runtime/glm/session.go": "f2a07ef08037b9531524fc3df49ba6a37213938a9c1d7fd3b3959e1338a47930",
+    "internal/fusion/runtime/glm/session_test.go": "aea910f1efeae47caa6f04ff7ac60c79f1d6730556baacc8eeb1a9c81135673a",
+    "docs/fusion/contracts/stage-credential-contract.md": "32a246992507cad95dd0129ca21d84eef3168d4844c7fe2368a0b18f6b36bc50",
+    "docs/fusion/contracts/runtime-contract.md": "42c6b695ca8b98e74a4404541a1ce29f74fffd8e47c7f9f75312c930589e660f",
+    "docs/fusion/work-items/WP-14/summary.md": "886823edea24787831336fb517e095aadcae5ca6655bd9fba04460ff4dd9da25"
+  },
+  "packet_files_sha256": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "8bafbc58cd3501daeff8b7461695b200cc6d586cf4ecc7876dff2e70fa3509ee",
+    "build-results.json": "b44b3a1edd9a28c3bf83f2a7160628d18909a7240fda3423d8a4c8346477596e",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "summary.md": "f4d7b30071a2607c27d6556c25ff9c65772c994c08024042b96b290928cd6131",
+    "test-results.json": "c11bf9bfe7bdd1ad7a87526e4f4e8e64ce8739c3429575f45190044fca036f03",
+    "wp14-calls-alias-red.log": "3dfca19bf8466b1eb8fc20721d1f3406fd7522cf7936ba67cef6d22475fc993f",
+    "wp14-calls-fusion-race-final.log": "05c911681645aa89e27892b14474ad3064764d40b87685b974e031e1d60723e9",
+    "wp14-calls-native-green.log": "b0c0f8ef0ed361b9dfe4d5fff4a205c78935d11b9115661b62d7f295a5ac9199",
+    "wp14-calls-native-retry-red.log": "20ff20e1fa2c41f677035a830d5b44a84578dda36fccda32828ee908dc6931a4",
+    "wp14-calls-native-retry-shape.log": "84a7c8c80e56f2102164a1b77ef669dca0266c97b480cdda3fc2d6131975f5d7",
+    "wp14-calls-red.log": "115b2eb515d3911fcd5c5f281f436bbd8029aaea397a9953eaf3c35e1eec53e5",
+    "wp14-calls-retry-protocol-red.log": "420ff460f2d691ac7ec4e4919d09137f7e73a4f1527f1b87ca35b1b6a7faf64e",
+    "wp14-calls-tool-choice-red.log": "3b8f8d9a18ad5d6a7d9109cda4acf5b04e478753fa1908cd2f0f743843a78854"
+  }
+}

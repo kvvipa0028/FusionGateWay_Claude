@@ -186,6 +186,37 @@ func (m *Manager) authorizeContext(ctx context.Context) (Claims, error) {
 	return c, nil
 }
 
+// ModelCurrent rechecks this issuer's capability after a gate or transport
+// waited. FromContext alone does not establish current authority.
+func (m *Manager) ModelCurrent(ctx context.Context, expected Claims) bool {
+	if m == nil || ctx.Err() != nil {
+		return false
+	}
+	c, e := m.authorizeContext(ctx)
+	return e == nil && c == expected
+}
+
+// BeginModelCall serializes all controller exits for one run, including a
+// Native HTTP gate and Dispatcher. Release is idempotent and never refunds.
+func (m *Manager) BeginModelCall(ctx context.Context, expected Claims) (func(), error) {
+	if !m.ModelCurrent(ctx, expected) {
+		return nil, ErrUnauthenticated
+	}
+	m.mu.Lock()
+	defer m.mu.Unlock()
+	if m.activeCalls == nil {
+		m.activeCalls = map[string]bool{}
+	}
+	if m.activeCalls[expected.RunID] {
+		return nil, ErrDispatchBusy
+	}
+	m.activeCalls[expected.RunID] = true
+	var once sync.Once
+	return func() {
+		once.Do(func() { m.mu.Lock(); delete(m.activeCalls, expected.RunID); m.mu.Unlock() })
+	}, nil
+}
+
 func FromContext(ctx context.Context) (Claims, bool) {
 	c, ok := ctx.Value(claimsKey{}).(Claims)
 	return c, ok

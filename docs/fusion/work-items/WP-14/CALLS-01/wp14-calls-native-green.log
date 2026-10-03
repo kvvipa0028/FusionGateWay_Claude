@@ -1,0 +1,10 @@
+=== RUN   TestCallGatePinnedNativeLoopbackDiagnostic
+=== RUN   TestCallGatePinnedNativeLoopbackDiagnostic/success
+    call_gate_native_test.go:31: Pinned Native 2.1.287 -> authenticated CallGate -> 1 synthetic HTTP requests/permits -> full protocol success; real model calls 0, Supervisor StopProof/admission/billing/quota unverified
+=== RUN   TestCallGatePinnedNativeLoopbackDiagnostic/sdk_retry
+    call_gate_native_test.go:32: Pinned Native 2.1.287 -> authenticated CallGate -> 2 synthetic HTTP requests/permits -> full protocol success; real model calls 0, Supervisor StopProof/admission/billing/quota unverified
+--- PASS: TestCallGatePinnedNativeLoopbackDiagnostic (1.21s)
+    --- PASS: TestCallGatePinnedNativeLoopbackDiagnostic/success (0.32s)
+    --- PASS: TestCallGatePinnedNativeLoopbackDiagnostic/sdk_retry (0.88s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime/glm	2.870s

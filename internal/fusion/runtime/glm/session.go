@@ -197,6 +197,18 @@ func (s *Session) Event(run string, generation int64, raw []byte) (json.RawMessa
 			if decode(raw, &status) != nil || status.Status != "requesting" && status.Status != "thinking" && status.Status != "responding" && status.Status != "idle" {
 				return s.fail(ErrUnsupported)
 			}
+		case "api_retry":
+			// Pinned Native emits this before retrying a failed Messages HTTP
+			// request. It is informational: CallGate must permit every request.
+			var retry struct {
+				Attempt *int
+				Max     *int `json:"max_retries"`
+				Delay   *int `json:"retry_delay_ms"`
+				Status  *int `json:"error_status"`
+			}
+			if !s.initialized || s.cancelled || s.activeMessage != "" || decode(raw, &retry) != nil || retry.Attempt == nil || retry.Max == nil || retry.Delay == nil || retry.Status == nil || *retry.Max < 1 || *retry.Max > 10 || *retry.Attempt < 1 || *retry.Attempt > *retry.Max || *retry.Delay < 0 || *retry.Delay > 60000 || *retry.Status != 429 && *retry.Status != 502 {
+				return s.fail(ErrProtocol)
+			}
 		default:
 			return s.fail(ErrUnsupported)
 		}

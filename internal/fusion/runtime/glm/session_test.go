@@ -71,6 +71,51 @@ func TestNativeStreamResultAndEOFRequiredTogether(t *testing.T) {
 		t.Fatal("native usage mismatch")
 	}
 }
+
+func TestPinnedAPIRetryIsBoundedInformationNotACallPermit(t *testing.T) {
+	for _, mode := range []string{"valid", "missing", "attempt", "max", "delay", "status", "active_message", "cancelled"} {
+		t.Run(mode, func(t *testing.T) {
+			s, b, _ := fixtureSession(t)
+			frames := nativeFrames(t)
+			feed(t, s, b, frames[:2])
+			d := map[string]any{"type": "system", "subtype": "api_retry", "session_id": b.NativeSessionID, "attempt": 1, "max_retries": 10, "retry_delay_ms": 565, "error_status": 429}
+			switch mode {
+			case "missing":
+				delete(d, "max_retries")
+			case "attempt":
+				d["attempt"] = 0
+			case "max":
+				d["max_retries"] = 11
+			case "delay":
+				d["retry_delay_ms"] = 60001
+			case "status":
+				d["error_status"] = 401
+			case "active_message":
+				feed(t, s, b, frames[2:4])
+			case "cancelled":
+				if e := s.Cancel(); e != nil {
+					t.Fatal(e)
+				}
+			}
+			raw, _ := json.Marshal(d)
+			_, e := s.Event(b.RunID, b.Generation, raw)
+			if mode != "valid" {
+				if e == nil {
+					t.Fatal("unsafe retry metadata accepted", mode)
+				}
+				return
+			}
+			if e != nil {
+				t.Fatal("pinned retry metadata rejected", e)
+			}
+			feed(t, s, b, frames[2:])
+			got, e := s.Finish(0)
+			if e != nil || got.State != "succeeded" || got.ObservedMessages != 1 || got.StrictLockVerified || got.BillingVerified || got.QuotaVerified {
+				t.Fatal("retry metadata became admission or call evidence", got.State, e)
+			}
+		})
+	}
+}
 func TestLostResultOrExitErrorNeverSucceeds(t *testing.T) {
 	for _, exit := range []int{0, 1} {
 		s, b, _ := fixtureSession(t)

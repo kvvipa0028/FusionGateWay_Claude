@@ -1,0 +1,8 @@
+# github.com/yetone/magpie/internal/fusion/runtime/glm [github.com/yetone/magpie/internal/fusion/runtime/glm.test]
+internal/fusion/runtime/glm/call_gate_test.go:26:9: undefined: CallGateConfig
+internal/fusion/runtime/glm/call_gate_test.go:45:13: undefined: CallGateConfig
+internal/fusion/runtime/glm/call_gate_test.go:55:7: undefined: NewCallGate
+internal/fusion/runtime/glm/call_gate_test.go:84:10: undefined: NewCallGate
+internal/fusion/runtime/glm/call_gate_test.go:120:11: undefined: NewCallGate
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/glm [build failed]
+FAIL
