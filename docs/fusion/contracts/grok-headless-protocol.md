@@ -15,3 +15,5 @@ Outcome 的 NativeModel 来自匹配的 end.modelUsage key；NativeModelCalls �
 实测边界与可复现诊断见 [锁定能力](../work-items/WP-13/grok-lock-capability.md) 和 [PROTOCOL-01](../work-items/WP-13/PROTOCOL-01/summary.md)。
 
 后续 [逐 HTTP Gate](grok-call-gate.md) 使用真实 Scheduler 预算验证了标题/重试；headless end.modelCalls 继续只作观测，不作为总调用证明。生产 NativeForwarder/Worker 与真实准入仍未提供。
+
+[实际工具调查](../work-items/WP-13/TOOLS-01/summary.md) 已固定 tool_call/update 和 tool continuation fixtures，但观察器继续拒绝它们。工具失败也能伴随 Native end_turn/exit0，不能据此提升为验收成功；未来工具准入还需响应进入 Native 前的路径授权及独立凭据边界。

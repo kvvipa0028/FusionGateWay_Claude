@@ -33,6 +33,13 @@ func TestGrokCallGatePinnedNativeDiagnostic(t *testing.T) {
 		t.Run(mode, func(t *testing.T) { nativeGateDiagnostic(t, mode) })
 	}
 }
+func TestGrokCallGatePinnedNativeRejectsPrivateConfigTool(t *testing.T) {
+	if *nativeGateCLI == "" {
+		t.Skip("explicit pinned Native diagnostic only")
+	}
+	nativeGateDiagnostic(t, "private_config_tool")
+}
+
 func nativeGateDiagnostic(t *testing.T, mode string) {
 	t.Helper()
 	exe, e := filepath.EvalSymlinks(*nativeGateCLI)
@@ -68,6 +75,13 @@ func nativeGateDiagnostic(t *testing.T, mode string) {
 			t.Error("request decode failed")
 		}
 		for _, tool := range req.Tools {
+			if tool.Function.Name == "read_file" && mode == "private_config_tool" {
+				args, _ := json.Marshal(map[string]string{"target_file": filepath.Join(root, "grok/config.toml")})
+				delta := `"content":null,"tool_calls":[{"index":0,"id":"call_fixture_read","type":"function","function":{"name":"read_file","arguments":` + strconv.Quote(string(args)) + `}}]`
+				reply := strings.Replace(gateSSE, `"content":"fixture"`, delta, 1)
+				reply = strings.Replace(reply, `"finish_reason":"stop"`, `"finish_reason":"tool_calls"`, 1)
+				return ForwardResponse{StatusCode: 200, ContentType: "text/event-stream", Body: io.NopCloser(strings.NewReader(reply))}, nil
+			}
 			if tool.Function.Name == "read_file" && mainCalls.Add(1) == 1 && mode == "sdk_retry" {
 				return ForwardResponse{StatusCode: 429, ContentType: "text/plain", Body: io.NopCloser(strings.NewReader("private synthetic retry detail"))}, nil
 			}
@@ -123,6 +137,19 @@ func nativeGateDiagnostic(t *testing.T, mode string) {
 	budget, e := s.Budget(f.config.Claims.TaskID)
 	if e != nil || int64(budget.UsedCalls) != a.Forwarded {
 		t.Fatal("persistent budget mismatch", budget, e, a)
+	}
+	if mode == "private_config_tool" {
+		if err == nil || cmd.ProcessState.ExitCode() != 1 || !a.Uncertain || healthy(g, f) || a.Forwarded != 2 || a.Completed != 1 || budget.UsedCalls != 2 {
+			t.Fatal("private file instruction escaped gate", a, budget, err)
+		}
+		for _, line := range bytes.Split(bytes.TrimSpace(stdout.Bytes()), []byte("\n")) {
+			var frame struct{ Type string }
+			if json.Unmarshal(line, &frame) != nil || frame.Type == "tool_call" || frame.Type == "tool_call_update" {
+				t.Fatal("Native began tool execution after gate rejection")
+			}
+		}
+		t.Log("Pinned Native private config tool instruction rejected before tool event; two synthetic HTTP/budget charges, Native exit1; no private grant reflection")
+		return
 	}
 	if mode == "default_title_model" || mode == "budget_second" || mode == "implicit_tools" {
 		if !a.Uncertain || healthy(g, f) || f.calls.Load() > 1 {

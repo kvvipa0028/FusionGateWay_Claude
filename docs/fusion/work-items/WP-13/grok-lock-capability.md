@@ -25,3 +25,5 @@
 证据：[PROTOCOL-01](PROTOCOL-01/summary.md)。旧 WP-08 未检查 publisher 的记录保持历史事实，本次签名报告不回写旧报告、也不修改准入 flags。
 
 2026-10-04 [CALLS-01](CALLS-01/summary.md) 新增每 HTTP Gate：实际固定 Native + 真实 Store/Scheduler + 合成 inspection 证明正常 title/main 两次记账、SDK retry 三次记账；默认 title 模型、第二次预算不足和隐式 tools 被拒绝。这里只完成本机组件诊断，不回写任何真实准入 flag，未支持生产 Native transport、受管取消、工具或 Resume。
+
+[TOOLS-01](TOOLS-01/summary.md) 实测项目内读取成功、OS 越界拒绝后 end_turn/exit0，以及 readonly工具可读取自己私有 HOME 中的合成 config key。Read/dontAsk 与私有 HOME 本身不是配置保密证明。现有 Gate 实测在工具响应进入 Native 前拒绝，未启用真实工具。

@@ -1,0 +1,80 @@
+{
+  "work_item": "WP-13-TOOLS-01",
+  "status": "done_characterization_and_rejection_regression",
+  "parent_work_item": "WP-13",
+  "parent_status": "in_progress",
+  "production_code_changed": false,
+  "checks": [
+    {
+      "command": "go test -race -v -count=1 -timeout=60s -mod=readonly -tags fusion,nogui ./internal/fusion/runtime/grok",
+      "exit_code": 0,
+      "top_level_counts": {
+        "pass": 24,
+        "skip": 2,
+        "fail": 0
+      },
+      "log": "wp13-tools-green.log"
+    },
+    {
+      "command": "go test -race -v -count=1 -timeout=60s -mod=readonly -tags fusion,nogui ./internal/fusion/runtime/grok -run '^TestGrokCallGatePinnedNativeRejectsPrivateConfigTool$' -fusion-native-grok /Users/zhaojianzhi/.grok/downloads/grok-1.0.48-macos-aarch64",
+      "exit_code": 0,
+      "top_level_pass": 1,
+      "log": "wp13-tools-gated-native.log",
+      "native_exit_code": 1,
+      "tool_events": 0,
+      "persistent_used_calls": 2
+    }
+  ],
+  "native_unguarded": [
+    {
+      "mode": "read",
+      "native_exit_code": 0,
+      "http_calls": 3,
+      "end_model_calls": 2,
+      "tool_status": "completed",
+      "synthetic_private_marker_outbound": false,
+      "credential_absence_assertion": "passed",
+      "log": "read/characterization.json"
+    },
+    {
+      "mode": "outside",
+      "native_exit_code": 0,
+      "http_calls": 3,
+      "end_model_calls": 2,
+      "tool_status": "failed",
+      "synthetic_private_marker_outbound": false,
+      "credential_absence_assertion": "passed",
+      "log": "outside/characterization.json"
+    },
+    {
+      "mode": "private-config",
+      "native_exit_code": 0,
+      "http_calls": 3,
+      "end_model_calls": 2,
+      "tool_status": "completed",
+      "synthetic_private_marker_outbound": true,
+      "credential_absence_assertion": "failed",
+      "log": "private-config/characterization.json"
+    }
+  ],
+  "known_unsafe_profile": {
+    "private_config_marker_absence": "failed_not_fixed",
+    "production_profile": false,
+    "raw_failure_log": "wp13-tools-private-config.log"
+  },
+  "full_fusion_suite": "not_repeated_no_production_change",
+  "build_vet": "not_repeated_no_production_change",
+  "real_credentials_used": false,
+  "real_model_calls": 0,
+  "real_quota_calls": 0,
+  "route_admitted": false,
+  "all_calls_verified": false,
+  "strict_lock_verified": false,
+  "billing_verified": false,
+  "quota_verified": false,
+  "production_worker_isolation_verified": false,
+  "tool_execution_authorized": false,
+  "resume_verified": false,
+  "cancel_stop_verified": false,
+  "jev": "off"
+}

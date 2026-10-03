@@ -1,0 +1,2 @@
+[2m2026-10-03T16:49:57.031529Z[0m [31mERROR[0m tool_error: tool_output_error [3msession_id[0m[2m=[0m22222222-2222-4222-8222-222222222222 [3mtool_name[0m[2m=[0m"read_file" [3meffective_tool_name[0m[2m=[0m"read_file" [3mmodel_id[0m[2m=[0m"fixture-model" [3merror_kind[0m[2m=[0m"tool_output_error"
+[2m2026-10-03T16:49:57.165884Z[0m [31mERROR[0m git_cli: Command::output() FAILED (spawn error) [3merror[0m[2m=[0mOperation not permitted (os error 1) [3merror_kind[0m[2m=[0mPermissionDenied [3mcwd[0m[2m=[0m<fixture-root>/workspace

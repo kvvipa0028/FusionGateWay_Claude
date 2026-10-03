@@ -1,0 +1,5 @@
+=== RUN   TestGrokCallGatePinnedNativeRejectsPrivateConfigTool
+    call_gate_native_test.go:40: Pinned Native private config tool instruction rejected before tool event; two synthetic HTTP/budget charges, Native exit1; no private grant reflection
+--- PASS: TestGrokCallGatePinnedNativeRejectsPrivateConfigTool (2.81s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime/grok	4.477s

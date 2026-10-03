@@ -1,0 +1,11 @@
+{"type":"available_commands","tools":["read_file"],"commands":["compact","always-approve","context","session-info","feedback","goal"]}
+{"type":"available_commands","tools":["read_file"],"commands":["compact","always-approve","context","session-info","feedback","goal"]}
+{"type":"available_commands","tools":["read_file"],"commands":["compact","always-approve","context","session-info","feedback","goal"]}
+{"type":"usage","usage":{"input_tokens":3,"output_tokens":2,"cache_read_input_tokens":0,"cache_creation_input_tokens":0,"reasoning_tokens":0}}
+{"type":"tool_call","toolCallId":"call_fixture_read","title":"read_file","kind":"read","status":"pending","toolName":"read_file","rawInput":{"target_file":"<denied-root>/fixture.txt"},"content":[],"locations":[]}
+{"type":"tool_call_update","toolCallId":"call_fixture_read","status":null,"content":[],"rawOutput":null,"locations":[{"path":"<denied-root>/fixture.txt"}]}
+{"type":"tool_call_update","toolCallId":"call_fixture_read","status":"failed","content":[{"type":"content","content":{"type":"text","text":"Permission denied: <denied-root>/fixture.txt"}}],"rawOutput":{"type":"ReadFile","PermissionDenied":"Permission denied: <denied-root>/fixture.txt"},"locations":[]}
+{"type":"text","data":"Fixture complete."}
+{"type":"available_commands","tools":["read_file"],"commands":["compact","always-approve","context","session-info","feedback","goal"]}
+{"type":"usage","usage":{"input_tokens":3,"output_tokens":2,"cache_read_input_tokens":0,"cache_creation_input_tokens":0,"reasoning_tokens":0}}
+{"type":"end","stopReason":"end_turn","sessionId":"22222222-2222-4222-8222-222222222222","requestId":"db2ca306-02bb-4734-a72e-d1ef504d0e17","usage":{"input_tokens":6,"cache_read_input_tokens":0,"cache_creation_input_tokens":0,"output_tokens":4,"reasoning_tokens":0,"total_tokens":10},"num_turns":2,"modelUsage":{"fixture-model":{"inputTokens":6,"outputTokens":4,"cacheReadInputTokens":0,"cacheCreationInputTokens":0,"modelCalls":2}}}

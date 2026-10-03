@@ -1,0 +1,11 @@
+{"type":"available_commands","tools":["read_file"],"commands":["compact","always-approve","context","session-info","feedback","goal"]}
+{"type":"available_commands","tools":["read_file"],"commands":["compact","always-approve","context","session-info","feedback","goal"]}
+{"type":"available_commands","tools":["read_file"],"commands":["compact","always-approve","context","session-info","feedback","goal"]}
+{"type":"usage","usage":{"input_tokens":3,"output_tokens":2,"cache_read_input_tokens":0,"cache_creation_input_tokens":0,"reasoning_tokens":0}}
+{"type":"tool_call","toolCallId":"call_fixture_read","title":"read_file","kind":"read","status":"pending","toolName":"read_file","rawInput":{"target_file":"<fixture-root>/workspace/fixture.txt"},"content":[],"locations":[]}
+{"type":"tool_call_update","toolCallId":"call_fixture_read","status":null,"content":[],"rawOutput":null,"locations":[{"path":"<fixture-root>/workspace/fixture.txt"}]}
+{"type":"tool_call_update","toolCallId":"call_fixture_read","status":"completed","content":[{"type":"content","content":{"type":"text","text":"1→FUSION_OWNED_READ_MARKER\n"}}],"rawOutput":{"type":"ReadFile","FileContent":{"content":"1→FUSION_OWNED_READ_MARKER\n","content_concise":"1→FUSION_OWNED_READ_MARKER\n","absolute_path":"<fixture-root>/workspace/fixture.txt","offset":null,"raw_output":"FUSION_OWNED_READ_MARKER\n","total_lines":2}},"locations":[]}
+{"type":"text","data":"Fixture complete."}
+{"type":"available_commands","tools":["read_file"],"commands":["compact","always-approve","context","session-info","feedback","goal"]}
+{"type":"usage","usage":{"input_tokens":3,"output_tokens":2,"cache_read_input_tokens":0,"cache_creation_input_tokens":0,"reasoning_tokens":0}}
+{"type":"end","stopReason":"end_turn","sessionId":"22222222-2222-4222-8222-222222222222","requestId":"481a89bb-2418-4742-968e-12dc848a831f","usage":{"input_tokens":6,"cache_read_input_tokens":0,"cache_creation_input_tokens":0,"output_tokens":4,"reasoning_tokens":0,"total_tokens":10},"num_turns":2,"modelUsage":{"fixture-model":{"inputTokens":6,"outputTokens":4,"cacheReadInputTokens":0,"cacheCreationInputTokens":0,"modelCalls":2}}}
