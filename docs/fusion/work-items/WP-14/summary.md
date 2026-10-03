@@ -1,6 +1,6 @@
 # WP-14 进度与私有临时目录修复
 
-状态：`in_progress`。最新完成子工作项 `WP-14-PRIVATE-CREDENTIAL-01`：冻结私有凭据文件服务，接入八个实际 Native fixture 场景与显式真实额度诊断。QUOTA-READER-01 完成内部额度读取，ADAPTER-01 组装受管 GLM Adapter。下文保留各轮证据边界；真实 generation Transport、完整路线/物理池准入、产品控制器注册与 Gate A 仍未完成。
+状态：`in_progress`。最新完成子工作项 `WP-14-CN-TRANSPORT-01`：固定 CN Messages 单次 HTTPS 传输，接入八个实际 Native/TLS fixture 场景。PRIVATE-CREDENTIAL-01 完成私有冻结凭据服务；QUOTA-READER-01 完成内部额度读取；ADAPTER-01 组装受管 GLM Adapter。下文保留各轮证据边界；真实上游完整路线/物理池准入、产品控制器注册与 Gate A 仍未完成。
 
 ## 修复与验证
 

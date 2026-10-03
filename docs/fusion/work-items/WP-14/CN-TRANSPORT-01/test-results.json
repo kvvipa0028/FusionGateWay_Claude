@@ -1,0 +1,27 @@
+{
+  "work_item": "WP-14-CN-TRANSPORT-01",
+  "status": "done",
+  "parent_status": "in_progress",
+  "race_pass": 223,
+  "race_skip": 7,
+  "targeted_tests": 3,
+  "native_subcases_pass": 8,
+  "initial_native_fixture_exit": 1,
+  "fixture_correction": "consume bounded request body before waiting for disconnect; own verified test PID terminated after Native terminal",
+  "full_suite_before_fixture_only_correction": true,
+  "native_suite_after_fixture_correction": true,
+  "real_quota_requests": 0,
+  "real_model_calls": 0,
+  "product_registered": false,
+  "real_generation_verified": false,
+  "billing_verified": false,
+  "real_key_excluded": true,
+  "build_report": "build-results.json",
+  "logs": [
+    "wp14-cn-transport-red.log",
+    "wp14-cn-transport-green.log",
+    "wp14-cn-transport-native.log",
+    "wp14-cn-transport-native-green.log",
+    "wp14-cn-transport-fusion-race.log"
+  ]
+}

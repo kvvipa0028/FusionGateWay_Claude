@@ -1,0 +1,17 @@
+=== RUN   TestGLMAdapterPinnedNativeLifecycle
+=== RUN   TestGLMAdapterPinnedNativeLifecycle/design
+    adapter_native_test.go:186: production GLM Adapter -> fixed Native -> owned CNTransport -> 1 TLS synthetic HTTP/persisted calls -> validated result and verified stop; real model calls=0, actual route/admission/billing/quota unverified
+=== RUN   TestGLMAdapterPinnedNativeLifecycle/implementation
+    adapter_native_test.go:186: production GLM Adapter -> fixed Native -> owned CNTransport -> 2 TLS synthetic HTTP/persisted calls -> validated result and verified stop; real model calls=0, actual route/admission/billing/quota unverified
+=== RUN   TestGLMAdapterPinnedNativeLifecycle/sdk_retry
+    adapter_native_test.go:186: production GLM Adapter -> fixed Native -> owned CNTransport -> 2 TLS synthetic HTTP/persisted calls -> validated result and verified stop; real model calls=0, actual route/admission/billing/quota unverified
+=== RUN   TestGLMAdapterPinnedNativeLifecycle/wrong_credential
+=== RUN   TestGLMAdapterPinnedNativeLifecycle/late_quota
+=== RUN   TestGLMAdapterPinnedNativeLifecycle/current_identity
+=== RUN   TestGLMAdapterPinnedNativeLifecycle/cancel_inflight
+    adapter_native_test.go:186: production GLM Adapter -> fixed Native -> owned CNTransport -> 1 TLS synthetic HTTP/persisted calls -> validated result and verified stop; real model calls=0, actual route/admission/billing/quota unverified
+2026/10/03 18:46:31 httptest.Server blocked in Close after 5 seconds, waiting for connections:
+  *tls.Conn 0xc00071a008 127.0.0.1:59297 in state active
+signal: terminated
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/glm	103.311s
+FAIL

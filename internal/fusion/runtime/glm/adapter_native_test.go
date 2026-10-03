@@ -51,9 +51,9 @@ func TestGLMAdapterPinnedNativeLifecycle(t *testing.T) {
 			}
 			var calls atomic.Int64
 			entered := make(chan struct{}, 1)
-			c.Transport = fixtureRoundTrip(func(req *http.Request) (*http.Response, error) {
+			upstream := fixtureRoundTrip(func(req *http.Request) (*http.Response, error) {
 				n := calls.Add(1)
-				if req.Header.Get("Authorization") != "Bearer fixture-controller-key" || req.URL.String() != Endpoint+"/v1/messages?beta=true" {
+				if req.Header.Get("Authorization") != "Bearer fixture-controller-key" || req.URL.RequestURI() != "/api/anthropic/v1/messages?beta=true" || req.Host != "open.bigmodel.cn" {
 					t.Error("Adapter controller route/credential drift")
 				}
 				if mode == "sdk_retry" && n == 1 {
@@ -70,6 +70,32 @@ func TestGLMAdapterPinnedNativeLifecycle(t *testing.T) {
 				}
 				return &http.Response{StatusCode: 200, Header: http.Header{"Content-Type": []string{"text/event-stream"}}, Body: io.NopCloser(strings.NewReader(body))}, nil
 			})
+			transport, _ := localCNTransport(t, http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+				// A real HTTP upstream consumes the request before waiting on
+				// disconnect. net/http begins background close detection at
+				// request-body EOF; an unread body would hang this fixture.
+				raw, e := io.ReadAll(io.LimitReader(req.Body, (1<<20)+1))
+				req.Body.Close()
+				if e != nil || len(raw) > 1<<20 {
+					t.Error("fixture request receive failed")
+					http.Error(w, "fixture request refused", 400)
+					return
+				}
+				res, e := upstream.RoundTrip(req)
+				if e != nil || res == nil || res.Body == nil {
+					http.Error(w, "fixture request stopped", 503)
+					return
+				}
+				defer res.Body.Close()
+				for name, values := range res.Header {
+					for _, v := range values {
+						w.Header().Add(name, v)
+					}
+				}
+				w.WriteHeader(res.StatusCode)
+				io.Copy(w, res.Body)
+			}))
+			c.Transport = transport
 			loader := c.LoadCredential
 			if mode == "wrong_credential" || mode == "late_quota" {
 				c.LoadCredential = func(ctx context.Context, target stageplan.ExecutionTarget) (Credential, error) {
@@ -167,7 +193,7 @@ func TestGLMAdapterPinnedNativeLifecycle(t *testing.T) {
 			if e = a.Release(result.Proof); e != nil {
 				t.Fatal(e)
 			}
-			t.Logf("production GLM Adapter -> fixed Native -> %d synthetic HTTP/persisted calls -> validated result and verified stop; real model calls=0, actual route/admission/billing/quota unverified", want)
+			t.Logf("production GLM Adapter -> fixed Native -> owned CNTransport -> %d TLS synthetic HTTP/persisted calls -> validated result and verified stop; real model calls=0, actual route/admission/billing/quota unverified", want)
 		})
 	}
 }

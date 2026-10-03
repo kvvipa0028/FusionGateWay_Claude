@@ -1,0 +1,23 @@
+{
+  "base_commit": "a860564a0eb134fba8e8de2a7229ef0b160dcfdd",
+  "source_files_sha256": {
+    "internal/fusion/runtime/glm/cn_transport.go": "298b44b6a495246ece8f11192c503951cb41721bdb6d3eb6ac080a92f1cfba36",
+    "internal/fusion/runtime/glm/cn_transport_test.go": "8e625576460191196221843e20fb10c16363934ed6846f40958992341df50586",
+    "internal/fusion/runtime/glm/adapter_native_test.go": "eac2afcf241115e1f22ef6bee4c632d7c481a0d503e5ea4e5cb0041015145c42",
+    "docs/fusion/work-items/WP-14/summary.md": "856ac81ae8650475ceaead5d6bbcc35f4887ef209c53b34c713716ba2c8322b4",
+    "docs/fusion/work-items/WP-14/glm-integration-verification.md": "092645d66e6b21220915ccb95b180ee41d605814e6b4ca7ade6259ddbb0a1068"
+  },
+  "packet_files_sha256": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "eb8fc58def8c1a7b204eff48b47100b97fec0dfb64cb5d6e660eaa06cac6a47a",
+    "build-results.json": "cbc99333d4de612a4a07b3149bbb6c01b062a2e1eb38275ed2120959912d2d75",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "summary.md": "1ec72d0a80a67721cf78d0513c90b0c861fb95422938e8d09d20fc9a87516f55",
+    "test-results.json": "4cc0dab348fb9eb2e225ecb17d1508985c9890d1cdc15dd4001f510461a7c192",
+    "wp14-cn-transport-fusion-race.log": "28af63a81dfe15d2e5d52aa3ada5686a2fd0fa0dca88c90863814dcb9ce166bd",
+    "wp14-cn-transport-green.log": "eb1da4885a2d8032d7aa99164842574be7f45901e836d70c8c888c4ef4c5f616",
+    "wp14-cn-transport-native-green.log": "56ab185b3838c9a7a008a88efb91422b7aa91e4d62240a5494ffa3eb6f3d40c2",
+    "wp14-cn-transport-native.log": "99ed4f7bee599c07a35b1e27831d1fc7029d0e31d6825690ac5eb275e167028c",
+    "wp14-cn-transport-red.log": "f4f4551bfb9af1a2531697e65f80671349b37d19205f14e6f3cf5778d889f3d7"
+  }
+}

@@ -1,0 +1,51 @@
+=== RUN   TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial
+=== RUN   TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/scheme
+=== RUN   TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/host
+=== RUN   TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/port
+=== RUN   TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/path
+=== RUN   TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/raw_path
+=== RUN   TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/query
+=== RUN   TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/userinfo
+=== RUN   TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/fragment
+=== RUN   TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/method
+=== RUN   TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/host_header
+=== RUN   TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/replay
+=== RUN   TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/empty_body
+=== RUN   TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/large_body
+=== RUN   TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/cookie
+=== RUN   TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/duplicate_auth
+=== RUN   TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/auth_mismatch
+=== RUN   TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/cancelled
+--- PASS: TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial (0.00s)
+    --- PASS: TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/scheme (0.00s)
+    --- PASS: TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/host (0.00s)
+    --- PASS: TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/port (0.00s)
+    --- PASS: TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/path (0.00s)
+    --- PASS: TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/raw_path (0.00s)
+    --- PASS: TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/query (0.00s)
+    --- PASS: TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/userinfo (0.00s)
+    --- PASS: TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/fragment (0.00s)
+    --- PASS: TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/method (0.00s)
+    --- PASS: TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/host_header (0.00s)
+    --- PASS: TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/replay (0.00s)
+    --- PASS: TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/empty_body (0.00s)
+    --- PASS: TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/large_body (0.00s)
+    --- PASS: TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/cookie (0.00s)
+    --- PASS: TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/duplicate_auth (0.00s)
+    --- PASS: TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/auth_mismatch (0.00s)
+    --- PASS: TestGLMCNTransportRejectsChangedDestinationAndReplayBeforeDial/cancelled (0.00s)
+=== RUN   TestGLMCNTransportFreshTLSHasNoHiddenRetryOrRedirect
+=== RUN   TestGLMCNTransportFreshTLSHasNoHiddenRetryOrRedirect/success
+=== RUN   TestGLMCNTransportFreshTLSHasNoHiddenRetryOrRedirect/redirect
+=== RUN   TestGLMCNTransportFreshTLSHasNoHiddenRetryOrRedirect/closed_connection
+=== RUN   TestGLMCNTransportFreshTLSHasNoHiddenRetryOrRedirect/rate_limit
+--- PASS: TestGLMCNTransportFreshTLSHasNoHiddenRetryOrRedirect (0.03s)
+    --- PASS: TestGLMCNTransportFreshTLSHasNoHiddenRetryOrRedirect/success (0.01s)
+    --- PASS: TestGLMCNTransportFreshTLSHasNoHiddenRetryOrRedirect/redirect (0.01s)
+    --- PASS: TestGLMCNTransportFreshTLSHasNoHiddenRetryOrRedirect/closed_connection (0.01s)
+    --- PASS: TestGLMCNTransportFreshTLSHasNoHiddenRetryOrRedirect/rate_limit (0.01s)
+=== RUN   TestGLMCNTransportDoesNotTrustForeignTLS
+2026/10/03 18:45:41 http: TLS handshake error from 127.0.0.1:59155: remote error: tls: bad certificate
+--- PASS: TestGLMCNTransportDoesNotTrustForeignTLS (0.01s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime/glm	1.698s
