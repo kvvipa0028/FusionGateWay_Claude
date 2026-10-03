@@ -1,0 +1,179 @@
+{
+  "fixture_only": true,
+  "cli_version": "0.160.0",
+  "no_real_account": true,
+  "generation_admitted": false,
+  "requests": {
+    "initialize": {
+      "clientInfo": {
+        "name": "fusion_gateway",
+        "title": "Fusion Gateway",
+        "version": "0.1.0"
+      },
+      "capabilities": {
+        "explicitGatewayOauth": true,
+        "experimentalApi": false
+      }
+    },
+    "account/read": {
+      "refreshToken": false
+    },
+    "thread/start": {
+      "model": "fixture-model",
+      "modelProvider": "openai",
+      "cwd": "/fixture/workspace",
+      "approvalPolicy": "never",
+      "sandbox": "read-only",
+      "config": {
+        "model_reasoning_effort": "medium",
+        "model_reasoning_summary": "none"
+      },
+      "ephemeral": true
+    },
+    "turn/start": {
+      "threadId": "fixture-thread",
+      "model": "fixture-model",
+      "effort": "medium",
+      "cwd": "/fixture/workspace",
+      "approvalPolicy": "never",
+      "sandboxPolicy": {
+        "type": "readOnly",
+        "networkAccess": false
+      },
+      "summary": "none",
+      "input": [
+        {
+          "type": "text",
+          "text": "fixture prompt"
+        }
+      ]
+    },
+    "turn/interrupt": {
+      "threadId": "fixture-thread",
+      "turnId": "fixture-turn"
+    },
+    "thread/resume": {
+      "model": "fixture-model",
+      "modelProvider": "openai",
+      "cwd": "/fixture/workspace",
+      "approvalPolicy": "never",
+      "sandbox": "read-only",
+      "config": {
+        "model_reasoning_effort": "medium",
+        "model_reasoning_summary": "none"
+      },
+      "threadId": "fixture-thread"
+    }
+  },
+  "responses": {
+    "initialize": {
+      "userAgent": "fixture-codex/0.160.0",
+      "platformFamily": "unix",
+      "platformOs": "macos",
+      "codexHome": "/fixture/private-home/.codex"
+    },
+    "account/read": {
+      "account": {
+        "type": "chatgpt",
+        "email": null,
+        "planType": "pro"
+      },
+      "requiresOpenaiAuth": true
+    },
+    "thread/start": {
+      "thread": {
+        "id": "fixture-thread",
+        "cliVersion": "0.160.0",
+        "createdAt": 1,
+        "updatedAt": 1,
+        "cwd": "/fixture/workspace",
+        "ephemeral": true,
+        "modelProvider": "openai",
+        "preview": "",
+        "projectId": null,
+        "sessionId": "fixture-session",
+        "source": "appServer",
+        "status": {
+          "type": "idle"
+        },
+        "turns": []
+      },
+      "model": "fixture-model",
+      "modelProvider": "openai",
+      "reasoningEffort": "medium",
+      "cwd": "/fixture/workspace",
+      "approvalPolicy": "never",
+      "approvalsReviewer": "user",
+      "sandbox": {
+        "type": "readOnly",
+        "networkAccess": false
+      }
+    },
+    "thread/resume": {
+      "thread": {
+        "id": "fixture-thread",
+        "cliVersion": "0.160.0",
+        "createdAt": 1,
+        "updatedAt": 1,
+        "cwd": "/fixture/workspace",
+        "ephemeral": true,
+        "modelProvider": "openai",
+        "preview": "",
+        "projectId": null,
+        "sessionId": "fixture-session",
+        "source": "appServer",
+        "status": {
+          "type": "idle"
+        },
+        "turns": []
+      },
+      "model": "fixture-model",
+      "modelProvider": "openai",
+      "reasoningEffort": "medium",
+      "cwd": "/fixture/workspace",
+      "approvalPolicy": "never",
+      "approvalsReviewer": "user",
+      "sandbox": {
+        "type": "readOnly",
+        "networkAccess": false
+      }
+    },
+    "turn/start": {
+      "turn": {
+        "id": "fixture-turn",
+        "items": [],
+        "status": "inProgress"
+      }
+    },
+    "turn/interrupt": {}
+  },
+  "terminal_notifications": {
+    "completed": {
+      "threadId": "fixture-thread",
+      "turn": {
+        "id": "fixture-turn",
+        "items": [],
+        "status": "completed"
+      }
+    },
+    "failed": {
+      "threadId": "fixture-thread",
+      "turn": {
+        "id": "fixture-turn",
+        "items": [],
+        "status": "failed",
+        "error": {
+          "message": "synthetic native failure"
+        }
+      }
+    },
+    "interrupted": {
+      "threadId": "fixture-thread",
+      "turn": {
+        "id": "fixture-turn",
+        "items": [],
+        "status": "interrupted"
+      }
+    }
+  }
+}

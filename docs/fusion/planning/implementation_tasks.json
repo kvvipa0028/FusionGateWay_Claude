@@ -266,7 +266,7 @@
       "id": "WP-12",
       "title": "实现 Codex 官方 Runtime Adapter",
       "milestone": "M2",
-      "status": "planned",
+      "status": "in_progress",
       "depends_on": [
         "WP-08",
         "WP-11"

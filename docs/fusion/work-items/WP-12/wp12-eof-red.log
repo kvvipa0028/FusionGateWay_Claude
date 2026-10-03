@@ -1,0 +1,6 @@
+=== RUN   TestStdioFinalResponseSurvivesImmediateEOF
+    stdio_test.go:158: valid final response lost native codex request failed
+--- FAIL: TestStdioFinalResponseSurvivesImmediateEOF (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/codex	0.526s
+FAIL

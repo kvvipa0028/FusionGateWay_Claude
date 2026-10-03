@@ -1,0 +1,36 @@
+{
+  "work_item": "WP-12-PROTOCOL-01",
+  "base_commit": "5d9392c3ef391b9513315f7419b65f1ede45fc64",
+  "source_files_sha256": {
+    "docs/fusion/planning/Fusion_Magpie_Fork_Agent\u5de5\u4f5c\u5305_v1.0.md": "27e7cea546afc41db9f5b5cd741eabd9e667a3340537c48d62c779f328a3786f",
+    "docs/fusion/planning/implementation_tasks.json": "3a748261e26cdf3ca8383cc91ccc6f7c08a681891fe5dedee61db643213c7784",
+    "internal/fusion/runtime/codex/client.go": "d1abb327308978d13e74a89b072d94b8ed08f7b7c754586f59ae375af8e6d198",
+    "internal/fusion/runtime/codex/client_test.go": "d3f636ba93d2e34531e2a9a6d16c1a25fc119e2561f7133623853b0eb4dc2ebb",
+    "internal/fusion/runtime/codex/stdio.go": "f9117455e8412406b05b9cf48814c812ad6a6dfcfb91398120190b4d44dd39bf",
+    "internal/fusion/runtime/codex/stdio_test.go": "7b29b4d05728ecac9c9c3988f667b5c4eddda5dd91364cd43fe375254e59f969",
+    "internal/fusion/runtime/codex/testdata/native-0.160.0/schema-manifest.json": "ba420efbafad912307567e90a5be5c9e88eee55ebdf4c7277f0c4ed469a118ed",
+    "internal/fusion/runtime/codex/testdata/native-0.160.0/vectors.json": "4c5b1201a5cc0f17af10d98543cb78d97887681b4a5ca689bbc82b573f3c366e",
+    ".gitattributes": "c2182f4ae1586c2ec4a1abb01855c02fddb9d739338f22c8dbbe7148c4bc5c7c"
+  },
+  "packet_files_sha256": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "01d094f208c33eab1faa987b746d1c2dcb0f8410e209ffd2db98091d1cc91da4",
+    "build-results.json": "d463160a4933babaa6dd61e8cda71418bb2071a7d1c3566277c08faa4a5e5683",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "codex-lock-capability.md": "a6c77e41b2089c7e598845c718c27a8c486360301762c7985fa1a4f49dc8875e",
+    "native-handshake.json": "5b603f82478edb7669fb7048a1e7b2d2cff5cb631f444f24f4edd67b6a24c2db",
+    "probe-native-handshake.py": "f7fa758d03090108405e15e186211981d7f044911ca84a373f18ce9e8fe34b7d",
+    "schema-validation.json": "0e52ea41812c59c6cf1042a0d97193f8453dccb55c3c4b46806a9c79d9fcc336",
+    "summary.md": "4948760b595eb65635a6d312a0898f31b977b3c72c4f1cddc2219fe207258cbb",
+    "test-results.json": "33097632c416562d6aea7e8a3089d824abe63883047595efe11d0c60c45cf8ad",
+    "wp12-boundary-red.log": "0305708fb3eea7d9768f521ce94e781b375a3da24a786067297c0c9c0bbfc63a",
+    "wp12-eof-red.log": "eb84978bd3430c9d0bb40170d9f2ee868d9ff950be6cae2797b3a1a864688596",
+    "wp12-fusion-tagged-race.log": "f32e0a568e4504ce844f8bce7d0e9dada1027bb521f43dbfaea24cbe13618fba",
+    "wp12-hidden-red.log": "05b07c6aeeb1af287febeae4f53ccee71d1780c80c1539c54903936e39b14650",
+    "wp12-home-red.log": "aac01f36fb73f7bc5f3884392546e5ef86153d0deb85bdd32c850fb584136b54",
+    "wp12-native-help.log": "d8945f6cdb9ff6b793a12a23530f25c337ae5880c766759f1540a0d7a8b2829a",
+    "wp12-native-schema.log": "eb27ed29bc3e8d5b068794ec4839e0042770b50605a035b57a1b9c32fca67b90",
+    "wp12-role-red.log": "24f883bce17d353c140ededad2f29f03e17e3e11c7d637ede489ae0e13d7a225"
+  },
+  "credential_exclusion": "checked internally; no key value or digest published"
+}

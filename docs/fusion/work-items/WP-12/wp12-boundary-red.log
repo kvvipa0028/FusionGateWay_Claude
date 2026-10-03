@@ -1,0 +1,9 @@
+=== RUN   TestUnacknowledgedTurnCannotBeBlindlyReplayed
+    client_test.go:204: lost start left retryable state
+--- FAIL: TestUnacknowledgedTurnCannotBeBlindlyReplayed (0.00s)
+=== RUN   TestMissingNativeItemsOrContradictoryErrorCannotSucceed
+    client_test.go:217: invalid native completion accepted
+--- FAIL: TestMissingNativeItemsOrContradictoryErrorCannotSucceed (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/codex	0.548s
+FAIL

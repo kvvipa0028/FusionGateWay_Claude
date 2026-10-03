@@ -1,0 +1,45 @@
+{
+  "work_item": "WP-12-PROTOCOL-01",
+  "parent_work_package_status": "in_progress",
+  "checks": [
+    {
+      "command": "go test -race -v -count=1 -mod=readonly -tags fusion,nogui ./internal/fusion/...",
+      "exit_code": 0,
+      "passed_top_level_tests": 127,
+      "skipped_parent_helpers": 2,
+      "log": "wp12-fusion-tagged-race.log"
+    },
+    {
+      "command": "jsonschema Draft7Validator against locally generated pinned schemas",
+      "exit_code": 0,
+      "validated_vectors": 15,
+      "report": "schema-validation.json"
+    },
+    {
+      "command": "python3 scripts/fusion/build-dev.py",
+      "exit_code": 0,
+      "checks": [
+        "CLI build",
+        "GUI build",
+        "full Fusion nogui vet"
+      ],
+      "report": "build-results.json"
+    }
+  ],
+  "red_evidence": [
+    "wp12-boundary-red.log",
+    "wp12-role-red.log",
+    "wp12-eof-red.log",
+    "wp12-hidden-red.log",
+    "wp12-home-red.log"
+  ],
+  "native_handshake": {
+    "status": "blocked",
+    "native_exit_code": 1,
+    "model_calls": 0,
+    "login_calls": 0,
+    "generation_admitted": false,
+    "report": "native-handshake.json"
+  },
+  "final_acceptance": "not_run"
+}

@@ -1,0 +1,24 @@
+{
+  "validator": "jsonschema",
+  "validator_version": "4.25.1",
+  "checks": [
+    "requests:initialize",
+    "responses:initialize",
+    "requests:account/read",
+    "responses:account/read",
+    "requests:thread/start",
+    "responses:thread/start",
+    "requests:thread/resume",
+    "responses:thread/resume",
+    "requests:turn/start",
+    "responses:turn/start",
+    "requests:turn/interrupt",
+    "responses:turn/interrupt",
+    "terminal:completed",
+    "terminal:failed",
+    "terminal:interrupted"
+  ],
+  "exit_code": 0,
+  "fixture_only": true,
+  "real_native_turn_test": false
+}

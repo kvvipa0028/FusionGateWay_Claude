@@ -1,2 +1,4 @@
 # Preserve verbatim native diagnostic evidence, including trailing spaces.
 docs/fusion/work-items/WP-11/*.log -whitespace
+# Keep the native CLI help export verbatim.
+docs/fusion/work-items/WP-12/wp12-native-help.log -whitespace

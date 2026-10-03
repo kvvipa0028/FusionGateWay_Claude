@@ -1,0 +1,9 @@
+=== RUN   TestInitializeCannotBorrowOtherNativeHome
+    client_test.go:332: unexpected native home accepted
+--- FAIL: TestInitializeCannotBorrowOtherNativeHome (0.00s)
+=== RUN   TestUnknownItemOrReadonlyFileChangeMakesExecutionUncertain
+    client_test.go:340: unadmitted operation accepted futureNativeOperation running <nil>
+--- FAIL: TestUnknownItemOrReadonlyFileChangeMakesExecutionUncertain (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/codex	0.576s
+FAIL

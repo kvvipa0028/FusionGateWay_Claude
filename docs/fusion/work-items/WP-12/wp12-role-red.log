@@ -1,0 +1,17 @@
+=== RUN   TestFiveRolesUseApprovedNativeWriteBoundary
+=== RUN   TestFiveRolesUseApprovedNativeWriteBoundary/design
+=== RUN   TestFiveRolesUseApprovedNativeWriteBoundary/implementation
+    client_test.go:235: pinned codex protocol mismatch
+=== RUN   TestFiveRolesUseApprovedNativeWriteBoundary/testing
+    client_test.go:235: pinned codex protocol mismatch
+=== RUN   TestFiveRolesUseApprovedNativeWriteBoundary/review
+=== RUN   TestFiveRolesUseApprovedNativeWriteBoundary/acceptance
+--- FAIL: TestFiveRolesUseApprovedNativeWriteBoundary (0.00s)
+    --- PASS: TestFiveRolesUseApprovedNativeWriteBoundary/design (0.00s)
+    --- FAIL: TestFiveRolesUseApprovedNativeWriteBoundary/implementation (0.00s)
+    --- FAIL: TestFiveRolesUseApprovedNativeWriteBoundary/testing (0.00s)
+    --- PASS: TestFiveRolesUseApprovedNativeWriteBoundary/review (0.00s)
+    --- PASS: TestFiveRolesUseApprovedNativeWriteBoundary/acceptance (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/codex	0.520s
+FAIL

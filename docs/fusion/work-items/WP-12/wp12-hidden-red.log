@@ -1,0 +1,12 @@
+=== RUN   TestInitializeRequiresExactVersionAndExplicitLogin
+    client_test.go:264: automatic native gateway login not disabled
+--- FAIL: TestInitializeRequiresExactVersionAndExplicitLogin (0.00s)
+=== RUN   TestThreadStartupRequiresAdmissionAndExplicitNetworkPolicy
+    client_test.go:276: unadmitted thread started
+--- FAIL: TestThreadStartupRequiresAdmissionAndExplicitNetworkPolicy (0.00s)
+=== RUN   TestHiddenCallsInItemsOrCompletionCannotSucceed
+    client_test.go:296: hidden operation accepted contextCompaction false running <nil>
+--- FAIL: TestHiddenCallsInItemsOrCompletionCannotSucceed (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/codex	0.534s
+FAIL

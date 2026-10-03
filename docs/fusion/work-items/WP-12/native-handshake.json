@@ -1,0 +1,23 @@
+{
+  "diagnostic_only": true,
+  "model_calls": 0,
+  "login_calls": 0,
+  "daily_home_inherited": false,
+  "network_allowed": false,
+  "fork_allowed": false,
+  "executable_sha256": "112fae7a5a1223e673c8a1791d32338f37df8b527ff1159bb8adac6c4dbf1b4b",
+  "profile_sha256": "4fc98475bdaf105dc918f2324ed02355fd1d14963e27ab15093ebf1e675f9a21",
+  "host": "27.0.1",
+  "requests": [],
+  "metadata_handshake_passed": false,
+  "failure_kind": "RuntimeError",
+  "exit_code": 1,
+  "os_reaped": true,
+  "stderr_sanitized": "Error: Failed to synchronize managed preferences\n",
+  "stderr_bytes": 49,
+  "stderr_sha256": "abd4a5dadbcfe6e3fe10c0ad9308d8048cdb72e049ea17d21a83eb80775df232",
+  "generation_admitted": false,
+  "worker_profile_source": "internal/fusion/runtime/sandbox_darwin.go; exact operation rules reproduced by diagnostic helper",
+  "native_stop_scope": "Popen wait/reap for diagnostic single process; not a production Supervisor StopProof",
+  "reproducer": "docs/fusion/work-items/WP-12/probe-native-handshake.py"
+}
