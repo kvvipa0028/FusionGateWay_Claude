@@ -39,3 +39,5 @@ WP-14-ADAPTER-01 的 glm.Adapter 实现公共 Runtime 接口。可信配置必�
 Adapter 的 Observation 仅在同 generation 的终态后读取，包含已解析 Native 输出与文本；未完成拒绝，非成功终态不返回成功文本或状态，所有独立验证 flags 保持 false。它不代表工程验收或恢复授权。每个 Adapter/Supervisor 最多保留 4096 条执行记录，Resume 仍 unsupported；Release 使用本 Adapter 的可信 Supervisor StopProof。产品控制器注册与真实路线证据仍未完成，详见 [Adapter 证据](../work-items/WP-14/ADAPTER-01/summary.md)。
 
 [READ-01](grok-read-tools.md) 提供绑定到同一任务Cwd的可选文本Read授权与Native trace/后续HTTP关联；公共Adapter/Worker注册、真正OS隔离、恢复与停止证明仍待接入。
+
+[WP-13-CHANNEL-01](../work-items/WP-13/CHANNEL-01/summary.md) 将可信GrokChannel接入同一私有lease/Supervisor。Spec拒绝双typed channel/零值wrapper；GLM拒绝caller注入GrokChannel。冻结1.0.48实际hash、subscription target与独占双栈/v1 endpoint，config0600/privateGROK_HOME只含stage grant、标题同模型/禁用turn summary与auto update，保持Mach/fork/其它网络拒绝。实际Native合成读取/重试/预算/拒绝/取消/reap/StopProof/release已验证；完整Grok Adapter、真实Forwarder/准入/Resume/写权限与源目录稳定性仍待完成，详见[专门合同](grok-managed-channel.md)。

@@ -1,0 +1,61 @@
+{
+  "base_commit": "171ec6d7df448690bfed6bb753fefd7608e5317f",
+  "go_version": "1.26.3",
+  "real_model_calls": 0,
+  "real_quota_calls": 0,
+  "jev": "off",
+  "parent_wp13": "in_progress",
+  "final_gate": "not_run",
+  "checks": {
+    "wp13-channel-green.log": {
+      "pass": 12,
+      "skip": 0,
+      "fail": 0
+    },
+    "wp13-channel-kernel.log": {
+      "pass": 4,
+      "skip": 0,
+      "fail": 0
+    },
+    "wp13-channel-native-final.log": {
+      "pass": 4,
+      "skip": 0,
+      "fail": 0
+    },
+    "wp13-channel-fusion-tagged-race.log": {
+      "pass": 406,
+      "skip": 14,
+      "fail": 0
+    },
+    "wp13-channel-claude-native-final.log": {
+      "pass": 2,
+      "skip": 0,
+      "fail": 0
+    }
+  },
+  "managed_grok_native": {
+    "runtime": "1.0.48",
+    "executable_sha256": "1ed292eb62206b1a2ec3d17dc69c9c8406a07f5ff414305f953baee5b72a4a05",
+    "scenarios": 8,
+    "supervisor_profile": "production_default_deny",
+    "store_manager_scheduler": "real",
+    "upstream_quota_route_inspection": "synthetic",
+    "stop_proof_and_release": true,
+    "subscription_route_admitted": false,
+    "billing_verified": false,
+    "quota_verified": false,
+    "strict_lock_verified": false,
+    "resume_verified": false
+  },
+  "claude_native_compatibility": {
+    "runtime": "2.1.287",
+    "executable_sha256": "6eab8333fe2121553100d8f40bfada384a3e989b94f947e18ba6677a6fcb41ea",
+    "scenarios": 11,
+    "all_pass": true,
+    "daily_launcher_drift": "refused; frozen versions/2.1.287 used"
+  },
+  "isolated_clang_syntax": {
+    "exit_code": 0,
+    "ambient_include_drift": "retained failure; explicit SDK/environment matches normal helper"
+  }
+}

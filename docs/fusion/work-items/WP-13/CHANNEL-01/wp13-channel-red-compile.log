@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/runtime [github.com/yetone/magpie/internal/fusion/runtime.test]
+internal/fusion/runtime/grok_channel_test.go:17:41: undefined: GrokChannel
+internal/fusion/runtime/grok_channel_test.go:23:170: undefined: GrokCLIVersion
+internal/fusion/runtime/grok_channel_test.go:24:13: undefined: NewGrokChannel
+internal/fusion/runtime/grok_channel_test.go:76:12: undefined: NewGrokChannel
+internal/fusion/runtime/grok_channel_test.go:83:16: unknown field GrokChannel in struct literal of type Spec
+internal/fusion/runtime/grok_channel_test.go:83:56: (Spec{…}).modelChannel undefined (type Spec has no field or method modelChannel)
+internal/fusion/runtime/grok_channel_test.go:84:16: unknown field GrokChannel in struct literal of type Spec
+internal/fusion/runtime/grok_channel_test.go:84:29: undefined: GrokChannel
+internal/fusion/runtime/grok_channel_darwin_test.go:18:71: unknown field GrokChannel in struct literal of type Spec
+internal/fusion/runtime/grok_channel_darwin_test.go:40:74: unknown field GrokChannel in struct literal of type Spec
+internal/fusion/runtime/grok_channel_test.go:84:16: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/runtime [build failed]
+FAIL

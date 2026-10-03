@@ -1,0 +1,48 @@
+=== RUN   TestManagedClaudeChannelActivatesAfterConfirmationAndReapsOneProcess
+--- PASS: TestManagedClaudeChannelActivatesAfterConfirmationAndReapsOneProcess (0.61s)
+=== RUN   TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops
+=== RUN   TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops/scope
+=== RUN   TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops/activate
+=== RUN   TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops/listener_failed
+--- PASS: TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops (0.69s)
+    --- PASS: TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops/scope (0.20s)
+    --- PASS: TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops/activate (0.24s)
+    --- PASS: TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops/listener_failed (0.26s)
+=== RUN   TestClaudeChannelOwnsBothLoopbackFamiliesAndScopedPreparation
+=== RUN   TestClaudeChannelOwnsBothLoopbackFamiliesAndScopedPreparation/scope
+=== RUN   TestClaudeChannelOwnsBothLoopbackFamiliesAndScopedPreparation/project
+=== RUN   TestClaudeChannelOwnsBothLoopbackFamiliesAndScopedPreparation/target
+=== RUN   TestClaudeChannelOwnsBothLoopbackFamiliesAndScopedPreparation/timeout
+=== RUN   TestClaudeChannelOwnsBothLoopbackFamiliesAndScopedPreparation/activated
+=== RUN   TestClaudeChannelOwnsBothLoopbackFamiliesAndScopedPreparation/cancelled
+--- PASS: TestClaudeChannelOwnsBothLoopbackFamiliesAndScopedPreparation (0.00s)
+    --- PASS: TestClaudeChannelOwnsBothLoopbackFamiliesAndScopedPreparation/scope (0.00s)
+    --- PASS: TestClaudeChannelOwnsBothLoopbackFamiliesAndScopedPreparation/project (0.00s)
+    --- PASS: TestClaudeChannelOwnsBothLoopbackFamiliesAndScopedPreparation/target (0.00s)
+    --- PASS: TestClaudeChannelOwnsBothLoopbackFamiliesAndScopedPreparation/timeout (0.00s)
+    --- PASS: TestClaudeChannelOwnsBothLoopbackFamiliesAndScopedPreparation/activated (0.00s)
+    --- PASS: TestClaudeChannelOwnsBothLoopbackFamiliesAndScopedPreparation/cancelled (0.00s)
+=== RUN   TestClaudeChannelRetainsPortsUntilManagedProcessIsReaped
+--- PASS: TestClaudeChannelRetainsPortsUntilManagedProcessIsReaped (0.00s)
+=== RUN   TestClaudeChannelClosedOrFailedListenerCannotLaunch
+=== RUN   TestClaudeChannelClosedOrFailedListenerCannotLaunch/closed
+=== RUN   TestClaudeChannelClosedOrFailedListenerCannotLaunch/listener_failed
+--- PASS: TestClaudeChannelClosedOrFailedListenerCannotLaunch (0.00s)
+    --- PASS: TestClaudeChannelClosedOrFailedListenerCannotLaunch/closed (0.00s)
+    --- PASS: TestClaudeChannelClosedOrFailedListenerCannotLaunch/listener_failed (0.00s)
+=== RUN   TestClaudeChannelCopiesTargetAndNeverSerializesGrant
+--- PASS: TestClaudeChannelCopiesTargetAndNeverSerializesGrant (0.00s)
+=== RUN   TestGrokSandboxPrivateConfigAndOnlyOwnedNetwork
+--- PASS: TestGrokSandboxPrivateConfigAndOnlyOwnedNetwork (0.01s)
+=== RUN   TestGrokSandboxRejectsInjectedFixtureAndAmbiguousChannel
+--- PASS: TestGrokSandboxRejectsInjectedFixtureAndAmbiguousChannel (0.00s)
+=== RUN   TestGrokChannelExclusivePortsAndPreparedScope
+--- PASS: TestGrokChannelExclusivePortsAndPreparedScope (0.00s)
+=== RUN   TestGrokChannelFreezesTargetAndHidesCapability
+--- PASS: TestGrokChannelFreezesTargetAndHidesCapability (0.00s)
+=== RUN   TestGrokChannelRejectsInvalidRuntimeAndTarget
+--- PASS: TestGrokChannelRejectsInvalidRuntimeAndTarget (0.00s)
+=== RUN   TestSpecRejectsDualOrEmptyTypedChannels
+--- PASS: TestSpecRejectsDualOrEmptyTypedChannels (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime	2.969s

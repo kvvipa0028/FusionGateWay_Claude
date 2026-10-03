@@ -1,0 +1,51 @@
+=== RUN   TestManagedPinnedNativeGrokChannel
+=== RUN   TestManagedPinnedNativeGrokChannel/success
+==================
+WARNING: DATA RACE
+Write at 0x00c000141ea0 by goroutine 77:
+  github.com/yetone/magpie/internal/fusion/runtime/grok.managedNativeGrok.func5()
+      /Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/runtime/grok/managed_native_test.go:158 +0x3ac
+  github.com/yetone/magpie/internal/fusion/runtime.(*Handle).supervise()
+      /Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/runtime/supervisor.go:373 +0x878
+  github.com/yetone/magpie/internal/fusion/runtime.(*Supervisor).Start.gowrap3()
+      /Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/runtime/supervisor.go:216 +0x40
+
+Previous write at 0x00c000141ea0 by goroutine 23:
+  github.com/yetone/magpie/internal/fusion/runtime/grok.managedNativeGrok()
+      /Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/runtime/grok/managed_native_test.go:168 +0x1868
+  github.com/yetone/magpie/internal/fusion/runtime/grok.TestManagedPinnedNativeGrokChannel.func1()
+      /Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/runtime/grok/managed_native_test.go:29 +0x3c
+  testing.tRunner()
+      /Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2036 +0x164
+  testing.(*T).Run.gowrap1()
+      /Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2101 +0x34
+
+Goroutine 77 (running) created at:
+  github.com/yetone/magpie/internal/fusion/runtime.(*Supervisor).Start()
+      /Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/runtime/supervisor.go:216 +0x1db0
+  github.com/yetone/magpie/internal/fusion/runtime/grok.managedNativeGrok()
+      /Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/runtime/grok/managed_native_test.go:168 +0x1854
+  github.com/yetone/magpie/internal/fusion/runtime/grok.TestManagedPinnedNativeGrokChannel.func1()
+      /Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/runtime/grok/managed_native_test.go:29 +0x3c
+  testing.tRunner()
+      /Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2036 +0x164
+  testing.(*T).Run.gowrap1()
+      /Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2101 +0x34
+
+Goroutine 23 (running) created at:
+  testing.(*T).Run()
+      /Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2101 +0x7bc
+  github.com/yetone/magpie/internal/fusion/runtime/grok.TestManagedPinnedNativeGrokChannel()
+      /Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/runtime/grok/managed_native_test.go:29 +0x184
+  testing.tRunner()
+      /Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2036 +0x164
+  testing.(*T).Run.gowrap1()
+      /Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2101 +0x34
+==================
+    managed_native_test.go:29: synthetic Native mode=success state=succeeded exit=0 stop=true HTTP=2 permits=2 budget=2 model-label-calls=1
+    testing.go:1712: race detected during execution of test
+--- FAIL: TestManagedPinnedNativeGrokChannel (1.05s)
+    --- FAIL: TestManagedPinnedNativeGrokChannel/success (1.05s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/grok	1.697s
+FAIL

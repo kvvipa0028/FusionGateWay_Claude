@@ -1,0 +1,5 @@
+# github.com/yetone/magpie/internal/fusion/runtime
+internal/fusion/runtime/grok_channel_darwin_test.go:11:2: missing go.sum entry for module providing package github.com/BurntSushi/toml (imported by github.com/yetone/magpie/internal/fusion/runtime); to add:
+	go get -t github.com/yetone/magpie/internal/fusion/runtime
+FAIL	github.com/yetone/magpie/internal/fusion/runtime [setup failed]
+FAIL

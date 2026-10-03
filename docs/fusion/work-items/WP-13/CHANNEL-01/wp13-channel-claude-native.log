@@ -1,0 +1,40 @@
+=== RUN   TestManagedPinnedNativeClaudeChannel
+=== RUN   TestManagedPinnedNativeClaudeChannel/success
+    managed_native_test.go:32: Native pin changed
+=== RUN   TestManagedPinnedNativeClaudeChannel/sdk_retry
+    managed_native_test.go:32: Native pin changed
+=== RUN   TestManagedPinnedNativeClaudeChannel/budget_exhausted
+    managed_native_test.go:32: Native pin changed
+=== RUN   TestManagedPinnedNativeClaudeChannel/cancel_inflight
+    managed_native_test.go:32: Native pin changed
+--- FAIL: TestManagedPinnedNativeClaudeChannel (0.46s)
+    --- FAIL: TestManagedPinnedNativeClaudeChannel/success (0.12s)
+    --- FAIL: TestManagedPinnedNativeClaudeChannel/sdk_retry (0.11s)
+    --- FAIL: TestManagedPinnedNativeClaudeChannel/budget_exhausted (0.11s)
+    --- FAIL: TestManagedPinnedNativeClaudeChannel/cancel_inflight (0.12s)
+=== RUN   TestManagedPinnedNativeBuiltinTools
+=== RUN   TestManagedPinnedNativeBuiltinTools/read
+    managed_native_test.go:41: Native pin changed
+=== RUN   TestManagedPinnedNativeBuiltinTools/edit
+    managed_native_test.go:41: Native pin changed
+=== RUN   TestManagedPinnedNativeBuiltinTools/create
+    managed_native_test.go:41: Native pin changed
+=== RUN   TestManagedPinnedNativeBuiltinTools/outside_read
+    managed_native_test.go:41: Native pin changed
+=== RUN   TestManagedPinnedNativeBuiltinTools/outside_create
+    managed_native_test.go:41: Native pin changed
+=== RUN   TestManagedPinnedNativeBuiltinTools/readonly_create
+    managed_native_test.go:41: Native pin changed
+=== RUN   TestManagedPinnedNativeBuiltinTools/write_unsupported
+    managed_native_test.go:41: Native pin changed
+--- FAIL: TestManagedPinnedNativeBuiltinTools (0.81s)
+    --- FAIL: TestManagedPinnedNativeBuiltinTools/read (0.12s)
+    --- FAIL: TestManagedPinnedNativeBuiltinTools/edit (0.12s)
+    --- FAIL: TestManagedPinnedNativeBuiltinTools/create (0.11s)
+    --- FAIL: TestManagedPinnedNativeBuiltinTools/outside_read (0.12s)
+    --- FAIL: TestManagedPinnedNativeBuiltinTools/outside_create (0.12s)
+    --- FAIL: TestManagedPinnedNativeBuiltinTools/readonly_create (0.12s)
+    --- FAIL: TestManagedPinnedNativeBuiltinTools/write_unsupported (0.11s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/glm	1.526s
+FAIL

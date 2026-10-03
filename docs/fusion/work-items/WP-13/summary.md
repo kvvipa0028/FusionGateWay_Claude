@@ -13,3 +13,5 @@ Parent 关联 T01/T02/T14/T15/T25/T31/T32/T35/T44/T56/T59 只新增了组件级�
 [TOOLS-01](TOOLS-01/summary.md) 调查了实际 read_file/后续请求与原生配置读取：较宽 private HOME profile 下合成 key 会进入工具输出，而工具被 OS 拒绝后 Native 仍可能 exit0。现有文本 Gate 的实际 Native 攻击回归在工具开始前拦截；继续不支持生产工具。
 
 [READ-01](READ-01/summary.md) 已完成可选受控文本Read：Native前路径/文件批准、trace/后续HTTP关联、JSON转义凭据保护，真实固定Native+Store/Scheduler的13行项目读取与私有config拦截通过。生产NativeForwarder/Worker、OS隔离、写工具、Resume和真实准入继续未完成。
+
+[CHANNEL-01](CHANNEL-01/summary.md) 已连接可信 GrokChannel、独占双栈端口、私有GROK_HOME/config与公共Supervisor。实际固定Native8场景通过真实Store/Manager/Scheduler和default-deny profile，包含读取、拒绝、重试、预算、取消/StopProof/release；C探针验证OS边界，Claude兼容性回归。完整Adapter/真实NativeForwarder/准入、Resume/写权限/产品注册仍未完成。合同：[grok-managed-channel.md](../../contracts/grok-managed-channel.md)。

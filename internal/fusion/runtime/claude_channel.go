@@ -20,11 +20,11 @@ const ClaudeCLIVersion = "2.1.287"
 
 var claudeModel = regexp.MustCompile(`^glm-[a-z0-9]+(?:[.-][a-z0-9]+)*$`)
 
-// ClaudeChannel is immutable trusted launch configuration, not an HTTP DTO.
-// The controller owns the listener and its admitted Handler/Transport; this
-// Both loopback families are held on one port because Seatbelt's localhost
-// rule includes both. The Native process receives no upstream credential.
-type ClaudeChannel struct {
+// ClaudeChannel and GrokChannel are immutable trusted launch configuration,
+// not HTTP DTOs. Both use the same exclusively owned loopback lease.
+type ClaudeChannel struct{ *modelChannel }
+
+type modelChannel struct {
 	endpoint, port string
 	grant          *policy.PendingModelGrant
 	target         stageplan.ExecutionTarget
@@ -44,10 +44,18 @@ func (*ClaudeChannel) GoString() string { return "ClaudeChannel(<redacted>)" }
 // NewClaudeChannel takes only a trusted, authenticated controller handler.
 // Callers cannot supply an endpoint belonging to another local service.
 func NewClaudeChannel(handler http.Handler, grant *policy.PendingModelGrant, target stageplan.ExecutionTarget) (*ClaudeChannel, error) {
-	if handler == nil || grant == nil {
+	if !claudeModel.MatchString(target.RequestedModel) || target.RequestedModel != target.ResolvedModel || target.RuntimeVersion != ClaudeCLIVersion || target.BillingPath != "coding_plan" {
 		return nil, ErrLaunch
 	}
-	if !claudeModel.MatchString(target.RequestedModel) || target.RequestedModel != target.ResolvedModel || target.RuntimeVersion != ClaudeCLIVersion || target.BillingPath != "coding_plan" || target.LockEnforcement != stageplan.ControlledCalls || target.Account == "" || target.Workspace == "" || target.CredentialIdentity == "" || target.Route.ID == "" || target.Route.Revision < 1 || target.PluginVersion != nil {
+	channel, e := newModelChannel(handler, grant, target, "/api/anthropic")
+	if e != nil {
+		return nil, e
+	}
+	return &ClaudeChannel{channel}, nil
+}
+
+func newModelChannel(handler http.Handler, grant *policy.PendingModelGrant, target stageplan.ExecutionTarget, path string) (*modelChannel, error) {
+	if handler == nil || grant == nil || target.LockEnforcement != stageplan.ControlledCalls || target.Account == "" || target.Workspace == "" || target.CredentialIdentity == "" || target.Route.ID == "" || target.Route.Revision < 1 || target.PluginVersion != nil {
 		return nil, ErrLaunch
 	}
 	raw, e := json.Marshal(target)
@@ -58,7 +66,7 @@ func NewClaudeChannel(handler http.Handler, grant *policy.PendingModelGrant, tar
 	if json.Unmarshal(raw, &frozen) != nil {
 		return nil, ErrLaunch
 	}
-	c := &ClaudeChannel{grant: grant, target: frozen, failure: make(chan struct{}), connections: make(chan struct{}, 16), closing: make(chan struct{})}
+	c := &modelChannel{grant: grant, target: frozen, failure: make(chan struct{}), connections: make(chan struct{}, 16), closing: make(chan struct{})}
 	for attempt := 0; attempt < 8; attempt++ {
 		four, err := net.Listen("tcp4", "127.0.0.1:0")
 		if err != nil {
@@ -74,7 +82,7 @@ func NewClaudeChannel(handler http.Handler, grant *policy.PendingModelGrant, tar
 			continue
 		}
 		c.port = strconv.Itoa(port)
-		c.endpoint = "http://127.0.0.1:" + c.port + "/api/anthropic"
+		c.endpoint = "http://127.0.0.1:" + c.port + path
 		c.listeners = []net.Listener{four, six}
 		break
 	}
@@ -93,7 +101,7 @@ func NewClaudeChannel(handler http.Handler, grant *policy.PendingModelGrant, tar
 	return c, nil
 }
 
-func (c *ClaudeChannel) valid(r store.StageRun, project string, lifetime time.Duration) bool {
+func (c *modelChannel) valid(r store.StageRun, project string, lifetime time.Duration) bool {
 	if c == nil {
 		return false
 	}
@@ -102,7 +110,7 @@ func (c *ClaudeChannel) valid(r store.StageRun, project string, lifetime time.Du
 	return c.validLocked(r, project, lifetime)
 }
 
-func (c *ClaudeChannel) validLocked(r store.StageRun, project string, lifetime time.Duration) bool {
+func (c *modelChannel) validLocked(r store.StageRun, project string, lifetime time.Duration) bool {
 	if c.closed || c.active {
 		return false
 	}
@@ -117,7 +125,7 @@ func (c *ClaudeChannel) validLocked(r store.StageRun, project string, lifetime t
 	return e == nil && f == nil && string(a) == string(b) && c.grant.PreparedFor(expected, lifetime)
 }
 
-func (c *ClaudeChannel) acquire(r store.StageRun, project string, lifetime time.Duration) bool {
+func (c *modelChannel) acquire(r store.StageRun, project string, lifetime time.Duration) bool {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	if !c.validLocked(r, project, lifetime) {
@@ -129,7 +137,7 @@ func (c *ClaudeChannel) acquire(r store.StageRun, project string, lifetime time.
 
 // Close refuses to relinquish allowed ports while a managed process is alive.
 // Supervisor releases them only after Wait has reaped that process.
-func (c *ClaudeChannel) Close() error {
+func (c *modelChannel) Close() error {
 	if c == nil {
 		return nil
 	}
@@ -142,7 +150,7 @@ func (c *ClaudeChannel) Close() error {
 	return nil
 }
 
-func (c *ClaudeChannel) closeLocked() {
+func (c *modelChannel) closeLocked() {
 	if c.closed {
 		return
 	}
@@ -155,7 +163,7 @@ func (c *ClaudeChannel) closeLocked() {
 	}
 }
 
-func (c *ClaudeChannel) release() {
+func (c *modelChannel) release() {
 	if c == nil {
 		return
 	}
@@ -167,7 +175,7 @@ func (c *ClaudeChannel) release() {
 
 type channelListener struct {
 	net.Listener
-	channel *ClaudeChannel
+	channel *modelChannel
 }
 
 func (l *channelListener) Accept() (net.Conn, error) {
@@ -196,8 +204,15 @@ func (c *channelConnection) Close() error {
 	return e
 }
 
-func (c *ClaudeChannel) cancel() {
+func (c *modelChannel) cancel() {
 	if c != nil {
 		c.grant.Cancel()
 	}
+}
+
+func (c *ClaudeChannel) Close() error {
+	if c == nil {
+		return nil
+	}
+	return c.modelChannel.Close()
 }

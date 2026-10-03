@@ -4,6 +4,8 @@ package runtime
 
 import (
 	"fmt"
+
+	"github.com/pelletier/go-toml/v2"
 	"github.com/yetone/magpie/internal/fusion/workspace"
 	"os"
 	"os/exec"
@@ -25,6 +27,10 @@ func platformCommand(profile string, spec Spec) *exec.Cmd {
 }
 
 func sandbox(spec Spec) (string, []string, error) {
+	channel, channelErr := spec.modelChannel()
+	if channelErr != nil || channel != nil && len(spec.FixtureEnvironment) != 0 {
+		return "", nil, ErrLaunch
+	}
 	if workspace.PrivateState(spec.Root) != nil || workspace.PrivateState(spec.Workspace) != nil || spec.Root == spec.Workspace || strings.HasPrefix(spec.Workspace, spec.Root+"/") || strings.HasPrefix(spec.Root, spec.Workspace+"/") {
 		return "", nil, ErrLaunch
 	}
@@ -68,16 +74,10 @@ func sandbox(spec Spec) (string, []string, error) {
 		env = append(env, k+"="+v)
 	}
 	if c := spec.ClaudeChannel; c != nil {
-		if len(spec.FixtureEnvironment) != 0 {
-			return "", nil, ErrLaunch
-		}
 		secret, e := c.grant.Secret()
 		if e != nil {
 			return "", nil, ErrLaunch
 		}
-		// Seatbelt accepts localhost (both families), not numeric IPs here.
-		// ClaudeChannel exclusively owns IPv4 and IPv6 on this exact port.
-		profile += fmt.Sprintf("(allow network-outbound (remote tcp %s))\n", strconv.Quote("localhost:"+c.port))
 		env = append(env,
 			"USERPROFILE="+filepath.Join(spec.Root, "home"),
 			"CLAUDE_CONFIG_DIR="+filepath.Join(spec.Root, "config", "claude"),
@@ -87,6 +87,40 @@ func sandbox(spec Spec) (string, []string, error) {
 			"DISABLE_UPDATES=1", "DISABLE_TELEMETRY=1", "DISABLE_ERROR_REPORTING=1",
 			"CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1", "DISABLE_COMPACT=1",
 			"DO_NOT_TRACK=1", "API_TIMEOUT_MS=5000")
+	}
+	if channel != nil {
+		// Seatbelt localhost includes both families; the shared lease owns both.
+		profile += fmt.Sprintf("(allow network-outbound (remote tcp %s))\n", strconv.Quote("localhost:"+channel.port))
+	}
+	if c := spec.GrokChannel; c != nil {
+		secret, e := c.grant.Secret()
+		if e != nil {
+			return "", nil, ErrLaunch
+		}
+		home := filepath.Join(spec.Root, "config", "grok")
+		if os.Mkdir(home, 0700) != nil {
+			return "", nil, ErrLaunch
+		}
+		config := map[string]any{
+			"model":    map[string]any{"fusion": map[string]any{"model": c.target.RequestedModel, "base_url": c.endpoint, "api_key": secret, "max_retries": 2, "rate_limit_retry_threshold": 2}},
+			"models":   map[string]any{"default": "fusion", "session_summary": "fusion"},
+			"features": map[string]any{"turn_summary": false}, "cli": map[string]any{"auto_update": false},
+		}
+		raw, e := toml.Marshal(config)
+		if e != nil {
+			return "", nil, ErrLaunch
+		}
+		file, e := os.OpenFile(filepath.Join(home, "config.toml"), os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0600)
+		if e != nil {
+			return "", nil, ErrLaunch
+		}
+		_, writeErr := file.Write(raw)
+		syncErr := file.Sync()
+		closeErr := file.Close()
+		if writeErr != nil || syncErr != nil || closeErr != nil {
+			return "", nil, ErrLaunch
+		}
+		env = append(env, "GROK_HOME="+home, "LANG=en_US.UTF-8", "DO_NOT_TRACK=1", "RUST_LOG=error")
 	}
 	return profile, env, nil
 }

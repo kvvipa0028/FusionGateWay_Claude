@@ -1,0 +1,29 @@
+=== RUN   TestManagedPinnedNativeGrokChannel
+=== RUN   TestManagedPinnedNativeGrokChannel/success
+    managed_native_test.go:29: synthetic Native mode=success state=succeeded exit=0 stop=true HTTP=2 permits=2 budget=2 model-label-calls=1
+=== RUN   TestManagedPinnedNativeGrokChannel/read
+    managed_native_test.go:29: synthetic Native mode=read state=succeeded exit=0 stop=true HTTP=3 permits=3 budget=3 model-label-calls=2
+=== RUN   TestManagedPinnedNativeGrokChannel/private_config
+    managed_native_test.go:29: synthetic Native mode=private_config state=failed exit=1 stop=true HTTP=2 permits=2 budget=2 model-label-calls=0
+=== RUN   TestManagedPinnedNativeGrokChannel/outside_read
+    managed_native_test.go:29: synthetic Native mode=outside_read state=failed exit=1 stop=true HTTP=2 permits=2 budget=2 model-label-calls=0
+=== RUN   TestManagedPinnedNativeGrokChannel/write_unsupported
+    managed_native_test.go:29: synthetic Native mode=write_unsupported state=failed exit=1 stop=true HTTP=2 permits=2 budget=2 model-label-calls=0
+=== RUN   TestManagedPinnedNativeGrokChannel/budget_exhausted
+    managed_native_test.go:29: synthetic Native mode=budget_exhausted state=failed exit=1 stop=true HTTP=1 permits=2 budget=1 model-label-calls=0
+=== RUN   TestManagedPinnedNativeGrokChannel/cancel_inflight
+    managed_native_test.go:29: synthetic Native mode=cancel_inflight state=cancelled exit=143 stop=true HTTP=2 permits=2 budget=2 model-label-calls=0
+=== RUN   TestManagedPinnedNativeGrokChannel/sdk_retry
+    managed_native_test.go:29: managed Native evidence mismatch succeeded 0 {3 3 3 2 1 false} true
+--- FAIL: TestManagedPinnedNativeGrokChannel (16.00s)
+    --- PASS: TestManagedPinnedNativeGrokChannel/success (1.00s)
+    --- PASS: TestManagedPinnedNativeGrokChannel/read (1.06s)
+    --- PASS: TestManagedPinnedNativeGrokChannel/private_config (3.01s)
+    --- PASS: TestManagedPinnedNativeGrokChannel/outside_read (3.03s)
+    --- PASS: TestManagedPinnedNativeGrokChannel/write_unsupported (3.01s)
+    --- PASS: TestManagedPinnedNativeGrokChannel/budget_exhausted (0.97s)
+    --- PASS: TestManagedPinnedNativeGrokChannel/cancel_inflight (0.86s)
+    --- FAIL: TestManagedPinnedNativeGrokChannel/sdk_retry (3.07s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/grok	16.641s
+FAIL

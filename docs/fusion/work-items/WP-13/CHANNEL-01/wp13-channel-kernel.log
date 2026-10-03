@@ -1,0 +1,16 @@
+=== RUN   TestManagedClaudeChannelActivatesAfterConfirmationAndReapsOneProcess
+--- PASS: TestManagedClaudeChannelActivatesAfterConfirmationAndReapsOneProcess (0.49s)
+=== RUN   TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops
+=== RUN   TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops/scope
+=== RUN   TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops/activate
+=== RUN   TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops/listener_failed
+--- PASS: TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops (0.65s)
+    --- PASS: TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops/scope (0.19s)
+    --- PASS: TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops/activate (0.23s)
+    --- PASS: TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops/listener_failed (0.23s)
+=== RUN   TestGrokSandboxKernelBoundariesWithPositiveControls
+--- PASS: TestGrokSandboxKernelBoundariesWithPositiveControls (0.17s)
+=== RUN   TestNativeMachNetworkAndForkBoundariesHavePositiveControls
+--- PASS: TestNativeMachNetworkAndForkBoundariesHavePositiveControls (0.24s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime	3.201s

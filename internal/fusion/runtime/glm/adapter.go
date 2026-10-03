@@ -87,7 +87,7 @@ func (a *Adapter) Release(p policy.StopProof) error {
 // scope. The adapter generates all Native argv, identity, env, channel and
 // outcome validation. Caller-provided launch controls are always refused.
 func (a *Adapter) Start(ctx context.Context, r store.StageRun, in managed.Spec) (*managed.Handle, error) {
-	if a == nil || ctx.Err() != nil || in.Executable != "" || in.ExecutableHash != "" || len(in.Args) != 0 || len(in.FixtureEnvironment) != 0 || in.NativeSessionID != "" || in.ClaudeChannel != nil || in.ValidateOutcome != nil || in.Timeout <= 0 || in.Timeout > 4*time.Minute || len(in.Input) == 0 || len(in.Input) > 64<<10 || !utf8.Valid(in.Input) || in.Writable && r.Role != stageplan.Implementation && r.Role != stageplan.Testing {
+	if a == nil || ctx.Err() != nil || in.Executable != "" || in.ExecutableHash != "" || len(in.Args) != 0 || len(in.FixtureEnvironment) != 0 || in.NativeSessionID != "" || in.ClaudeChannel != nil || in.GrokChannel != nil || in.ValidateOutcome != nil || in.Timeout <= 0 || in.Timeout > 4*time.Minute || len(in.Input) == 0 || len(in.Input) > 64<<10 || !utf8.Valid(in.Input) || in.Writable && r.Role != stageplan.Implementation && r.Role != stageplan.Testing {
 		return nil, ErrUnverified
 	}
 	if e := a.config.Scheduler.CheckPrepared(ctx, r); e != nil {

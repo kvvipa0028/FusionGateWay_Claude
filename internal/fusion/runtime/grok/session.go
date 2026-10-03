@@ -13,11 +13,12 @@ import (
 	"unicode"
 	"unicode/utf8"
 
+	managed "github.com/yetone/magpie/internal/fusion/runtime"
 	"github.com/yetone/magpie/internal/fusion/stageplan"
 )
 
-const CLIVersion = "1.0.48"
-const NativeExecutableSHA256 = "1ed292eb62206b1a2ec3d17dc69c9c8406a07f5ff414305f953baee5b72a4a05"
+const CLIVersion = managed.GrokCLIVersion
+const NativeExecutableSHA256 = managed.GrokExecutableSHA256
 
 var (
 	ErrProtocol    = errors.New("pinned Grok headless protocol mismatch")

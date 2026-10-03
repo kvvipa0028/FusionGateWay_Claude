@@ -28,6 +28,7 @@ type Handle struct {
 	supervisor         *Supervisor
 	run                store.StageRun
 	spec               Spec
+	channel            *modelChannel
 	cmd                *exec.Cmd
 	identity           Identity
 	nonce, profileHash string
@@ -79,9 +80,16 @@ func (s *Supervisor) Resume(context.Context, store.StageRun) (*Handle, error) {
 
 // Start consumes an already committed reservation. Spec is assembled by a
 // trusted adapter, never decoded from an HTTP request. Child processes remain
-// denied; a ClaudeChannel adds only its controller-owned loopback port.
+// denied; a typed model channel adds only its controller-owned loopback port.
 func (s *Supervisor) Start(ctx context.Context, r store.StageRun, in Spec) (*Handle, error) {
 	if s == nil || s.store == nil || ctx.Err() != nil || in.ValidateOutcome == nil || in.Timeout <= 0 || in.Timeout > 10*time.Minute || in.NativeSessionID == "" || len(in.Input) > 64<<10 || !filepath.IsAbs(in.Executable) || strings.ContainsRune(in.NativeSessionID, 0) {
+		return nil, ErrLaunch
+	}
+	channel, e := in.modelChannel()
+	if e != nil {
+		return nil, ErrLaunch
+	}
+	if in.GrokChannel != nil && in.ExecutableHash != GrokExecutableSHA256 {
 		return nil, ErrLaunch
 	}
 	current, e := s.store.CheckActive(r.ID, r.Generation)
@@ -92,7 +100,7 @@ func (s *Supervisor) Start(ctx context.Context, r store.StageRun, in Spec) (*Han
 	if e != nil || in.Writable && reservation.WriteKey == "" {
 		return nil, ErrLaunch
 	}
-	if c := in.ClaudeChannel; c != nil {
+	if c := channel; c != nil {
 		task, e := s.store.Task(current.TaskID)
 		inputTarget, _ := json.Marshal(r.Target)
 		storedTarget, _ := json.Marshal(current.Target)
@@ -103,7 +111,7 @@ func (s *Supervisor) Start(ctx context.Context, r store.StageRun, in Spec) (*Han
 	owned := false
 	defer func() {
 		if !owned {
-			in.ClaudeChannel.release()
+			channel.release()
 		}
 	}()
 	actual, e := FileHash(in.Executable)
@@ -147,7 +155,7 @@ func (s *Supervisor) Start(ctx context.Context, r store.StageRun, in Spec) (*Han
 	if _, e = rand.Read(nonce[:]); e != nil {
 		return nil, ErrLaunch
 	}
-	h := &Handle{supervisor: s, run: current, spec: spec, nonce: hex.EncodeToString(nonce[:]), profileHash: hashBytes([]byte(profile)), done: make(chan struct{}), cancel: make(chan struct{}, 1), events: make(chan Event, 16)}
+	h := &Handle{supervisor: s, run: current, spec: spec, channel: channel, nonce: hex.EncodeToString(nonce[:]), profileHash: hashBytes([]byte(profile)), done: make(chan struct{}), cancel: make(chan struct{}, 1), events: make(chan Event, 16)}
 	// O_EXCL + fsync intent before spawning. A controller crash in the spawn
 	// window remains unknown; absence of a PID never authorizes automatic replay.
 	if e = h.journal("intent"); e != nil {
@@ -194,7 +202,7 @@ func (s *Supervisor) Start(ctx context.Context, r store.StageRun, in Spec) (*Han
 	}
 	h.emit("started")
 	owned = true
-	if c := spec.ClaudeChannel; c != nil {
+	if c := channel; c != nil {
 		if e = c.grant.Activate(); e != nil {
 			c.cancel()
 			h.cancelRequested = true
@@ -279,7 +287,7 @@ func (h *Handle) Cancel() error {
 	if e := h.supervisor.store.CancelIntent(h.run.ID, h.run.Generation, h.run.Owner); e != nil {
 		return ErrIdentity
 	}
-	h.spec.ClaudeChannel.cancel()
+	h.channel.cancel()
 	h.cancelRequested = true
 	select {
 	case h.cancel <- struct{}{}:
@@ -288,7 +296,7 @@ func (h *Handle) Cancel() error {
 	return signalProcess(h.identity, syscall.SIGTERM)
 }
 func (h *Handle) supervise(ctx context.Context) {
-	defer h.spec.ClaudeChannel.cancel()
+	defer h.channel.cancel()
 	wait := make(chan error, 1)
 	go func() { wait <- h.cmd.Wait() }()
 	deadline := time.NewTimer(h.spec.Timeout)
@@ -299,11 +307,11 @@ func (h *Handle) supervise(ctx context.Context) {
 	var killTimer *time.Timer
 	var waitErr error
 	var channelFailure <-chan struct{}
-	if h.spec.ClaudeChannel != nil {
-		channelFailure = h.spec.ClaudeChannel.failure
+	if h.channel != nil {
+		channelFailure = h.channel.failure
 	}
 	stop := func() {
-		h.spec.ClaudeChannel.cancel()
+		h.channel.cancel()
 		h.mu.Lock()
 		if !h.cancelRequested {
 			h.cancelRequested = true
@@ -399,7 +407,7 @@ exited:
 		h.supervisor.mu.Unlock()
 	}
 	h.emit(state)
-	h.spec.ClaudeChannel.release()
+	h.channel.release()
 	close(h.events)
 	close(h.done)
 }

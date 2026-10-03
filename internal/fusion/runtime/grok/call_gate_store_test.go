@@ -17,6 +17,11 @@ import (
 // Synthetic inspection is deliberately not production admission evidence.
 // Store, Manager, Scheduler and per-call budget transactions are real.
 func storedGateFixture(t *testing.T, maxCalls int) (*gateFixture, *store.Store, *policy.Inspection) {
+	f, s, in, _, _, _ := storedGrokFixture(t, maxCalls, true)
+	return f, s, in
+}
+
+func storedGrokFixture(t *testing.T, maxCalls int, running bool) (*gateFixture, *store.Store, *policy.Inspection, store.StageRun, *policy.PendingModelGrant, *policy.Scheduler) {
 	t.Helper()
 	f := newGateFixture(t)
 	root, e := filepath.EvalSymlinks(t.TempDir())
@@ -54,8 +59,10 @@ func storedGateFixture(t *testing.T, maxCalls int) (*gateFixture, *store.Store, 
 	if e != nil {
 		t.Fatal(e)
 	}
-	if e = s.ConfirmStarted(run.ID, run.Generation, run.Owner, f.config.Binding.Observer.NativeSessionID); e != nil {
-		t.Fatal(e)
+	if running {
+		if e = s.ConfirmStarted(run.ID, run.Generation, run.Owner, f.config.Binding.Observer.NativeSessionID); e != nil {
+			t.Fatal(e)
+		}
 	}
 	c := policy.Claims{TaskID: task.ID, RunID: run.ID, Role: run.Role, Attempt: run.Attempt, PlanRevision: run.PlanRevision, Generation: run.Generation, ProjectID: task.ProjectID, Audience: policy.ModelAudience}
 	f.config.Binding.Observer.RunID = run.ID
@@ -64,7 +71,15 @@ func storedGateFixture(t *testing.T, maxCalls int) (*gateFixture, *store.Store, 
 	f.config.Claims = c
 	f.manager = policy.NewManager("fixture-controller-management", policy.StoreValidator(s), nil)
 	f.config.Manager = f.manager
-	f.token, e = f.manager.Issue(c, time.Minute)
+	var pending *policy.PendingModelGrant
+	if running {
+		f.token, e = f.manager.Issue(c, time.Minute)
+	} else {
+		pending, e = f.manager.PrepareModel(c, time.Minute)
+		if e == nil {
+			f.token, e = pending.Secret()
+		}
+	}
 	if e != nil {
 		t.Fatal(e)
 	}
@@ -72,7 +87,7 @@ func storedGateFixture(t *testing.T, maxCalls int) (*gateFixture, *store.Store, 
 		f.permits.Add(1)
 		return scheduler.Permit(ctx, c, target, ordinal)
 	}
-	return f, s, in
+	return f, s, in, run, pending, scheduler
 }
 
 func TestGrokGateUsesPersistentSchedulerBudgetForEveryCall(t *testing.T) {

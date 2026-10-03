@@ -1,0 +1,8 @@
+# github.com/yetone/magpie/internal/fusion/runtime/grok [github.com/yetone/magpie/internal/fusion/runtime/grok.test]
+internal/fusion/runtime/grok/managed_native_test.go:18:2: "github.com/yetone/magpie/internal/fusion/policy" imported and not used
+internal/fusion/runtime/grok/managed_native_test.go:74:82: undefined: equalTarget
+internal/fusion/runtime/grok/managed_native_test.go:89:7: undefined: equalTarget
+internal/fusion/runtime/grok/managed_native_test.go:152:15: assignment mismatch: 2 variables but observer.Event returns 1 value
+internal/fusion/runtime/grok/managed_native_test.go:163:35: cannot use ctx (variable of struct type policy.Claims) as context.Context value in argument to gate.Healthy: policy.Claims does not implement context.Context (missing method Deadline)
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/grok [build failed]
+FAIL

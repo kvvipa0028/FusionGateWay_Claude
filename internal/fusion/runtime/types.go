@@ -39,6 +39,7 @@ type Spec struct {
 	Input                      []byte
 	ValidateOutcome            func([]byte) bool
 	ClaudeChannel              *ClaudeChannel
+	GrokChannel                *GrokChannel
 }
 type Identity struct {
 	PID         int   `json:"pid"`

@@ -1,0 +1,213 @@
+In file included from tests/fusion/fixtures/sandbox-probe.c:8:
+In file included from /usr/local/include/stdlib.h:58:
+/usr/local/include/_stdlib.h:152:25: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+  152 | int     at_quick_exit(void (*)(void));
+      |                             ^
+/usr/local/include/_stdlib.h:152:25: note: insert '_Nullable' if the pointer may be null
+  152 | int     at_quick_exit(void (*)(void));
+      |                             ^
+      |                              _Nullable
+/usr/local/include/_stdlib.h:152:25: note: insert '_Nonnull' if the pointer should never be null
+  152 | int     at_quick_exit(void (*)(void));
+      |                             ^
+      |                              _Nonnull
+/usr/local/include/_stdlib.h:154:25: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+  154 | double   atof(const char *);
+      |                          ^
+/usr/local/include/_stdlib.h:154:25: note: insert '_Nullable' if the pointer may be null
+  154 | double   atof(const char *);
+      |                          ^
+      |                           _Nullable
+/usr/local/include/_stdlib.h:154:25: note: insert '_Nonnull' if the pointer should never be null
+  154 | double   atof(const char *);
+      |                          ^
+      |                           _Nonnull
+/usr/local/include/_stdlib.h:155:22: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+  155 | int      atoi(const char *);
+      |                          ^
+/usr/local/include/_stdlib.h:155:22: note: insert '_Nullable' if the pointer may be null
+  155 | int      atoi(const char *);
+      |                          ^
+      |                           _Nullable
+/usr/local/include/_stdlib.h:155:22: note: insert '_Nonnull' if the pointer should never be null
+  155 | int      atoi(const char *);
+      |                          ^
+      |                           _Nonnull
+/usr/local/include/_stdlib.h:156:23: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+  156 | long     atol(const char *);
+      |                          ^
+/usr/local/include/_stdlib.h:156:23: note: insert '_Nullable' if the pointer may be null
+  156 | long     atol(const char *);
+      |                          ^
+      |                           _Nullable
+/usr/local/include/_stdlib.h:156:23: note: insert '_Nonnull' if the pointer should never be null
+  156 | long     atol(const char *);
+      |                          ^
+      |                           _Nonnull
+/usr/local/include/_stdlib.h:159:20: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+  159 |          atoll(const char *);
+      |                           ^
+/usr/local/include/_stdlib.h:159:20: note: insert '_Nullable' if the pointer may be null
+  159 |          atoll(const char *);
+      |                           ^
+      |                            _Nullable
+/usr/local/include/_stdlib.h:159:20: note: insert '_Nonnull' if the pointer should never be null
+  159 |          atoll(const char *);
+      |                           ^
+      |                            _Nonnull
+/usr/local/include/_stdlib.h:161:26: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+  161 | void    *bsearch(const void *__key, const void *_LIBC_SIZE(__width * __nel) __base, size_t __nel,
+      |                             ^
+/usr/local/include/_stdlib.h:161:26: note: insert '_Nullable' if the pointer may be null
+  161 | void    *bsearch(const void *__key, const void *_LIBC_SIZE(__width * __nel) __base, size_t __nel,
+      |                             ^
+      |                               _Nullable 
+/usr/local/include/_stdlib.h:161:26: note: insert '_Nonnull' if the pointer should never be null
+  161 | void    *bsearch(const void *__key, const void *_LIBC_SIZE(__width * __nel) __base, size_t __nel,
+      |                             ^
+      |                               _Nonnull 
+/usr/local/include/_stdlib.h:161:45: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+  161 | void    *bsearch(const void *__key, const void *_LIBC_SIZE(__width * __nel) __base, size_t __nel,
+      |                                                ^
+/usr/local/include/_stdlib.h:161:45: note: insert '_Nullable' if the pointer may be null
+  161 | void    *bsearch(const void *__key, const void *_LIBC_SIZE(__width * __nel) __base, size_t __nel,
+      |                                                ^
+      |                                                  _Nullable 
+/usr/local/include/_stdlib.h:161:45: note: insert '_Nonnull' if the pointer should never be null
+  161 | void    *bsearch(const void *__key, const void *_LIBC_SIZE(__width * __nel) __base, size_t __nel,
+      |                                                ^
+      |                                                  _Nonnull 
+/usr/local/include/_stdlib.h:162:59: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+  162 |             size_t __width, int (* _Nonnull __compar)(const void *, const void *));
+      |                                                                  ^
+/usr/local/include/_stdlib.h:162:59: note: insert '_Nullable' if the pointer may be null
+  162 |             size_t __width, int (* _Nonnull __compar)(const void *, const void *));
+      |                                                                  ^
+      |                                                                   _Nullable
+/usr/local/include/_stdlib.h:162:59: note: insert '_Nonnull' if the pointer should never be null
+  162 |             size_t __width, int (* _Nonnull __compar)(const void *, const void *));
+      |                                                                  ^
+      |                                                                   _Nonnull
+/usr/local/include/_stdlib.h:162:73: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+  162 |             size_t __width, int (* _Nonnull __compar)(const void *, const void *));
+      |                                                                                ^
+/usr/local/include/_stdlib.h:162:73: note: insert '_Nullable' if the pointer may be null
+  162 |             size_t __width, int (* _Nonnull __compar)(const void *, const void *));
+      |                                                                                ^
+      |                                                                                 _Nullable
+/usr/local/include/_stdlib.h:162:73: note: insert '_Nonnull' if the pointer should never be null
+  162 |             size_t __width, int (* _Nonnull __compar)(const void *, const void *));
+      |                                                                                ^
+      |                                                                                 _Nonnull
+/usr/local/include/_stdlib.h:161:6: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+  161 | void    *bsearch(const void *__key, const void *_LIBC_SIZE(__width * __nel) __base, size_t __nel,
+      |         ^
+/usr/local/include/_stdlib.h:161:6: note: insert '_Nullable' if the pointer may be null
+  161 | void    *bsearch(const void *__key, const void *_LIBC_SIZE(__width * __nel) __base, size_t __nel,
+      |         ^
+      |           _Nullable 
+/usr/local/include/_stdlib.h:161:6: note: insert '_Nonnull' if the pointer should never be null
+  161 | void    *bsearch(const void *__key, const void *_LIBC_SIZE(__width * __nel) __base, size_t __nel,
+      |         ^
+      |           _Nonnull 
+/usr/local/include/_stdlib.h:167:36: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+  167 | char *_LIBC_CSTR        getenv(const char *);
+      |                                           ^
+/usr/local/include/_stdlib.h:167:36: note: insert '_Nullable' if the pointer may be null
+  167 | char *_LIBC_CSTR        getenv(const char *);
+      |                                           ^
+      |                                            _Nullable
+/usr/local/include/_stdlib.h:167:36: note: insert '_Nonnull' if the pointer should never be null
+  167 | char *_LIBC_CSTR        getenv(const char *);
+      |                                           ^
+      |                                            _Nonnull
+/usr/local/include/_stdlib.h:167:6: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+  167 | char *_LIBC_CSTR        getenv(const char *);
+      |      ^
+/usr/local/include/_stdlib.h:167:6: note: insert '_Nullable' if the pointer may be null
+  167 | char *_LIBC_CSTR        getenv(const char *);
+      |      ^
+      |        _Nullable 
+/usr/local/include/_stdlib.h:167:6: note: insert '_Nonnull' if the pointer should never be null
+  167 | char *_LIBC_CSTR        getenv(const char *);
+      |      ^
+      |        _Nonnull 
+/usr/local/include/_stdlib.h:176:23: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+  176 | int      mblen(const char *_LIBC_COUNT(__n) __s, size_t __n);
+      |                           ^
+/usr/local/include/_stdlib.h:176:23: note: insert '_Nullable' if the pointer may be null
+  176 | int      mblen(const char *_LIBC_COUNT(__n) __s, size_t __n);
+      |                           ^
+      |                             _Nullable 
+/usr/local/include/_stdlib.h:176:23: note: insert '_Nonnull' if the pointer should never be null
+  176 | int      mblen(const char *_LIBC_COUNT(__n) __s, size_t __n);
+      |                           ^
+      |                             _Nonnull 
+/usr/local/include/_stdlib.h:177:26: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+  177 | size_t   mbstowcs(wchar_t * __restrict _LIBC_COUNT(__n), const char * __restrict, size_t __n);
+      |                           ^
+/usr/local/include/_stdlib.h:177:26: note: insert '_Nullable' if the pointer may be null
+  177 | size_t   mbstowcs(wchar_t * __restrict _LIBC_COUNT(__n), const char * __restrict, size_t __n);
+      |                           ^
+      |                             _Nullable
+/usr/local/include/_stdlib.h:177:26: note: insert '_Nonnull' if the pointer should never be null
+  177 | size_t   mbstowcs(wchar_t * __restrict _LIBC_COUNT(__n), const char * __restrict, size_t __n);
+      |                           ^
+      |                             _Nonnull
+/usr/local/include/_stdlib.h:177:68: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+  177 | size_t   mbstowcs(wchar_t * __restrict _LIBC_COUNT(__n), const char * __restrict, size_t __n);
+      |                                                                     ^
+/usr/local/include/_stdlib.h:177:68: note: insert '_Nullable' if the pointer may be null
+  177 | size_t   mbstowcs(wchar_t * __restrict _LIBC_COUNT(__n), const char * __restrict, size_t __n);
+      |                                                                     ^
+      |                                                                       _Nullable
+/usr/local/include/_stdlib.h:177:68: note: insert '_Nonnull' if the pointer should never be null
+  177 | size_t   mbstowcs(wchar_t * __restrict _LIBC_COUNT(__n), const char * __restrict, size_t __n);
+      |                                                                     ^
+      |                                                                       _Nonnull
+/usr/local/include/_stdlib.h:178:21: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+  178 | int      mbtowc(wchar_t * __restrict, const char * __restrict _LIBC_COUNT(__n), size_t __n);
+      |                         ^
+/usr/local/include/_stdlib.h:178:21: note: insert '_Nullable' if the pointer may be null
+  178 | int      mbtowc(wchar_t * __restrict, const char * __restrict _LIBC_COUNT(__n), size_t __n);
+      |                         ^
+      |                           _Nullable
+/usr/local/include/_stdlib.h:178:21: note: insert '_Nonnull' if the pointer should never be null
+  178 | int      mbtowc(wchar_t * __restrict, const char * __restrict _LIBC_COUNT(__n), size_t __n);
+      |                         ^
+      |                           _Nonnull
+/usr/local/include/_stdlib.h:178:46: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+  178 | int      mbtowc(wchar_t * __restrict, const char * __restrict _LIBC_COUNT(__n), size_t __n);
+      |                                                  ^
+/usr/local/include/_stdlib.h:178:46: note: insert '_Nullable' if the pointer may be null
+  178 | int      mbtowc(wchar_t * __restrict, const char * __restrict _LIBC_COUNT(__n), size_t __n);
+      |                                                  ^
+      |                                                    _Nullable
+/usr/local/include/_stdlib.h:178:46: note: insert '_Nonnull' if the pointer should never be null
+  178 | int      mbtowc(wchar_t * __restrict, const char * __restrict _LIBC_COUNT(__n), size_t __n);
+      |                                                  ^
+      |                                                    _Nonnull
+/usr/local/include/_stdlib.h:180:18: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+  180 | void     qsort(void *_LIBC_SIZE(__nel * __width) __base, size_t __nel, size_t __width,
+      |                     ^
+/usr/local/include/_stdlib.h:180:18: note: insert '_Nullable' if the pointer may be null
+  180 | void     qsort(void *_LIBC_SIZE(__nel * __width) __base, size_t __nel, size_t __width,
+      |                     ^
+      |                       _Nullable 
+/usr/local/include/_stdlib.h:180:18: note: insert '_Nonnull' if the pointer should never be null
+  180 | void     qsort(void *_LIBC_SIZE(__nel * __width) __base, size_t __nel, size_t __width,
+      |                     ^
+      |                       _Nonnull 
+/usr/local/include/_stdlib.h:181:43: error: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified) [-Werror,-Wnullability-completeness]
+  181 |             int (* _Nonnull __compar)(const void *, const void *));
+      |                                                  ^
+/usr/local/include/_stdlib.h:181:43: note: insert '_Nullable' if the pointer may be null
+  181 |             int (* _Nonnull __compar)(const void *, const void *));
+      |                                                  ^
+      |                                                   _Nullable
+/usr/local/include/_stdlib.h:181:43: note: insert '_Nonnull' if the pointer should never be null
+  181 |             int (* _Nonnull __compar)(const void *, const void *));
+      |                                                  ^
+      |                                                   _Nonnull
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+20 errors generated.

@@ -62,15 +62,36 @@ static int connect_port6(const char *raw) {
 
 static int channel_probe(int argc, char **argv) {
     int control = strcmp(argv[1], "--channel-control") == 0;
+    int grok = strcmp(argv[1], "--grok-channel") == 0;
     if ((control && argc != 4) || (!control && argc != 5)) return 100;
     if (!connect_port(argv[2]) || !connect_port6(argv[2]) || connect_port(argv[3]) != control) return 101;
     if (!control) {
-        const char *key = getenv("ANTHROPIC_API_KEY");
-        const char *token = getenv("ANTHROPIC_AUTH_TOKEN");
-        const char *model = getenv("ANTHROPIC_MODEL");
-        const char *native_tmp = getenv("CLAUDE_CODE_TMPDIR");
-        const char *tmp = getenv("TMPDIR");
-        if (key == NULL || strncmp(key, "fgs_", 4) != 0 || token == NULL || strcmp(key, token) != 0 || model == NULL || strcmp(model, "glm-5.3") != 0 || native_tmp == NULL || tmp == NULL || strcmp(native_tmp, tmp) != 0 || getenv("FUSION_MANAGEMENT_SECRET") != NULL) return 102;
+        if (grok) {
+            const char *home = getenv("GROK_HOME");
+            if (home == NULL || getenv("ANTHROPIC_API_KEY") != NULL || getenv("FUSION_MANAGEMENT_SECRET") != NULL) return 107;
+            FILE *file = fopen("fixture.txt", "r");
+            if (file == NULL) return 108;
+            fclose(file);
+            file = fopen("readonly-effect.txt", "w");
+            if (file != NULL) { fclose(file); return 109; }
+            file = fopen(argv[4], "r");
+            if (file != NULL) { fclose(file); return 110; }
+            file = fopen(argv[4], "w");
+            if (file != NULL) { fclose(file); return 111; }
+            char scratch[4096];
+            if (snprintf(scratch, sizeof(scratch), "%s/probe-private.txt", home) >= (int)sizeof(scratch)) return 112;
+            file = fopen(scratch, "w");
+            if (file == NULL) return 113;
+            fputs("synthetic private write", file);
+            fclose(file);
+        } else {
+            const char *key = getenv("ANTHROPIC_API_KEY");
+            const char *token = getenv("ANTHROPIC_AUTH_TOKEN");
+            const char *model = getenv("ANTHROPIC_MODEL");
+            const char *native_tmp = getenv("CLAUDE_CODE_TMPDIR");
+            const char *tmp = getenv("TMPDIR");
+            if (key == NULL || strncmp(key, "fgs_", 4) != 0 || token == NULL || strcmp(key, token) != 0 || model == NULL || strcmp(model, "glm-5.3") != 0 || native_tmp == NULL || tmp == NULL || strcmp(native_tmp, tmp) != 0 || getenv("FUSION_MANAGEMENT_SECRET") != NULL) return 102;
+        }
         mach_port_t port = MACH_PORT_NULL;
         if (bootstrap_look_up(bootstrap_port, "com.apple.SecurityServer", &port) == KERN_SUCCESS) {
             mach_port_deallocate(mach_task_self(), port);
@@ -80,6 +101,7 @@ static int channel_probe(int argc, char **argv) {
         if (child == 0) _exit(0);
         if (child > 0) { int status = 0; waitpid(child, &status, 0); return 104; }
         if (errno != EPERM) return 105;
+        if (grok) { puts("fixture-completed"); return 0; }
         int ready = 0;
         for (int i = 0; i < 2000; i++) {
             if (access(argv[4], F_OK) == 0) { ready = 1; break; }
@@ -92,7 +114,7 @@ static int channel_probe(int argc, char **argv) {
 }
 
 int main(int argc, char **argv) {
-    if (argc >= 2 && (strcmp(argv[1], "--channel") == 0 || strcmp(argv[1], "--channel-control") == 0)) return channel_probe(argc, argv);
+    if (argc >= 2 && (strcmp(argv[1], "--channel") == 0 || strcmp(argv[1], "--channel-control") == 0 || strcmp(argv[1], "--grok-channel") == 0)) return channel_probe(argc, argv);
     if (argc == 2 && strcmp(argv[1], "--timezone") == 0) return timezone_probe();
     int control = argc == 2 && strcmp(argv[1], "--control") == 0;
     mach_port_t port = MACH_PORT_NULL;
