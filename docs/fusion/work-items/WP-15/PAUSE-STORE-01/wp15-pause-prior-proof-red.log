@@ -1,0 +1,6 @@
+=== RUN   TestTaskPauseCurrentStopCannotProveEarlierLegacyExecutionStopped
+    pause_test.go:472: current proof falsely settled earlier unproven execution paused <nil>
+--- FAIL: TestTaskPauseCurrentStopCannotProveEarlierLegacyExecutionStopped (0.06s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/store	0.702s
+FAIL

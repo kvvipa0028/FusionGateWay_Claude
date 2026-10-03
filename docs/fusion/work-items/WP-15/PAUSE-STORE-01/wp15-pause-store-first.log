@@ -1,0 +1,10 @@
+=== RUN   TestTaskPauseContinueIdleIsAtomicAndFencesOldGeneration
+--- PASS: TestTaskPauseContinueIdleIsAtomicAndFencesOldGeneration (0.05s)
+=== RUN   TestTaskPauseRunningBlocksCallsAndCannotContinueUntilProof
+--- PASS: TestTaskPauseRunningBlocksCallsAndCannotContinueUntilProof (0.06s)
+=== RUN   TestTaskPauseFinishedSuccessRequiresReleasedProofBeforeBecomingPaused
+--- PASS: TestTaskPauseFinishedSuccessRequiresReleasedProofBeforeBecomingPaused (0.05s)
+=== RUN   TestTaskPauseExpiryUnknownOwnerAndStalePlanStayFenced
+--- PASS: TestTaskPauseExpiryUnknownOwnerAndStalePlanStayFenced (0.05s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/store	1.867s

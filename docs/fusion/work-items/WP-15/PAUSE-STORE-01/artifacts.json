@@ -1,0 +1,27 @@
+{
+  "base_commit": "894f121c22c9ec56816de0aefb3fcb8a2f4184db",
+  "source_files_sha256": {
+    "internal/fusion/store/pause.go": "752f9fb86f4e81816ff337ea14a0a41e6933613d6057f671799b9d43d80b7fae",
+    "internal/fusion/store/pause_test.go": "b09245b5a283488c72c40b923c22a9d3d5a668827fe5ffad161492efd77cc67d",
+    "internal/fusion/store/runs.go": "af7ad565e51379db7857889c99175e4c33a40a2b0793a0e37df18556e9060bec",
+    "internal/fusion/store/scheduling.go": "fce0cb44cae80921030b04fff34610b463ae394c187c54d3186d087c145577dc",
+    "docs/fusion/contracts/task-pause-store.md": "7604f57f492c9bd9eef0a191e2d057afb6fa9bb1e522491a2b61fef0cdd31438",
+    "docs/fusion/contracts/state-transition-contract.md": "30c85072c39e7be7c2a66ef3b0a2e8ce35175945b38727cf31decb0bf9b5ac00",
+    "docs/fusion/work-items/WP-15/summary.md": "fc0f14f89bce9c3321576057d5c8128aa3862ae64a605af1c28c642b42145d02"
+  },
+  "packet_files_sha256": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "26f2d96e4496ecdc347a5fdfd296caacee75fcb3519e0ccd030b445e3db5347a",
+    "build-results.json": "7eb9c7e8e5932cf6b61eb487bea72d6a74e7accbd4baf78ec3b1761cea6ab077",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "summary.md": "8101ab0d17cdb83a35881db79fc5bfc35b99971812d9e2a11bbe68aff86a275f",
+    "test-results.json": "73be76b76db3d4ccac697938de3c30fd891f697056dd3d1a9c8b96c36f9ac265",
+    "wp15-pause-prior-proof-red.log": "a113c41919362a5dfecd1fee918752efc5c715578e0a10e4f1eb4cbefc308a8c",
+    "wp15-pause-store-final-race.log": "a58ab67f0ec243b75de15291af27382dbf52680e841e04e1ac1d3bb9df4e4816",
+    "wp15-pause-store-first.log": "b04773cb2563eaeaad6846ea001ec0fba1d94571f8e782b6a497507a44bb1bc8",
+    "wp15-pause-store-native-green.log": "8584856c688f2929d2784e6ee8297b17d2bfa60cf12fa7efa07d6ce87d4d1b16",
+    "wp15-pause-store-red.log": "7d700ab7e95b688862f4f54e470ff3ed67b99ac4c2fd3a28913b8ae358f72d41",
+    "wp15-pause-store-target-green.log": "9092b06e656ffcc073ba3a223344df731b70d0b7b432250c97572ed8bc6107a6",
+    "wp15-pause-store-target.log": "cbfeaf5f83aedd77e7a93e80f569891843d1cb730737bd6268584f0f65634c2a"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "work_item": "WP-15-PAUSE-STORE-01",
+  "status": "done",
+  "parent_status": "in_progress",
+  "new_tests": 11,
+  "checks": [
+    {
+      "check": "11 new Task pause Store tests tagged race",
+      "exit_code": 0,
+      "log": "wp15-pause-store-target-green.log",
+      "top_level_pass": 11,
+      "top_level_skip": 0,
+      "top_level_fail": 0
+    },
+    {
+      "check": "full Fusion tagged race",
+      "exit_code": 0,
+      "log": "wp15-pause-store-final-race.log",
+      "top_level_pass": 319,
+      "top_level_skip": 8,
+      "top_level_fail": 0
+    },
+    {
+      "check": "existing explicit pinned Controller Native synthetic regression",
+      "exit_code": 0,
+      "log": "wp15-pause-store-native-green.log",
+      "top_level_pass": 1,
+      "top_level_skip": 0,
+      "top_level_fail": 0,
+      "new_pause_exercised": false
+    },
+    {
+      "check": "CLI/GUI build and full tagged vet",
+      "exit_code": 0,
+      "result": "build-results.json"
+    }
+  ],
+  "failed_runs_preserved": {
+    "wp15-pause-store-red.log": "new Store methods/types missing; helper SetBudget was corrected to actual ConfigureBudget",
+    "wp15-pause-prior-proof-red.log": "current run proof falsely marked task paused despite earlier legacy execution missing stop proof; fixed entire-task quiescence check"
+  },
+  "schema_version": 5,
+  "schema_changed": false,
+  "migration_001_005_unchanged": true,
+  "wire_dto_changed": false,
+  "openapi_changed": false,
+  "controller_pause_wired": false,
+  "http_pause_continue_wired": false,
+  "new_native_pause_verified": false,
+  "real_model_calls": 0,
+  "real_quota_queries": 0,
+  "jev": "off",
+  "skip_explanation": [
+    "five explicit Native opt-ins; Controller Native regression independently executed",
+    "one private-key live quota opt-in not enabled",
+    "two isolated child helper tests"
+  ],
+  "native_version": "Claude Code 2.1.287",
+  "native_runtime_sha256": "6eab8333fe2121553100d8f40bfada384a3e989b94f947e18ba6677a6fcb41ea"
+}

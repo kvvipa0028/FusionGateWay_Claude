@@ -65,3 +65,7 @@ task 内事件 seq 由同一事务分配，从 1 连续增长；失败事务不�
 创建新任务/修订计划通过 CreateCurrent/RevisePlanCurrent 在同一事务检查当前 global/project DefaultStamp；私有 stamp 不加入原 CreateRequest JSON，因此旧 payload hash 与幂等记录不改变。LookupCreation 只读精确 project/key/payload 的既有任务；已有 receipt 优先于新建的当前条件，不退款、不刷新租约、不执行 Runtime。冻结 Snapshot、预算、generation、run 与历史事件保持原合同。
 
 schema 4 数据保留及 005 写入失败回滚、checksum 异常已验证；原 schema 1–3 测试的最终版本断言调整为 5，未来拒绝用 6，历史数据断言保留。回滚到 schema 4 或更早须恢复对应一致性备份。Controller 的固定 Native 合成回归在 schema 5 上通过；不代替真实账号验收。完整 API 合同见 [default-layer-api.md](default-layer-api.md)。
+
+## WP-15 暂停与继续存储状态
+
+schema 5 不变；PauseTask 使用完整 TaskVersion 原子条件。空闲暂停/继续递增 generation，运行中 pausing/cancelling 保持 generation 供原 owner 停止。协议 Finish 保留 pausing，真实 release 后才按成功且全部历史执行已停止来置 paused；取消/失败/中断或任何未知副作用转 needs_review。ContinueTask 不执行 Runtime、不重置计数、不接管 unknown。详见 [task-pause-store.md](task-pause-store.md)；Controller/HTTP 暂停接口尚待接线，不因 Store 方法存在而视为可调用。

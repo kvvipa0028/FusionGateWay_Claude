@@ -237,6 +237,16 @@ func (s *Store) Finish(runID string, gen int64, owner, outcome string) error {
 		case "interrupted":
 			state = "needs_review"
 		}
+		task, e := taskIn(tx, r.TaskID)
+		if e != nil {
+			return e
+		}
+		// Protocol completion does not prove that the process stopped. A pause
+		// remains pending until trusted reservation release; interrupted work
+		// already requires reconciliation even when no handle was obtained.
+		if task.State == "pausing" && state != "needs_review" {
+			state = "pausing"
+		}
 		if _, e = tx.Exec("UPDATE tasks SET state=? WHERE id=?", state, r.TaskID); e != nil {
 			return e
 		}

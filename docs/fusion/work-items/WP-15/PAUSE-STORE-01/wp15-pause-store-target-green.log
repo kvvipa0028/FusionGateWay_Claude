@@ -1,0 +1,28 @@
+=== RUN   TestTaskPauseContinueIdleIsAtomicAndFencesOldGeneration
+--- PASS: TestTaskPauseContinueIdleIsAtomicAndFencesOldGeneration (0.05s)
+=== RUN   TestTaskPauseRunningBlocksCallsAndCannotContinueUntilProof
+--- PASS: TestTaskPauseRunningBlocksCallsAndCannotContinueUntilProof (0.06s)
+=== RUN   TestTaskPauseFinishedSuccessRequiresReleasedProofBeforeBecomingPaused
+--- PASS: TestTaskPauseFinishedSuccessRequiresReleasedProofBeforeBecomingPaused (0.05s)
+=== RUN   TestTaskPauseExpiryUnknownOwnerAndStalePlanStayFenced
+--- PASS: TestTaskPauseExpiryUnknownOwnerAndStalePlanStayFenced (0.04s)
+=== RUN   TestTaskPauseAndStartRaceHaveOneDurableWinner
+--- PASS: TestTaskPauseAndStartRaceHaveOneDurableWinner (0.44s)
+=== RUN   TestTaskPauseEventFailureRollsBackCancellationAndState
+--- PASS: TestTaskPauseEventFailureRollsBackCancellationAndState (0.05s)
+=== RUN   TestTaskPauseReleaseSettlementFailureIsAtomicAndRetryHasOneEvent
+--- PASS: TestTaskPauseReleaseSettlementFailureIsAtomicAndRetryHasOneEvent (0.05s)
+=== RUN   TestTaskPauseRestartRetainsPauseOrUnknownWithoutReplay
+=== RUN   TestTaskPauseRestartRetainsPauseOrUnknownWithoutReplay/idle
+=== RUN   TestTaskPauseRestartRetainsPauseOrUnknownWithoutReplay/active
+--- PASS: TestTaskPauseRestartRetainsPauseOrUnknownWithoutReplay (0.09s)
+    --- PASS: TestTaskPauseRestartRetainsPauseOrUnknownWithoutReplay/idle (0.04s)
+    --- PASS: TestTaskPauseRestartRetainsPauseOrUnknownWithoutReplay/active (0.05s)
+=== RUN   TestTaskPauseLegacyWithoutStopProofAndOverflowCannotContinue
+--- PASS: TestTaskPauseLegacyWithoutStopProofAndOverflowCannotContinue (0.05s)
+=== RUN   TestTaskPauseInterruptedWithoutHandleRequiresReviewBeforeRelease
+--- PASS: TestTaskPauseInterruptedWithoutHandleRequiresReviewBeforeRelease (0.05s)
+=== RUN   TestTaskPauseCurrentStopCannotProveEarlierLegacyExecutionStopped
+--- PASS: TestTaskPauseCurrentStopCannotProveEarlierLegacyExecutionStopped (0.05s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/store	2.456s

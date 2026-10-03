@@ -27,3 +27,5 @@
 [WP-15-OPENAPI-01](OPENAPI-01/summary.md) 已完成当前 Handler 的 17 路径/19 操作合同、字段/nullable/error media type 核对、官方文档 schema 和 27 个实际返回样本的离线检查。API race 67 项全部通过，API vet 通过。未来控制与产品接线仍须扩展合同，父包继续 in_progress。
 
 [WP-15-DEFAULTS-01](DEFAULTS-01/summary.md) 已完成持久化 global/project 默认层、五角色整体覆盖/继承、不可变历史与 If-Match、当前配置投影和事务内 stamp 检查。跨 Server 已提交请求重读保持原任务，额度来源与选择版本分离且不刷新观测。schema 5 保留历史数据与原 payload hash，005 失败回滚；21 路径/25 操作、36 样本合同已校验。产品接线、暂停/继续和 GUI 仍未完成，父包保持 in_progress。
+
+[WP-15-PAUSE-STORE-01](PAUSE-STORE-01/summary.md) 已完成完整 TaskVersion 的原子暂停/继续存储基础、空闲 generation fencing、活动停止意图，以及 Finish/可信 release 的暂停收尾。当前执行 proof 不能代替旧执行证明；未知/取消副作用保持 needs_review。新增 11 测试通过，全量 Fusion race 319 PASS / 8 SKIP，CLI/GUI/vet 与既有 Native 合成回归通过。Controller、HTTP、OpenAPI 和实际暂停 Native 验证未接入，完整功能继续实施。

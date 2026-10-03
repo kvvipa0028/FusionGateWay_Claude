@@ -275,6 +275,29 @@ func (s *Store) ReleaseReserved(runID string, gen int64, proofHash string, stopp
 		if _, e = tx.Exec("UPDATE reservations SET state='released',stop_proof_hash=? WHERE run_id=?", proofHash, runID); e != nil {
 			return e
 		}
-		return event(tx, r.TaskID, "reservation_released", runID, gen)
+		if e = event(tx, r.TaskID, "reservation_released", runID, gen); e != nil {
+			return e
+		}
+		task, e := taskIn(tx, r.TaskID)
+		if e != nil {
+			return e
+		}
+		if task.State == "pausing" && task.Generation == gen {
+			state, kind := "needs_review", "task_pause_requires_review"
+			if r.State == "succeeded" {
+				quiet, e := taskQuiescentIn(tx, r.TaskID)
+				if e != nil {
+					return e
+				}
+				if quiet {
+					state, kind = "paused", "task_paused"
+				}
+			}
+			if _, e = tx.Exec("UPDATE tasks SET state=? WHERE id=?", state, r.TaskID); e != nil {
+				return e
+			}
+			return event(tx, r.TaskID, kind, runID, gen)
+		}
+		return nil
 	})
 }

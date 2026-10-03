@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/store [github.com/yetone/magpie/internal/fusion/store.test]
+internal/fusion/store/pause_test.go:10:24: undefined: TaskVersion
+internal/fusion/store/pause_test.go:11:9: undefined: TaskVersion
+internal/fusion/store/pause_test.go:16:12: s.SetBudget undefined (type *Store has no field or method SetBudget)
+internal/fusion/store/pause_test.go:43:17: s.PauseTask undefined (type *Store has no field or method PauseTask)
+internal/fusion/store/pause_test.go:47:17: s.PauseTask undefined (type *Store has no field or method PauseTask)
+internal/fusion/store/pause_test.go:51:14: s.PauseTask undefined (type *Store has no field or method PauseTask)
+internal/fusion/store/pause_test.go:54:18: s.ContinueTask undefined (type *Store has no field or method ContinueTask)
+internal/fusion/store/pause_test.go:58:16: s.ContinueTask undefined (type *Store has no field or method ContinueTask)
+internal/fusion/store/pause_test.go:85:17: s.PauseTask undefined (type *Store has no field or method PauseTask)
+internal/fusion/store/pause_test.go:92:14: s.ContinueTask undefined (type *Store has no field or method ContinueTask)
+internal/fusion/store/pause_test.go:92:14: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/store [build failed]
+FAIL
