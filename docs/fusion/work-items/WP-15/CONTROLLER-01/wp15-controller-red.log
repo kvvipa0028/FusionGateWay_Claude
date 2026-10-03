@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/control [github.com/yetone/magpie/internal/fusion/control.test]
+internal/fusion/control/controller_test.go:42:30: undefined: Config
+internal/fusion/control/controller_test.go:44:30: undefined: Launch
+internal/fusion/control/controller_test.go:87:21: undefined: Backend
+internal/fusion/control/controller_test.go:95:73: undefined: Execution
+internal/fusion/control/controller_test.go:127:99: undefined: Launch
+internal/fusion/control/controller_test.go:133:52: undefined: Controller
+internal/fusion/control/controller_test.go:135:10: undefined: New
+internal/fusion/control/controller_test.go:148:35: undefined: Controller
+internal/fusion/control/controller_test.go:148:58: undefined: Completion
+internal/fusion/control/controller_test.go:198:19: undefined: ErrLaunch
+internal/fusion/control/controller_test.go:198:19: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/control [build failed]
+FAIL

@@ -1,0 +1,24 @@
+{
+  "base_commit": "fe07a1ddd16cb68f1c695d67d263db18bcf7640c",
+  "source_files_sha256": {
+    "internal/fusion/control/controller.go": "33164d3f97a2e014286b3ae9f261672a581061f04f6cf56138ded0f5bf4415a9",
+    "internal/fusion/control/controller_test.go": "e6636974f7671e6e7ef7820b1dd5c885f65a2f15c0485fbeb678c106db4aa39d",
+    "internal/fusion/control/controller_native_test.go": "0d585c280c574a67b57da2686edafa8027f7bb7239a67012133ac51decfa0370",
+    "docs/fusion/contracts/execution-controller.md": "28244095711d32529aa8fc2b62129a26f39c2fc3c9e806025a5ee8719ec1a3ef",
+    "docs/fusion/contracts/runtime-contract.md": "6a95a557a5226d8fc289df6a2de2ba2eb0f394866f9e1d23cf6144f4ecbd6bff",
+    "docs/fusion/work-items/WP-15/summary.md": "312e9b2a69906d43867b677afb1d8005ee68f4cf622457c8a29643251c90bf3d"
+  },
+  "packet_files_sha256": {
+    "test-results.json": "2b81029a3d6fa2f04b9d92dee3aa8f966b65e76f08a5d142909269be96a7b0da",
+    "summary.md": "2e547ec0d39932a8fd378f0b2034f860067afde44ea555e0bcbc4d626fad3643",
+    "wp15-controller-green.log": "129aa1b84648683ec772f61000f46eb6d63c4d4ca3d3543fc8d6feb2a52c5178",
+    "wp15-controller-red.log": "995a7fe73b362adf6c536138e59cb14a9c0dff4d5e6b1294ef7f66bd4bc97346",
+    "wp15-controller-first.log": "d23dbb2f4b9043277dff9c8a3052945e428dfe1abf744ca7da86e535abdbef96",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-results.json": "38c089e0c7a9ef80aed5e203b9b4a24f96b31652977751122e3ee1895994554a",
+    "wp15-controller-fusion-race.log": "23510c8baeb86fe1a0949e0882279f1175891ad829ec7c4491ca882b4961cb81",
+    "wp15-controller-native.log": "98783418544fd12567c1e69e6395985f1a45611865db757063e130192c975f52",
+    "build-gui.log": "adc45c77dc3dd254a07943aa494f227688602c7cb79b159147ab2cdd547b3562",
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

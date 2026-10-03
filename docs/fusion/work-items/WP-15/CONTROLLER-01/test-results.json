@@ -1,0 +1,32 @@
+{
+  "work_item": "WP-15-CONTROLLER-01",
+  "status": "done",
+  "parent_status": "in_progress",
+  "new_offline_tests": 11,
+  "new_native_tests": 1,
+  "checks": [
+    {
+      "command": "go test -race -v -count=1 -timeout=60s -mod=readonly -tags fusion,nogui ./internal/fusion/...",
+      "exit_code": 0,
+      "top_level_pass": 248,
+      "top_level_skip": 8,
+      "log": "wp15-controller-fusion-race.log"
+    },
+    {
+      "command": "go test -race -v -count=1 -timeout=30s -mod=readonly -tags fusion,nogui ./internal/fusion/control -run TestControllerPinnedNative -args -fusion-control-native-claude <frozen-2.1.287>",
+      "exit_code": 0,
+      "top_level_pass": 1,
+      "synthetic_http_calls": 1,
+      "persisted_calls": 1,
+      "actual_native_stop_proof": true,
+      "log": "wp15-controller-native.log"
+    }
+  ],
+  "red_logs": [
+    "wp15-controller-red.log"
+  ],
+  "build_report": "build-results.json",
+  "real_model_calls": 0,
+  "real_quota_queries": 0,
+  "production_registered": false
+}

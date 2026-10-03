@@ -2,6 +2,8 @@
 
 `Adapter` 提供 Probe/Start/Resume，Handle 提供 Events/Cancel/Wait。能力明确区分 start/events/cancel/resume/child_processes/network。默认只支持本机 macOS 单进程、无网络；WP-14-CHANNEL-01 增加可信 ClaudeChannel 的唯一双栈 loopback 端口，泛用 Probe 仍不报告任意 network/child_processes。resume 与其他平台返回 unsupported，需要工具子进程或外部网络的路线拒绝准入。不存在隐含的非沙箱 fallback。
 
+WP-15 的 [可信执行控制器](execution-controller.md) 现可通过 PrepareOnce 编排 Adapter、owned lifetime、取消、实际 wait 和可信 release。已有启动请求只读；HTTP 断线不取消。已完成原生合成上游全链路验证，产品管理端与实际账户准入仍未注册。
+
 执行顺序：可信 workspace/route/quota/预算检查 → Scheduler.Prepare 原子保存 intent/reservation → Supervisor 校验 starting/current generation/held → fsync launch intent → sandbox-exec → 记录 PID/出生时间/nonce/可执行文件与 profile hash → ConfirmStarted → heartbeat → native validator + wait/reap → 写终态/stop journal → 可信 StopProof → Scheduler.Release。
 
 Spec 的路径、argv、stdin 与 validator 只由可信 Adapter 构造。argv 是数组，stdin 有界 64KiB；没有 shell 拼接、ambient env 或 ExtraFiles。默认环境仅固定 HOME/XDG/TMP/PATH，额外 fixture 字段有白名单。ClaudeChannel 只增加固定私有 Native 路径、冻结模型、controller endpoint 与尚未激活的 stage 随机值；不接受管理、真实 API key 或 OAuth secret env，也不能与 fixture env 混用。本包不读取任何真实凭据。

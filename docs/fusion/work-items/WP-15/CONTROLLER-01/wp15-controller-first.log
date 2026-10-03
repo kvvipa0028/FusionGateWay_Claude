@@ -1,0 +1,44 @@
+=== RUN   TestControllerRetriesStartRuntimeOnlyOnceAndHTTPDisconnectDoesNotCancel
+--- PASS: TestControllerRetriesStartRuntimeOnlyOnceAndHTTPDisconnectDoesNotCancel (0.06s)
+=== RUN   TestControllerNoHandleRetainsReservationForReconciliation
+--- PASS: TestControllerNoHandleRetainsReservationForReconciliation (0.03s)
+=== RUN   TestControllerKnownHandleErrorIsCancelledWaitedAndReleased
+--- PASS: TestControllerKnownHandleErrorIsCancelledWaitedAndReleased (0.03s)
+=== RUN   TestControllerStopAndReleaseFailuresDoNotFreeCapacity
+=== RUN   TestControllerStopAndReleaseFailuresDoNotFreeCapacity/no_stop
+=== RUN   TestControllerStopAndReleaseFailuresDoNotFreeCapacity/wait_error
+=== RUN   TestControllerStopAndReleaseFailuresDoNotFreeCapacity/release_error
+--- PASS: TestControllerStopAndReleaseFailuresDoNotFreeCapacity (0.10s)
+    --- PASS: TestControllerStopAndReleaseFailuresDoNotFreeCapacity/no_stop (0.03s)
+    --- PASS: TestControllerStopAndReleaseFailuresDoNotFreeCapacity/wait_error (0.03s)
+    --- PASS: TestControllerStopAndReleaseFailuresDoNotFreeCapacity/release_error (0.03s)
+=== RUN   TestControllerCancelRequiresOwnedRunAndGeneration
+--- PASS: TestControllerCancelRequiresOwnedRunAndGeneration (0.04s)
+=== RUN   TestControllerCloseStopsOwnedExecutionAndRefusesNewLaunch
+--- PASS: TestControllerCloseStopsOwnedExecutionAndRefusesNewLaunch (0.03s)
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/argv
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/env
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/session
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/executable
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/validator
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/write
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/timeout
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/input
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/path
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/backend
+--- PASS: TestControllerRejectsUntrustedSpecBeforeIntent (0.22s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/argv (0.02s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/env (0.02s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/session (0.02s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/executable (0.02s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/validator (0.02s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/write (0.02s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/timeout (0.02s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/input (0.02s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/path (0.02s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/backend (0.02s)
+=== RUN   TestControllerRestartReadsUnknownWithoutResolvingOrLaunching
+--- PASS: TestControllerRestartReadsUnknownWithoutResolvingOrLaunching (0.04s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/control	2.194s
