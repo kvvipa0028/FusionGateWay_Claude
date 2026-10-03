@@ -27,6 +27,7 @@ var (
 	ErrUnsupported = errors.New("execution configuration unsupported")
 	ErrLaunch      = errors.New("execution requires reconciliation after launch failure")
 	ErrReconcile   = errors.New("execution requires explicit reconciliation")
+	ErrForbidden   = errors.New("execution management authority unavailable")
 )
 
 type Execution interface {
@@ -110,6 +111,23 @@ func New(parent context.Context, config Config) (*Controller, error) {
 // executable, credentials and Native settings never come from this request.
 // Caller authentication is required before invoking this internal service.
 func (c *Controller) Start(request context.Context, key string, in store.StartIdentity) (store.StartReceipt, error) {
+	return c.start(request, key, in, nil)
+}
+
+// StartAuthorized repeats the exact issuer's management check through slow
+// preflight work, before committing an intent. After commit, HTTP disconnect
+// cannot cancel the owned execution; model admission remains independently
+// enforced by CheckPrepared/Permit and the Adapter's current grant checks.
+func (c *Controller) StartAuthorized(request context.Context, key string, in store.StartIdentity, current func(context.Context) bool) (store.StartReceipt, error) {
+	if current == nil {
+		return store.StartReceipt{}, ErrForbidden
+	}
+	return c.start(request, key, in, current)
+}
+func (c *Controller) UsesStore(st *store.Store) bool {
+	return c != nil && c.config.Scheduler.Store == st
+}
+func (c *Controller) start(request context.Context, key string, in store.StartIdentity, current func(context.Context) bool) (store.StartReceipt, error) {
 	if c == nil || request == nil {
 		return store.StartReceipt{}, ErrUnsupported
 	}
@@ -118,6 +136,9 @@ func (c *Controller) Start(request context.Context, key string, in store.StartId
 	c.mu.Unlock()
 	if closed {
 		return store.StartReceipt{}, ErrClosed
+	}
+	if current != nil && !current(request) {
+		return store.StartReceipt{}, ErrForbidden
 	}
 	old, e := c.config.Scheduler.Store.LookupStart(key, in)
 	if e == nil {
@@ -174,8 +195,28 @@ func (c *Controller) Start(request context.Context, key string, in store.StartId
 	if e != nil || !caps.Probe || !caps.Start || !caps.Cancel || !caps.Events || caps.ChildProcesses || caps.Network {
 		return c.retryOrError(key, in, ErrUnsupported)
 	}
+	if current != nil && !current(request) {
+		return store.StartReceipt{}, ErrForbidden
+	}
 	gen := in.Generation
-	receipt, e := c.config.Scheduler.PrepareOnce(request, store.StartRequest{TaskID: in.TaskID, Role: in.Role, PlanRevision: in.PlanRevision, ExpectedGeneration: &gen, IdempotencyKey: key, Owner: c.owner, TTL: time.Minute, Target: target})
+	scheduler := c.config.Scheduler
+	if current != nil {
+		inspect := scheduler.Inspect
+		scheduler.Inspect = func(ctx context.Context, task store.Task, role stageplan.Role, target stageplan.ExecutionTarget) (policy.Inspection, error) {
+			if !current(request) {
+				return policy.Inspection{}, ErrForbidden
+			}
+			out, err := inspect(ctx, task, role, target)
+			if !current(request) {
+				return policy.Inspection{}, ErrForbidden
+			}
+			return out, err
+		}
+	}
+	receipt, e := scheduler.PrepareOnce(request, store.StartRequest{TaskID: in.TaskID, Role: in.Role, PlanRevision: in.PlanRevision, ExpectedGeneration: &gen, IdempotencyKey: key, Owner: c.owner, TTL: time.Minute, Target: target})
+	if current != nil && !current(request) && !receipt.Created {
+		return store.StartReceipt{}, ErrForbidden
+	}
 	if e != nil || !receipt.Created {
 		return receipt, e
 	}

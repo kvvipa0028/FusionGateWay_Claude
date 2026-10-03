@@ -1,0 +1,9 @@
+# github.com/yetone/magpie/internal/fusion/api [github.com/yetone/magpie/internal/fusion/api.test]
+internal/fusion/api/execution_test.go:125:11: s.SetController undefined (type *Server has no field or method SetController)
+internal/fusion/api/execution_test.go:162:65: undefined: ExecutionReply
+internal/fusion/api/execution_test.go:164:12: undefined: ExecutionReply
+internal/fusion/api/execution_test.go:359:19: f.server.SetController undefined (type *Server has no field or method SetController)
+internal/fusion/api/execution_test.go:363:16: other.SetController undefined (type *Server has no field or method SetController)
+internal/fusion/api/execution_test.go:392:12: undefined: ExecutionReply
+FAIL	github.com/yetone/magpie/internal/fusion/api [build failed]
+FAIL

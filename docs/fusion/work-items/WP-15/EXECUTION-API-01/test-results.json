@@ -1,0 +1,37 @@
+{
+  "work_item": "WP-15-EXECUTION-API-01",
+  "status": "done",
+  "parent_status": "in_progress",
+  "new_tests": 10,
+  "checks": [
+    {
+      "command": "go test -race -v -count=1 -timeout=60s -mod=readonly -tags fusion,nogui ./internal/fusion/...",
+      "exit_code": 0,
+      "top_level_pass": 258,
+      "top_level_skip": 8,
+      "log": "wp15-execution-api-fusion-race.log"
+    },
+    {
+      "command": "go test -race -v -count=1 -timeout=30s -mod=readonly -tags fusion,nogui ./internal/fusion/api -run TestExecution|TestAuthenticatedExecution",
+      "exit_code": 0,
+      "top_level_pass": 10,
+      "log": "wp15-execution-api-green.log"
+    }
+  ],
+  "red_logs": [
+    "wp15-execution-api-red.log",
+    "wp15-execution-api-first.log"
+  ],
+  "build_report": "build-results.json",
+  "real_model_calls": 0,
+  "real_quota_queries": 0,
+  "actual_http_transport_test": true,
+  "native_runtime": "synthetic fixture only in new API tests",
+  "openapi_check": {
+    "yaml_parsed": true,
+    "implemented_paths": 4,
+    "status": "draft-partial",
+    "full_standard_validation": false
+  },
+  "production_registered": false
+}

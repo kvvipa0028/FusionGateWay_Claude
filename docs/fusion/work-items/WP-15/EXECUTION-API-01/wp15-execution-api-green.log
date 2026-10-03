@@ -1,0 +1,26 @@
+=== RUN   TestAuthenticatedExecutionStartRetryCancelAndReadContract
+--- PASS: TestAuthenticatedExecutionStartRetryCancelAndReadContract (0.05s)
+=== RUN   TestExecutionPreconditionsAreStrongAndCheckedBeforeLaunch
+--- PASS: TestExecutionPreconditionsAreStrongAndCheckedBeforeLaunch (0.02s)
+=== RUN   TestExecutionBodyCannotSelectWorkspaceCredentialsOrRuntime
+--- PASS: TestExecutionBodyCannotSelectWorkspaceCredentialsOrRuntime (0.03s)
+=== RUN   TestExecutionRequiresManagementAndRejectsDuplicateHeaders
+--- PASS: TestExecutionRequiresManagementAndRejectsDuplicateHeaders (0.02s)
+=== RUN   TestExecutionRevokedManagementDuringPreflightDoesNotCommit
+=== RUN   TestExecutionRevokedManagementDuringPreflightDoesNotCommit/revoke_resolve
+=== RUN   TestExecutionRevokedManagementDuringPreflightDoesNotCommit/revoke_inspect
+--- PASS: TestExecutionRevokedManagementDuringPreflightDoesNotCommit (0.06s)
+    --- PASS: TestExecutionRevokedManagementDuringPreflightDoesNotCommit/revoke_resolve (0.03s)
+    --- PASS: TestExecutionRevokedManagementDuringPreflightDoesNotCommit/revoke_inspect (0.04s)
+=== RUN   TestExecutionTaskETagChangesOnCompletionWithoutAnotherGeneration
+--- PASS: TestExecutionTaskETagChangesOnCompletionWithoutAnotherGeneration (0.06s)
+=== RUN   TestExecutionConflictAndPartialLaunchFailureAreRedacted
+--- PASS: TestExecutionConflictAndPartialLaunchFailureAreRedacted (0.05s)
+=== RUN   TestExecutionReadAndCancelCannotAdoptAnotherTaskOrGeneration
+--- PASS: TestExecutionReadAndCancelCannotAdoptAnotherTaskOrGeneration (0.04s)
+=== RUN   TestExecutionControllerMustUseSameStoreAndCannotBeHotReplaced
+--- PASS: TestExecutionControllerMustUseSameStoreAndCannotBeHotReplaced (0.04s)
+=== RUN   TestExecutionHTTPResponseAndReadUseRealAuthenticatedTransport
+--- PASS: TestExecutionHTTPResponseAndReadUseRealAuthenticatedTransport (0.06s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/api	2.073s

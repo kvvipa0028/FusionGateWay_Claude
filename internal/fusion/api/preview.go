@@ -16,6 +16,7 @@ import (
 	"unicode"
 	"unicode/utf8"
 
+	"github.com/yetone/magpie/internal/fusion/control"
 	"github.com/yetone/magpie/internal/fusion/policy"
 	"github.com/yetone/magpie/internal/fusion/stageplan"
 	"github.com/yetone/magpie/internal/fusion/store"
@@ -88,6 +89,7 @@ type Server struct {
 	now        func() time.Time
 	eventPoll  time.Duration
 	eventSlots chan struct{}
+	controller *control.Controller
 }
 
 func New(st *store.Store, auth *policy.Manager) (*Server, error) {
@@ -276,6 +278,8 @@ func (s *Server) Handler() http.Handler {
 			return
 		}
 		switch {
+		case strings.HasPrefix(r.URL.Path, "/control/v1/tasks/") && (strings.HasSuffix(r.URL.Path, "/start") || strings.HasSuffix(r.URL.Path, "/cancel")):
+			s.executionControl(w, r)
 		case strings.HasPrefix(r.URL.Path, "/control/v1/tasks/") && (strings.HasSuffix(r.URL.Path, "/plan") || strings.HasSuffix(r.URL.Path, "/plan/preview")):
 			s.planControl(w, r)
 		case r.URL.Path == "/control/v1/tasks/preview":
@@ -333,6 +337,8 @@ func (s *Server) Handler() http.Handler {
 			respond(w, 200, budget)
 		case strings.HasPrefix(r.URL.Path, "/agent/v1/tasks/") && strings.HasSuffix(r.URL.Path, "/events"):
 			s.events(w, r)
+		case strings.HasPrefix(r.URL.Path, "/agent/v1/tasks/") && strings.Contains(r.URL.Path, "/runs/"):
+			s.readRun(w, r)
 		case strings.HasPrefix(r.URL.Path, "/agent/v1/tasks/"):
 			if r.Method != http.MethodGet {
 				http.Error(w, "Method Not Allowed", 405)
@@ -348,6 +354,7 @@ func (s *Server) Handler() http.Handler {
 				failure(w, e)
 				return
 			}
+			w.Header().Set("ETag", taskETag(task))
 			respond(w, 200, task)
 		default:
 			http.NotFound(w, r)

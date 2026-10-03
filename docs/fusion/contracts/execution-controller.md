@@ -2,6 +2,8 @@
 
 `internal/fusion/control.Controller` 属于服务端内部编排，不是 HTTP DTO。Config 必须提供同一 Store 的 Scheduler 和可信 Resolve。请求只携带 task/role/plan revision/expected generation 与独立幂等 key；具体 Target、工作区、prompt、Runtime 和凭据来源由服务端冻结配置解析。管理鉴权由调用端落实，当前产品 endpoint 尚未注册。
 
+执行 API 的内部 Handler 通过 StartAuthorized 传入同一 Manager 的 ManagementCurrent；入口、慢预检查之后及 Inspection 前后重查，提交前撤销拒绝新 intent。Start 保留用于受信任内部编排；不得作为绕过 HTTP middleware 的公开执行入口。UsesStore 仅供可信 bootstrap 核对相同数据库，不能由客户端指定。
+
 Start 先读取持久启动映射，已有请求直接返回 Created=false，不再解析 Runtime、探测能力或调用准入服务。新请求核对任务当前状态、版本和 generation，locked 直接采用 exact frozen Target；auto 需要可信 SelectAuto，选择结果必须与原冻结 candidates 中一项完全相同。传入选择器/Resolver 的 Target、候选及实际 launch input 使用独立副本，不能改写冻结授权。
 
 Resolver 返回的 Backend/Spec 只来自服务器配置。控制器在写 intent 前拒绝 caller argv/executable/env/session/validator/channel、非法路径/UTF-8/input/time limit 和只读角色写权限。泛用 controller 时限最多十分钟，GLM Adapter 仍独立限制四分钟，服务端 resolver 必须使用该路线支持的范围。当前仅接受 Probe/Start/Events/Cancel 且无任意 network/child_processes 的能力；可信 ClaudeChannel 的局部通信由 Adapter/Supervisor 控制，不据此开放泛用网络。

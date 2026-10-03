@@ -1,0 +1,340 @@
+openapi: 3.1.0
+info:
+  title: Fusion task execution API
+  version: 0.1.0-draft
+  description: 仅已实现 execution Handler 接口草案。未注册产品 listener。完整 WP-15 的其他接口仍待补全。
+x-fusion-status: draft-partial
+x-fusion-production-registered: false
+security:
+- ManagementBearer: []
+paths:
+  /agent/v1/tasks/{task_id}:
+    get:
+      operationId: readTask
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      responses:
+        '200':
+          description: Task；ETag 包含计划、generation、state
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '400': &id002
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401': &id003
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403': &id004
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404': &id005
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '405': &id006
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409': &id012
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '412': &id007
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '428': &id008
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429': &id009
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500': &id010
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503': &id011
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /control/v1/tasks/{task_id}/start:
+    post:
+      operationId: startStage
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      - &id013
+        name: If-Match
+        in: header
+        required: true
+        schema:
+          type: string
+        description: 单个 strong Task ETag，例如 "p1-g0-ready"；不是 plan revision tag
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+        description: 保存原始角色与条件，重试不启动新进程
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required:
+              - role
+              properties:
+                role:
+                  $ref: '#/components/schemas/Role'
+      responses:
+        '200': &id001
+          description: 安全 RunView；X-Fusion-Task-ETag 指向相关 Task 的当前条件
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecutionReply'
+        '202': *id001
+        '400': *id002
+        '401': *id003
+        '403': *id004
+        '404': *id005
+        '405': *id006
+        '409':
+          description: 冲突/需对账；已经提交的失败 intent 包含 RunView/Created
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/ErrorResponse'
+                - $ref: '#/components/schemas/ExecutionReply'
+        '412': *id007
+        '428': *id008
+        '429': *id009
+        '500': *id010
+        '503': *id011
+  /agent/v1/tasks/{task_id}/runs/{run_id}:
+    get:
+      operationId: readStageRun
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      responses:
+        '200': *id001
+        '400': *id002
+        '401': *id003
+        '403': *id004
+        '404': *id005
+        '405': *id006
+        '409': *id012
+        '412': *id007
+        '428': *id008
+        '429': *id009
+        '500': *id010
+        '503': *id011
+  /control/v1/tasks/{task_id}/runs/{run_id}/cancel:
+    post:
+      operationId: cancelStageRun
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      - *id013
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+      responses:
+        '200': *id001
+        '202': *id001
+        '400': *id002
+        '401': *id003
+        '403': *id004
+        '404': *id005
+        '405': *id006
+        '409': *id012
+        '412': *id007
+        '428': *id008
+        '429': *id009
+        '500': *id010
+        '503': *id011
+components:
+  securitySchemes:
+    ManagementBearer:
+      type: http
+      scheme: bearer
+      description: 仅服务端管理凭据。stage fgs_ identity 被拒绝；禁止通过 query/body 提供凭据。
+  schemas:
+    Role:
+      type: string
+      enum:
+      - design
+      - implementation
+      - testing
+      - review
+      - acceptance
+    Task:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - project_id
+      - goal
+      - state
+      - plan_revision
+      - generation
+      properties:
+        id:
+          type: string
+        project_id:
+          type: string
+        goal:
+          type: string
+        state:
+          type: string
+        plan_revision:
+          type: integer
+          minimum: 1
+        generation:
+          type: integer
+          minimum: 0
+    RunView:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - task_id
+      - role
+      - attempt
+      - generation
+      - plan_revision
+      - state
+      - startup_intent
+      - launch_confirmed
+      - target
+      properties:
+        id:
+          type: string
+        task_id:
+          type: string
+        role:
+          $ref: '#/components/schemas/Role'
+        attempt:
+          type: integer
+          minimum: 1
+        generation:
+          type: integer
+          minimum: 0
+        plan_revision:
+          type: integer
+          minimum: 1
+        state:
+          type: string
+        startup_intent:
+          type: boolean
+        launch_confirmed:
+          type: boolean
+        target:
+          type: object
+          description: 冻结 ExecutionTarget；完整字段合同后续补入
+    ControlError:
+      type: object
+      additionalProperties: false
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+    ErrorResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/ControlError'
+    ExecutionReply:
+      type: object
+      additionalProperties: false
+      required:
+      - run
+      - created
+      properties:
+        run:
+          $ref: '#/components/schemas/RunView'
+        created:
+          type: boolean
+        error:
+          $ref: '#/components/schemas/ControlError'
