@@ -43,8 +43,8 @@
   "documents": [
     {
       "path": "docs/fusion/README.md",
-      "sha256": "08223a269cc107fe7ca2fc0b266f6700a767c237e22b804c933f1885b9db24d4",
-      "bytes": 4910
+      "sha256": "5001fc17c84f9a8fdc5a0f907b1700c69d80e9c938d6da1fe95949e3785001c7",
+      "bytes": 5090
     },
     {
       "path": "docs/fusion/baseline/artifacts.json",
@@ -105,6 +105,16 @@
       "path": "docs/fusion/baseline/vet.log",
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "bytes": 0
+    },
+    {
+      "path": "docs/fusion/contracts/route-contract.md",
+      "sha256": "4ce4f695ec42492fd3ec8cf30e59e1141737c389ce29da027e65058537baf0ae",
+      "bytes": 4172
+    },
+    {
+      "path": "docs/fusion/contracts/stage-plan.schema.json",
+      "sha256": "5a0a40c74f078678ef748145e4f70c496a41903daacc2092ffb876f8759ec079",
+      "bytes": 7630
     },
     {
       "path": "docs/fusion/decisions/ADR-001-magpie-fork.md",
@@ -173,8 +183,8 @@
     },
     {
       "path": "docs/fusion/planning/Fusion_Magpie_Fork_Agent工作包_v1.0.md",
-      "sha256": "fdfae1b0a9ddaa63f799d689f83ef4e878a45bbe45811cc2f6742d21a111e351",
-      "bytes": 51157
+      "sha256": "24f85e6c094d8a2ca2ca29be1244dda04584074d8c12d3a5a9dd9fc9f0d81c55",
+      "bytes": 51213
     },
     {
       "path": "docs/fusion/planning/Fusion_Magpie_Fork_实施计划_v1.0.md",
@@ -193,8 +203,8 @@
     },
     {
       "path": "docs/fusion/planning/implementation_tasks.json",
-      "sha256": "b73d21b1733496d45e3cd9434be3c92404f7bfffbe76a6c291f31edf8e5d283c",
-      "bytes": 17467
+      "sha256": "9dd39e97d5ad8754628b8d6cb59a551e118fb75bf3766d968c1e2e0e2acb9e73",
+      "bytes": 17464
     },
     {
       "path": "docs/fusion/preflight-review.md",
@@ -545,6 +555,56 @@
       "path": "docs/fusion/work-items/WP-03/wp03-synthetic-red.log",
       "sha256": "e0995567a2bcdcf9cca6531ac6379d27db1807ad812d74c9c746fcced0112523",
       "bytes": 173
+    },
+    {
+      "path": "docs/fusion/work-items/WP-04/artifacts.json",
+      "sha256": "cc9758fc7b9ebbac5b5677a0de8a723a8e4f7540eeb99abc43240920e68ad3ef",
+      "bytes": 1628
+    },
+    {
+      "path": "docs/fusion/work-items/WP-04/blockers.md",
+      "sha256": "4b5be383d700f2eb158be02f1bc2a13b01c49f0d2c508c7f8b3c8db9cacaccd8",
+      "bytes": 212
+    },
+    {
+      "path": "docs/fusion/work-items/WP-04/changed-files.txt",
+      "sha256": "0033c8d843c935558804cd59dacf2e658f40c35b330a1cffe8d7a9852acaa4a0",
+      "bytes": 863
+    },
+    {
+      "path": "docs/fusion/work-items/WP-04/handoff.md",
+      "sha256": "f2002c2a4601cf84736f3ac2361395ed322d589aa8f50b94592af6a1ca3babd8",
+      "bytes": 365
+    },
+    {
+      "path": "docs/fusion/work-items/WP-04/summary.md",
+      "sha256": "1ec6c37a68f106f818365b289d015c330b1287255da1ba59fec600fc683238ec",
+      "bytes": 596
+    },
+    {
+      "path": "docs/fusion/work-items/WP-04/test-results.json",
+      "sha256": "8af3c57d3c3dfab72da1b76c2f5e3b9388d45fa93f0d5a5278fd85070e07ede5",
+      "bytes": 902
+    },
+    {
+      "path": "docs/fusion/work-items/WP-04/wp04-boundary-red.log",
+      "sha256": "79703bc924791c5e1ef0d62fbb33f927d9f7e4ea5ae0ee6c2c1a17ae931b32cd",
+      "bytes": 298
+    },
+    {
+      "path": "docs/fusion/work-items/WP-04/wp04-race-green.log",
+      "sha256": "aaf3279812dba5698d5a5cf2c514e5d17b0dfd493c1ac5b87e89da8dea665a27",
+      "bytes": 5411
+    },
+    {
+      "path": "docs/fusion/work-items/WP-04/wp04-red.log",
+      "sha256": "005415d5641a5a10a35a6e778a406d67cda72c1a8155ecff89fdd540ebce4fce",
+      "bytes": 893
+    },
+    {
+      "path": "docs/fusion/work-items/WP-04/wp04-schema-check.json",
+      "sha256": "eeea87a6ac5d010854d2baa433cb1c0d583c95327abcb9419f720d4f5da1fe85",
+      "bytes": 473
     }
   ],
   "product_implementation_started": true,
@@ -684,7 +744,8 @@
   "completed_work_packages": [
     "WP-01",
     "WP-02",
-    "WP-03"
+    "WP-03",
+    "WP-04"
   ],
   "implementation_branch": "fusion/development",
   "development_isolation": {

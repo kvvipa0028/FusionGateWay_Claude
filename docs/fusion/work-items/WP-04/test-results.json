@@ -1,0 +1,38 @@
+{
+  "checks": [
+    {
+      "command": [
+        "go",
+        "test",
+        "-race",
+        "-v",
+        "-count=1",
+        "-mod=readonly",
+        "-tags",
+        "fusion,nogui",
+        "./internal/fusion/..."
+      ],
+      "exit_code": 0,
+      "top_level_tests_passed": 32,
+      "stageplan_top_level_tests_passed": 14,
+      "log": "wp04-race-green.log"
+    },
+    {
+      "check": "Draft202012Validator.check_schema and six valid/invalid structural cases",
+      "result": "pass",
+      "report": "wp04-schema-check.json"
+    }
+  ],
+  "red_evidence": [
+    "wp04-red.log",
+    "wp04-boundary-red.log"
+  ],
+  "environment": "Go1.26.3, macOS/arm64, private HOME/XDG, auth absent, no Go downloads",
+  "not_verified": [
+    "live registry admission",
+    "product APIs/auth",
+    "execution locking",
+    "task persistence",
+    "final T03/T27/T28/T31/T33/T37/T43/T44/T45/T46/T47 E2E"
+  ]
+}

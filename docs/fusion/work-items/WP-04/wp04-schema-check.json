@@ -1,0 +1,29 @@
+{
+  "meta_schema": "pass",
+  "cases": [
+    {
+      "valid_expected": true,
+      "valid_actual": true
+    },
+    {
+      "valid_expected": true,
+      "valid_actual": true
+    },
+    {
+      "valid_expected": false,
+      "valid_actual": false
+    },
+    {
+      "valid_expected": false,
+      "valid_actual": false
+    },
+    {
+      "valid_expected": false,
+      "valid_actual": false
+    },
+    {
+      "valid_expected": false,
+      "valid_actual": false
+    }
+  ]
+}

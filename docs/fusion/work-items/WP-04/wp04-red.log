@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/stageplan [github.com/yetone/magpie/internal/fusion/stageplan.test]
+internal/fusion/stageplan/plan_test.go:8:45: undefined: Route
+internal/fusion/stageplan/plan_test.go:10:9: undefined: Route
+internal/fusion/stageplan/plan_test.go:10: undefined: ControlledCalls
+internal/fusion/stageplan/plan_test.go:12:39: undefined: Binding
+internal/fusion/stageplan/plan_test.go:13:32: undefined: Binding
+internal/fusion/stageplan/plan_test.go:13:42: undefined: Route
+internal/fusion/stageplan/plan_test.go:13:48: undefined: Snapshot
+internal/fusion/stageplan/plan_test.go:74:36: undefined: Binding
+internal/fusion/stageplan/plan_test.go:74:48: undefined: Route
+internal/fusion/stageplan/plan_test.go:74:54: undefined: Snapshot
+internal/fusion/stageplan/plan_test.go:10: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/stageplan [build failed]
+FAIL

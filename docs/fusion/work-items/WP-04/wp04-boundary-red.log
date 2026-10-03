@@ -1,0 +1,7 @@
+--- FAIL: TestParseRejectsNullLayersAndNullScalarSettings (0.00s)
+    plan_test.go:209: null field silently defaulted
+--- FAIL: TestRouteCapabilitiesAreKnownAndUnique (0.00s)
+    plan_test.go:212: invalid capabilities frozen
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/stageplan	0.500s
+FAIL

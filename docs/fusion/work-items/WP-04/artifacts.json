@@ -1,0 +1,21 @@
+{
+  "base_commit": "d8045ba94e02f0e7e6a44a3dd1f01d9662d18a4c",
+  "source_files_sha256": {
+    "AGENTS.md": "a88832a1db3f7ae2bec278a5b778ddba6495004833bbd1da48f5307fcbf11294",
+    "docs/fusion/README.md": "5001fc17c84f9a8fdc5a0f907b1700c69d80e9c938d6da1fe95949e3785001c7",
+    "docs/fusion/contracts/route-contract.md": "4ce4f695ec42492fd3ec8cf30e59e1141737c389ce29da027e65058537baf0ae",
+    "docs/fusion/contracts/stage-plan.schema.json": "5a0a40c74f078678ef748145e4f70c496a41903daacc2092ffb876f8759ec079",
+    "docs/fusion/planning/Fusion_Magpie_Fork_Agent\u5de5\u4f5c\u5305_v1.0.md": "24f85e6c094d8a2ca2ca29be1244dda04584074d8c12d3a5a9dd9fc9f0d81c55",
+    "docs/fusion/planning/implementation_tasks.json": "9dd39e97d5ad8754628b8d6cb59a551e118fb75bf3766d968c1e2e0e2acb9e73",
+    "internal/fusion/stageplan/compile.go": "2b2084e36a847d204fba577558c3d2f7c9540fa51a60ef95f6b3d5a32b6278df",
+    "internal/fusion/stageplan/parse.go": "0527c1e8a7f1ef9156ab97e2bccbe93495e47d6f80fac26af94446b78611604f",
+    "internal/fusion/stageplan/plan_test.go": "361dc2c80029b7f25bef02368abee8419164d8744c17dd06ef3c3a73033ea671",
+    "internal/fusion/stageplan/types.go": "0d848bd534d9fade4b13b355711f399619eea62548ff08ba1321e5970511e052"
+  },
+  "logs_sha256": {
+    "wp04-red.log": "005415d5641a5a10a35a6e778a406d67cda72c1a8155ecff89fdd540ebce4fce",
+    "wp04-boundary-red.log": "79703bc924791c5e1ef0d62fbb33f927d9f7e4ea5ae0ee6c2c1a17ae931b32cd",
+    "wp04-race-green.log": "aaf3279812dba5698d5a5cf2c514e5d17b0dfd493c1ac5b87e89da8dea665a27",
+    "wp04-schema-check.json": "eeea87a6ac5d010854d2baa433cb1c0d583c95327abcb9419f720d4f5da1fe85"
+  }
+}

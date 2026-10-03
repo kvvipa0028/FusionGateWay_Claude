@@ -1,0 +1,331 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "required_roles": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 5,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "design",
+          "implementation",
+          "testing",
+          "review",
+          "acceptance"
+        ]
+      }
+    },
+    "global": {
+      "$ref": "#/$defs/layer"
+    },
+    "project": {
+      "$ref": "#/$defs/layer"
+    },
+    "task": {
+      "$ref": "#/$defs/layer"
+    }
+  },
+  "required": [
+    "schema_version",
+    "revision",
+    "required_roles"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fusion:stage-plan:v1",
+  "title": "Fusion stage-plan input v1",
+  "$defs": {
+    "route_ref": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "^[^\\s\\u0000-\\u001f\\u007f-\\u009f]+$",
+          "not": {
+            "enum": [
+              "unknown",
+              "undisclosed",
+              "default"
+            ]
+          }
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "id",
+        "revision"
+      ],
+      "additionalProperties": false
+    },
+    "effort": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "mode": {
+              "const": "explicit"
+            },
+            "value": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256,
+              "pattern": "^[^\\s\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "not": {
+                "enum": [
+                  "unknown",
+                  "undisclosed",
+                  "default"
+                ]
+              }
+            }
+          },
+          "required": [
+            "mode",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "mode": {
+              "const": "default"
+            },
+            "value": {
+              "const": ""
+            }
+          },
+          "required": [
+            "mode"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "mode": {
+              "const": "none"
+            },
+            "value": {
+              "const": ""
+            }
+          },
+          "required": [
+            "mode"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "candidate": {
+      "type": "object",
+      "properties": {
+        "route": {
+          "$ref": "#/$defs/route_ref"
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "^[^\\s\\u0000-\\u001f\\u007f-\\u009f]+$",
+          "not": {
+            "enum": [
+              "unknown",
+              "undisclosed",
+              "default"
+            ]
+          }
+        },
+        "effort": {
+          "$ref": "#/$defs/effort"
+        }
+      },
+      "required": [
+        "route",
+        "model",
+        "effort"
+      ],
+      "additionalProperties": false
+    },
+    "binding": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "mode": {
+              "const": "locked"
+            },
+            "route": {
+              "$ref": "#/$defs/route_ref"
+            },
+            "model": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256,
+              "pattern": "^[^\\s\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "not": {
+                "enum": [
+                  "unknown",
+                  "undisclosed",
+                  "default"
+                ]
+              }
+            },
+            "effort": {
+              "$ref": "#/$defs/effort"
+            },
+            "candidates": {
+              "type": "array",
+              "maxItems": 0
+            },
+            "required_capabilities": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 256,
+                "pattern": "^[^\\s\\u0000-\\u001f\\u007f-\\u009f]+$",
+                "not": {
+                  "enum": [
+                    "unknown",
+                    "undisclosed",
+                    "default"
+                  ]
+                }
+              },
+              "uniqueItems": true
+            },
+            "accept_primary_only": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "mode",
+            "route",
+            "model",
+            "effort"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "mode": {
+              "const": "auto"
+            },
+            "candidates": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "$ref": "#/$defs/candidate"
+              }
+            },
+            "model": {
+              "const": ""
+            },
+            "required_capabilities": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 256,
+                "pattern": "^[^\\s\\u0000-\\u001f\\u007f-\\u009f]+$",
+                "not": {
+                  "enum": [
+                    "unknown",
+                    "undisclosed",
+                    "default"
+                  ]
+                }
+              },
+              "uniqueItems": true
+            },
+            "accept_primary_only": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "mode",
+            "candidates"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "mode": {
+              "const": "inherit"
+            },
+            "model": {
+              "const": ""
+            },
+            "candidates": {
+              "type": "array",
+              "maxItems": 0
+            },
+            "required_capabilities": {
+              "type": "array",
+              "maxItems": 0
+            },
+            "accept_primary_only": {
+              "const": false
+            }
+          },
+          "required": [
+            "mode"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "layer": {
+      "type": "object",
+      "properties": {
+        "roles": {
+          "type": "object",
+          "propertyNames": {
+            "enum": [
+              "design",
+              "implementation",
+              "testing",
+              "review",
+              "acceptance"
+            ]
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/binding"
+          }
+        },
+        "groups": {
+          "type": "object",
+          "propertyNames": {
+            "enum": [
+              "design_planning",
+              "implementation_testing",
+              "review_acceptance"
+            ]
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/binding"
+          }
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    }
+  }
+}
