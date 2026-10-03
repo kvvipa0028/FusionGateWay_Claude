@@ -34,6 +34,10 @@ func (s *Server) SetController(c *control.Controller) error {
 type StartRoleRequest struct {
 	Role stageplan.Role `json:"role"`
 }
+type ResumeRoleRequest struct {
+	Role    stageplan.Role        `json:"role"`
+	Restore store.RestoreIdentity `json:"restore"`
+}
 type RunView struct {
 	ID              string                    `json:"id"`
 	TaskID          string                    `json:"task_id"`
@@ -177,8 +181,9 @@ func (s *Server) executionControl(w http.ResponseWriter, r *http.Request) {
 	}
 	parts := strings.Split(strings.TrimPrefix(r.URL.Path, "/control/v1/tasks/"), "/")
 	start := len(parts) == 2 && parts[1] == "start"
+	resume := len(parts) == 2 && parts[1] == "resume"
 	cancel := len(parts) == 4 && parts[1] == "runs" && parts[3] == "cancel"
-	if !start && !cancel || !opaque(parts[0]) || cancel && !opaque(parts[2]) {
+	if !start && !resume && !cancel || !opaque(parts[0]) || cancel && !opaque(parts[2]) {
 		controlFailure(w, errInvalid)
 		return
 	}
@@ -194,7 +199,7 @@ func (s *Server) executionControl(w http.ResponseWriter, r *http.Request) {
 		controlFailure(w, e)
 		return
 	}
-	if start {
+	if start || resume {
 		if condition.state != "ready" {
 			controlFailure(w, errTaskPrecondition)
 			return
@@ -204,12 +209,23 @@ func (s *Server) executionControl(w http.ResponseWriter, r *http.Request) {
 			controlFailure(w, errInvalid)
 			return
 		}
-		var body StartRoleRequest
-		if read(r, &body) != nil || !validRole(body.Role) {
-			controlFailure(w, errInvalid)
-			return
+		in := store.StartIdentity{TaskID: parts[0], PlanRevision: condition.revision, Generation: condition.generation}
+		if resume {
+			var body ResumeRoleRequest
+			if read(r, &body) != nil || !validRole(body.Role) {
+				controlFailure(w, errInvalid)
+				return
+			}
+			in.Role = body.Role
+			in.Restore = &body.Restore
+		} else {
+			var body StartRoleRequest
+			if read(r, &body) != nil || !validRole(body.Role) {
+				controlFailure(w, errInvalid)
+				return
+			}
+			in.Role = body.Role
 		}
-		in := store.StartIdentity{TaskID: parts[0], Role: body.Role, PlanRevision: condition.revision, Generation: condition.generation}
 		// Retries refer to their original condition, even after the task changes.
 		// A new key must match the current ready representation. The controller
 		// and Store still own atomic generation/state checks and launch winner.
@@ -232,7 +248,12 @@ func (s *Server) executionControl(w http.ResponseWriter, r *http.Request) {
 			controlFailure(w, control.ErrForbidden)
 			return
 		}
-		receipt, e := c.StartAuthorized(r.Context(), values[0], in, s.auth.ManagementCurrent)
+		var receipt store.StartReceipt
+		if resume {
+			receipt, e = c.RestoreAuthorized(r.Context(), values[0], in, s.auth.ManagementCurrent)
+		} else {
+			receipt, e = c.StartAuthorized(r.Context(), values[0], in, s.auth.ManagementCurrent)
+		}
 		if receipt.Run.ID == "" {
 			if e != nil {
 				controlFailure(w, e)

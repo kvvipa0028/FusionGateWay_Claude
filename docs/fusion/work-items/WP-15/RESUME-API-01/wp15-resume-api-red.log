@@ -1,0 +1,66 @@
+=== RUN   TestResumeAPIRealHTTPOnceAndIdentityConflict
+    resume_test.go:58: restore API did not create distinct run 404
+--- FAIL: TestResumeAPIRealHTTPOnceAndIdentityConflict (0.06s)
+=== RUN   TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent
+=== RUN   TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/missing_ref
+    resume_test.go:106: 404 404 page not found
+        
+=== RUN   TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/null_ref
+    resume_test.go:106: 404 404 page not found
+        
+=== RUN   TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/unknown
+    resume_test.go:106: 404 404 page not found
+        
+=== RUN   TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/extra_restore
+    resume_test.go:106: 404 404 page not found
+        
+=== RUN   TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/bad_digest
+    resume_test.go:106: 404 404 page not found
+        
+=== RUN   TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/no_key
+    resume_test.go:106: 404 404 page not found
+        
+=== RUN   TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/no_tag
+    resume_test.go:106: 404 404 page not found
+        
+=== RUN   TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/weak_tag
+    resume_test.go:106: 404 404 page not found
+        
+=== RUN   TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/no_auth
+=== RUN   TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/wrong_auth
+=== RUN   TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/foreign_origin
+    resume_test.go:106: 404 404 page not found
+        
+--- FAIL: TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent (0.05s)
+    --- FAIL: TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/missing_ref (0.00s)
+    --- FAIL: TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/null_ref (0.00s)
+    --- FAIL: TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/unknown (0.00s)
+    --- FAIL: TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/extra_restore (0.00s)
+    --- FAIL: TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/bad_digest (0.00s)
+    --- FAIL: TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/no_key (0.00s)
+    --- FAIL: TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/no_tag (0.00s)
+    --- FAIL: TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/weak_tag (0.00s)
+    --- PASS: TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/no_auth (0.00s)
+    --- PASS: TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/wrong_auth (0.00s)
+    --- FAIL: TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/foreign_origin (0.00s)
+=== RUN   TestResumeAPIPreflightRevocationAndUnknownReceipt
+=== RUN   TestResumeAPIPreflightRevocationAndUnknownReceipt/restore_bad
+    resume_test.go:133: 404 404 page not found
+        
+=== RUN   TestResumeAPIPreflightRevocationAndUnknownReceipt/restore_revoke
+    resume_test.go:133: 404 404 page not found
+        
+=== RUN   TestResumeAPIPreflightRevocationAndUnknownReceipt/restore_no_handle
+    resume_test.go:133: 404 404 page not found
+        
+=== RUN   TestResumeAPIPreflightRevocationAndUnknownReceipt/#00
+    resume_test.go:133: 404 404 page not found
+        
+--- FAIL: TestResumeAPIPreflightRevocationAndUnknownReceipt (0.21s)
+    --- FAIL: TestResumeAPIPreflightRevocationAndUnknownReceipt/restore_bad (0.05s)
+    --- FAIL: TestResumeAPIPreflightRevocationAndUnknownReceipt/restore_revoke (0.06s)
+    --- FAIL: TestResumeAPIPreflightRevocationAndUnknownReceipt/restore_no_handle (0.05s)
+    --- FAIL: TestResumeAPIPreflightRevocationAndUnknownReceipt/#00 (0.05s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/api	0.916s
+FAIL

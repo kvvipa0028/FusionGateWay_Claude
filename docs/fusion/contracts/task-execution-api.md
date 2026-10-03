@@ -6,6 +6,7 @@
 |---|---|
 | GET `/agent/v1/tasks/{task_id}` | 原 Task JSON，新增 strong ETag `"p{plan_revision}-g{generation}-{state}"`；计划、generation 或状态变化均改变 tag |
 | POST `/control/v1/tasks/{task_id}/start` | 单个 If-Match、单个 Idempotency-Key，JSON 仅 `role`；新 intent 为 202，幂等重读为 200 |
+| POST `/control/v1/tasks/{task_id}/resume` | 单个 If-Match/Idempotency-Key，JSON 为 role 与明确 restore 引用；详见 [task-resume-api.md](task-resume-api.md) |
 | GET `/agent/v1/tasks/{task_id}/runs/{run_id}` | 必须核对 run.task_id；返回安全 RunView，跨 task 不返回记录 |
 | POST `/control/v1/tasks/{task_id}/runs/{run_id}/cancel` | 单个 If-Match，JSON `{}`；当前 generation 的取消意图为 202，同 generation/计划的已结束 run 为只读 200 |
 
@@ -21,4 +22,6 @@ Run/start/cancel 响应的 `X-Fusion-Task-ETag` 是相关 Task 当前条件，Lo
 
 10 个 API 测试覆盖真实 loopback HTTP、合法启动/重读/取消/运行读取、强条件与状态变化、15 类越权 body、重复 header、管理撤销发生在 Resolve/Inspection 时、同 key 冲突、失败 intent 与错误脱敏、跨 task/gen 读取取消，以及跨 Store/热替换控制器拒绝。这里的 Runtime/StopProof 为合成 fixture；真实 Native 停止证明的控制器链路证据见 CONTROLLER-01，不能把此接口测试当作真实账号 smoke。
 
-[openapi-fusion.yaml](../openapi-fusion.yaml) 当前覆盖全部已实现 Handler 的 24 路径/28 操作，包括 submit/plan/budget/events、额度、预设及默认层读写/历史及任务 pause/continue/cancel。标准结构及实际样本验证见 [openapi-verification.md](openapi-verification.md)。额度见 [quota-api.md](quota-api.md)，固定版本预设见 [preset-api.md](preset-api.md)，默认层配置见 [default-layer-api.md](default-layer-api.md)。任务控制见 [task-control-api.md](task-control-api.md)。实际账户/项目配置、产品注册、Native 恢复/副作用核对/返工与 UI 继续实施。Jev off。
+[openapi-fusion.yaml](../openapi-fusion.yaml) 当前覆盖全部已实现 Handler 的 25 路径/29 操作，包括 submit/plan/budget/events、额度、预设及默认层读写/历史及任务 pause/continue/cancel。标准结构及实际样本验证见 [openapi-verification.md](openapi-verification.md)。额度见 [quota-api.md](quota-api.md)，固定版本预设见 [preset-api.md](preset-api.md)，默认层配置见 [default-layer-api.md](default-layer-api.md)。任务控制见 [task-control-api.md](task-control-api.md)。实际账户/项目配置、产品注册、Native 恢复/副作用核对/返工与 UI 继续实施。Jev off。
+
+明确 checkpoint 恢复的持久幂等身份、严格 readonly 来源核验与受管执行已接入内部 Handler/Controller，见 [task-resume-api.md](task-resume-api.md)。产品 Worker/真实路线接线仍未完成。

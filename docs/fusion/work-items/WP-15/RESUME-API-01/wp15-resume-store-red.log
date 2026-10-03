@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/store [github.com/yetone/magpie/internal/fusion/store.test]
+internal/fusion/store/restore_once_test.go:21:5: in.Restore undefined (type StartRequest has no field or method Restore)
+internal/fusion/store/restore_once_test.go:21:14: undefined: RestoreIdentity
+internal/fusion/store/restore_once_test.go:37:22: in.Restore undefined (type StartRequest has no field or method Restore)
+internal/fusion/store/restore_once_test.go:38:24: in.Restore undefined (type StartRequest has no field or method Restore)
+internal/fusion/store/restore_once_test.go:39:21: in.Restore undefined (type StartRequest has no field or method Restore)
+internal/fusion/store/restore_once_test.go:40:21: in.Restore undefined (type StartRequest has no field or method Restore)
+internal/fusion/store/restore_once_test.go:41:87: in.Restore undefined (type StartRequest has no field or method Restore)
+internal/fusion/store/restore_once_test.go:42:86: in.Restore undefined (type StartRequest has no field or method Restore)
+internal/fusion/store/restore_once_test.go:43:83: in.Restore undefined (type StartRequest has no field or method Restore)
+internal/fusion/store/restore_once_test.go:44:86: in.Restore undefined (type StartRequest has no field or method Restore)
+internal/fusion/store/restore_once_test.go:44:86: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/store [build failed]
+FAIL

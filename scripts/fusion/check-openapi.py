@@ -32,6 +32,7 @@ EXPECTED = {
     "/control/v1/tasks/{task_id}/plan": {"get", "put"},
     "/control/v1/tasks/{task_id}/plan/preview": {"post"},
     "/control/v1/tasks/{task_id}/start": {"post"},
+    "/control/v1/tasks/{task_id}/resume": {"post"},
     "/control/v1/tasks/{task_id}/runs/{run_id}/cancel": {"post"},
     "/control/v1/tasks/{task_id}/preset": {"get"},
     "/control/v1/projects/{project_id}/configuration": {"get"},
@@ -144,6 +145,8 @@ def verify(contract, official, samples):
         "DefaultLayerInput": {"layer": {}, "account": "fixture-forbidden"},
         "PreviewRequest": {"project_id": "fixture", "goal": "fixture", "required_roles": ["design"], "token": "fixture-forbidden"},
     }
+    negative["ResumeRoleRequest"] = {"role":"design", "restore":{"origin_run_id":"fixture", "checkpoint_id":"b"*64, "checkpoint_digest":"c"*64}, "native_session_id":"fixture-forbidden"}
+    negative["RestoreIdentity"] = {"origin_run_id":"fixture", "checkpoint_id":"b"*64, "checkpoint_digest":"c"*64, "argv":[]}
     for name, value in negative.items():
         assert not validator({"$ref": "#/components/schemas/" + name}).is_valid(value)
     return {"official_openapi_document_schema": "3.1/2022-10-07", "paths": len(EXPECTED), "operations": len(operations), "handler_samples": count, "covered_operations": len(covered), "negative_schema_cases": len(negative), "offline": True, "production_registered": False}

@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Fusion task control API
   version: 0.1.0-draft
-  description: 当前已实现 Handler 合同；24 paths、28 operations。独立 fusion-control 草稿 listener 已注册；生产执行 Controller/GUI 尚未接线。pause/continue 使用完整 Task If-Match，暂停中不宣称已停，continue 仅解除可靠暂停，不隐式启动或恢复 Native。全局/项目默认层只允许绑定，历史快照保持冻结。
+  description: 当前已实现 Handler 合同；25 paths、29 operations。独立 fusion-control 草稿 listener 已注册；生产执行 Controller/GUI 尚未接线。pause/continue 使用完整 Task If-Match，暂停中不宣称已停，continue 仅解除可靠暂停，不隐式启动或恢复 Native。全局/项目默认层只允许绑定，历史快照保持冻结。
 x-fusion-status: implemented-handler-contract
 x-fusion-production-registered: false
 x-fusion-draft-control-registered: true
@@ -149,6 +149,126 @@ paths:
         '405':
           $ref: '#/components/responses/Error405'
         '409':
+          headers:
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+          description: 冲突/需对账；已经提交的失败 intent 包含 RunView/Created
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/ErrorResponse'
+                - $ref: '#/components/schemas/ExecutionReply'
+        '412':
+          $ref: '#/components/responses/Error412'
+        '428':
+          $ref: '#/components/responses/Error428'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+  /control/v1/tasks/{task_id}/resume:
+    post:
+      operationId: resumeStage
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      - name: If-Match
+        in: header
+        required: true
+        schema:
+          type: string
+        description: 单个 strong Task ETag，例如 "p1-g0-ready"；不是 plan revision tag
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+        description: 保存原始角色与条件，重试不启动新进程
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResumeRoleRequest'
+      responses:
+        '200':
+          description: 安全 RunView；X-Fusion-Task-ETag 指向相关 Task 的当前条件
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecutionReply'
+          headers:
+            ETag:
+              schema:
+                type: string
+              description: 当前读取资源的 strong revision 或 Task 状态 tag，见对应资源说明。
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 相关 Task 当前条件，不是 RunView 本身的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: run 或明确 preset 历史版本相对路径。
+        '202':
+          description: 安全 RunView；X-Fusion-Task-ETag 指向相关 Task 的当前条件
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecutionReply'
+          headers:
+            ETag:
+              schema:
+                type: string
+              description: 当前读取资源的 strong revision 或 Task 状态 tag，见对应资源说明。
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 相关 Task 当前条件，不是 RunView 本身的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: run 或明确 preset 历史版本相对路径。
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          headers:
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+            Location:
+              schema:
+                type: string
+                format: uri-reference
           description: 冲突/需对账；已经提交的失败 intent 包含 RunView/Created
           content:
             application/json:
@@ -2504,6 +2624,30 @@ components:
       properties:
         role:
           $ref: '#/components/schemas/Role'
+    ResumeRoleRequest:
+      type: object
+      additionalProperties: false
+      required: [role, restore]
+      properties:
+        role:
+          $ref: '#/components/schemas/Role'
+        restore:
+          $ref: '#/components/schemas/RestoreIdentity'
+    RestoreIdentity:
+      type: object
+      additionalProperties: false
+      required: [origin_run_id, checkpoint_id, checkpoint_digest]
+      properties:
+        origin_run_id:
+          type: string
+          minLength: 1
+          maxLength: 256
+        checkpoint_id:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+        checkpoint_digest:
+          type: string
+          pattern: ^[a-f0-9]{64}$
     EmptyRequest:
       type: object
       additionalProperties: false

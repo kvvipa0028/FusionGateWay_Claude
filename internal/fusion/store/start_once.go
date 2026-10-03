@@ -12,10 +12,39 @@ import (
 // Owner/TTL/admission observations belong to the controller and are not part
 // of this request. Target is frozen in the referenced run, never an HTTP field.
 type StartIdentity struct {
-	TaskID       string         `json:"task_id"`
-	Role         stageplan.Role `json:"role"`
-	PlanRevision int64          `json:"plan_revision"`
-	Generation   int64          `json:"generation"`
+	TaskID       string           `json:"task_id"`
+	Role         stageplan.Role   `json:"role"`
+	PlanRevision int64            `json:"plan_revision"`
+	Generation   int64            `json:"generation"`
+	Restore      *RestoreIdentity `json:"restore,omitempty"`
+}
+
+// RestoreIdentity binds a retry to a specific origin and sealed checkpoint.
+// It is request identity, not a seal, stop proof or execution permission.
+type RestoreIdentity struct {
+	OriginRunID      string `json:"origin_run_id"`
+	CheckpointID     string `json:"checkpoint_id"`
+	CheckpointDigest string `json:"checkpoint_digest"`
+}
+
+func validRestoreIdentity(in *RestoreIdentity) bool {
+	if in == nil {
+		return true
+	}
+	if !opaque(in.OriginRunID) {
+		return false
+	}
+	for _, value := range []string{in.CheckpointID, in.CheckpointDigest} {
+		if len(value) != 64 {
+			return false
+		}
+		for _, c := range value {
+			if !(c >= '0' && c <= '9' || c >= 'a' && c <= 'f') {
+				return false
+			}
+		}
+	}
+	return true
 }
 
 // Only Created=true authorizes attempting to launch this intent. A retry
@@ -31,10 +60,10 @@ func startIdentity(in StartRequest) StartIdentity {
 	if in.ExpectedGeneration != nil {
 		gen = *in.ExpectedGeneration
 	}
-	return StartIdentity{TaskID: in.TaskID, Role: in.Role, PlanRevision: in.PlanRevision, Generation: gen}
+	return StartIdentity{TaskID: in.TaskID, Role: in.Role, PlanRevision: in.PlanRevision, Generation: gen, Restore: in.Restore}
 }
 func validStartIdentity(in StartIdentity) bool {
-	if !opaque(in.TaskID) || in.PlanRevision < 1 || in.Generation < 0 {
+	if !opaque(in.TaskID) || in.PlanRevision < 1 || in.Generation < 0 || !validRestoreIdentity(in.Restore) {
 		return false
 	}
 	for _, role := range stageplan.AllRoles() {

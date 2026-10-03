@@ -1,0 +1,24 @@
+=== RUN   TestRestoreIdentityKeepsLegacyStartHash
+--- PASS: TestRestoreIdentityKeepsLegacyStartHash (0.05s)
+=== RUN   TestRestoreOncePayloadAndScopeAreAtomic
+=== RUN   TestRestoreOncePayloadAndScopeAreAtomic/missing
+=== RUN   TestRestoreOncePayloadAndScopeAreAtomic/uppercase
+=== RUN   TestRestoreOncePayloadAndScopeAreAtomic/digest
+=== RUN   TestRestoreOncePayloadAndScopeAreAtomic/origin
+=== RUN   TestRestoreOncePayloadAndScopeAreAtomic/foreign_role
+=== RUN   TestRestoreOncePayloadAndScopeAreAtomic/foreign_target
+=== RUN   TestRestoreOncePayloadAndScopeAreAtomic/held
+=== RUN   TestRestoreOncePayloadAndScopeAreAtomic/not_success
+--- PASS: TestRestoreOncePayloadAndScopeAreAtomic (0.35s)
+    --- PASS: TestRestoreOncePayloadAndScopeAreAtomic/missing (0.04s)
+    --- PASS: TestRestoreOncePayloadAndScopeAreAtomic/uppercase (0.04s)
+    --- PASS: TestRestoreOncePayloadAndScopeAreAtomic/digest (0.04s)
+    --- PASS: TestRestoreOncePayloadAndScopeAreAtomic/origin (0.04s)
+    --- PASS: TestRestoreOncePayloadAndScopeAreAtomic/foreign_role (0.04s)
+    --- PASS: TestRestoreOncePayloadAndScopeAreAtomic/foreign_target (0.04s)
+    --- PASS: TestRestoreOncePayloadAndScopeAreAtomic/held (0.04s)
+    --- PASS: TestRestoreOncePayloadAndScopeAreAtomic/not_success (0.04s)
+=== RUN   TestRestoreOnceRetryCannotBecomeStartOrAnotherCheckpoint
+--- PASS: TestRestoreOnceRetryCannotBecomeStartOrAnotherCheckpoint (0.05s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/store	2.109s

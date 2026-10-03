@@ -392,7 +392,7 @@
 
 **阶段：**M2　**负责人角色：**Grok 接入 Agent　**状态：**in_progress
 
-**Progress evidence:**`../work-items/WP-13/summary.md`（固定Native headless与受管readonly Adapter/取消/StopProof已验证；真实Forwarder/准入、write/effort/Resume和产品注册未完成）。
+**Progress evidence:**`../work-items/WP-13/summary.md`（固定Native headless、受管readonly Adapter/取消/StopProof、明确checkpoint恢复及内部Management API已验证；真实Forwarder/准入、write/其它effort和产品注册未完成）。
 
 **输入/前置：**WP-08, WP-11。同时读取这些前置包的合同、测试日志、阻断项与当前仓库 HEAD。
 

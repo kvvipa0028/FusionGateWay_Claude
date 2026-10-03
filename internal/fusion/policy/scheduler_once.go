@@ -13,6 +13,10 @@ import (
 // The caller must authenticate, resolve the frozen Target, and revalidate
 // CheckPrepared at launch. HTTP disconnect is not a lifecycle cancellation.
 func (s *Scheduler) PrepareOnce(ctx context.Context, in store.StartRequest) (store.StartReceipt, error) {
+	if in.Restore != nil {
+		ref := *in.Restore
+		in.Restore = &ref
+	}
 	old, e := s.lookupPreparedStart(in)
 	if !errors.Is(e, store.ErrNotFound) {
 		return old, e
@@ -57,7 +61,7 @@ func (s *Scheduler) lookupPreparedStart(in store.StartRequest) (store.StartRecei
 	if in.ExpectedGeneration == nil {
 		return store.StartReceipt{}, blocked("start_request_invalid")
 	}
-	r, e := s.Store.LookupStart(in.IdempotencyKey, store.StartIdentity{TaskID: in.TaskID, Role: in.Role, PlanRevision: in.PlanRevision, Generation: *in.ExpectedGeneration})
+	r, e := s.Store.LookupStart(in.IdempotencyKey, store.StartIdentity{TaskID: in.TaskID, Role: in.Role, PlanRevision: in.PlanRevision, Generation: *in.ExpectedGeneration, Restore: in.Restore})
 	if errors.Is(e, store.ErrNotFound) {
 		return store.StartReceipt{}, e
 	}

@@ -141,6 +141,17 @@ func TestImplementedAPIContractSamples(t *testing.T) {
 	add("POST", taskCancelPath, `{}`, 409, executionRequest(cancelHeld.h, "POST", taskCancelPath, `{}`, "", tag, "fixture-management"), map[string]string{"If-Match": tag})
 
 	f := setupExecution(t, "normal")
+	resumeFixture, resumeBody, resumeTag := apiRestoreFixture(t, "restore")
+	resumeURL := restorePath(resumeFixture)
+	resumeHeaders := map[string]string{"If-Match": resumeTag, "Idempotency-Key": "fixture-contract-resume"}
+	w = executionRequest(resumeFixture.h, "POST", resumeURL, resumeBody, "fixture-contract-resume", resumeTag, "fixture-management")
+	add("POST", resumeURL, resumeBody, 202, w, resumeHeaders)
+	var resumed ExecutionReply
+	json.Unmarshal(w.Body.Bytes(), &resumed)
+	waitAPIExecution(t, resumeFixture, resumed.Run.ID)
+	add("POST", resumeURL, resumeBody, 200, executionRequest(resumeFixture.h, "POST", resumeURL, resumeBody, "fixture-contract-resume", resumeTag, "fixture-management"), resumeHeaders)
+	uncertainResume, uncertainBody, uncertainTag := apiRestoreFixture(t, "restore_no_handle")
+	add("POST", restorePath(uncertainResume), uncertainBody, 409, executionRequest(uncertainResume.h, "POST", restorePath(uncertainResume), uncertainBody, "fixture-contract-resume-uncertain", uncertainTag, "fixture-management"), map[string]string{"If-Match": uncertainTag, "Idempotency-Key": "fixture-contract-resume-uncertain"})
 	startPath := "/control/v1/tasks/" + f.task.ID + "/start"
 	w = executionRequest(f.h, "POST", startPath, `{"role":"design"}`, "fixture-contract-start", taskETag(f.task), "fixture-management")
 	add("POST", startPath, `{"role":"design"}`, 202, w, map[string]string{"If-Match": taskETag(f.task), "Idempotency-Key": "fixture-contract-start"})

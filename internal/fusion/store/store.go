@@ -63,6 +63,7 @@ type StartRequest struct {
 	Target             stageplan.ExecutionTarget
 	IdempotencyKey     string
 	ExpectedGeneration *int64
+	Restore            *RestoreIdentity
 }
 type Store struct {
 	mu   sync.Mutex

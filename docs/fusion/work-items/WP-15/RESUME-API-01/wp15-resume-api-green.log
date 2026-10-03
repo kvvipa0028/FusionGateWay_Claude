@@ -1,0 +1,38 @@
+=== RUN   TestResumeAPIRealHTTPOnceAndIdentityConflict
+--- PASS: TestResumeAPIRealHTTPOnceAndIdentityConflict (0.08s)
+=== RUN   TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent
+=== RUN   TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/missing_ref
+=== RUN   TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/null_ref
+=== RUN   TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/unknown
+=== RUN   TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/extra_restore
+=== RUN   TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/bad_digest
+=== RUN   TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/no_key
+=== RUN   TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/no_tag
+=== RUN   TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/weak_tag
+=== RUN   TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/no_auth
+=== RUN   TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/wrong_auth
+=== RUN   TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/foreign_origin
+--- PASS: TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent (0.05s)
+    --- PASS: TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/missing_ref (0.00s)
+    --- PASS: TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/null_ref (0.00s)
+    --- PASS: TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/unknown (0.00s)
+    --- PASS: TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/extra_restore (0.00s)
+    --- PASS: TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/bad_digest (0.00s)
+    --- PASS: TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/no_key (0.00s)
+    --- PASS: TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/no_tag (0.00s)
+    --- PASS: TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/weak_tag (0.00s)
+    --- PASS: TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/no_auth (0.00s)
+    --- PASS: TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/wrong_auth (0.00s)
+    --- PASS: TestResumeAPIRefusesAuthorityBodyAndHeadersBeforeIntent/foreign_origin (0.00s)
+=== RUN   TestResumeAPIPreflightRevocationAndUnknownReceipt
+=== RUN   TestResumeAPIPreflightRevocationAndUnknownReceipt/restore_bad
+=== RUN   TestResumeAPIPreflightRevocationAndUnknownReceipt/restore_revoke
+=== RUN   TestResumeAPIPreflightRevocationAndUnknownReceipt/restore_no_handle
+=== RUN   TestResumeAPIPreflightRevocationAndUnknownReceipt/#00
+--- PASS: TestResumeAPIPreflightRevocationAndUnknownReceipt (0.21s)
+    --- PASS: TestResumeAPIPreflightRevocationAndUnknownReceipt/restore_bad (0.05s)
+    --- PASS: TestResumeAPIPreflightRevocationAndUnknownReceipt/restore_revoke (0.05s)
+    --- PASS: TestResumeAPIPreflightRevocationAndUnknownReceipt/restore_no_handle (0.06s)
+    --- PASS: TestResumeAPIPreflightRevocationAndUnknownReceipt/#00 (0.05s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/api	2.019s

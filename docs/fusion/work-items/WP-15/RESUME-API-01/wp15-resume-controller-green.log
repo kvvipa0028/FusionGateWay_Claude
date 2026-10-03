@@ -1,0 +1,22 @@
+=== RUN   TestControllerRestoreOnceDoesNotBecomeStartOrReplay
+--- PASS: TestControllerRestoreOnceDoesNotBecomeStartOrReplay (0.08s)
+=== RUN   TestControllerRestorePreflightAndAuthorityLeaveNoIntent
+=== RUN   TestControllerRestorePreflightAndAuthorityLeaveNoIntent/nil_ref
+=== RUN   TestControllerRestorePreflightAndAuthorityLeaveNoIntent/unbound
+=== RUN   TestControllerRestorePreflightAndAuthorityLeaveNoIntent/bad_ref
+=== RUN   TestControllerRestorePreflightAndAuthorityLeaveNoIntent/foreign_origin
+=== RUN   TestControllerRestorePreflightAndAuthorityLeaveNoIntent/role
+=== RUN   TestControllerRestorePreflightAndAuthorityLeaveNoIntent/writable
+=== RUN   TestControllerRestorePreflightAndAuthorityLeaveNoIntent/revoke
+--- PASS: TestControllerRestorePreflightAndAuthorityLeaveNoIntent (0.33s)
+    --- PASS: TestControllerRestorePreflightAndAuthorityLeaveNoIntent/nil_ref (0.05s)
+    --- PASS: TestControllerRestorePreflightAndAuthorityLeaveNoIntent/unbound (0.05s)
+    --- PASS: TestControllerRestorePreflightAndAuthorityLeaveNoIntent/bad_ref (0.05s)
+    --- PASS: TestControllerRestorePreflightAndAuthorityLeaveNoIntent/foreign_origin (0.05s)
+    --- PASS: TestControllerRestorePreflightAndAuthorityLeaveNoIntent/role (0.05s)
+    --- PASS: TestControllerRestorePreflightAndAuthorityLeaveNoIntent/writable (0.05s)
+    --- PASS: TestControllerRestorePreflightAndAuthorityLeaveNoIntent/revoke (0.05s)
+=== RUN   TestControllerRestoreUnknownIntentIsReadOnlyAfterRestart
+--- PASS: TestControllerRestoreUnknownIntentIsReadOnlyAfterRestart (0.06s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/control	2.124s

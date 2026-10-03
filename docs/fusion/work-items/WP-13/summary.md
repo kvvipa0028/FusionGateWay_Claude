@@ -2,7 +2,7 @@
 
 状态：in_progress。已完成 [PROTOCOL-01](PROTOCOL-01/summary.md)：固定 Native headless fixture、辅助调用/工具声明调查、有界协议观察器及回归。
 
-[RESUME-01](RESUME-01/summary.md) 已接通成功归档的可信内部 ResumeCheckpoint：新 prepared run/Root/grant/端口、准确原 UUID、历史及新 Read、私有 HMAC mapping，实际 Native 覆盖中文 cwd、完整 Store/Archives/Manager/Adapter 重开、取消和漂移拒绝。产品恢复 API/幂等 receipt/Worker、真实 upstream/Quota/Source整体准入仍待完成，通用无准确输入的 Resume 继续 unsupported。
+[RESUME-01](RESUME-01/summary.md) 已接通成功归档的可信内部 ResumeCheckpoint：新 prepared run/Root/grant/端口、准确原 UUID、历史及新 Read、私有 HMAC mapping，实际 Native 覆盖中文 cwd、完整 Store/Archives/Manager/Adapter 重开、取消和漂移拒绝。明确恢复的内部 API/幂等 receipt 已在 [WP-15-RESUME-API-01](../WP-15/RESUME-API-01/summary.md) 接通；产品 Worker/实际 bootstrap、真实 upstream/Quota/Source整体准入仍待完成，通用无准确输入的 Resume 继续 unsupported。
 
 [ARCHIVE-01](ARCHIVE-01/summary.md) 已完成同 Adapter 成功 Handle 经实际 wait/StopProof/Release 后的可信归档：完整 14 Native 文件、原批准 Read、冻结目标/目录身份与私有 HMAC seal，支持重开核验。实际文本/Read 归档通过，失败/取消拒绝；可信恢复消费者和实际受管 Resume 已在 RESTORE-01/RESUME-01 接通；整个 Source/当前项目权限服务仍待完成。
 

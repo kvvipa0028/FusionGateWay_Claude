@@ -1,0 +1,7 @@
+# github.com/yetone/magpie/internal/fusion/control [github.com/yetone/magpie/internal/fusion/control.test]
+internal/fusion/control/grok_native_test.go:257:37: not enough arguments in call to adapter.Checkpoint
+	have (context.Context, *"github.com/yetone/magpie/internal/fusion/runtime".Handle, *grok.Archives)
+	want (context.Context, string, int64, *grok.Archives)
+internal/fusion/control/grok_native_test.go:262:20: undefined: BindGrokCheckpoint
+FAIL	github.com/yetone/magpie/internal/fusion/control [build failed]
+FAIL

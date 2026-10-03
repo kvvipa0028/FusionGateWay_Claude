@@ -23,3 +23,5 @@ WP-15-PAUSE-API-01 新增 Pause/Continue 与同 issuer 管理重查，Store 全 
 WP-15-CANCEL-API-01 新增 CancelTask/CancelTaskAuthorized：全 TaskVersion Store 意图事务后才取消精确 owned lifetime/Handle，不能接管 unknown 或改变 frozen Target。空闲取消不解析/启动 Runtime；不确定证明/释放仍保留 receipt/held。6 项 Controller 测试及新增固定 Native inflight TaskCancel→实际 wait/StopProof/release→cancelled 通过；现有 Pause 与 Stage Cancel 语义保持，合成准入不提升为真实账号准入。
 
 [WP-15-GROK-01](../work-items/WP-15/GROK-01/summary.md) 补齐原始 GrokChannel 在 intent 前的拒绝，固定 Grok 1.0.48 经可信 Adapter 绑定完成 7 个真实 Native 控制器场景：成功、Read、断线、Pause、TaskCancel、Stage Cancel、Close。幂等 receipt 不重复执行，停止后核验实际 proof/release；独立模型/计费/额度证据未升级。固定 Claude 2.1.287 的 3 项控制器回归通过。产品 Worker/真实 Forwarder/准入未注册，同 key 重读不代表 Native Resume。
+
+[RESUME-API-01](../work-items/WP-15/RESUME-API-01/summary.md) 新增 Restore/RestoreAuthorized 与明确 CheckRestore/Restore 后端。归档来源、冻结 Target、scope 与当前 Source 在 intent 前核验，Store 同事务重查成功 released origin；restore 身份参与 StartOnce hash，普通 Start 拒绝该身份。实际固定 Grok 恢复、恢复中取消和请求断线均通过同一 owned lifetime/实际 proof/release 链；产品注册/真实账号准入仍待完成。

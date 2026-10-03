@@ -20,7 +20,7 @@ Controller.PauseAuthorized/ContinueAuthorized/CancelTaskAuthorized 重查同一 
 
 如果 Start 正在返回 Handle，Pause 可先取消已登记的 owned lifetime；Handle 后到时，Controller.Start 也必须向精确 Handle 交付 Cancel，即使 backend 在启动期间忽略 Context。只有实际 Wait、正确 Native identity/descendant StopProof、同 Adapter 的 Release 都通过，才允许释放预留。没有 Handle/owner 或停止无法核验时保留 intent/held，不推定已停。已有 job 结束但 proof/release 失败的重复 pause 返回 409 和安全 TaskControlReply，不能丢弃已存在的意图或输出原始 Runtime 错误。
 
-继续只解除可靠暂停的派单冻结，不能隐式调用 Native Start/Resume、不重置调用/返工预算、不选择新模型或重新解释旧快照。暂停因 cancelled/interrupted/unknown 或其他副作用未核对时为 needs_review/409，仍需 WP-24 的明确检查点/工作区核对与对应 Runtime 恢复能力。整项任务已可信停止的 cancelled 不通过普通 continue 恢复；与既有不适用 Task 控制条件一致，返回 412，不授予新执行。当前 Native Resume 的 unsupported 保持。新阶段启动继续独立验证当前 route/权限/额度与被冻结的 Target；旧 StartIdentity 只能读回同一个 run，不重放。
+继续只解除可靠暂停的派单冻结，不能隐式调用 Native Start/Resume、不重置调用/返工预算、不选择新模型或重新解释旧快照。暂停因 cancelled/interrupted/unknown 或其他副作用未核对时为 needs_review/409，仍需 WP-24 的明确检查点/工作区核对与对应 Runtime 恢复能力。整项任务已可信停止的 cancelled 不通过普通 continue 恢复；与既有不适用 Task 控制条件一致，返回 412，不授予新执行。缺少准确输入的通用 Native Resume 继续 unsupported；明确成功归档的恢复已接入 [task-resume-api.md](task-resume-api.md)，不改变 Continue 的派单语义。新阶段启动继续独立验证当前 route/权限/额度与被冻结的 Target；旧 StartIdentity 只能读回同一个 run，不重放。
 
 Store 的 pausing→paused/needs_review、空闲 generation 防 ABA 与完整历史停止检查见 [task-pause-store.md](task-pause-store.md)。未改变 schema 5、CreateRequest/StartIdentity hash、预算或现有公开 start/cancel 合同；本项新增两条 control 操作。Start 对晚到 Handle 的取消同样修复 owned Close/Cancel lifetime 已失效的情况。
 

@@ -1,0 +1,164 @@
+{
+  "base_commit": "26e010dc31efc82d7f8d7de6fa57aef2cfcbe29d",
+  "go_version": "1.26.3",
+  "jev": "off",
+  "parent_wp13": "in_progress",
+  "parent_wp15": "in_progress",
+  "final_gate": "not_run",
+  "checks": {
+    "wp15-resume-api-green.log": {
+      "pass": 3,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 15,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/api\t2.019s"
+    },
+    "wp15-resume-api-red.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 3,
+      "passed_subtests": 2,
+      "failed_subtests": 15,
+      "compile_red": false,
+      "terminal_line": "FAIL"
+    },
+    "wp15-resume-controller-green.log": {
+      "pass": 3,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 7,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/control\t2.124s"
+    },
+    "wp15-resume-controller-native-final.log": {
+      "pass": 5,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 10,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/control\t18.930s"
+    },
+    "wp15-resume-controller-red.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 0,
+      "failed_subtests": 0,
+      "compile_red": true,
+      "terminal_line": "FAIL"
+    },
+    "wp15-resume-fusion-final.log": {
+      "pass": 442,
+      "skip": 20,
+      "fail": 0,
+      "passed_subtests": 620,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/workspace\t1.342s"
+    },
+    "wp15-resume-host-final.log": {
+      "pass": 10,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 30,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/api\t1.833s"
+    },
+    "wp15-resume-native-bind-red.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 0,
+      "failed_subtests": 0,
+      "compile_red": true,
+      "terminal_line": "FAIL"
+    },
+    "wp15-resume-native-green.log": {
+      "pass": 1,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 0,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/control\t4.072s"
+    },
+    "wp15-resume-native-red.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 0,
+      "failed_subtests": 0,
+      "compile_red": true,
+      "terminal_line": "FAIL"
+    },
+    "wp15-resume-openapi-red.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 0,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "terminal_line": "AssertionError: captured response has no unique documented path"
+    },
+    "wp15-resume-openapi-samples.log": {
+      "pass": 1,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 0,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/api\t2.181s"
+    },
+    "wp15-resume-store-green.log": {
+      "pass": 3,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 8,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/store\t2.109s"
+    },
+    "wp15-resume-store-red.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 0,
+      "failed_subtests": 0,
+      "compile_red": true,
+      "terminal_line": "FAIL"
+    }
+  },
+  "legacy_start_hash_and_schema_preserved": true,
+  "restore_request_and_prelaunch_seal_wired": true,
+  "native_controller": {
+    "top_pass": 5,
+    "passed_subtests": 10,
+    "scenarios": 13,
+    "native_processes": 16,
+    "new_restore_scenarios": 3,
+    "new_restore_native_processes": 6,
+    "restore_success": 2,
+    "restore_cancelled": 1
+  },
+  "openapi": {
+    "official_openapi_document_schema": "3.1/2022-10-07",
+    "paths": 25,
+    "operations": 29,
+    "handler_samples": 52,
+    "covered_operations": 29,
+    "negative_schema_cases": 8,
+    "offline": true,
+    "production_registered": false
+  },
+  "real_model_calls": 0,
+  "real_quota_calls": 0,
+  "actual_native_via_management_http_verified": false,
+  "actual_native_via_trusted_controller_verified": true,
+  "production_execution_registered": false,
+  "post_checks_changes": "documentation/packet only"
+}

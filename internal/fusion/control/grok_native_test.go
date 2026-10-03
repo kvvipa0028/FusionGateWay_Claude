@@ -88,7 +88,7 @@ func controllerGrokNative(t *testing.T, mode string) {
 		}
 		if main {
 			ordinal := mainCalls.Add(1)
-			if blocked {
+			if blocked || (mode == "restore_cancel" || mode == "restore_disconnect") && ordinal == 2 {
 				once.Do(func() { close(entered) })
 				select {
 				case <-ctx.Done():
@@ -249,5 +249,95 @@ func controllerGrokNative(t *testing.T, mode string) {
 	if bytes.Contains(encoded, []byte(f.launch.Spec.Root)) || bytes.Contains(encoded, []byte("Fixture ready.")) {
 		t.Fatal("public Completion contains private data")
 	}
+	if strings.HasPrefix(mode, "restore") {
+		archives, err := grok.NewArchives(fixturePrivate(t))
+		if err != nil {
+			t.Fatal(err)
+		}
+		defer archives.Close()
+		j := c.jobs[first.Run.ID]
+		j.mu.Lock()
+		h, ok := j.handle.(*managed.Handle)
+		j.mu.Unlock()
+		if !ok || h == nil {
+			t.Fatal("owned native handle absent")
+		}
+		ref, err := adapter.Checkpoint(ctx, first.Run.ID, first.Run.Generation, archives)
+		if err != nil {
+			t.Fatal("owned checkpoint failed", err)
+		}
+		task, err := f.st.Task(f.in.TaskID)
+		if err != nil {
+			t.Fatal(err)
+		}
+		in := f.in
+		in.Generation = task.Generation
+		in.Restore = &store.RestoreIdentity{OriginRunID: first.Run.ID, CheckpointID: ref.ID, CheckpointDigest: ref.Digest}
+		f.launch.Spec.Root = fixturePrivate(t)
+		f.launch.Spec.Input = []byte("Resume fixture conversation.")
+		f.launch.Backend = BindGrokCheckpoint(adapter, archives)
+		resumeRequest, dropResume := context.WithCancel(ctx)
+		defer dropResume()
+		got, err := c.Restore(resumeRequest, "fixture-native-resume", in)
+		if err != nil || !got.Created {
+			t.Fatal("native restore failed", err)
+		}
+		resumeWant := "succeeded"
+		if mode == "restore_cancel" || mode == "restore_disconnect" {
+			select {
+			case <-entered:
+			case <-time.After(10 * time.Second):
+				t.Fatal("resumed HTTP absent")
+			}
+			if mode == "restore_cancel" {
+				resumeWant = "cancelled"
+				if _, err = c.Cancel(in.TaskID, got.Run.ID, got.Run.Generation); err != nil {
+					t.Fatal(err)
+				}
+				select {
+				case <-ended:
+				case <-time.After(2 * time.Second):
+					t.Fatal("resumed transport remained live")
+				}
+			} else {
+				dropResume()
+				select {
+				case <-ended:
+					t.Fatal("HTTP disconnect cancelled resumed owner")
+				case <-time.After(30 * time.Millisecond):
+				}
+				close(release)
+			}
+		}
+		restored, err := c.Wait(ctx, got.Run.ID)
+		if err != nil || !restored.StoppedVerified || !restored.Released || restored.State != resumeWant {
+			t.Fatal("restore stop/release failed", err)
+		}
+		oldRun, _ := f.st.Run(first.Run.ID)
+		newRun, _ := f.st.Run(got.Run.ID)
+		if newRun.NativeSessionID != oldRun.NativeSessionID || newRun.ID == oldRun.ID || newRun.Generation <= oldRun.Generation {
+			t.Fatal("wrong exact native restore identity")
+		}
+		b, err := f.st.Budget(f.in.TaskID)
+		if err != nil || b.UsedCalls != 3 || calls.Load() != 3 {
+			t.Fatal("restore perHTTP accounting changed")
+		}
+		retry, err := c.Restore(ctx, "fixture-native-resume", in)
+		if err != nil || retry.Created || retry.Run.ID != got.Run.ID || calls.Load() != 3 {
+			t.Fatal("restore receipt replayed")
+		}
+		if _, err = f.st.Reservation(got.Run.ID); !errors.Is(err, store.ErrNotFound) {
+			t.Fatal("restore capacity held after real stop")
+		}
+		t.Log("actual Controller restore exactUUID/newRun/newGrant/HTTP3-total/Wait/StopProof/release/duplicate-read passed; real upstream/quota synthetic")
+	}
 	t.Logf("synthetic Controller mode=%s state=%s HTTP/budget=%d actualStop/release=true sourceUnchanged=true; Native/route/billing/quota proof independent", mode, done.State, wantCalls)
+}
+func TestControllerPinnedGrokCheckpointRestore(t *testing.T) {
+	if *nativeGrokControlCLI == "" {
+		t.Skip("explicit pinned Grok restore fixture only")
+	}
+	for _, mode := range []string{"restore", "restore_cancel", "restore_disconnect"} {
+		t.Run(mode, func(t *testing.T) { controllerGrokNative(t, mode) })
+	}
 }

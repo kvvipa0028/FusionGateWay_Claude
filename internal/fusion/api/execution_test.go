@@ -95,7 +95,7 @@ func setupExecution(t *testing.T, mode string) *executionFixture {
 		if mode == "revoke_resolve" {
 			s.auth.RevokeManagement()
 		}
-		return control.Launch{Spec: managed.Spec{Root: root, Workspace: workspace, Timeout: time.Second, Input: []byte("fixture prompt")}, Backend: control.Backend{Probe: func(context.Context) (managed.Capabilities, error) {
+		launch := control.Launch{Spec: managed.Spec{Root: root, Workspace: workspace, Timeout: time.Second, Input: []byte("fixture prompt")}, Backend: control.Backend{Probe: func(context.Context) (managed.Capabilities, error) {
 			return managed.Capabilities{Probe: true, Start: true, Events: true, Cancel: true}, nil
 		}, Start: func(ctx context.Context, r store.StageRun, _ managed.Spec) (control.Execution, error) {
 			f.started.Add(1)
@@ -122,7 +122,27 @@ func setupExecution(t *testing.T, mode string) *executionFixture {
 				close(h.done)
 			}()
 			return h, nil
-		}, Release: func(p policy.StopProof) error { return st.ReleaseReserved(p.RunID, p.Generation, p.ReportHash, true) }}}, nil
+		}, Release: func(p policy.StopProof) error { return st.ReleaseReserved(p.RunID, p.Generation, p.ReportHash, true) }}}
+		if strings.HasPrefix(mode, "restore") {
+			launch.Backend.CheckRestore = func(context.Context, store.StageRun, stageplan.ExecutionTarget, managed.Spec, store.RestoreIdentity) error {
+				if mode == "restore_bad" {
+					return control.ErrIdentity
+				}
+				if mode == "restore_revoke" {
+					s.auth.RevokeManagement()
+				}
+				return nil
+			}
+			start := launch.Backend.Start
+			launch.Backend.Restore = func(ctx context.Context, r store.StageRun, spec managed.Spec, ref store.RestoreIdentity) (control.Execution, error) {
+				if mode == "restore_no_handle" {
+					f.started.Add(1)
+					return nil, errors.New("fixture-sensitive-restore-error")
+				}
+				return start(ctx, r, spec)
+			}
+		}
+		return launch, nil
 	}
 	c, e := control.New(context.Background(), f.config)
 	if e != nil {

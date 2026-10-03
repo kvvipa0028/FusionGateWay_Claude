@@ -1,0 +1,6 @@
+=== RUN   TestControllerPinnedGrokCheckpointRestore
+    grok_native_test.go:311: actual Controller restore exactUUID/newRun/newGrant/HTTP3-total/Wait/StopProof/release/duplicate-read passed; real upstream/quota synthetic
+    grok_native_test.go:311: synthetic Controller mode=restore state=succeeded HTTP/budget=2 actualStop/release=true sourceUnchanged=true; Native/route/billing/quota proof independent
+--- PASS: TestControllerPinnedGrokCheckpointRestore (2.42s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/control	4.072s

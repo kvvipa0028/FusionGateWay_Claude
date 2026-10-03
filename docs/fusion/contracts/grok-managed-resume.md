@@ -15,3 +15,5 @@ argv 只传明确 `--resume UUID` 和新的私有 prompt-file；不用无参 res
 同一 Adapter 的 observation/owned Supervisor 防止同 run 再启动，重复低层调用拒绝，产品 receipt/API 幂等响应仍待接入。取消撤销实际 inflight HTTP 并等待 Native，只有本 Supervisor 的 StopProof 经本 Scheduler 验证才释放。失败/取消不返回成功 text、不归档成功 checkpoint；未知/interrupted 保留容量和 needs_review，持有 mapping 不改变这些状态。
 
 实际测试包括完整 Store/Archives/Manager/Adapter 重开后从已成功且已释放旧 run 重新 Prepare 并恢复准确 UUID。这不证明应用启动、产品 auth/Worker 注册或 unknown 运行的恢复；后者继续禁止自动接管。所有 Inspector/Quota/upstream 仍合成，真实账号/池/计费/Source整体稳定性/当前项目权限由后续产品服务独立落实。
+
+后续 [WP-15-RESUME-API-01](../work-items/WP-15/RESUME-API-01/summary.md) 已完成内部 Controller/Management 恢复 API 和持久 request hash 接线；普通 Resume/Continue 语义不变，产品 bootstrap/真实 Worker 与独立真实准入仍待完成。本文 RESUME-01 的私有 prepared mapping 不替代该 request receipt 或实际 stop proof。

@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/control [github.com/yetone/magpie/internal/fusion/control.test]
+internal/fusion/control/restore_test.go:22:19: f.launch.Backend.Restore undefined (type Backend has no field or method Restore)
+internal/fusion/control/restore_test.go:26:19: f.launch.Backend.CheckRestore undefined (type Backend has no field or method CheckRestore)
+internal/fusion/control/restore_test.go:34:13: c.Restore undefined (type *Controller has no field or method Restore)
+internal/fusion/control/restore_test.go:38:65: c.Restore undefined (type *Controller has no field or method Restore)
+internal/fusion/control/restore_test.go:41:12: c.Restore undefined (type *Controller has no field or method Restore)
+internal/fusion/control/restore_test.go:52:36: f.launch.Backend.Restore undefined (type Backend has no field or method Restore)
+internal/fusion/control/restore_test.go:53:36: f.launch.Backend.CheckRestore undefined (type Backend has no field or method CheckRestore)
+internal/fusion/control/restore_test.go:57:41: f.launch.Backend.CheckRestore undefined (type Backend has no field or method CheckRestore)
+internal/fusion/control/restore_test.go:59:13: c.RestoreAuthorized undefined (type *Controller has no field or method RestoreAuthorized)
+internal/fusion/control/restore_test.go:68:13: c.Restore undefined (type *Controller has no field or method Restore)
+internal/fusion/control/restore_test.go:68:13: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/control [build failed]
+FAIL

@@ -49,7 +49,7 @@ func (s *Store) CheckActive(runID string, generation int64) (StageRun, error) {
 	return result, err
 }
 func (s *Store) StartIntent(in StartRequest) (StageRun, error) {
-	if in.IdempotencyKey != "" || !opaque(in.Owner) || in.TTL <= 0 || in.TTL > time.Minute || in.ExpectedGeneration != nil && *in.ExpectedGeneration < 0 {
+	if in.IdempotencyKey != "" || in.Restore != nil || !opaque(in.Owner) || in.TTL <= 0 || in.TTL > time.Minute || in.ExpectedGeneration != nil && *in.ExpectedGeneration < 0 {
 		return StageRun{}, ErrInvalid
 	}
 	var result StageRun
@@ -90,6 +90,29 @@ func (s *Store) startIntentIn(tx *sql.Tx, in StartRequest, result *StageRun) err
 	}
 	if !admitted {
 		return ErrInvalid
+	}
+	if in.Restore != nil {
+		if in.IdempotencyKey == "" || !validRestoreIdentity(in.Restore) {
+			return ErrInvalid
+		}
+		origin, err := runIn(tx, in.Restore.OriginRunID)
+		if err != nil {
+			return err
+		}
+		oldTarget, err := json.Marshal(origin.Target)
+		if err != nil || origin.TaskID != t.ID || origin.Role != in.Role ||
+			origin.PlanRevision != in.PlanRevision || origin.Generation > t.Generation ||
+			origin.State != "succeeded" || origin.Owner != "" || !origin.LaunchConfirmed ||
+			origin.NativeSessionID == "" || string(oldTarget) != string(raw) {
+			return ErrConflict
+		}
+		var released int
+		if err := tx.QueryRow("SELECT COUNT(*) FROM reservations WHERE run_id=? AND state='released' AND stop_proof_hash!=''", origin.ID).Scan(&released); err != nil {
+			return err
+		}
+		if released != 1 {
+			return ErrConflict
+		}
 	}
 	var active int
 	if e = tx.QueryRow("SELECT COUNT(*) FROM stage_runs WHERE task_id=? AND state IN ('starting','running','cancelling','unknown')", t.ID).Scan(&active); e != nil {

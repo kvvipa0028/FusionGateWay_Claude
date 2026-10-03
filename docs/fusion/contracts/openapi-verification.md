@@ -50,10 +50,12 @@ python3 scripts/fusion/check-openapi.py \
   --samples .fusion-dev/openapi-check/samples.json
 ```
 
-预期输出：24 paths、28 operations、49 handler samples、28 covered operations、6 negative schema cases；生产注册为 false。测试失败时先保留日志和临时目录，依据具体字段/行为修正合同或实现，不能删除不匹配样本来获得成功。成功后可用 `rmdir` 删除上述空临时目录；若 Go 测试产生缓存子目录，保留或按本人清理策略处理，不宽泛删除其他临时目录。
+预期输出：25 paths、29 operations、52 handler samples、29 covered operations、8 negative schema cases；生产注册为 false。测试失败时先保留日志和临时目录，依据具体字段/行为修正合同或实现，不能删除不匹配样本来获得成功。成功后可用 `rmdir` 删除上述空临时目录；若 Go 测试产生缓存子目录，保留或按本人清理策略处理，不宽泛删除其他临时目录。
 
 原 17 路径/19 操作的历史证据见 [OPENAPI-01/summary.md](../work-items/WP-15/OPENAPI-01/summary.md)。当前默认层扩展及全量 Fusion race、CLI/GUI build、full vet 和固定 Native 合成回归证据见 [DEFAULTS-01/summary.md](../work-items/WP-15/DEFAULTS-01/summary.md)。标准校验与 fixture 样本不能证明产品 listener 或真实账号准入。
 
 最新任务控制与 Native 停止验证见 [PAUSE-API-01](../work-items/WP-15/PAUSE-API-01/summary.md)，TaskControlReply 的可选安全 Run/固定 error 及 409 不确定暂停意图样本已纳入 checker。普通 Continue 的 409 仍为 ErrorResponse，未授予 Native resume。
 
 整项任务取消扩展见 [CANCEL-API-01](../work-items/WP-15/CANCEL-API-01/summary.md)：新增 task cancel 的200/202/安全409样本及重复只读；实际原 stage cancel 仍由独立路径覆盖。当前49样本/28操作不是产品注册或真实账号准入证明。
+
+最新明确 checkpoint 恢复扩展见 [RESUME-API-01](../work-items/WP-15/RESUME-API-01/summary.md)：新增 resume 202/200/已提交不确定 409 样本和两类越权 schema 反例，Start/Resume 的 409 intent 回复补齐实际 Location/Task 条件头。当前 25 paths/29 operations/52 samples/8 negatives；产品执行注册仍 false。上述 49/28 为之前 CANCEL-API-01 的历史结果。

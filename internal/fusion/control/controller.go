@@ -38,6 +38,10 @@ type Backend struct {
 	Probe   func(context.Context) (managed.Capabilities, error)
 	Start   func(context.Context, store.StageRun, managed.Spec) (Execution, error)
 	Release func(policy.StopProof) error
+	// CheckRestore must verify the sealed checkpoint/current source before
+	// intent. Restore must repeat those checks for the fresh prepared run.
+	CheckRestore func(context.Context, store.StageRun, stageplan.ExecutionTarget, managed.Spec, store.RestoreIdentity) error
+	Restore      func(context.Context, store.StageRun, managed.Spec, store.RestoreIdentity) (Execution, error)
 }
 type ReleasingAdapter interface {
 	managed.Adapter
@@ -111,6 +115,9 @@ func New(parent context.Context, config Config) (*Controller, error) {
 // executable, credentials and Native settings never come from this request.
 // Caller authentication is required before invoking this internal service.
 func (c *Controller) Start(request context.Context, key string, in store.StartIdentity) (store.StartReceipt, error) {
+	if in.Restore != nil {
+		return store.StartReceipt{}, ErrUnsupported
+	}
 	return c.start(request, key, in, nil)
 }
 
@@ -122,6 +129,9 @@ func (c *Controller) StartAuthorized(request context.Context, key string, in sto
 	if current == nil {
 		return store.StartReceipt{}, ErrForbidden
 	}
+	if in.Restore != nil {
+		return store.StartReceipt{}, ErrUnsupported
+	}
 	return c.start(request, key, in, current)
 }
 func (c *Controller) UsesStore(st *store.Store) bool {
@@ -131,6 +141,7 @@ func (c *Controller) start(request context.Context, key string, in store.StartId
 	if c == nil || request == nil {
 		return store.StartReceipt{}, ErrUnsupported
 	}
+	in = clone(in)
 	c.mu.Lock()
 	closed := c.closed || c.lifetime.Err() != nil
 	c.mu.Unlock()
@@ -184,11 +195,35 @@ func (c *Controller) start(request context.Context, key string, in store.StartId
 	if e != nil {
 		return c.retryOrError(key, in, e)
 	}
+	var origin store.StageRun
+	if in.Restore != nil {
+		origin, e = c.config.Scheduler.Store.Run(in.Restore.OriginRunID)
+		if e != nil || origin.TaskID != task.ID || origin.Role != in.Role ||
+			origin.PlanRevision != in.PlanRevision || origin.Generation > in.Generation ||
+			origin.State != "succeeded" || origin.Owner != "" || !origin.LaunchConfirmed ||
+			origin.NativeSessionID == "" || !equal(origin.Target, target) {
+			return c.retryOrError(key, in, ErrIdentity)
+		}
+		if _, e = c.config.Scheduler.Store.Reservation(origin.ID); !errors.Is(e, store.ErrNotFound) {
+			return c.retryOrError(key, in, ErrIdentity)
+		}
+	}
 	launch, e := c.config.Resolve(request, task, in.Role, clone(target))
-	if e != nil || !validLaunch(launch, in.Role) {
+	valid := validLaunch(launch, in.Role)
+	if in.Restore != nil {
+		valid = validRestoreLaunch(launch, in.Role)
+	}
+	if e != nil || !valid {
 		return c.retryOrError(key, in, ErrUnsupported)
 	}
 	launch.Spec.Input = append([]byte(nil), launch.Spec.Input...)
+	if in.Restore != nil {
+		spec := launch.Spec
+		spec.Input = append([]byte(nil), spec.Input...)
+		if e = launch.Backend.CheckRestore(request, clone(origin), clone(target), spec, *in.Restore); e != nil {
+			return c.retryOrError(key, in, ErrIdentity)
+		}
+	}
 	probeCtx, probeCancel := context.WithTimeout(request, 5*time.Second)
 	caps, e := launch.Backend.Probe(probeCtx)
 	probeCancel()
@@ -213,7 +248,7 @@ func (c *Controller) start(request context.Context, key string, in store.StartId
 			return out, err
 		}
 	}
-	receipt, e := scheduler.PrepareOnce(request, store.StartRequest{TaskID: in.TaskID, Role: in.Role, PlanRevision: in.PlanRevision, ExpectedGeneration: &gen, IdempotencyKey: key, Owner: c.owner, TTL: time.Minute, Target: target})
+	receipt, e := scheduler.PrepareOnce(request, store.StartRequest{TaskID: in.TaskID, Role: in.Role, PlanRevision: in.PlanRevision, ExpectedGeneration: &gen, IdempotencyKey: key, Owner: c.owner, TTL: time.Minute, Target: target, Restore: in.Restore})
 	if current != nil && !current(request) && !receipt.Created {
 		return store.StartReceipt{}, ErrForbidden
 	}
@@ -233,7 +268,12 @@ func (c *Controller) start(request context.Context, key string, in store.StartId
 		c.unlaunched(job)
 		return receipt, ErrLaunch
 	}
-	h, e := launch.Backend.Start(lifetime, clone(job.run), launch.Spec)
+	var h Execution
+	if in.Restore != nil {
+		h, e = launch.Backend.Restore(lifetime, clone(job.run), launch.Spec, *in.Restore)
+	} else {
+		h, e = launch.Backend.Start(lifetime, clone(job.run), launch.Spec)
+	}
 	if h == nil {
 		c.unlaunched(job)
 		return receipt, ErrLaunch
