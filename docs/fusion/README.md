@@ -1,6 +1,6 @@
 # Fusion Gateway 开发入口
 
-本仓库以 Magpie 为基座，增加由用户指定阶段模型的工程工作流。已完成源码导入、文档归档、Go 工具链、获准的 Google OAuth 修复、WP-01 基线和 WP-02 开发隔离。GLM/Claude Code 连接诊断通过；五角色配置、strict locked、任务管理和 Runtime Adapter 尚未实现。
+已完成源码/文档导入、Go 1.26.3、OAuth 修复和 WP-01–WP-05：基线、开发隔离、离线 fixtures、五角色绑定编译、独立任务存储。GLM/Claude Code 连接诊断通过；产品 API/鉴权、strict locked 出口、Runtime Adapter 和最终 Gate 尚未完成。
 
 ## 阅读顺序
 
@@ -10,7 +10,7 @@
 4. [验收矩阵](planning/Fusion_Magpie_Fork_验收矩阵_v1.0.md)：T01–T60；当前均为 `not_run`。
 5. [源码与工具链锁](upstream-lock.json)、[基线报告](baseline/baseline-report.md)：本轮实际准备与验证证据。
 
-`planning/implementation_tasks.json` 和 `planning/acceptance_tests.json` 由本地三份 Markdown 提取，已核对编号、引用及依赖无环；它们不是原 ZIP 的恢复副本。WP-01/WP-02 为 `done`，其他包为 `planned`；最终验收仍为 `not_run`。
+`planning/implementation_tasks.json` 和 `planning/acceptance_tests.json` 由本地三份 Markdown 提取，已核对编号、引用及依赖无环；它们不是原 ZIP 的恢复副本。WP-01–WP-05 为 `done`，其他包为 `planned`；最终验收仍为 `not_run`。
 
 ## 源码与 Git
 
@@ -57,3 +57,5 @@ GLM 已确定为中国大陆 Coding Plan + API key，通过私有入口录入并
 WP-03 离线 fixtures 已完成，见 [证据](work-items/WP-03/summary.md) 与 [fixture-index](../../tests/fusion/fixtures/fixture-index.json)。五角色、strict locked、产品 Runtime 与最终 Gate 尚未完成。
 
 WP-04 role merge/freeze contract completed: [evidence](work-items/WP-04/summary.md), [contract](contracts/route-contract.md). Strict execution/admission/API gates remain pending.
+
+[WP-05 evidence](work-items/WP-05/summary.md), [state/storage contract](contracts/state-transition-contract.md).

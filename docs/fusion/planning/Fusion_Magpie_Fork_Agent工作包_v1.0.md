@@ -166,7 +166,9 @@
 
 ### WP-05 · 任务快照、事件与版本化存储
 
-**阶段：**M1　**负责人角色：**后端 Agent　**状态：**planned
+**阶段：**M1　**负责人角色：**后端 Agent　**状态：**done
+
+**Completion evidence:**`../work-items/WP-05/summary.md`.
 
 **输入/前置：**WP-04。同时读取这些前置包的合同、测试日志、阻断项与当前仓库 HEAD。
 

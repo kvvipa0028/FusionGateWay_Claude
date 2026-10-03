@@ -1,0 +1,5 @@
+--- FAIL: TestExpiredLeaseIsDurablyFencedAcrossClockRollback (0.00s)
+    store_test.go:376: expiry not durably fenced
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/store	0.640s
+FAIL

@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/store [github.com/yetone/magpie/internal/fusion/store.test]
+internal/fusion/store/store_test.go:12:33: undefined: Store
+internal/fusion/store/store_test.go:12:136: undefined: Open
+internal/fusion/store/store_test.go:13:29: undefined: Store
+internal/fusion/store/store_test.go:13:35: undefined: Task
+internal/fusion/store/store_test.go:13:82: undefined: CreateRequest
+internal/fusion/store/store_test.go:14:28: undefined: Store
+internal/fusion/store/store_test.go:14:39: undefined: Task
+internal/fusion/store/store_test.go:14:44: undefined: StageRun
+internal/fusion/store/store_test.go:14:147: undefined: StartRequest
+internal/fusion/store/store_test.go:15:177: undefined: CreateRequest
+internal/fusion/store/store_test.go:15:177: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/store [build failed]
+FAIL

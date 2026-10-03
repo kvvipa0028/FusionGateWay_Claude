@@ -89,7 +89,7 @@
       "id": "WP-05",
       "title": "任务快照、事件与版本化存储",
       "milestone": "M1",
-      "status": "planned",
+      "status": "done",
       "depends_on": [
         "WP-04"
       ],

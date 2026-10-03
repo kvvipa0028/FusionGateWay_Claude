@@ -43,8 +43,8 @@
   "documents": [
     {
       "path": "docs/fusion/README.md",
-      "sha256": "5001fc17c84f9a8fdc5a0f907b1700c69d80e9c938d6da1fe95949e3785001c7",
-      "bytes": 5090
+      "sha256": "bf8a02e57dab52dff50a35993a42ab5ef0d62a01a2f6efdc5adeffb8ed024ef6",
+      "bytes": 5167
     },
     {
       "path": "docs/fusion/baseline/artifacts.json",
@@ -78,8 +78,8 @@
     },
     {
       "path": "docs/fusion/baseline/feature-to-code-map.md",
-      "sha256": "8e496faacf9c3ca2fa155258b1933f3b4fde0ad600e72a0103c6a8b16024fd24",
-      "bytes": 2483
+      "sha256": "d5166b67191c0cc8d6b149da2ca25b384dc218759195680bfba0585b0e6661d5",
+      "bytes": 2512
     },
     {
       "path": "docs/fusion/baseline/module-integrity.log",
@@ -115,6 +115,11 @@
       "path": "docs/fusion/contracts/stage-plan.schema.json",
       "sha256": "5a0a40c74f078678ef748145e4f70c496a41903daacc2092ffb876f8759ec079",
       "bytes": 7630
+    },
+    {
+      "path": "docs/fusion/contracts/state-transition-contract.md",
+      "sha256": "6896add16c9fceb60f7a2fb78d28c587ce1cb87379547941c5dc55c1823cf486",
+      "bytes": 4356
     },
     {
       "path": "docs/fusion/decisions/ADR-001-magpie-fork.md",
@@ -183,8 +188,8 @@
     },
     {
       "path": "docs/fusion/planning/Fusion_Magpie_Fork_Agent工作包_v1.0.md",
-      "sha256": "24f85e6c094d8a2ca2ca29be1244dda04584074d8c12d3a5a9dd9fc9f0d81c55",
-      "bytes": 51213
+      "sha256": "300601617d0a5d2b356a848a7b78e21903d3914b0a71ebdc4fe24600afebb08f",
+      "bytes": 51269
     },
     {
       "path": "docs/fusion/planning/Fusion_Magpie_Fork_实施计划_v1.0.md",
@@ -203,8 +208,8 @@
     },
     {
       "path": "docs/fusion/planning/implementation_tasks.json",
-      "sha256": "9dd39e97d5ad8754628b8d6cb59a551e118fb75bf3766d968c1e2e0e2acb9e73",
-      "bytes": 17464
+      "sha256": "fcad34a35f434457bca27ef3c5a26f25ba8a379eabcc3deaf52d174b294f19ff",
+      "bytes": 17461
     },
     {
       "path": "docs/fusion/preflight-review.md",
@@ -605,6 +610,56 @@
       "path": "docs/fusion/work-items/WP-04/wp04-schema-check.json",
       "sha256": "eeea87a6ac5d010854d2baa433cb1c0d583c95327abcb9419f720d4f5da1fe85",
       "bytes": 473
+    },
+    {
+      "path": "docs/fusion/work-items/WP-05/artifacts.json",
+      "sha256": "af22853772c9484d420f5002a580108547de17c9b11d89d0f053a926effd0587",
+      "bytes": 2146
+    },
+    {
+      "path": "docs/fusion/work-items/WP-05/blockers.md",
+      "sha256": "2c1884393f8d91eeee3e6c4c0b4675daf259f4ebdc9e4eb766ec73ae73e2010f",
+      "bytes": 301
+    },
+    {
+      "path": "docs/fusion/work-items/WP-05/changed-files.txt",
+      "sha256": "e13862e224955fd6cd8db85a3e6bdff7166b32554efb984fd90c551b7972b156",
+      "bytes": 968
+    },
+    {
+      "path": "docs/fusion/work-items/WP-05/handoff.md",
+      "sha256": "abf732dd6c82732817265c1d005c24b61a2e27f166c60ad1d29e2ab57ed35c3a",
+      "bytes": 728
+    },
+    {
+      "path": "docs/fusion/work-items/WP-05/summary.md",
+      "sha256": "274b8787d502e9855a20a43cb5989f2d699ff8de4e4f7d2914c47714b3bd92c2",
+      "bytes": 889
+    },
+    {
+      "path": "docs/fusion/work-items/WP-05/test-results.json",
+      "sha256": "87b001e4c40fc80d49df793d1cb92130c4f108bbf0ade3d13af15ca6033dbe41",
+      "bytes": 1194
+    },
+    {
+      "path": "docs/fusion/work-items/WP-05/wp05-boundary-red.log",
+      "sha256": "801d3033436bb6dc9a3824debd4fa81a2eccdc7f8144a0b239b3d21e7e3a2747",
+      "bytes": 187
+    },
+    {
+      "path": "docs/fusion/work-items/WP-05/wp05-race-green.log",
+      "sha256": "8baed2f72931b035d344f8d65d6d8b72d9853f3c9f31a3a2b40476cf4a6d6736",
+      "bytes": 7358
+    },
+    {
+      "path": "docs/fusion/work-items/WP-05/wp05-red.log",
+      "sha256": "17d9fd14b4c50dedcafe3f332168cae9556850bef2a773d74d75368ca9b7ca83",
+      "bytes": 861
+    },
+    {
+      "path": "docs/fusion/work-items/WP-05/wp05-vet.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
     }
   ],
   "product_implementation_started": true,
@@ -745,7 +800,8 @@
     "WP-01",
     "WP-02",
     "WP-03",
-    "WP-04"
+    "WP-04",
+    "WP-05"
   ],
   "implementation_branch": "fusion/development",
   "development_isolation": {

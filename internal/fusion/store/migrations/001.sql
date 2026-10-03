@@ -1,0 +1,13 @@
+CREATE TABLE metadata(key TEXT PRIMARY KEY,value TEXT NOT NULL);
+CREATE TABLE tasks(id TEXT PRIMARY KEY,project_id TEXT NOT NULL,goal TEXT NOT NULL,state TEXT NOT NULL,plan_revision INTEGER NOT NULL,generation INTEGER NOT NULL DEFAULT 0,next_event_seq INTEGER NOT NULL DEFAULT 0);
+CREATE TABLE plan_revisions(task_id TEXT NOT NULL REFERENCES tasks(id),revision INTEGER NOT NULL,snapshot TEXT NOT NULL,hash TEXT NOT NULL,PRIMARY KEY(task_id,revision));
+CREATE TRIGGER immutable_plans BEFORE UPDATE ON plan_revisions BEGIN SELECT RAISE(ABORT,'immutable plan'); END;
+CREATE TABLE route_revisions(id TEXT NOT NULL,revision INTEGER NOT NULL,payload TEXT NOT NULL,hash TEXT NOT NULL,PRIMARY KEY(id,revision));
+CREATE TRIGGER immutable_routes BEFORE UPDATE ON route_revisions BEGIN SELECT RAISE(ABORT,'immutable route'); END;
+CREATE TABLE idempotency(project_id TEXT NOT NULL,key TEXT NOT NULL,payload_hash TEXT NOT NULL,task_id TEXT NOT NULL REFERENCES tasks(id),PRIMARY KEY(project_id,key));
+CREATE TABLE stage_runs(id TEXT PRIMARY KEY,task_id TEXT NOT NULL REFERENCES tasks(id),role TEXT NOT NULL,attempt INTEGER NOT NULL,generation INTEGER NOT NULL,plan_revision INTEGER NOT NULL,state TEXT NOT NULL,native_session_id TEXT NOT NULL DEFAULT '',lease_owner TEXT NOT NULL,lease_until INTEGER NOT NULL,startup_intent INTEGER NOT NULL,launch_confirmed INTEGER NOT NULL DEFAULT 0,target TEXT NOT NULL,UNIQUE(task_id,role,attempt),UNIQUE(id,task_id),FOREIGN KEY(task_id,plan_revision) REFERENCES plan_revisions(task_id,revision));
+CREATE UNIQUE INDEX one_active_attempt ON stage_runs(task_id) WHERE state IN ('starting','running','cancelling','unknown');
+CREATE TABLE events(task_id TEXT NOT NULL REFERENCES tasks(id),seq INTEGER NOT NULL,kind TEXT NOT NULL,run_id TEXT NOT NULL DEFAULT '',generation INTEGER NOT NULL,PRIMARY KEY(task_id,seq));
+CREATE TABLE evidence_refs(id TEXT PRIMARY KEY,task_id TEXT NOT NULL REFERENCES tasks(id),run_id TEXT NOT NULL,artifact_hash TEXT NOT NULL,report_hash TEXT NOT NULL,FOREIGN KEY(run_id,task_id) REFERENCES stage_runs(id,task_id));
+CREATE TRIGGER immutable_evidence BEFORE UPDATE ON evidence_refs BEGIN SELECT RAISE(ABORT,'immutable evidence'); END;
+PRAGMA user_version=1;

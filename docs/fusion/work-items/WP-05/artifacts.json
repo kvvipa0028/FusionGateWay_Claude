@@ -1,0 +1,26 @@
+{
+  "base_commit": "e3539af41ce13fc053a954c9fd019f0c3d5ba3df",
+  "source_files_sha256": {
+    "AGENTS.md": "7e567810b0e439fc83a7f4a60b7eafdd36e5d7e4d7408ba32bce65c858c63911",
+    "README.md": "fd56fc72470aeadd8bb201ed4fed8422667284c8009630d60c901e731fde5fc2",
+    "docs/fusion/README.md": "bf8a02e57dab52dff50a35993a42ab5ef0d62a01a2f6efdc5adeffb8ed024ef6",
+    "docs/fusion/baseline/feature-to-code-map.md": "d5166b67191c0cc8d6b149da2ca25b384dc218759195680bfba0585b0e6661d5",
+    "docs/fusion/contracts/state-transition-contract.md": "6896add16c9fceb60f7a2fb78d28c587ce1cb87379547941c5dc55c1823cf486",
+    "docs/fusion/planning/Fusion_Magpie_Fork_Agent\u5de5\u4f5c\u5305_v1.0.md": "300601617d0a5d2b356a848a7b78e21903d3914b0a71ebdc4fe24600afebb08f",
+    "docs/fusion/planning/implementation_tasks.json": "fcad34a35f434457bca27ef3c5a26f25ba8a379eabcc3deaf52d174b294f19ff",
+    "internal/fusion/store/lock_unix.go": "77addcba5d4ab2ae4e60bb7a1151d6ddffbc5c8a488188b623c9a34f06ddab51",
+    "internal/fusion/store/lock_windows.go": "5657b0da3f6a67b0a375c31bf88607e1cb4fff1119cb1a7f7611883d8e1bd01a",
+    "internal/fusion/store/migrations/001.sql": "091376850991f1309aee062f3b5a6c0de94a7e1c36b3b9850592d51a90d9a2fb",
+    "internal/fusion/store/runs.go": "062e28189b47b7de0a6389c5c06c6e524bc1d3db6bd5b3e62bf88af5b3720631",
+    "internal/fusion/store/store.go": "7620bb4fbd79eba196f069661e9748c203718b668f0f544d1c21c3e5b64e2fe8",
+    "internal/fusion/store/store_test.go": "f0b400510dfd32aec7a9f4c81ad8bfe80abe28e8bb8ba780c88551875490775b",
+    "internal/fusion/task/types.go": "5c725ec19c9a0faadbd58dd72d8930384534f84d2adc58a4f3f1c1072f90022d"
+  },
+  "logs_sha256": {
+    "wp05-red.log": "17d9fd14b4c50dedcafe3f332168cae9556850bef2a773d74d75368ca9b7ca83",
+    "wp05-boundary-red.log": "801d3033436bb6dc9a3824debd4fa81a2eccdc7f8144a0b239b3d21e7e3a2747",
+    "wp05-race-green.log": "8baed2f72931b035d344f8d65d6d8b72d9853f3c9f31a3a2b40476cf4a6d6736",
+    "wp05-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "persistent_artifacts": "temporary fixture databases removed after tests; no real user/task database created"
+}

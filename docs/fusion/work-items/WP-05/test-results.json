@@ -1,0 +1,49 @@
+{
+  "checks": [
+    {
+      "command": [
+        "go",
+        "test",
+        "-race",
+        "-v",
+        "-count=1",
+        "-mod=readonly",
+        "-tags",
+        "fusion,nogui",
+        "./internal/fusion/..."
+      ],
+      "exit_code": 0,
+      "top_level_tests_passed": 47,
+      "store_top_level_tests_passed": 15,
+      "skipped_parent_helper": 1,
+      "log": "wp05-race-green.log"
+    },
+    {
+      "command": [
+        "go",
+        "vet",
+        "-mod=readonly",
+        "-tags",
+        "fusion,nogui",
+        "./internal/fusion/..."
+      ],
+      "exit_code": 0,
+      "log": "wp05-vet.log"
+    }
+  ],
+  "red_evidence": [
+    "wp05-red.log",
+    "wp05-boundary-red.log"
+  ],
+  "native_fault_injection": "isolated Go test child SIGKILL after committed start and synthetic file write; reopened unknown and no attempt replay",
+  "environment": "Go1.26.3, macOS/arm64, temporary HOME/XDG, no auth, downloads disabled",
+  "not_verified": [
+    "network/NAS/Windows storage",
+    "real Runtime stop",
+    "real model/session admission",
+    "authenticated APIs",
+    "task EvidenceGate acceptance",
+    "backup restore",
+    "T13/T16/T33/T34/T36/T58 final product E2E"
+  ]
+}

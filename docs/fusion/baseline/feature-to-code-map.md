@@ -10,7 +10,7 @@
 | 迁移后的订阅 | `internal/provider/migrate*.go` 的 mover、`Moved()`、`KeepRetiringMoved()`；`internal/plugin/` | WP-08、WP-12–WP-14、WP-17：核查实际内置/插件/官方 Runtime 路径，记录版本；只测试旧内置实现不能证明插件请求可控 |
 | Jev 分类调用 | `internal/gateway/classify.go`、`internal/gateway/decide.go` 的 `askJev()` | WP-28–WP-29：可选旁路，保留用户 locked；本轮未调用 Jev |
 | 官方 Runtime 与诊断 | Codex `app-server`、Grok CLI、Claude Code 作为仓库外实际执行程序；`scripts/fusion/glm-claude-probe.py` 已完成 Claude Code/GLM 连接诊断 | WP-08、WP-11–WP-14：Adapter 仍需实现并验证；诊断不经过旧 Grok 订阅内置/社区插件，也不代表其认证成功 |
-| 阶段配置/任务/证据 | `internal/fusion/isolation` 已实现开发隔离；阶段配置/任务/证据模块尚未实现 | WP-04 以后按合同实施；不要把原版路由日志当作完整任务或验收记录 |
+| 阶段配置/任务/证据 | `internal/fusion/isolation`、`stageplan`、`task`、`store` 已实现隔离、绑定编译与存储；EvidenceGate 未实现 | WP-04 以后按合同实施；不要把原版路由日志当作完整任务或验收记录 |
 
 本轮未改动上述 Go 实现，也没有启用真实账号。原版能够编译及相关测试通过，只证明当前导入基线；不证明 Fusion 严格锁定、账号准入或任务闭环已完成。
 
