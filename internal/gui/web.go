@@ -15,6 +15,7 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/yetone/magpie/internal/fusion/isolation"
 	"github.com/yetone/magpie/internal/gateway"
 	"github.com/yetone/magpie/internal/update"
 )
@@ -66,6 +67,9 @@ const webRunKey = "MAGPIE_WEB_RUNKEY"
 // send with a POST (every change is one), so neither a page elsewhere nor
 // anyone else on the network reaches the settings and keys behind it.
 func StartWeb(addr, version string) (*Web, error) {
+	if isolation.Development {
+		return nil, isolation.ErrDisabled
+	}
 	Version = version
 	key, fixed, err := webKey()
 	if err != nil {

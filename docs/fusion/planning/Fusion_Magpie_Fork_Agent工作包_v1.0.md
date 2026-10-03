@@ -194,7 +194,9 @@
 
 ### WP-06 · 强制入口鉴权与阶段调用身份
 
-**阶段：**M1　**负责人角色：**安全 Agent　**状态：**planned
+**阶段：**M1　**负责人角色：**安全 Agent　**状态：**done
+
+**Completion evidence:**`../work-items/WP-06/summary.md`.
 
 **输入/前置：**WP-02, WP-04, WP-05。同时读取这些前置包的合同、测试日志、阻断项与当前仓库 HEAD。
 

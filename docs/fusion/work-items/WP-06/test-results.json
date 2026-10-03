@@ -1,0 +1,49 @@
+{
+  "checks": [
+    {
+      "command": "go test -race -v -count=1 -mod=readonly -tags fusion,nogui ./internal/fusion/...",
+      "exit_code": 0,
+      "top_level_tests_passed": 54,
+      "policy_tests_passed": 7,
+      "parent_helper_skips": 1,
+      "log": "wp06-race-green.log"
+    },
+    {
+      "command": "sandbox-exec deny-network-outbound; go test -tags fusion ./internal/gui ./internal/gateway -run TestFusionLegacy",
+      "exit_code": 0,
+      "log": "wp06-ingress-green.log"
+    },
+    {
+      "command": "go test -tags fusion ./internal/gateway -run TestFusionLegacyIngressDoesNotTrustLoopback",
+      "exit_code": 0,
+      "log": "wp06-websocket-green.log"
+    },
+    {
+      "command": "go test -json ./internal/gui ./internal/gateway ./internal/access (untagged)",
+      "exit_code": 0,
+      "passed": 1744,
+      "skipped": 16,
+      "log": "wp06-original-regression.log"
+    },
+    {
+      "command": "python3 scripts/fusion/build-dev.py",
+      "exit_code": 0,
+      "report": "build-results.json"
+    }
+  ],
+  "red_evidence": [
+    "wp06-ingress-red.log",
+    "wp06-policy-red.log",
+    "wp06-gui-red.log",
+    "wp06-scope-red.log",
+    "wp06-management-red.log",
+    "wp06-header-red.log"
+  ],
+  "environment": "Go1.26.3 macOS/arm64, temporary HOME/XDG, no provider auth",
+  "not_verified": [
+    "authenticated task API/UI",
+    "strict dispatch",
+    "real Runtime admission and stop",
+    "all final T families"
+  ]
+}

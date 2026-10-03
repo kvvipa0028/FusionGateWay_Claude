@@ -1,0 +1,4 @@
+# github.com/yetone/magpie/internal/fusion/policy [github.com/yetone/magpie/internal/fusion/policy.test]
+internal/fusion/policy/auth_store_test.go:18:44: undefined: StoreValidator
+FAIL	github.com/yetone/magpie/internal/fusion/policy [build failed]
+FAIL

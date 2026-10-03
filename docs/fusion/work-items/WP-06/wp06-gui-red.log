@@ -1,0 +1,52 @@
+# github.com/yetone/magpie/internal/gui [github.com/yetone/magpie/internal/gui.test]
+internal/gui/trayimage_darwin.go:105:67: warning: implicit conversion from enumeration type 'enum CGImageAlphaInfo' to different enumeration type 'CGBitmapInfo' (aka 'enum CGBitmapInfo') [-Wimplicit-enum-enum-cast]
+# github.com/yetone/magpie/internal/gui.test
+ld: warning: ignoring duplicate libraries: '-lobjc'
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-gui-cwdpzq10/go-link-3600714137/go.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-gui-cwdpzq10/go-link-3600714137/000000.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-gui-cwdpzq10/go-link-3600714137/000001.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-gui-cwdpzq10/go-link-3600714137/000002.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-gui-cwdpzq10/go-link-3600714137/000003.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-gui-cwdpzq10/go-link-3600714137/000004.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-gui-cwdpzq10/go-link-3600714137/000031.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-gui-cwdpzq10/go-link-3600714137/000032.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-gui-cwdpzq10/go-link-3600714137/000033.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-gui-cwdpzq10/go-link-3600714137/000034.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-gui-cwdpzq10/go-link-3600714137/000035.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-gui-cwdpzq10/go-link-3600714137/000036.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-gui-cwdpzq10/go-link-3600714137/000037.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-gui-cwdpzq10/go-link-3600714137/000038.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-gui-cwdpzq10/go-link-3600714137/000039.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-gui-cwdpzq10/go-link-3600714137/000040.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-gui-cwdpzq10/go-link-3600714137/000041.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-gui-cwdpzq10/go-link-3600714137/000042.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-gui-cwdpzq10/go-link-3600714137/000043.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-gui-cwdpzq10/go-link-3600714137/000044.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-gui-cwdpzq10/go-link-3600714137/000045.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-gui-cwdpzq10/go-link-3600714137/000046.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-gui-cwdpzq10/go-link-3600714137/000047.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-gui-cwdpzq10/go-link-3600714137/000048.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-gui-cwdpzq10/go-link-3600714137/000049.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-gui-cwdpzq10/go-link-3600714137/000050.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+=== RUN   TestFusionNativeAndGUIIngressDoesNotTrustLoopback
+    fusion_auth_test.go:9: native/GUI / status=200
+    fusion_auth_test.go:9: native/GUI /boot.js status=200
+    fusion_auth_test.go:9: native/GUI /api/state status=200
+    fusion_auth_test.go:9: native/GUI /api/settings status=200
+    fusion_auth_test.go:9: native/GUI /api/set status=404
+    fusion_auth_test.go:9: native/GUI /api/sync status=404
+    fusion_auth_test.go:9: native/GUI /api/providers status=200
+    fusion_auth_test.go:9: native/GUI /api/agents/cli status=200
+    fusion_auth_test.go:9: native/GUI /api/window/quit status=404
+    fusion_auth_test.go:9: native/GUI /api/caller-keys status=200
+    fusion_auth_test.go:9: native/GUI /api/session/fixture status=404
+    fusion_auth_test.go:9: native/GUI /api/backup status=404
+    fusion_auth_test.go:9: native/GUI /api/fusion/tasks/fixture/events status=404
+--- FAIL: TestFusionNativeAndGUIIngressDoesNotTrustLoopback (0.14s)
+=== RUN   TestFusionOldWebEntryIsRefusedBeforeListeningOrQueryKey
+2026/10/03 13:03:24 catalog: Get "https://models.dev/api.json": dial tcp: lookup models.dev: no such host
+    fusion_auth_test.go:13: old query-key web listener started
+--- FAIL: TestFusionOldWebEntryIsRefusedBeforeListeningOrQueryKey (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/gui	0.827s
+FAIL

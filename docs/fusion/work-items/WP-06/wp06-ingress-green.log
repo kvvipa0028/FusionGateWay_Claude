@@ -1,0 +1,40 @@
+# github.com/yetone/magpie/internal/gui [github.com/yetone/magpie/internal/gui.test]
+internal/gui/trayimage_darwin.go:105:67: warning: implicit conversion from enumeration type 'enum CGImageAlphaInfo' to different enumeration type 'CGBitmapInfo' (aka 'enum CGBitmapInfo') [-Wimplicit-enum-enum-cast]
+# github.com/yetone/magpie/internal/gui.test
+ld: warning: ignoring duplicate libraries: '-lobjc'
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-verify-a08pwc_p/go-link-260729558/go.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-verify-a08pwc_p/go-link-260729558/000000.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-verify-a08pwc_p/go-link-260729558/000001.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-verify-a08pwc_p/go-link-260729558/000002.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-verify-a08pwc_p/go-link-260729558/000003.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-verify-a08pwc_p/go-link-260729558/000004.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-verify-a08pwc_p/go-link-260729558/000031.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-verify-a08pwc_p/go-link-260729558/000032.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-verify-a08pwc_p/go-link-260729558/000033.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-verify-a08pwc_p/go-link-260729558/000034.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-verify-a08pwc_p/go-link-260729558/000035.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-verify-a08pwc_p/go-link-260729558/000036.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-verify-a08pwc_p/go-link-260729558/000037.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-verify-a08pwc_p/go-link-260729558/000038.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-verify-a08pwc_p/go-link-260729558/000039.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-verify-a08pwc_p/go-link-260729558/000040.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-verify-a08pwc_p/go-link-260729558/000041.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-verify-a08pwc_p/go-link-260729558/000042.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-verify-a08pwc_p/go-link-260729558/000043.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-verify-a08pwc_p/go-link-260729558/000044.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-verify-a08pwc_p/go-link-260729558/000045.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-verify-a08pwc_p/go-link-260729558/000046.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-verify-a08pwc_p/go-link-260729558/000047.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-verify-a08pwc_p/go-link-260729558/000048.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-verify-a08pwc_p/go-link-260729558/000049.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+ld: warning: object file (/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-wp06-verify-a08pwc_p/go-link-260729558/000050.o) was built for newer 'macOS' version (27.0) than being linked (11.0)
+=== RUN   TestFusionNativeAndGUIIngressDoesNotTrustLoopback
+--- PASS: TestFusionNativeAndGUIIngressDoesNotTrustLoopback (0.00s)
+=== RUN   TestFusionOldWebEntryIsRefusedBeforeListeningOrQueryKey
+--- PASS: TestFusionOldWebEntryIsRefusedBeforeListeningOrQueryKey (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/gui	0.797s
+=== RUN   TestFusionLegacyIngressDoesNotTrustLoopback
+--- PASS: TestFusionLegacyIngressDoesNotTrustLoopback (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/gateway	0.646s

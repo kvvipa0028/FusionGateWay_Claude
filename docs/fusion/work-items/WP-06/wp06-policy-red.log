@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/policy [github.com/yetone/magpie/internal/fusion/policy.test]
+internal/fusion/policy/auth_test.go:10:21: undefined: Claims
+internal/fusion/policy/auth_test.go:10:181: undefined: ModelAudience
+internal/fusion/policy/auth_test.go:12:17: undefined: NewManager
+internal/fusion/policy/auth_test.go:12:63: undefined: Claims
+internal/fusion/policy/auth_test.go:14:28: undefined: Claims
+internal/fusion/policy/auth_test.go:14: undefined: EventsAudience
+internal/fusion/policy/auth_test.go:18:9: undefined: NewManager
+internal/fusion/policy/auth_test.go:18:53: undefined: Claims
+internal/fusion/policy/auth_test.go:21:5: undefined: NewManager
+internal/fusion/policy/auth_test.go:21:51: undefined: Claims
+internal/fusion/policy/auth_test.go:21:51: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/policy [build failed]
+FAIL

@@ -9,6 +9,7 @@ import (
 
 	"github.com/yetone/magpie/internal/agent"
 	"github.com/yetone/magpie/internal/catalog"
+	"github.com/yetone/magpie/internal/fusion/isolation"
 	"github.com/yetone/magpie/internal/gateway"
 	"github.com/yetone/magpie/internal/provider"
 	"github.com/yetone/magpie/internal/update"
@@ -39,6 +40,9 @@ func stopServing() {
 func startBackend() (gw *gateway.Server) {
 	gateway.Window = true // the routing this process serves is shown on its page
 	gw = serveGateway()
+	if isolation.Development {
+		return gw
+	}
 	go watchGateway()
 	// Model lists are fetched, never compiled in: whatever the agents can see
 	// comes from the models.dev catalog plus each vendor's own /models answer.

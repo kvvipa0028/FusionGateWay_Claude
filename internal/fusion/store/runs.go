@@ -33,6 +33,21 @@ func (s *Store) Run(runID string) (StageRun, error) {
 	}
 	return runIn(s.db, runID)
 }
+
+// CheckActive also durably fences an observed expiry. The owner is resolved
+// from server state, never from a client-declared identity header.
+func (s *Store) CheckActive(runID string, generation int64) (StageRun, error) {
+	var result StageRun
+	err := s.transaction(func(tx *sql.Tx) error {
+		r, err := runIn(tx, runID)
+		if err != nil {
+			return err
+		}
+		result, err = s.fenced(tx, runID, generation, r.Owner)
+		return err
+	})
+	return result, err
+}
 func (s *Store) StartIntent(in StartRequest) (StageRun, error) {
 	if !opaque(in.Owner) || in.TTL <= 0 || in.TTL > time.Minute {
 		return StageRun{}, ErrInvalid

@@ -1,0 +1,5 @@
+--- FAIL: TestStageDoesNotForwardNoncanonicalAuthorityHeaders (0.00s)
+    auth_test.go:172: noncanonical authority header leaked
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/policy	0.553s
+FAIL

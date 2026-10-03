@@ -1,0 +1,4 @@
+=== RUN   TestFusionLegacyIngressDoesNotTrustLoopback
+--- PASS: TestFusionLegacyIngressDoesNotTrustLoopback (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/gateway	0.654s

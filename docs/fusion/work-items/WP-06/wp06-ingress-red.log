@@ -1,0 +1,27 @@
+=== RUN   TestFusionLegacyIngressDoesNotTrustLoopback
+    fusion_auth_test.go:16: GET / unauthenticated status=200
+    fusion_auth_test.go:16: GET /v1/models unauthenticated status=200
+    fusion_auth_test.go:16: GET /models unauthenticated status=200
+    fusion_auth_test.go:16: GET /api/hello unauthenticated status=200
+    fusion_auth_test.go:16: GET /v1/magpie/quotas unauthenticated status=200
+    fusion_auth_test.go:16: GET /v1/magpie/route unauthenticated status=400
+    fusion_auth_test.go:16: GET /v1/magpie/concurrency unauthenticated status=200
+    fusion_auth_test.go:16: POST /v1/chat/completions unauthenticated status=404
+    fusion_auth_test.go:16: POST /chat/completions unauthenticated status=404
+    fusion_auth_test.go:16: POST /v1/responses unauthenticated status=404
+    fusion_auth_test.go:16: POST /responses unauthenticated status=404
+    fusion_auth_test.go:16: POST /v1/messages unauthenticated status=404
+    fusion_auth_test.go:16: POST /messages unauthenticated status=404
+    fusion_auth_test.go:16: POST /v1/systemone unauthenticated status=404
+    fusion_auth_test.go:16: POST /v1/messages/count_tokens unauthenticated status=200
+    fusion_auth_test.go:16: POST /v1/images/generations unauthenticated status=400
+    fusion_auth_test.go:16: POST /images/edits unauthenticated status=400
+    fusion_auth_test.go:16: GET /v1/videos unauthenticated status=404
+    fusion_auth_test.go:16: GET /videos/fixture/content unauthenticated status=404
+    fusion_auth_test.go:16: POST /_magpie/claude-mcp/fixture unauthenticated status=404
+    fusion_auth_test.go:16: POST /v1beta/models/fixture:generateContent unauthenticated status=404
+    fusion_auth_test.go:16: GET /v1/models/fixture unauthenticated status=404
+--- FAIL: TestFusionLegacyIngressDoesNotTrustLoopback (0.29s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/gateway	0.969s
+FAIL

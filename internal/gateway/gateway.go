@@ -26,6 +26,7 @@ import (
 	"github.com/tidwall/gjson"
 
 	"github.com/yetone/magpie/internal/fusion/isolation"
+	"github.com/yetone/magpie/internal/fusion/policy"
 	"github.com/yetone/magpie/internal/netproxy"
 	"github.com/yetone/magpie/internal/plugin"
 	"github.com/yetone/magpie/internal/provider"
@@ -401,6 +402,9 @@ func (s *Server) ListenAndServe(ctx context.Context) error {
 
 // Handler routes the client APIs.
 func (s *Server) Handler() http.Handler {
+	if isolation.Development {
+		return policy.DisabledIngress()
+	}
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /{$}", s.info)
 	mux.HandleFunc("GET /v1/models", s.models)

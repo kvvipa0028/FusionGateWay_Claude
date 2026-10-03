@@ -109,7 +109,7 @@
       "id": "WP-06",
       "title": "强制入口鉴权与阶段调用身份",
       "milestone": "M1",
-      "status": "planned",
+      "status": "done",
       "depends_on": [
         "WP-02",
         "WP-04",

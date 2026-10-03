@@ -116,6 +116,9 @@ func (h *host) MainShown() bool { return h.main != nil && h.main.IsVisible() }
 
 // Import opens the window on an import link, for the user to confirm.
 func (h *host) Import(link string) {
+	if isolation.Development {
+		return
+	}
 	id := stash(link)
 	h.whenReady(func() {
 		h.panel.Hide()
@@ -244,6 +247,9 @@ const panelStart = 520
 // showMain opens the window immediately; otherwise only the tray icon appears.
 // link is a magpie:// link the app was started with, to confirm and import.
 func Run(version string, showMain bool, link string) error {
+	if isolation.Development && (link != "" || devRole() != "") {
+		return isolation.ErrDisabled
+	}
 	Version = version
 	// `make dev` runs the backend on its own, so a Go change restarts only
 	// that, behind windows that stay up.
@@ -278,7 +284,9 @@ func Run(version string, showMain bool, link string) error {
 	// the app has started (applyZoom)
 	h.textSize.Store(int64(settings.Load().TextSize))
 	zoom := h.zoom()
-	go stats.Run(version, "app")
+	if !isolation.Development {
+		go stats.Run(version, "app")
+	}
 	handler := devShell(h)
 	if handler == nil {
 		handler = Handler(h, startBackend())

@@ -1,0 +1,781 @@
+{
+  "scope": "legacy GUI/gateway literal registrations; dynamic prefix entries documented separately",
+  "fusion_enforcement": "Handler early DisabledIngress before mux registration; unknown paths also denied",
+  "registrations": [
+    {
+      "path_pattern": "GET /api/agent-models/{id}",
+      "source": "internal/gui/agent_models.go",
+      "line": 139
+    },
+    {
+      "path_pattern": "POST /api/agent-models/{id}",
+      "source": "internal/gui/agent_models.go",
+      "line": 149
+    },
+    {
+      "path_pattern": "/",
+      "source": "internal/gui/api.go",
+      "line": 438
+    },
+    {
+      "path_pattern": "GET /boot.js",
+      "source": "internal/gui/api.go",
+      "line": 442
+    },
+    {
+      "path_pattern": "GET /api/omarchy",
+      "source": "internal/gui/api.go",
+      "line": 458
+    },
+    {
+      "path_pattern": "GET /api/state",
+      "source": "internal/gui/api.go",
+      "line": 466
+    },
+    {
+      "path_pattern": "POST /api/set",
+      "source": "internal/gui/api.go",
+      "line": 473
+    },
+    {
+      "path_pattern": "GET /api/drift",
+      "source": "internal/gui/api.go",
+      "line": 503
+    },
+    {
+      "path_pattern": "GET /api/agents/cli",
+      "source": "internal/gui/api.go",
+      "line": 515
+    },
+    {
+      "path_pattern": "POST /api/agents/cli/{id}",
+      "source": "internal/gui/api.go",
+      "line": 521
+    },
+    {
+      "path_pattern": "POST /api/agents/{action}/{id}",
+      "source": "internal/gui/api.go",
+      "line": 534
+    },
+    {
+      "path_pattern": "POST /api/profile/{action}",
+      "source": "internal/gui/api.go",
+      "line": 559
+    },
+    {
+      "path_pattern": "POST /api/sync",
+      "source": "internal/gui/api.go",
+      "line": 599
+    },
+    {
+      "path_pattern": "GET /api/settings",
+      "source": "internal/gui/api.go",
+      "line": 626
+    },
+    {
+      "path_pattern": "POST /api/settings",
+      "source": "internal/gui/api.go",
+      "line": 630
+    },
+    {
+      "path_pattern": "POST /api/settings/quota-left",
+      "source": "internal/gui/api.go",
+      "line": 711
+    },
+    {
+      "path_pattern": "POST /api/settings/update-skip",
+      "source": "internal/gui/api.go",
+      "line": 731
+    },
+    {
+      "path_pattern": "POST /api/settings/plain-names",
+      "source": "internal/gui/api.go",
+      "line": 749
+    },
+    {
+      "path_pattern": "POST /api/settings/codex-auto-reset",
+      "source": "internal/gui/api.go",
+      "line": 772
+    },
+    {
+      "path_pattern": "POST /api/settings/text-size",
+      "source": "internal/gui/api.go",
+      "line": 794
+    },
+    {
+      "path_pattern": "POST /api/agents/arrange",
+      "source": "internal/gui/api.go",
+      "line": 812
+    },
+    {
+      "path_pattern": "POST /api/settings/login",
+      "source": "internal/gui/api.go",
+      "line": 826
+    },
+    {
+      "path_pattern": "POST /api/settings/lan",
+      "source": "internal/gui/api.go",
+      "line": 840
+    },
+    {
+      "path_pattern": "POST /api/settings/redact-rules",
+      "source": "internal/gui/api.go",
+      "line": 860
+    },
+    {
+      "path_pattern": "POST /api/settings/github-token",
+      "source": "internal/gui/api.go",
+      "line": 876
+    },
+    {
+      "path_pattern": "POST /api/settings/search-api",
+      "source": "internal/gui/api.go",
+      "line": 898
+    },
+    {
+      "path_pattern": "POST /api/settings/reveal",
+      "source": "internal/gui/api.go",
+      "line": 920
+    },
+    {
+      "path_pattern": "POST /api/window/{action}",
+      "source": "internal/gui/api.go",
+      "line": 927
+    },
+    {
+      "path_pattern": "POST /api/settings/archive",
+      "source": "internal/gui/archive.go",
+      "line": 94
+    },
+    {
+      "path_pattern": "GET /api/archive",
+      "source": "internal/gui/archive.go",
+      "line": 112
+    },
+    {
+      "path_pattern": "GET /api/archive/file",
+      "source": "internal/gui/archive.go",
+      "line": 143
+    },
+    {
+      "path_pattern": "POST /api/archive/export",
+      "source": "internal/gui/archive.go",
+      "line": 158
+    },
+    {
+      "path_pattern": "POST /api/backup/export",
+      "source": "internal/gui/backup.go",
+      "line": 23
+    },
+    {
+      "path_pattern": "POST /api/backup/import",
+      "source": "internal/gui/backup.go",
+      "line": 62
+    },
+    {
+      "path_pattern": "GET /api/davsync",
+      "source": "internal/gui/backup.go",
+      "line": 94
+    },
+    {
+      "path_pattern": "POST /api/davsync/{action}",
+      "source": "internal/gui/backup.go",
+      "line": 97
+    },
+    {
+      "path_pattern": "GET /api/caller-keys",
+      "source": "internal/gui/caller_keys.go",
+      "line": 11
+    },
+    {
+      "path_pattern": "POST /api/caller-keys/{action}",
+      "source": "internal/gui/caller_keys.go",
+      "line": 21
+    },
+    {
+      "path_pattern": "GET /api/dev/wait",
+      "source": "internal/gui/dev_on.go",
+      "line": 80
+    },
+    {
+      "path_pattern": "POST /api/dev/import",
+      "source": "internal/gui/dev_on.go",
+      "line": 90
+    },
+    {
+      "path_pattern": "GET /dev.js",
+      "source": "internal/gui/dev_on.go",
+      "line": 93
+    },
+    {
+      "path_pattern": "POST /{op}",
+      "source": "internal/gui/dev_on.go",
+      "line": 272
+    },
+    {
+      "path_pattern": "GET /api/groups",
+      "source": "internal/gui/groups.go",
+      "line": 236
+    },
+    {
+      "path_pattern": "POST /api/groups/{action}",
+      "source": "internal/gui/groups.go",
+      "line": 239
+    },
+    {
+      "path_pattern": "GET /api/importapps",
+      "source": "internal/gui/importapps.go",
+      "line": 15
+    },
+    {
+      "path_pattern": "POST /api/importapps",
+      "source": "internal/gui/importapps.go",
+      "line": 25
+    },
+    {
+      "path_pattern": "GET /api/import/{id}",
+      "source": "internal/gui/importlink.go",
+      "line": 59
+    },
+    {
+      "path_pattern": "POST /api/import/icon",
+      "source": "internal/gui/importlink.go",
+      "line": 78
+    },
+    {
+      "path_pattern": "GET /api/library",
+      "source": "internal/gui/library.go",
+      "line": 86
+    },
+    {
+      "path_pattern": "GET /api/library/skill",
+      "source": "internal/gui/library.go",
+      "line": 94
+    },
+    {
+      "path_pattern": "GET /api/library/market/servers",
+      "source": "internal/gui/library.go",
+      "line": 104
+    },
+    {
+      "path_pattern": "GET /api/library/market/skills",
+      "source": "internal/gui/library.go",
+      "line": 108
+    },
+    {
+      "path_pattern": "POST /api/library/market/about",
+      "source": "internal/gui/library.go",
+      "line": 112
+    },
+    {
+      "path_pattern": "GET /api/library/icon",
+      "source": "internal/gui/library.go",
+      "line": 123
+    },
+    {
+      "path_pattern": "POST /api/library/skills/probe",
+      "source": "internal/gui/library.go",
+      "line": 134
+    },
+    {
+      "path_pattern": "POST /api/library/skills/check",
+      "source": "internal/gui/library.go",
+      "line": 149
+    },
+    {
+      "path_pattern": "GET /api/library/rtk",
+      "source": "internal/gui/library.go",
+      "line": 163
+    },
+    {
+      "path_pattern": "POST /api/library/rtk",
+      "source": "internal/gui/library.go",
+      "line": 177
+    },
+    {
+      "path_pattern": "POST /api/library/rtk/upgrade",
+      "source": "internal/gui/library.go",
+      "line": 193
+    },
+    {
+      "path_pattern": "POST /api/library/rtk/install",
+      "source": "internal/gui/library.go",
+      "line": 201
+    },
+    {
+      "path_pattern": "POST /api/library/projects/choose",
+      "source": "internal/gui/library.go",
+      "line": 210
+    },
+    {
+      "path_pattern": "POST /api/library/reveal",
+      "source": "internal/gui/library.go",
+      "line": 218
+    },
+    {
+      "path_pattern": "POST /api/library/{what}/{action}",
+      "source": "internal/gui/library.go",
+      "line": 253
+    },
+    {
+      "path_pattern": "GET /api/omarchy/widget",
+      "source": "internal/gui/omarchy.go",
+      "line": 34
+    },
+    {
+      "path_pattern": "POST /api/omarchy/widget",
+      "source": "internal/gui/omarchy.go",
+      "line": 37
+    },
+    {
+      "path_pattern": "GET /api/plugins/updates",
+      "source": "internal/gui/plugins.go",
+      "line": 223
+    },
+    {
+      "path_pattern": "GET /api/plugins/listings",
+      "source": "internal/gui/plugins.go",
+      "line": 228
+    },
+    {
+      "path_pattern": "GET /api/plugins/npm",
+      "source": "internal/gui/plugins.go",
+      "line": 231
+    },
+    {
+      "path_pattern": "GET /api/plugins/market",
+      "source": "internal/gui/plugins.go",
+      "line": 241
+    },
+    {
+      "path_pattern": "GET /api/plugins/search",
+      "source": "internal/gui/plugins.go",
+      "line": 246
+    },
+    {
+      "path_pattern": "GET /api/plugins/page",
+      "source": "internal/gui/plugins.go",
+      "line": 254
+    },
+    {
+      "path_pattern": "GET /api/plugins",
+      "source": "internal/gui/plugins.go",
+      "line": 262
+    },
+    {
+      "path_pattern": "POST /api/plugins/choose",
+      "source": "internal/gui/plugins.go",
+      "line": 269
+    },
+    {
+      "path_pattern": "POST /api/plugins/check",
+      "source": "internal/gui/plugins.go",
+      "line": 279
+    },
+    {
+      "path_pattern": "POST /api/plugins/{op}",
+      "source": "internal/gui/plugins.go",
+      "line": 286
+    },
+    {
+      "path_pattern": "POST /api/plugin-signin/prompt",
+      "source": "internal/gui/plugins.go",
+      "line": 328
+    },
+    {
+      "path_pattern": "POST /api/plugin-signin",
+      "source": "internal/gui/plugins.go",
+      "line": 364
+    },
+    {
+      "path_pattern": "GET /api/providers",
+      "source": "internal/gui/providers.go",
+      "line": 542
+    },
+    {
+      "path_pattern": "POST /api/providers/arrange",
+      "source": "internal/gui/providers.go",
+      "line": 552
+    },
+    {
+      "path_pattern": "POST /api/icons",
+      "source": "internal/gui/providers.go",
+      "line": 569
+    },
+    {
+      "path_pattern": "POST /api/icons/favicon",
+      "source": "internal/gui/providers.go",
+      "line": 594
+    },
+    {
+      "path_pattern": "GET /api/icons/{name}",
+      "source": "internal/gui/providers.go",
+      "line": 607
+    },
+    {
+      "path_pattern": "POST /api/provider/{action}",
+      "source": "internal/gui/providers.go",
+      "line": 618
+    },
+    {
+      "path_pattern": "GET /api/login/usage",
+      "source": "internal/gui/providers.go",
+      "line": 1025
+    },
+    {
+      "path_pattern": "POST /api/login/{action}",
+      "source": "internal/gui/providers.go",
+      "line": 1032
+    },
+    {
+      "path_pattern": "POST /api/codex/daemon/{action}",
+      "source": "internal/gui/providers.go",
+      "line": 1066
+    },
+    {
+      "path_pattern": "POST /api/keys/{action}",
+      "source": "internal/gui/providers.go",
+      "line": 1084
+    },
+    {
+      "path_pattern": "POST /api/signin",
+      "source": "internal/gui/providers.go",
+      "line": 1134
+    },
+    {
+      "path_pattern": "GET /api/signin/{id}",
+      "source": "internal/gui/providers.go",
+      "line": 1152
+    },
+    {
+      "path_pattern": "POST /api/signin/{id}/cancel",
+      "source": "internal/gui/providers.go",
+      "line": 1160
+    },
+    {
+      "path_pattern": "POST /api/signin/{id}/callback",
+      "source": "internal/gui/providers.go",
+      "line": 1164
+    },
+    {
+      "path_pattern": "POST /api/signin/import",
+      "source": "internal/gui/providers.go",
+      "line": 1180
+    },
+    {
+      "path_pattern": "POST /api/stepfun/{site}/session",
+      "source": "internal/gui/providers.go",
+      "line": 1215
+    },
+    {
+      "path_pattern": "POST /api/stepfun/{site}/signout",
+      "source": "internal/gui/providers.go",
+      "line": 1234
+    },
+    {
+      "path_pattern": "POST /api/copy",
+      "source": "internal/gui/providers.go",
+      "line": 1243
+    },
+    {
+      "path_pattern": "POST /api/open",
+      "source": "internal/gui/providers.go",
+      "line": 1252
+    },
+    {
+      "path_pattern": "GET /api/sessions",
+      "source": "internal/gui/sessions.go",
+      "line": 42
+    },
+    {
+      "path_pattern": "GET /api/sessions/stats",
+      "source": "internal/gui/sessions.go",
+      "line": 74
+    },
+    {
+      "path_pattern": "GET /api/sessions/overview",
+      "source": "internal/gui/sessions.go",
+      "line": 98
+    },
+    {
+      "path_pattern": "GET /api/sessions/progress",
+      "source": "internal/gui/sessions.go",
+      "line": 105
+    },
+    {
+      "path_pattern": "GET /api/sessions/one",
+      "source": "internal/gui/sessions.go",
+      "line": 110
+    },
+    {
+      "path_pattern": "POST /api/sessions/terminal",
+      "source": "internal/gui/sessions.go",
+      "line": 134
+    },
+    {
+      "path_pattern": "GET /api/sessions/manage",
+      "source": "internal/gui/sessions_manage.go",
+      "line": 58
+    },
+    {
+      "path_pattern": "POST /api/sessions/delete",
+      "source": "internal/gui/sessions_manage.go",
+      "line": 93
+    },
+    {
+      "path_pattern": "POST /api/sessions/restore",
+      "source": "internal/gui/sessions_manage.go",
+      "line": 125
+    },
+    {
+      "path_pattern": "POST /api/sessions/purge",
+      "source": "internal/gui/sessions_manage.go",
+      "line": 144
+    },
+    {
+      "path_pattern": "POST /api/gateway/session-titles",
+      "source": "internal/gui/trace.go",
+      "line": 115
+    },
+    {
+      "path_pattern": "GET /api/gateway/route",
+      "source": "internal/gui/trace.go",
+      "line": 126
+    },
+    {
+      "path_pattern": "GET /api/gateway/trace",
+      "source": "internal/gui/trace.go",
+      "line": 151
+    },
+    {
+      "path_pattern": "GET /api/gateway/history",
+      "source": "internal/gui/trace.go",
+      "line": 168
+    },
+    {
+      "path_pattern": "POST /api/gateway/unrest",
+      "source": "internal/gui/trace.go",
+      "line": 173
+    },
+    {
+      "path_pattern": "GET /api/update",
+      "source": "internal/gui/update.go",
+      "line": 319
+    },
+    {
+      "path_pattern": "POST /api/update/check",
+      "source": "internal/gui/update.go",
+      "line": 322
+    },
+    {
+      "path_pattern": "POST /api/update/install",
+      "source": "internal/gui/update.go",
+      "line": 332
+    },
+    {
+      "path_pattern": "GET /api/usage",
+      "source": "internal/gui/usage.go",
+      "line": 333
+    },
+    {
+      "path_pattern": "GET /api/usage/requests",
+      "source": "internal/gui/usage.go",
+      "line": 343
+    },
+    {
+      "path_pattern": "GET /api/usage/requests/content",
+      "source": "internal/gui/usage.go",
+      "line": 352
+    },
+    {
+      "path_pattern": "GET /api/usage/requests.csv",
+      "source": "internal/gui/usage.go",
+      "line": 369
+    },
+    {
+      "path_pattern": "POST /api/usage/requests/export",
+      "source": "internal/gui/usage.go",
+      "line": 378
+    },
+    {
+      "path_pattern": "GET /api/usage/quotas",
+      "source": "internal/gui/usage.go",
+      "line": 409
+    },
+    {
+      "path_pattern": "POST /api/usage/codex-reset",
+      "source": "internal/gui/usage.go",
+      "line": 419
+    },
+    {
+      "path_pattern": "GET /api/whatsnew",
+      "source": "internal/gui/whatsnew.go",
+      "line": 225
+    },
+    {
+      "path_pattern": "POST /api/whatsnew/seen",
+      "source": "internal/gui/whatsnew.go",
+      "line": 228
+    },
+    {
+      "path_pattern": "POST /api/whatsnew/today",
+      "source": "internal/gui/whatsnew.go",
+      "line": 233
+    },
+    {
+      "path_pattern": "GET /{$}",
+      "source": "internal/gateway/gateway.go",
+      "line": 409
+    },
+    {
+      "path_pattern": "GET /v1/models",
+      "source": "internal/gateway/gateway.go",
+      "line": 410
+    },
+    {
+      "path_pattern": "GET /models",
+      "source": "internal/gateway/gateway.go",
+      "line": 411
+    },
+    {
+      "path_pattern": "GET /v1/models/{id...}",
+      "source": "internal/gateway/gateway.go",
+      "line": 412
+    },
+    {
+      "path_pattern": "GET /muse-code/models",
+      "source": "internal/gateway/gateway.go",
+      "line": 413
+    },
+    {
+      "path_pattern": "GET /api/hello",
+      "source": "internal/gateway/gateway.go",
+      "line": 416
+    },
+    {
+      "path_pattern": "GET /v1/magpie/quotas",
+      "source": "internal/gateway/gateway.go",
+      "line": 419
+    },
+    {
+      "path_pattern": "GET /v1/magpie/route",
+      "source": "internal/gateway/gateway.go",
+      "line": 420
+    },
+    {
+      "path_pattern": "GET /v1/magpie/concurrency",
+      "source": "internal/gateway/gateway.go",
+      "line": 421
+    },
+    {
+      "path_pattern": "POST /v1/chat/completions",
+      "source": "internal/gateway/gateway.go",
+      "line": 422
+    },
+    {
+      "path_pattern": "POST /chat/completions",
+      "source": "internal/gateway/gateway.go",
+      "line": 423
+    },
+    {
+      "path_pattern": "POST /v1/responses",
+      "source": "internal/gateway/gateway.go",
+      "line": 424
+    },
+    {
+      "path_pattern": "POST /responses",
+      "source": "internal/gateway/gateway.go",
+      "line": 425
+    },
+    {
+      "path_pattern": "POST /v1/messages",
+      "source": "internal/gateway/gateway.go",
+      "line": 426
+    },
+    {
+      "path_pattern": "POST /messages",
+      "source": "internal/gateway/gateway.go",
+      "line": 427
+    },
+    {
+      "path_pattern": "POST /v1/systemone",
+      "source": "internal/gateway/gateway.go",
+      "line": 428
+    },
+    {
+      "path_pattern": "POST /v1/messages/count_tokens",
+      "source": "internal/gateway/gateway.go",
+      "line": 429
+    },
+    {
+      "path_pattern": "POST /v1/images/generations",
+      "source": "internal/gateway/gateway.go",
+      "line": 430
+    },
+    {
+      "path_pattern": "POST /images/generations",
+      "source": "internal/gateway/gateway.go",
+      "line": 431
+    },
+    {
+      "path_pattern": "POST /v1/images/edits",
+      "source": "internal/gateway/gateway.go",
+      "line": 432
+    },
+    {
+      "path_pattern": "POST /images/edits",
+      "source": "internal/gateway/gateway.go",
+      "line": 433
+    },
+    {
+      "path_pattern": "POST /v1/videos",
+      "source": "internal/gateway/gateway.go",
+      "line": 434
+    },
+    {
+      "path_pattern": "POST /videos",
+      "source": "internal/gateway/gateway.go",
+      "line": 435
+    },
+    {
+      "path_pattern": "GET /v1/videos/{id}",
+      "source": "internal/gateway/gateway.go",
+      "line": 436
+    },
+    {
+      "path_pattern": "GET /videos/{id}",
+      "source": "internal/gateway/gateway.go",
+      "line": 437
+    },
+    {
+      "path_pattern": "GET /v1/videos/{id}/content",
+      "source": "internal/gateway/gateway.go",
+      "line": 438
+    },
+    {
+      "path_pattern": "GET /videos/{id}/content",
+      "source": "internal/gateway/gateway.go",
+      "line": 439
+    },
+    {
+      "path_pattern": "POST /_magpie/claude-mcp/{token}",
+      "source": "internal/gateway/gateway.go",
+      "line": 440
+    },
+    {
+      "path_pattern": "GET /v1beta/models",
+      "source": "internal/gateway/gateway.go",
+      "line": 442
+    },
+    {
+      "path_pattern": "POST /v1beta/models/{call...}",
+      "source": "internal/gateway/gateway.go",
+      "line": 443
+    },
+    {
+      "path_pattern": "/",
+      "source": "internal/gateway/gateway.go",
+      "line": 444
+    }
+  ]
+}

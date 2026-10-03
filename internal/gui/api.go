@@ -26,6 +26,8 @@ import (
 	"github.com/yetone/magpie/internal/agent"
 	"github.com/yetone/magpie/internal/autostart"
 	"github.com/yetone/magpie/internal/catalog"
+	"github.com/yetone/magpie/internal/fusion/isolation"
+	"github.com/yetone/magpie/internal/fusion/policy"
 	"github.com/yetone/magpie/internal/fx"
 	"github.com/yetone/magpie/internal/gateway"
 	"github.com/yetone/magpie/internal/library"
@@ -426,6 +428,9 @@ func versionedPage(page []byte) []byte {
 // gw is the gateway this process serves, or nil when another magpie has it
 // (for now: see startBackend).
 func Handler(w Windows, gw *gateway.Server) http.Handler {
+	if isolation.Development {
+		return policy.DisabledIngress()
+	}
 	if gw != nil {
 		served.Store(gw)
 	}
