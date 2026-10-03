@@ -416,7 +416,9 @@
 
 ### WP-14 · 实现 GLM / Claude Code Runtime Adapter
 
-**阶段：**M2　**负责人角色：**GLM 接入 Agent　**状态：**planned
+**阶段：**M2　**负责人角色：**GLM 接入 Agent　**状态：**in_progress
+
+**Progress evidence:**`../work-items/WP-14/summary.md`（私有临时目录修复与 Native fixture；完整接入未完成）。
 
 **输入/前置：**WP-08, WP-11。同时读取这些前置包的合同、测试日志、阻断项与当前仓库 HEAD。
 

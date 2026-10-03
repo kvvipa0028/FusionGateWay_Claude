@@ -62,6 +62,17 @@ class GLMClaudeProbeTests(unittest.TestCase):
         self.assertFalse(result["connection_verified"])
         self.assertEqual(result["status"], "native_model_mismatch")
 
+    def test_native_temp_directory_is_private_and_not_inherited(self):
+        cli = self.success_cli(
+            "from pathlib import Path\n"
+            "home=Path(os.environ['HOME'])\n"
+            "native_temp=Path(os.environ['CLAUDE_CODE_TMPDIR'])\n"
+            "assert native_temp==home/'native-tmp'\n"
+            "assert native_temp.is_dir() and native_temp.stat().st_mode & 0o777==0o700\n")
+        with patch.dict(os.environ, {"CLAUDE_CODE_TMPDIR":"/tmp/foreign-claude-fixture"}):
+            result = self.tool.probe(self.root, MODEL, cli, timeout=3)
+        self.assertTrue(result["connection_verified"])
+
     def test_native_error_does_not_leak_response_or_stderr(self):
         cli = self.fake_cli("import json,sys\nprint(json.dumps({'is_error':True,'api_error_status':401,'result':'fixture-only.private-token'}))\nprint('fixture-only.private-token',file=sys.stderr)\nsys.exit(1)\n")
         result = self.tool.probe(self.root, MODEL, cli, timeout=3)

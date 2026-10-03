@@ -1,0 +1,20 @@
+{
+  "work_item": "WP-14-TEMP-01",
+  "base_commit": "ffc41c7a1126734cc16aefcc942ee2e6342e92ba",
+  "source_files_sha256": {
+    "docs/fusion/planning/Fusion_Magpie_Fork_Agent\u5de5\u4f5c\u5305_v1.0.md": "88a7e3fbb831c18bf9d042ffc0ccd5eb9e87eb63e58fc4806156b8ae94d8648b",
+    "docs/fusion/planning/implementation_tasks.json": "6a5e27346956fceeaedc12beee542b08ba0e99ba098fee59ba5fcb964ce2e821",
+    "scripts/fusion/glm-claude-probe.py": "c0c91bc79b0cfc46e6ab55f3859924983e5ee9739b59ba4c73b8aaa5dbd022d0",
+    "tests/fusion/test_glm_claude_probe.py": "a2995b3cda7161e38239f64bd3ba810cfa49e02f83653066863140619a155ee8"
+  },
+  "packet_files_sha256": {
+    "characterize-native-stream.py": "8c15c8555aa0aebb8bee7d04624600e6bacbc574e99210bdbd96e012e4c7377a",
+    "native-stream-characterization.json": "342ff4ec853e8ed6f7c4f4be5d662ac8ee90da964eb97a7cc6b69905ae948e81",
+    "native-stream-fixture.jsonl": "d6302a8dd2706e24a0841f8689cbae0d34a3b138a4068181bfeb1db4b805aae0",
+    "summary.md": "5036e635fc1d84c1a373c68e799e37aa8daad06e9bc3c110e3a885c3302c61b6",
+    "test-results.json": "643f22918faf3d80dd087f185e841e40793711ba57b63235542a6d3bc7a00f14",
+    "wp14-temp-green.log": "408bde021eedb265324fb2e6dd5598d194eb6ab3717fc6d212a5cf2841a97bbd",
+    "wp14-temp-red.log": "69a5158c8c682e1aef579d9e70bd6f4226af73cff87c399f1ff5ae91b43667a4"
+  },
+  "credentials": "Synthetic upstream only; real key excluded from owned changes"
+}

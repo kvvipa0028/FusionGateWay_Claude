@@ -1,0 +1,22 @@
+{
+  "work_item": "WP-14-TEMP-01",
+  "parent_status": "in_progress",
+  "checks": [
+    {
+      "command": "python3 -m unittest discover -s tests/fusion -p test_glm_claude_probe.py -v",
+      "exit_code": 0,
+      "tests": 9,
+      "log": "wp14-temp-green.log"
+    }
+  ],
+  "red_evidence": "wp14-temp-red.log",
+  "native_characterization": {
+    "exit_code": 0,
+    "fixture_only": true,
+    "fake_upstream_requests": 1,
+    "real_model_calls": 0,
+    "worker_isolation_verified": false,
+    "strict_lock_verified": false
+  },
+  "final_acceptance": "not_run"
+}

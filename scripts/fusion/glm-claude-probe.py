@@ -32,10 +32,13 @@ def probe(root, model, executable, timeout=60):
         home = Path(temp)
         project = home / "project"
         project.mkdir(mode=0o700)
+        native_temp = home / "native-tmp"
+        native_temp.mkdir(mode=0o700)
         env = {"PATH": "/usr/bin:/bin:/usr/sbin:/sbin", "HOME": temp, "USERPROFILE": temp,
                "XDG_CONFIG_HOME": str(home / "xdg-config"), "XDG_CACHE_HOME": str(home / "xdg-cache"),
                "XDG_DATA_HOME": str(home / "xdg-data"), "TMPDIR": temp, "LANG": "en_US.UTF-8",
-               "CLAUDE_CONFIG_DIR": str(home / "claude"), "ANTHROPIC_BASE_URL": ENDPOINT,
+               "CLAUDE_CONFIG_DIR": str(home / "claude"), "CLAUDE_CODE_TMPDIR": str(native_temp),
+               "ANTHROPIC_BASE_URL": ENDPOINT,
                "ANTHROPIC_AUTH_TOKEN": key, "ANTHROPIC_API_KEY": key, "ANTHROPIC_MODEL": model,
                "DISABLE_UPDATES": "1", "DISABLE_TELEMETRY": "1", "DISABLE_ERROR_REPORTING": "1",
                "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1", "DISABLE_COMPACT": "1",

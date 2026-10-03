@@ -1,0 +1,74 @@
+{
+  "fixture_only": true,
+  "actual_account_used": false,
+  "runtime_version": "2.1.287",
+  "real_model_calls": 0,
+  "strict_lock_verified": false,
+  "worker_isolation_verified": false,
+  "probe_context": "trusted tool-free synthetic characterization; not a production worker",
+  "exit_code": 0,
+  "os_reaped": true,
+  "profile_sha256": "f2e9d1927d48ce81afa416568f61175ffb60995201bbc88a8d9f02783a32d279",
+  "executable_sha256": "6eab8333fe2121553100d8f40bfada384a3e989b94f947e18ba6677a6fcb41ea",
+  "fork_allowed": true,
+  "network_scope": "synthetic localhost port only",
+  "stdout_bytes": 4989,
+  "stderr_bytes": 74,
+  "stdout_sha256": "5e36abc008c7e885bb0e3f4f8466e2b45426e5cc4faa9cda195c9a3d724108b1",
+  "stderr_sha256": "089dbf616da27f2f327878d5fb2ed70fd63a63b259b7c648536429d4b1c68609",
+  "calls": [
+    {
+      "path": "/api/anthropic/v1/messages?beta=true",
+      "model": "glm-5.3",
+      "tool_count": 0,
+      "bearer_fixture": true,
+      "api_key_fixture": true
+    }
+  ],
+  "event_types": [
+    {
+      "type": "system",
+      "subtype": "ui_invalidate"
+    },
+    {
+      "type": "system",
+      "subtype": "init"
+    },
+    {
+      "type": "system",
+      "subtype": "status"
+    },
+    {
+      "type": "stream_event",
+      "subtype": null
+    },
+    {
+      "type": "stream_event",
+      "subtype": null
+    },
+    {
+      "type": "stream_event",
+      "subtype": null
+    },
+    {
+      "type": "assistant",
+      "subtype": null
+    },
+    {
+      "type": "stream_event",
+      "subtype": null
+    },
+    {
+      "type": "stream_event",
+      "subtype": null
+    },
+    {
+      "type": "stream_event",
+      "subtype": null
+    },
+    {
+      "type": "result",
+      "subtype": "success"
+    }
+  ]
+}

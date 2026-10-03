@@ -248,8 +248,8 @@
     },
     {
       "path": "docs/fusion/planning/Fusion_Magpie_Fork_Agent工作包_v1.0.md",
-      "sha256": "27e7cea546afc41db9f5b5cd741eabd9e667a3340537c48d62c779f328a3786f",
-      "bytes": 51733
+      "sha256": "88a7e3fbb831c18bf9d042ffc0ccd5eb9e87eb63e58fc4806156b8ae94d8648b",
+      "bytes": 51868
     },
     {
       "path": "docs/fusion/planning/Fusion_Magpie_Fork_实施计划_v1.0.md",
@@ -268,8 +268,8 @@
     },
     {
       "path": "docs/fusion/planning/implementation_tasks.json",
-      "sha256": "3a748261e26cdf3ca8383cc91ccc6f7c08a681891fe5dedee61db643213c7784",
-      "bytes": 17447
+      "sha256": "6a5e27346956fceeaedc12beee542b08ba0e99ba098fee59ba5fcb964ce2e821",
+      "bytes": 17451
     },
     {
       "path": "docs/fusion/preflight-review.md",
@@ -1280,6 +1280,46 @@
       "path": "docs/fusion/work-items/WP-12/wp12-role-red.log",
       "sha256": "24f883bce17d353c140ededad2f29f03e17e3e11c7d637ede489ae0e13d7a225",
       "bytes": 999
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/artifacts.json",
+      "sha256": "3f9d4777b5d06fa3383c394663906efb618cfacceec01b1ad5c35b8c5d58bf03",
+      "bytes": 1418
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/characterize-native-stream.py",
+      "sha256": "8c15c8555aa0aebb8bee7d04624600e6bacbc574e99210bdbd96e012e4c7377a",
+      "bytes": 5379
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/native-stream-characterization.json",
+      "sha256": "342ff4ec853e8ed6f7c4f4be5d662ac8ee90da964eb97a7cc6b69905ae948e81",
+      "bytes": 1719
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/native-stream-fixture.jsonl",
+      "sha256": "d6302a8dd2706e24a0841f8689cbae0d34a3b138a4068181bfeb1db4b805aae0",
+      "bytes": 4917
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/summary.md",
+      "sha256": "5036e635fc1d84c1a373c68e799e37aa8daad06e9bc3c110e3a885c3302c61b6",
+      "bytes": 3123
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/test-results.json",
+      "sha256": "643f22918faf3d80dd087f185e841e40793711ba57b63235542a6d3bc7a00f14",
+      "bytes": 559
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/wp14-temp-green.log",
+      "sha256": "408bde021eedb265324fb2e6dd5598d194eb6ab3717fc6d212a5cf2841a97bbd",
+      "bytes": 1038
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/wp14-temp-red.log",
+      "sha256": "69a5158c8c682e1aef579d9e70bd6f4226af73cff87c399f1ff5ae91b43667a4",
+      "bytes": 1642
     }
   ],
   "product_implementation_started": true,
