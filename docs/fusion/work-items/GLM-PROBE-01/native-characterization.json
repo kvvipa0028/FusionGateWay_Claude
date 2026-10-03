@@ -1,0 +1,23 @@
+{
+  "runtime_version": "2.1.287",
+  "evidence_origin": "Observed native CLI tool output; raw stdout not persisted",
+  "transport": "loopback fake HTTP server",
+  "actual_account_used": false,
+  "exit_code": 0,
+  "requests": [
+    {
+      "path": "/api/anthropic/v1/messages?beta=true",
+      "model": "glm-5.3",
+      "bearer_matches_fixture": true,
+      "api_key_matches_fixture": true,
+      "tool_count": 0
+    }
+  ],
+  "expected_reply_received": true,
+  "not_verified": [
+    "all hidden Runtime calls",
+    "live upstream model identity",
+    "billing",
+    "quota"
+  ]
+}

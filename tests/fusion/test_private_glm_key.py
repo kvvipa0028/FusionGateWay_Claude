@@ -58,6 +58,24 @@ class PrivateGLMKeyTests(unittest.TestCase):
             self.tool.store_key(project / "private", FAKE_KEY)
         self.assertFalse((project / "private").exists())
 
+    def test_parent_symlink_cannot_hide_git_checkout(self):
+        project = Path(self.temp.name) / "project"
+        project.mkdir()
+        (project / ".git").mkdir()
+        alias = Path(self.temp.name) / "alias"
+        alias.symlink_to(project, target_is_directory=True)
+        with self.assertRaises(self.tool.KeyError):
+            self.tool.store_key(alias / "private", FAKE_KEY)
+        self.assertFalse((project / "private").exists())
+
+    def test_dangling_git_marker_does_not_allow_credentials(self):
+        project = Path(self.temp.name) / "project"
+        project.mkdir()
+        (project / ".git").symlink_to("missing-gitdir")
+        with self.assertRaises(self.tool.KeyError):
+            self.tool.store_key(project / "private", FAKE_KEY)
+        self.assertFalse((project / "private").exists())
+
     def test_refuse_public_key_file_and_symlink(self):
         path = self.tool.store_key(self.root, FAKE_KEY)
         path.chmod(0o644)

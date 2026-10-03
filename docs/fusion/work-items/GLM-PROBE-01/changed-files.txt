@@ -1,0 +1,5 @@
+scripts/fusion/glm-claude-probe.py
+scripts/fusion/private-glm-key.py
+tests/fusion/test_glm_claude_probe.py
+tests/fusion/test_private_glm_key.py
+docs/fusion/decisions/glm-coding-plan-api-key.md

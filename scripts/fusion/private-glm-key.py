@@ -28,7 +28,7 @@ def check_directory(path):
 
 def check_location(root):
     root = Path(root).absolute()
-    if any((parent / ".git").exists() for parent in [root, *root.parents]):
+    if any((parent / ".git").exists() or (parent / ".git").is_symlink() for parent in [root, *root.parents]):
         raise KeyError("Credential storage must be outside a Git checkout")
     if root.exists() or root.is_symlink():
         check_directory(root)

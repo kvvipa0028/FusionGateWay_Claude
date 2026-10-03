@@ -1,0 +1,24 @@
+test_invalid_model_and_timeout_are_refused_before_launch (test_glm_claude_probe.GLMClaudeProbeTests) ... ok
+test_isolated_launch_returns_success_without_private_output (test_glm_claude_probe.GLMClaudeProbeTests) ... ok
+test_malformed_stdout_is_refused_without_echoing_it (test_glm_claude_probe.GLMClaudeProbeTests) ... ok
+test_native_error_does_not_leak_response_or_stderr (test_glm_claude_probe.GLMClaudeProbeTests) ... ok
+test_nontext_reply_is_refused_without_parser_crash (test_glm_claude_probe.GLMClaudeProbeTests) ... ok
+test_success_with_a_different_native_model_is_refused (test_glm_claude_probe.GLMClaudeProbeTests) ... ok
+test_timeout_stops_private_child_without_output (test_glm_claude_probe.GLMClaudeProbeTests) ... ok
+test_unrelated_reply_is_not_authentication_evidence (test_glm_claude_probe.GLMClaudeProbeTests) ... ok
+test_dangling_git_marker_does_not_allow_credentials (test_private_glm_key.PrivateGLMKeyTests) ... ok
+test_hidden_entry_prints_only_path_and_status (test_private_glm_key.PrivateGLMKeyTests) ... ok
+test_invalid_key_is_not_persisted_or_in_error (test_private_glm_key.PrivateGLMKeyTests) ... ok
+test_missing_status_does_not_create_directories (test_private_glm_key.PrivateGLMKeyTests) ... ok
+test_parent_symlink_cannot_hide_git_checkout (test_private_glm_key.PrivateGLMKeyTests) ... ok
+test_refuse_key_in_git_checkout (test_private_glm_key.PrivateGLMKeyTests) ... ok
+test_refuse_overwriting_existing_key (test_private_glm_key.PrivateGLMKeyTests) ... ok
+test_refuse_public_directory (test_private_glm_key.PrivateGLMKeyTests) ... ok
+test_refuse_public_key_file_and_symlink (test_private_glm_key.PrivateGLMKeyTests) ... ok
+test_refuse_symlink_root (test_private_glm_key.PrivateGLMKeyTests) ... ok
+test_store_private_readable_key (test_private_glm_key.PrivateGLMKeyTests) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 1.169s
+
+OK

@@ -1,0 +1,44 @@
+{
+  "checks": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/fusion",
+        "-v"
+      ],
+      "exit_code": 0,
+      "tests_passed": 19,
+      "log": "tests.log"
+    },
+    {
+      "command": [
+        "python3",
+        "scripts/fusion/glm-claude-probe.py",
+        "--model",
+        "glm-5.3"
+      ],
+      "exit_code": 0,
+      "log": "live-probe.json",
+      "live_request": true
+    },
+    {
+      "check": "daily_claude_settings_and_credentials_before_after_hashes",
+      "result": "unchanged"
+    }
+  ],
+  "red_evidence": [
+    "probe-red.log: 7 failures due to absent launcher",
+    "boundary-red.log: malformed response parser error and dangling .git marker refusal failure"
+  ],
+  "not_verified": [
+    "billing",
+    "quota",
+    "upstream actual model",
+    "WP-14 Adapter",
+    "WP-17 three-route smoke"
+  ]
+}

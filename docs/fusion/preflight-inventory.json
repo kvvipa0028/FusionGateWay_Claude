@@ -108,8 +108,8 @@
     },
     {
       "path": "docs/fusion/decisions/glm-coding-plan-api-key.md",
-      "sha256": "c1f4ddef7465ff9d46782d299507bfb0f67dafe9e715c0b3845fe47817f7bb2e",
-      "bytes": 5756
+      "sha256": "3130674015a307640cef249a1c574c709b658d0944c26cdae571214980b0b45d",
+      "bytes": 7581
     },
     {
       "path": "docs/fusion/decisions/google-oauth-external-config.md",
@@ -227,6 +227,61 @@
       "bytes": 2709
     },
     {
+      "path": "docs/fusion/work-items/GLM-PROBE-01/artifacts.json",
+      "sha256": "2f0e36e2373acd314e1c2f42365941f4b592fa672bf9a6187612d838803040d4",
+      "bytes": 945
+    },
+    {
+      "path": "docs/fusion/work-items/GLM-PROBE-01/blockers.md",
+      "sha256": "e936efe00870492fad735ec6f57d621459728b2697b7f0711e75b108111ef814",
+      "bytes": 136
+    },
+    {
+      "path": "docs/fusion/work-items/GLM-PROBE-01/boundary-red.log",
+      "sha256": "08dab4c647f704f2ca446512a37e424b6484254afbb93ade68282510f386b2ad",
+      "bytes": 3413
+    },
+    {
+      "path": "docs/fusion/work-items/GLM-PROBE-01/changed-files.txt",
+      "sha256": "d211ac8848a15d7b82b25b4ecdd6dbdc4b339b3b553d9cec855c658c5c37a8d9",
+      "bytes": 193
+    },
+    {
+      "path": "docs/fusion/work-items/GLM-PROBE-01/handoff.md",
+      "sha256": "18bcdddba84e8919c54eb4c5161c96f1738e284ae9ebc6e672e62b6cbcb0737c",
+      "bytes": 273
+    },
+    {
+      "path": "docs/fusion/work-items/GLM-PROBE-01/live-probe.json",
+      "sha256": "36583dbd3f0caf5c34ad808dfe96363c3529aee0098efefcdd6dd7560ae87103",
+      "bytes": 466
+    },
+    {
+      "path": "docs/fusion/work-items/GLM-PROBE-01/native-characterization.json",
+      "sha256": "7c948def59b44d6dda9786e7ed8d60f9c16b7086ff1bb71fa0da4840840f3ef1",
+      "bytes": 578
+    },
+    {
+      "path": "docs/fusion/work-items/GLM-PROBE-01/probe-red.log",
+      "sha256": "71752066b46011aaaff3cd4a35feee18dc83113799a9976fcddaa86f36bf801f",
+      "bytes": 5119
+    },
+    {
+      "path": "docs/fusion/work-items/GLM-PROBE-01/summary.md",
+      "sha256": "47a3d110d171323205f1774821036c04c91b05983b8d9b18bfc46929d5eaa46c",
+      "bytes": 236
+    },
+    {
+      "path": "docs/fusion/work-items/GLM-PROBE-01/test-results.json",
+      "sha256": "3cb0cadad91f001b1203560d7be6038e5c7fcd6e7b3c41204e3b7933998516a7",
+      "bytes": 911
+    },
+    {
+      "path": "docs/fusion/work-items/GLM-PROBE-01/tests.log",
+      "sha256": "0d0eecb6d4937c8821d3c9120b5087c6fcd5ebf0412160f22369c58ad6299863",
+      "bytes": 1903
+    },
+    {
       "path": "docs/fusion/work-items/KEY-01/artifacts.json",
       "sha256": "21b07990114b000e85ffa3082fef817a9dc73a20ac5378bd0835d079785f7ad6",
       "bytes": 419
@@ -332,9 +387,14 @@
       "glm_api_protocol": "anthropic_messages",
       "glm_api_base_url": "https://open.bigmodel.cn/api/anthropic",
       "glm_adapter_protocol": "claude_code_json_or_stream_json",
-      "glm_private_configuration_applied": false,
+      "glm_private_configuration_applied": true,
       "glm_credentials_storage": "external_private_file",
-      "glm_credentials_provided_at": "2026-10-03"
+      "glm_credentials_provided_at": "2026-10-03",
+      "glm_connection_probe_verified": true,
+      "glm_connection_probe": "docs/fusion/work-items/GLM-PROBE-01/live-probe.json",
+      "glm_private_configuration_scope": "temporary isolated subprocess environment; no daily settings override",
+      "glm_billing_verified": false,
+      "glm_quota": "unknown"
     },
     "deployment_and_pilot_target": {
       "status": "confirmed",

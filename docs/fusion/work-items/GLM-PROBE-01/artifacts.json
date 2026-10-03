@@ -1,0 +1,15 @@
+{
+  "base_commit": "5fe596f661a88be756e68ac6c789dde07e9f9027",
+  "files_sha256": {
+    "scripts/fusion/glm-claude-probe.py": "9efa70c35c882208f8dfe70b68b1602575f9e3d4244cf4028d9c096366a434a6",
+    "scripts/fusion/private-glm-key.py": "ab3a44656bd9b9c8f22cb32615196f6df5334b3f08ecf2df18998e6a847a1aff",
+    "tests/fusion/test_glm_claude_probe.py": "21e1b0690525ce6871e62894484e4c709b333b4654d076dd7d3115bf89084d68",
+    "tests/fusion/test_private_glm_key.py": "c37540ed77a44a218119007d54e693cd10c7f0db9216a84c22fe67cc3f73f4f9",
+    "docs/fusion/decisions/glm-coding-plan-api-key.md": "3130674015a307640cef249a1c574c709b658d0944c26cdae571214980b0b45d"
+  },
+  "logs_sha256": {
+    "probe-red.log": "71752066b46011aaaff3cd4a35feee18dc83113799a9976fcddaa86f36bf801f",
+    "boundary-red.log": "08dab4c647f704f2ca446512a37e424b6484254afbb93ade68282510f386b2ad",
+    "tests.log": "0d0eecb6d4937c8821d3c9120b5087c6fcd5ebf0412160f22369c58ad6299863"
+  }
+}

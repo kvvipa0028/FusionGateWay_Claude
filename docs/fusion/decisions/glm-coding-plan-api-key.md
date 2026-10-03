@@ -1,6 +1,6 @@
 # GLM Coding Plan API key 接入决定
 
-2026-10-03，用户先说明“Glm使用api key”，随后确认“Coding Plan 编码套餐”。结合此前的中国大陆地区决定，本轮 GLM 路线确定为 CN Coding Plan + API key。用户随后指定“接入claude code里”，GLM 编码宿主确定为 Claude Code，替代上一轮 Agent 选定的 Codex 候选。这里只记录接入选择并提供私有配置模板，没有接收、读取或写入真实 key。
+2026-10-03，用户先说明“Glm使用api key”，随后确认“Coding Plan 编码套餐”。结合此前的中国大陆地区决定，GLM 路线确定为 CN Coding Plan + API key。用户随后指定“接入claude code里”，GLM 编码宿主确定为 Claude Code，替代上一轮 Agent 选定的 Codex 候选。最初决定只记录选择并提供私有模板；用户提供 key 后的实际执行结果见本文末尾。
 
 ## 执行合同
 
@@ -13,7 +13,7 @@
 
 ## 官方端点与来源
 
-核对日期：2026-10-03。以下是官方公布的 CN 接口，属于路线合同参考，不是本轮已经配置或发起调用的地址。
+核对日期：2026-10-03。以下是官方公布的 CN 接口。后续连接诊断只使用其中 Anthropic Messages 端点。
 
 | 路线/协议 | Base URL | 用途边界 |
 |---|---|---|
@@ -35,11 +35,29 @@
 - 模板中的 `ANTHROPIC_MODEL` 是显式占位符。启动真实任务前必须替换为阶段冻结的实际 GLM model ID，同时核验其能力；不能把 Claude 的 opus/sonnet/haiku 名称当成实际执行模型证据。
 - 实施时隔离 HOME、Claude 配置及凭据来源，过滤其他 provider 的认证、路由和默认模型变量，并处理设置优先级、后台/摘要/子 Agent 的模型调用以及自动 fallback。静态模板和 CLI 参数不能单独证明 strict locked；每条实际调用仍受 WP-07/WP-14 准入。
 
-[Claude Code 环境变量文档](https://code.claude.com/docs/en/env-vars)说明 Base URL 与 Bearer token；[设置文档](https://code.claude.com/docs/en/settings)说明 `env`、`--settings` 及配置优先级。尚未在本机写入真实配置或启动 GLM 会话。
+[Claude Code 环境变量文档](https://code.claude.com/docs/en/env-vars)说明 Base URL 与 Bearer token；[设置文档](https://code.claude.com/docs/en/settings)说明 `env`、`--settings` 及配置优先级。作出宿主决定时尚未写入真实配置或启动 GLM 会话。
 
 ## 本轮源码核对与未验证项
 
 - `internal/provider/presets.go:111` 已有 Zhipu GLM 的 `api` 与 `coding` 预设，二者端点分别登记；现有 `coding` 预设同时提供 Anthropic 地址。无需为本次选择重复创建供应商。
 - `internal/provider/planquota.go:33` 的 `planQuotaSourceOf` 已识别 CN 与 Global 额度查询来源；这些原版机制不等于 Fusion 的套餐准入、严格锁定或真实计费证明。
-- 本轮只修改决定、需求和预审记录。没有运行真实 GLM 请求、配置 key、启动宿主或修改应用行为；WP-14 和相关验收仍是 planned/not_run。
+- 宿主选择阶段只修改决定、需求和预审记录，没有运行真实 GLM 请求。后续诊断仍不代表 WP-14 完成；WP-14 和相关最终验收仍是 planned/not_run。
 - 先前五项预审的设计选择已记录完整。真实 OpenAI/X 登录、GLM 私有 key 提供和三路 smoke 证据属于后续执行输入，缺失时阻断依赖它们的真实验收，不把离线 fixture 验证冒充真实接入。
+
+## 2026-10-03 私有录入与真实连接诊断
+
+用户通过本机隐藏输入窗口录入 key，保存至仓库外私有文件，目录 `0700`、文件 `0600`。元数据和使用说明见 [private-credentials.md](../private-credentials.md)。没有将真实 key 放进聊天、命令行参数或 Git。
+
+使用本机 Claude Code `2.1.287`，以临时 HOME/XDG/Claude 配置目录、环境白名单、空项目目录及 `--tools ""` 执行诊断。该版本 `--bare` 要求 `ANTHROPIC_API_KEY`；诊断将同一个 GLM key 注入 `ANTHROPIC_API_KEY` 与 `ANTHROPIC_AUTH_TOKEN`。本地假服务观察到 X-Api-Key 与 Bearer 头均匹配 fixture，唯一请求模型为 `glm-5.3`，工具数为 0。该观察只约束这次诊断，不替代完整 Runtime 的控制证明。
+
+真实请求固定至 `https://open.bigmodel.cn/api/anthropic`，Claude Code 返回 `FUSION_GLM_OK`，退出码 0。`glm-5.3` 仅为本次诊断选择，不将其写入五角色默认绑定。日常 Claude Code 配置及认证文件的前后 hash 未变化。
+
+脱敏结果见 [GLM-PROBE-01/live-probe.json](../work-items/GLM-PROBE-01/live-probe.json)。Native `modelUsage` 不能独立证明上游实际模型或计费，记录保留 `upstream_reported_model=unknown`、`billing_verified=false`、`quota=unknown`。套餐档位、共享池、额度与 strict locked 仍未核验，WP-14 Adapter、WP-17 三路 smoke 和 Gate A 均未完成。
+
+复现命令只读取私有凭据，输出脱敏结果；执行会消耗一次编程套餐请求：
+
+```sh
+python3 scripts/fusion/glm-claude-probe.py --model glm-5.3
+```
+
+该命令为无工具连接诊断，不执行项目代码，也不覆盖 `~/.claude/settings.json`。返回认证错误、超时或不符合预期的 Native 结果时停止，不切换模型、地区或普通按量 API。
