@@ -1,0 +1,37 @@
+=== RUN   TestGrokAdapterPinnedNativeResume
+=== RUN   TestGrokAdapterPinnedNativeResume/text
+    resume_native_test.go:28: actual managed resume: mode=text originalHTTP=2 resumedHTTP=1 originalRead=false state=succeeded exactUUID=true freshGrant/ports=true wait/proof/release=true nativeLaunches=2; admission synthetic
+=== RUN   TestGrokAdapterPinnedNativeResume/read
+    resume_native_test.go:28: actual managed resume: mode=read originalHTTP=3 resumedHTTP=1 originalRead=true state=succeeded exactUUID=true freshGrant/ports=true wait/proof/release=true nativeLaunches=2; admission synthetic
+=== RUN   TestGrokAdapterPinnedNativeResume/new_read
+    resume_native_test.go:28: actual managed resume: mode=new_read originalHTTP=3 resumedHTTP=2 originalRead=true state=succeeded exactUUID=true freshGrant/ports=true wait/proof/release=true nativeLaunches=2; admission synthetic
+=== RUN   TestGrokAdapterPinnedNativeResume/unicode_cwd
+    resume_native_test.go:28: actual managed resume: mode=unicode_cwd originalHTTP=2 resumedHTTP=1 originalRead=false state=succeeded exactUUID=true freshGrant/ports=true wait/proof/release=true nativeLaunches=2; admission synthetic
+=== RUN   TestGrokAdapterPinnedNativeResume/reopen
+    resume_native_test.go:28: actual managed resume: mode=reopen originalHTTP=2 resumedHTTP=1 originalRead=false state=succeeded exactUUID=true freshGrant/ports=true wait/proof/release=true nativeLaunches=2; admission synthetic
+=== RUN   TestGrokAdapterPinnedNativeResume/cancel_read
+    resume_native_test.go:28: actual managed resume: mode=cancel_read originalHTTP=3 resumedHTTP=1 originalRead=true state=cancelled exactUUID=true freshGrant/ports=true wait/proof/release=true nativeLaunches=2; admission synthetic
+=== RUN   TestGrokAdapterPinnedNativeResume/bad_ref
+    resume_native_test.go:28: actual original Native; restore refused before new launch mode=bad_ref originalHTTP=2 resumedHTTP=0 nativeLaunches=1
+=== RUN   TestGrokAdapterPinnedNativeResume/source_drift
+    resume_native_test.go:28: actual original Native; restore refused before new launch mode=source_drift originalHTTP=3 resumedHTTP=0 nativeLaunches=1
+=== RUN   TestGrokAdapterPinnedNativeResume/target_drift
+    resume_native_test.go:28: actual original Native; restore refused before new launch mode=target_drift originalHTTP=2 resumedHTTP=0 nativeLaunches=1
+=== RUN   TestGrokAdapterPinnedNativeResume/root_drift
+    resume_native_test.go:28: actual original Native; restore refused before new launch mode=root_drift originalHTTP=2 resumedHTTP=0 nativeLaunches=1
+=== RUN   TestGrokAdapterPinnedNativeResume/quota_drift
+    resume_native_test.go:28: actual managed resume: mode=quota_drift originalHTTP=3 resumedHTTP=1 originalRead=true state=failed exactUUID=true freshGrant/ports=true wait/proof/release=true nativeLaunches=2; admission synthetic
+--- PASS: TestGrokAdapterPinnedNativeResume (21.62s)
+    --- PASS: TestGrokAdapterPinnedNativeResume/text (2.34s)
+    --- PASS: TestGrokAdapterPinnedNativeResume/read (2.43s)
+    --- PASS: TestGrokAdapterPinnedNativeResume/new_read (2.49s)
+    --- PASS: TestGrokAdapterPinnedNativeResume/unicode_cwd (2.32s)
+    --- PASS: TestGrokAdapterPinnedNativeResume/reopen (2.34s)
+    --- PASS: TestGrokAdapterPinnedNativeResume/cancel_read (2.23s)
+    --- PASS: TestGrokAdapterPinnedNativeResume/bad_ref (1.27s)
+    --- PASS: TestGrokAdapterPinnedNativeResume/source_drift (1.35s)
+    --- PASS: TestGrokAdapterPinnedNativeResume/target_drift (1.19s)
+    --- PASS: TestGrokAdapterPinnedNativeResume/root_drift (1.32s)
+    --- PASS: TestGrokAdapterPinnedNativeResume/quota_drift (2.33s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime/grok	23.234s

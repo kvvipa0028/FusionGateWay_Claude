@@ -27,6 +27,7 @@ type gateFixture struct {
 	config         CallGateConfig
 	manager        *policy.Manager
 	token          string
+	storeRoot      string // fixture-only private Store location for restart tests
 	current        atomic.Bool
 	calls, permits atomic.Int64
 }

@@ -1,0 +1,7 @@
+=== RUN   TestGrokAdapterPinnedNativeResume
+=== RUN   TestGrokAdapterPinnedNativeResume/store_reopen
+    resume_native_test.go:29: actual managed resume: mode=store_reopen originalHTTP=2 resumedHTTP=1 originalRead=false state=succeeded exactUUID=true freshGrant/ports=true wait/proof/release=true nativeLaunches=2; admission synthetic
+--- PASS: TestGrokAdapterPinnedNativeResume (2.32s)
+    --- PASS: TestGrokAdapterPinnedNativeResume/store_reopen (2.32s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime/grok	3.938s

@@ -35,6 +35,7 @@ func storedGrokFixture(t *testing.T, maxCalls int, running bool) (*gateFixture, 
 	if e != nil {
 		t.Fatal(e)
 	}
+	f.storeRoot = root
 	t.Cleanup(func() { s.Close() })
 	route := stageplan.Route{ID: "fixture-native", Revision: 1, Model: "fixture-model", Account: "fixture-account", Workspace: "fixture-workspace", CredentialIdentity: "fixture-identity", RuntimeVersion: CLIVersion, BillingPath: "subscription", BillingKnown: true, Admitted: true, NoEffort: true, Capabilities: []string{"text"}, LockEnforcement: stageplan.ControlledCalls}
 	role := stageplan.Design

@@ -1,0 +1,6 @@
+=== RUN   TestGrokResumeSeedFreezesBytesAndRemainsPrivate
+    grok_seed_test.go:84: installed seed retained private history bytes
+--- FAIL: TestGrokResumeSeedFreezesBytesAndRemainsPrivate (0.07s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime	0.702s
+FAIL

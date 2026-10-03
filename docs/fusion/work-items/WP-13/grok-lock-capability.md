@@ -35,3 +35,5 @@
 [ADAPTER-01](ADAPTER-01/summary.md) 将上述组件组成公共readonly Runtime Adapter，固定argv/session/prompt与真实预算/停止链。它只接受effort=none，显式其它档位拒绝，Resume/write仍unsupported；真实NativeForwarder/账号/Heavy/计费/Quota证明和产品注册未完成。不能将Observer flags自动升级为独立严格锁定结论。
 
 [RESUME-PROBE-01](RESUME-PROBE-01/summary.md) 调查固定 Native 的明确 UUID 恢复、私有会话目录复制、缺文件、模型/cwd 变化和历史 Read。15 个实际行为断言通过：准确 UUID 能保留旧对话，但 transcript 缺失可空历史 exit0，model alias 可覆盖原模型，旧工具输出不在 stdout 重放而进入 HTTP。因此产品 Resume 继续 unsupported；完整归档/冻结绑定/历史授权及真实受管恢复按 [grok-resume.md](../../contracts/grok-resume.md) 实施，不能把诊断成功升级为 capability 或准入。
+
+[RESUME-01](RESUME-01/summary.md) 已接通可信内部 ResumeCheckpoint：完整私有归档核验、新 prepared run/Root/grant/端口、准确原 UUID、旧/新 Read 及逐 HTTP 预算、HMAC 准备 mapping。12 个新增场景覆盖 6 个成功恢复、取消、Quota 漂移失败、4 个新进程启动前拒绝，其中成功场景包括中文 cwd 和完整 Store/Archives/Manager/Adapter 重开。联合兼容性验证为 43 个场景、50 次实际 Native 启动；另有 7 个控制器生命周期场景。上述历史段落描述各工作项当时的边界；当前可信内部恢复已完成，通用无 Spec/ref 的 Resume、产品 API/Worker、真实 X upstream/subscription/Quota 与整个 Source 准入仍待完成。合成诊断不升级真实 capability 或准入 flags，Jev off。

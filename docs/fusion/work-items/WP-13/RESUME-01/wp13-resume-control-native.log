@@ -1,0 +1,25 @@
+=== RUN   TestControllerPinnedGrokNativeLifecycle
+=== RUN   TestControllerPinnedGrokNativeLifecycle/success
+    grok_native_test.go:45: synthetic Controller mode=success state=succeeded HTTP/budget=2 actualStop/release=true sourceUnchanged=true; Native/route/billing/quota proof independent
+=== RUN   TestControllerPinnedGrokNativeLifecycle/read
+    grok_native_test.go:45: synthetic Controller mode=read state=succeeded HTTP/budget=3 actualStop/release=true sourceUnchanged=true; Native/route/billing/quota proof independent
+=== RUN   TestControllerPinnedGrokNativeLifecycle/disconnect
+    grok_native_test.go:45: synthetic Controller mode=disconnect state=succeeded HTTP/budget=2 actualStop/release=true sourceUnchanged=true; Native/route/billing/quota proof independent
+=== RUN   TestControllerPinnedGrokNativeLifecycle/pause
+    grok_native_test.go:45: synthetic Controller mode=pause state=cancelled HTTP/budget=2 actualStop/release=true sourceUnchanged=true; Native/route/billing/quota proof independent
+=== RUN   TestControllerPinnedGrokNativeLifecycle/task_cancel
+    grok_native_test.go:45: synthetic Controller mode=task_cancel state=cancelled HTTP/budget=2 actualStop/release=true sourceUnchanged=true; Native/route/billing/quota proof independent
+=== RUN   TestControllerPinnedGrokNativeLifecycle/stage_cancel
+    grok_native_test.go:45: synthetic Controller mode=stage_cancel state=cancelled HTTP/budget=2 actualStop/release=true sourceUnchanged=true; Native/route/billing/quota proof independent
+=== RUN   TestControllerPinnedGrokNativeLifecycle/close
+    grok_native_test.go:45: synthetic Controller mode=close state=cancelled HTTP/budget=2 actualStop/release=true sourceUnchanged=true; Native/route/billing/quota proof independent
+--- PASS: TestControllerPinnedGrokNativeLifecycle (8.14s)
+    --- PASS: TestControllerPinnedGrokNativeLifecycle/success (1.14s)
+    --- PASS: TestControllerPinnedGrokNativeLifecycle/read (1.31s)
+    --- PASS: TestControllerPinnedGrokNativeLifecycle/disconnect (1.23s)
+    --- PASS: TestControllerPinnedGrokNativeLifecycle/pause (1.07s)
+    --- PASS: TestControllerPinnedGrokNativeLifecycle/task_cancel (1.08s)
+    --- PASS: TestControllerPinnedGrokNativeLifecycle/stage_cancel (1.16s)
+    --- PASS: TestControllerPinnedGrokNativeLifecycle/close (1.14s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/control	9.563s

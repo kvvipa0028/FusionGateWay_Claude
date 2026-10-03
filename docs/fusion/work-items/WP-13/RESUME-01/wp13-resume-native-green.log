@@ -1,0 +1,10 @@
+=== RUN   TestGrokAdapterPinnedNativeResume
+=== RUN   TestGrokAdapterPinnedNativeResume/text
+    resume_native_test.go:28: actual managed resume: originalHTTP=2 resumedHTTP=1 originalRead=false exactUUID=true freshGrant/ports=true wait/proof/release=true; admission synthetic
+=== RUN   TestGrokAdapterPinnedNativeResume/read
+    resume_native_test.go:28: actual managed resume: originalHTTP=3 resumedHTTP=1 originalRead=true exactUUID=true freshGrant/ports=true wait/proof/release=true; admission synthetic
+--- PASS: TestGrokAdapterPinnedNativeResume (4.77s)
+    --- PASS: TestGrokAdapterPinnedNativeResume/text (2.40s)
+    --- PASS: TestGrokAdapterPinnedNativeResume/read (2.37s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime/grok	6.454s

@@ -1,0 +1,8 @@
+=== RUN   TestGrokAdapterPinnedNativeResume
+=== RUN   TestGrokAdapterPinnedNativeResume/root_drift
+    resume_native_test.go:28: drifted restore launched Native
+--- FAIL: TestGrokAdapterPinnedNativeResume (1.62s)
+    --- FAIL: TestGrokAdapterPinnedNativeResume/root_drift (1.62s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/grok	2.355s
+FAIL

@@ -1,0 +1,28 @@
+=== RUN   TestGrokResumeSeedRejectsUnboundedOrForeignInput
+=== RUN   TestGrokResumeSeedRejectsUnboundedOrForeignInput/missing
+=== RUN   TestGrokResumeSeedRejectsUnboundedOrForeignInput/extra
+=== RUN   TestGrokResumeSeedRejectsUnboundedOrForeignInput/traversal
+=== RUN   TestGrokResumeSeedRejectsUnboundedOrForeignInput/large
+=== RUN   TestGrokResumeSeedRejectsUnboundedOrForeignInput/binary
+=== RUN   TestGrokResumeSeedRejectsUnboundedOrForeignInput/lock
+=== RUN   TestGrokResumeSeedRejectsUnboundedOrForeignInput/uuid
+=== RUN   TestGrokResumeSeedRejectsUnboundedOrForeignInput/summary_id
+=== RUN   TestGrokResumeSeedRejectsUnboundedOrForeignInput/summary_cwd
+=== RUN   TestGrokResumeSeedRejectsUnboundedOrForeignInput/summary_model
+=== RUN   TestGrokResumeSeedRejectsUnboundedOrForeignInput/cwd
+--- PASS: TestGrokResumeSeedRejectsUnboundedOrForeignInput (0.01s)
+    --- PASS: TestGrokResumeSeedRejectsUnboundedOrForeignInput/missing (0.00s)
+    --- PASS: TestGrokResumeSeedRejectsUnboundedOrForeignInput/extra (0.00s)
+    --- PASS: TestGrokResumeSeedRejectsUnboundedOrForeignInput/traversal (0.00s)
+    --- PASS: TestGrokResumeSeedRejectsUnboundedOrForeignInput/large (0.00s)
+    --- PASS: TestGrokResumeSeedRejectsUnboundedOrForeignInput/binary (0.00s)
+    --- PASS: TestGrokResumeSeedRejectsUnboundedOrForeignInput/lock (0.00s)
+    --- PASS: TestGrokResumeSeedRejectsUnboundedOrForeignInput/uuid (0.00s)
+    --- PASS: TestGrokResumeSeedRejectsUnboundedOrForeignInput/summary_id (0.00s)
+    --- PASS: TestGrokResumeSeedRejectsUnboundedOrForeignInput/summary_cwd (0.00s)
+    --- PASS: TestGrokResumeSeedRejectsUnboundedOrForeignInput/summary_model (0.00s)
+    --- PASS: TestGrokResumeSeedRejectsUnboundedOrForeignInput/cwd (0.00s)
+=== RUN   TestGrokResumeSeedFreezesBytesAndRemainsPrivate
+--- PASS: TestGrokResumeSeedFreezesBytesAndRemainsPrivate (0.08s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime	1.760s

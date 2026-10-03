@@ -89,6 +89,25 @@ func (a *Adapter) Release(p policy.StopProof) error {
 // executable/argv/env/session/channel/validator authority belongs to Adapter.
 // This version supports single approved text read_file and readonly execution.
 func (a *Adapter) Start(ctx context.Context, inputRun store.StageRun, in managed.Spec) (*managed.Handle, error) {
+	return a.start(ctx, inputRun, in, nil)
+}
+
+type resumeRequest struct {
+	archives *Archives
+	ref      CheckpointRef
+}
+
+// ResumeCheckpoint is trusted controller wiring for a distinct prepared run.
+// It accepts only a sealed checkpoint; ordinary Resume without scope/prompt is
+// unsupported. Public task idempotency and route registration belong outside.
+func (a *Adapter) ResumeCheckpoint(ctx context.Context, inputRun store.StageRun, in managed.Spec, archives *Archives, ref CheckpointRef) (*managed.Handle, error) {
+	if archives == nil {
+		return nil, ErrUnverified
+	}
+	return a.start(ctx, inputRun, in, &resumeRequest{archives: archives, ref: ref})
+}
+
+func (a *Adapter) start(ctx context.Context, inputRun store.StageRun, in managed.Spec, resume *resumeRequest) (*managed.Handle, error) {
 	if a == nil || ctx.Err() != nil || in.Executable != "" || in.ExecutableHash != "" || len(in.Args) != 0 || len(in.FixtureEnvironment) != 0 || in.NativeSessionID != "" || in.ClaudeChannel != nil || in.GrokChannel != nil || in.ValidateOutcome != nil || in.Timeout <= 0 || in.Timeout > 4*time.Minute || len(in.Input) == 0 || len(in.Input) > 64<<10 || !utf8.Valid(in.Input) || bytes.IndexByte(in.Input, 0) >= 0 {
 		return nil, ErrUnverified
 	}
@@ -97,6 +116,31 @@ func (a *Adapter) Start(ctx context.Context, inputRun store.StageRun, in managed
 	}
 	if workspace.PrivateState(in.Root) != nil || workspace.PrivateState(in.Workspace) != nil || in.Root == in.Workspace || strings.HasPrefix(in.Root, in.Workspace+"/") || strings.HasPrefix(in.Workspace, in.Root+"/") {
 		return nil, ErrUnverified
+	}
+	var resumeRoot archiveIdentity
+	if resume != nil {
+		info, e := os.Stat(in.Root)
+		var ok bool
+		if e == nil {
+			resumeRoot, ok = archiveIdentityOf(info)
+		}
+		if e != nil || !ok {
+			return nil, ErrIdentity
+		}
+	}
+	resumeRootCurrent := func() bool {
+		if resume == nil {
+			return true
+		}
+		if workspace.PrivateState(in.Root) != nil {
+			return false
+		}
+		info, e := os.Stat(in.Root)
+		if e != nil {
+			return false
+		}
+		id, ok := archiveIdentityOf(info)
+		return ok && id == resumeRoot
 	}
 	// Freeze mutable input before invoking any trusted service callback.
 	promptInput := append([]byte(nil), in.Input...)
@@ -126,13 +170,23 @@ func (a *Adapter) Start(ctx context.Context, inputRun store.StageRun, in managed
 	if r.Target.Effort.RequestedMode != stageplan.EffortNone || r.Target.Effort.Value != nil {
 		return nil, ErrUnsupported
 	}
-	var id [16]byte
-	if _, e := rand.Read(id[:]); e != nil {
-		return nil, ErrUnverified
+	var restored *restoredCheckpoint
+	var sid string
+	if resume != nil {
+		restored, e = resume.archives.prepareRestore(ctx, resume.ref, &a.config.Scheduler, r, in.Workspace)
+		if e != nil {
+			return nil, e
+		}
+		sid = restored.manifest.Run.NativeSessionID
+	} else {
+		var id [16]byte
+		if _, e := rand.Read(id[:]); e != nil {
+			return nil, ErrUnverified
+		}
+		id[6] = (id[6] & 0x0f) | 0x40
+		id[8] = (id[8] & 0x3f) | 0x80
+		sid = fmt.Sprintf("%x-%x-%x-%x-%x", id[:4], id[4:6], id[6:8], id[8:10], id[10:])
 	}
-	id[6] = (id[6] & 0x0f) | 0x40
-	id[8] = (id[8] & 0x3f) | 0x80
-	sid := fmt.Sprintf("%x-%x-%x-%x-%x", id[:4], id[4:6], id[6:8], id[8:10], id[10:])
 	turns := int64(budget.MaxCalls - budget.UsedCalls)
 	if turns > 1000 {
 		turns = 1000
@@ -140,21 +194,27 @@ func (a *Adapter) Start(ctx context.Context, inputRun store.StageRun, in managed
 	binding := copyGate(GateBinding{Observer: Binding{RunID: r.ID, Generation: r.Generation, Role: r.Role, NativeSessionID: sid, Cwd: in.Workspace, RuntimeVersion: CLIVersion, ExecutableSHA256: NativeExecutableSHA256, Model: r.Target.RequestedModel, Tools: []string{"read_file"}, MaxTurns: turns}, Target: r.Target})
 	lifetime, cancel := context.WithTimeout(ctx, in.Timeout)
 	current := func(got GateBinding) bool {
-		if lifetime.Err() != nil {
+		if lifetime.Err() != nil || !resumeRootCurrent() || resume != nil && !resume.archives.live() {
 			return false
 		}
 		active, e := a.config.Scheduler.Store.CheckActive(r.ID, r.Generation)
 		x, _ := json.Marshal(got)
 		y, _ := json.Marshal(binding)
-		return e == nil && (active.State == "starting" || active.State == "running") && active.Owner == r.Owner && active.TaskID == r.TaskID && active.Role == r.Role && active.Attempt == r.Attempt && active.PlanRevision == r.PlanRevision && sameTarget(active.Target, binding.Target) && bytes.Equal(x, y) && a.config.Current(copyGate(got))
+		return e == nil && (active.State == "starting" || active.State == "running") && active.Owner == r.Owner && active.TaskID == r.TaskID && active.Role == r.Role && active.Attempt == r.Attempt && active.PlanRevision == r.PlanRevision && sameTarget(active.Target, binding.Target) && bytes.Equal(x, y) && a.config.Current(copyGate(got)) && resumeRootCurrent()
 	}
 	if !current(copyGate(binding)) {
 		cancel()
 		return nil, ErrIdentity
 	}
-	read, e := NewReadTools(binding.Observer, func(got Binding) bool {
+	readCurrent := func(got Binding) bool {
 		return current(GateBinding{Observer: clone(got), Target: copyGate(binding).Target})
-	})
+	}
+	var read *ReadTools
+	if restored != nil {
+		read, e = restored.readTools(binding.Observer, readCurrent, nil)
+	} else {
+		read, e = NewReadTools(binding.Observer, readCurrent)
+	}
 	if e != nil {
 		cancel()
 		return nil, e
@@ -179,13 +239,23 @@ func (a *Adapter) Start(ctx context.Context, inputRun store.StageRun, in managed
 		cleanup()
 		return nil, ErrUnverified
 	}
+	if read.containsPrivate([]byte(secret)) {
+		pending.Cancel()
+		cleanup()
+		return nil, ErrUnverified
+	}
 	gate, e := NewCallGate(CallGateConfig{Binding: binding, ReadTools: read, Manager: a.config.Manager, Claims: claims, Current: current, Permit: a.config.Scheduler.Permit, Forwarder: a.config.Forwarder})
 	if e != nil {
 		pending.Cancel()
 		cleanup()
 		return nil, e
 	}
-	channel, e := managed.NewGrokChannel(gate, pending, binding.Target)
+	var channel *managed.GrokChannel
+	if restored != nil {
+		channel, e = managed.NewGrokResumeChannel(gate, pending, binding.Target, sid, in.Workspace, restored.files)
+	} else {
+		channel, e = managed.NewGrokChannel(gate, pending, binding.Target)
+	}
 	if e != nil {
 		pending.Cancel()
 		cleanup()
@@ -222,6 +292,11 @@ func (a *Adapter) Start(ctx context.Context, inputRun store.StageRun, in managed
 	}
 	a.observations[r.ID] = nativeObservation{generation: r.Generation, outcome: Outcome{State: "execution_uncertain", SessionID: sid}, checkpoint: &checkpointRecord{run: r, projectID: task.ProjectID, root: in.Root, cwd: in.Workspace, owner: r.Owner, cwdIdentity: cwdIdentity, rootIdentity: rootIdentity, markers: [][]byte{[]byte(secret)}}}
 	a.mu.Unlock()
+	if restored != nil {
+		if e = resume.archives.recordRestore(lifetime, restored, in.Root, promptInput); e != nil {
+			return fail(e)
+		}
+	}
 	prompt := filepath.Join(in.Root, "grok-prompt.txt")
 	file, e := os.OpenFile(prompt, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0600)
 	if e != nil {
@@ -233,7 +308,12 @@ func (a *Adapter) Start(ctx context.Context, inputRun store.StageRun, in managed
 	if writeErr != nil || syncErr != nil || closeErr != nil {
 		return fail(ErrUnverified)
 	}
-	args := []string{"--prompt-file", prompt, "--model", "fusion", "--output-format", "streaming-json", "--permission-mode", "dontAsk", "--no-subagents", "--max-turns", fmt.Sprint(turns), "--tools", "Read", "--disallowed-tools", "search_tool,use_tool", "--disable-web-search", "--no-auto-update", "--cwd", binding.Observer.Cwd, "--session-id", sid}
+	args := []string{"--prompt-file", prompt, "--model", "fusion", "--output-format", "streaming-json", "--permission-mode", "dontAsk", "--no-subagents", "--max-turns", fmt.Sprint(turns), "--tools", "Read", "--disallowed-tools", "search_tool,use_tool", "--disable-web-search", "--no-auto-update", "--cwd", binding.Observer.Cwd}
+	if restored != nil {
+		args = append(args, "--resume", sid)
+	} else {
+		args = append(args, "--session-id", sid)
+	}
 	spec := managed.Spec{Executable: a.config.Executable, ExecutableHash: NativeExecutableSHA256, Args: args, Root: in.Root, Workspace: in.Workspace, Timeout: in.Timeout, NativeSessionID: sid, GrokChannel: channel, ValidateOutcome: func(raw []byte) bool {
 		if bytes.Contains(raw, []byte(secret)) {
 			return false

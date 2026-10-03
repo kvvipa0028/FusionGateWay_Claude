@@ -1,0 +1,3 @@
+testing: warning: no tests to run
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/control	1.433s [no tests to run]

@@ -1,6 +1,6 @@
 # Grok 恢复准备与历史 Read 合同
 
-对应 [WP-13-RESTORE-01](../work-items/WP-13/RESTORE-01/summary.md)。本项提供包内可信归档消费者和新的 per-run ReadTools；尚未接通 Native seed/launch 或持久恢复 receipt，不新增 HTTP API，不开放 Adapter/Session Resume capability。
+对应 [WP-13-RESTORE-01](../work-items/WP-13/RESTORE-01/summary.md)。本项提供包内可信归档消费者和新的 per-run ReadTools；后续 [RESUME-01](grok-managed-resume.md) 已接通 Native seed/launch 与私有 prepared mapping。不新增 HTTP API，通用 Adapter/Session Resume 仍 unsupported。
 
 `Archives.prepareRestore` 仅接受完整 [Checkpoint seal](grok-checkpoint.md)，调用真实 Scheduler.CheckPrepared 重核当前准入、quota、reservation 和剩余预算。先深拷贝 caller run，再核对 Store 权威状态；必须是 distinct starting run、非空新 owner、startup intent、未 launch confirmed、尚无 Native UUID。只读恢复要求新 reservation 没有 WriteKey。原 run 必须与密封记录准确一致、成功、launch confirmed、owner 已清空且 reservation 已释放。
 
@@ -12,4 +12,4 @@
 
 历史 Read 不计入新 run 的 tool-turn 数；新批准 Read 仍受本次 MaxTurns 限制，历史与新记录合计仍最多 64 项/512KiB。每次 HTTP，包括重试和辅助调用，仍通过新的 ModelAudience 和真实 Scheduler.Permit 独立记账。导入不会提升写权限、免除模型或 billing/Quota 核验，也不会将旧 grant 重新激活。
 
-后续必须完成 typed seed 写入全新私有 Root、新 config/grant/端口、准确 `--resume UUID`、当前 Source/项目授权、持久新旧 run 映射/幂等 receipt，并验证完整输出协议、取消、实际 wait/StopProof/Release。当前组件只准备可信状态；实际 Native Resume 和应用重启恢复仍未实现，不能据此登记产品恢复能力。
+已在后续 RESUME-01 完成 typed seed、新 config/grant/端口、准确 `--resume UUID`、私有 prepared mapping，并验证完整协议/历史/新 Read、取消和实际 wait/StopProof/Release。整体 Source/当前项目权限、产品幂等 receipt/API 与真实路线准入仍待完成，不能据此登记整个产品的恢复能力。

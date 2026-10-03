@@ -120,6 +120,9 @@ func sandbox(spec Spec) (string, []string, error) {
 		if writeErr != nil || syncErr != nil || closeErr != nil {
 			return "", nil, ErrLaunch
 		}
+		if c.seed != nil && c.seed.install(home, spec) != nil {
+			return "", nil, ErrLaunch
+		}
 		env = append(env, "GROK_HOME="+home, "LANG=en_US.UTF-8", "DO_NOT_TRACK=1", "RUST_LOG=error")
 	}
 	return profile, env, nil

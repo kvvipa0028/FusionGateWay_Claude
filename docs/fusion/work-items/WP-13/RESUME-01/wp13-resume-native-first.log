@@ -1,0 +1,11 @@
+=== RUN   TestGrokAdapterPinnedNativeResume
+=== RUN   TestGrokAdapterPinnedNativeResume/text
+    resume_native_test.go:28: resume budget mismatch <nil> 3 3
+=== RUN   TestGrokAdapterPinnedNativeResume/read
+    resume_native_test.go:28: resume budget mismatch <nil> 4 4
+--- FAIL: TestGrokAdapterPinnedNativeResume (4.60s)
+    --- FAIL: TestGrokAdapterPinnedNativeResume/text (2.28s)
+    --- FAIL: TestGrokAdapterPinnedNativeResume/read (2.32s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/grok	5.264s
+FAIL

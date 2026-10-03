@@ -1,0 +1,6 @@
+# github.com/yetone/magpie/internal/fusion/runtime/grok [github.com/yetone/magpie/internal/fusion/runtime/grok.test]
+internal/fusion/runtime/grok/resume_native_test.go:126:21: a.ResumeCheckpoint undefined (type *Adapter has no field or method ResumeCheckpoint)
+internal/fusion/runtime/grok/resume_native_test.go:131:19: a.ResumeCheckpoint undefined (type *Adapter has no field or method ResumeCheckpoint)
+internal/fusion/runtime/grok/resume_native_test.go:155:22: archives.RestoreInfo undefined (type *Archives has no field or method RestoreInfo)
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/grok [build failed]
+FAIL

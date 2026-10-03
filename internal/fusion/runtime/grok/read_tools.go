@@ -81,6 +81,20 @@ func (r *ReadTools) Close() error {
 	return r.root.Close()
 }
 func (r *ReadTools) fail() { r.mu.Lock(); defer r.mu.Unlock(); r.failed = true }
+
+func (r *ReadTools) containsPrivate(marker []byte) bool {
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	if len(marker) == 0 || len(marker) > 4096 {
+		return true
+	}
+	for _, record := range r.records {
+		if bytes.Contains([]byte(record.raw), marker) || privateJSON([]byte(record.raw), marker) {
+			return true
+		}
+	}
+	return false
+}
 func (r *ReadTools) check() error {
 	if r.closed || r.failed || !r.current(clone(r.binding)) {
 		return ErrIdentity

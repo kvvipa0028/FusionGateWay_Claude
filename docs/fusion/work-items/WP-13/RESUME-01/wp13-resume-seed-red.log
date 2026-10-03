@@ -1,0 +1,6 @@
+# github.com/yetone/magpie/internal/fusion/runtime [github.com/yetone/magpie/internal/fusion/runtime.test]
+internal/fusion/runtime/grok_seed_test.go:57:13: undefined: NewGrokResumeChannel
+internal/fusion/runtime/grok_seed_test.go:70:11: undefined: NewGrokResumeChannel
+internal/fusion/runtime/grok_seed_test.go:83:42: undefined: grokSeedCwd
+FAIL	github.com/yetone/magpie/internal/fusion/runtime [build failed]
+FAIL

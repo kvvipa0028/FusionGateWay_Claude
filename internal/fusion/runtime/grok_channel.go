@@ -16,7 +16,10 @@ var grokModel = regexp.MustCompile(`^[a-z0-9][a-z0-9._-]{0,127}$`)
 // GrokChannel holds only a scoped stage grant, never the X subscription secret.
 // Handler and frozen target come from trusted controller wiring. Construction
 // does not itself verify upstream identity, quota, billing or route admission.
-type GrokChannel struct{ *modelChannel }
+type GrokChannel struct {
+	*modelChannel
+	seed *grokSessionSeed
+}
 
 func (*GrokChannel) String() string   { return "scoped Grok channel (redacted)" }
 func (*GrokChannel) GoString() string { return "GrokChannel(<redacted>)" }
@@ -29,7 +32,7 @@ func NewGrokChannel(handler http.Handler, grant *policy.PendingModelGrant, targe
 	if e != nil {
 		return nil, e
 	}
-	return &GrokChannel{channel}, nil
+	return &GrokChannel{modelChannel: channel}, nil
 }
 
 // A launch has exactly one typed channel, or none for an offline worker.

@@ -1,0 +1,214 @@
+{
+  "base_commit": "483297e0f25da0baece3bafbdd3ff7d6a3e70188",
+  "go_version": "1.26.3",
+  "jev": "off",
+  "parent_wp13": "in_progress",
+  "final_gate": "not_run",
+  "checks": {
+    "wp13-resume-control-empty-selection.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 0,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "no_tests": true,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/control\t1.433s [no tests to run]"
+    },
+    "wp13-resume-control-native.log": {
+      "pass": 1,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 7,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "no_tests": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/control\t9.563s"
+    },
+    "wp13-resume-fusion-complete-final.log": {
+      "pass": 432,
+      "skip": 19,
+      "fail": 0,
+      "passed_subtests": 590,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "no_tests": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/workspace\t1.396s"
+    },
+    "wp13-resume-fusion-tagged-race.log": {
+      "pass": 432,
+      "skip": 19,
+      "fail": 0,
+      "passed_subtests": 590,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "no_tests": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/workspace\t1.443s"
+    },
+    "wp13-resume-host-final.log": {
+      "pass": 14,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 61,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "no_tests": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/runtime/grok\t21.546s"
+    },
+    "wp13-resume-host-first.log": {
+      "pass": 14,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 61,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "no_tests": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/runtime/grok\t13.640s"
+    },
+    "wp13-resume-native-complete-final.log": {
+      "pass": 8,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 42,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "no_tests": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/runtime/grok\t83.664s"
+    },
+    "wp13-resume-native-expanded.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 1,
+      "passed_subtests": 8,
+      "failed_subtests": 2,
+      "compile_red": false,
+      "no_tests": false,
+      "terminal_line": "FAIL"
+    },
+    "wp13-resume-native-final.log": {
+      "pass": 1,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 11,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "no_tests": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/runtime/grok\t23.234s"
+    },
+    "wp13-resume-native-first.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 1,
+      "passed_subtests": 0,
+      "failed_subtests": 2,
+      "compile_red": false,
+      "no_tests": false,
+      "terminal_line": "FAIL"
+    },
+    "wp13-resume-native-green.log": {
+      "pass": 1,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 2,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "no_tests": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/runtime/grok\t6.454s"
+    },
+    "wp13-resume-native-red.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 0,
+      "failed_subtests": 0,
+      "compile_red": true,
+      "no_tests": false,
+      "terminal_line": "FAIL"
+    },
+    "wp13-resume-native-regression-final.log": {
+      "pass": 8,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 41,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "no_tests": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/runtime/grok\t83.344s"
+    },
+    "wp13-resume-root-red.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 1,
+      "passed_subtests": 0,
+      "failed_subtests": 1,
+      "compile_red": false,
+      "no_tests": false,
+      "terminal_line": "FAIL"
+    },
+    "wp13-resume-seed-green.log": {
+      "pass": 2,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 11,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "no_tests": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/runtime\t1.760s"
+    },
+    "wp13-resume-seed-red.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 0,
+      "failed_subtests": 0,
+      "compile_red": true,
+      "no_tests": false,
+      "terminal_line": "FAIL"
+    },
+    "wp13-resume-seed-retention-red.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 1,
+      "passed_subtests": 0,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "no_tests": false,
+      "terminal_line": "FAIL"
+    },
+    "wp13-resume-store-reopen.log": {
+      "pass": 1,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 1,
+      "failed_subtests": 0,
+      "compile_red": false,
+      "no_tests": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/runtime/grok\t3.938s"
+    }
+  },
+  "new_native_resume": {
+    "scenarios": 12,
+    "success": 6,
+    "cancelled": 1,
+    "quota_failed": 1,
+    "prelaunch_refused": 4,
+    "native_processes": 20,
+    "actual_store_reopen": true
+  },
+  "combined_native_regression": {
+    "scenarios": 43,
+    "native_launch_scenarios": 42,
+    "prelaunch_only": 1,
+    "native_processes": 50
+  },
+  "controller_native": {
+    "scenarios": 7,
+    "native_processes": 7
+  },
+  "trusted_internal_resume_verified": true,
+  "product_resume_api_registered": false,
+  "real_model_calls": 0,
+  "real_quota_calls": 0,
+  "upstream_inspection_quota": "synthetic",
+  "post_checks_changes": "documentation/packet only; final Native/full race include StoreRoot fixture metadata added after build"
+}

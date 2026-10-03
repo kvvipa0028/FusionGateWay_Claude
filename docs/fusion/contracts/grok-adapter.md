@@ -1,8 +1,8 @@
 # Grok 只读 Adapter 合同
 
-对应 [WP-13-ADAPTER-01](../work-items/WP-13/ADAPTER-01/summary.md)。实现公共 managed.Adapter 的 Probe/Start 与本控制器 VerifyStop/Release；Resume 明确 unsupported。只读 Native 文本/单个预授权 read_file 可执行，写范围、其它工具、Native effort 与恢复仍不支持。生产注册、真实 X subscription NativeForwarder/账号/池/计费/Quota/Source稳定性准入尚未完成，Jev off。
+对应 [WP-13-ADAPTER-01](../work-items/WP-13/ADAPTER-01/summary.md)。实现公共 managed.Adapter 的 Probe/Start 与本控制器 VerifyStop/Release；通用 Resume 缺少准确恢复输入，仍 unsupported。只读 Native 文本与受控 read_file 可执行；新增可信 [ResumeCheckpoint](grok-managed-resume.md)，从成功 stopped/released seal 恢复准确 UUID。写范围、其它工具、Native effort、产品注册、真实 X subscription NativeForwarder/账号/池/计费/Quota/Source稳定性准入尚未完成，Jev off。
 
-成功执行在本 Adapter 持有实际 Handle、完成 wait/StopProof/Release 后，可通过 [Checkpoint](grok-checkpoint.md) 生成私有完整会话 seal，并冻结原批准 Read。该生产端支持重开核验；新执行恢复消费者与历史 Read 导入尚未实现，不能据此登记 Resume capability。
+成功执行在本 Adapter 持有实际 Handle、完成 wait/StopProof/Release 后，可通过 [Checkpoint](grok-checkpoint.md) 生成私有完整会话 seal，并冻结原批准 Read。已接通新执行恢复消费者与历史 Read 导入，实际 Native 通过；产品入口与独立准入仍未完成，不能据此登记完整产品能力。
 
 可信 AdapterConfig 提供同一个 Scheduler/Store/Inspector、Manager、固定 executable、Current(GateBinding) 和 [NativeForwarder](grok-call-gate.md)。Forwarder 是独立准入的服务合同，必须单次发送、遵守context并核验冻结身份/端点/计费；本包没有普通 xAI API key/API gateway/web cookie fallback。Current 必须有界、不产生外部副作用；其参数深拷贝，不允许修改冻结绑定。Config不来自HTTP。
 
