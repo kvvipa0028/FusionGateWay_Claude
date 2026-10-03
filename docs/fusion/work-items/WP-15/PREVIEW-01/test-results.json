@@ -1,0 +1,29 @@
+{
+  "work_item": "WP-15-PREVIEW-01",
+  "status": "done",
+  "parent_status": "in_progress",
+  "checks": [
+    {
+      "command": "go test -race -v -count=1 -mod=readonly ./internal/fusion/api",
+      "exit_code": 0,
+      "top_level_pass": 14,
+      "top_level_skip": 0,
+      "log": "wp15-preview-green-final.log"
+    },
+    {
+      "command": "go test -race -v -count=1 -mod=readonly -tags fusion,nogui ./internal/fusion/...",
+      "exit_code": 0,
+      "top_level_pass": 156,
+      "top_level_skip": 2,
+      "log": "wp15-fusion-tagged-race-final.log"
+    }
+  ],
+  "red_logs": [
+    "wp15-preview-red.log",
+    "wp15-reason-red.log"
+  ],
+  "build_report": "build-results.json",
+  "production_registered": false,
+  "real_model_calls": 0,
+  "final_test_families_passed": []
+}

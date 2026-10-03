@@ -1,0 +1,30 @@
+=== RUN   TestPreviewAndSubmissionFreezeExactServerPlan
+--- PASS: TestPreviewAndSubmissionFreezeExactServerPlan (0.03s)
+=== RUN   TestStalePreviewAndTamperedHashCannotCreateTask
+--- PASS: TestStalePreviewAndTamperedHashCannotCreateTask (0.02s)
+=== RUN   TestConcurrentIdempotentSubmitCreatesOnePersistedTask
+--- PASS: TestConcurrentIdempotentSubmitCreatesOnePersistedTask (0.03s)
+=== RUN   TestBodyCannotSupplyCredentialsWorkspaceGlobalOrFrozenAdmission
+--- PASS: TestBodyCannotSupplyCredentialsWorkspaceGlobalOrFrozenAdmission (0.02s)
+=== RUN   TestMalformedOrAmbiguousRequestIsRejected
+--- PASS: TestMalformedOrAmbiguousRequestIsRejected (0.02s)
+=== RUN   TestEveryTaskEndpointRequiresManagementAuthentication
+--- PASS: TestEveryTaskEndpointRequiresManagementAuthentication (0.02s)
+=== RUN   TestExpiredPreviewDoesNotCreateOrReplayExecution
+--- PASS: TestExpiredPreviewDoesNotCreateOrReplayExecution (0.02s)
+=== RUN   TestConfigurationAndPreviewCannotMutateServerReferences
+--- PASS: TestConfigurationAndPreviewCannotMutateServerReferences (0.02s)
+=== RUN   TestUnadmittedRouteHasNoPreviewFallback
+--- PASS: TestUnadmittedRouteHasNoPreviewFallback (0.02s)
+=== RUN   TestCommittedRetryPreservesTaskAfterConfigurationChange
+--- PASS: TestCommittedRetryPreservesTaskAfterConfigurationChange (0.02s)
+=== RUN   TestSameIdempotencyKeyCannotAdoptChangedGoal
+--- PASS: TestSameIdempotencyKeyCannotAdoptChangedGoal (0.02s)
+=== RUN   TestRequestSizeEncodingAndContentTypeAreBounded
+--- PASS: TestRequestSizeEncodingAndContentTypeAreBounded (0.02s)
+=== RUN   TestPreviewFailureHasSafeActionableReason
+--- PASS: TestPreviewFailureHasSafeActionableReason (0.02s)
+=== RUN   TestControllerRestartRequiresNewPreviewAndPreservesTaskIdempotency
+--- PASS: TestControllerRestartRequiresNewPreviewAndPreservesTaskIdempotency (0.02s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/api	1.746s

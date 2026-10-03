@@ -1,0 +1,11 @@
+# github.com/yetone/magpie/internal/fusion/api [github.com/yetone/magpie/internal/fusion/api.test]
+internal/fusion/api/preview_test.go:19:22: undefined: ProjectConfiguration
+internal/fusion/api/preview_test.go:23:9: undefined: ProjectConfiguration
+internal/fusion/api/preview_test.go:25:28: undefined: Server
+internal/fusion/api/preview_test.go:35:10: undefined: New
+internal/fusion/api/preview_test.go:57:44: undefined: Preview
+internal/fusion/api/preview_test.go:63:8: undefined: Preview
+internal/fusion/api/preview_test.go:69:45: undefined: Preview
+internal/fusion/api/preview_test.go:71:25: undefined: SubmitRequest
+FAIL	github.com/yetone/magpie/internal/fusion/api [build failed]
+FAIL

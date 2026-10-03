@@ -342,7 +342,7 @@
       "id": "WP-15",
       "title": "任务 API、阶段预览与事件流",
       "milestone": "M2",
-      "status": "planned",
+      "status": "in_progress",
       "depends_on": [
         "WP-04",
         "WP-05",

@@ -1,0 +1,19 @@
+{
+  "base_commit": "53407bc324372b7563cac3498af18e1c8456fe28",
+  "source_files_sha256": {
+    "internal/fusion/api/preview.go": "345793637ecb26cb3e838ab9e238718b23f3d36da7c369fa52ee7218639eebd1",
+    "internal/fusion/api/preview_test.go": "eafb99c1e07bbda49a26de7ff823764365983d2b7b1e771f7cf4beab6620293c"
+  },
+  "packet_files_sha256": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "01d094f208c33eab1faa987b746d1c2dcb0f8410e209ffd2db98091d1cc91da4",
+    "build-results.json": "d463160a4933babaa6dd61e8cda71418bb2071a7d1c3566277c08faa4a5e5683",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "summary.md": "3fa0bbba88bb7a67759d8b5de1effa92ecbc8ea937945740d3297f9a17fd7522",
+    "test-results.json": "9b41c89cd0fd1daac453301d108042b3d5432526f5f605e4d4fa4bc5e23598fb",
+    "wp15-fusion-tagged-race-final.log": "6f285d0fb1f27bad3bfeb1e047665c0593e9bd5401709e495fce34e5139a650f",
+    "wp15-preview-green-final.log": "ae459c385958b56445ce74f762aec6278694828ae7c2c2dd53eb593ecf3151ae",
+    "wp15-preview-red.log": "804643ca369ccbe6040b1fb59cb10b513bfdf90c70d1f591689118e73adda8cf",
+    "wp15-reason-red.log": "03ea4eac5a73881d21aa5b2466f97ab834dcdb3aa27dfedc2eaf93b3bdcd63dc"
+  }
+}
