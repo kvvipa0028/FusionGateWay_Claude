@@ -1,0 +1,13 @@
+{
+  "work_item": "WP-12-PARSE-01",
+  "checks": [
+    {
+      "command": "go test -race -count=1 ./internal/fusion/runtime/codex -v",
+      "exit_code": 0,
+      "top_level_pass": 24,
+      "log": "wp12-unicode-green.log"
+    }
+  ],
+  "red": "wp12-unicode-red.log",
+  "native_route_admitted": false
+}

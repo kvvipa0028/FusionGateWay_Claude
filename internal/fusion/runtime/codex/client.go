@@ -11,6 +11,8 @@ import (
 	"path/filepath"
 	"strings"
 	"sync"
+	"unicode"
+	"unicode/utf8"
 
 	"github.com/yetone/magpie/internal/fusion/stageplan"
 )
@@ -405,7 +407,7 @@ func (c *Client) allowedItem(kind string) bool {
 // Native payloads may add documented fields, but duplicate/case-colliding
 // keys, null envelopes, trailing values and oversized frames are rejected.
 func decode(raw []byte, out any) error {
-	if len(raw) == 0 || len(raw) > 1<<20 || bytes.Equal(bytes.TrimSpace(raw), []byte("null")) {
+	if len(raw) == 0 || len(raw) > 1<<20 || !utf8.Valid(raw) || bytes.Equal(bytes.TrimSpace(raw), []byte("null")) {
 		return ErrProtocol
 	}
 	d := json.NewDecoder(bytes.NewReader(raw))
@@ -443,7 +445,7 @@ func unique(d *json.Decoder, depth int) error {
 			if !ok {
 				return ErrProtocol
 			}
-			s = strings.ToLower(s)
+			s = foldKey(s)
 			if seen[s] {
 				return ErrProtocol
 			}
@@ -463,4 +465,17 @@ func unique(d *json.Decoder, depth int) error {
 	}
 	_, e = d.Token()
 	return e
+}
+
+// Match encoding/json's Unicode case equivalence, including the long s and
+// Kelvin sign. Lowercasing alone misses aliases accepted by struct decoding.
+func foldKey(s string) string {
+	b := []rune(s)
+	for i, c := range b {
+		for next := unicode.SimpleFold(c); next > c; next = unicode.SimpleFold(c) {
+			c = next
+		}
+		b[i] = unicode.SimpleFold(c)
+	}
+	return string(b)
 }

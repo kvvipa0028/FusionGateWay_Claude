@@ -1187,6 +1187,31 @@
       "bytes": 691
     },
     {
+      "path": "docs/fusion/work-items/WP-12/PARSE-01/artifacts.json",
+      "sha256": "6f63a975513ce6ff307b141fae7d5fb38f9acf60f1e393a7a0fcae232c9e4ee3",
+      "bytes": 734
+    },
+    {
+      "path": "docs/fusion/work-items/WP-12/PARSE-01/summary.md",
+      "sha256": "ad06463bcce88b0b1d0c4fb5f2d6c6cddbe92c4b9f66fc5f03fda756c963ef07",
+      "bytes": 907
+    },
+    {
+      "path": "docs/fusion/work-items/WP-12/PARSE-01/test-results.json",
+      "sha256": "dac3d2e2fd8dc6274bb327a1e7fdb3d999b739c04a574e143e926ed3846c076b",
+      "bytes": 300
+    },
+    {
+      "path": "docs/fusion/work-items/WP-12/PARSE-01/wp12-unicode-green.log",
+      "sha256": "58bdafc46eb7af51efacc7762a1179143b4a8477f7e2a60a68c2032bea1a46f5",
+      "bytes": 6858
+    },
+    {
+      "path": "docs/fusion/work-items/WP-12/PARSE-01/wp12-unicode-red.log",
+      "sha256": "a8024495cf67d77813bb8e2edd283edd0ca2defe1b0ecfc5d719c5c651bf797a",
+      "bytes": 260
+    },
+    {
       "path": "docs/fusion/work-items/WP-12/artifacts.json",
       "sha256": "17ad61c4eebe160e89fa0e144876ec4bc8f0348277143019d61bfc1f2e068088",
       "bytes": 3066
@@ -1233,8 +1258,8 @@
     },
     {
       "path": "docs/fusion/work-items/WP-12/summary.md",
-      "sha256": "4948760b595eb65635a6d312a0898f31b977b3c72c4f1cddc2219fe207258cbb",
-      "bytes": 2938
+      "sha256": "9e9c0e7a7f1825903dd85ebbf30f35d853f16880b18cafe496bd9a809396a976",
+      "bytes": 3132
     },
     {
       "path": "docs/fusion/work-items/WP-12/test-results.json",

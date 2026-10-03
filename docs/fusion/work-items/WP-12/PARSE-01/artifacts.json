@@ -1,0 +1,13 @@
+{
+  "base_commit": "e86198f95a8eab7418d512026ccbc4f0037aae72",
+  "source_files_sha256": {
+    "internal/fusion/runtime/codex/client.go": "9ec37dd354de7975a608946caa7264b662908aa839f3a0446b8421c0ddc29f4c",
+    "internal/fusion/runtime/codex/client_test.go": "dae202e0117b69d6a035a7f172c4babc9a7df5e3bf801a91a60342719c26b171"
+  },
+  "packet_files_sha256": {
+    "summary.md": "ad06463bcce88b0b1d0c4fb5f2d6c6cddbe92c4b9f66fc5f03fda756c963ef07",
+    "test-results.json": "dac3d2e2fd8dc6274bb327a1e7fdb3d999b739c04a574e143e926ed3846c076b",
+    "wp12-unicode-green.log": "58bdafc46eb7af51efacc7762a1179143b4a8477f7e2a60a68c2032bea1a46f5",
+    "wp12-unicode-red.log": "a8024495cf67d77813bb8e2edd283edd0ca2defe1b0ecfc5d719c5c651bf797a"
+  }
+}

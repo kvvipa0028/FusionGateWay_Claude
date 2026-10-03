@@ -1,0 +1,6 @@
+=== RUN   TestDecodeRejectsUnicodeCaseAliasesAndInvalidUTF8
+    client_test.go:379: ambiguous native JSON accepted
+--- FAIL: TestDecodeRejectsUnicodeCaseAliasesAndInvalidUTF8 (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/codex	0.545s
+FAIL

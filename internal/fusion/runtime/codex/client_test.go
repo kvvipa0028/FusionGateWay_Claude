@@ -372,3 +372,12 @@ func TestUnknownItemOrReadonlyFileChangeMakesExecutionUncertain(t *testing.T) {
 		}
 	}
 }
+
+func TestDecodeRejectsUnicodeCaseAliasesAndInvalidUTF8(t *testing.T) {
+	for _, raw := range [][]byte{[]byte(`{"ſtatus":"other","status":"completed"}`), append([]byte(`{"text":"`), 0xff, '"', '}')} {
+		var v any
+		if decode(raw, &v) == nil {
+			t.Fatal("ambiguous native JSON accepted")
+		}
+	}
+}

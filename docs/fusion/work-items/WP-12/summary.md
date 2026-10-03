@@ -28,3 +28,7 @@
 - 原生成功/失败/中断、实际网络与子进程的受控验证，以及 WP-17/Gate A 的三路线实测。
 
 T01/T02/T14/T15/T25/T31/T32/T35/T44/T53/T59 的最终端到端状态继续为 `not_run`。已验证协议不代表真实路线已准入；其余独立工作继续实施。
+
+## 协议解析追加修复
+
+[WP-12-PARSE-01](PARSE-01/summary.md) 修复 Unicode case-fold 重复字段与 invalid UTF-8，24 项 Codex race tests 通过。完整 Native 接入状态不变。
