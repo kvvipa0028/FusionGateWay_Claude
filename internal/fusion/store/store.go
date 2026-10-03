@@ -42,6 +42,7 @@ type CreateRequest struct {
 	ProjectID string             `json:"project_id"`
 	Goal      string             `json:"goal"`
 	Plan      stageplan.Snapshot `json:"plan"`
+	Budget    *Budget            `json:"budget,omitempty"`
 }
 type StartRequest struct {
 	TaskID       string
@@ -261,6 +262,13 @@ func (s *Store) Create(key string, in CreateRequest) (Task, error) {
 	if !opaque(key) || !opaque(in.ProjectID) || in.Goal == "" || len(in.Goal) > 65536 || in.Plan.Revision != 1 || stageplan.VerifySnapshot(in.Plan) != nil {
 		return Task{}, ErrInvalid
 	}
+	if in.Budget != nil {
+		b := *in.Budget
+		if !initialBudget(b) {
+			return Task{}, ErrInvalid
+		}
+		in.Budget = &b
+	}
 	raw, e := json.Marshal(in)
 	if e != nil {
 		return Task{}, e
@@ -290,6 +298,11 @@ func (s *Store) Create(key string, in CreateRequest) (Task, error) {
 		snapshot, _ := json.Marshal(in.Plan)
 		if _, e = tx.Exec("INSERT INTO plan_revisions VALUES(?,?,?,?)", taskID, 1, string(snapshot), in.Plan.Hash); e != nil {
 			return e
+		}
+		if in.Budget != nil {
+			if _, e = tx.Exec("INSERT INTO task_budgets(task_id,max_calls,max_reworks) VALUES(?,?,?)", taskID, in.Budget.MaxCalls, in.Budget.MaxReworks); e != nil {
+				return e
+			}
 		}
 		if _, e = tx.Exec("INSERT INTO idempotency VALUES(?,?,?,?)", in.ProjectID, key, payloadHash, taskID); e != nil {
 			return e

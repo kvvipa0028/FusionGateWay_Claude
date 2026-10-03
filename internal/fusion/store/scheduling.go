@@ -36,7 +36,7 @@ func (s *Store) Budget(taskID string) (Budget, error) {
 	return budgetIn(s.db, taskID)
 }
 func (s *Store) ConfigureBudget(taskID string, b Budget) error {
-	if b.MaxCalls < 1 || b.MaxCalls > 1000 || b.MaxReworks < 0 || b.MaxReworks > 1 || b.UsedCalls != 0 || b.UsedReworks != 0 {
+	if !initialBudget(b) {
 		return ErrInvalid
 	}
 	return s.transaction(func(tx *sql.Tx) error {
@@ -60,6 +60,9 @@ func (s *Store) ConfigureBudget(taskID string, b Budget) error {
 		_, e = tx.Exec("INSERT INTO task_budgets(task_id,max_calls,max_reworks) VALUES(?,?,?)", taskID, b.MaxCalls, b.MaxReworks)
 		return e
 	})
+}
+func initialBudget(b Budget) bool {
+	return b.MaxCalls >= 1 && b.MaxCalls <= 1000 && b.MaxReworks >= 0 && b.MaxReworks <= 1 && b.UsedCalls == 0 && b.UsedReworks == 0
 }
 func (s *Store) ConfigureCapacity(limit int) error {
 	if limit < 1 || limit > 16 {

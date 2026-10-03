@@ -1,0 +1,22 @@
+{
+  "base_commit": "fb355fc6580d57dca75ee4a315df059ec2bdc778",
+  "source_files_sha256": {
+    "internal/fusion/api/preview.go": "8c5c2489efc29c5c38fa09b42f2649a0f7cc8793fc50013bc76e31cf7215b564",
+    "internal/fusion/api/preview_test.go": "479171ff09d2f0aad47ff1f178142d595757b1cef824d49a4317d919b4e13841",
+    "internal/fusion/store/store.go": "3bb84788e5baa5d2f326d7e4f8cb095784a778202db7fdb5d5d8f4452d95c7dc",
+    "internal/fusion/store/scheduling.go": "15497941c19c83c288c10cc031a064ccfdf00e278857a302d83a9ccf54558627",
+    "internal/fusion/store/submission_test.go": "48fa391142298f781e40c12e694a57bbe7049d41c1eb9510f69d26278727c104"
+  },
+  "packet_files_sha256": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "d21200f819a916349562f2d0f563834c90e22508281b2c6d3a919c5aa713f0d5",
+    "build-results.json": "0635059cebc569b59fbaeaece224146e766ea4fc157b78b4a01c78d9315672e9",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "summary.md": "4581581e030c6ad7f5ddfc9bacabe3d965ed424a72cfa4aa4c18c93cca674484",
+    "test-results.json": "4adac75041dada25690f26c1d4a7e55d594535f3c9eb33c816ece423b6e8696d",
+    "wp15-budget-boundary-red.log": "f7c0e62775d52071bb77a76830bdd22a9afe69df963b33decf9116f72357d012",
+    "wp15-budget-fusion-tagged-race-final.log": "1ec760faa3eab6747d67ca0f0784efd2113dc08d2ffdd7849e5dd1c150ce53f1",
+    "wp15-budget-green.log": "768ddc989b355d066a7c67438567afed09c4f4e244ec7063a687e3eb0da6a4b7",
+    "wp15-budget-red.log": "1d7257a5f538e18875c7b9ec7fab1da1faaf48ba70d170424d005208f311934d"
+  }
+}

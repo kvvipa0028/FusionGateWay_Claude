@@ -20,7 +20,7 @@ Scheduler 仅接受受信任的路线、权限、sandbox、验证执行器与额
 
 默认全局上限为 2 个受管执行，每个 verified 物理 pool 只能有 1 个 held reservation；同一写入 lease key 只允许 1 个 writer。同一任务即使收到 terminal 协议事件，也须先释放已确认停止的旧 reservation，才能开始新阶段。全局容量可在无 held/unknown 执行时由受鉴权控制端配置为 1–16，不能让请求或 Worker 自带不同上限。首版关闭不能计数的内部并行/子 Agent。
 
-task_budgets 持久化全部阶段共享的 model call 与 rework 计数，不能因 HTTP 重试、阶段变化、取消、服务重启或新 attempt 重置。配置一次后仅允许同值幂等提交；model call 最多 1000、rework 最多 1。产品默认值和用户修改由 WP-15/WP-16 的管理合同提供，当前不替用户创建真实任务预算。Permit 在发送前原子扣减；已授予的调用即使上游失败也不退款。
+task_budgets 持久化全部阶段共享的 model call 与 rework 计数，不能因 HTTP 重试、阶段变化、取消、服务重启或新 attempt 重置。配置一次后仅允许同值幂等提交；model call 最多 1000、rework 最多 1。WP-15 预览组件明确展示默认 50 次调用/1 次返工，允许受信任项目默认值或任务预览调整，并将原预算与任务一次事务固化；实际 UI 和生产 API 接线尚未完成，没有创建真实任务预算。客户端不传 used counters。Permit 在发送前原子扣减；已授予的调用即使上游失败也不退款。
 
 Dispatcher 在同一 issuer/run 中只允许一个模型调用在途，防止同阶段凭据并行请求绕过 pool 限制。实际 Native Adapter 必须证明所有模型调用都经这个出口计数，或关闭该路线；一个受管宿主进程不自动证明内部只有一个 Agent。
 

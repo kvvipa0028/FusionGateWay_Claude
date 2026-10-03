@@ -31,10 +31,23 @@ var errCapacity = errors.New("task preview capacity reached")
 // ProjectConfiguration is supplied only by the trusted controller. HTTP callers
 // select a known project and task-level bindings; they cannot supply this object.
 type ProjectConfiguration struct {
-	Global  stageplan.Layer   `json:"global"`
-	Project stageplan.Layer   `json:"project"`
-	Routes  []stageplan.Route `json:"routes"`
+	Global        stageplan.Layer   `json:"global"`
+	Project       stageplan.Layer   `json:"project"`
+	Routes        []stageplan.Route `json:"routes"`
+	DefaultBudget *BudgetLimits     `json:"default_budget,omitempty"`
 }
+
+// BudgetLimits accepts limits only. Used counters belong to the persistent
+// scheduler and cannot be supplied by a task caller.
+type BudgetLimits struct {
+	MaxCalls   int `json:"max_calls"`
+	MaxReworks int `json:"max_reworks"`
+}
+
+func validLimits(b BudgetLimits) bool {
+	return b.MaxCalls >= 1 && b.MaxCalls <= 1000 && b.MaxReworks >= 0 && b.MaxReworks <= 1
+}
+
 type project struct {
 	configuration ProjectConfiguration
 	revision      int64
@@ -44,12 +57,14 @@ type PreviewRequest struct {
 	Goal          string           `json:"goal"`
 	RequiredRoles []stageplan.Role `json:"required_roles"`
 	Task          stageplan.Layer  `json:"task,omitempty"`
+	Budget        *BudgetLimits    `json:"budget,omitempty"`
 }
 type Preview struct {
 	ID                    string             `json:"preview_id"`
 	ConfigurationRevision int64              `json:"configuration_revision"`
 	ExpiresAt             time.Time          `json:"expires_at"`
 	Plan                  stageplan.Snapshot `json:"plan"`
+	Budget                BudgetLimits       `json:"budget"`
 }
 type SubmitRequest struct {
 	PreviewID string `json:"preview_id"`
@@ -94,6 +109,12 @@ func (s *Server) SetProject(id string, c ProjectConfiguration) error {
 	if json.Unmarshal(raw, &copied) != nil {
 		return errInvalid
 	}
+	if copied.DefaultBudget == nil {
+		copied.DefaultBudget = &BudgetLimits{MaxCalls: 50, MaxReworks: 1}
+	}
+	if !validLimits(*copied.DefaultBudget) {
+		return errInvalid
+	}
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	old := s.projects[id]
@@ -118,6 +139,13 @@ func (s *Server) preview(in PreviewRequest) (Preview, error) {
 	p, ok := s.projects[in.ProjectID]
 	if !ok {
 		return Preview{}, errProject
+	}
+	budget := *p.configuration.DefaultBudget
+	if in.Budget != nil {
+		budget = *in.Budget
+	}
+	if !validLimits(budget) {
+		return Preview{}, errInvalid
 	}
 	// Parse through the same role/group validator as configuration import. Global
 	// and project layers are never taken from the caller's body.
@@ -147,7 +175,7 @@ func (s *Server) preview(in PreviewRequest) (Preview, error) {
 	if _, e = rand.Read(entropy[:]); e != nil {
 		return Preview{}, e
 	}
-	out := Preview{ID: "preview-" + hex.EncodeToString(entropy[:]), ConfigurationRevision: p.revision, ExpiresAt: now.Add(5 * time.Minute), Plan: plan}
+	out := Preview{ID: "preview-" + hex.EncodeToString(entropy[:]), ConfigurationRevision: p.revision, ExpiresAt: now.Add(5 * time.Minute), Plan: plan, Budget: budget}
 	s.previews[out.ID] = &receipt{preview: copyPreview(out), request: PreviewRequest{ProjectID: in.ProjectID, Goal: in.Goal}}
 	return out, nil
 }
@@ -172,7 +200,8 @@ func (s *Server) submit(in SubmitRequest, key string) (store.Task, error) {
 	if !s.now().Before(r.preview.ExpiresAt) || s.projects[r.request.ProjectID].revision != r.preview.ConfigurationRevision {
 		return store.Task{}, errPreview
 	}
-	task, e := s.store.Create(key, store.CreateRequest{ProjectID: r.request.ProjectID, Goal: r.request.Goal, Plan: r.preview.Plan})
+	budget := store.Budget{MaxCalls: r.preview.Budget.MaxCalls, MaxReworks: r.preview.Budget.MaxReworks}
+	task, e := s.store.Create(key, store.CreateRequest{ProjectID: r.request.ProjectID, Goal: r.request.Goal, Plan: r.preview.Plan, Budget: &budget})
 	if e != nil {
 		return store.Task{}, e
 	}
@@ -264,6 +293,22 @@ func (s *Server) Handler() http.Handler {
 				return
 			}
 			respond(w, 201, task)
+		case strings.HasPrefix(r.URL.Path, "/control/v1/tasks/") && strings.HasSuffix(r.URL.Path, "/budget"):
+			if r.Method != http.MethodGet {
+				http.Error(w, "Method Not Allowed", 405)
+				return
+			}
+			id := strings.TrimSuffix(strings.TrimPrefix(r.URL.Path, "/control/v1/tasks/"), "/budget")
+			if !opaque(id) {
+				failure(w, errInvalid)
+				return
+			}
+			budget, e := s.store.Budget(id)
+			if e != nil {
+				failure(w, e)
+				return
+			}
+			respond(w, 200, budget)
 		case strings.HasPrefix(r.URL.Path, "/agent/v1/tasks/"):
 			if r.Method != http.MethodGet {
 				http.Error(w, "Method Not Allowed", 405)

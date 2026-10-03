@@ -1,0 +1,21 @@
+{
+  "work_item": "WP-15-BUDGET-01",
+  "status": "done",
+  "parent_status": "in_progress",
+  "checks": [
+    {
+      "command": "go test -race -v -count=1 -mod=readonly -tags fusion,nogui ./internal/fusion/...",
+      "exit_code": 0,
+      "top_level_pass": 162,
+      "top_level_skip": 2,
+      "log": "wp15-budget-fusion-tagged-race-final.log"
+    }
+  ],
+  "red_logs": [
+    "wp15-budget-red.log",
+    "wp15-budget-boundary-red.log"
+  ],
+  "build_report": "build-results.json",
+  "real_model_calls": 0,
+  "production_registered": false
+}

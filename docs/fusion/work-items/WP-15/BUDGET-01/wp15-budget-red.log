@@ -1,0 +1,19 @@
+# github.com/yetone/magpie/internal/fusion/api [github.com/yetone/magpie/internal/fusion/api.test]
+internal/fusion/api/preview_test.go:362:7: p.Budget undefined (type Preview has no field or method Budget)
+internal/fusion/api/preview_test.go:363:44: p.Budget undefined (type Preview has no field or method Budget)
+internal/fusion/api/preview_test.go:365:4: p.Budget undefined (type Preview has no field or method Budget)
+internal/fusion/api/preview_test.go:389:7: p.Budget undefined (type Preview has no field or method Budget)
+internal/fusion/api/preview_test.go:390:42: p.Budget undefined (type Preview has no field or method Budget)
+internal/fusion/api/preview_test.go:393:4: c.DefaultBudget undefined (type ProjectConfiguration has no field or method DefaultBudget)
+internal/fusion/api/preview_test.go:393:21: undefined: BudgetLimits
+internal/fusion/api/preview_test.go:398:7: p.Budget undefined (type Preview has no field or method Budget)
+internal/fusion/api/preview_test.go:399:45: p.Budget undefined (type Preview has no field or method Budget)
+FAIL	github.com/yetone/magpie/internal/fusion/api [build failed]
+# github.com/yetone/magpie/internal/fusion/store [github.com/yetone/magpie/internal/fusion/store.test]
+internal/fusion/store/submission_test.go:13:92: unknown field Budget in struct literal of type CreateRequest
+internal/fusion/store/submission_test.go:31:28: in.Budget undefined (type CreateRequest has no field or method Budget)
+internal/fusion/store/submission_test.go:39:10: changed.Budget undefined (type CreateRequest has no field or method Budget)
+internal/fusion/store/submission_test.go:47:122: unknown field Budget in struct literal of type CreateRequest
+internal/fusion/store/submission_test.go:54:92: unknown field Budget in struct literal of type CreateRequest
+FAIL	github.com/yetone/magpie/internal/fusion/store [build failed]
+FAIL

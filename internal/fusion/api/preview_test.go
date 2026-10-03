@@ -181,7 +181,7 @@ func TestMalformedOrAmbiguousRequestIsRejected(t *testing.T) {
 }
 func TestEveryTaskEndpointRequiresManagementAuthentication(t *testing.T) {
 	_, _, h := setup(t)
-	for _, path := range []string{"/control/v1/tasks/preview", "/agent/v1/tasks", "/agent/v1/tasks/fixture-task"} {
+	for _, path := range []string{"/control/v1/tasks/preview", "/agent/v1/tasks", "/agent/v1/tasks/fixture-task", "/control/v1/tasks/fixture-task/budget"} {
 		for _, secret := range []string{"", "fixture-wrong", "fgs_fixture-stage"} {
 			w := request(h, "POST", path, `{}`, "", secret)
 			if w.Code != 401 && w.Code != 403 {
@@ -348,5 +348,63 @@ func TestControllerRestartRequiresNewPreviewAndPreservesTaskIdempotency(t *testi
 	events, e := st.Events(task.ID, 0)
 	if e != nil || len(events) != 1 {
 		t.Fatal("restart reran creation")
+	}
+}
+
+func TestPreviewFreezesExplicitBudgetAndSubmissionPersistsIt(t *testing.T) {
+	_, st, h := setup(t)
+	w := request(h, "POST", "/control/v1/tasks/preview", `{"project_id":"fixture-project","goal":"fixture-goal","required_roles":["design"],"budget":{"max_calls":7,"max_reworks":1}}`, "", "fixture-management")
+	if w.Code != 200 {
+		t.Fatal(w.Code, w.Body.String())
+	}
+	var p Preview
+	json.Unmarshal(w.Body.Bytes(), &p)
+	if p.Budget.MaxCalls != 7 || p.Budget.MaxReworks != 1 {
+		t.Fatal("budget missing from preview", p.Budget)
+	}
+	p.Budget.MaxCalls = 1000
+	w = submit(t, h, p, "fixture-key")
+	if w.Code != 201 {
+		t.Fatal(w.Code)
+	}
+	var task store.Task
+	json.Unmarshal(w.Body.Bytes(), &task)
+	b, e := st.Budget(task.ID)
+	if e != nil || b.MaxCalls != 7 || b.UsedCalls != 0 {
+		t.Fatal("caller replaced frozen budget", b, e)
+	}
+	w = request(h, "GET", "/control/v1/tasks/"+task.ID+"/budget", "", "", "fixture-management")
+	if w.Code != 200 {
+		t.Fatal(w.Code)
+	}
+	var got store.Budget
+	json.Unmarshal(w.Body.Bytes(), &got)
+	if got != b {
+		t.Fatal("budget read mismatch")
+	}
+}
+func TestPreviewUsesVisibleTrustedDefaultBudget(t *testing.T) {
+	s, _, h := setup(t)
+	p := preview(t, h)
+	if p.Budget.MaxCalls != 50 || p.Budget.MaxReworks != 1 {
+		t.Fatal("unexpected default budget", p.Budget)
+	}
+	c := configuration()
+	c.DefaultBudget = &BudgetLimits{MaxCalls: 11, MaxReworks: 0}
+	if e := s.SetProject("fixture-project", c); e != nil {
+		t.Fatal(e)
+	}
+	p = preview(t, h)
+	if p.Budget.MaxCalls != 11 || p.Budget.MaxReworks != 0 {
+		t.Fatal("project default not resolved", p.Budget)
+	}
+}
+func TestPreviewRejectsUntrustedConsumedCountersAndInvalidBudget(t *testing.T) {
+	_, _, h := setup(t)
+	for _, budget := range []string{`{"max_calls":0,"max_reworks":0}`, `{"max_calls":1001,"max_reworks":0}`, `{"max_calls":7,"max_reworks":2}`, `{"max_calls":7,"max_reworks":-1}`, `{"max_calls":7,"max_reworks":1,"used_calls":0}`, `{"max_calls":7,"max_reworks":1,"used_reworks":0}`} {
+		raw := `{"project_id":"fixture-project","goal":"fixture-goal","required_roles":["design"],"budget":` + budget + `}`
+		if w := request(h, "POST", "/control/v1/tasks/preview", raw, "", "fixture-management"); w.Code != 400 {
+			t.Fatal("invalid budget accepted", budget, w.Code)
+		}
 	}
 }

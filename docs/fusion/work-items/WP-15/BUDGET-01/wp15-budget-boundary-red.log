@@ -1,0 +1,27 @@
+=== RUN   TestPreviewAndSubmissionFreezeExactServerPlan
+--- PASS: TestPreviewAndSubmissionFreezeExactServerPlan (0.02s)
+=== RUN   TestPreviewFreezesExplicitBudgetAndSubmissionPersistsIt
+    preview_test.go:363: budget missing from preview {0 0}
+--- FAIL: TestPreviewFreezesExplicitBudgetAndSubmissionPersistsIt (0.02s)
+=== RUN   TestPreviewUsesVisibleTrustedDefaultBudget
+    preview_test.go:390: unexpected default budget {0 0}
+--- FAIL: TestPreviewUsesVisibleTrustedDefaultBudget (0.02s)
+=== RUN   TestPreviewRejectsUntrustedConsumedCountersAndInvalidBudget
+    preview_test.go:407: invalid budget accepted {"max_calls":0,"max_reworks":0} 200
+--- FAIL: TestPreviewRejectsUntrustedConsumedCountersAndInvalidBudget (0.02s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/api	0.818s
+=== RUN   TestConcurrentDuplicateSubmissionCreatesOneTask
+--- PASS: TestConcurrentDuplicateSubmissionCreatesOneTask (0.03s)
+=== RUN   TestSubmissionBudgetIsAtomicWithTaskSnapshotAndIdempotency
+    submission_test.go:15: failed budget write committed task
+--- FAIL: TestSubmissionBudgetIsAtomicWithTaskSnapshotAndIdempotency (0.02s)
+=== RUN   TestSubmissionBudgetRejectsUsedCountersAndInvalidLimits
+    submission_test.go:48: invalid initial budget accepted {0 0 0 0} <nil>
+--- FAIL: TestSubmissionBudgetRejectsUsedCountersAndInvalidLimits (0.02s)
+=== RUN   TestSubmissionRetryNeverResetsAlreadyConsumedBudget
+    submission_test.go:69: retry refunded consumed budget {0 0 0 0} record not found
+--- FAIL: TestSubmissionRetryNeverResetsAlreadyConsumedBudget (0.02s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/store	0.672s
+FAIL

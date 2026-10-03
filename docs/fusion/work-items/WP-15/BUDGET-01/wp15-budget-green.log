@@ -1,0 +1,99 @@
+=== RUN   TestPreviewAndSubmissionFreezeExactServerPlan
+--- PASS: TestPreviewAndSubmissionFreezeExactServerPlan (0.02s)
+=== RUN   TestStalePreviewAndTamperedHashCannotCreateTask
+--- PASS: TestStalePreviewAndTamperedHashCannotCreateTask (0.02s)
+=== RUN   TestConcurrentIdempotentSubmitCreatesOnePersistedTask
+--- PASS: TestConcurrentIdempotentSubmitCreatesOnePersistedTask (0.02s)
+=== RUN   TestBodyCannotSupplyCredentialsWorkspaceGlobalOrFrozenAdmission
+--- PASS: TestBodyCannotSupplyCredentialsWorkspaceGlobalOrFrozenAdmission (0.02s)
+=== RUN   TestMalformedOrAmbiguousRequestIsRejected
+--- PASS: TestMalformedOrAmbiguousRequestIsRejected (0.02s)
+=== RUN   TestEveryTaskEndpointRequiresManagementAuthentication
+--- PASS: TestEveryTaskEndpointRequiresManagementAuthentication (0.02s)
+=== RUN   TestExpiredPreviewDoesNotCreateOrReplayExecution
+--- PASS: TestExpiredPreviewDoesNotCreateOrReplayExecution (0.02s)
+=== RUN   TestConfigurationAndPreviewCannotMutateServerReferences
+--- PASS: TestConfigurationAndPreviewCannotMutateServerReferences (0.02s)
+=== RUN   TestUnadmittedRouteHasNoPreviewFallback
+--- PASS: TestUnadmittedRouteHasNoPreviewFallback (0.02s)
+=== RUN   TestCommittedRetryPreservesTaskAfterConfigurationChange
+--- PASS: TestCommittedRetryPreservesTaskAfterConfigurationChange (0.02s)
+=== RUN   TestSameIdempotencyKeyCannotAdoptChangedGoal
+--- PASS: TestSameIdempotencyKeyCannotAdoptChangedGoal (0.02s)
+=== RUN   TestRequestSizeEncodingAndContentTypeAreBounded
+--- PASS: TestRequestSizeEncodingAndContentTypeAreBounded (0.02s)
+=== RUN   TestPreviewFailureHasSafeActionableReason
+--- PASS: TestPreviewFailureHasSafeActionableReason (0.02s)
+=== RUN   TestControllerRestartRequiresNewPreviewAndPreservesTaskIdempotency
+--- PASS: TestControllerRestartRequiresNewPreviewAndPreservesTaskIdempotency (0.02s)
+=== RUN   TestPreviewFreezesExplicitBudgetAndSubmissionPersistsIt
+--- PASS: TestPreviewFreezesExplicitBudgetAndSubmissionPersistsIt (0.02s)
+=== RUN   TestPreviewUsesVisibleTrustedDefaultBudget
+--- PASS: TestPreviewUsesVisibleTrustedDefaultBudget (0.02s)
+=== RUN   TestPreviewRejectsUntrustedConsumedCountersAndInvalidBudget
+--- PASS: TestPreviewRejectsUntrustedConsumedCountersAndInvalidBudget (0.02s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/api	2.133s
+=== RUN   TestScheduledPoolGlobalAndWriterReservationsAreAtomic
+--- PASS: TestScheduledPoolGlobalAndWriterReservationsAreAtomic (0.05s)
+=== RUN   TestSharedCallAndReworkBudgetDoesNotResetAtAttempt
+--- PASS: TestSharedCallAndReworkBudgetDoesNotResetAtAttempt (0.03s)
+=== RUN   TestConcurrentPoolStartsAndBudgetCallsHaveOneWinner
+--- PASS: TestConcurrentPoolStartsAndBudgetCallsHaveOneWinner (0.04s)
+=== RUN   TestReservationAndBudgetSurviveUnknownRecovery
+--- PASS: TestReservationAndBudgetSurviveUnknownRecovery (0.04s)
+=== RUN   TestMigrationTwoPreservesVerifiedVersionOneDatabase
+--- PASS: TestMigrationTwoPreservesVerifiedVersionOneDatabase (0.02s)
+=== RUN   TestFinishedProtocolCannotFreeSameTaskBeforeProcessStop
+--- PASS: TestFinishedProtocolCannotFreeSameTaskBeforeProcessStop (0.03s)
+=== RUN   TestAdvisoryAndInterruptedTerminalsCanReleaseWithStopProof
+=== RUN   TestAdvisoryAndInterruptedTerminalsCanReleaseWithStopProof/advisory_only
+=== RUN   TestAdvisoryAndInterruptedTerminalsCanReleaseWithStopProof/interrupted
+--- PASS: TestAdvisoryAndInterruptedTerminalsCanReleaseWithStopProof (0.05s)
+    --- PASS: TestAdvisoryAndInterruptedTerminalsCanReleaseWithStopProof/advisory_only (0.03s)
+    --- PASS: TestAdvisoryAndInterruptedTerminalsCanReleaseWithStopProof/interrupted (0.03s)
+=== RUN   TestReservationAndCallEventFailuresRollbackAllEffects
+--- PASS: TestReservationAndCallEventFailuresRollbackAllEffects (0.03s)
+=== RUN   TestCapacityCannotChangeWithHeldOrUnknownExecutions
+--- PASS: TestCapacityCannotChangeWithHeldOrUnknownExecutions (0.02s)
+=== RUN   TestTaskIdempotencyAndPayloadConflict
+--- PASS: TestTaskIdempotencyAndPayloadConflict (0.02s)
+=== RUN   TestSnapshotRevisionsAndIfMatch
+--- PASS: TestSnapshotRevisionsAndIfMatch (0.02s)
+=== RUN   TestUniqueActiveAttemptAndOrderedEvents
+--- PASS: TestUniqueActiveAttemptAndOrderedEvents (0.02s)
+=== RUN   TestLeaseGenerationFencesLateEvents
+--- PASS: TestLeaseGenerationFencesLateEvents (0.02s)
+=== RUN   TestRestartPreservesIntentAndBlocksBlindRerun
+--- PASS: TestRestartPreservesIntentAndBlocksBlindRerun (0.03s)
+=== RUN   TestCancellationCompletionRaceIsSingleTerminal
+--- PASS: TestCancellationCompletionRaceIsSingleTerminal (0.03s)
+=== RUN   TestControllerAndPathIsolation
+--- PASS: TestControllerAndPathIsolation (0.02s)
+=== RUN   TestForgedExecutionTargetAndSnapshotRefused
+--- PASS: TestForgedExecutionTargetAndSnapshotRefused (0.02s)
+=== RUN   TestImmutableRoutesAndEvidenceRefs
+--- PASS: TestImmutableRoutesAndEvidenceRefs (0.02s)
+=== RUN   TestConcurrentDuplicateSubmissionCreatesOneTask
+--- PASS: TestConcurrentDuplicateSubmissionCreatesOneTask (0.02s)
+=== RUN   TestStartupIntentWriteFailureRollsBackAllState
+--- PASS: TestStartupIntentWriteFailureRollsBackAllState (0.02s)
+=== RUN   TestStoreCrashHelper
+    store_test.go:295: isolated helper child only
+--- SKIP: TestStoreCrashHelper (0.00s)
+=== RUN   TestNativeControllerCrashIsUnknownWithoutEffectReplay
+--- PASS: TestNativeControllerCrashIsUnknownWithoutEffectReplay (0.05s)
+=== RUN   TestExpiredLeaseIsDurablyFencedAcrossClockRollback
+--- PASS: TestExpiredLeaseIsDurablyFencedAcrossClockRollback (0.02s)
+=== RUN   TestSuccessfulStageIsNotTaskAcceptance
+--- PASS: TestSuccessfulStageIsNotTaskAcceptance (0.02s)
+=== RUN   TestPrivateSidecarsAndUnrelatedDatabaseAreRefused
+--- PASS: TestPrivateSidecarsAndUnrelatedDatabaseAreRefused (0.01s)
+=== RUN   TestSubmissionBudgetIsAtomicWithTaskSnapshotAndIdempotency
+--- PASS: TestSubmissionBudgetIsAtomicWithTaskSnapshotAndIdempotency (0.02s)
+=== RUN   TestSubmissionBudgetRejectsUsedCountersAndInvalidLimits
+--- PASS: TestSubmissionBudgetRejectsUsedCountersAndInvalidLimits (0.02s)
+=== RUN   TestSubmissionRetryNeverResetsAlreadyConsumedBudget
+--- PASS: TestSubmissionRetryNeverResetsAlreadyConsumedBudget (0.02s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/store	2.400s
