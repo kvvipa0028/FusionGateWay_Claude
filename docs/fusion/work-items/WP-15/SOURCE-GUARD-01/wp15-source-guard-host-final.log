@@ -1,0 +1,32 @@
+=== RUN   TestControllerRequiresSourceBeforeNewIntent
+=== RUN   TestControllerRequiresSourceBeforeNewIntent/absent
+=== RUN   TestControllerRequiresSourceBeforeNewIntent/changed
+=== RUN   TestControllerRequiresSourceBeforeNewIntent/wrong_cwd
+--- PASS: TestControllerRequiresSourceBeforeNewIntent (0.14s)
+    --- PASS: TestControllerRequiresSourceBeforeNewIntent/absent (0.04s)
+    --- PASS: TestControllerRequiresSourceBeforeNewIntent/changed (0.06s)
+    --- PASS: TestControllerRequiresSourceBeforeNewIntent/wrong_cwd (0.04s)
+=== RUN   TestControllerRechecksSourceAfterSlowPreflight
+=== RUN   TestControllerRechecksSourceAfterSlowPreflight/probe
+=== RUN   TestControllerRechecksSourceAfterSlowPreflight/inspection
+--- PASS: TestControllerRechecksSourceAfterSlowPreflight (0.08s)
+    --- PASS: TestControllerRechecksSourceAfterSlowPreflight/probe (0.04s)
+    --- PASS: TestControllerRechecksSourceAfterSlowPreflight/inspection (0.04s)
+=== RUN   TestControllerPreparedSourceDriftDoesNotInventStopProof
+--- PASS: TestControllerPreparedSourceDriftDoesNotInventStopProof (0.05s)
+=== RUN   TestControllerCheckpointRechecksOriginalSourceGuard
+=== RUN   TestControllerCheckpointRechecksOriginalSourceGuard/before
+=== RUN   TestControllerCheckpointRechecksOriginalSourceGuard/during
+--- PASS: TestControllerCheckpointRechecksOriginalSourceGuard (0.13s)
+    --- PASS: TestControllerCheckpointRechecksOriginalSourceGuard/before (0.06s)
+    --- PASS: TestControllerCheckpointRechecksOriginalSourceGuard/during (0.07s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/control	2.207s
+=== RUN   TestSupervisorSourceGuardRevokesIdleProcess
+--- PASS: TestSupervisorSourceGuardRevokesIdleProcess (2.17s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime	3.957s
+=== RUN   TestSourceGuardIsImmutableAndBoundToCopiedDirectory
+--- PASS: TestSourceGuardIsImmutableAndBoundToCopiedDirectory (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/workspace	1.543s

@@ -45,3 +45,5 @@
 [WP-15-PROJECT-SOURCE-01](PROJECT-SOURCE-01/summary.md) 已完成 Git 外私有本机项目配置加载组件：已有文件夹及明确 read/write、精确内置路线元数据、五角色空选继承、预算边界与来源/文件夹身份重查。配置不能授予真实准入，实际 Handler 可读未准入登记而 preview 拒绝；产品 CLI/listener/Resolver/GUI 尚未接线。父包保持 in_progress，真实项目选取与账号/计费/额度仍待验证。
 
 [WP-15-CONTROL-HOST-01](CONTROL-HOST-01/summary.md) 已完成独立本机 fusion-control 草稿服务：私有随机管理文件、loopback/Host/Origin、源/目录/管理文件变化撤销、持久重启、SSE及Close，并修复run-dev缺data子目录与SIGTERM不转发。实际隔离launcher→CLI→HTTP→SIGTERM退出验证通过。全量Fusion race365 PASS/10 SKIP，CLI参数2 PASS、编译/vet与无tag编译通过。路线未准入，Controller/Native/额度/GUI及工程闭环仍待接线，父包保持in_progress。
+
+后续 [WP-15-SOURCE-GUARD-01](../WP-15/SOURCE-GUARD-01/summary.md) 完成私有来源记录接入执行/归档边界，固定Grok/Claude Native源漂移拒绝成功并实际停止/释放通过。完整Fusion460PASS22SKIP0FAIL，Native7顶层/17子测试通过；整体产品登记/真实路线/最终Gate仍未完成。

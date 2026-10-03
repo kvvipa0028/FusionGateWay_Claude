@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
 	"path/filepath"
 	"strings"
 	"sync/atomic"
@@ -28,6 +29,18 @@ type controlTransport func(*http.Request) (*http.Response, error)
 
 func (f controlTransport) RoundTrip(r *http.Request) (*http.Response, error) { return f(r) }
 func TestControllerPinnedNativeRunsOnceAndReleasesActualStopProof(t *testing.T) {
+	controllerGLMNativeSource(t, "legacy")
+}
+func TestControllerPinnedNativeSourceGuardLifecycle(t *testing.T) {
+	if *nativeControlCLI == "" {
+		t.Skip("explicit pinned Claude Source fixture only")
+	}
+	for _, mode := range []string{"source_success", "source_drift"} {
+		t.Run(mode, func(t *testing.T) { controllerGLMNativeSource(t, mode) })
+	}
+}
+func controllerGLMNativeSource(t *testing.T, mode string) {
+	t.Helper()
 	if *nativeControlCLI == "" {
 		t.Skip("explicit pinned Controller Native fixture only")
 	}
@@ -36,11 +49,20 @@ func TestControllerPinnedNativeRunsOnceAndReleasesActualStopProof(t *testing.T) 
 		t.Fatal(e)
 	}
 	f := newControlFixture(t)
+	var sourceFile string
+	if mode != "legacy" {
+		sourceFile = controlSourceFixture(t, f)
+	}
 	var calls atomic.Int64
 	adapter, e := glm.NewAdapter(glm.AdapterConfig{Scheduler: f.config.Scheduler, Manager: policy.NewManager("fixture-management", policy.StoreValidator(f.st), nil), Executable: exe, LoadCredential: func(_ context.Context, target stageplan.ExecutionTarget) (glm.Credential, error) {
 		return glm.Credential{Identity: target.CredentialIdentity, Key: "fixture-control-key"}, nil
 	}, Current: func(glm.Binding) bool { return true }, Transport: controlTransport(func(r *http.Request) (*http.Response, error) {
-		calls.Add(1)
+		if calls.Add(1) == 1 && mode == "source_drift" {
+			if err := os.WriteFile(sourceFile, []byte("explicit fixture drift"), 0600); err != nil {
+				t.Error(err)
+				return nil, err
+			}
+		}
 		if r.URL.String() != "https://open.bigmodel.cn/api/anthropic/v1/messages?beta=true" || r.Header.Get("Authorization") != "Bearer fixture-control-key" {
 			t.Error("unexpected Controller route")
 		}
@@ -78,7 +100,11 @@ func TestControllerPinnedNativeRunsOnceAndReleasesActualStopProof(t *testing.T) 
 	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 	defer cancel()
 	done, e := c.Wait(ctx, first.Run.ID)
-	if e != nil || done.State != "succeeded" || !done.StoppedVerified || !done.Released {
+	want := "succeeded"
+	if mode == "source_drift" {
+		want = "failed"
+	}
+	if e != nil || done.State != want || !done.StoppedVerified || !done.Released {
 		t.Fatal("actual Native lifecycle did not close", done, e)
 	}
 	budget, e := f.st.Budget(f.in.TaskID)
@@ -89,10 +115,14 @@ func TestControllerPinnedNativeRunsOnceAndReleasesActualStopProof(t *testing.T) 
 		t.Fatal("actual stop proof did not release reservation", e)
 	}
 	out, text, e := adapter.Observation(first.Run.ID, first.Run.Generation)
-	if e != nil || out.State != "succeeded" || text != "FUSION_FIXTURE_OK" {
+	wantText := "FUSION_FIXTURE_OK"
+	if mode == "source_drift" {
+		wantText = ""
+	}
+	if e != nil || out.State != want || text != wantText {
 		t.Fatal("Native result unavailable", e)
 	}
-	t.Log("Controller -> PrepareOnce/CheckPrepared -> pinned GLM Adapter/owned loopback -> one synthetic HTTP/Permit -> validated Native result -> actual Supervisor wait/stop proof -> released; real model calls=0; product route/admission/billing/quota unverified")
+	t.Logf("Controller mode=%s Native state=%s one synthetic HTTP/Permit actual Supervisor wait/stop proof/release=true; real model calls=0; product route/admission/billing/quota unverified", mode, want)
 }
 
 func TestControllerPinnedNativePauseStopsInFlightAndRequiresReview(t *testing.T) {

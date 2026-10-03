@@ -100,6 +100,9 @@ func pdir(t *testing.T) string {
 	return p
 }
 func setup(t *testing.T, mode string, write bool) (*Supervisor, *Handle, *store.Store, store.StageRun, Spec, string) {
+	return setupWithSpec(t, mode, write, nil)
+}
+func setupWithSpec(t *testing.T, mode string, write bool, configure func(*Spec)) (*Supervisor, *Handle, *store.Store, store.StageRun, Spec, string) {
 	t.Helper()
 	stateRoot := pdir(t)
 	s, e := store.Open(stateRoot)
@@ -179,6 +182,9 @@ func setup(t *testing.T, mode string, write bool) (*Supervisor, *Handle, *store.
 		spec.FixtureEnvironment["FUSION_FIXTURE_OUTSIDE"] = filepath.Join(outside, "escape")
 	}
 	sup := NewSupervisor(s)
+	if configure != nil {
+		configure(&spec)
+	}
 	h, e := sup.Start(context.Background(), run, spec)
 	if e != nil {
 		dirs, _ := os.ReadDir(root)

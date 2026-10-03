@@ -53,3 +53,5 @@ TEMP-01 当时仍缺 GLM protocol state machine 与受管执行出口，后续�
 ## WP-14-ADAPTER-01
 
 glm.Adapter 已实现公共 Probe/Start/Resume 接口，并自建可信 Supervisor。固定 executable/argv/UUID/工具集合与 validator 均由 Adapter 生成；启动前及加载凭据后重查 Scheduler，所有实际模型 HTTP 使用 Scheduler.Permit。实际固定 Native 的设计、实施创建、SDK 重试、取消，以及错误凭据/晚到额度失效/当前身份失效七个场景通过；全部使用假上游。详见 [Adapter 交付记录](ADAPTER-01/summary.md) 与 [当前集成核验](glm-integration-verification.md)。WP-14 保持 in_progress，产品控制器和真实账号/地区/额度/计费/effort 尚未准入。
+
+后续 [WP-15-SOURCE-GUARD-01](../WP-15/SOURCE-GUARD-01/summary.md) 完成私有来源记录接入执行/归档边界，固定Grok/Claude Native源漂移拒绝成功并实际停止/释放通过。完整Fusion460PASS22SKIP0FAIL，Native7顶层/17子测试通过；整体产品登记/真实路线/最终Gate仍未完成。

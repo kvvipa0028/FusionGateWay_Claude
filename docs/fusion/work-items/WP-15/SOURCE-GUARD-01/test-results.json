@@ -1,0 +1,170 @@
+{
+  "base_commit": "5b2d2a8bf52735dae307d2596bc9768199c25b02",
+  "go_version": "1.26.3",
+  "jev": "off",
+  "checks": {
+    "wp15-source-guard-checkpoint-red.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 1,
+      "passed_subtests": 0,
+      "failed_subtests": 2,
+      "compile_red": false
+    },
+    "wp15-source-guard-controller-green.log": {
+      "pass": 3,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 5,
+      "failed_subtests": 0,
+      "compile_red": false
+    },
+    "wp15-source-guard-controller-red.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 3,
+      "passed_subtests": 0,
+      "failed_subtests": 5,
+      "compile_red": false
+    },
+    "wp15-source-guard-fusion-final.log": {
+      "pass": 460,
+      "skip": 22,
+      "fail": 0,
+      "passed_subtests": 663,
+      "failed_subtests": 0,
+      "compile_red": false
+    },
+    "wp15-source-guard-glm-native-green.log": {
+      "pass": 1,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 2,
+      "failed_subtests": 0,
+      "compile_red": false
+    },
+    "wp15-source-guard-glm-native-red.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 1,
+      "passed_subtests": 1,
+      "failed_subtests": 1,
+      "compile_red": false
+    },
+    "wp15-source-guard-host-final.log": {
+      "pass": 6,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 7,
+      "failed_subtests": 0,
+      "compile_red": false
+    },
+    "wp15-source-guard-native-complete-final.log": {
+      "pass": 7,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 17,
+      "failed_subtests": 0,
+      "compile_red": false
+    },
+    "wp15-source-guard-native-final.log": {
+      "pass": 7,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 16,
+      "failed_subtests": 0,
+      "compile_red": false
+    },
+    "wp15-source-guard-native-green.log": {
+      "pass": 1,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 3,
+      "failed_subtests": 0,
+      "compile_red": false
+    },
+    "wp15-source-guard-native-red.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 1,
+      "passed_subtests": 2,
+      "failed_subtests": 1,
+      "compile_red": false
+    },
+    "wp15-source-guard-red.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 0,
+      "failed_subtests": 0,
+      "compile_red": true
+    },
+    "wp15-source-guard-supervisor-green.log": {
+      "pass": 1,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 0,
+      "failed_subtests": 0,
+      "compile_red": false
+    },
+    "wp15-source-guard-supervisor-red.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 1,
+      "passed_subtests": 0,
+      "failed_subtests": 0,
+      "compile_red": false
+    }
+  },
+  "new_host_top_pass": 6,
+  "new_host_passed_subtests": 7,
+  "whole_fusion": {
+    "pass": 460,
+    "skip": 22,
+    "fail": 0,
+    "passed_subtests": 663,
+    "failed_subtests": 0,
+    "compile_red": false
+  },
+  "native_controller": {
+    "top_pass": 7,
+    "passed_subtests": 17,
+    "scenarios": 20,
+    "native_processes": 25,
+    "new_source_scenarios": 6,
+    "new_source_native_processes": 7,
+    "grok_source_http": [
+      2,
+      3,
+      1
+    ],
+    "glm_source_http": [
+      1,
+      1
+    ],
+    "source_checkpoint_restore_http": 3
+  },
+  "source_guard": {
+    "private_source_and_copied_cwd": true,
+    "mutable_public_manifest_is_authority": false,
+    "controller_requires_presence_when_enabled": true,
+    "preintent_and_postprepared_checked": true,
+    "adapters_current_consumes_guard": true,
+    "supervisor_heartbeat_and_result_guard": true,
+    "checkpoint_original_guard_checked": true,
+    "persistent_serialized_authority": false,
+    "atomic_tree_snapshot": false,
+    "external_writer_lock": false,
+    "product_registered": false
+  },
+  "production_execution_registered": false,
+  "real_model_calls": 0,
+  "real_quota_calls": 0,
+  "actual_native_via_management_http_verified": false,
+  "final_gate": "not_run",
+  "graph": {
+    "nodes": 13638,
+    "edges": 119790
+  },
+  "post_checks_changes": "Native-only explicit-pin fixture expanded after full suite; covered by final Native suite; documentation/packet only thereafter"
+}

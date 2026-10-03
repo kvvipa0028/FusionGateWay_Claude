@@ -27,3 +27,5 @@ WP-15-CANCEL-API-01 新增 CancelTask/CancelTaskAuthorized：全 TaskVersion Sto
 [RESUME-API-01](../work-items/WP-15/RESUME-API-01/summary.md) 新增 Restore/RestoreAuthorized 与明确 CheckRestore/Restore 后端。归档来源、冻结 Target、scope 与当前 Source 在 intent 前核验，Store 同事务重查成功 released origin；restore 身份参与 StartOnce hash，普通 Start 拒绝该身份。实际固定 Grok 恢复、恢复中取消和请求断线均通过同一 owned lifetime/实际 proof/release 链；产品注册/真实账号准入仍待完成。
 
 [CHECKPOINT-API-01](../work-items/WP-15/CHECKPOINT-API-01/summary.md) 新增可信归档入口：保留启动时生产callback及释放时私有终态，只有成功owned Wait/proof/release允许归档；前后Task/管理/关闭状态重查。归档计入原work slots/WaitGroup，Close取消并等待；补齐关闭标志先到、取消回调后到的RED→GREEN竞态。实际Native取得稳定reference再恢复原UUID通过，包括批准Read，未新增真实准入声明。
+
+[WP-15-SOURCE-GUARD-01](../work-items/WP-15/SOURCE-GUARD-01/summary.md) 已将私有SourceGuard接入Controller派单/归档、Grok/GLM Current和Supervisor启动/heartbeat/结果检查，见[合同](workspace-source-guard.md)。RequireSource=true拒绝无来源新执行；旧诊断兼容不提升来源证据。实际固定Native源漂移拒绝成功并核验wait/proof/release；产品项目登记与真实准入仍未完成。

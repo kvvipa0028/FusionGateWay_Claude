@@ -25,6 +25,7 @@ import (
 	"github.com/yetone/magpie/internal/fusion/runtime/grok"
 	"github.com/yetone/magpie/internal/fusion/stageplan"
 	"github.com/yetone/magpie/internal/fusion/store"
+	"github.com/yetone/magpie/internal/fusion/workspace"
 )
 
 var nativeGrokControlCLI = flag.String("fusion-control-native-grok", "", "explicit pinned Grok CLI for synthetic Controller/Adapter lifecycle; no real credentials")
@@ -42,6 +43,14 @@ func TestControllerPinnedGrokNativeLifecycle(t *testing.T) {
 		t.Skip("explicit pinned Grok Controller fixture only")
 	}
 	for _, mode := range []string{"success", "read", "disconnect", "pause", "task_cancel", "stage_cancel", "close"} {
+		t.Run(mode, func(t *testing.T) { controllerGrokNative(t, mode) })
+	}
+}
+func TestControllerPinnedGrokSourceNativeLifecycle(t *testing.T) {
+	if *nativeGrokControlCLI == "" {
+		t.Skip("explicit pinned Grok Source fixture only")
+	}
+	for _, mode := range []string{"source_success", "source_read", "source_drift"} {
 		t.Run(mode, func(t *testing.T) { controllerGrokNative(t, mode) })
 	}
 }
@@ -75,13 +84,35 @@ func controllerGrokNative(t *testing.T, mode string) {
 	if os.WriteFile(owned, ownedText, 0600) != nil {
 		t.Fatal("owned fixture failed")
 	}
+	var sourceFile string
+	if strings.HasPrefix(mode, "source_") || mode == "restore_source" {
+		sourceFile = owned
+		snapshot, err := workspace.Copy(f.launch.Spec.Workspace, fixturePrivate(t), "copy")
+		if err != nil {
+			t.Fatal(err)
+		}
+		guard, err := snapshot.Guard()
+		if err != nil {
+			t.Fatal(err)
+		}
+		f.launch.Spec.Workspace = snapshot.Path
+		f.launch.Spec.Source = guard
+		f.config.RequireSource = true
+		owned = filepath.Join(snapshot.Path, "fixture.txt")
+	}
 	manager := policy.NewManager("fixture-management", policy.StoreValidator(f.st), nil)
 	var calls, mainCalls atomic.Int64
 	entered, ended, release := make(chan struct{}), make(chan struct{}), make(chan struct{})
 	var once, exitOnce sync.Once
 	blocked := mode == "disconnect" || mode == "pause" || mode == "task_cancel" || mode == "stage_cancel" || mode == "close"
 	adapter, e := grok.NewAdapter(grok.AdapterConfig{Scheduler: f.config.Scheduler, Manager: manager, Executable: exe, Current: func(grok.GateBinding) bool { return true }, Forwarder: controlGrokForwarder(func(ctx context.Context, target stageplan.ExecutionTarget, raw []byte) (grok.ForwardResponse, error) {
-		calls.Add(1)
+		ordinalCall := calls.Add(1)
+		if mode == "source_drift" && ordinalCall == 1 {
+			if err := os.WriteFile(sourceFile, []byte("explicit fixture source drift"), 0600); err != nil {
+				t.Error(err)
+				return grok.ForwardResponse{}, err
+			}
+		}
 		if target.ResolvedModel != route.Model || target.Account != route.Account || target.CredentialIdentity != route.CredentialIdentity {
 			t.Error("frozen controller route changed")
 		}
@@ -108,7 +139,7 @@ func controllerGrokNative(t *testing.T, mode string) {
 				case <-release:
 				}
 			}
-			if (mode == "read" || mode == "restore_read") && ordinal == 1 {
+			if (mode == "read" || mode == "restore_read" || mode == "source_read") && ordinal == 1 {
 				args, _ := json.Marshal(map[string]string{"target_file": owned})
 				delta := `"content":null,"tool_calls":[{"index":0,"id":"call_controller_read","type":"function","function":{"name":"read_file","arguments":` + strconv.Quote(string(args)) + `}}]`
 				reply := strings.Replace(controlGrokSSE, `"content":"Fixture ready."`, delta, 1)
@@ -217,13 +248,19 @@ func controllerGrokNative(t *testing.T, mode string) {
 	if blocked && mode != "disconnect" {
 		want = "cancelled"
 	}
+	if mode == "source_drift" {
+		want = "failed"
+	}
 	if e != nil || done.State != want || !done.StoppedVerified || !done.Released {
 		t.Fatal("controller Native lifecycle not closed", done, e)
 	}
 	budget, e := f.st.Budget(f.in.TaskID)
 	wantCalls := int64(2)
-	if mode == "read" || mode == "restore_read" {
+	if mode == "read" || mode == "restore_read" || mode == "source_read" {
 		wantCalls = 3
+	}
+	if mode == "source_drift" {
+		wantCalls = 1
 	}
 	if e != nil || int64(budget.UsedCalls) != wantCalls || calls.Load() != wantCalls {
 		t.Fatal("controller Native budget mismatch", budget.UsedCalls, calls.Load(), e)
@@ -354,7 +391,7 @@ func TestControllerPinnedGrokCheckpointRestore(t *testing.T) {
 	if *nativeGrokControlCLI == "" {
 		t.Skip("explicit pinned Grok restore fixture only")
 	}
-	for _, mode := range []string{"restore", "restore_read", "restore_cancel", "restore_disconnect"} {
+	for _, mode := range []string{"restore", "restore_read", "restore_cancel", "restore_disconnect", "restore_source"} {
 		t.Run(mode, func(t *testing.T) { controllerGrokNative(t, mode) })
 	}
 }

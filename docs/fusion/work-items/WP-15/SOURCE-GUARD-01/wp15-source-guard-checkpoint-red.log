@@ -1,0 +1,11 @@
+=== RUN   TestControllerCheckpointRechecksOriginalSourceGuard
+=== RUN   TestControllerCheckpointRechecksOriginalSourceGuard/before
+    source_test.go:171: changed source reference disclosed <nil>
+=== RUN   TestControllerCheckpointRechecksOriginalSourceGuard/during
+    source_test.go:171: changed source reference disclosed <nil>
+--- FAIL: TestControllerCheckpointRechecksOriginalSourceGuard (0.11s)
+    --- FAIL: TestControllerCheckpointRechecksOriginalSourceGuard/before (0.06s)
+    --- FAIL: TestControllerCheckpointRechecksOriginalSourceGuard/during (0.05s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/control	0.769s
+FAIL

@@ -18,6 +18,7 @@ import (
 	managed "github.com/yetone/magpie/internal/fusion/runtime"
 	"github.com/yetone/magpie/internal/fusion/stageplan"
 	"github.com/yetone/magpie/internal/fusion/store"
+	"github.com/yetone/magpie/internal/fusion/workspace"
 )
 
 var (
@@ -69,9 +70,10 @@ type Launch struct {
 	Spec    managed.Spec
 }
 type Config struct {
-	Scheduler  policy.Scheduler
-	Resolve    func(context.Context, store.Task, stageplan.Role, stageplan.ExecutionTarget) (Launch, error)
-	SelectAuto func(context.Context, store.Task, stageplan.Role, stageplan.FrozenBinding) (stageplan.ExecutionTarget, error)
+	RequireSource bool
+	Scheduler     policy.Scheduler
+	Resolve       func(context.Context, store.Task, stageplan.Role, stageplan.ExecutionTarget) (Launch, error)
+	SelectAuto    func(context.Context, store.Task, stageplan.Role, stageplan.FrozenBinding) (stageplan.ExecutionTarget, error)
 }
 type Completion struct {
 	State           string `json:"state"`
@@ -87,6 +89,8 @@ type executionJob struct {
 	completion Completion
 	stoppedRun store.StageRun
 	checkpoint func(context.Context, store.StageRun) (CheckpointRef, error)
+	source     workspace.SourceGuard
+	workspace  string
 }
 type Controller struct {
 	config     Config
@@ -216,6 +220,7 @@ func (c *Controller) start(request context.Context, key string, in store.StartId
 	if in.Restore != nil {
 		valid = validRestoreLaunch(launch, in.Role)
 	}
+	valid = valid && (!c.config.RequireSource || launch.Spec.Source.Present())
 	if e != nil || !valid {
 		return c.retryOrError(key, in, ErrUnsupported)
 	}
@@ -236,17 +241,26 @@ func (c *Controller) start(request context.Context, key string, in store.StartId
 	if current != nil && !current(request) {
 		return store.StartReceipt{}, ErrForbidden
 	}
+	if !launch.Spec.SourceCurrent() {
+		return c.retryOrError(key, in, ErrUnsupported)
+	}
 	gen := in.Generation
 	scheduler := c.config.Scheduler
-	if current != nil {
+	if current != nil || launch.Spec.Source.Present() {
 		inspect := scheduler.Inspect
 		scheduler.Inspect = func(ctx context.Context, task store.Task, role stageplan.Role, target stageplan.ExecutionTarget) (policy.Inspection, error) {
-			if !current(request) {
+			if current != nil && !current(request) {
 				return policy.Inspection{}, ErrForbidden
 			}
+			if !launch.Spec.SourceCurrent() {
+				return policy.Inspection{}, ErrUnsupported
+			}
 			out, err := inspect(ctx, task, role, target)
-			if !current(request) {
+			if current != nil && !current(request) {
 				return policy.Inspection{}, ErrForbidden
+			}
+			if !launch.Spec.SourceCurrent() {
+				return policy.Inspection{}, ErrUnsupported
 			}
 			return out, err
 		}
@@ -261,13 +275,17 @@ func (c *Controller) start(request context.Context, key string, in store.StartId
 	// From this commit onward, HTTP cancellation cannot terminate an owned
 	// lifetime or drop a known process. Close/cancel/Runtime deadline can.
 	lifetime, cancel := context.WithCancel(c.lifetime)
-	job := &executionJob{run: clone(receipt.Run), cancel: cancel, done: make(chan struct{}), checkpoint: launch.Backend.Checkpoint}
+	job := &executionJob{run: clone(receipt.Run), cancel: cancel, done: make(chan struct{}), checkpoint: launch.Backend.Checkpoint, source: launch.Spec.Source, workspace: launch.Spec.Workspace}
 	c.mu.Lock()
 	c.pending--
 	pending = false
 	c.jobs[job.run.ID] = job
 	c.mu.Unlock()
 	if e = c.config.Scheduler.CheckPrepared(lifetime, job.run); e != nil {
+		c.unlaunched(job)
+		return receipt, ErrLaunch
+	}
+	if !launch.Spec.SourceCurrent() {
 		c.unlaunched(job)
 		return receipt, ErrLaunch
 	}
@@ -358,6 +376,7 @@ func (c *Controller) target(ctx context.Context, task store.Task, role stageplan
 func validLaunch(l Launch, role stageplan.Role) bool {
 	s := l.Spec
 	return l.Backend.Probe != nil && l.Backend.Start != nil && l.Backend.Release != nil &&
+		s.SourceCurrent() &&
 		filepath.IsAbs(s.Root) && filepath.Clean(s.Root) == s.Root && filepath.IsAbs(s.Workspace) && filepath.Clean(s.Workspace) == s.Workspace &&
 		!strings.ContainsRune(s.Root, 0) && !strings.ContainsRune(s.Workspace, 0) && s.Root != s.Workspace &&
 		s.Timeout > 0 && s.Timeout <= 10*time.Minute && len(s.Input) > 0 && len(s.Input) <= 64<<10 && utf8.Valid(s.Input) &&

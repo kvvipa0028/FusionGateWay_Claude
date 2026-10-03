@@ -1,0 +1,6 @@
+=== RUN   TestSupervisorSourceGuardRevokesIdleProcess
+    source_test.go:43: idle source drift not actually stopped  context deadline exceeded
+--- FAIL: TestSupervisorSourceGuardRevokesIdleProcess (6.15s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime	6.793s
+FAIL

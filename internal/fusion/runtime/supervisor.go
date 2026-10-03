@@ -85,6 +85,9 @@ func (s *Supervisor) Start(ctx context.Context, r store.StageRun, in Spec) (*Han
 	if s == nil || s.store == nil || ctx.Err() != nil || in.ValidateOutcome == nil || in.Timeout <= 0 || in.Timeout > 10*time.Minute || in.NativeSessionID == "" || len(in.Input) > 64<<10 || !filepath.IsAbs(in.Executable) || strings.ContainsRune(in.NativeSessionID, 0) {
 		return nil, ErrLaunch
 	}
+	if !in.SourceCurrent() {
+		return nil, ErrLaunch
+	}
 	channel, e := in.modelChannel()
 	if e != nil {
 		return nil, ErrLaunch
@@ -156,6 +159,9 @@ func (s *Supervisor) Start(ctx context.Context, r store.StageRun, in Spec) (*Han
 		return nil, ErrLaunch
 	}
 	h := &Handle{supervisor: s, run: current, spec: spec, channel: channel, nonce: hex.EncodeToString(nonce[:]), profileHash: hashBytes([]byte(profile)), done: make(chan struct{}), cancel: make(chan struct{}, 1), events: make(chan Event, 16)}
+	if !spec.SourceCurrent() {
+		return nil, ErrLaunch
+	}
 	// O_EXCL + fsync intent before spawning. A controller crash in the spawn
 	// window remains unknown; absence of a PID never authorizes automatic replay.
 	if e = h.journal("intent"); e != nil {
@@ -168,6 +174,9 @@ func (s *Supervisor) Start(ctx context.Context, r store.StageRun, in Spec) (*Han
 	cmd.Stdout = &h.output
 	cmd.Stderr = &h.stderr
 	h.cmd = cmd
+	if !spec.SourceCurrent() {
+		return nil, ErrLaunch
+	}
 	s.launches[r.ID] = h
 	if e = cmd.Start(); e != nil {
 		h.result = Result{State: "launch_unknown", ExitCode: -1}
@@ -344,7 +353,7 @@ func (h *Handle) supervise(ctx context.Context) {
 			h.mu.Lock()
 			cancelled := h.cancelRequested
 			h.mu.Unlock()
-			if over || errOver || cancelled {
+			if over || errOver || cancelled || !h.spec.SourceCurrent() {
 				stop()
 			} else if h.supervisor.store.RenewLease(h.run.ID, h.run.Generation, h.run.Owner, time.Minute) != nil {
 				stop()
@@ -370,7 +379,7 @@ exited:
 	state := "failed"
 	if h.cancelRequested {
 		state = "cancelled"
-	} else if waitErr == nil && !over && !errOver && h.spec.ValidateOutcome(out) {
+	} else if waitErr == nil && !over && !errOver && h.spec.SourceCurrent() && h.spec.ValidateOutcome(out) && h.spec.SourceCurrent() {
 		state = "succeeded"
 	}
 	if state != "succeeded" && h.spec.Writable {

@@ -1,0 +1,4 @@
+=== RUN   TestSupervisorSourceGuardRevokesIdleProcess
+--- PASS: TestSupervisorSourceGuardRevokesIdleProcess (2.15s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime	3.790s

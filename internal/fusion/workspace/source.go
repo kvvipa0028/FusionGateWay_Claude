@@ -14,8 +14,42 @@ type sourceEntry struct {
 	hash string
 }
 type sourceSeal struct {
-	path    string
-	entries map[string]sourceEntry
+	path     string
+	entries  map[string]sourceEntry
+	copyPath string
+	copyInfo os.FileInfo
+}
+
+// SourceGuard is trusted in-memory provenance, never a serialized authority.
+type SourceGuard struct{ seal *sourceSeal }
+
+func (SourceGuard) String() string   { return "workspace source guard (redacted)" }
+func (SourceGuard) GoString() string { return "SourceGuard(<redacted>)" }
+func (g SourceGuard) Present() bool  { return g.seal != nil }
+func (s Snapshot) Guard() (SourceGuard, error) {
+	g := SourceGuard{seal: s.source}
+	if s.source == nil || !g.ValidFor(s.source.copyPath) {
+		return SourceGuard{}, ErrUnsafe
+	}
+	return g, nil
+}
+func (g SourceGuard) ValidFor(cwd string) bool {
+	if g.seal == nil || g.seal.copyInfo == nil || cwd != g.seal.copyPath {
+		return false
+	}
+	copyCurrent := func() bool {
+		if PrivateState(cwd) != nil {
+			return false
+		}
+		i, e := os.Lstat(cwd)
+		if e != nil || !i.IsDir() || !os.SameFile(g.seal.copyInfo, i) || i.Mode() != g.seal.copyInfo.Mode() {
+			return false
+		}
+		x, ok := i.Sys().(*syscall.Stat_t)
+		y, other := g.seal.copyInfo.Sys().(*syscall.Stat_t)
+		return ok && other && x.Uid == y.Uid && x.Gid == y.Gid
+	}
+	return copyCurrent() && (Snapshot{source: g.seal}).SourceCurrent() && copyCurrent()
 }
 
 func contentHash(b []byte) string {

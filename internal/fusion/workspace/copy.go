@@ -120,5 +120,10 @@ func copyWorkspace(source, root, name string, beforePublish func()) (Snapshot, e
 		return Snapshot{}, e
 	}
 	result.Path = dest
+	info, e := os.Lstat(dest)
+	if e != nil || !info.IsDir() {
+		return Snapshot{}, ErrUnsafe
+	}
+	seal.copyPath, seal.copyInfo = dest, info
 	return result, nil
 }

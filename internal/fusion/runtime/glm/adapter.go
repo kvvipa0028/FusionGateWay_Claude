@@ -87,6 +87,9 @@ func (a *Adapter) Release(p policy.StopProof) error {
 // scope. The adapter generates all Native argv, identity, env, channel and
 // outcome validation. Caller-provided launch controls are always refused.
 func (a *Adapter) Start(ctx context.Context, r store.StageRun, in managed.Spec) (*managed.Handle, error) {
+	if !in.SourceCurrent() {
+		return nil, ErrIdentity
+	}
 	if a == nil || ctx.Err() != nil || in.Executable != "" || in.ExecutableHash != "" || len(in.Args) != 0 || len(in.FixtureEnvironment) != 0 || in.NativeSessionID != "" || in.ClaudeChannel != nil || in.GrokChannel != nil || in.ValidateOutcome != nil || in.Timeout <= 0 || in.Timeout > 4*time.Minute || len(in.Input) == 0 || len(in.Input) > 64<<10 || !utf8.Valid(in.Input) || in.Writable && r.Role != stageplan.Implementation && r.Role != stageplan.Testing {
 		return nil, ErrUnverified
 	}
@@ -122,18 +125,18 @@ func (a *Adapter) Start(ctx context.Context, r store.StageRun, in managed.Spec) 
 	b := clone(Binding{RunID: r.ID, Generation: r.Generation, Role: r.Role, NativeSessionID: sid, Cwd: in.Workspace, Endpoint: Endpoint, Region: "CN", Target: r.Target, Tools: tools, MaxTurns: int64(budget.MaxCalls - budget.UsedCalls)})
 	lifetime, cancel := context.WithTimeout(ctx, in.Timeout)
 	current := func(got Binding) bool {
-		if lifetime.Err() != nil {
+		if lifetime.Err() != nil || !in.SourceCurrent() {
 			return false
 		}
 		active, e := a.config.Scheduler.Store.CheckActive(r.ID, r.Generation)
-		return e == nil && active.State == "running" && active.Owner == r.Owner && active.TaskID == r.TaskID && active.Role == r.Role && active.Attempt == r.Attempt && active.PlanRevision == r.PlanRevision && equalTarget(active.Target, b.Target) && a.config.Current(clone(got))
+		return e == nil && active.State == "running" && active.Owner == r.Owner && active.TaskID == r.TaskID && active.Role == r.Role && active.Attempt == r.Attempt && active.PlanRevision == r.PlanRevision && equalTarget(active.Target, b.Target) && a.config.Current(clone(got)) && in.SourceCurrent()
 	}
 	observer, e := New(b, current)
 	if e != nil {
 		cancel()
 		return nil, e
 	}
-	if !a.config.Current(clone(b)) {
+	if !a.config.Current(clone(b)) || !in.SourceCurrent() {
 		cancel()
 		return nil, ErrIdentity
 	}
@@ -152,7 +155,7 @@ func (a *Adapter) Start(ctx context.Context, r store.StageRun, in managed.Spec) 
 		cancel()
 		return nil, e
 	}
-	if !a.config.Current(clone(b)) {
+	if !a.config.Current(clone(b)) || !in.SourceCurrent() {
 		cancel()
 		return nil, ErrIdentity
 	}
@@ -191,7 +194,7 @@ func (a *Adapter) Start(ctx context.Context, r store.StageRun, in managed.Spec) 
 	a.observations[r.ID] = nativeObservation{generation: r.Generation, outcome: Outcome{State: "execution_uncertain"}}
 	a.mu.Unlock()
 	args := []string{"--bare", "--restricted", "--strict-mcp-config", "--setting-sources", "", "--tools", strings.Join(tools, ","), "--allowedTools", strings.Join(tools, ","), "--disable-slash-commands", "--no-chrome", "--no-session-persistence", "--permission-mode", "dontAsk", "--model", b.Target.ResolvedModel, "--effort", *b.Target.Effort.Value, "--session-id", sid, "--system-prompt", "Execute only the assigned engineering stage in the approved working directory. Do not spawn agents or change models.", "-p", "--output-format", "stream-json", "--verbose", "--include-partial-messages"}
-	spec := managed.Spec{Executable: a.config.Executable, ExecutableHash: NativeExecutableSHA256, Args: args, Root: in.Root, Workspace: in.Workspace, Writable: in.Writable, Timeout: in.Timeout, Input: append([]byte(nil), in.Input...), NativeSessionID: sid, ClaudeChannel: channel, ValidateOutcome: func(raw []byte) bool {
+	spec := managed.Spec{Source: in.Source, Executable: a.config.Executable, ExecutableHash: NativeExecutableSHA256, Args: args, Root: in.Root, Workspace: in.Workspace, Writable: in.Writable, Timeout: in.Timeout, Input: append([]byte(nil), in.Input...), NativeSessionID: sid, ClaudeChannel: channel, ValidateOutcome: func(raw []byte) bool {
 		if bytes.Contains(raw, []byte(key.Key)) || bytes.Contains(raw, []byte(secret)) {
 			return false
 		}

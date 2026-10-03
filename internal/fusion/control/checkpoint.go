@@ -57,6 +57,9 @@ func (c *Controller) checkpoint(ctx context.Context, taskID, runID string, expec
 		if current != nil && !current(ctx) {
 			return store.StageRun{}, ErrForbidden
 		}
+		if j != nil && j.source.Present() && !j.source.ValidFor(j.workspace) {
+			return store.StageRun{}, ErrReconcile
+		}
 		task, e := c.config.Scheduler.Store.Task(taskID)
 		if e != nil {
 			return store.StageRun{}, e

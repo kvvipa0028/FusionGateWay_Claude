@@ -108,6 +108,9 @@ func (a *Adapter) ResumeCheckpoint(ctx context.Context, inputRun store.StageRun,
 }
 
 func (a *Adapter) start(ctx context.Context, inputRun store.StageRun, in managed.Spec, resume *resumeRequest) (*managed.Handle, error) {
+	if !in.SourceCurrent() {
+		return nil, ErrIdentity
+	}
 	if a == nil || ctx.Err() != nil || in.Executable != "" || in.ExecutableHash != "" || len(in.Args) != 0 || len(in.FixtureEnvironment) != 0 || in.NativeSessionID != "" || in.ClaudeChannel != nil || in.GrokChannel != nil || in.ValidateOutcome != nil || in.Timeout <= 0 || in.Timeout > 4*time.Minute || len(in.Input) == 0 || len(in.Input) > 64<<10 || !utf8.Valid(in.Input) || bytes.IndexByte(in.Input, 0) >= 0 {
 		return nil, ErrUnverified
 	}
@@ -194,13 +197,13 @@ func (a *Adapter) start(ctx context.Context, inputRun store.StageRun, in managed
 	binding := copyGate(GateBinding{Observer: Binding{RunID: r.ID, Generation: r.Generation, Role: r.Role, NativeSessionID: sid, Cwd: in.Workspace, RuntimeVersion: CLIVersion, ExecutableSHA256: NativeExecutableSHA256, Model: r.Target.RequestedModel, Tools: []string{"read_file"}, MaxTurns: turns}, Target: r.Target})
 	lifetime, cancel := context.WithTimeout(ctx, in.Timeout)
 	current := func(got GateBinding) bool {
-		if lifetime.Err() != nil || !resumeRootCurrent() || resume != nil && !resume.archives.live() {
+		if lifetime.Err() != nil || !in.SourceCurrent() || !resumeRootCurrent() || resume != nil && !resume.archives.live() {
 			return false
 		}
 		active, e := a.config.Scheduler.Store.CheckActive(r.ID, r.Generation)
 		x, _ := json.Marshal(got)
 		y, _ := json.Marshal(binding)
-		return e == nil && (active.State == "starting" || active.State == "running") && active.Owner == r.Owner && active.TaskID == r.TaskID && active.Role == r.Role && active.Attempt == r.Attempt && active.PlanRevision == r.PlanRevision && sameTarget(active.Target, binding.Target) && bytes.Equal(x, y) && a.config.Current(copyGate(got)) && resumeRootCurrent()
+		return e == nil && (active.State == "starting" || active.State == "running") && active.Owner == r.Owner && active.TaskID == r.TaskID && active.Role == r.Role && active.Attempt == r.Attempt && active.PlanRevision == r.PlanRevision && sameTarget(active.Target, binding.Target) && bytes.Equal(x, y) && a.config.Current(copyGate(got)) && in.SourceCurrent() && resumeRootCurrent()
 	}
 	if !current(copyGate(binding)) {
 		cancel()
@@ -314,7 +317,7 @@ func (a *Adapter) start(ctx context.Context, inputRun store.StageRun, in managed
 	} else {
 		args = append(args, "--session-id", sid)
 	}
-	spec := managed.Spec{Executable: a.config.Executable, ExecutableHash: NativeExecutableSHA256, Args: args, Root: in.Root, Workspace: in.Workspace, Timeout: in.Timeout, NativeSessionID: sid, GrokChannel: channel, ValidateOutcome: func(raw []byte) bool {
+	spec := managed.Spec{Source: in.Source, Executable: a.config.Executable, ExecutableHash: NativeExecutableSHA256, Args: args, Root: in.Root, Workspace: in.Workspace, Timeout: in.Timeout, NativeSessionID: sid, GrokChannel: channel, ValidateOutcome: func(raw []byte) bool {
 		if bytes.Contains(raw, []byte(secret)) {
 			return false
 		}

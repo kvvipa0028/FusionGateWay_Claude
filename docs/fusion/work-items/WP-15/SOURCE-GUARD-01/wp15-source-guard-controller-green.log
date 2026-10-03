@@ -1,0 +1,18 @@
+=== RUN   TestControllerRequiresSourceBeforeNewIntent
+=== RUN   TestControllerRequiresSourceBeforeNewIntent/absent
+=== RUN   TestControllerRequiresSourceBeforeNewIntent/changed
+=== RUN   TestControllerRequiresSourceBeforeNewIntent/wrong_cwd
+--- PASS: TestControllerRequiresSourceBeforeNewIntent (0.11s)
+    --- PASS: TestControllerRequiresSourceBeforeNewIntent/absent (0.04s)
+    --- PASS: TestControllerRequiresSourceBeforeNewIntent/changed (0.04s)
+    --- PASS: TestControllerRequiresSourceBeforeNewIntent/wrong_cwd (0.03s)
+=== RUN   TestControllerRechecksSourceAfterSlowPreflight
+=== RUN   TestControllerRechecksSourceAfterSlowPreflight/probe
+=== RUN   TestControllerRechecksSourceAfterSlowPreflight/inspection
+--- PASS: TestControllerRechecksSourceAfterSlowPreflight (0.07s)
+    --- PASS: TestControllerRechecksSourceAfterSlowPreflight/probe (0.03s)
+    --- PASS: TestControllerRechecksSourceAfterSlowPreflight/inspection (0.04s)
+=== RUN   TestControllerPreparedSourceDriftDoesNotInventStopProof
+--- PASS: TestControllerPreparedSourceDriftDoesNotInventStopProof (0.04s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/control	1.890s

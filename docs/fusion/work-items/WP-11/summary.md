@@ -9,3 +9,5 @@
 104 个 Fusion 顶层 race 测试通过，2 个 helper 仅在父测试跳过；CLI/GUI/full vet 通过。原生 C fixture 在沙箱外成功连接合成 loopback、查找 SecurityServer 端口、fork，在沙箱内三项拒绝；未读取 Keychain item 或认证内容。另验证管理环境不继承、合成凭据不可读、越界写被拒绝、只读阶段不能写、TERM 忽略时 KILL、取消/完成只有一个持久化终态。
 
 RED→GREEN 修正 dyld 根目录读取需求及控制器 flock FD 缺少 O_CLOEXEC 的真实继承问题。PID reuse 用实际当前进程 + 错误出生时间证明拒绝发信号，不宣称在 OS 强制造成 PID reuse。禁止派生保证孙进程无法创建；并未证明任意多进程树的停止。原版 WP-03 孙进程诊断不升级成 Native 准入。最终验收仍 not_run。
+
+后续 [WP-15-SOURCE-GUARD-01](../WP-15/SOURCE-GUARD-01/summary.md) 完成私有来源记录接入执行/归档边界，固定Grok/Claude Native源漂移拒绝成功并实际停止/释放通过。完整Fusion460PASS22SKIP0FAIL，Native7顶层/17子测试通过；整体产品登记/真实路线/最终Gate仍未完成。

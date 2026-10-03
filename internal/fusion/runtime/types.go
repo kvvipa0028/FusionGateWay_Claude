@@ -11,6 +11,7 @@ import (
 
 	"github.com/yetone/magpie/internal/fusion/policy"
 	"github.com/yetone/magpie/internal/fusion/store"
+	"github.com/yetone/magpie/internal/fusion/workspace"
 )
 
 var (
@@ -29,6 +30,7 @@ type Adapter interface {
 	Resume(context.Context, store.StageRun) (*Handle, error)
 }
 type Spec struct {
+	Source                     workspace.SourceGuard `json:"-"`
 	Executable, ExecutableHash string
 	Args                       []string
 	Root, Workspace            string
@@ -41,6 +43,10 @@ type Spec struct {
 	ClaudeChannel              *ClaudeChannel
 	GrokChannel                *GrokChannel
 }
+
+// Absence preserves legacy diagnostic semantics, never verified provenance.
+func (s Spec) SourceCurrent() bool { return !s.Source.Present() || s.Source.ValidFor(s.Workspace) }
+
 type Identity struct {
 	PID         int   `json:"pid"`
 	StartMicros int64 `json:"start_micros"`

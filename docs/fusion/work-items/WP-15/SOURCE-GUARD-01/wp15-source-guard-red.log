@@ -1,0 +1,7 @@
+# github.com/yetone/magpie/internal/fusion/control [github.com/yetone/magpie/internal/fusion/control.test]
+internal/fusion/control/source_test.go:23:22: snapshot.Guard undefined (type workspace.Snapshot has no field or method Guard)
+internal/fusion/control/source_test.go:26:16: f.launch.Spec.Source undefined (type "github.com/yetone/magpie/internal/fusion/runtime".Spec has no field or method Source)
+internal/fusion/control/source_test.go:27:11: f.config.RequireSource undefined (type Config has no field or method RequireSource)
+internal/fusion/control/source_test.go:35:33: f.config.RequireSource undefined (type Config has no field or method RequireSource)
+FAIL	github.com/yetone/magpie/internal/fusion/control [build failed]
+FAIL

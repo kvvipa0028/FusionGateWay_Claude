@@ -1,0 +1,25 @@
+=== RUN   TestControllerRequiresSourceBeforeNewIntent
+=== RUN   TestControllerRequiresSourceBeforeNewIntent/absent
+    source_test.go:55: unapproved source launched <nil>
+=== RUN   TestControllerRequiresSourceBeforeNewIntent/changed
+    source_test.go:55: unapproved source launched <nil>
+=== RUN   TestControllerRequiresSourceBeforeNewIntent/wrong_cwd
+    source_test.go:55: unapproved source launched <nil>
+--- FAIL: TestControllerRequiresSourceBeforeNewIntent (0.15s)
+    --- FAIL: TestControllerRequiresSourceBeforeNewIntent/absent (0.06s)
+    --- FAIL: TestControllerRequiresSourceBeforeNewIntent/changed (0.05s)
+    --- FAIL: TestControllerRequiresSourceBeforeNewIntent/wrong_cwd (0.05s)
+=== RUN   TestControllerRechecksSourceAfterSlowPreflight
+=== RUN   TestControllerRechecksSourceAfterSlowPreflight/probe
+    source_test.go:88: preflight source drift launched <nil>
+=== RUN   TestControllerRechecksSourceAfterSlowPreflight/inspection
+    source_test.go:88: preflight source drift launched <nil>
+--- FAIL: TestControllerRechecksSourceAfterSlowPreflight (0.09s)
+    --- FAIL: TestControllerRechecksSourceAfterSlowPreflight/probe (0.05s)
+    --- FAIL: TestControllerRechecksSourceAfterSlowPreflight/inspection (0.05s)
+=== RUN   TestControllerPreparedSourceDriftDoesNotInventStopProof
+    source_test.go:116: prepared source drift launched <nil>
+--- FAIL: TestControllerPreparedSourceDriftDoesNotInventStopProof (0.05s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/control	0.952s
+FAIL

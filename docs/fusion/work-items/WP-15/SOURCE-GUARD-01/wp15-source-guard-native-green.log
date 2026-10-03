@@ -1,0 +1,13 @@
+=== RUN   TestControllerPinnedGrokSourceNativeLifecycle
+=== RUN   TestControllerPinnedGrokSourceNativeLifecycle/source_success
+    grok_native_test.go:54: synthetic Controller mode=source_success state=succeeded HTTP/budget=2 actualStop/release=true sourceUnchanged=true; Native/route/billing/quota proof independent
+=== RUN   TestControllerPinnedGrokSourceNativeLifecycle/source_read
+    grok_native_test.go:54: synthetic Controller mode=source_read state=succeeded HTTP/budget=3 actualStop/release=true sourceUnchanged=true; Native/route/billing/quota proof independent
+=== RUN   TestControllerPinnedGrokSourceNativeLifecycle/source_drift
+    grok_native_test.go:54: synthetic Controller mode=source_drift state=failed HTTP/budget=1 actualStop/release=true sourceUnchanged=true; Native/route/billing/quota proof independent
+--- PASS: TestControllerPinnedGrokSourceNativeLifecycle (3.63s)
+    --- PASS: TestControllerPinnedGrokSourceNativeLifecycle/source_success (1.22s)
+    --- PASS: TestControllerPinnedGrokSourceNativeLifecycle/source_read (1.28s)
+    --- PASS: TestControllerPinnedGrokSourceNativeLifecycle/source_drift (1.13s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/control	5.294s

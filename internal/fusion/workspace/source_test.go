@@ -188,3 +188,42 @@ func TestCopyBoundsEmptyDirectoryTree(t *testing.T) {
 		t.Fatal("partial copy remained", e)
 	}
 }
+
+func TestSourceGuardIsImmutableAndBoundToCopiedDirectory(t *testing.T) {
+	source, root := private(t), private(t)
+	if e := os.WriteFile(filepath.Join(source, "input"), []byte("source"), 0600); e != nil {
+		t.Fatal(e)
+	}
+	s, e := Copy(source, root, "copy")
+	if e != nil {
+		t.Fatal(e)
+	}
+	cwd := s.Path
+	guard, e := s.Guard()
+	if e != nil || !guard.Present() || !guard.ValidFor(cwd) {
+		t.Fatal("guard unavailable", e)
+	}
+	s.Path = "forged"
+	s.Files = nil
+	if !guard.ValidFor(cwd) || guard.ValidFor(source) || (SourceGuard{}).ValidFor(cwd) {
+		t.Fatal("mutable or zero source authority")
+	}
+	if _, e = (Snapshot{Path: cwd}).Guard(); e == nil {
+		t.Fatal("forged public snapshot issued guard")
+	}
+	if e = os.WriteFile(filepath.Join(cwd, "input"), []byte("generated"), 0600); e != nil {
+		t.Fatal(e)
+	}
+	if !guard.ValidFor(cwd) {
+		t.Fatal("authorized private copy mutation invalidated source")
+	}
+	if e = os.Rename(cwd, cwd+".old"); e != nil {
+		t.Fatal(e)
+	}
+	if e = os.Mkdir(cwd, 0700); e != nil {
+		t.Fatal(e)
+	}
+	if guard.ValidFor(cwd) {
+		t.Fatal("replaced copied directory accepted")
+	}
+}
