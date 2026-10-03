@@ -1,0 +1,11 @@
+{
+  "base_commit": "18a57a3172ab50f13493b48594af0384fc9565eb",
+  "source_files_sha256": {
+    "scripts/fusion/glm-claude-probe.py": "c0c91bc79b0cfc46e6ab55f3859924983e5ee9739b59ba4c73b8aaa5dbd022d0",
+    "scripts/fusion/private-glm-key.py": "ab3a44656bd9b9c8f22cb32615196f6df5334b3f08ecf2df18998e6a847a1aff"
+  },
+  "packet_files_sha256": {
+    "summary.md": "642c697de8539e3c4625f347e4482f13267c04cbd29ed03bec651b1dd0dcb22e",
+    "live-probe.json": "ef85b353511f0b2dbff33b56167960ace8b9639d3dd54c14c74ff0b4aa00897b"
+  }
+}
