@@ -59,6 +59,7 @@ type PreviewRequest struct {
 	RequiredRoles []stageplan.Role `json:"required_roles"`
 	Task          stageplan.Layer  `json:"task,omitempty"`
 	Budget        *BudgetLimits    `json:"budget,omitempty"`
+	Preset        *PresetSelection `json:"preset,omitempty"`
 }
 type Preview struct {
 	ID                    string             `json:"preview_id"`
@@ -66,6 +67,7 @@ type Preview struct {
 	ExpiresAt             time.Time          `json:"expires_at"`
 	Plan                  stageplan.Snapshot `json:"plan"`
 	Budget                BudgetLimits       `json:"budget"`
+	Preset                *store.PresetRef   `json:"preset,omitempty"`
 }
 type SubmitRequest struct {
 	PreviewID string `json:"preview_id"`
@@ -149,6 +151,21 @@ func (s *Server) preview(in PreviewRequest) (Preview, error) {
 	if !ok {
 		return Preview{}, errProject
 	}
+	var presetRef *store.PresetRef
+	if in.Preset != nil {
+		if !opaque(in.Preset.ID) || in.Preset.Revision < 1 {
+			return Preview{}, errInvalid
+		}
+		preset, e := s.store.Preset(in.ProjectID, in.Preset.ID, in.Preset.Revision)
+		if e != nil {
+			return Preview{}, e
+		}
+		in.Task, e = stageplan.ApplyPreset(preset.Layer, in.Task)
+		if e != nil {
+			return Preview{}, errInvalid
+		}
+		presetRef = &store.PresetRef{ID: preset.ID, Revision: preset.Revision, Hash: preset.Hash}
+	}
 	budget := *p.configuration.DefaultBudget
 	if in.Budget != nil {
 		budget = *in.Budget
@@ -184,7 +201,7 @@ func (s *Server) preview(in PreviewRequest) (Preview, error) {
 	if _, e = rand.Read(entropy[:]); e != nil {
 		return Preview{}, e
 	}
-	out := Preview{ID: "preview-" + hex.EncodeToString(entropy[:]), ConfigurationRevision: p.revision, ExpiresAt: now.Add(5 * time.Minute), Plan: plan, Budget: budget}
+	out := Preview{ID: "preview-" + hex.EncodeToString(entropy[:]), ConfigurationRevision: p.revision, ExpiresAt: now.Add(5 * time.Minute), Plan: plan, Budget: budget, Preset: presetRef}
 	s.previews[out.ID] = &receipt{preview: copyPreview(out), request: PreviewRequest{ProjectID: in.ProjectID, Goal: in.Goal}}
 	return out, nil
 }
@@ -210,7 +227,7 @@ func (s *Server) submit(in SubmitRequest, key string) (store.Task, error) {
 		return store.Task{}, errPreview
 	}
 	budget := store.Budget{MaxCalls: r.preview.Budget.MaxCalls, MaxReworks: r.preview.Budget.MaxReworks}
-	task, e := s.store.Create(key, store.CreateRequest{ProjectID: r.request.ProjectID, Goal: r.request.Goal, Plan: r.preview.Plan, Budget: &budget})
+	task, e := s.store.Create(key, store.CreateRequest{ProjectID: r.request.ProjectID, Goal: r.request.Goal, Plan: r.preview.Plan, Budget: &budget, Preset: r.preview.Preset})
 	if e != nil {
 		return store.Task{}, e
 	}
@@ -280,6 +297,10 @@ func (s *Server) Handler() http.Handler {
 			return
 		}
 		switch {
+		case projectSettingsPath(r.URL.Path):
+			s.presetControl(w, r)
+		case strings.HasPrefix(r.URL.Path, "/control/v1/tasks/") && strings.HasSuffix(r.URL.Path, "/preset"):
+			s.taskPreset(w, r)
 		case strings.HasPrefix(r.URL.Path, "/control/v1/projects/") && (strings.HasSuffix(r.URL.Path, "/quota") || strings.HasSuffix(r.URL.Path, "/refresh")):
 			s.quotaControl(w, r)
 		case strings.HasPrefix(r.URL.Path, "/control/v1/tasks/") && (strings.HasSuffix(r.URL.Path, "/start") || strings.HasSuffix(r.URL.Path, "/cancel")):

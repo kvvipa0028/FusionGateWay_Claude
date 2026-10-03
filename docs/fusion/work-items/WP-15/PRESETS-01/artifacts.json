@@ -1,0 +1,41 @@
+{
+  "base_commit": "e16940c7a42fe594692e4cf9317cc8efa372532c",
+  "source_files_sha256": {
+    "docs/fusion/contracts/preset-api.md": "b32f0832a3c91795a8fa68dc5c26f3af922d24c88570bbdebe9ebfb59f38e01c",
+    "docs/fusion/contracts/state-transition-contract.md": "1283ffd15b8f28f1800c2d465c0d70e0520b0f6ac897e199e843257a09c4ae6c",
+    "docs/fusion/contracts/task-execution-api.md": "6abf300fc9c37610010119b5ce88b981071136a4eabc0f78e302b69ca7a518bd",
+    "docs/fusion/openapi-fusion.yaml": "2a3d92ffd3d86a806a7faf486d71aa7b58e15e3c1f757ef27e2f3a703bbfd118",
+    "docs/fusion/work-items/WP-15/summary.md": "5ebce5be97120d1e6afb10a968c5af4e1de99546d7c34e52f5046bac4709982b",
+    "internal/fusion/api/presets.go": "6a8a5691db3bd4f51f37d437dfbc163e16f33b1507c23933ed659b643e7a70db",
+    "internal/fusion/api/presets_test.go": "7fdd72a30afcf46b3a89db11d7e00d26cb01f9d88a193f2e4e7397c9db344c0f",
+    "internal/fusion/api/preview.go": "465fb09d3b51097a622a2a2ec40a3813b76480cd02a1c346f37467e58529d5ac",
+    "internal/fusion/stageplan/preset.go": "e7a0064807ffeec5a876be291024b626c6e86059b561690dfcb108952f219a0b",
+    "internal/fusion/stageplan/preset_test.go": "100f422d452019fd757c2c79d224602cbc09a9968f64d8a04192bcfef92f9d5e",
+    "internal/fusion/store/migrations/004.sql": "4a3446817cf910015f6a17170c40c59f1cd538f65e8c14e784b83414e1a7eaaa",
+    "internal/fusion/store/preset_migration_test.go": "bb3efaf26769035ff56fa6c692038be1a9c99fcee65e47dd8efa66446dbf2840",
+    "internal/fusion/store/presets.go": "a2127ab27bd3d8d3272832e0a8715eed6a2f9e216a322bcfa68a1ce82c9f8901",
+    "internal/fusion/store/presets_test.go": "af515749ea53d15ef9e21508b1dfcd78887e0ed315993e771f5d9ea7dd3c2ac4",
+    "internal/fusion/store/scheduling_test.go": "7ccb344eb42ad7557c7c2a2d4953cd2e18eddffe80e11c46692c317fc2df7714",
+    "internal/fusion/store/start_once_test.go": "86ce439a59ef2e1806f7f66367abce5e1f21ff3cbe14c058f8836449b58ba06b",
+    "internal/fusion/store/store.go": "efa6bafa354f580540e4193b7b9d38a8e406a7d8c6994c5ffc64aece790e9b1a"
+  },
+  "packet_files_sha256": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "e048153ffa1916abdab3596e2b515d46c5421e0e4438696e49e72ee3789c52ed",
+    "build-results.json": "cfb676cd8c7c6b2ad7c93c66b3f328ccbc5011871569d7b43728c7f1dd38adc4",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "openapi-check.log": "4d895409be874618ccde7568c9aa440daf6d7313148c03d8566956adfb1108bd",
+    "summary.md": "f1737f7dda2319b1676dd41c302fb0029067c2e48775ddfe9e45e0408498d498",
+    "test-results.json": "0d8338dfe4732711d8df68897def588d5829d1d5f910206c0d430c7a1e1834ef",
+    "wp15-presets-api-red.log": "7a56cd021340726e7995b36947484b05320e8d5b99a20c85200f0427ee11199d",
+    "wp15-presets-final-race.log": "64d068e8343b1fc6a653d73710253bde87c35e6efb9ed7391a3c408583337065",
+    "wp15-presets-first-green.log": "cb341bc937bd355a44ae7dcdda8d9afaee42e27255d2f4ac04bf54b210032e34",
+    "wp15-presets-fusion-race.log": "72661dd670f931df57f3c25107d2e83533c44a2e32f8cf689f63ec7f2b7649b3",
+    "wp15-presets-native-green.log": "2b20eafbe822ac554376b0b3dccd1d9a906f9fb964b8c3b1f08cedbe2a85e32b",
+    "wp15-presets-red.log": "7beae8ce7dd9819aa5adbebeac7adf05e69fb7e88a5488098acf1ee76a3559c0",
+    "wp15-presets-routing-behavior-red.log": "c075c864af7e2187559aa82c1a6d44837b91debc0b4a240f6b91b3be36f2d4a5",
+    "wp15-presets-routing-red.log": "eaf87a78d07423294caf8ba9a3da33693562d07475d77d5895061832585f75f8",
+    "wp15-presets-store-first.log": "41676c8cb7245945c0eff30dab77d1dcc547e9f6f698b3ce05f32983d0c81404",
+    "wp15-presets-target-green.log": "5283dfa50c03e2b37a161545a6a2f87d6f0397caaf92a29767054ab2548ee6bc"
+  }
+}

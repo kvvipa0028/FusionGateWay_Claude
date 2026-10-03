@@ -4,9 +4,9 @@
 
 ## 持久化与事务
 
-schema 当前为 3，依次使用 `migrations/001.sql`、`002.sql`、`003.sql`；初始表包含 Task、StagePlanRevision、StageRun、RouteRevision、EvidenceRef、idempotency 和带 task 内序号的 Event，扩展表见下文。版本及每份迁移 SHA256 校验失败拒绝打开；现存未知数据库不能当成空数据库迁移。WAL、foreign_keys 和 synchronous=FULL 启用，单连接配合控制器锁与事务串行写入。
+schema 当前为 4，依次使用 `migrations/001.sql`、`002.sql`、`003.sql`、`004.sql`；初始表包含 Task、StagePlanRevision、StageRun、RouteRevision、EvidenceRef、idempotency 和带 task 内序号的 Event，扩展表见下文。版本及每份迁移 SHA256 校验失败拒绝打开；现存未知数据库不能当成空数据库迁移。WAL、foreign_keys 和 synchronous=FULL 启用，单连接配合控制器锁与事务串行写入。
 
-Create 的幂等键限定在 project 内，payload hash 包含项目、目标及完整快照。相同键和 payload 返回同一个 task；不同 payload 拒绝。数据库事务不会调用 Runtime，也不隐式执行任务。
+Create 的幂等键限定在 project 内，payload hash 包含项目、目标、完整快照、预算及可选预设引用。相同键和 payload 返回同一个 task；不同 payload 拒绝。未用预设时新增字段省略，旧提交的 payload hash 保持兼容。数据库事务不会调用 Runtime，也不隐式执行任务。
 
 计划只能插入新 revision；If-Match 必须等于当前 revision，新快照 revision 必须为旧版加一。普通修订保持 required_roles 不变，任何已有 stage_run 的角色（包含活动、未知及已结束 attempt）的绑定均不能改写；尚未开始角色可以修订。ValidateRevision 不写事件，RevisePlan 在同一提交事务重新核对，以拒绝预览后启动的竞态。旧快照、路线版本与证据引用不能覆写。快照 hash 只证明完整性，不能代替可信编译、鉴权和准入。RouteRevision 可以保存草稿元数据，不表示其已获执行准入。
 
@@ -51,3 +51,9 @@ task 内事件 seq 由同一事务分配，从 1 连续增长；失败事务不�
 控制器重启后 `LookupStart` 只读已有状态，包括 unknown 和终态；禁止据此再次调用 Runtime。新 key 也必须使用当前 generation，避免完成后旧请求再起一个 attempt。原 `StartIntent` / `StartReserved` 不返回 Created，故拒绝携带幂等键；旧无 key 调用行为保留，后续产品控制接口必须使用新合同。StageRun succeeded 仍不代表工程验收；本扩展不授予返工或自动恢复权限。
 
 003 在独立事务升级 schema 1/2，001/002 原 checksum 保持不变，003 单独校验。向 schema 2/1 回滚必须恢复相应的一致性数据库备份，旧 binary 会拒绝 schema 3。已验证并发重试、终态与 unknown 重读、stale generation、键冲突、映射写入故障的全事务回滚、schema 2 数据和历史事件保留；当前尚未注册产品启动 endpoint 或实际控制器。
+
+## WP-15 schema 4 预设历史与来源
+
+新增项目范围的不可变 preset_revisions、CAS latest preset_heads 与 task_preset_refs。Task 创建事务核对明确版本/hash 并原子保存引用，FK 保证同一项目且引用正确 hash。版本化 PUT 的幂等重读不追随 latest，不消费新 revision 或改变 created_at；新的 head 与版本同事务提交。详见 [preset-api.md](preset-api.md)。
+
+004 checksum 独立保存，001–003 未改；已验证 schema 3 任务/提交和启动映射/预算/held 容量/事件与政策保留，以及 004 checksum 异常和未来 schema 拒绝。原 schema 1/2 回归的最终版本断言改为当前 4，原历史数据和 checksum 断言保留。回滚至 schema 3 或更早需恢复对应一致性数据库备份，旧 binary 不能打开 4。产品启动 endpoint 尚未注册；Controller 的实际 Native 合成回归已在 schema 4 独立通过，不构成三路线真实账号验收。

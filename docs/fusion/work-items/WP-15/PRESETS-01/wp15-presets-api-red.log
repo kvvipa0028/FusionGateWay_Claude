@@ -1,0 +1,6 @@
+# github.com/yetone/magpie/internal/fusion/api [github.com/yetone/magpie/internal/fusion/api.test]
+internal/fusion/api/presets_test.go:35:60: p.Preset undefined (type Preview has no field or method Preset)
+internal/fusion/api/presets_test.go:79:99: unknown field Preset in struct literal of type PreviewRequest
+internal/fusion/api/presets_test.go:79:107: undefined: PresetSelection
+FAIL	github.com/yetone/magpie/internal/fusion/api [build failed]
+FAIL

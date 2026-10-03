@@ -27,6 +27,9 @@ var migrationTwo string
 
 //go:embed migrations/003.sql
 var migrationThree string
+
+//go:embed migrations/004.sql
+var migrationFour string
 var (
 	ErrConflict         = errors.New("store conflict")
 	ErrFenced           = errors.New("execution fenced")
@@ -46,6 +49,7 @@ type CreateRequest struct {
 	Goal      string             `json:"goal"`
 	Plan      stageplan.Snapshot `json:"plan"`
 	Budget    *Budget            `json:"budget,omitempty"`
+	Preset    *PresetRef         `json:"preset,omitempty"`
 }
 type StartRequest struct {
 	TaskID             string
@@ -150,7 +154,7 @@ func Open(root string) (*Store, error) {
 		}); e != nil {
 			return fail(e)
 		}
-	} else if version != 1 && version != 2 && version != 3 {
+	} else if version != 1 && version != 2 && version != 3 && version != 4 {
 		return fail(ErrUnsupported)
 	}
 	var checksum string
@@ -183,6 +187,20 @@ func Open(root string) (*Store, error) {
 		}
 	}
 	if e = s.db.QueryRow("SELECT value FROM metadata WHERE key='migration_003_sha256'").Scan(&checksum); e != nil || checksum != hash([]byte(migrationThree)) {
+		return fail(ErrUnsupported)
+	}
+	if version < 4 {
+		if e = s.transaction(func(tx *sql.Tx) error {
+			if _, e := tx.Exec(migrationFour); e != nil {
+				return e
+			}
+			_, e := tx.Exec("INSERT INTO metadata VALUES('migration_004_sha256',?)", hash([]byte(migrationFour)))
+			return e
+		}); e != nil {
+			return fail(e)
+		}
+	}
+	if e = s.db.QueryRow("SELECT value FROM metadata WHERE key='migration_004_sha256'").Scan(&checksum); e != nil || checksum != hash([]byte(migrationFour)) {
 		return fail(ErrUnsupported)
 	}
 	if e = s.recover(); e != nil {
@@ -288,6 +306,13 @@ func (s *Store) Create(key string, in CreateRequest) (Task, error) {
 		}
 		in.Budget = &b
 	}
+	if in.Preset != nil {
+		ref := *in.Preset
+		if !presetID(ref.ID) || ref.Revision < 1 || len(ref.Hash) != 64 {
+			return Task{}, ErrInvalid
+		}
+		in.Preset = &ref
+	}
 	raw, e := json.Marshal(in)
 	if e != nil {
 		return Task{}, e
@@ -307,6 +332,15 @@ func (s *Store) Create(key string, in CreateRequest) (Task, error) {
 		if !errors.Is(e, sql.ErrNoRows) {
 			return e
 		}
+		if in.Preset != nil {
+			p, e := presetIn(tx, in.ProjectID, in.Preset.ID, in.Preset.Revision)
+			if e != nil {
+				return e
+			}
+			if p.Hash != in.Preset.Hash {
+				return ErrConflict
+			}
+		}
 		taskID, e = id("task-")
 		if e != nil {
 			return e
@@ -320,6 +354,11 @@ func (s *Store) Create(key string, in CreateRequest) (Task, error) {
 		}
 		if in.Budget != nil {
 			if _, e = tx.Exec("INSERT INTO task_budgets(task_id,max_calls,max_reworks) VALUES(?,?,?)", taskID, in.Budget.MaxCalls, in.Budget.MaxReworks); e != nil {
+				return e
+			}
+		}
+		if in.Preset != nil {
+			if _, e = tx.Exec("INSERT INTO task_preset_refs VALUES(?,?,?,?,?)", taskID, in.ProjectID, in.Preset.ID, in.Preset.Revision, in.Preset.Hash); e != nil {
 				return e
 			}
 		}

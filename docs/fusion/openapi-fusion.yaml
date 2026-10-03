@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Fusion task control API
   version: 0.1.0-draft
-  description: 已实现 execution/quota Handler 接口草案。未注册产品 listener。完整 WP-15 的其他接口仍待补全。
+  description: 已实现 execution/quota/preset/preview Handler 接口草案。未注册产品 listener。完整 WP-15 的其他接口仍待补全。
 x-fusion-status: draft-partial
 x-fusion-production-registered: false
 security:
@@ -279,6 +279,570 @@ paths:
         '429': *id009
         '500': *id010
         '503': *id011
+  /control/v1/projects/{project_id}/configuration:
+    get:
+      operationId: readProjectConfiguration
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      responses:
+        '200':
+          description: 可信配置只读；HTTP 不可改写 registry 或准入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectConfigurationReply'
+        '400':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '405':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /control/v1/projects/{project_id}/presets:
+    get:
+      operationId: listProjectPresets
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      responses:
+        '200':
+          description: 只读最新版本目录，最多 128 个名称
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PresetList'
+        '400':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '405':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /control/v1/projects/{project_id}/presets/{preset_id}:
+    get:
+      operationId: readLatestPreset
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      - name: preset_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      responses:
+        '200':
+          description: 浏览 latest，任务应用必须显式指定版本
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Preset'
+        '400':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '405':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      operationId: savePresetVersion
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      - name: preset_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      - name: If-Match
+        in: header
+        required: true
+        schema:
+          type: string
+        description: 单个 strong 版本；"0" 创建，"N" 保存 N+1，同 payload/base 重读明确历史
+      responses:
+        '200':
+          description: 幂等重读原历史版本
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PresetReceipt'
+        '400':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '405':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '201':
+          description: 新建不可变版本；ETag 为版本，Location 为 escaped history path
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PresetReceipt'
+        '412':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '428':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PresetInput'
+  /control/v1/projects/{project_id}/presets/{preset_id}/versions/{revision}:
+    get:
+      operationId: readPresetVersion
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      - name: preset_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      - name: revision
+        in: path
+        required: true
+        schema:
+          type: integer
+          minimum: 1
+      responses:
+        '200':
+          description: 不可变历史版本
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Preset'
+        '400':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '405':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /control/v1/tasks/{task_id}/preset:
+    get:
+      operationId: readTaskPresetReference
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      responses:
+        '200':
+          description: 任务创建时的固定版本来源；没有预设则 null
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskPresetReply'
+        '400':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '405':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /control/v1/tasks/preview:
+    post:
+      operationId: previewTask
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PreviewRequest'
+      responses:
+        '200':
+          description: 无模型调用的冻结预览与明确预设来源
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Preview'
+        '400':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '405':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: 固定错误码，不回显异常/输入
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 components:
   securitySchemes:
     ManagementBearer:
@@ -286,6 +850,218 @@ components:
       scheme: bearer
       description: 仅服务端管理凭据。stage fgs_ identity 被拒绝；禁止通过 query/body 提供凭据。
   schemas:
+    PresetSelection:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - revision
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 256
+        revision:
+          type: integer
+          minimum: 1
+    PresetRef:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - revision
+      - hash
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 256
+        revision:
+          type: integer
+          minimum: 1
+        hash:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+    PresetInput:
+      type: object
+      additionalProperties: false
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 256
+          x-fusion-max-utf8-bytes: 256
+        layer:
+          $ref: ./contracts/stage-plan.schema.json#/$defs/layer
+    Preset:
+      type: object
+      additionalProperties: false
+      required:
+      - project_id
+      - id
+      - revision
+      - name
+      - layer
+      - hash
+      - created_at
+      properties:
+        project_id:
+          type: string
+          minLength: 1
+          maxLength: 256
+        id:
+          type: string
+          minLength: 1
+          maxLength: 256
+        revision:
+          type: integer
+          minimum: 1
+        name:
+          type: string
+        layer:
+          $ref: ./contracts/stage-plan.schema.json#/$defs/layer
+        hash:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+        created_at:
+          type: string
+          format: date-time
+    PresetReceipt:
+      type: object
+      additionalProperties: false
+      required:
+      - preset
+      - created
+      properties:
+        preset:
+          $ref: '#/components/schemas/Preset'
+        created:
+          type: boolean
+    PresetList:
+      type: object
+      additionalProperties: false
+      required:
+      - presets
+      properties:
+        presets:
+          type: array
+          maxItems: 128
+          items:
+            $ref: '#/components/schemas/Preset'
+    TaskPresetReply:
+      type: object
+      additionalProperties: false
+      required:
+      - preset
+      properties:
+        preset:
+          oneOf:
+          - $ref: '#/components/schemas/PresetRef'
+          - type: 'null'
+    BudgetLimits:
+      type: object
+      additionalProperties: false
+      required:
+      - max_calls
+      - max_reworks
+      properties:
+        max_calls:
+          type: integer
+          minimum: 1
+          maximum: 1000
+        max_reworks:
+          type: integer
+          minimum: 0
+          maximum: 1
+    ProjectConfigurationReply:
+      type: object
+      additionalProperties: false
+      required:
+      - revision
+      - configuration
+      properties:
+        revision:
+          type: integer
+          minimum: 1
+        configuration:
+          type: object
+          additionalProperties: false
+          required:
+          - global
+          - project
+          - routes
+          properties:
+            global:
+              $ref: ./contracts/stage-plan.schema.json#/$defs/layer
+            project:
+              $ref: ./contracts/stage-plan.schema.json#/$defs/layer
+            routes:
+              type: array
+              maxItems: 256
+              readOnly: true
+              items:
+                type: object
+                description: 可信 route 元数据；完整字段合同后续补入
+            default_budget:
+              $ref: '#/components/schemas/BudgetLimits'
+    PreviewRequest:
+      type: object
+      additionalProperties: false
+      required:
+      - project_id
+      - goal
+      - required_roles
+      properties:
+        project_id:
+          type: string
+          minLength: 1
+          maxLength: 256
+        goal:
+          type: string
+          minLength: 1
+          x-fusion-max-utf8-bytes: 65536
+        required_roles:
+          type: array
+          minItems: 1
+          maxItems: 5
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Role'
+        task:
+          $ref: ./contracts/stage-plan.schema.json#/$defs/layer
+        budget:
+          $ref: '#/components/schemas/BudgetLimits'
+        preset:
+          $ref: '#/components/schemas/PresetSelection'
+    Preview:
+      type: object
+      additionalProperties: false
+      required:
+      - preview_id
+      - configuration_revision
+      - expires_at
+      - plan
+      - budget
+      properties:
+        preview_id:
+          type: string
+          minLength: 1
+          maxLength: 256
+        configuration_revision:
+          type: integer
+          minimum: 1
+        expires_at:
+          type: string
+          format: date-time
+        plan:
+          type: object
+          description: 冻结 stageplan Snapshot；完整字段合同后续补入
+        budget:
+          $ref: '#/components/schemas/BudgetLimits'
+        preset:
+          $ref: '#/components/schemas/PresetRef'
     QuotaStatus:
       type: string
       enum: [available, zero, unknown, stale, unverified, auth_required, unsupported]
