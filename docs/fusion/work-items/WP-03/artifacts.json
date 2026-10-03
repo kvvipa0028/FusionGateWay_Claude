@@ -28,6 +28,6 @@
     "wp03-synthetic-red.log": "e0995567a2bcdcf9cca6531ac6379d27db1807ad812d74c9c746fcced0112523",
     "wp03-synthetic-green.log": "4398ee8338a363f4577067b016228404e568810d0e4d8f4dab41dbd79688335d"
   },
-  "fixture_index": "../../../tests/fusion/fixtures/fixture-index.json",
+  "fixture_index": "../../../../tests/fusion/fixtures/fixture-index.json",
   "binaries": "test temporary executable compiled and removed; no distributable product"
 }
