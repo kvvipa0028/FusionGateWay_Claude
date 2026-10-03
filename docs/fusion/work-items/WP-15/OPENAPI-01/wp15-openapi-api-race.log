@@ -1,0 +1,141 @@
+=== RUN   TestExecutionCancelRevisionRejectsStalePrecheckWithoutStopping
+--- PASS: TestExecutionCancelRevisionRejectsStalePrecheckWithoutStopping (0.08s)
+=== RUN   TestSSEReconnectOnlyReadsPersistentEvents
+--- PASS: TestSSEReconnectOnlyReadsPersistentEvents (0.06s)
+=== RUN   TestSSEDisconnectDoesNotCancelRunningAttempt
+--- PASS: TestSSEDisconnectDoesNotCancelRunningAttempt (0.04s)
+=== RUN   TestSSERevocationClosesLiveConnectionBeforeNewEvent
+--- PASS: TestSSERevocationClosesLiveConnectionBeforeNewEvent (0.04s)
+=== RUN   TestSSERejectsInvalidUnknownAndAheadCursors
+--- PASS: TestSSERejectsInvalidUnknownAndAheadCursors (0.03s)
+=== RUN   TestSSERequiresManagementAndNeverAcceptsQueryCredentials
+--- PASS: TestSSERequiresManagementAndNeverAcceptsQueryCredentials (0.03s)
+=== RUN   TestSSEConnectionCapacityIsBoundedAndReleasedOnDisconnect
+--- PASS: TestSSEConnectionCapacityIsBoundedAndReleasedOnDisconnect (0.04s)
+=== RUN   TestSSEEventFieldsCannotInjectControlLines
+--- PASS: TestSSEEventFieldsCannotInjectControlLines (0.00s)
+=== RUN   TestSSEUnsupportedTransportCannotOpenAnUnboundedStream
+--- PASS: TestSSEUnsupportedTransportCannotOpenAnUnboundedStream (0.03s)
+=== RUN   TestAuthenticatedExecutionStartRetryCancelAndReadContract
+--- PASS: TestAuthenticatedExecutionStartRetryCancelAndReadContract (0.05s)
+=== RUN   TestExecutionPreconditionsAreStrongAndCheckedBeforeLaunch
+--- PASS: TestExecutionPreconditionsAreStrongAndCheckedBeforeLaunch (0.03s)
+=== RUN   TestExecutionBodyCannotSelectWorkspaceCredentialsOrRuntime
+--- PASS: TestExecutionBodyCannotSelectWorkspaceCredentialsOrRuntime (0.03s)
+=== RUN   TestExecutionRequiresManagementAndRejectsDuplicateHeaders
+--- PASS: TestExecutionRequiresManagementAndRejectsDuplicateHeaders (0.03s)
+=== RUN   TestExecutionRevokedManagementDuringPreflightDoesNotCommit
+=== RUN   TestExecutionRevokedManagementDuringPreflightDoesNotCommit/revoke_resolve
+=== RUN   TestExecutionRevokedManagementDuringPreflightDoesNotCommit/revoke_inspect
+--- PASS: TestExecutionRevokedManagementDuringPreflightDoesNotCommit (0.06s)
+    --- PASS: TestExecutionRevokedManagementDuringPreflightDoesNotCommit/revoke_resolve (0.03s)
+    --- PASS: TestExecutionRevokedManagementDuringPreflightDoesNotCommit/revoke_inspect (0.03s)
+=== RUN   TestExecutionTaskETagChangesOnCompletionWithoutAnotherGeneration
+--- PASS: TestExecutionTaskETagChangesOnCompletionWithoutAnotherGeneration (0.05s)
+=== RUN   TestExecutionConflictAndPartialLaunchFailureAreRedacted
+--- PASS: TestExecutionConflictAndPartialLaunchFailureAreRedacted (0.04s)
+=== RUN   TestExecutionReadAndCancelCannotAdoptAnotherTaskOrGeneration
+--- PASS: TestExecutionReadAndCancelCannotAdoptAnotherTaskOrGeneration (0.05s)
+=== RUN   TestExecutionControllerMustUseSameStoreAndCannotBeHotReplaced
+--- PASS: TestExecutionControllerMustUseSameStoreAndCannotBeHotReplaced (0.07s)
+=== RUN   TestExecutionHTTPResponseAndReadUseRealAuthenticatedTransport
+--- PASS: TestExecutionHTTPResponseAndReadUseRealAuthenticatedTransport (0.05s)
+=== RUN   TestImplementedAPIContractSamples
+    openapi_samples_test.go:157: captured 27 actual Handler response samples, including real loopback SSE; real models/quota 0
+--- PASS: TestImplementedAPIContractSamples (0.15s)
+=== RUN   TestPresetAPIExplicitVersionIsFrozenDespitePresetAndGlobalChanges
+--- PASS: TestPresetAPIExplicitVersionIsFrozenDespitePresetAndGlobalChanges (0.04s)
+=== RUN   TestPresetAPIBrowsingLatestAndOldPutReplayNeverChangeApplicationVersion
+--- PASS: TestPresetAPIBrowsingLatestAndOldPutReplayNeverChangeApplicationVersion (0.03s)
+=== RUN   TestPresetAPIRejectsUnsafeWritesAndMalformedPreconditions
+--- PASS: TestPresetAPIRejectsUnsafeWritesAndMalformedPreconditions (0.03s)
+=== RUN   TestPresetAPIScopeAndAuthCannotReadOrCreateAnotherProject
+--- PASS: TestPresetAPIScopeAndAuthCannotReadOrCreateAnotherProject (0.03s)
+=== RUN   TestPresetAPIIndependentFiveRolesAndTaskWholeBindingOverrides
+--- PASS: TestPresetAPIIndependentFiveRolesAndTaskWholeBindingOverrides (0.03s)
+=== RUN   TestPresetAPIUnavailableRouteCanBeSavedButNeverAdmittedByPreset
+--- PASS: TestPresetAPIUnavailableRouteCanBeSavedButNeverAdmittedByPreset (0.03s)
+=== RUN   TestPresetAPIActualHTTPWriteAndVersionRead
+--- PASS: TestPresetAPIActualHTTPWriteAndVersionRead (0.03s)
+=== RUN   TestPresetAPIConfigurationIsReadOnlyAndTaskProvenanceIsExact
+--- PASS: TestPresetAPIConfigurationIsReadOnlyAndTaskProvenanceIsExact (0.03s)
+=== RUN   TestPresetAPILocationEscapesOpaqueIdentifiers
+--- PASS: TestPresetAPILocationEscapesOpaqueIdentifiers (0.03s)
+=== RUN   TestPresetAPIProjectNameDoesNotCaptureQuotaResource
+--- PASS: TestPresetAPIProjectNameDoesNotCaptureQuotaResource (0.03s)
+=== RUN   TestPreviewAndSubmissionFreezeExactServerPlan
+--- PASS: TestPreviewAndSubmissionFreezeExactServerPlan (0.03s)
+=== RUN   TestStalePreviewAndTamperedHashCannotCreateTask
+--- PASS: TestStalePreviewAndTamperedHashCannotCreateTask (0.03s)
+=== RUN   TestConcurrentIdempotentSubmitCreatesOnePersistedTask
+--- PASS: TestConcurrentIdempotentSubmitCreatesOnePersistedTask (0.03s)
+=== RUN   TestBodyCannotSupplyCredentialsWorkspaceGlobalOrFrozenAdmission
+--- PASS: TestBodyCannotSupplyCredentialsWorkspaceGlobalOrFrozenAdmission (0.03s)
+=== RUN   TestMalformedOrAmbiguousRequestIsRejected
+--- PASS: TestMalformedOrAmbiguousRequestIsRejected (0.03s)
+=== RUN   TestEveryTaskEndpointRequiresManagementAuthentication
+--- PASS: TestEveryTaskEndpointRequiresManagementAuthentication (0.03s)
+=== RUN   TestExpiredPreviewDoesNotCreateOrReplayExecution
+--- PASS: TestExpiredPreviewDoesNotCreateOrReplayExecution (0.03s)
+=== RUN   TestConfigurationAndPreviewCannotMutateServerReferences
+--- PASS: TestConfigurationAndPreviewCannotMutateServerReferences (0.03s)
+=== RUN   TestUnadmittedRouteHasNoPreviewFallback
+--- PASS: TestUnadmittedRouteHasNoPreviewFallback (0.03s)
+=== RUN   TestCommittedRetryPreservesTaskAfterConfigurationChange
+--- PASS: TestCommittedRetryPreservesTaskAfterConfigurationChange (0.03s)
+=== RUN   TestSameIdempotencyKeyCannotAdoptChangedGoal
+--- PASS: TestSameIdempotencyKeyCannotAdoptChangedGoal (0.03s)
+=== RUN   TestRequestSizeEncodingAndContentTypeAreBounded
+--- PASS: TestRequestSizeEncodingAndContentTypeAreBounded (0.03s)
+=== RUN   TestPreviewFailureHasSafeActionableReason
+--- PASS: TestPreviewFailureHasSafeActionableReason (0.03s)
+=== RUN   TestControllerRestartRequiresNewPreviewAndPreservesTaskIdempotency
+--- PASS: TestControllerRestartRequiresNewPreviewAndPreservesTaskIdempotency (0.03s)
+=== RUN   TestPreviewFreezesExplicitBudgetAndSubmissionPersistsIt
+--- PASS: TestPreviewFreezesExplicitBudgetAndSubmissionPersistsIt (0.03s)
+=== RUN   TestPreviewUsesVisibleTrustedDefaultBudget
+--- PASS: TestPreviewUsesVisibleTrustedDefaultBudget (0.03s)
+=== RUN   TestPreviewRejectsUntrustedConsumedCountersAndInvalidBudget
+--- PASS: TestPreviewRejectsUntrustedConsumedCountersAndInvalidBudget (0.03s)
+=== RUN   TestQuotaAPICacheReadHasNoOutboundAndRefreshPreservesSourceAge
+--- PASS: TestQuotaAPICacheReadHasNoOutboundAndRefreshPreservesSourceAge (0.03s)
+=== RUN   TestQuotaAPIRejectsUnsafeCallsBeforeFetch
+--- PASS: TestQuotaAPIRejectsUnsafeCallsBeforeFetch (0.03s)
+=== RUN   TestQuotaAPIRevokedSourceAndConfigurationCannotReturnCachedAvailability
+--- PASS: TestQuotaAPIRevokedSourceAndConfigurationCannotReturnCachedAvailability (0.03s)
+=== RUN   TestQuotaAPIFailedRefreshNeverLeaksErrorsOrFreshensCache
+--- PASS: TestQuotaAPIFailedRefreshNeverLeaksErrorsOrFreshensCache (0.03s)
+=== RUN   TestQuotaAPIConcurrentRefreshIsCoalescedAndRevocationDiscardsResult
+--- PASS: TestQuotaAPIConcurrentRefreshIsCoalescedAndRevocationDiscardsResult (0.03s)
+=== RUN   TestQuotaAPIFirstFailureRetainsAuthStatusWithoutSnapshot
+--- PASS: TestQuotaAPIFirstFailureRetainsAuthStatusWithoutSnapshot (0.03s)
+=== RUN   TestQuotaAPIRegistrationRequiresExactRouteAndCannotBeHotReplaced
+--- PASS: TestQuotaAPIRegistrationRequiresExactRouteAndCannotBeHotReplaced (0.03s)
+=== RUN   TestQuotaAPIServiceSlotsRemainOccupiedUntilFetchActuallyReturns
+--- PASS: TestQuotaAPIServiceSlotsRemainOccupiedUntilFetchActuallyReturns (0.03s)
+=== RUN   TestQuotaAPIServiceCapacityRejectsBeforeFetch
+--- PASS: TestQuotaAPIServiceCapacityRejectsBeforeFetch (0.03s)
+=== RUN   TestQuotaAPISharedPoolAliasesAreNotAddedAndPartialNewerReadWins
+--- PASS: TestQuotaAPISharedPoolAliasesAreNotAddedAndPartialNewerReadWins (0.03s)
+=== RUN   TestQuotaAPIActualHTTPRefreshUsesRegisteredSource
+--- PASS: TestQuotaAPIActualHTTPRefreshUsesRegisteredSource (0.03s)
+=== RUN   TestQuotaAPIWorkerPreservesIssuerContextAndBoundedDeadline
+--- PASS: TestQuotaAPIWorkerPreservesIssuerContextAndBoundedDeadline (0.03s)
+=== RUN   TestRevisionPreviewApplyPreservesRunningAttemptAndConsumedBudget
+--- PASS: TestRevisionPreviewApplyPreservesRunningAttemptAndConsumedBudget (0.05s)
+=== RUN   TestRevisionStartedRoleAndPreviewStartRaceAreRejected
+--- PASS: TestRevisionStartedRoleAndPreviewStartRaceAreRejected (0.05s)
+=== RUN   TestConcurrentRevisionReceiptsHaveOneWinnerAndReplayAddsNoEvent
+--- PASS: TestConcurrentRevisionReceiptsHaveOneWinnerAndReplayAddsNoEvent (0.04s)
+=== RUN   TestRevisionReceiptBoundToTaskBaseHashPurposeAndConfiguration
+--- PASS: TestRevisionReceiptBoundToTaskBaseHashPurposeAndConfiguration (0.03s)
+=== RUN   TestRevisionIfMatchRequiresOneCanonicalStrongPositiveTag
+--- PASS: TestRevisionIfMatchRequiresOneCanonicalStrongPositiveTag (0.03s)
+=== RUN   TestRevisionBodyCannotChangeBudgetStagesOrImportSecrets
+--- PASS: TestRevisionBodyCannotChangeBudgetStagesOrImportSecrets (0.03s)
+=== RUN   TestRevisionExpiryRestartAndAuthorizationRequireFreshPreview
+--- PASS: TestRevisionExpiryRestartAndAuthorizationRequireFreshPreview (0.03s)
+=== RUN   TestAppliedRevisionReceiptReturnsItsCommittedSnapshotAfterLaterRevision
+--- PASS: TestAppliedRevisionReceiptReturnsItsCommittedSnapshotAfterLaterRevision (0.04s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/api	3.837s

@@ -1,0 +1,25 @@
+{
+  "base_commit": "b5999af7391edc6b0c1095de11778143cf81e867",
+  "source_files_sha256": {
+    "docs/fusion/openapi-fusion.yaml": "da225280fa8edb5929484cb89fdc9a7c8e2383f816fa9b92f05388604efaf312",
+    "docs/fusion/contracts/openapi-verification.md": "e6343f9a941e681ce77f70f79827a91d560adb004d4d644fcce434860c6a61aa",
+    "docs/fusion/work-items/WP-15/summary.md": "d5eae40b863ebed98b2d64f80543e60e56e04d056bfdc423680efd79ba9e3e88",
+    "internal/fusion/api/openapi_samples_test.go": "9daeb21ba1d241765c742ef093c1fcdd60f010915f413443f2ebc30376752858",
+    "scripts/fusion/check-openapi.py": "4c44418edf39085638f744bad4ed617e0ca446a1366e9db49650a870e44ce5ee"
+  },
+  "packet_files_sha256": {
+    "OpenAPI-Specification-LICENSE.txt": "4948367c65e1ce06690e2cadc6e86fce1a6a6db55ef874ce4b78c0f472ce5f13",
+    "handler-samples.json": "cbe86a4ce04c05937afd28dc2710d7169b5f9271b4bc5cb420f8c7ead7282b7d",
+    "openapi-3.1-2022-10-07.json": "da01ba28852cac0de53893797cb8d1942bc3b05084f526dcc216717dec314ed0",
+    "summary.md": "fa5c234b3020cc13795f62bd8d64bf1a3017063eb52684d8e69b56e0ee27bc41",
+    "test-results.json": "9b7b5f4339280300b29825f7ed953cdbec50f7d57829b642a452558350091cfc",
+    "third-party-notice.md": "d2d8517eb28fafc6b45ec79d667f14e78e069f411eedab059fd38e10883cd7b9",
+    "wp15-openapi-api-race.log": "ef73ac613a6d6c1b2f1ffb3ce2ed64d8809de7969b8bd780d803033c08629e1a",
+    "wp15-openapi-api-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "wp15-openapi-final-green.log": "a7c36509db31dad4e0281625ddb6cc24c2352bd9908d69ac1ea772f78f16630f",
+    "wp15-openapi-first-green.log": "a7c36509db31dad4e0281625ddb6cc24c2352bd9908d69ac1ea772f78f16630f",
+    "wp15-openapi-mutations.log": "db64f34ccf4fa1cc7aca11dfa4a23fe95a61f794b040630b5395a43ed376526f",
+    "wp15-openapi-red.log": "1533f1d43f041f4dea4d3d94e5809a83bb586223e1cd3a8c4978328c79c34403",
+    "wp15-openapi-samples.log": "df77d4f846fceddda8bb91c56146f3b66c7798a8a220ccac28d6afbeba54cf0f"
+  }
+}

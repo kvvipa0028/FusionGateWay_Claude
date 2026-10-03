@@ -2,8 +2,8 @@ openapi: 3.1.0
 info:
   title: Fusion task control API
   version: 0.1.0-draft
-  description: 已实现 execution/quota/preset/preview Handler 接口草案。未注册产品 listener。完整 WP-15 的其他接口仍待补全。
-x-fusion-status: draft-partial
+  description: 当前已实现 Handler 的完整路径/DTO 合同；17 paths、19 operations。产品 listener 尚未注册；pause/continue 与默认层写入未实现，不声明为可调用接口。
+x-fusion-status: implemented-handler-contract
 x-fusion-production-registered: false
 security:
 - ManagementBearer: []
@@ -26,72 +26,43 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Task'
-        '400': &id002
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
+          headers:
+            ETag:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '401': &id003
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
+                type: string
+              description: 当前读取资源的 strong revision 或 Task 状态 tag，见对应资源说明。
+            X-Fusion-Task-ETag:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '403': &id004
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 相关 Task 当前条件，不是 RunView 本身的 ETag。
+            Location:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '404': &id005
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '405': &id006
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '409': &id012
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '412': &id007
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '428': &id008
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '429': &id009
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '500': &id010
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '503': &id011
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: string
+                format: uri-reference
+              description: run 或明确 preset 历史版本相对路径。
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '412':
+          $ref: '#/components/responses/Error412'
+        '428':
+          $ref: '#/components/responses/Error428'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
   /control/v1/tasks/{task_id}/start:
     post:
       operationId: startStage
@@ -103,8 +74,7 @@ paths:
           type: string
           minLength: 1
           maxLength: 256
-      - &id013
-        name: If-Match
+      - name: If-Match
         in: header
         required: true
         schema:
@@ -123,26 +93,60 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              additionalProperties: false
-              required:
-              - role
-              properties:
-                role:
-                  $ref: '#/components/schemas/Role'
+              $ref: '#/components/schemas/StartRoleRequest'
       responses:
-        '200': &id001
+        '200':
           description: 安全 RunView；X-Fusion-Task-ETag 指向相关 Task 的当前条件
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ExecutionReply'
-        '202': *id001
-        '400': *id002
-        '401': *id003
-        '403': *id004
-        '404': *id005
-        '405': *id006
+          headers:
+            ETag:
+              schema:
+                type: string
+              description: 当前读取资源的 strong revision 或 Task 状态 tag，见对应资源说明。
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 相关 Task 当前条件，不是 RunView 本身的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: run 或明确 preset 历史版本相对路径。
+        '202':
+          description: 安全 RunView；X-Fusion-Task-ETag 指向相关 Task 的当前条件
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecutionReply'
+          headers:
+            ETag:
+              schema:
+                type: string
+              description: 当前读取资源的 strong revision 或 Task 状态 tag，见对应资源说明。
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 相关 Task 当前条件，不是 RunView 本身的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: run 或明确 preset 历史版本相对路径。
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
         '409':
           description: 冲突/需对账；已经提交的失败 intent 包含 RunView/Created
           content:
@@ -151,11 +155,16 @@ paths:
                 oneOf:
                 - $ref: '#/components/schemas/ErrorResponse'
                 - $ref: '#/components/schemas/ExecutionReply'
-        '412': *id007
-        '428': *id008
-        '429': *id009
-        '500': *id010
-        '503': *id011
+        '412':
+          $ref: '#/components/responses/Error412'
+        '428':
+          $ref: '#/components/responses/Error428'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
   /agent/v1/tasks/{task_id}/runs/{run_id}:
     get:
       operationId: readStageRun
@@ -175,18 +184,49 @@ paths:
           minLength: 1
           maxLength: 256
       responses:
-        '200': *id001
-        '400': *id002
-        '401': *id003
-        '403': *id004
-        '404': *id005
-        '405': *id006
-        '409': *id012
-        '412': *id007
-        '428': *id008
-        '429': *id009
-        '500': *id010
-        '503': *id011
+        '200':
+          description: 安全 RunView；X-Fusion-Task-ETag 指向相关 Task 的当前条件
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecutionReply'
+          headers:
+            ETag:
+              schema:
+                type: string
+              description: 当前读取资源的 strong revision 或 Task 状态 tag，见对应资源说明。
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 相关 Task 当前条件，不是 RunView 本身的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: run 或明确 preset 历史版本相对路径。
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '412':
+          $ref: '#/components/responses/Error412'
+        '428':
+          $ref: '#/components/responses/Error428'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
   /control/v1/tasks/{task_id}/runs/{run_id}/cancel:
     post:
       operationId: cancelStageRun
@@ -205,80 +245,196 @@ paths:
           type: string
           minLength: 1
           maxLength: 256
-      - *id013
+      - name: If-Match
+        in: header
+        required: true
+        schema:
+          type: string
+        description: 单个 strong Task ETag，例如 "p1-g0-ready"；不是 plan revision tag
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              type: object
-              additionalProperties: false
+              $ref: '#/components/schemas/EmptyRequest'
       responses:
-        '200': *id001
-        '202': *id001
-        '400': *id002
-        '401': *id003
-        '403': *id004
-        '404': *id005
-        '405': *id006
-        '409': *id012
-        '412': *id007
-        '428': *id008
-        '429': *id009
-        '500': *id010
-        '503': *id011
+        '200':
+          description: 安全 RunView；X-Fusion-Task-ETag 指向相关 Task 的当前条件
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecutionReply'
+          headers:
+            ETag:
+              schema:
+                type: string
+              description: 当前读取资源的 strong revision 或 Task 状态 tag，见对应资源说明。
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 相关 Task 当前条件，不是 RunView 本身的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: run 或明确 preset 历史版本相对路径。
+        '202':
+          description: 安全 RunView；X-Fusion-Task-ETag 指向相关 Task 的当前条件
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecutionReply'
+          headers:
+            ETag:
+              schema:
+                type: string
+              description: 当前读取资源的 strong revision 或 Task 状态 tag，见对应资源说明。
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 相关 Task 当前条件，不是 RunView 本身的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: run 或明确 preset 历史版本相对路径。
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '412':
+          $ref: '#/components/responses/Error412'
+        '428':
+          $ref: '#/components/responses/Error428'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
   /control/v1/projects/{project_id}/quota:
     get:
       operationId: readProjectQuota
       description: 只读缓存，不触发上游采集；status 按来源时间重评估，共享 pool 不累加。
       parameters:
-      - &quotaProjectId
-        name: project_id
+      - name: project_id
         in: path
         required: true
-        schema: {type: string, minLength: 1, maxLength: 256}
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
       responses:
-        '200': &quotaResponse
+        '200':
           description: 当前配置 revision 的 route/pool 额度视图；不代表生成准入。
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/QuotaReply'
-        '400': *id002
-        '401': *id003
-        '403': *id004
-        '404': *id005
-        '405': *id006
-        '409': *id012
-        '500': *id010
+          headers:
+            ETag:
+              schema:
+                type: string
+              description: 当前读取资源的 strong revision 或 Task 状态 tag，见对应资源说明。
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 相关 Task 当前条件，不是 RunView 本身的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: run 或明确 preset 历史版本相对路径。
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '500':
+          $ref: '#/components/responses/Error500'
   /control/v1/projects/{project_id}/quota/{route_id}/refresh:
     post:
       operationId: refreshProjectQuota
       description: 只刷新服务端登记来源；上游失败为固定 Error 与保守 status，无 Token/URL/workspace DTO。
       parameters:
-      - *quotaProjectId
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
       - name: route_id
         in: path
         required: true
-        schema: {type: string, minLength: 1, maxLength: 256}
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              type: object
-              additionalProperties: false
+              $ref: '#/components/schemas/EmptyRequest'
       responses:
-        '200': *quotaResponse
-        '400': *id002
-        '401': *id003
-        '403': *id004
-        '404': *id005
-        '405': *id006
-        '409': *id012
-        '429': *id009
-        '500': *id010
-        '503': *id011
+        '200':
+          description: 当前配置 revision 的 route/pool 额度视图；不代表生成准入。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuotaReply'
+          headers:
+            ETag:
+              schema:
+                type: string
+              description: 当前读取资源的 strong revision 或 Task 状态 tag，见对应资源说明。
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 相关 Task 当前条件，不是 RunView 本身的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: run 或明确 preset 历史版本相对路径。
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
   /control/v1/projects/{project_id}/configuration:
     get:
       operationId: readProjectConfiguration
@@ -297,60 +453,39 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProjectConfigurationReply'
+          headers:
+            ETag:
+              schema:
+                type: string
+              description: 当前读取资源的 strong revision 或 Task 状态 tag，见对应资源说明。
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 相关 Task 当前条件，不是 RunView 本身的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: run 或明确 preset 历史版本相对路径。
         '400':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error400'
         '401':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error401'
         '403':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error403'
         '404':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error404'
         '405':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error405'
         '409':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error409'
         '429':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error429'
         '500':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error500'
         '503':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error503'
   /control/v1/projects/{project_id}/presets:
     get:
       operationId: listProjectPresets
@@ -369,60 +504,39 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PresetList'
+          headers:
+            ETag:
+              schema:
+                type: string
+              description: 当前读取资源的 strong revision 或 Task 状态 tag，见对应资源说明。
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 相关 Task 当前条件，不是 RunView 本身的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: run 或明确 preset 历史版本相对路径。
         '400':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error400'
         '401':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error401'
         '403':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error403'
         '404':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error404'
         '405':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error405'
         '409':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error409'
         '429':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error429'
         '500':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error500'
         '503':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error503'
   /control/v1/projects/{project_id}/presets/{preset_id}:
     get:
       operationId: readLatestPreset
@@ -448,60 +562,39 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Preset'
+          headers:
+            ETag:
+              schema:
+                type: string
+              description: 当前读取资源的 strong revision 或 Task 状态 tag，见对应资源说明。
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 相关 Task 当前条件，不是 RunView 本身的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: run 或明确 preset 历史版本相对路径。
         '400':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error400'
         '401':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error401'
         '403':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error403'
         '404':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error404'
         '405':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error405'
         '409':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error409'
         '429':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error429'
         '500':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error500'
         '503':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error503'
     put:
       operationId: savePresetVersion
       parameters:
@@ -532,78 +625,64 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PresetReceipt'
+          headers:
+            ETag:
+              schema:
+                type: string
+              description: 当前读取资源的 strong revision 或 Task 状态 tag，见对应资源说明。
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 相关 Task 当前条件，不是 RunView 本身的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: run 或明确 preset 历史版本相对路径。
         '400':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error400'
         '401':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error401'
         '403':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error403'
         '404':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error404'
         '405':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error405'
         '409':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error409'
         '429':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error429'
         '500':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error500'
         '503':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error503'
         '201':
           description: 新建不可变版本；ETag 为版本，Location 为 escaped history path
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PresetReceipt'
+          headers:
+            ETag:
+              schema:
+                type: string
+              description: 当前读取资源的 strong revision 或 Task 状态 tag，见对应资源说明。
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 相关 Task 当前条件，不是 RunView 本身的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: run 或明确 preset 历史版本相对路径。
         '412':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error412'
         '428':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error428'
       requestBody:
         required: true
         content:
@@ -641,60 +720,39 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Preset'
+          headers:
+            ETag:
+              schema:
+                type: string
+              description: 当前读取资源的 strong revision 或 Task 状态 tag，见对应资源说明。
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 相关 Task 当前条件，不是 RunView 本身的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: run 或明确 preset 历史版本相对路径。
         '400':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error400'
         '401':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error401'
         '403':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error403'
         '404':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error404'
         '405':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error405'
         '409':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error409'
         '429':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error429'
         '500':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error500'
         '503':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error503'
   /control/v1/tasks/{task_id}/preset:
     get:
       operationId: readTaskPresetReference
@@ -713,60 +771,39 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TaskPresetReply'
+          headers:
+            ETag:
+              schema:
+                type: string
+              description: 当前读取资源的 strong revision 或 Task 状态 tag，见对应资源说明。
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 相关 Task 当前条件，不是 RunView 本身的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: run 或明确 preset 历史版本相对路径。
         '400':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error400'
         '401':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error401'
         '403':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error403'
         '404':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error404'
         '405':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error405'
         '409':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error409'
         '429':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error429'
         '500':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error500'
         '503':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error503'
   /control/v1/tasks/preview:
     post:
       operationId: previewTask
@@ -783,66 +820,425 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Preview'
+          headers:
+            ETag:
+              schema:
+                type: string
+              description: 当前读取资源的 strong revision 或 Task 状态 tag，见对应资源说明。
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 相关 Task 当前条件，不是 RunView 本身的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: run 或明确 preset 历史版本相对路径。
         '400':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error400'
         '401':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error401'
         '403':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error403'
         '404':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error404'
         '405':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error405'
         '409':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error409'
         '429':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error429'
         '500':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error500'
         '503':
-          description: 固定错误码，不回显异常/输入
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/Error503'
         '422':
-          description: 固定错误码，不回显异常/输入
+          $ref: '#/components/responses/Error422'
+  /agent/v1/tasks:
+    post:
+      operationId: submitFrozenPreview
+      parameters:
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+          x-fusion-max-utf8-bytes: 256
+          pattern: ^[^\s/\\\u0000-\u001f\u007f-\u009f]+$
+      responses:
+        '201':
+          description: 新建及相同 key 重读均返回原始 Task；不启动 Runtime。
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: '#/components/schemas/Task'
+          headers:
+            ETag:
+              schema:
+                type: string
+              description: 当前读取资源的 strong revision 或 Task 状态 tag，见对应资源说明。
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 相关 Task 当前条件，不是 RunView 本身的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: run 或明确 preset 历史版本相对路径。
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '412':
+          $ref: '#/components/responses/Error412'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '428':
+          $ref: '#/components/responses/Error428'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmitRequest'
+  /control/v1/tasks/{task_id}/budget:
+    get:
+      operationId: readTaskBudget
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+          x-fusion-max-utf8-bytes: 256
+          pattern: ^[^\s/\\\u0000-\u001f\u007f-\u009f]+$
+      responses:
+        '200':
+          description: 读取持久预算与使用计数；不退还或修改。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Budget'
+          headers:
+            ETag:
+              schema:
+                type: string
+              description: 当前读取资源的 strong revision 或 Task 状态 tag，见对应资源说明。
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 相关 Task 当前条件，不是 RunView 本身的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: run 或明确 preset 历史版本相对路径。
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '412':
+          $ref: '#/components/responses/Error412'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '428':
+          $ref: '#/components/responses/Error428'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+  /control/v1/tasks/{task_id}/plan:
+    get:
+      operationId: readCurrentPlan
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+          x-fusion-max-utf8-bytes: 256
+          pattern: ^[^\s/\\\u0000-\u001f\u007f-\u009f]+$
+      responses:
+        '200':
+          description: 当前冻结快照；ETag 为整数 plan revision。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Snapshot'
+          headers:
+            ETag:
+              schema:
+                type: string
+              description: 当前读取资源的 strong revision 或 Task 状态 tag，见对应资源说明。
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 相关 Task 当前条件，不是 RunView 本身的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: run 或明确 preset 历史版本相对路径。
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '412':
+          $ref: '#/components/responses/Error412'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '428':
+          $ref: '#/components/responses/Error428'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+    put:
+      operationId: applyPlanPreview
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+          x-fusion-max-utf8-bytes: 256
+          pattern: ^[^\s/\\\u0000-\u001f\u007f-\u009f]+$
+      - name: If-Match
+        in: header
+        required: true
+        schema:
+          type: string
+          pattern: ^"[1-9][0-9]*"$
+        description: 计划 revision 的单个 strong tag；不混用 Task ETag。
+      responses:
+        '200':
+          description: 应用明确预览，已开始或结束角色保持历史；相同 receipt 重读原快照。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Snapshot'
+          headers:
+            ETag:
+              schema:
+                type: string
+              description: 当前读取资源的 strong revision 或 Task 状态 tag，见对应资源说明。
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 相关 Task 当前条件，不是 RunView 本身的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: run 或明确 preset 历史版本相对路径。
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '412':
+          $ref: '#/components/responses/Error412'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '428':
+          $ref: '#/components/responses/Error428'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmitRequest'
+  /control/v1/tasks/{task_id}/plan/preview:
+    post:
+      operationId: previewPlanRevision
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+          x-fusion-max-utf8-bytes: 256
+          pattern: ^[^\s/\\\u0000-\u001f\u007f-\u009f]+$
+      - name: If-Match
+        in: header
+        required: true
+        schema:
+          type: string
+          pattern: ^"[1-9][0-9]*"$
+        description: 计划 revision 的单个 strong tag；不混用 Task ETag。
+      responses:
+        '200':
+          description: 不调用模型的尚未开始角色修订预览；If-Match 为 base plan revision。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Preview'
+          headers:
+            ETag:
+              schema:
+                type: string
+              description: 当前读取资源的 strong revision 或 Task 状态 tag，见对应资源说明。
+            X-Fusion-Task-ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+              description: 相关 Task 当前条件，不是 RunView 本身的 ETag。
+            Location:
+              schema:
+                type: string
+                format: uri-reference
+              description: run 或明确 preset 历史版本相对路径。
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '412':
+          $ref: '#/components/responses/Error412'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '428':
+          $ref: '#/components/responses/Error428'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RevisionRequest'
+  /agent/v1/tasks/{task_id}/events:
+    get:
+      operationId: streamTaskEvents
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+          x-fusion-max-utf8-bytes: 256
+          pattern: ^[^\s/\\\u0000-\u001f\u007f-\u009f]+$
+      - name: Last-Event-ID
+        in: header
+        required: false
+        schema:
+          type: string
+          pattern: ^(0|[1-9][0-9]*)$
+          maxLength: 19
+        description: 持久 sequence 的 int64 十进制 cursor；禁止 query 参数。
+      responses:
+        '200':
+          description: id 为持久 seq；event 为 kind；data 为 Event JSON。断线不取消/重跑任务，重连补读。
+          content:
+            text/event-stream:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '412':
+          $ref: '#/components/responses/Error412'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '428':
+          $ref: '#/components/responses/Error428'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+      x-fusion-event-data-schema:
+        $ref: '#/components/schemas/Event'
+      x-fusion-stream-lifetime-seconds: 300
+      x-fusion-stream-slots: 8
+      x-fusion-page-events: 256
+      x-fusion-write-deadline-seconds: 5
 components:
   securitySchemes:
     ManagementBearer:
@@ -895,6 +1291,7 @@ components:
           x-fusion-max-utf8-bytes: 256
         layer:
           $ref: ./contracts/stage-plan.schema.json#/$defs/layer
+          description: 省略等价空层，保存五角色 inherit；保存不授予 execution admission。
     Preset:
       type: object
       additionalProperties: false
@@ -998,12 +1395,12 @@ components:
             project:
               $ref: ./contracts/stage-plan.schema.json#/$defs/layer
             routes:
-              type: array
-              maxItems: 256
-              readOnly: true
+              type:
+              - array
+              - 'null'
               items:
-                type: object
-                description: 可信 route 元数据；完整字段合同后续补入
+                $ref: '#/components/schemas/RegistryRoute'
+              maxItems: 256
             default_budget:
               $ref: '#/components/schemas/BudgetLimits'
     PreviewRequest:
@@ -1056,43 +1453,49 @@ components:
           type: string
           format: date-time
         plan:
-          type: object
-          description: 冻结 stageplan Snapshot；完整字段合同后续补入
+          $ref: '#/components/schemas/Snapshot'
         budget:
           $ref: '#/components/schemas/BudgetLimits'
         preset:
           $ref: '#/components/schemas/PresetRef'
     QuotaStatus:
       type: string
-      enum: [available, zero, unknown, stale, unverified, auth_required, unsupported]
+      enum:
+      - available
+      - zero
+      - unknown
+      - stale
+      - unverified
+      - auth_required
+      - unsupported
     RouteQuota:
       type: object
       additionalProperties: false
-      required: [route, status]
+      required:
+      - route
+      - status
       properties:
         route:
-          type: object
-          additionalProperties: false
-          required: [id, revision]
-          properties:
-            id: {type: string}
-            revision: {type: integer, minimum: 1}
+          $ref: '#/components/schemas/RouteRef'
         identity:
-          type: object
-          description: 精确 quota Identity；完整字段见 quota-snapshot.schema.json。
+          $ref: '#/components/schemas/QuotaIdentity'
         status:
           $ref: '#/components/schemas/QuotaStatus'
         snapshot:
-          type: object
-          description: quota Snapshot；原始来源时间、窗口、单位与值保留，完整字段见 quota-snapshot.schema.json。
+          $ref: '#/components/schemas/QuotaSnapshot'
         error:
           $ref: '#/components/schemas/ControlError'
     QuotaReply:
       type: object
       additionalProperties: false
-      required: [configuration_revision, routes, pools]
+      required:
+      - configuration_revision
+      - routes
+      - pools
       properties:
-        configuration_revision: {type: integer, minimum: 1}
+        configuration_revision:
+          type: integer
+          minimum: 1
         routes:
           type: array
           maxItems: 256
@@ -1102,8 +1505,7 @@ components:
           type: array
           maxItems: 256
           items:
-            type: object
-            description: GroupPools 的 pool/aliases/snapshot；不累加 alias 配额。
+            $ref: '#/components/schemas/PoolView'
     Role:
       type: string
       enum:
@@ -1174,8 +1576,7 @@ components:
         launch_confirmed:
           type: boolean
         target:
-          type: object
-          description: 冻结 ExecutionTarget；完整字段合同后续补入
+          $ref: '#/components/schemas/ExecutionTarget'
     ControlError:
       type: object
       additionalProperties: false
@@ -1208,3 +1609,566 @@ components:
           type: boolean
         error:
           $ref: '#/components/schemas/ControlError'
+    RouteRef:
+      $ref: ./contracts/stage-plan.schema.json#/$defs/route_ref
+    FrozenEffort:
+      type: object
+      additionalProperties: false
+      required:
+      - requested_mode
+      - value
+      properties:
+        requested_mode:
+          enum:
+          - explicit
+          - default
+          - none
+        value:
+          type:
+          - string
+          - 'null'
+    ExecutionTarget:
+      type: object
+      additionalProperties: false
+      required:
+      - route
+      - requested_model
+      - resolved_model
+      - upstream_reported_model
+      - account
+      - workspace
+      - credential_identity
+      - effort
+      - billing_path
+      - runtime_version
+      - plugin_version
+      - capabilities
+      - lock_enforcement
+      properties:
+        route:
+          $ref: '#/components/schemas/RouteRef'
+        requested_model:
+          type: string
+        resolved_model:
+          type: string
+        upstream_reported_model:
+          type:
+          - string
+          - 'null'
+        account:
+          type: string
+        workspace:
+          type: string
+        credential_identity:
+          type: string
+        effort:
+          $ref: '#/components/schemas/FrozenEffort'
+        billing_path:
+          type: string
+        runtime_version:
+          type: string
+        plugin_version:
+          type:
+          - string
+          - 'null'
+        capabilities:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        lock_enforcement:
+          enum:
+          - controlled_calls
+          - primary_only
+          - unverified
+    RegistryRoute:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - revision
+      - model
+      - account
+      - workspace
+      - credential_identity
+      - runtime_version
+      - plugin_version
+      - billing_path
+      - billing_known
+      - admitted
+      - efforts
+      - default_effort
+      - no_effort
+      - capabilities
+      - lock_enforcement
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 256
+          x-fusion-max-utf8-bytes: 256
+          pattern: ^[^\s/\\\u0000-\u001f\u007f-\u009f]+$
+        revision:
+          type: integer
+          minimum: 1
+        model:
+          type: string
+        account:
+          type: string
+        workspace:
+          type: string
+        credential_identity:
+          type: string
+        runtime_version:
+          type: string
+        plugin_version:
+          type:
+          - string
+          - 'null'
+        billing_path:
+          type: string
+        billing_known:
+          type: boolean
+        admitted:
+          type: boolean
+        efforts:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        default_effort:
+          type:
+          - string
+          - 'null'
+        no_effort:
+          type: boolean
+        capabilities:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        lock_enforcement:
+          enum:
+          - controlled_calls
+          - primary_only
+          - unverified
+    FrozenBinding:
+      type: object
+      additionalProperties: false
+      required:
+      - mode
+      - source
+      properties:
+        mode:
+          enum:
+          - locked
+          - auto
+        source:
+          enum:
+          - global
+          - project
+          - task
+        target:
+          $ref: '#/components/schemas/ExecutionTarget'
+        candidates:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExecutionTarget'
+        required_capabilities:
+          type: array
+          items:
+            type: string
+        accept_primary_only:
+          type: boolean
+      allOf:
+      - if:
+          properties:
+            mode:
+              const: locked
+        then:
+          required:
+          - target
+      - if:
+          properties:
+            mode:
+              const: auto
+        then:
+          required:
+          - candidates
+          properties:
+            candidates:
+              minItems: 1
+    Snapshot:
+      type: object
+      additionalProperties: false
+      required:
+      - schema_version
+      - revision
+      - required_roles
+      - bindings
+      - hash
+      properties:
+        schema_version:
+          const: 1
+        revision:
+          type: integer
+          minimum: 1
+        required_roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Role'
+          minItems: 1
+          maxItems: 5
+          uniqueItems: true
+        bindings:
+          type: object
+          propertyNames:
+            $ref: '#/components/schemas/Role'
+          minProperties: 1
+          maxProperties: 5
+          additionalProperties:
+            $ref: '#/components/schemas/FrozenBinding'
+        hash:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+    SubmitRequest:
+      type: object
+      additionalProperties: false
+      required:
+      - preview_id
+      - plan_hash
+      properties:
+        preview_id:
+          type: string
+          minLength: 1
+          maxLength: 256
+          x-fusion-max-utf8-bytes: 256
+          pattern: ^[^\s/\\\u0000-\u001f\u007f-\u009f]+$
+        plan_hash:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+    RevisionRequest:
+      type: object
+      additionalProperties: false
+      required: []
+      properties:
+        task:
+          $ref: ./contracts/stage-plan.schema.json#/$defs/layer
+    StartRoleRequest:
+      type: object
+      additionalProperties: false
+      required:
+      - role
+      properties:
+        role:
+          $ref: '#/components/schemas/Role'
+    EmptyRequest:
+      type: object
+      additionalProperties: false
+      required: []
+      properties: {}
+    Budget:
+      type: object
+      additionalProperties: false
+      required:
+      - max_calls
+      - max_reworks
+      - used_calls
+      - used_reworks
+      properties:
+        max_calls:
+          type: integer
+          minimum: 1
+          maximum: 1000
+        max_reworks:
+          type: integer
+          minimum: 0
+          maximum: 1
+        used_calls:
+          type: integer
+          minimum: 0
+        used_reworks:
+          type: integer
+          minimum: 0
+    Event:
+      type: object
+      additionalProperties: false
+      required:
+      - task_id
+      - seq
+      - kind
+      - run_id
+      - generation
+      properties:
+        task_id:
+          type: string
+          minLength: 1
+          maxLength: 256
+          x-fusion-max-utf8-bytes: 256
+          pattern: ^[^\s/\\\u0000-\u001f\u007f-\u009f]+$
+        seq:
+          type: integer
+          minimum: 1
+        kind:
+          type: string
+          minLength: 1
+          maxLength: 64
+          pattern: ^[a-z0-9_]+$
+        run_id:
+          type: string
+        generation:
+          type: integer
+          minimum: 0
+    QuotaIdentity:
+      type: object
+      additionalProperties: false
+      required:
+      - provider
+      - account
+      - workspace
+      - region
+      - generation
+      properties:
+        provider:
+          type: string
+          minLength: 1
+          maxLength: 256
+        account:
+          type: string
+          minLength: 1
+          maxLength: 256
+        workspace:
+          type: string
+          minLength: 1
+          maxLength: 256
+        region:
+          type: string
+          minLength: 1
+          maxLength: 256
+        generation:
+          type: integer
+          minimum: 1
+    QuotaPool:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - provider
+      - region
+      - scope
+      - owner
+      - verified
+      properties:
+        id:
+          type: string
+        provider:
+          type: string
+        region:
+          type: string
+        scope:
+          type: string
+        owner:
+          type: string
+        verified:
+          type: boolean
+    QuotaWindow:
+      type: object
+      additionalProperties: false
+      required:
+      - name
+      - kind
+      - unit
+      - used_percent
+      - remaining_percent
+      - span_seconds
+      - reset_at
+      - raw
+      properties:
+        name:
+          type: string
+        kind:
+          type: string
+        unit:
+          type: string
+        used_percent:
+          type:
+          - number
+          - 'null'
+        remaining_percent:
+          type:
+          - number
+          - 'null'
+        span_seconds:
+          type:
+          - integer
+          - 'null'
+        reset_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        raw: {}
+    QuotaResource:
+      type: object
+      additionalProperties: false
+      required:
+      - kind
+      - unit
+      - display
+      - raw
+      properties:
+        kind:
+          type: string
+        unit:
+          type: string
+        display:
+          type: string
+        raw: {}
+    QuotaSnapshot:
+      type: object
+      additionalProperties: false
+      required:
+      - identity
+      - source
+      - observed_at
+      - received_at
+      - pool
+      - complete
+      - status
+      - windows
+      - resources
+      properties:
+        identity:
+          $ref: '#/components/schemas/QuotaIdentity'
+        source:
+          type: string
+        observed_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        received_at:
+          type: string
+          format: date-time
+        pool:
+          $ref: '#/components/schemas/QuotaPool'
+        complete:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/QuotaStatus'
+        windows:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/QuotaWindow'
+        resources:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/QuotaResource'
+      description: Handler 序列化的可信 Snapshot；nil slices 为 null，raw 保留 JSON。规范化 reader 的更强约束另见 quota-snapshot.schema.json；DTO
+        本身不授予额度准入。
+    PoolView:
+      type: object
+      additionalProperties: false
+      required:
+      - pool
+      - aliases
+      - snapshot
+      properties:
+        pool:
+          $ref: '#/components/schemas/QuotaPool'
+        aliases:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuotaIdentity'
+        snapshot:
+          $ref: '#/components/schemas/QuotaSnapshot'
+  responses:
+    Error400:
+      description: 固定拒绝/错误；不回显敏感输入。
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Error401:
+      description: 固定拒绝/错误；不回显敏感输入。Management wrapper/http.Error 可返回 text/plain。
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+        text/plain:
+          schema:
+            type: string
+    Error403:
+      description: 固定拒绝/错误；不回显敏感输入。Management wrapper/http.Error 可返回 text/plain。
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+        text/plain:
+          schema:
+            type: string
+    Error404:
+      description: 固定拒绝/错误；不回显敏感输入。Management wrapper/http.Error 可返回 text/plain。
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+        text/plain:
+          schema:
+            type: string
+    Error405:
+      description: 固定拒绝/错误；不回显敏感输入。Management wrapper/http.Error 可返回 text/plain。
+      content:
+        text/plain:
+          schema:
+            type: string
+    Error409:
+      description: 固定拒绝/错误；不回显敏感输入。
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Error412:
+      description: 固定拒绝/错误；不回显敏感输入。
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Error422:
+      description: 固定拒绝/错误；不回显敏感输入。
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Error428:
+      description: 固定拒绝/错误；不回显敏感输入。
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Error429:
+      description: 固定拒绝/错误；不回显敏感输入。
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Error500:
+      description: 固定拒绝/错误；不回显敏感输入。
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Error503:
+      description: 固定拒绝/错误；不回显敏感输入。
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+x-fusion-runtime-admission: Schema 验证只描述 wire DTO；不替代账户、route、额度、数据权限、冻结合同或真实退出验证。

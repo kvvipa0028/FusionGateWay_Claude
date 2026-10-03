@@ -1,0 +1,62 @@
+{
+  "work_item": "WP-15-OPENAPI-01",
+  "status": "done",
+  "parent_status": "in_progress",
+  "new_tests": 1,
+  "checks": [
+    {
+      "check": "actual Handler contract samples race",
+      "exit_code": 0,
+      "log": "wp15-openapi-samples.log",
+      "top_level_pass": 1,
+      "top_level_skip": 0,
+      "top_level_fail": 0
+    },
+    {
+      "check": "full API tagged race",
+      "exit_code": 0,
+      "log": "wp15-openapi-api-race.log",
+      "top_level_pass": 67,
+      "top_level_skip": 0,
+      "top_level_fail": 0
+    },
+    {
+      "check": "targeted API vet",
+      "exit_code": 0,
+      "log": "wp15-openapi-api-vet.log"
+    },
+    {
+      "check": "official document/component schema, references, DTO/header samples",
+      "exit_code": 0,
+      "log": "wp15-openapi-final-green.log",
+      "result": {
+        "official_openapi_document_schema": "3.1/2022-10-07",
+        "paths": 17,
+        "operations": 19,
+        "handler_samples": 27,
+        "covered_operations": 19,
+        "negative_schema_cases": 4,
+        "offline": true,
+        "production_registered": false
+      }
+    },
+    {
+      "check": "three deliberately corrupted temporary contracts rejected",
+      "exit_code": 0,
+      "log": "wp15-openapi-mutations.log",
+      "negative_cases": 3
+    }
+  ],
+  "python_dependencies": {
+    "PyYAML": "6.0.3",
+    "jsonschema": "4.25.1",
+    "referencing": "0.36.2"
+  },
+  "official_schema_source": "https://spec.openapis.org/oas/3.1/schema/2022-10-07",
+  "real_model_calls": 0,
+  "real_quota_queries": 0,
+  "production_source_changed": false,
+  "actual_http_sse_test": true,
+  "production_registered": false,
+  "build_verification": "CLI/GUI/full-vet/Native remain verified by PRESETS-01 at b5999af; not rerun because production source unchanged"
+}

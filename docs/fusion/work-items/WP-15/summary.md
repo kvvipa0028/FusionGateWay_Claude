@@ -2,7 +2,7 @@
 
 状态：`in_progress`。子工作项 [WP-15-PREVIEW-01](PREVIEW-01/summary.md) 已完成：受鉴权的无调用计划预览、冻结提交和任务读取组件。
 
-当前 Handler 尚未注册到生产 listener/GUI，旧执行入口继续关闭。完整 WP-15 仍需暂停/继续、默认层写入/真实项目/Runtime/额度来源接线和完整 OpenAPI；预算与输入事务、阶段计划修订、启动/取消、额度、预设组件及持久 sequence SSE 的已完成子项见下文。实际 UI 合同随后按最终接口交付。此组件测试不作为 T13/T25/T28/T33–T36/T43/T45/T49/T50/T56 的完整最终验收。
+当前 Handler 尚未注册到生产 listener/GUI，旧执行入口继续关闭。完整 WP-15 仍需暂停/继续、默认层写入/真实项目/Runtime/额度来源接线及新增行为对应的合同扩展；当前已实现 Handler 的 OpenAPI 合同已按下述 OPENAPI-01 完成。预算与输入事务、阶段计划修订、启动/取消、额度、预设组件及持久 sequence SSE 的已完成子项见下文。实际 UI 合同随后按最终接口交付。此组件测试不作为 T13/T25/T28/T33–T36/T43/T45/T49/T50/T56 的完整最终验收。
 
 [WP-15-BUDGET-01](BUDGET-01/summary.md) 已完成预览预算、提交预算事务和预算读取；任务、快照、幂等与预算共同提交，重试不退还已消耗的次数。162 个 Fusion tagged race tests 通过。剩余阶段修订、控制、事件流与接线继续实施。
 
@@ -23,3 +23,5 @@
 [WP-15-QUOTA-API-01](QUOTA-API-01/summary.md) 已完成 Management 保护的项目额度缓存读取/手动刷新、精确来源登记、过期/撤销/失败状态和共享 pool 展示，以及全服务八个采集 Worker 名额。采集器为 fixture；真实额度来源与产品注册继续接线，完整 OpenAPI、预设/暂停/恢复及 UI 未完成。
 
 [WP-15-PRESETS-01](PRESETS-01/summary.md) 已完成独立持久化的五角色预设版本、明确版本应用、全绑定覆盖、Task 原子来源引用、配置只读与受鉴权的列表/读写 API。schema 4 迁移保留旧任务/幂等/预算/事件/容量；实际固定 Native 合成回归通过。默认层公开写入、产品接线、暂停/恢复、完整 OpenAPI 与 GUI 继续实施。
+
+[WP-15-OPENAPI-01](OPENAPI-01/summary.md) 已完成当前 Handler 的 17 路径/19 操作合同、字段/nullable/error media type 核对、官方文档 schema 和 27 个实际返回样本的离线检查。API race 67 项全部通过，API vet 通过。未来控制与产品接线仍须扩展合同，父包继续 in_progress。
