@@ -35,3 +35,5 @@ ExecutionTarget 固定 route revision、requested_model、resolved_model、账�
 hash 为去除 hash 字段后 Go encoding/json 的 SHA256。角色顺序规范化，映射键由编码器排序；修改任何目标或版本会改变 hash。VerifySnapshot 仅证明数据完整性，不证明发行者身份、当前权限、额度或真实远端模型。入口必须编译服务端计划并通过鉴权、策略和准入出口，不能接收客户端自制快照来执行。
 
 未开始阶段的配置变更使用 If-Match 产生新 plan revision；运行中阶段安全暂停后产生新 attempt。存储与状态机由 WP-05/WP-07 落实，不通过可变指针修改现有快照。
+
+WP-15-REVISION-01 的 CompileRevision 仅重新编译明确选择的角色；inherit 对这些角色采用当前项目/全局默认，其他 frozen binding 按原值复制，不因为默认或旧路线退役而重新解释。保留旧元数据不授予当前执行准入，启动仍需重新核对 registry/credential/quota。普通修订不能增删 required_roles，也不能改写已开始或已结束角色；安全暂停后的改绑与新 attempt 属于后续独立控制/恢复合同，当前接口不提供该功能。

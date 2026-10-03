@@ -316,53 +316,15 @@ func (s *Store) Create(key string, in CreateRequest) (Task, error) {
 	return result, e
 }
 func (s *Store) RevisePlan(taskID string, ifMatch int64, p stageplan.Snapshot) error {
-	if p.Revision != ifMatch+1 || stageplan.VerifySnapshot(p) != nil {
-		return ErrInvalid
-	}
 	return s.transaction(func(tx *sql.Tx) error {
-		t, e := taskIn(tx, taskID)
+		t, e := revisionIn(tx, taskID, ifMatch, p)
 		if e != nil {
 			return e
 		}
-		if t.PlanRevision != ifMatch {
-			return ErrConflict
+		raw, e := json.Marshal(p)
+		if e != nil {
+			return ErrInvalid
 		}
-		var active int
-		if e = tx.QueryRow("SELECT COUNT(*) FROM stage_runs WHERE task_id=? AND state IN ('starting','running','cancelling','unknown')", taskID).Scan(&active); e != nil {
-			return e
-		}
-		if active > 0 {
-			old, e := planIn(tx, taskID, ifMatch)
-			if e != nil {
-				return e
-			}
-			rows, e := tx.Query("SELECT role FROM stage_runs WHERE task_id=? AND state IN ('starting','running','cancelling','unknown')", taskID)
-			if e != nil {
-				return e
-			}
-			var roles []stageplan.Role
-			for rows.Next() {
-				var r stageplan.Role
-				if e = rows.Scan(&r); e != nil {
-					rows.Close()
-					return e
-				}
-				roles = append(roles, r)
-			}
-			e = rows.Err()
-			rows.Close()
-			if e != nil {
-				return e
-			}
-			for _, r := range roles {
-				a, _ := json.Marshal(old.Bindings[r])
-				b, _ := json.Marshal(p.Bindings[r])
-				if string(a) != string(b) {
-					return ErrConflict
-				}
-			}
-		}
-		raw, _ := json.Marshal(p)
 		if _, e = tx.Exec("INSERT INTO plan_revisions VALUES(?,?,?,?)", taskID, p.Revision, string(raw), p.Hash); e != nil {
 			return e
 		}
@@ -372,6 +334,7 @@ func (s *Store) RevisePlan(taskID string, ifMatch int64, p stageplan.Snapshot) e
 		return event(tx, taskID, "plan_revised", "", t.Generation)
 	})
 }
+
 func (s *Store) Events(taskID string, after int64) ([]Event, error) {
 	s.mu.Lock()
 	defer s.mu.Unlock()

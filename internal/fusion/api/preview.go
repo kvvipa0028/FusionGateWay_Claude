@@ -75,6 +75,9 @@ type receipt struct {
 	request   PreviewRequest
 	committed store.Task
 	key       string
+	taskID    string
+	base      int64
+	applied   bool
 }
 type Server struct {
 	mu         sync.Mutex
@@ -188,7 +191,7 @@ func (s *Server) submit(in SubmitRequest, key string) (store.Task, error) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	r, ok := s.previews[in.PreviewID]
-	if !ok || r.preview.Plan.Hash != in.PlanHash {
+	if !ok || r.taskID != "" || r.preview.Plan.Hash != in.PlanHash {
 		return store.Task{}, errPreview
 	}
 	// Retry of an already committed receipt returns its task, even if global
@@ -215,6 +218,12 @@ func failure(w http.ResponseWriter, e error) {
 	code := http.StatusInternalServerError
 	reason := "internal_error"
 	switch {
+	case errors.Is(e, errIfMatchMissing):
+		code = 428
+		reason = "plan_precondition_required"
+	case errors.Is(e, errPlanConflict):
+		code = 409
+		reason = "plan_revision_or_stage_conflict"
 	case errors.Is(e, errInvalid), errors.Is(e, store.ErrInvalid):
 		code = 400
 		reason = "invalid_request"
@@ -267,6 +276,8 @@ func (s *Server) Handler() http.Handler {
 			return
 		}
 		switch {
+		case strings.HasPrefix(r.URL.Path, "/control/v1/tasks/") && (strings.HasSuffix(r.URL.Path, "/plan") || strings.HasSuffix(r.URL.Path, "/plan/preview")):
+			s.planControl(w, r)
 		case r.URL.Path == "/control/v1/tasks/preview":
 			if r.Method != http.MethodPost {
 				http.Error(w, "Method Not Allowed", 405)

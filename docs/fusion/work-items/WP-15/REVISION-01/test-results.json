@@ -1,0 +1,26 @@
+{
+  "work_item": "WP-15-REVISION-01",
+  "status": "done",
+  "parent_status": "in_progress",
+  "checks": [
+    {
+      "command": "go test -race -v -count=1 -mod=readonly -tags fusion,nogui ./internal/fusion/...",
+      "exit_code": 0,
+      "top_level_pass": 189,
+      "top_level_skip": 2,
+      "log": "wp15-revision-fusion-tagged-race.log"
+    }
+  ],
+  "red_logs": [
+    "wp15-revision-red.log",
+    "wp15-revision-api-red.log"
+  ],
+  "build_report": "build-results.json",
+  "new_tests": {
+    "stageplan": 4,
+    "store": 4,
+    "api": 8
+  },
+  "real_model_calls": 0,
+  "production_registered": false
+}

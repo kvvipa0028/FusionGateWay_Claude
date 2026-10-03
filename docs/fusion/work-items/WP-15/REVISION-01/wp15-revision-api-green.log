@@ -1,0 +1,66 @@
+=== RUN   TestSSEReconnectOnlyReadsPersistentEvents
+--- PASS: TestSSEReconnectOnlyReadsPersistentEvents (0.05s)
+=== RUN   TestSSEDisconnectDoesNotCancelRunningAttempt
+--- PASS: TestSSEDisconnectDoesNotCancelRunningAttempt (0.03s)
+=== RUN   TestSSERevocationClosesLiveConnectionBeforeNewEvent
+--- PASS: TestSSERevocationClosesLiveConnectionBeforeNewEvent (0.03s)
+=== RUN   TestSSERejectsInvalidUnknownAndAheadCursors
+--- PASS: TestSSERejectsInvalidUnknownAndAheadCursors (0.02s)
+=== RUN   TestSSERequiresManagementAndNeverAcceptsQueryCredentials
+--- PASS: TestSSERequiresManagementAndNeverAcceptsQueryCredentials (0.02s)
+=== RUN   TestSSEConnectionCapacityIsBoundedAndReleasedOnDisconnect
+--- PASS: TestSSEConnectionCapacityIsBoundedAndReleasedOnDisconnect (0.03s)
+=== RUN   TestSSEEventFieldsCannotInjectControlLines
+--- PASS: TestSSEEventFieldsCannotInjectControlLines (0.00s)
+=== RUN   TestSSEUnsupportedTransportCannotOpenAnUnboundedStream
+--- PASS: TestSSEUnsupportedTransportCannotOpenAnUnboundedStream (0.02s)
+=== RUN   TestPreviewAndSubmissionFreezeExactServerPlan
+--- PASS: TestPreviewAndSubmissionFreezeExactServerPlan (0.02s)
+=== RUN   TestStalePreviewAndTamperedHashCannotCreateTask
+--- PASS: TestStalePreviewAndTamperedHashCannotCreateTask (0.02s)
+=== RUN   TestConcurrentIdempotentSubmitCreatesOnePersistedTask
+--- PASS: TestConcurrentIdempotentSubmitCreatesOnePersistedTask (0.02s)
+=== RUN   TestBodyCannotSupplyCredentialsWorkspaceGlobalOrFrozenAdmission
+--- PASS: TestBodyCannotSupplyCredentialsWorkspaceGlobalOrFrozenAdmission (0.02s)
+=== RUN   TestMalformedOrAmbiguousRequestIsRejected
+--- PASS: TestMalformedOrAmbiguousRequestIsRejected (0.02s)
+=== RUN   TestEveryTaskEndpointRequiresManagementAuthentication
+--- PASS: TestEveryTaskEndpointRequiresManagementAuthentication (0.02s)
+=== RUN   TestExpiredPreviewDoesNotCreateOrReplayExecution
+--- PASS: TestExpiredPreviewDoesNotCreateOrReplayExecution (0.02s)
+=== RUN   TestConfigurationAndPreviewCannotMutateServerReferences
+--- PASS: TestConfigurationAndPreviewCannotMutateServerReferences (0.02s)
+=== RUN   TestUnadmittedRouteHasNoPreviewFallback
+--- PASS: TestUnadmittedRouteHasNoPreviewFallback (0.02s)
+=== RUN   TestCommittedRetryPreservesTaskAfterConfigurationChange
+--- PASS: TestCommittedRetryPreservesTaskAfterConfigurationChange (0.02s)
+=== RUN   TestSameIdempotencyKeyCannotAdoptChangedGoal
+--- PASS: TestSameIdempotencyKeyCannotAdoptChangedGoal (0.02s)
+=== RUN   TestRequestSizeEncodingAndContentTypeAreBounded
+--- PASS: TestRequestSizeEncodingAndContentTypeAreBounded (0.02s)
+=== RUN   TestPreviewFailureHasSafeActionableReason
+--- PASS: TestPreviewFailureHasSafeActionableReason (0.02s)
+=== RUN   TestControllerRestartRequiresNewPreviewAndPreservesTaskIdempotency
+--- PASS: TestControllerRestartRequiresNewPreviewAndPreservesTaskIdempotency (0.02s)
+=== RUN   TestPreviewFreezesExplicitBudgetAndSubmissionPersistsIt
+--- PASS: TestPreviewFreezesExplicitBudgetAndSubmissionPersistsIt (0.02s)
+=== RUN   TestPreviewUsesVisibleTrustedDefaultBudget
+--- PASS: TestPreviewUsesVisibleTrustedDefaultBudget (0.02s)
+=== RUN   TestPreviewRejectsUntrustedConsumedCountersAndInvalidBudget
+--- PASS: TestPreviewRejectsUntrustedConsumedCountersAndInvalidBudget (0.02s)
+=== RUN   TestRevisionPreviewApplyPreservesRunningAttemptAndConsumedBudget
+--- PASS: TestRevisionPreviewApplyPreservesRunningAttemptAndConsumedBudget (0.04s)
+=== RUN   TestRevisionStartedRoleAndPreviewStartRaceAreRejected
+--- PASS: TestRevisionStartedRoleAndPreviewStartRaceAreRejected (0.04s)
+=== RUN   TestConcurrentRevisionReceiptsHaveOneWinnerAndReplayAddsNoEvent
+--- PASS: TestConcurrentRevisionReceiptsHaveOneWinnerAndReplayAddsNoEvent (0.03s)
+=== RUN   TestRevisionReceiptBoundToTaskBaseHashPurposeAndConfiguration
+--- PASS: TestRevisionReceiptBoundToTaskBaseHashPurposeAndConfiguration (0.03s)
+=== RUN   TestRevisionIfMatchRequiresOneCanonicalStrongPositiveTag
+--- PASS: TestRevisionIfMatchRequiresOneCanonicalStrongPositiveTag (0.02s)
+=== RUN   TestRevisionBodyCannotChangeBudgetStagesOrImportSecrets
+--- PASS: TestRevisionBodyCannotChangeBudgetStagesOrImportSecrets (0.02s)
+=== RUN   TestRevisionExpiryRestartAndAuthorizationRequireFreshPreview
+--- PASS: TestRevisionExpiryRestartAndAuthorizationRequireFreshPreview (0.03s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/api	2.370s

@@ -108,13 +108,13 @@
     },
     {
       "path": "docs/fusion/contracts/blocked-reason-catalog.md",
-      "sha256": "677c601a37f898e857933b938c7af2bfcafc884d8a0b534f772b7801a4ef9df0",
-      "bytes": 3821
+      "sha256": "50fd4bc65fae1e9999106421fc90921e7b834dc1658c5cd775cc1d62d04dc191",
+      "bytes": 3979
     },
     {
       "path": "docs/fusion/contracts/ingress-auth-map.md",
-      "sha256": "842e09027d85b2900299373341e6bdfedcc4ab8f708fc74f08d6a40651aa9852",
-      "bytes": 2761
+      "sha256": "35f65fa810c0fba6a25d97e57f8b265a231fe0bc8e9d7eb00d723e004bbc64b5",
+      "bytes": 3478
     },
     {
       "path": "docs/fusion/contracts/lock-enforcement-report.md",
@@ -133,8 +133,8 @@
     },
     {
       "path": "docs/fusion/contracts/route-contract.md",
-      "sha256": "4ce4f695ec42492fd3ec8cf30e59e1141737c389ce29da027e65058537baf0ae",
-      "bytes": 4172
+      "sha256": "6efc47eb3d0fa02d5c10006316e04814626611422de498d757c098e23db63cc0",
+      "bytes": 4699
     },
     {
       "path": "docs/fusion/contracts/runtime-contract.md",
@@ -148,8 +148,8 @@
     },
     {
       "path": "docs/fusion/contracts/stage-credential-contract.md",
-      "sha256": "865bd753bfb73426211fa502a5150b1fe4469835dc878998b6c442abd3bd0803",
-      "bytes": 2622
+      "sha256": "a4ad629153fbb8c745b92b8225c4427b8f1dd506872cfd46f903875ca515fe58",
+      "bytes": 3084
     },
     {
       "path": "docs/fusion/contracts/stage-plan.schema.json",
@@ -158,8 +158,8 @@
     },
     {
       "path": "docs/fusion/contracts/state-transition-contract.md",
-      "sha256": "3190748ffa5c0e664ba71792a5da335f3348cb7a58aa6bab958f05c65f4d163d",
-      "bytes": 4980
+      "sha256": "755a47b03224248e61ccb27eb80b7c50bc550d6bbd7c675c37e60ba7032dbdad",
+      "bytes": 5174
     },
     {
       "path": "docs/fusion/decisions/ADR-001-magpie-fork.md",
@@ -248,8 +248,8 @@
     },
     {
       "path": "docs/fusion/planning/Fusion_Magpie_Fork_Agent工作包_v1.0.md",
-      "sha256": "88a7e3fbb831c18bf9d042ffc0ccd5eb9e87eb63e58fc4806156b8ae94d8648b",
-      "bytes": 51868
+      "sha256": "6f39ef99a5444f838f6efa67bbe6838a9e29e40d9b984b121e9059119631ae43",
+      "bytes": 51996
     },
     {
       "path": "docs/fusion/planning/Fusion_Magpie_Fork_实施计划_v1.0.md",
@@ -268,8 +268,8 @@
     },
     {
       "path": "docs/fusion/planning/implementation_tasks.json",
-      "sha256": "6a5e27346956fceeaedc12beee542b08ba0e99ba098fee59ba5fcb964ce2e821",
-      "bytes": 17451
+      "sha256": "e744ac3e62d302800dccb54850e97387f547fae926cf2857faa2e51f76af9f3d",
+      "bytes": 17455
     },
     {
       "path": "docs/fusion/preflight-review.md",
@@ -1307,6 +1307,76 @@
       "bytes": 999
     },
     {
+      "path": "docs/fusion/work-items/WP-14/PROTOCOL-01/artifacts.json",
+      "sha256": "58497c940042f294943d82aa1b551f284f4eb4baac2d4d46246319dcd5f5288c",
+      "bytes": 1901
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/PROTOCOL-01/build-cli.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/PROTOCOL-01/build-gui.log",
+      "sha256": "01d094f208c33eab1faa987b746d1c2dcb0f8410e209ffd2db98091d1cc91da4",
+      "bytes": 5431
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/PROTOCOL-01/build-results.json",
+      "sha256": "d463160a4933babaa6dd61e8cda71418bb2071a7d1c3566277c08faa4a5e5683",
+      "bytes": 1651
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/PROTOCOL-01/build-vet.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/PROTOCOL-01/characterize-native-read.py",
+      "sha256": "871e236e48794858cf0a18f59f1b08c48a9a9ece9ecfe789c99ede6c981b2cec",
+      "bytes": 6176
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/PROTOCOL-01/native-read-characterization.json",
+      "sha256": "1cfa6e05539fb72b7fa43f49a8a6debdb5726a47d354ad793113260d02b33239",
+      "bytes": 2473
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/PROTOCOL-01/summary.md",
+      "sha256": "20a5c585b34d9bf3535f3b5b0f7864ad2a73dbc96338e37abf043cb9b748a414",
+      "bytes": 3555
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/PROTOCOL-01/test-results.json",
+      "sha256": "58ae65109520de5639012abda3eae2ae916cf86989db4ca975e7cf776993ff24",
+      "bytes": 880
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/PROTOCOL-01/wp14-boundary-red.log",
+      "sha256": "55087658774631e600880f45868af6e4852487097540c8feaf99b88374cb2bfb",
+      "bytes": 594
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/PROTOCOL-01/wp14-fusion-tagged-race.log",
+      "sha256": "ad2a9ae8e550ecc9ab05ab2cea65d4074cae6fb855a888c6efe9be08704c2f5b",
+      "bytes": 34829
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/PROTOCOL-01/wp14-order-red.log",
+      "sha256": "5e6abf4ec4e5aa3165ef3405d737aab872fa7b1fbc074c3085ebddf869ded435",
+      "bytes": 4320
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/PROTOCOL-01/wp14-protocol-green.log",
+      "sha256": "15a5c8f071324b323d9a37a6512c434182161b75f79b58c2caf6d503d36e2a46",
+      "bytes": 3946
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/PROTOCOL-01/wp14-protocol-red.log",
+      "sha256": "ba1fbc38d7bca7de8df15885c8532a0f4254dfa1d6005da87d10ea67ce47e511",
+      "bytes": 966
+    },
+    {
       "path": "docs/fusion/work-items/WP-14/artifacts.json",
       "sha256": "3f9d4777b5d06fa3383c394663906efb618cfacceec01b1ad5c35b8c5d58bf03",
       "bytes": 1418
@@ -1328,8 +1398,8 @@
     },
     {
       "path": "docs/fusion/work-items/WP-14/summary.md",
-      "sha256": "5036e635fc1d84c1a373c68e799e37aa8daad06e9bc3c110e3a885c3302c61b6",
-      "bytes": 3123
+      "sha256": "807279672b45d1269efc447715af6608543e8c601e96c3f8318c702708ee5c8c",
+      "bytes": 3515
     },
     {
       "path": "docs/fusion/work-items/WP-14/test-results.json",
@@ -1345,6 +1415,246 @@
       "path": "docs/fusion/work-items/WP-14/wp14-temp-red.log",
       "sha256": "69a5158c8c682e1aef579d9e70bd6f4226af73cff87c399f1ff5ae91b43667a4",
       "bytes": 1642
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/BUDGET-01/artifacts.json",
+      "sha256": "d8a95be0e755767791bf2134ff538e6046e3daaaaafdd862e9e2d53f656b24f0",
+      "bytes": 1628
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/BUDGET-01/build-cli.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/BUDGET-01/build-gui.log",
+      "sha256": "d21200f819a916349562f2d0f563834c90e22508281b2c6d3a919c5aa713f0d5",
+      "bytes": 5686
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/BUDGET-01/build-results.json",
+      "sha256": "0635059cebc569b59fbaeaece224146e766ea4fc157b78b4a01c78d9315672e9",
+      "bytes": 1651
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/BUDGET-01/build-vet.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/BUDGET-01/summary.md",
+      "sha256": "4581581e030c6ad7f5ddfc9bacabe3d965ed424a72cfa4aa4c18c93cca674484",
+      "bytes": 2692
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/BUDGET-01/test-results.json",
+      "sha256": "4adac75041dada25690f26c1d4a7e55d594535f3c9eb33c816ece423b6e8696d",
+      "bytes": 539
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/BUDGET-01/wp15-budget-boundary-red.log",
+      "sha256": "f7c0e62775d52071bb77a76830bdd22a9afe69df963b33decf9116f72357d012",
+      "bytes": 1618
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/BUDGET-01/wp15-budget-fusion-tagged-race-final.log",
+      "sha256": "1ec760faa3eab6747d67ca0f0784efd2113dc08d2ffdd7849e5dd1c150ce53f1",
+      "bytes": 37525
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/BUDGET-01/wp15-budget-green.log",
+      "sha256": "768ddc989b355d066a7c67438567afed09c4f4e244ec7063a687e3eb0da6a4b7",
+      "bytes": 6134
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/BUDGET-01/wp15-budget-red.log",
+      "sha256": "1d7257a5f538e18875c7b9ec7fab1da1faaf48ba70d170424d005208f311934d",
+      "bytes": 1864
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/EVENTS-01/artifacts.json",
+      "sha256": "09d70bf9af7375617dce568267d6605a7454b509d1f33b54e92e322fb17c76d7",
+      "bytes": 2041
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/EVENTS-01/build-cli.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/EVENTS-01/build-gui.log",
+      "sha256": "a886a1d640dc848a0d3c182fa7f1fe51ecc9afab91f6bfc57537d61e21e3a60a",
+      "bytes": 5431
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/EVENTS-01/build-results.json",
+      "sha256": "42bec26f5552e5bef488e62676980ba5ff72882a38d8918bd210267c394e9c9f",
+      "bytes": 1651
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/EVENTS-01/build-vet.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/EVENTS-01/summary.md",
+      "sha256": "ddf42297ce4825ff7cb9c3847619f96fc09d846666c8c5d465ce45b48285c177",
+      "bytes": 3493
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/EVENTS-01/test-results.json",
+      "sha256": "58fcf991297a0b0edf6df1a157eb6f335005d9cf94c0cccc3b647fc6982a1fba",
+      "bytes": 699
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/EVENTS-01/wp15-events-context-red.log",
+      "sha256": "5b24dcecdbe4a8c7ebeeb653f35066d7cb181ab9d72ee3577506d90f9a910b26",
+      "bytes": 280
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/EVENTS-01/wp15-events-fusion-tagged-race-release.log",
+      "sha256": "1f201c7d4ed6b5a7d7c3c7618f6ab9fd7b4af07e29fe606530b0e3e10fc7928f",
+      "bytes": 38897
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/EVENTS-01/wp15-events-green.log",
+      "sha256": "96681ed3a09b4bd737c999f41723a0fca548adbc4f004e1edcd15f49ef71844c",
+      "bytes": 16545
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/EVENTS-01/wp15-events-red.log",
+      "sha256": "367feb0cfcc9ceab0df12ba385387aa03473e5360511ee567a37bd8b5c374d22",
+      "bytes": 2304
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/EVENTS-01/wp15-events-tail-red.log",
+      "sha256": "e7ea3f24ac25c58aef1ec533a2fee5ecb2051d15364672b4b35b8a779f0a2a76",
+      "bytes": 366
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/EVENTS-01/wp15-events-transport-red.log",
+      "sha256": "bc9ee5f55ae13d168217b35d14afd703d3f84dd4d2e5fd9866f4f0a2daa4d491",
+      "bytes": 283
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/PREVIEW-01/artifacts.json",
+      "sha256": "693e2149dea1a3ec01e7f504af28e32324d7738b53eea72b655d99a2b1a1df76",
+      "bytes": 1287
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/PREVIEW-01/build-cli.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/PREVIEW-01/build-gui.log",
+      "sha256": "01d094f208c33eab1faa987b746d1c2dcb0f8410e209ffd2db98091d1cc91da4",
+      "bytes": 5431
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/PREVIEW-01/build-results.json",
+      "sha256": "d463160a4933babaa6dd61e8cda71418bb2071a7d1c3566277c08faa4a5e5683",
+      "bytes": 1651
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/PREVIEW-01/build-vet.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/PREVIEW-01/summary.md",
+      "sha256": "3fa0bbba88bb7a67759d8b5de1effa92ecbc8ea937945740d3297f9a17fd7522",
+      "bytes": 3524
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/PREVIEW-01/test-results.json",
+      "sha256": "9b41c89cd0fd1daac453301d108042b3d5432526f5f605e4d4fa4bc5e23598fb",
+      "bytes": 777
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/PREVIEW-01/wp15-fusion-tagged-race-final.log",
+      "sha256": "6f285d0fb1f27bad3bfeb1e047665c0593e9bd5401709e495fce34e5139a650f",
+      "bytes": 36705
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/PREVIEW-01/wp15-preview-green-final.log",
+      "sha256": "ae459c385958b56445ce74f762aec6278694828ae7c2c2dd53eb593ecf3151ae",
+      "bytes": 1876
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/PREVIEW-01/wp15-preview-red.log",
+      "sha256": "804643ca369ccbe6040b1fb59cb10b513bfdf90c70d1f591689118e73adda8cf",
+      "bytes": 690
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/PREVIEW-01/wp15-reason-red.log",
+      "sha256": "03ea4eac5a73881d21aa5b2466f97ab834dcdb3aa27dfedc2eaf93b3bdcd63dc",
+      "bytes": 1934
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/REVISION-01/artifacts.json",
+      "sha256": "de8423bf16a58458d532cd0ef0cda8921ef77bc6d2ae511db2dfe9fac7f4823e",
+      "bytes": 2631
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/REVISION-01/build-cli.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/REVISION-01/build-gui.log",
+      "sha256": "6acde60ed4d2bd97600567e0a37202760e8606b243ae8f4b628ebc81fd49301a",
+      "bytes": 5686
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/REVISION-01/build-results.json",
+      "sha256": "d4e9fe4a061eb5b1958eaae638a5d37e1d8428fc4b3b8bdb5d72512ef39ebb34",
+      "bytes": 1651
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/REVISION-01/build-vet.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/REVISION-01/summary.md",
+      "sha256": "2ab9e51c4c9b1a4f9676764bad629cb5c0151375f3f0d6350918cc4de4e977b9",
+      "bytes": 4207
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/REVISION-01/test-results.json",
+      "sha256": "bf4c35823030d9bf324597d22824f77b2066381287a7f6ff6d4a2864f66e19a2",
+      "bytes": 607
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/REVISION-01/wp15-revision-api-green.log",
+      "sha256": "7a1049c15eb4df0bb8e9f8932da6b1c61fc3d3461e54a707e6acc7ed55049f93",
+      "bytes": 4328
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/REVISION-01/wp15-revision-api-red.log",
+      "sha256": "601ee95eb69a15f6c34aa6fc735cf816902f4c98e3d898ea542db8be4923925a",
+      "bytes": 4745
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/REVISION-01/wp15-revision-core-green.log",
+      "sha256": "389aa48a2660b5faf8391db79fb0d5f458285b62490be530295a7fe2f90d7a2f",
+      "bytes": 6586
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/REVISION-01/wp15-revision-fusion-tagged-race.log",
+      "sha256": "f95743e683267e69d753524407f79e4f6375ad89ccedd840ba697c7e3abc8a6c",
+      "bytes": 41175
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/REVISION-01/wp15-revision-red.log",
+      "sha256": "d746b1f0dacae6864ef45dbdf81ae912645ef3719ed962664141693cd1d5b54c",
+      "bytes": 871
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/summary.md",
+      "sha256": "5084f32c5118506d2ea4d36d496021cfd0e0087e96889450af2b97f69ef64f43",
+      "bytes": 1573
     }
   ],
   "product_implementation_started": true,

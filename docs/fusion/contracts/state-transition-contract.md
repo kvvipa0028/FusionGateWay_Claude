@@ -8,7 +8,7 @@ schema/migrations 当前为 `migrations/001.sql`：Task、StagePlanRevision、St
 
 Create 的幂等键限定在 project 内，payload hash 包含项目、目标及完整快照。相同键和 payload 返回同一个 task；不同 payload 拒绝。数据库事务不会调用 Runtime，也不隐式执行任务。
 
-计划只能插入新 revision；If-Match 必须等于当前 revision，新快照 revision 必须为旧版加一。已有活动/未知阶段的绑定不能修改，尚未开始角色可以通过完整新快照修订。旧快照、路线版本与证据引用不能覆写。快照 hash 只证明完整性，不能代替可信编译、鉴权和准入。RouteRevision 可以保存草稿元数据，不表示其已获执行准入。
+计划只能插入新 revision；If-Match 必须等于当前 revision，新快照 revision 必须为旧版加一。普通修订保持 required_roles 不变，任何已有 stage_run 的角色（包含活动、未知及已结束 attempt）的绑定均不能改写；尚未开始角色可以修订。ValidateRevision 不写事件，RevisePlan 在同一提交事务重新核对，以拒绝预览后启动的竞态。旧快照、路线版本与证据引用不能覆写。快照 hash 只证明完整性，不能代替可信编译、鉴权和准入。RouteRevision 可以保存草稿元数据，不表示其已获执行准入。
 
 EvidenceRef 绑定 task/run 与两个 SHA256；只作为不可变引用，不表示报告已解析或测试通过。EvidenceGate 在 WP-21 判定真实性与充分性。
 
