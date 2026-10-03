@@ -1,0 +1,24 @@
+{
+  "work_item": "WP-14-PRIVATE-CREDENTIAL-01",
+  "status": "done",
+  "parent_status": "in_progress",
+  "race_pass": 220,
+  "race_skip": 7,
+  "targeted_tests": 3,
+  "native_subcases_pass": 8,
+  "real_quota_requests": 1,
+  "real_model_calls": 0,
+  "product_registered": false,
+  "upstream_account_verified": false,
+  "pool_verified": false,
+  "billing_verified": false,
+  "real_key_excluded": true,
+  "build_report": "build-results.json",
+  "logs": [
+    "wp14-private-credential-red.log",
+    "wp14-private-credential-green.log",
+    "wp14-private-credential-native.log",
+    "wp14-private-credential-live.log",
+    "wp14-private-credential-fusion-race.log"
+  ]
+}

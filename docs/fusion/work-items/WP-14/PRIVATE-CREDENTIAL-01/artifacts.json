@@ -1,0 +1,26 @@
+{
+  "base_commit": "f2681922e48e76b8dac28181a782f15ddff43f96",
+  "source_files_sha256": {
+    "internal/fusion/runtime/glm/file_credential.go": "1a9909f7bc828e76f2a9ee7bbead8e507a32cb505b65ab20664d11faf3e036ac",
+    "internal/fusion/runtime/glm/file_credential_unix.go": "123e5579869dabf4be39b94a434ebb036c9318251d33aff5d6278fa931ab0ac8",
+    "internal/fusion/runtime/glm/file_credential_other.go": "b984e2e07335b0f020911ef0d24355438882f8a8706ec26a296cd251e6acbfd1",
+    "internal/fusion/runtime/glm/file_credential_test.go": "79566032776f8047be74e80f33cdeb1863226996857e48ff203915c8356337b8",
+    "internal/fusion/runtime/glm/adapter_native_test.go": "c3fa2fd6f4775abc2dfec5eaa6e5bb3ac9244aa6440d8f3aacc7f20ace2eadbd",
+    "internal/fusion/runtime/glm/quota_reader_live_test.go": "55877be2acb802d9c551434d9830ef3317a976c48eea13dc25f4125910331736",
+    "docs/fusion/work-items/WP-14/summary.md": "aaad79563431b83dbdb813b8f3655ec9609dfa77244ac774f6ea5a8124369332",
+    "docs/fusion/work-items/WP-14/glm-integration-verification.md": "e5c69b1e86d24bbdf1a1cc947c6faf700b66d2500bf831023be1aeca1c8e0082"
+  },
+  "packet_files_sha256": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "eb8fc58def8c1a7b204eff48b47100b97fec0dfb64cb5d6e660eaa06cac6a47a",
+    "build-results.json": "cbc99333d4de612a4a07b3149bbb6c01b062a2e1eb38275ed2120959912d2d75",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "summary.md": "8f51afa5675f018e39b959536e84dbe2125fe93adfa48eb92e443b695577fafb",
+    "test-results.json": "d4fee454a36f3a1527d82e2fd071f8c0db7d4506034e1d10c25fbecde4529cfe",
+    "wp14-private-credential-fusion-race.log": "b353e805e003d44fc134b06ed330b15d40b319321f10d7ff087b6d15b102088b",
+    "wp14-private-credential-green.log": "950a5b79afc8adf7dfd050a6b0a945ace4575b7ba2599d3b20b71f7d4c0869a0",
+    "wp14-private-credential-live.log": "3149166eece54f49875f9f74fd0e19a70f7b6d5bde0fa19bea0649601d8ca44e",
+    "wp14-private-credential-native.log": "ed9b3e64e7714fe8d7a6c5a0aeca3efe84ce77c9a06daad00f4345a35ad948f0",
+    "wp14-private-credential-red.log": "c1d5e5b9b448d707fe5b3a233b294096a218397a924730b67f19171f0c31f6f5"
+  }
+}

@@ -21,7 +21,7 @@ func TestGLMAdapterPinnedNativeLifecycle(t *testing.T) {
 	if *nativeGateCLI == "" {
 		t.Skip("explicit pinned Adapter Native fixture only")
 	}
-	for _, mode := range []string{"design", "implementation", "sdk_retry", "wrong_credential", "late_quota", "current_identity", "cancel_inflight"} {
+	for _, mode := range []string{"design", "implementation", "sdk_retry", "wrong_credential", "late_quota", "current_identity", "cancel_inflight", "rotated_file"} {
 		t.Run(mode, func(t *testing.T) {
 			exe, e := filepath.EvalSymlinks(*nativeGateCLI)
 			if e != nil {
@@ -32,6 +32,23 @@ func TestGLMAdapterPinnedNativeLifecycle(t *testing.T) {
 				role = stageplan.Implementation
 			}
 			c, r, in, env, loads := adapterFixture(t, exe, role)
+			keyPath, _, _ := credentialFileFixture(t)
+			if e = os.WriteFile(keyPath, []byte("fixture-controller-key\n"), 0600); e != nil {
+				t.Fatal(e)
+			}
+			credential, e := NewFileCredential(keyPath, FileCredentialScope{Account: r.Target.Account, Workspace: r.Target.Workspace, Identity: r.Target.CredentialIdentity})
+			if e != nil {
+				t.Fatal(e)
+			}
+			c.LoadCredential = func(ctx context.Context, target stageplan.ExecutionTarget) (Credential, error) {
+				loads.Add(1)
+				return credential.Load(ctx, target)
+			}
+			if mode == "rotated_file" {
+				if e = os.WriteFile(keyPath, []byte("fixture-new-controller-key\n"), 0600); e != nil {
+					t.Fatal(e)
+				}
+			}
 			var calls atomic.Int64
 			entered := make(chan struct{}, 1)
 			c.Transport = fixtureRoundTrip(func(req *http.Request) (*http.Response, error) {
@@ -76,7 +93,7 @@ func TestGLMAdapterPinnedNativeLifecycle(t *testing.T) {
 				t.Fatal("prelaunch observation available")
 			}
 			h, e := a.Start(context.Background(), r, in)
-			if mode == "wrong_credential" || mode == "late_quota" || mode == "current_identity" {
+			if mode == "wrong_credential" || mode == "late_quota" || mode == "current_identity" || mode == "rotated_file" {
 				if e == nil || h != nil || calls.Load() != 0 {
 					t.Fatal("blocked credential/admission reached Native")
 				}
