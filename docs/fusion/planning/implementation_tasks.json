@@ -11,7 +11,7 @@
       "id": "WP-01",
       "title": "冻结上游与建立原版基线",
       "milestone": "M0",
-      "status": "planned",
+      "status": "done",
       "depends_on": [],
       "owner_role": "架构/基线 Agent",
       "scope": "Magpie 仓库只读核查；docs/fusion/baseline/（拟新增）。",

@@ -53,8 +53,8 @@
     },
     {
       "path": "docs/fusion/baseline/baseline-report.md",
-      "sha256": "72ce11f6398dbcc09e8691c1e5890143cf63193e5fcd220fd25839dc314b1702",
-      "bytes": 4987
+      "sha256": "a404ac49152ca098d9bbf27cf0084173cd02bf25a430e851fa7f2362e61a8dd4",
+      "bytes": 5301
     },
     {
       "path": "docs/fusion/baseline/build-cli-initial.log",
@@ -78,8 +78,8 @@
     },
     {
       "path": "docs/fusion/baseline/feature-to-code-map.md",
-      "sha256": "c30ee08e9920a885542ef4c5ec91cd4cf8db42b29a95e11c72c2e2868e847f7e",
-      "bytes": 1880
+      "sha256": "be335f3053bd92770be7dfa8bf1cbd82a402e7f9998a2cae02bf70c6414567e8",
+      "bytes": 2436
     },
     {
       "path": "docs/fusion/baseline/module-integrity.log",
@@ -158,8 +158,8 @@
     },
     {
       "path": "docs/fusion/planning/Fusion_Magpie_Fork_Agent工作包_v1.0.md",
-      "sha256": "61d4c0bd3b22808463e581247869add54278a946f246787374f2914815612da0",
-      "bytes": 50630
+      "sha256": "72ec1645b6968552d2dab3070aa6734c5799f02c8c6594f954ff366b0262bdf5",
+      "bytes": 50845
     },
     {
       "path": "docs/fusion/planning/Fusion_Magpie_Fork_实施计划_v1.0.md",
@@ -178,8 +178,8 @@
     },
     {
       "path": "docs/fusion/planning/implementation_tasks.json",
-      "sha256": "2e9bda78765a913d5bc7166a0d1f4d1dd1633d0e91077cefb211c29ddb7b8640",
-      "bytes": 17476
+      "sha256": "4ff480c5d3b7714a65519a6b5810abe032dcb55471d51d96f1b6d9ec8c60218d",
+      "bytes": 17473
     },
     {
       "path": "docs/fusion/preflight-review.md",
@@ -315,6 +315,41 @@
       "path": "docs/fusion/work-items/KEY-01/tests.log",
       "sha256": "65ae06fd7247d41983bc4dca07c24ba0cacd31d2f798f750af7729c286fb3a9d",
       "bytes": 874
+    },
+    {
+      "path": "docs/fusion/work-items/WP-01/artifacts.json",
+      "sha256": "24359af220bb978377839838d6651f5c1f4e9924568e55af559b641da4bd44ed",
+      "bytes": 266
+    },
+    {
+      "path": "docs/fusion/work-items/WP-01/blockers.md",
+      "sha256": "493ae2470c6266261d5d162a1a7c270d80522c85eca8fbdb3319280508dfd508",
+      "bytes": 144
+    },
+    {
+      "path": "docs/fusion/work-items/WP-01/changed-files.txt",
+      "sha256": "33bed67be535e423ff4bcab5f94fbc7c4a2cff273ca897d1963afeb6b33e3270",
+      "bytes": 271
+    },
+    {
+      "path": "docs/fusion/work-items/WP-01/handoff.md",
+      "sha256": "25cb453df2853d677b723b039aca45f3427923dee9ec11848828c876771b86a2",
+      "bytes": 324
+    },
+    {
+      "path": "docs/fusion/work-items/WP-01/source-comparison.json",
+      "sha256": "c7ac801cbc14b491548faf3d23af8b0d210c52124fc868db978c7085919b80ba",
+      "bytes": 1216
+    },
+    {
+      "path": "docs/fusion/work-items/WP-01/summary.md",
+      "sha256": "4c3b7aae0cccb48207766425a2e8153baa653600938572045b335cbe39ccf7c0",
+      "bytes": 969
+    },
+    {
+      "path": "docs/fusion/work-items/WP-01/test-results.json",
+      "sha256": "e3d43df2e88f8587c77a2e3aa578e9f01440037947a504297e4ddd2173669a39",
+      "bytes": 540
     }
   ],
   "product_implementation_started": false,
@@ -450,5 +485,8 @@
   "remaining_execution_inputs": [
     "actual_official_openai_x_login",
     "real_route_capability_billing_and_quota_evidence"
+  ],
+  "completed_work_packages": [
+    "WP-01"
   ]
 }

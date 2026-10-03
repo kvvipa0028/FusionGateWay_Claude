@@ -1,0 +1,31 @@
+{
+  "upstream_commit": "1a50db1a8afd0849df2853f92a47da9d5e2f2cc9",
+  "tree": "0a63ef36060459f78a425fa0f8e26f31a69ea25e",
+  "go_version": "go version go1.26.3 darwin/arm64",
+  "go_files_checked": 1229,
+  "approved_oauth_modified_files": [
+    "internal/provider/google.go",
+    "internal/provider/google_import.go",
+    "internal/provider/google_import_test.go",
+    "internal/provider/google_test.go",
+    "internal/provider/signin.go",
+    "internal/provider/signin_paste_test.go"
+  ],
+  "approved_oauth_added_files": [
+    "internal/provider/google_oauth.go",
+    "internal/provider/google_oauth_test.go"
+  ],
+  "unexpected_differences": [],
+  "missing_go_files": [],
+  "dependency_files_unchanged": true,
+  "six_original_baseline_log_hashes_verified": true,
+  "oauth_source_hashes_match_prior_full_suite": true,
+  "prior_checks_reused_without_rerun": true,
+  "comparison_harness_correction": "Initial verifier treated new OAuth files as upstream modifications; corrected by intersecting upstream file set and verifying additions separately; no source change",
+  "not_verified": [
+    "actual plugin or Runtime admission",
+    "T51 final end-to-end",
+    "T60 data migration/rollback",
+    "GUI interaction"
+  ]
+}

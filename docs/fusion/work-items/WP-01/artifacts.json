@@ -1,0 +1,6 @@
+{
+  "base_commit": "e75407eb1cbe185c89b07693c75bf02a647ef49c",
+  "upstream_lock": "../../upstream-lock.json",
+  "original_artifacts": "../../baseline/artifacts.json",
+  "source_comparison_sha256": "c7ac801cbc14b491548faf3d23af8b0d210c52124fc868db978c7085919b80ba"
+}

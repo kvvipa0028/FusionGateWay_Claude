@@ -9,6 +9,9 @@
 | 网关调用身份 | `internal/gateway/lan.go` 的 `identifyCaller()`；`internal/access/access.go` 的 `Authenticate()` | WP-06：阶段身份由服务端解析，新增受控入口不能依赖 loopback 或客户端阶段 header 获得权限 |
 | 迁移后的订阅 | `internal/provider/migrate*.go` 的 mover、`Moved()`、`KeepRetiringMoved()`；`internal/plugin/` | WP-08、WP-12–WP-14、WP-17：核查实际内置/插件/官方 Runtime 路径，记录版本；只测试旧内置实现不能证明插件请求可控 |
 | Jev 分类调用 | `internal/gateway/classify.go`、`internal/gateway/decide.go` 的 `askJev()` | WP-28–WP-29：可选旁路，保留用户 locked；本轮未调用 Jev |
+| 官方 Runtime 与诊断 | Codex `app-server`、Grok CLI、Claude Code 作为仓库外实际执行程序；`scripts/fusion/glm-claude-probe.py` 已完成 Claude Code/GLM 连接诊断 | WP-08、WP-11–WP-14：Adapter 仍需实现并验证；诊断不经过旧 Grok 订阅内置/社区插件，也不代表其认证成功 |
 | 阶段配置/任务/证据 | 计划新增 `internal/fusion/`，目前不存在 | WP-04 以后按合同实施；不要把原版路由日志当作完整任务或验收记录 |
 
 本轮未改动上述 Go 实现，也没有启用真实账号。原版能够编译及相关测试通过，只证明当前导入基线；不证明 Fusion 严格锁定、账号准入或任务闭环已完成。
+
+以上“本轮”指原始源码准备。2026-10-03 的源码复核见 [source-comparison.json](../work-items/WP-01/source-comparison.json)；GLM 官方 Claude Code 连接诊断单独记录，不追溯改变原始基线结论。

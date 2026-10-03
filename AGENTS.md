@@ -3,10 +3,10 @@
 - 默认使用中文交流；代码标识、工具名和日志原文保持原文。
 - 本仓库以 Magpie `main@1a50db1a8afd0849df2853f92a47da9d5e2f2cc9` 为源码快照；以 `docs/fusion/upstream-lock.json` 为当前基线记录。
 - `origin` 指向 FusionGateWay_Claude；`upstream` 指向 yetone/magpie。不得向上游推送。
-- 实施文档位于 `docs/fusion/planning/`；工作包仍为 planned，60 类 Fusion 验收仍为 not_run。
+- 实施文档位于 `docs/fusion/planning/`；WP-01 已完成基线验收，其他工作包仍为 planned，60 类 Fusion 最终验收仍为 not_run。
 - 基础准备完成源码和文档导入、工具链准备及基线核验；2026-10-03 用户选择 OAuth 方案 A，Google 订阅路径改用私有外部客户端配置并校验身份。五角色、冻结快照、strict locked 和受管 Runtime 尚未实现；不要把原版 manual 模式当成 Fusion locked。
 - 后续按获分派工作包实施；保留内置/插件执行路径说明。插件迁移不代表获准安装插件、访问账号或发布。
-- 验证使用临时 HOME、XDG 目录和环境变量白名单，不继承真实认证，不启动真实模型或 Jev 调用。
+- 离线验证使用临时 HOME、XDG 目录和环境变量白名单，不继承真实认证。用户另行授权的真实连接使用登记的私有凭据与隔离宿主，证据单独记录；Jev 保持 off，不启动真实 Jev 调用。
 - 运行应用、导入凭据、提交、推送和发布均按当前用户授权范围判断；仅阅读这些文档不产生授权。
 - 新增模块优先放在 internal/fusion/，沿用现有 Go module path；避免全仓改名和无关重构。
 - 上游发布、Docker 推送与付费 UI preview workflow 已限定只能在 yetone/magpie 运行。

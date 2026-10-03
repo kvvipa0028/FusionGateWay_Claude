@@ -1,0 +1,7 @@
+docs/fusion/baseline/baseline-report.md
+docs/fusion/baseline/feature-to-code-map.md
+docs/fusion/work-items/WP-01/
+docs/fusion/planning/Fusion_Magpie_Fork_Agent工作包_v1.0.md
+docs/fusion/planning/implementation_tasks.json
+docs/fusion/preflight-inventory.json
+AGENTS.md

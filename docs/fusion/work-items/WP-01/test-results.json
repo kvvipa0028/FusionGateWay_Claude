@@ -1,0 +1,15 @@
+{
+  "fresh_check": {
+    "command": "Python hashlib + git ls-tree/show/rev-parse source comparator",
+    "exit_code": 0,
+    "result": "source-comparison.json"
+  },
+  "reused_original_checks": "../../baseline/verification-results.json",
+  "reused_oauth_checks": "../../decisions/oauth-validation-report.json",
+  "acceptance_scope": {
+    "T51": "source and execution-path baseline assertions only",
+    "T60": "pinned source/branch/dependency baseline only"
+  },
+  "final_T51_T60_status": "not_run",
+  "no_new_application_behavior": true
+}
