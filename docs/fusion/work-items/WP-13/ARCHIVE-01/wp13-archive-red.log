@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/runtime/grok [github.com/yetone/magpie/internal/fusion/runtime/grok.test]
+internal/fusion/runtime/grok/archive_test.go:15:35: undefined: checkpointRecord
+internal/fusion/runtime/grok/archive_test.go:25:18: undefined: archiveIdentityOf
+internal/fusion/runtime/grok/archive_test.go:29:60: undefined: archiveCwd
+internal/fusion/runtime/grok/archive_test.go:33:23: undefined: nativeArchiveFiles
+internal/fusion/runtime/grok/archive_test.go:42:9: undefined: checkpointRecord
+internal/fusion/runtime/grok/archive_test.go:74:15: undefined: NewArchives
+internal/fusion/runtime/grok/archive_test.go:84:10: undefined: NewArchives
+internal/fusion/runtime/grok/archive_test.go:93:124: undefined: nativeArchiveFiles
+internal/fusion/runtime/grok/archive_test.go:108:17: undefined: NewArchives
+internal/fusion/runtime/grok/archive_test.go:116:26: undefined: CheckpointRef
+internal/fusion/runtime/grok/archive_test.go:116:26: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/grok [build failed]
+FAIL

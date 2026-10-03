@@ -1,0 +1,9 @@
+=== RUN   TestGrokAdapterPinnedNativeCheckpoint
+=== RUN   TestGrokAdapterPinnedNativeCheckpoint/checkpoint_success
+    managed_native_test.go:46: checkpoint metadata only: released=true launchConfirmed=true cwdIdentity=true summaryRead=true decode=true idMatch=true cwdMatch=true modelResolved=true modelFusionAlias=false
+    managed_native_test.go:46: actual Native checkpoint refused Grok execution identity changed
+--- FAIL: TestGrokAdapterPinnedNativeCheckpoint (1.13s)
+    --- FAIL: TestGrokAdapterPinnedNativeCheckpoint/checkpoint_success (1.13s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/grok	1.798s
+FAIL

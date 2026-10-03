@@ -1,0 +1,6 @@
+=== RUN   TestArchiveIdentityPreservesApprovedFileOwner
+    archive_identity_unix_test.go:31: approved Source owner lost; checkpoint must not redefine read permissions
+--- FAIL: TestArchiveIdentityPreservesApprovedFileOwner (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/grok	0.649s
+FAIL

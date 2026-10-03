@@ -1,0 +1,6 @@
+=== RUN   TestArchivesLargeManifestRemainsReadable
+    archive_test.go:287: published manifest cannot be reopened pinned Grok headless protocol mismatch
+--- FAIL: TestArchivesLargeManifestRemainsReadable (0.19s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/grok	1.257s
+FAIL

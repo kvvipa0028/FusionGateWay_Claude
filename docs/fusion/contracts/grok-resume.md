@@ -2,7 +2,7 @@
 
 当前产品不支持 Native Resume，grok.Adapter、Session 和公共 Supervisor 的 Resume 返回 unsupported。固定版本 `1.0.48/b94d5072c95f` 的[实际诊断](../work-items/WP-13/RESUME-PROBE-01/summary.md)证明明确 UUID 可以恢复对话，但 Native 自身未保证 Fusion 的 frozen model/account/route/effort/cwd、会话完整性或历史工具授权。
 
-以下是后续恢复实施必须满足的合同，尚未实现，不能据此登记 resume capability：
+以下是完整恢复实施必须满足的合同，尚未全部实现，不能据此登记 resume capability。已完成的成功执行归档生产端和私有持久核验见 [grok-checkpoint.md](grok-checkpoint.md)；恢复消费者仍未实现：
 
 1. 只选择同 task/project/role 的准确 Native UUID。旧 run 必须已由持有它的可信 Supervisor 完成实际 wait/StopProof，并核对 Store 的 generation、终态及停止/释放记录。unknown、取消副作用未核对、缺停止证据均保持 needs_review，不能直接接管。
 2. 从已停止执行的私有会话目录建立完整、不可变归档，记录 run/generation/UUID、版本与 executable hash、frozen Target、canonical cwd/目录身份、权限及所有文件的名称/大小/SHA256。拒绝缺失、内容改变、symlink/hardlink/special file、未知布局及有界范围之外的归档。所有权和可信元数据与 Native 可写的会话内容分开；Native 自报 summary 不是授权来源。

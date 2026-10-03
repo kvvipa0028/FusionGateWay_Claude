@@ -1,0 +1,19 @@
+=== RUN   TestGrokAdapterPinnedNativeCheckpoint
+=== RUN   TestGrokAdapterPinnedNativeCheckpoint/checkpoint_success
+    managed_native_test.go:46: actual Native checkpoint refused Grok execution identity changed
+=== RUN   TestGrokAdapterPinnedNativeCheckpoint/checkpoint_read
+    managed_native_test.go:46: actual Native checkpoint refused Grok execution identity changed
+=== RUN   TestGrokAdapterPinnedNativeCheckpoint/checkpoint_private_config
+    managed_native_test.go:46: actual Native wait/proof/release; unsuccessful checkpoint refused
+    managed_native_test.go:46: synthetic Adapter mode=private_config state=failed exit=1 stop=true HTTP/budget=2 model-label-calls=0
+=== RUN   TestGrokAdapterPinnedNativeCheckpoint/checkpoint_cancel_inflight
+    managed_native_test.go:46: actual Native wait/proof/release; unsuccessful checkpoint refused
+    managed_native_test.go:46: synthetic Adapter mode=cancel_inflight state=cancelled exit=143 stop=true HTTP/budget=2 model-label-calls=0
+--- FAIL: TestGrokAdapterPinnedNativeCheckpoint (6.39s)
+    --- FAIL: TestGrokAdapterPinnedNativeCheckpoint/checkpoint_success (1.10s)
+    --- FAIL: TestGrokAdapterPinnedNativeCheckpoint/checkpoint_read (1.17s)
+    --- PASS: TestGrokAdapterPinnedNativeCheckpoint/checkpoint_private_config (3.14s)
+    --- PASS: TestGrokAdapterPinnedNativeCheckpoint/checkpoint_cancel_inflight (0.98s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/grok	7.011s
+FAIL

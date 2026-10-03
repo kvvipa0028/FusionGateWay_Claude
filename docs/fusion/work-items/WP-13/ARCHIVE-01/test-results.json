@@ -1,0 +1,179 @@
+{
+  "base_commit": "f070043cefdb067a021813e53b5afe46e09307d8",
+  "go_version": "1.26.3",
+  "jev": "off",
+  "real_model_calls": 0,
+  "real_quota_calls": 0,
+  "parent_wp13": "in_progress",
+  "final_gate": "not_run",
+  "checks": {
+    "wp13-archive-boundaries-green.log": {
+      "pass": 6,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 29,
+      "compile_red": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/runtime/grok\t3.838s"
+    },
+    "wp13-archive-control-native.log": {
+      "pass": 1,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 7,
+      "compile_red": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/control\t11.937s"
+    },
+    "wp13-archive-fusion-tagged-race.log": {
+      "pass": 418,
+      "skip": 18,
+      "fail": 0,
+      "passed_subtests": 529,
+      "compile_red": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/workspace\t1.490s"
+    },
+    "wp13-archive-green-first.log": {
+      "pass": 2,
+      "skip": 0,
+      "fail": 2,
+      "passed_subtests": 22,
+      "compile_red": false,
+      "terminal_line": "FAIL"
+    },
+    "wp13-archive-green.log": {
+      "pass": 4,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 29,
+      "compile_red": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/runtime/grok\t3.455s"
+    },
+    "wp13-archive-host-final.log": {
+      "pass": 8,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 29,
+      "compile_red": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/runtime/grok\t4.124s"
+    },
+    "wp13-archive-identity-red.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 1,
+      "passed_subtests": 0,
+      "compile_red": false,
+      "terminal_line": "FAIL"
+    },
+    "wp13-archive-manifest-red.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 1,
+      "passed_subtests": 0,
+      "compile_red": false,
+      "terminal_line": "FAIL"
+    },
+    "wp13-archive-native-final.log": {
+      "pass": 7,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 30,
+      "compile_red": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/runtime/grok\t57.997s"
+    },
+    "wp13-archive-native-first.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 1,
+      "passed_subtests": 2,
+      "compile_red": false,
+      "terminal_line": "FAIL"
+    },
+    "wp13-archive-native-green.log": {
+      "pass": 1,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 4,
+      "compile_red": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/runtime/grok\t8.039s"
+    },
+    "wp13-archive-native-metadata.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 1,
+      "passed_subtests": 0,
+      "compile_red": false,
+      "terminal_line": "FAIL"
+    },
+    "wp13-archive-native-scope.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 1,
+      "passed_subtests": 0,
+      "compile_red": false,
+      "terminal_line": "FAIL"
+    },
+    "wp13-archive-red.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 0,
+      "compile_red": true,
+      "terminal_line": "FAIL"
+    },
+    "wp13-archive-root-green.log": {
+      "pass": 9,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 29,
+      "compile_red": false,
+      "terminal_line": "ok  \tgithub.com/yetone/magpie/internal/fusion/runtime/grok\t4.155s"
+    },
+    "wp13-archive-root-red.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 1,
+      "passed_subtests": 0,
+      "compile_red": false,
+      "terminal_line": "FAIL"
+    }
+  },
+  "native_checks": {
+    "grok_pin": "1.0.48/b94d5072c95f",
+    "sha256": "1ed292eb62206b1a2ec3d17dc69c9c8406a07f5ff414305f953baee5b72a4a05",
+    "full_grok_scenarios": 31,
+    "native_launch_scenarios": 30,
+    "prelaunch_drift_scenarios": 1,
+    "controller_scenarios": 7,
+    "new_checkpoint_scenarios": 4,
+    "successful_native_checkpoints": 2,
+    "failed_or_cancelled_refused": 2,
+    "readonly_native_profile": true,
+    "upstream_inspection_quota": "synthetic",
+    "actual_wait_stop_proof_and_release": true,
+    "checkpoint_files": 14,
+    "read_grants_text": 0,
+    "read_grants_read": 1,
+    "hmac_key": "private outside Git and disjoint from Native and Source roots",
+    "atomic_private_seal_and_reopen": true,
+    "foreign_adapter_and_generation_refused": true,
+    "source_changed_read_authorization_refused": true,
+    "production_resume_enabled": false,
+    "production_worker_registered": false,
+    "strict_lock_verified": false,
+    "billing_verified": false,
+    "quota_verified": false
+  },
+  "bounds": {
+    "native_file_bytes": 2097152,
+    "total_native_bytes": 16777216,
+    "sealed_manifest_bytes": 2097152,
+    "read_snapshot_bytes": 524288,
+    "read_records": 64
+  },
+  "scope_limits": [
+    "successful owned/released checkpoints only",
+    "full Source immutability and current project access still require trusted product services",
+    "restoring seed/historical reads/new grant/budget/owned Native resume not wired",
+    "no key rotation/cleanup API; private persistence only"
+  ],
+  "post_checks_changes": "documentation and packet only"
+}

@@ -1,0 +1,110 @@
+=== RUN   TestGrokCallGatePinnedNativeDiagnostic
+=== RUN   TestGrokCallGatePinnedNativeDiagnostic/success
+    call_gate_native_test.go:33: Pinned Native1.0.48 success -> 2 synthetic HTTP/permits; terminal modelCalls1; actual wait done, managed StopProof/route/billing/quota unverified
+=== RUN   TestGrokCallGatePinnedNativeDiagnostic/default_title_model
+    call_gate_native_test.go:33: Pinned Native rejected default_title_model; Native exit=1, requests=2 forwarded=0; gate unhealthy, real model calls0
+=== RUN   TestGrokCallGatePinnedNativeDiagnostic/budget_second
+    call_gate_native_test.go:33: Pinned Native rejected budget_second; Native exit=1, requests=2 forwarded=1; gate unhealthy, real model calls0
+=== RUN   TestGrokCallGatePinnedNativeDiagnostic/implicit_tools
+    call_gate_native_test.go:33: Pinned Native rejected implicit_tools; Native exit=1, requests=2 forwarded=1; gate unhealthy, real model calls0
+=== RUN   TestGrokCallGatePinnedNativeDiagnostic/sdk_retry
+    call_gate_native_test.go:33: Pinned Native1.0.48 sdk_retry -> 3 synthetic HTTP/permits; terminal modelCalls1; actual wait done, managed StopProof/route/billing/quota unverified
+--- PASS: TestGrokCallGatePinnedNativeDiagnostic (7.84s)
+    --- PASS: TestGrokCallGatePinnedNativeDiagnostic/success (1.07s)
+    --- PASS: TestGrokCallGatePinnedNativeDiagnostic/default_title_model (1.24s)
+    --- PASS: TestGrokCallGatePinnedNativeDiagnostic/budget_second (1.16s)
+    --- PASS: TestGrokCallGatePinnedNativeDiagnostic/implicit_tools (1.13s)
+    --- PASS: TestGrokCallGatePinnedNativeDiagnostic/sdk_retry (3.25s)
+=== RUN   TestGrokCallGatePinnedNativeRejectsPrivateConfigTool
+    call_gate_native_test.go:40: Pinned Native private config tool instruction rejected before tool event; two synthetic HTTP/budget charges, Native exit1; no private grant reflection
+--- PASS: TestGrokCallGatePinnedNativeRejectsPrivateConfigTool (3.01s)
+=== RUN   TestGrokControlledReadPinnedNative
+=== RUN   TestGrokControlledReadPinnedNative/controlled_read
+    call_gate_native_test.go:48: Pinned Native1.0.48 controlled_read -> 3 synthetic HTTP/permits; terminal modelCalls2; actual wait done, managed StopProof/route/billing/quota unverified
+=== RUN   TestGrokControlledReadPinnedNative/controlled_private_config
+    call_gate_native_test.go:48: Pinned Native private config tool instruction rejected before tool event; two synthetic HTTP/budget charges, Native exit1; no private grant reflection
+--- PASS: TestGrokControlledReadPinnedNative (3.60s)
+    --- PASS: TestGrokControlledReadPinnedNative/controlled_read (0.82s)
+    --- PASS: TestGrokControlledReadPinnedNative/controlled_private_config (2.78s)
+=== RUN   TestManagedPinnedNativeGrokChannel
+=== RUN   TestManagedPinnedNativeGrokChannel/success
+    managed_native_test.go:31: synthetic Native mode=success state=succeeded exit=0 stop=true HTTP=2 permits=2 budget=2 model-label-calls=1
+=== RUN   TestManagedPinnedNativeGrokChannel/read
+    managed_native_test.go:31: synthetic Native mode=read state=succeeded exit=0 stop=true HTTP=3 permits=3 budget=3 model-label-calls=2
+=== RUN   TestManagedPinnedNativeGrokChannel/private_config
+    managed_native_test.go:31: synthetic Native mode=private_config state=failed exit=1 stop=true HTTP=2 permits=2 budget=2 model-label-calls=0
+=== RUN   TestManagedPinnedNativeGrokChannel/outside_read
+    managed_native_test.go:31: synthetic Native mode=outside_read state=failed exit=1 stop=true HTTP=2 permits=2 budget=2 model-label-calls=0
+=== RUN   TestManagedPinnedNativeGrokChannel/write_unsupported
+    managed_native_test.go:31: synthetic Native mode=write_unsupported state=failed exit=1 stop=true HTTP=2 permits=2 budget=2 model-label-calls=0
+=== RUN   TestManagedPinnedNativeGrokChannel/budget_exhausted
+    managed_native_test.go:31: synthetic Native mode=budget_exhausted state=failed exit=1 stop=true HTTP=1 permits=2 budget=1 model-label-calls=0
+=== RUN   TestManagedPinnedNativeGrokChannel/cancel_inflight
+    managed_native_test.go:31: synthetic Native mode=cancel_inflight state=cancelled exit=143 stop=true HTTP=2 permits=2 budget=2 model-label-calls=0
+=== RUN   TestManagedPinnedNativeGrokChannel/sdk_retry
+    managed_native_test.go:31: synthetic Native mode=sdk_retry state=succeeded exit=0 stop=true HTTP=3 permits=3 budget=3 model-label-calls=1
+--- PASS: TestManagedPinnedNativeGrokChannel (16.22s)
+    --- PASS: TestManagedPinnedNativeGrokChannel/success (1.12s)
+    --- PASS: TestManagedPinnedNativeGrokChannel/read (1.07s)
+    --- PASS: TestManagedPinnedNativeGrokChannel/private_config (3.02s)
+    --- PASS: TestManagedPinnedNativeGrokChannel/outside_read (3.01s)
+    --- PASS: TestManagedPinnedNativeGrokChannel/write_unsupported (3.02s)
+    --- PASS: TestManagedPinnedNativeGrokChannel/budget_exhausted (0.95s)
+    --- PASS: TestManagedPinnedNativeGrokChannel/cancel_inflight (0.92s)
+    --- PASS: TestManagedPinnedNativeGrokChannel/sdk_retry (3.10s)
+=== RUN   TestGrokAdapterPinnedNative
+=== RUN   TestGrokAdapterPinnedNative/success
+    managed_native_test.go:39: synthetic Adapter mode=success state=succeeded exit=0 stop=true HTTP/budget=2 model-label-calls=1
+=== RUN   TestGrokAdapterPinnedNative/read
+    managed_native_test.go:39: synthetic Adapter mode=read state=succeeded exit=0 stop=true HTTP/budget=3 model-label-calls=2
+=== RUN   TestGrokAdapterPinnedNative/private_config
+    managed_native_test.go:39: synthetic Adapter mode=private_config state=failed exit=1 stop=true HTTP/budget=2 model-label-calls=0
+=== RUN   TestGrokAdapterPinnedNative/outside_read
+    managed_native_test.go:39: synthetic Adapter mode=outside_read state=failed exit=1 stop=true HTTP/budget=2 model-label-calls=0
+=== RUN   TestGrokAdapterPinnedNative/write_unsupported
+    managed_native_test.go:39: synthetic Adapter mode=write_unsupported state=failed exit=1 stop=true HTTP/budget=2 model-label-calls=0
+=== RUN   TestGrokAdapterPinnedNative/budget_exhausted
+    managed_native_test.go:39: synthetic Adapter mode=budget_exhausted state=failed exit=1 stop=true HTTP/budget=1 model-label-calls=0
+=== RUN   TestGrokAdapterPinnedNative/cancel_inflight
+    managed_native_test.go:39: synthetic Adapter mode=cancel_inflight state=cancelled exit=143 stop=true HTTP/budget=2 model-label-calls=0
+=== RUN   TestGrokAdapterPinnedNative/sdk_retry
+    managed_native_test.go:39: synthetic Adapter mode=sdk_retry state=succeeded exit=0 stop=true HTTP/budget=3 model-label-calls=1
+--- PASS: TestGrokAdapterPinnedNative (17.06s)
+    --- PASS: TestGrokAdapterPinnedNative/success (1.12s)
+    --- PASS: TestGrokAdapterPinnedNative/read (1.21s)
+    --- PASS: TestGrokAdapterPinnedNative/private_config (3.13s)
+    --- PASS: TestGrokAdapterPinnedNative/outside_read (3.17s)
+    --- PASS: TestGrokAdapterPinnedNative/write_unsupported (3.13s)
+    --- PASS: TestGrokAdapterPinnedNative/budget_exhausted (1.05s)
+    --- PASS: TestGrokAdapterPinnedNative/cancel_inflight (1.04s)
+    --- PASS: TestGrokAdapterPinnedNative/sdk_retry (3.21s)
+=== RUN   TestGrokAdapterPinnedNativeCheckpoint
+=== RUN   TestGrokAdapterPinnedNativeCheckpoint/checkpoint_success
+    managed_native_test.go:47: actual stopped/released Native checkpoint files=14 approvedReads=0 reopen/tamper/owner guards verified; resume/admission still false
+    managed_native_test.go:47: synthetic Adapter mode=success state=succeeded exit=0 stop=true HTTP/budget=2 model-label-calls=1
+=== RUN   TestGrokAdapterPinnedNativeCheckpoint/checkpoint_read
+    managed_native_test.go:47: actual stopped/released Native checkpoint files=14 approvedReads=1 reopen/tamper/owner guards verified; resume/admission still false
+    managed_native_test.go:47: synthetic Adapter mode=read state=succeeded exit=0 stop=true HTTP/budget=3 model-label-calls=2
+=== RUN   TestGrokAdapterPinnedNativeCheckpoint/checkpoint_private_config
+    managed_native_test.go:47: actual Native wait/proof/release; unsuccessful checkpoint refused
+    managed_native_test.go:47: synthetic Adapter mode=private_config state=failed exit=1 stop=true HTTP/budget=2 model-label-calls=0
+=== RUN   TestGrokAdapterPinnedNativeCheckpoint/checkpoint_cancel_inflight
+    managed_native_test.go:47: actual Native wait/proof/release; unsuccessful checkpoint refused
+    managed_native_test.go:47: synthetic Adapter mode=cancel_inflight state=cancelled exit=143 stop=true HTTP/budget=2 model-label-calls=0
+--- PASS: TestGrokAdapterPinnedNativeCheckpoint (6.67s)
+    --- PASS: TestGrokAdapterPinnedNativeCheckpoint/checkpoint_success (1.24s)
+    --- PASS: TestGrokAdapterPinnedNativeCheckpoint/checkpoint_read (1.25s)
+    --- PASS: TestGrokAdapterPinnedNativeCheckpoint/checkpoint_private_config (3.15s)
+    --- PASS: TestGrokAdapterPinnedNativeCheckpoint/checkpoint_cancel_inflight (1.03s)
+=== RUN   TestGrokAdapterPinnedNativeInputSnapshotAndRecheck
+=== RUN   TestGrokAdapterPinnedNativeInputSnapshotAndRecheck/input_snapshot
+    managed_native_test.go:544: synthetic prompt mode=input_snapshot bytes=20 HTTP=2 private0600 snapshot=true stop=true
+=== RUN   TestGrokAdapterPinnedNativeInputSnapshotAndRecheck/long_prompt
+    managed_native_test.go:544: synthetic prompt mode=long_prompt bytes=40020 HTTP=2 private0600 snapshot=true stop=true
+=== RUN   TestGrokAdapterPinnedNativeInputSnapshotAndRecheck/current_drift
+--- PASS: TestGrokAdapterPinnedNativeInputSnapshotAndRecheck (2.18s)
+    --- PASS: TestGrokAdapterPinnedNativeInputSnapshotAndRecheck/input_snapshot (1.01s)
+    --- PASS: TestGrokAdapterPinnedNativeInputSnapshotAndRecheck/long_prompt (1.04s)
+    --- PASS: TestGrokAdapterPinnedNativeInputSnapshotAndRecheck/current_drift (0.13s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime/grok	57.997s

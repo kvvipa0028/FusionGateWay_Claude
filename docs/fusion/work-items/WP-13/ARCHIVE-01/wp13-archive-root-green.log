@@ -1,0 +1,78 @@
+=== RUN   TestArchiveIdentityPreservesApprovedFileOwner
+--- PASS: TestArchiveIdentityPreservesApprovedFileOwner (0.00s)
+=== RUN   TestArchivesRequirePrivateDirectoryAndKey
+=== RUN   TestArchivesRequirePrivateDirectoryAndKey/relative
+=== RUN   TestArchivesRequirePrivateDirectoryAndKey/public
+=== RUN   TestArchivesRequirePrivateDirectoryAndKey/git
+=== RUN   TestArchivesRequirePrivateDirectoryAndKey/symlink
+=== RUN   TestArchivesRequirePrivateDirectoryAndKey/key_mode
+=== RUN   TestArchivesRequirePrivateDirectoryAndKey/key_hardlink
+=== RUN   TestArchivesRequirePrivateDirectoryAndKey/key_short
+=== RUN   TestArchivesRequirePrivateDirectoryAndKey/key_symlink
+--- PASS: TestArchivesRequirePrivateDirectoryAndKey (0.01s)
+    --- PASS: TestArchivesRequirePrivateDirectoryAndKey/relative (0.00s)
+    --- PASS: TestArchivesRequirePrivateDirectoryAndKey/public (0.00s)
+    --- PASS: TestArchivesRequirePrivateDirectoryAndKey/git (0.00s)
+    --- PASS: TestArchivesRequirePrivateDirectoryAndKey/symlink (0.00s)
+    --- PASS: TestArchivesRequirePrivateDirectoryAndKey/key_mode (0.00s)
+    --- PASS: TestArchivesRequirePrivateDirectoryAndKey/key_hardlink (0.00s)
+    --- PASS: TestArchivesRequirePrivateDirectoryAndKey/key_short (0.00s)
+    --- PASS: TestArchivesRequirePrivateDirectoryAndKey/key_symlink (0.00s)
+=== RUN   TestArchivesSealReopenAndFreezeMetadata
+--- PASS: TestArchivesSealReopenAndFreezeMetadata (0.15s)
+=== RUN   TestArchivesRejectNativeSnapshotAndSealedDrift
+=== RUN   TestArchivesRejectNativeSnapshotAndSealedDrift/missing
+=== RUN   TestArchivesRejectNativeSnapshotAndSealedDrift/extra
+=== RUN   TestArchivesRejectNativeSnapshotAndSealedDrift/symlink
+=== RUN   TestArchivesRejectNativeSnapshotAndSealedDrift/hardlink
+=== RUN   TestArchivesRejectNativeSnapshotAndSealedDrift/directory
+=== RUN   TestArchivesRejectNativeSnapshotAndSealedDrift/oversize
+=== RUN   TestArchivesRejectNativeSnapshotAndSealedDrift/summary_model
+=== RUN   TestArchivesRejectNativeSnapshotAndSealedDrift/summary_cwd
+=== RUN   TestArchivesRejectNativeSnapshotAndSealedDrift/summary_id
+=== RUN   TestArchivesRejectNativeSnapshotAndSealedDrift/secret
+=== RUN   TestArchivesRejectNativeSnapshotAndSealedDrift/encoded_secret
+=== RUN   TestArchivesRejectNativeSnapshotAndSealedDrift/workspace
+=== RUN   TestArchivesRejectNativeSnapshotAndSealedDrift/root_overlap
+=== RUN   TestArchivesRejectNativeSnapshotAndSealedDrift/cancelled
+=== RUN   TestArchivesRejectNativeSnapshotAndSealedDrift/sealed_content
+=== RUN   TestArchivesRejectNativeSnapshotAndSealedDrift/sealed_missing
+=== RUN   TestArchivesRejectNativeSnapshotAndSealedDrift/sealed_extra
+=== RUN   TestArchivesRejectNativeSnapshotAndSealedDrift/sealed_manifest
+=== RUN   TestArchivesRejectNativeSnapshotAndSealedDrift/sealed_key
+=== RUN   TestArchivesRejectNativeSnapshotAndSealedDrift/sealed_archive_dir
+=== RUN   TestArchivesRejectNativeSnapshotAndSealedDrift/sealed_workspace
+--- PASS: TestArchivesRejectNativeSnapshotAndSealedDrift (1.58s)
+    --- PASS: TestArchivesRejectNativeSnapshotAndSealedDrift/missing (0.05s)
+    --- PASS: TestArchivesRejectNativeSnapshotAndSealedDrift/extra (0.05s)
+    --- PASS: TestArchivesRejectNativeSnapshotAndSealedDrift/symlink (0.05s)
+    --- PASS: TestArchivesRejectNativeSnapshotAndSealedDrift/hardlink (0.05s)
+    --- PASS: TestArchivesRejectNativeSnapshotAndSealedDrift/directory (0.05s)
+    --- PASS: TestArchivesRejectNativeSnapshotAndSealedDrift/oversize (0.05s)
+    --- PASS: TestArchivesRejectNativeSnapshotAndSealedDrift/summary_model (0.05s)
+    --- PASS: TestArchivesRejectNativeSnapshotAndSealedDrift/summary_cwd (0.05s)
+    --- PASS: TestArchivesRejectNativeSnapshotAndSealedDrift/summary_id (0.05s)
+    --- PASS: TestArchivesRejectNativeSnapshotAndSealedDrift/secret (0.05s)
+    --- PASS: TestArchivesRejectNativeSnapshotAndSealedDrift/encoded_secret (0.05s)
+    --- PASS: TestArchivesRejectNativeSnapshotAndSealedDrift/workspace (0.05s)
+    --- PASS: TestArchivesRejectNativeSnapshotAndSealedDrift/root_overlap (0.05s)
+    --- PASS: TestArchivesRejectNativeSnapshotAndSealedDrift/cancelled (0.05s)
+    --- PASS: TestArchivesRejectNativeSnapshotAndSealedDrift/sealed_content (0.13s)
+    --- PASS: TestArchivesRejectNativeSnapshotAndSealedDrift/sealed_missing (0.13s)
+    --- PASS: TestArchivesRejectNativeSnapshotAndSealedDrift/sealed_extra (0.13s)
+    --- PASS: TestArchivesRejectNativeSnapshotAndSealedDrift/sealed_manifest (0.13s)
+    --- PASS: TestArchivesRejectNativeSnapshotAndSealedDrift/sealed_key (0.13s)
+    --- PASS: TestArchivesRejectNativeSnapshotAndSealedDrift/sealed_archive_dir (0.13s)
+    --- PASS: TestArchivesRejectNativeSnapshotAndSealedDrift/sealed_workspace (0.13s)
+=== RUN   TestAdapterCheckpointNeedsOwnedReleasedSuccessfulHandle
+--- PASS: TestAdapterCheckpointNeedsOwnedReleasedSuccessfulHandle (0.05s)
+=== RUN   TestArchivesLargeManifestRemainsReadable
+--- PASS: TestArchivesLargeManifestRemainsReadable (0.37s)
+=== RUN   TestArchivesSealCannotBeReplacedWithCallerDigest
+--- PASS: TestArchivesSealCannotBeReplacedWithCallerDigest (0.12s)
+=== RUN   TestArchivesCancellationAndLargeEncodedCredentialNeverPublish
+--- PASS: TestArchivesCancellationAndLargeEncodedCredentialNeverPublish (0.14s)
+=== RUN   TestArchivesRejectReplacedNativeRoot
+--- PASS: TestArchivesRejectReplacedNativeRoot (0.05s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime/grok	4.155s

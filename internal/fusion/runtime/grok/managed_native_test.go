@@ -6,6 +6,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"github.com/yetone/magpie/internal/fusion/workspace"
 	"io"
 	"os"
 	"path/filepath"
@@ -38,8 +39,18 @@ func TestGrokAdapterPinnedNative(t *testing.T) {
 		t.Run(mode, func(t *testing.T) { managedNativeGrok(t, mode, true) })
 	}
 }
+func TestGrokAdapterPinnedNativeCheckpoint(t *testing.T) {
+	if *nativeGateCLI == "" {
+		t.Skip("explicit pinned Native checkpoint fixture only")
+	}
+	for _, mode := range []string{"checkpoint_success", "checkpoint_read", "checkpoint_private_config", "checkpoint_cancel_inflight"} {
+		t.Run(mode, func(t *testing.T) { managedNativeGrok(t, mode, true) })
+	}
+}
 func managedNativeGrok(t *testing.T, mode string, viaAdapter bool) {
 	t.Helper()
+	checkpoint := strings.HasPrefix(mode, "checkpoint_")
+	mode = strings.TrimPrefix(mode, "checkpoint_")
 	exe, e := filepath.EvalSymlinks(*nativeGateCLI)
 	if e != nil {
 		t.Fatal(e)
@@ -268,8 +279,101 @@ func managedNativeGrok(t *testing.T, mode string, viaAdapter bool) {
 		if mode == "cancel_inflight" && result.State != "cancelled" {
 			t.Fatal("Adapter cancel not persisted", result.State)
 		}
+		var archives *Archives
+		if checkpoint {
+			archives, e = NewArchives(private())
+			if e != nil {
+				t.Fatal(e)
+			}
+			defer archives.Close()
+			if _, e := adapter.Checkpoint(ctx, run.ID, run.Generation, archives); e == nil {
+				t.Fatal("unreleased Native execution archived")
+			}
+		}
 		if e := release(result.Proof); e != nil {
 			t.Fatal("Adapter stop release refused", e)
+		}
+		if checkpoint {
+			ref, e := adapter.Checkpoint(ctx, run.ID, run.Generation, archives)
+			if result.State != "succeeded" {
+				if e == nil {
+					t.Fatal("failed/cancelled Native execution archived")
+				}
+				t.Log("actual Native wait/proof/release; unsuccessful checkpoint refused")
+			} else {
+				if e != nil {
+					adapter.mu.Lock()
+					v := adapter.observations[run.ID]
+					cp := *v.checkpoint
+					adapter.mu.Unlock()
+					actualRun, _ := s.Run(run.ID)
+					summaryBytes, readErr := os.ReadFile(filepath.Join(root, "config", "grok", "sessions", archiveCwd(cwd), outcome.SessionID, "summary.json"))
+					var summary struct {
+						Info  struct{ ID, Cwd string }
+						Model string `json:"current_model_id"`
+					}
+					decodeErr := decode(summaryBytes, &summary)
+					t.Logf("checkpoint metadata only: released=%t launchConfirmed=%t cwdIdentity=%t summaryRead=%t decode=%t idMatch=%t cwdMatch=%t modelResolved=%t modelFusionAlias=%t", v.released == result.Proof, actualRun.LaunchConfirmed, archiveWorkspace(cp.cwd, cp.cwdIdentity, cp.reads), readErr == nil, decodeErr == nil, summary.Info.ID == outcome.SessionID, summary.Info.Cwd == cwd, summary.Model == run.Target.RequestedModel, summary.Model == "fusion")
+					taskInfo, _ := s.Task(actualRun.TaskID)
+					t.Logf("checkpoint scope booleans: run=%t owner=%t task=%t role=%t attempt=%t plan=%t target=%t native=%t project=%t root=%t separateRoot=%t separateCwd=%t manager=%t uuid=%t generation=%t", actualRun.Generation == run.Generation, actualRun.Owner == cp.run.Owner, actualRun.TaskID == cp.run.TaskID, actualRun.Role == cp.run.Role, actualRun.Attempt == cp.run.Attempt, actualRun.PlanRevision == cp.run.PlanRevision, sameTarget(actualRun.Target, cp.run.Target), actualRun.NativeSessionID == outcome.SessionID, taskInfo.ProjectID == cp.projectID && cp.projectID != "", workspace.PrivateState(cp.root) == nil, archiveSeparate(archives.path, cp.root), archiveSeparate(archives.path, cp.cwd), archives.check() == nil, uuid.MatchString(actualRun.NativeSessionID), actualRun.Generation >= 1)
+
+					t.Fatal("actual Native checkpoint refused", e)
+				}
+				info, e := archives.Info(ref)
+				reads := 0
+				if mode == "read" {
+					reads = 1
+				}
+				if e != nil || info.ReadCount != reads || info.FileCount != len(nativeArchiveFiles) || info.NativeSessionID != result.Proof.NativeSessionID || info.ReportHash != result.Proof.ReportHash || !sameTarget(info.Target, run.Target) {
+					t.Fatal("actual sealed checkpoint identity/reads mismatch", e)
+				}
+				if repeat, e := adapter.Checkpoint(ctx, run.ID, run.Generation, archives); e != nil || repeat != ref {
+					t.Fatal("actual checkpoint replay changed seal", e)
+				}
+				if _, e := adapter.Checkpoint(ctx, run.ID, run.Generation+1, archives); e == nil {
+					t.Fatal("foreign generation archived")
+				}
+				foreign, e := NewAdapter(adapter.config)
+				if e != nil {
+					t.Fatal(e)
+				}
+				if _, e := foreign.Checkpoint(ctx, run.ID, run.Generation, archives); e == nil {
+					t.Fatal("another Adapter adopted stopped Native")
+				}
+				privateDir := archives.path
+				if e := archives.Close(); e != nil {
+					t.Fatal(e)
+				}
+				reopened, e := NewArchives(privateDir)
+				if e != nil {
+					t.Fatal(e)
+				}
+				defer reopened.Close()
+				if _, e := reopened.Info(ref); e != nil {
+					t.Fatal("actual persisted seal unavailable", e)
+				}
+				if os.Remove(filepath.Join(root, "config", "grok", "sessions", archiveCwd(cwd), info.NativeSessionID, "updates.jsonl")) != nil {
+					t.Fatal("Native snapshot mutation failed")
+				}
+				if _, e := adapter.Checkpoint(ctx, run.ID, run.Generation, reopened); e == nil {
+					t.Fatal("incomplete Native directory rearchived")
+				}
+				if _, e := reopened.Info(ref); e != nil {
+					t.Fatal("sealed copy depended on old Native directory", e)
+				}
+				if mode == "read" {
+					if os.WriteFile(owned, []byte("changed"), 0600) != nil {
+						t.Fatal("source mutation failed")
+					}
+					if _, e := reopened.Info(ref); e == nil {
+						t.Fatal("old read authorization survived changed Source")
+					}
+					if os.WriteFile(owned, ownedText, 0600) != nil {
+						t.Fatal("owned fixture restoration failed")
+					}
+				}
+				t.Logf("actual stopped/released Native checkpoint files=%d approvedReads=%d reopen/tamper/owner guards verified; resume/admission still false", info.FileCount, info.ReadCount)
+			}
 		}
 		after, e := os.ReadFile(owned)
 		if e != nil || !bytes.Equal(after, ownedText) {

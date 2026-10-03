@@ -35,6 +35,9 @@ type nativeObservation struct {
 	generation int64
 	outcome    Outcome
 	text       string
+	checkpoint *checkpointRecord
+	handle     *managed.Handle
+	released   policy.StopProof
 }
 type Adapter struct {
 	config       AdapterConfig
@@ -69,7 +72,17 @@ func (a *Adapter) Release(p policy.StopProof) error {
 	if a == nil {
 		return ErrUnverified
 	}
-	return a.config.Scheduler.Release(p)
+	if e := a.config.Scheduler.Release(p); e != nil {
+		return e
+	}
+	a.mu.Lock()
+	defer a.mu.Unlock()
+	v, ok := a.observations[p.RunID]
+	if ok && v.generation == p.Generation && v.handle != nil {
+		v.released = p
+		a.observations[p.RunID] = v
+	}
+	return nil
 }
 
 // Start accepts only private paths, a UTF-8 prompt and a bounded timeout. All
@@ -193,7 +206,21 @@ func (a *Adapter) Start(ctx context.Context, inputRun store.StageRun, in managed
 		a.mu.Unlock()
 		return fail(ErrUnverified)
 	}
-	a.observations[r.ID] = nativeObservation{generation: r.Generation, outcome: Outcome{State: "execution_uncertain", SessionID: sid}}
+	cwdIdentity, ok := archiveIdentityOf(read.rootInfo)
+	if !ok {
+		a.mu.Unlock()
+		return fail(ErrIdentity)
+	}
+	rootInfo, rootErr := os.Stat(in.Root)
+	var rootIdentity archiveIdentity
+	if rootErr == nil {
+		rootIdentity, ok = archiveIdentityOf(rootInfo)
+	}
+	if rootErr != nil || !ok {
+		a.mu.Unlock()
+		return fail(ErrIdentity)
+	}
+	a.observations[r.ID] = nativeObservation{generation: r.Generation, outcome: Outcome{State: "execution_uncertain", SessionID: sid}, checkpoint: &checkpointRecord{run: r, projectID: task.ProjectID, root: in.Root, cwd: in.Workspace, owner: r.Owner, cwdIdentity: cwdIdentity, rootIdentity: rootIdentity, markers: [][]byte{[]byte(secret)}}}
 	a.mu.Unlock()
 	prompt := filepath.Join(in.Root, "grok-prompt.txt")
 	file, e := os.OpenFile(prompt, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0600)
@@ -238,8 +265,15 @@ func (a *Adapter) Start(ctx context.Context, inputRun store.StageRun, in managed
 		if e != nil || !gate.Healthy(callContext) {
 			return false
 		}
+		reads, e := read.checkpointReads()
+		if e != nil {
+			return false
+		}
 		a.mu.Lock()
-		a.observations[r.ID] = nativeObservation{generation: r.Generation, outcome: outcome, text: text.String()}
+		v := a.observations[r.ID]
+		v.outcome, v.text = outcome, text.String()
+		v.checkpoint.reads = reads
+		a.observations[r.ID] = v
 		a.mu.Unlock()
 		return true
 	}}
@@ -253,6 +287,11 @@ func (a *Adapter) Start(ctx context.Context, inputRun store.StageRun, in managed
 	if h == nil {
 		return fail(e)
 	}
+	a.mu.Lock()
+	v := a.observations[r.ID]
+	v.handle = h
+	a.observations[r.ID] = v
+	a.mu.Unlock()
 	// Preserve a known Handle with an activation error until actual wait/reap.
 	go func() { h.Wait(context.Background()); pending.Cancel(); cleanup() }()
 	return h, e

@@ -1,0 +1,6 @@
+=== RUN   TestArchivesRejectReplacedNativeRoot
+    archive_test.go:381: replacement launch root accepted as original Native state
+--- FAIL: TestArchivesRejectReplacedNativeRoot (0.13s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/grok	0.747s
+FAIL
