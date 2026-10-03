@@ -222,7 +222,9 @@
 
 ### WP-07 · 严格路由出口与上游行为隔离
 
-**阶段：**M1　**负责人角色：**网关 Agent　**状态：**planned
+**阶段：**M1　**负责人角色：**网关 Agent　**状态：**done
+
+**Completion evidence:**`../work-items/WP-07/summary.md`.
 
 **输入/前置：**WP-04, WP-06。同时读取这些前置包的合同、测试日志、阻断项与当前仓库 HEAD。
 

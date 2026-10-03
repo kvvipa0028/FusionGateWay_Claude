@@ -1,6 +1,6 @@
 # Fusion Gateway 开发入口
 
-已完成源码/文档导入、Go 1.26.3、OAuth 修复和 WP-01–WP-06：基线、开发隔离、离线 fixtures、五角色绑定编译、独立任务存储、入口鉴权。GLM/Claude Code 连接诊断通过；产品 API、strict locked 出口、Runtime Adapter 和最终 Gate 尚未完成。
+已完成源码/文档导入、Go 1.26.3、OAuth 修复和 WP-01–WP-07：基线、开发隔离、离线 fixtures、五角色绑定编译、独立任务存储、入口鉴权。GLM/Claude Code 连接诊断通过；strict 出口离线验证通过；产品 API、Runtime Adapter 和最终 Gate 尚未完成。
 
 ## 阅读顺序
 
@@ -10,7 +10,7 @@
 4. [验收矩阵](planning/Fusion_Magpie_Fork_验收矩阵_v1.0.md)：T01–T60；当前均为 `not_run`。
 5. [源码与工具链锁](upstream-lock.json)、[基线报告](baseline/baseline-report.md)：本轮实际准备与验证证据。
 
-`planning/implementation_tasks.json` 和 `planning/acceptance_tests.json` 由本地三份 Markdown 提取，已核对编号、引用及依赖无环；它们不是原 ZIP 的恢复副本。WP-01–WP-06 为 `done`，其他包为 `planned`；最终验收仍为 `not_run`。
+`planning/implementation_tasks.json` 和 `planning/acceptance_tests.json` 由本地三份 Markdown 提取，已核对编号、引用及依赖无环；它们不是原 ZIP 的恢复副本。WP-01–WP-07 为 `done`，其他包为 `planned`；最终验收仍为 `not_run`。
 
 ## 源码与 Git
 
@@ -25,7 +25,7 @@
 
 源码、文档、来源/许可证记录、发布 workflow 隔离和 Go 1.26.3 已准备。上游 release、Docker 与 UI preview job 限定仅在 `yetone/magpie` 运行，避免本 Fork 继承发布或付费调用。普通 Test workflow 保留。
 
-未加 `fusion` tag 时保留原版回归语义。Fusion 产品构建已有独立身份、目录和端口；旧插件/更新/同步等入口被关闭，共享 Keychain 发现被阻断。原版 `Group.Picked()` fallback 和 loopback 鉴权不能用于严格任务执行；WP-06 已关闭旧宽松入口，WP-07 仍需落实 strict 出口。隔离范围见 [fork-isolation.md](decisions/fork-isolation.md)。
+未加 `fusion` tag 时保留原版回归语义。Fusion 产品构建已有独立身份、目录和端口；旧插件/更新/同步等入口被关闭，共享 Keychain 发现被阻断。原版 `Group.Picked()` fallback 和 loopback 鉴权不能用于严格任务执行；WP-06 已关闭旧宽松入口，WP-07 已实现独立 strict 出口，真实 Runtime 准入仍待验证。隔离范围见 [fork-isolation.md](decisions/fork-isolation.md)。
 
 ## 本地验证
 

@@ -1,0 +1,62 @@
+=== RUN   TestAutoGroupsSameModel
+--- PASS: TestAutoGroupsSameModel (0.00s)
+=== RUN   TestGroupImages
+--- PASS: TestGroupImages (0.00s)
+=== RUN   TestGroupImagesKeepUnknownMemberUnknown
+--- PASS: TestGroupImagesKeepUnknownMemberUnknown (0.00s)
+=== RUN   TestCodexListedKeepsGroups
+--- PASS: TestCodexListedKeepsGroups (0.00s)
+=== RUN   TestMemberEffortParsing
+--- PASS: TestMemberEffortParsing (1.30s)
+=== RUN   TestSaveGroupMemberEfforts
+--- PASS: TestSaveGroupMemberEfforts (0.01s)
+=== RUN   TestGroupMemberWithEffort
+--- PASS: TestGroupMemberWithEffort (0.00s)
+=== RUN   TestGroupLevelsWithFixedMembers
+--- PASS: TestGroupLevelsWithFixedMembers (0.02s)
+=== RUN   TestCanFast
+--- PASS: TestCanFast (0.00s)
+=== RUN   TestSaveGroupFast
+--- PASS: TestSaveGroupFast (0.01s)
+=== RUN   TestAutoGroupsOff
+--- PASS: TestAutoGroupsOff (0.01s)
+=== RUN   TestAutoStandIn
+--- PASS: TestAutoStandIn (0.00s)
+=== RUN   TestAutoGroupsOffHeld
+--- PASS: TestAutoGroupsOffHeld (0.00s)
+=== RUN   TestGroupLevelsOverride
+--- PASS: TestGroupLevelsOverride (0.01s)
+=== RUN   TestGroupsInGroups
+--- PASS: TestGroupsInGroups (0.01s)
+=== RUN   TestRenameGroup
+--- PASS: TestRenameGroup (0.00s)
+=== RUN   TestCleanRules
+--- PASS: TestCleanRules (0.00s)
+=== RUN   TestRuleMatches
+--- PASS: TestRuleMatches (0.00s)
+=== RUN   TestMatchRuleFirstWins
+--- PASS: TestMatchRuleFirstWins (0.00s)
+=== RUN   TestRuleIntent
+--- PASS: TestRuleIntent (0.00s)
+=== RUN   TestRuleConditions
+--- PASS: TestRuleConditions (0.00s)
+=== RUN   TestRuledEntry
+--- PASS: TestRuledEntry (0.00s)
+=== RUN   TestSaveGroupRules
+--- PASS: TestSaveGroupRules (0.00s)
+=== RUN   TestSaveGroupClassifier
+--- PASS: TestSaveGroupClassifier (0.01s)
+=== RUN   TestThenUses
+--- PASS: TestThenUses (0.00s)
+=== RUN   TestRuleTimeWindow
+--- PASS: TestRuleTimeWindow (0.00s)
+=== RUN   TestRuleTimeCleanAndConditions
+--- PASS: TestRuleTimeCleanAndConditions (0.00s)
+=== RUN   TestRuleTimeMatches
+--- PASS: TestRuleTimeMatches (0.00s)
+=== RUN   TestRuleTimeJSON
+--- PASS: TestRuleTimeJSON (0.00s)
+=== RUN   TestParseRuleTime
+--- PASS: TestParseRuleTime (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/provider	1.827s

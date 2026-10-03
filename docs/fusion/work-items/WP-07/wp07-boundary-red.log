@@ -1,0 +1,34 @@
+=== RUN   TestStrictDispatchGateCannotChangeRouteOrMutateFrozenTarget
+=== RUN   TestStrictDispatchGateCannotChangeRouteOrMutateFrozenTarget/route
+    dispatch_test.go:300: <nil> calls=1
+=== RUN   TestStrictDispatchGateCannotChangeRouteOrMutateFrozenTarget/transport
+    dispatch_test.go:300: <nil> calls=1
+=== RUN   TestStrictDispatchGateCannotChangeRouteOrMutateFrozenTarget/revoke
+=== RUN   TestStrictDispatchGateCannotChangeRouteOrMutateFrozenTarget/copy
+--- FAIL: TestStrictDispatchGateCannotChangeRouteOrMutateFrozenTarget (0.02s)
+    --- FAIL: TestStrictDispatchGateCannotChangeRouteOrMutateFrozenTarget/route (0.01s)
+    --- FAIL: TestStrictDispatchGateCannotChangeRouteOrMutateFrozenTarget/transport (0.00s)
+    --- PASS: TestStrictDispatchGateCannotChangeRouteOrMutateFrozenTarget/revoke (0.00s)
+    --- PASS: TestStrictDispatchGateCannotChangeRouteOrMutateFrozenTarget/copy (0.00s)
+=== RUN   TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse
+=== RUN   TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/identity
+=== RUN   TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/account
+=== RUN   TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/redirect
+=== RUN   TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/503
+=== RUN   TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/partial
+=== RUN   TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/duplicate
+    dispatch_test.go:349: unsafe reply: {RequestedModel:fixture-model-a ResolvedModel:fixture-model-a UpstreamReportedModel:0x6bc4f537c180 Text:fixture Calls:1} <nil>
+=== RUN   TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/unknown
+=== RUN   TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/oversize
+--- FAIL: TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse (0.03s)
+    --- PASS: TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/identity (0.00s)
+    --- PASS: TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/account (0.00s)
+    --- PASS: TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/redirect (0.00s)
+    --- PASS: TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/503 (0.00s)
+    --- PASS: TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/partial (0.00s)
+    --- FAIL: TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/duplicate (0.00s)
+    --- PASS: TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/unknown (0.00s)
+    --- PASS: TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/oversize (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/policy	0.614s
+FAIL

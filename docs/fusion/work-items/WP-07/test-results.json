@@ -1,0 +1,39 @@
+{
+  "checks": [
+    {
+      "command": "go test -race -v -count=1 -mod=readonly -tags fusion,nogui ./internal/fusion/...",
+      "exit_code": 0,
+      "passed_top_level_tests": 61,
+      "skips": 1,
+      "log": "wp07-race-green.log"
+    },
+    {
+      "command": "go vet -mod=readonly -tags fusion,nogui ./internal/fusion/...",
+      "exit_code": 0,
+      "log": "wp07-vet.log"
+    },
+    {
+      "command": "go test -v -count=1 -mod=readonly ./internal/provider -run original group/effort/rule tests",
+      "exit_code": 0,
+      "passed_top_level_tests": 30,
+      "log": "wp07-upstream-groups.log"
+    },
+    {
+      "command": "python3 scripts/fusion/build-dev.py",
+      "exit_code": 0,
+      "report": "build-results.json"
+    }
+  ],
+  "red_evidence": [
+    "wp07-red.log",
+    "wp07-boundary-red.log"
+  ],
+  "build_report": true,
+  "environment": "Go1.26.3 macOS/arm64, temporary HOME/XDG, no provider credentials; fake HTTP loopback only",
+  "not_verified": [
+    "real native Runtime admission",
+    "plugins/primary_only disabled",
+    "new task API/GUI wiring",
+    "all final test families"
+  ]
+}

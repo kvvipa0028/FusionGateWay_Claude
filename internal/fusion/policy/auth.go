@@ -140,6 +140,33 @@ func (m *Manager) AuthenticateStage(raw string, expected Claims) (Claims, error)
 }
 
 type claimsKey struct{}
+type grantKey struct{}
+
+// WithStage carries an issuer-owned capability in a private context key. The
+// secret itself is not passed to an executor, transport or request body.
+func (m *Manager) WithStage(ctx context.Context, raw string, expected Claims) (context.Context, error) {
+	c, e := m.AuthenticateStage(raw, expected)
+	if e != nil {
+		return nil, e
+	}
+	ctx = context.WithValue(ctx, claimsKey{}, c)
+	return context.WithValue(ctx, grantKey{}, sha256.Sum256([]byte(raw))), nil
+}
+
+func (m *Manager) authorizeContext(ctx context.Context) (Claims, error) {
+	c, ok := FromContext(ctx)
+	h, hashOK := ctx.Value(grantKey{}).([32]byte)
+	if !ok || !hashOK || c.Audience != ModelAudience {
+		return Claims{}, ErrUnauthenticated
+	}
+	m.mu.Lock()
+	defer m.mu.Unlock()
+	g, exists := m.grants[h]
+	if !m.adminEnabled || !exists || g.claims != c || !m.now().Before(g.expiry) || m.revokedRuns[c.RunID] || m.validate == nil || !m.validate(c) {
+		return Claims{}, ErrForbidden
+	}
+	return c, nil
+}
 
 func FromContext(ctx context.Context) (Claims, bool) {
 	c, ok := ctx.Value(claimsKey{}).(Claims)
@@ -229,12 +256,12 @@ func (m *Manager) Stage(expected Claims, next http.Handler) http.Handler {
 			authFailure(w, e)
 			return
 		}
-		c, e := m.AuthenticateStage(raw, expected)
+		ctx, e := m.WithStage(r.Context(), raw, expected)
 		if e != nil {
 			authFailure(w, e)
 			return
 		}
-		clean := r.Clone(context.WithValue(r.Context(), claimsKey{}, c))
+		clean := r.Clone(ctx)
 		stripAuthority(clean)
 		next.ServeHTTP(w, clean)
 	})

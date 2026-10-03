@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/policy [github.com/yetone/magpie/internal/fusion/policy.test]
+internal/fusion/policy/dispatch_test.go:46:25: f.m.WithStage undefined (type *Manager has no field or method WithStage)
+internal/fusion/policy/dispatch_test.go:52:18: undefined: Invocation
+internal/fusion/policy/dispatch_test.go:54:29: undefined: Reply
+internal/fusion/policy/dispatch_test.go:57:7: undefined: HTTPJSONExecutor
+internal/fusion/policy/dispatch_test.go:57:85: undefined: Credential
+internal/fusion/policy/dispatch_test.go:58:5: undefined: Dispatcher
+internal/fusion/policy/dispatch_test.go:65:56: undefined: Invocation
+internal/fusion/policy/dispatch_test.go:65:68: undefined: Reply
+internal/fusion/policy/dispatch_test.go:66:54: undefined: Invocation
+internal/fusion/policy/dispatch_test.go:66:66: undefined: Reply
+internal/fusion/policy/dispatch_test.go:58:5: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/policy [build failed]
+FAIL

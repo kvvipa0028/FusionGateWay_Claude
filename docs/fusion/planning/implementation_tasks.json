@@ -132,7 +132,7 @@
       "id": "WP-07",
       "title": "严格路由出口与上游行为隔离",
       "milestone": "M1",
-      "status": "planned",
+      "status": "done",
       "depends_on": [
         "WP-04",
         "WP-06"

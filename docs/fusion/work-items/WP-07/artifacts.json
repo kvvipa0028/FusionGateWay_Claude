@@ -1,0 +1,26 @@
+{
+  "base_commit": "9c717ccd026d8b9bbfd3f888203175946c0f04f0",
+  "source_files_sha256": {
+    "AGENTS.md": "079a75f8e4dc649da7160d81ce71c474bcdcc32736e3f437305b5830d7bed68c",
+    "README.md": "3cebe605a85c492ed61077c03240bdf353fb8bac9682778dc6aa1a64e443b904",
+    "docs/fusion/README.md": "addf018377bd28b62ec62bb91f05ef24be2d6ada84d0a8f5aa1ddd6e62e4c0c2",
+    "docs/fusion/contracts/lock-enforcement-report.md": "e277baaf9eba211eb70c4bb31c5ab34bc8c3f4d8bf808b45e374c984cf9d596f",
+    "docs/fusion/planning/Fusion_Magpie_Fork_Agent\u5de5\u4f5c\u5305_v1.0.md": "4aa7f8228884b0cd10245f7243f1194ae7c362f1f684e2420f6147e8325dfeb5",
+    "docs/fusion/planning/implementation_tasks.json": "a9baccafe9b3166a93fb71fe4baf166f8f49b6fa606ac004c46fab3b360ba18a",
+    "internal/fusion/policy/auth.go": "035d395d683ff4ee6c954f699ffcead0c59a86743a9bf3d949a29d6dfb7a806f",
+    "internal/fusion/policy/dispatch.go": "e41f446420bb8694ac1ad72b4aa3c0283fc62e5c507cdc1dc9443a8666e67a21",
+    "internal/fusion/policy/dispatch_test.go": "21f9ea5df5e5b89f609628f3cc2a49c7a0466003e8de2a353ae2442bf41f4631",
+    "internal/fusion/policy/http_executor.go": "8356f0292ac08bfc74b6a86d92ac0e3dd774c4f96d03622c6b3e25c39d2dbd1c"
+  },
+  "logs_sha256": {
+    "wp07-upstream-groups.log": "3164f5d2cf9a51485b1bc89f1adb7453022747758a7ad5925553e6fede27bace",
+    "wp07-race-green.log": "972f0eaac88fd7373653189974f91ec893182041f073316d55c1716a44c62296",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "wp07-boundary-red.log": "99050cf522ba66e227ad0080a7b196c044a023c9eab6b77c320818baa2de82bf",
+    "wp07-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "wp07-red.log": "0701e96eedf3c0e1530eedccc409b36191eb4bb80a0d405ec3d9ddfd4f12f591",
+    "build-gui.log": "7a45a62e0626e8ea617ab408eb4f3afb9c038d61a42a9f3af48559bd6f12f2af",
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "credentials": "No private credential or real account records in this packet"
+}
