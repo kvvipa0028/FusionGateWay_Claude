@@ -134,7 +134,7 @@ func controlErrorValue(e error) (int, controlError) {
 		code, reason = 503, "execution_controller_unavailable"
 	case errors.Is(e, control.ErrUnsupported):
 		code, reason = 503, "runtime_unsupported"
-	case errors.Is(e, control.ErrLaunch), errors.Is(e, control.ErrReconcile), errors.Is(e, store.ErrPauseReconcile):
+	case errors.Is(e, control.ErrLaunch), errors.Is(e, control.ErrReconcile), errors.Is(e, store.ErrPauseReconcile), errors.Is(e, store.ErrCancelReconcile):
 		code, reason = 409, "execution_requires_reconciliation"
 	case errors.Is(e, store.ErrFenced):
 		code, reason = 409, "execution_fenced"

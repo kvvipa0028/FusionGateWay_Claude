@@ -1,0 +1,22 @@
+=== RUN   TestControllerCancelTaskIdleNeverInvokesRuntime
+=== RUN   TestControllerCancelTaskIdleNeverInvokesRuntime/ready
+=== RUN   TestControllerCancelTaskIdleNeverInvokesRuntime/paused
+--- PASS: TestControllerCancelTaskIdleNeverInvokesRuntime (0.09s)
+    --- PASS: TestControllerCancelTaskIdleNeverInvokesRuntime/ready (0.05s)
+    --- PASS: TestControllerCancelTaskIdleNeverInvokesRuntime/paused (0.04s)
+=== RUN   TestControllerCancelTaskOwnedRunStopsAndRetainsReviewWithoutReplay
+--- PASS: TestControllerCancelTaskOwnedRunStopsAndRetainsReviewWithoutReplay (0.06s)
+=== RUN   TestControllerCancelTaskUnverifiedOrFailedReleaseKeepsHeld
+=== RUN   TestControllerCancelTaskUnverifiedOrFailedReleaseKeepsHeld/no_stop
+=== RUN   TestControllerCancelTaskUnverifiedOrFailedReleaseKeepsHeld/release_error
+--- PASS: TestControllerCancelTaskUnverifiedOrFailedReleaseKeepsHeld (0.14s)
+    --- PASS: TestControllerCancelTaskUnverifiedOrFailedReleaseKeepsHeld/no_stop (0.08s)
+    --- PASS: TestControllerCancelTaskUnverifiedOrFailedReleaseKeepsHeld/release_error (0.06s)
+=== RUN   TestControllerCancelTaskForeignOwnershipAndStaleVersionCannotCancel
+--- PASS: TestControllerCancelTaskForeignOwnershipAndStaleVersionCannotCancel (0.05s)
+=== RUN   TestControllerCancelTaskCancelsHandleReturnedAfterIntent
+--- PASS: TestControllerCancelTaskCancelsHandleReturnedAfterIntent (0.06s)
+=== RUN   TestControllerCancelTaskRechecksManagementBeforeMutation
+--- PASS: TestControllerCancelTaskRechecksManagementBeforeMutation (0.04s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/control	2.079s

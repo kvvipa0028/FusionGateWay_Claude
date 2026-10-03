@@ -1,0 +1,31 @@
+=== RUN   TestControllerPinnedNativeRunsOnceAndReleasesActualStopProof
+    controller_native_test.go:95: Controller -> PrepareOnce/CheckPrepared -> pinned GLM Adapter/owned loopback -> one synthetic HTTP/Permit -> validated Native result -> actual Supervisor wait/stop proof -> released; real model calls=0; product route/admission/billing/quota unverified
+--- PASS: TestControllerPinnedNativeRunsOnceAndReleasesActualStopProof (0.78s)
+=== RUN   TestControllerPinnedNativePauseStopsInFlightAndRequiresReview
+    controller_native_test.go:168: Controller Pause -> persisted cancelling/pausing -> owned Native cancel -> actual wait/StopProof/release -> needs_review; one synthetic HTTP/Permit; continue and old start cannot replay; real model/quota calls=0
+--- PASS: TestControllerPinnedNativePauseStopsInFlightAndRequiresReview (0.73s)
+=== RUN   TestControllerPinnedNativeTaskCancelStopsInFlightAndCloses
+    controller_native_test.go:241: Controller CancelTask -> persisted run/task cancelling -> owned Native cancel -> actual wait/StopProof/release -> cancelled; one synthetic HTTP/Permit; continue and old start cannot replay; real model/quota calls=0
+--- PASS: TestControllerPinnedNativeTaskCancelStopsInFlightAndCloses (0.73s)
+=== RUN   TestControllerCancelTaskIdleNeverInvokesRuntime
+=== RUN   TestControllerCancelTaskIdleNeverInvokesRuntime/ready
+=== RUN   TestControllerCancelTaskIdleNeverInvokesRuntime/paused
+--- PASS: TestControllerCancelTaskIdleNeverInvokesRuntime (0.08s)
+    --- PASS: TestControllerCancelTaskIdleNeverInvokesRuntime/ready (0.04s)
+    --- PASS: TestControllerCancelTaskIdleNeverInvokesRuntime/paused (0.04s)
+=== RUN   TestControllerCancelTaskOwnedRunStopsAndClosesWithoutReplay
+--- PASS: TestControllerCancelTaskOwnedRunStopsAndClosesWithoutReplay (0.06s)
+=== RUN   TestControllerCancelTaskUnverifiedOrFailedReleaseKeepsHeld
+=== RUN   TestControllerCancelTaskUnverifiedOrFailedReleaseKeepsHeld/no_stop
+=== RUN   TestControllerCancelTaskUnverifiedOrFailedReleaseKeepsHeld/release_error
+--- PASS: TestControllerCancelTaskUnverifiedOrFailedReleaseKeepsHeld (0.11s)
+    --- PASS: TestControllerCancelTaskUnverifiedOrFailedReleaseKeepsHeld/no_stop (0.06s)
+    --- PASS: TestControllerCancelTaskUnverifiedOrFailedReleaseKeepsHeld/release_error (0.05s)
+=== RUN   TestControllerCancelTaskForeignOwnershipAndStaleVersionCannotCancel
+--- PASS: TestControllerCancelTaskForeignOwnershipAndStaleVersionCannotCancel (0.05s)
+=== RUN   TestControllerCancelTaskCancelsHandleReturnedAfterIntent
+--- PASS: TestControllerCancelTaskCancelsHandleReturnedAfterIntent (0.05s)
+=== RUN   TestControllerCancelTaskRechecksManagementBeforeMutation
+--- PASS: TestControllerCancelTaskRechecksManagementBeforeMutation (0.04s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/control	4.061s

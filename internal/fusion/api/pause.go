@@ -22,7 +22,7 @@ func (s *Server) taskControl(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	parts := strings.Split(strings.TrimPrefix(r.URL.Path, "/control/v1/tasks/"), "/")
-	if len(parts) != 2 || !opaque(parts[0]) || parts[1] != "pause" && parts[1] != "continue" {
+	if len(parts) != 2 || !opaque(parts[0]) || parts[1] != "pause" && parts[1] != "continue" && parts[1] != "cancel" {
 		controlFailure(w, errInvalid)
 		return
 	}
@@ -45,10 +45,13 @@ func (s *Server) taskControl(w http.ResponseWriter, r *http.Request) {
 	}
 	expected := store.TaskVersion{PlanRevision: condition.revision, Generation: condition.generation, State: condition.state}
 	var receipt store.TaskControlReceipt
-	if parts[1] == "pause" {
+	switch parts[1] {
+	case "pause":
 		receipt, e = c.PauseAuthorized(r.Context(), parts[0], expected, s.auth.ManagementCurrent)
-	} else {
+	case "continue":
 		receipt, e = c.ContinueAuthorized(r.Context(), parts[0], expected, s.auth.ManagementCurrent)
+	case "cancel":
+		receipt, e = c.CancelTaskAuthorized(r.Context(), parts[0], expected, s.auth.ManagementCurrent)
 	}
 	if errors.Is(e, store.ErrConflict) {
 		e = errTaskPrecondition
@@ -86,7 +89,7 @@ func (s *Server) taskControl(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	code := 200
-	if receipt.Task.State == "pausing" {
+	if receipt.Task.State == "pausing" || receipt.Task.State == "cancelling" {
 		code = 202
 	}
 	respond(w, code, out)

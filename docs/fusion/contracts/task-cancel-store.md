@@ -1,6 +1,6 @@
 # 整项任务取消的存储合同
 
-本项提供内部 `Store.CancelTask(id, TaskVersion, owner)`，补足尚未启动、已暂停及有执行记录的整项任务取消。公开的阶段 `/runs/{run_id}/cancel` 不等于整项任务取消。Controller、HTTP `/tasks/{task_id}/cancel` 和产品 UI 将在后续接线；当前存储方法不注册接口、不调用 Native。
+本项提供内部 `Store.CancelTask(id, TaskVersion, owner)`，补足尚未启动、已暂停及有执行记录的整项任务取消。公开的阶段 `/runs/{run_id}/cancel` 不等于整项任务取消。Controller 与 HTTP 整项取消已由 [CANCEL-API-01](../work-items/WP-15/CANCEL-API-01/summary.md)接入并作固定 Native 合成停止验证，见 [task-control-api.md](task-control-api.md)；产品 UI 尚未接线。存储方法本身不注册接口、不调用 Native。
 
 完整 TaskVersion 的 plan revision、generation、state 在同一写事务内核对。失配 ErrConflict，非法/溢出 ErrInvalid，未知执行或缺少停止证据 ErrCancelReconcile；活动 run 继续使用原 owner/generation/lease fencing，过期仍持久化 unknown/needs_review。owner 由可信 Controller 提供，不允许公开请求指定。
 
@@ -35,6 +35,6 @@ schema 仍为 5，001–005 migration、现有提交/启动 payload 与幂等 ha
 
 10 个新增 Store race 测试覆盖空闲/paused、运行/starting、协议终态 held、暂停转取消、旧版本/owner/lease、消耗预算和快照、启动竞态、取消意图及可信释放收尾故障回滚、重复 proof、重启、legacy 无证明、当前 proof 不能代替历史执行、非法条件与 generation 溢出。
 
-全量 Fusion race **341 PASS / 9 SKIP / 0 FAIL**；CLI/GUI build 与全仓 tagged vet exit 0。固定 Claude Code 2.1.287 两个既有 Controller Native 成功/暂停场景通过，真实进程 Wait/StopProof/release，使用合成上游；它们未调用新 CancelTask，不能当成整项任务取消的 Native 验收。本项实际模型调用和真实额度查询为 0，Jev off。
+CANCEL-STORE-01 历史全量 Fusion race **341 PASS / 9 SKIP / 0 FAIL**；CLI/GUI build 与全仓 tagged vet exit 0。固定 Claude Code 2.1.287 两个既有 Controller Native 成功/暂停场景通过，真实进程 Wait/StopProof/release，使用合成上游；它们未调用新 CancelTask，不能当成整项任务取消的 Native 验收。本项实际模型调用和真实额度查询为 0，Jev off。
 
-证据见 [CANCEL-STORE-01](../work-items/WP-15/CANCEL-STORE-01/summary.md)。重跑测试请按 [task-control-api.md 的隔离验证步骤](task-control-api.md)准备私有 HOME/XDG 和固定 Native；Store targeted 将包参数改为 `./internal/fusion/store`，测试选择器改为 `^TestTaskCancel`，仍须使用 `fusion,nogui` tags 与 Go 1.26.3。产品注册、整项 Controller/HTTP 取消接线及最终验收继续实施。
+证据见 [CANCEL-STORE-01](../work-items/WP-15/CANCEL-STORE-01/summary.md)。重跑测试请按 [task-control-api.md 的隔离验证步骤](task-control-api.md)准备私有 HOME/XDG 和固定 Native；Store targeted 将包参数改为 `./internal/fusion/store`，测试选择器改为 `^TestTaskCancel`，仍须使用 `fusion,nogui` tags 与 Go 1.26.3。整项 Controller/HTTP 接线与实际 Native 合成取消已在后续 CANCEL-API-01 完成；产品注册及最终验收继续实施。

@@ -1,0 +1,23 @@
+=== RUN   TestTaskCancelAPIIdleAndPausedOverHTTP
+=== RUN   TestTaskCancelAPIIdleAndPausedOverHTTP/ready
+    task_cancel_test.go:41: actual HTTP cancellation 400
+=== RUN   TestTaskCancelAPIIdleAndPausedOverHTTP/paused
+    task_cancel_test.go:41: actual HTTP cancellation 400
+--- FAIL: TestTaskCancelAPIIdleAndPausedOverHTTP (0.09s)
+    --- FAIL: TestTaskCancelAPIIdleAndPausedOverHTTP/ready (0.05s)
+    --- FAIL: TestTaskCancelAPIIdleAndPausedOverHTTP/paused (0.04s)
+=== RUN   TestTaskCancelAPIRunningStopsWithoutReplay
+    task_cancel_test.go:67: task control receipt missing 400
+--- FAIL: TestTaskCancelAPIRunningStopsWithoutReplay (0.06s)
+=== RUN   TestTaskCancelAPIRejectsUnsafeBodyHeadersScopeAndMethod
+    task_cancel_test.go:101: unsafe control condition  400
+--- FAIL: TestTaskCancelAPIRejectsUnsafeBodyHeadersScopeAndMethod (0.04s)
+=== RUN   TestTaskCancelAPIUnavailableRevokedAndUnknownStayClosed
+    task_cancel_test.go:150: missing controller 400
+--- FAIL: TestTaskCancelAPIUnavailableRevokedAndUnknownStayClosed (0.03s)
+=== RUN   TestTaskCancelAPIUncertainStopKeepsSafeReceiptAndReservation
+    task_cancel_test.go:188: 400
+--- FAIL: TestTaskCancelAPIUncertainStopKeepsSafeReceiptAndReservation (0.05s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/api	0.729s
+FAIL

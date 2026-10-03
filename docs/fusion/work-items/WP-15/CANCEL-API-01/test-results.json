@@ -1,0 +1,86 @@
+{
+  "work_item": "WP-15-CANCEL-API-01",
+  "status": "done",
+  "parent_status": "in_progress",
+  "new_tests": 12,
+  "new_controller_tests": 6,
+  "new_api_tests": 5,
+  "new_native_tests": 1,
+  "checks": [
+    {
+      "check": "final Controller task cancel and explicit pinned Native three scenarios",
+      "exit_code": 0,
+      "log": "wp15-cancel-controller-native-final.log",
+      "pass": 9,
+      "skip": 0,
+      "fail": 0
+    },
+    {
+      "check": "API task cancel and actual Handler capture",
+      "exit_code": 0,
+      "log": "wp15-cancel-api-target-green.log",
+      "pass": 6,
+      "skip": 0,
+      "fail": 0
+    },
+    {
+      "check": "full Fusion race",
+      "exit_code": 0,
+      "log": "wp15-cancel-api-final-race.log",
+      "pass": 352,
+      "skip": 10,
+      "fail": 0
+    },
+    {
+      "check": "CLI/GUI/full tagged vet",
+      "exit_code": 0,
+      "result": "build-results.json"
+    },
+    {
+      "check": "official OpenAPI document/components/refs/DTO/headers",
+      "exit_code": 0,
+      "log": "wp15-cancel-openapi-green.log",
+      "result": {
+        "official_openapi_document_schema": "3.1/2022-10-07",
+        "paths": 24,
+        "operations": 28,
+        "handler_samples": 49,
+        "covered_operations": 28,
+        "negative_schema_cases": 6,
+        "offline": true,
+        "production_registered": false
+      }
+    },
+    {
+      "check": "published isolated runbook zsh -n",
+      "exit_code": 0
+    }
+  ],
+  "failed_runs_preserved": {
+    "wp15-cancel-controller-red.log": "Controller CancelTask/Authorized methods missing",
+    "wp15-cancel-api-red.log": "unimplemented task cancel returned400",
+    "wp15-cancel-api-capture-red.log": "new taskCancelPath originally collided with existing stage cancelPath; renamed the new local capture variable",
+    "wp15-cancel-openapi-red.log": "new implemented task cancel path omitted from contract before update"
+  },
+  "schema_version": 5,
+  "schema_changed": false,
+  "migration_001_005_unchanged": true,
+  "store_source_unchanged_from_base": true,
+  "native_version": "Claude Code 2.1.287",
+  "native_runtime_sha256": "6eab8333fe2121553100d8f40bfada384a3e989b94f947e18ba6677a6fcb41ea",
+  "new_task_cancellation_native_exercised": true,
+  "actual_native_wait_stop_proof_release_verified": true,
+  "native_synthetic_http_per_case": 1,
+  "native_synthetic_permit_per_case": 1,
+  "native_session_resume_implemented": false,
+  "http_control_internal_handler_only": true,
+  "production_registered": false,
+  "real_model_calls": 0,
+  "real_quota_queries": 0,
+  "jev": "off",
+  "skip_explanation": [
+    "seven explicit Native opt-ins; three Controller Native independently executed",
+    "one real-key live quota opt-in not enabled",
+    "two isolated helper child tests"
+  ]
+}

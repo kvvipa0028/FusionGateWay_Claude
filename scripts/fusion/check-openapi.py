@@ -16,6 +16,7 @@ from referencing import Registry, Resource
 from referencing.jsonschema import DRAFT202012
 
 EXPECTED = {
+    "/control/v1/tasks/{task_id}/cancel": {"post"},
     "/control/v1/tasks/{task_id}/pause": {"post"},
     "/control/v1/tasks/{task_id}/continue": {"post"},
     "/control/v1/defaults/global": {"get", "put"},

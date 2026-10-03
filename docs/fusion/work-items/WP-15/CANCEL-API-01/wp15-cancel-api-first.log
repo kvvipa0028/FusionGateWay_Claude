@@ -1,0 +1,16 @@
+=== RUN   TestTaskCancelAPIIdleAndPausedOverHTTP
+=== RUN   TestTaskCancelAPIIdleAndPausedOverHTTP/ready
+=== RUN   TestTaskCancelAPIIdleAndPausedOverHTTP/paused
+--- PASS: TestTaskCancelAPIIdleAndPausedOverHTTP (0.10s)
+    --- PASS: TestTaskCancelAPIIdleAndPausedOverHTTP/ready (0.05s)
+    --- PASS: TestTaskCancelAPIIdleAndPausedOverHTTP/paused (0.05s)
+=== RUN   TestTaskCancelAPIRunningStopsWithoutReplay
+--- PASS: TestTaskCancelAPIRunningStopsWithoutReplay (0.06s)
+=== RUN   TestTaskCancelAPIRejectsUnsafeBodyHeadersScopeAndMethod
+--- PASS: TestTaskCancelAPIRejectsUnsafeBodyHeadersScopeAndMethod (0.04s)
+=== RUN   TestTaskCancelAPIUnavailableRevokedAndUnknownStayClosed
+--- PASS: TestTaskCancelAPIUnavailableRevokedAndUnknownStayClosed (0.12s)
+=== RUN   TestTaskCancelAPIUncertainStopKeepsSafeReceiptAndReservation
+--- PASS: TestTaskCancelAPIUncertainStopKeepsSafeReceiptAndReservation (0.06s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/api	2.002s

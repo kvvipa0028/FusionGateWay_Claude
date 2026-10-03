@@ -19,3 +19,5 @@ Backend.Start 没有返回 Handle 时，控制器标记 interrupted/needs_review
 11 个控制器离线测试通过，另以冻结 Claude Code 2.1.287 验证 Controller→PrepareOnce/CheckPrepared→GLM Adapter→owned loopback/CallGate→合成上游→Native validator/实际 wait→Supervisor StopProof→release。仅一个合成 HTTP/持久 Permit，重复请求没有再次执行；HTTP 请求取消未取消 Native。真实账户、计费、模型/effort 和池的准入仍未核验，假 Inspection 不提升为真实权限。上述为初始控制器证据；后续暂停和派单继续已接入，见 [task-control-api.md](task-control-api.md)。Native session 恢复、有限返工及实际产品管理端仍需继续实施。
 
 WP-15-PAUSE-API-01 新增 Pause/Continue 与同 issuer 管理重查，Store 全 TaskVersion CAS 后仅取消 owned job，已提交意图不随 HTTP 消失。Start 返回晚到 Handle 后仍交付已取消 lifetime 的 Cancel，RED→GREEN 验证。新增固定 Native inflight Pause 实际 wait/proof/release 通过，停止后需核对，不隐式恢复。
+
+WP-15-CANCEL-API-01 新增 CancelTask/CancelTaskAuthorized：全 TaskVersion Store 意图事务后才取消精确 owned lifetime/Handle，不能接管 unknown 或改变 frozen Target。空闲取消不解析/启动 Runtime；不确定证明/释放仍保留 receipt/held。6 项 Controller 测试及新增固定 Native inflight TaskCancel→实际 wait/StopProof/release→cancelled 通过；现有 Pause 与 Stage Cancel 语义保持，合成准入不提升为真实账号准入。

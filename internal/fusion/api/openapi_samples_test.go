@@ -120,6 +120,26 @@ func TestImplementedAPIContractSamples(t *testing.T) {
 	for _, action := range []string{"pause", "continue"} {
 		add("POST", heldPath+"/"+action, `{}`, 409, executionRequest(held.h, "POST", heldPath+"/"+action, `{}`, "", tag, "fixture-management"), map[string]string{"If-Match": tag})
 	}
+
+	cancelIdle := setupExecution(t, "")
+	taskCancelPath := "/control/v1/tasks/" + cancelIdle.task.ID + "/cancel"
+	for n := 0; n < 2; n++ {
+		tag := cancelIdle.tag(t)
+		add("POST", taskCancelPath, `{}`, 200, executionRequest(cancelIdle.h, "POST", taskCancelPath, `{}`, "", tag, "fixture-management"), map[string]string{"If-Match": tag})
+	}
+	cancelHeld := setupExecution(t, "no_stop")
+	tag = cancelHeld.tag(t)
+	w = executionRequest(cancelHeld.h, "POST", cancelHeld.startPath(), `{"role":"design"}`, "fixture-contract-task-cancel-held", tag, "fixture-management")
+	add("POST", cancelHeld.startPath(), `{"role":"design"}`, 202, w, map[string]string{"If-Match": tag, "Idempotency-Key": "fixture-contract-task-cancel-held"})
+	var cancelRun ExecutionReply
+	json.Unmarshal(w.Body.Bytes(), &cancelRun)
+	taskCancelPath = "/control/v1/tasks/" + cancelHeld.task.ID + "/cancel"
+	tag = cancelHeld.tag(t)
+	add("POST", taskCancelPath, `{}`, 202, executionRequest(cancelHeld.h, "POST", taskCancelPath, `{}`, "", tag, "fixture-management"), map[string]string{"If-Match": tag})
+	waitAPIExecution(t, cancelHeld, cancelRun.Run.ID)
+	tag = cancelHeld.tag(t)
+	add("POST", taskCancelPath, `{}`, 409, executionRequest(cancelHeld.h, "POST", taskCancelPath, `{}`, "", tag, "fixture-management"), map[string]string{"If-Match": tag})
+
 	f := setupExecution(t, "normal")
 	startPath := "/control/v1/tasks/" + f.task.ID + "/start"
 	w = executionRequest(f.h, "POST", startPath, `{"role":"design"}`, "fixture-contract-start", taskETag(f.task), "fixture-management")

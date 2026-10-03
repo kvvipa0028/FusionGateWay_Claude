@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/control [github.com/yetone/magpie/internal/fusion/control.test]
+internal/fusion/control/task_cancel_test.go:31:14: c.CancelTask undefined (type *Controller has no field or method CancelTask)
+internal/fusion/control/task_cancel_test.go:35:19: c.CancelTask undefined (type *Controller has no field or method CancelTask)
+internal/fusion/control/task_cancel_test.go:58:17: c.CancelTask undefined (type *Controller has no field or method CancelTask)
+internal/fusion/control/task_cancel_test.go:96:16: c.CancelTask undefined (type *Controller has no field or method CancelTask)
+internal/fusion/control/task_cancel_test.go:107:20: c.CancelTask undefined (type *Controller has no field or method CancelTask)
+internal/fusion/control/task_cancel_test.go:136:18: other.CancelTask undefined (type *Controller has no field or method CancelTask)
+internal/fusion/control/task_cancel_test.go:141:14: c.CancelTask undefined (type *Controller has no field or method CancelTask)
+internal/fusion/control/task_cancel_test.go:192:14: c.CancelTask undefined (type *Controller has no field or method CancelTask)
+internal/fusion/control/task_cancel_test.go:218:14: c.CancelTaskAuthorized undefined (type *Controller has no field or method CancelTaskAuthorized)
+internal/fusion/control/task_cancel_test.go:223:14: c.CancelTaskAuthorized undefined (type *Controller has no field or method CancelTaskAuthorized)
+internal/fusion/control/task_cancel_test.go:223:14: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/control [build failed]
+FAIL

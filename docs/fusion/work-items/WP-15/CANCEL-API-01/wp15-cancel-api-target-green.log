@@ -1,0 +1,19 @@
+=== RUN   TestImplementedAPIContractSamples
+    openapi_samples_test.go:205: captured 49 actual Handler response samples, including real loopback SSE; real models/quota 0
+--- PASS: TestImplementedAPIContractSamples (0.44s)
+=== RUN   TestTaskCancelAPIIdleAndPausedOverHTTP
+=== RUN   TestTaskCancelAPIIdleAndPausedOverHTTP/ready
+=== RUN   TestTaskCancelAPIIdleAndPausedOverHTTP/paused
+--- PASS: TestTaskCancelAPIIdleAndPausedOverHTTP (0.09s)
+    --- PASS: TestTaskCancelAPIIdleAndPausedOverHTTP/ready (0.04s)
+    --- PASS: TestTaskCancelAPIIdleAndPausedOverHTTP/paused (0.05s)
+=== RUN   TestTaskCancelAPIRunningStopsWithoutReplay
+--- PASS: TestTaskCancelAPIRunningStopsWithoutReplay (0.06s)
+=== RUN   TestTaskCancelAPIRejectsUnsafeBodyHeadersScopeAndMethod
+--- PASS: TestTaskCancelAPIRejectsUnsafeBodyHeadersScopeAndMethod (0.04s)
+=== RUN   TestTaskCancelAPIUnavailableRevokedAndUnknownStayClosed
+--- PASS: TestTaskCancelAPIUnavailableRevokedAndUnknownStayClosed (0.13s)
+=== RUN   TestTaskCancelAPIUncertainStopKeepsSafeReceiptAndReservation
+--- PASS: TestTaskCancelAPIUncertainStopKeepsSafeReceiptAndReservation (0.06s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/api	2.439s

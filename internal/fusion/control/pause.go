@@ -7,27 +7,37 @@ import (
 )
 
 func (c *Controller) Pause(ctx context.Context, id string, expected store.TaskVersion) (store.TaskControlReceipt, error) {
-	return c.taskControl(ctx, id, expected, true, nil)
+	return c.taskControl(ctx, id, expected, "pause", nil)
 }
 func (c *Controller) Continue(ctx context.Context, id string, expected store.TaskVersion) (store.TaskControlReceipt, error) {
-	return c.taskControl(ctx, id, expected, false, nil)
+	return c.taskControl(ctx, id, expected, "continue", nil)
 }
 func (c *Controller) PauseAuthorized(ctx context.Context, id string, expected store.TaskVersion, current func(context.Context) bool) (store.TaskControlReceipt, error) {
 	if current == nil {
 		return store.TaskControlReceipt{}, ErrForbidden
 	}
-	return c.taskControl(ctx, id, expected, true, current)
+	return c.taskControl(ctx, id, expected, "pause", current)
 }
 func (c *Controller) ContinueAuthorized(ctx context.Context, id string, expected store.TaskVersion, current func(context.Context) bool) (store.TaskControlReceipt, error) {
 	if current == nil {
 		return store.TaskControlReceipt{}, ErrForbidden
 	}
-	return c.taskControl(ctx, id, expected, false, current)
+	return c.taskControl(ctx, id, expected, "continue", current)
+}
+
+func (c *Controller) CancelTask(ctx context.Context, id string, expected store.TaskVersion) (store.TaskControlReceipt, error) {
+	return c.taskControl(ctx, id, expected, "cancel", nil)
+}
+func (c *Controller) CancelTaskAuthorized(ctx context.Context, id string, expected store.TaskVersion, current func(context.Context) bool) (store.TaskControlReceipt, error) {
+	if current == nil {
+		return store.TaskControlReceipt{}, ErrForbidden
+	}
+	return c.taskControl(ctx, id, expected, "cancel", current)
 }
 
 // The durable intent precedes cancellation. Request cancellation cannot undo
 // it, cancel another owner's job or replace actual Wait/StopProof processing.
-func (c *Controller) taskControl(ctx context.Context, id string, expected store.TaskVersion, pause bool, current func(context.Context) bool) (store.TaskControlReceipt, error) {
+func (c *Controller) taskControl(ctx context.Context, id string, expected store.TaskVersion, action string, current func(context.Context) bool) (store.TaskControlReceipt, error) {
 	if c == nil || ctx == nil {
 		return store.TaskControlReceipt{}, ErrUnsupported
 	}
@@ -46,10 +56,18 @@ func (c *Controller) taskControl(ctx context.Context, id string, expected store.
 	if ctx.Err() != nil || current != nil && !current(ctx) {
 		return store.TaskControlReceipt{}, ErrForbidden
 	}
-	if !pause {
+	var out store.TaskControlReceipt
+	var e error
+	switch action {
+	case "continue":
 		return c.config.Scheduler.Store.ContinueTask(id, expected)
+	case "pause":
+		out, e = c.config.Scheduler.Store.PauseTask(id, expected, c.owner)
+	case "cancel":
+		out, e = c.config.Scheduler.Store.CancelTask(id, expected, c.owner)
+	default:
+		return out, ErrUnsupported
 	}
-	out, e := c.config.Scheduler.Store.PauseTask(id, expected, c.owner)
 	if e != nil || out.Run == nil {
 		return out, e
 	}

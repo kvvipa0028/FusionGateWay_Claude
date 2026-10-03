@@ -1,0 +1,2062 @@
+[
+  {
+    "method": "POST",
+    "path": "/control/v1/tasks/preview",
+    "status": 200,
+    "media_type": "application/json",
+    "body": {
+      "budget": {
+        "max_calls": 50,
+        "max_reworks": 1
+      },
+      "configuration_revision": 2,
+      "expires_at": "2026-10-03T21:39:14.855724+08:00",
+      "plan": {
+        "bindings": {
+          "design": {
+            "mode": "locked",
+            "source": "global",
+            "target": {
+              "account": "fixture-account",
+              "billing_path": "fixture-subscription",
+              "capabilities": null,
+              "credential_identity": "fixture-credential",
+              "effort": {
+                "requested_mode": "default",
+                "value": "medium"
+              },
+              "lock_enforcement": "controlled_calls",
+              "plugin_version": null,
+              "requested_model": "fixture-model-a",
+              "resolved_model": "fixture-model-a",
+              "route": {
+                "id": "fixture-route",
+                "revision": 1
+              },
+              "runtime_version": "fixture-runtime",
+              "upstream_reported_model": null,
+              "workspace": "fixture-workspace"
+            }
+          }
+        },
+        "hash": "6af3e9210b13a2b6498459870c5afe86273261d94a870832bc37de74eea1d182",
+        "required_roles": [
+          "design"
+        ],
+        "revision": 1,
+        "schema_version": 1
+      },
+      "preview_id": "preview-80480efda69859037d20685db72ab1e10e24a4ccc0330aa47cf31ea2f05b0038"
+    },
+    "request": {
+      "goal": "fixture-goal",
+      "project_id": "fixture-project",
+      "required_roles": [
+        "design"
+      ]
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/agent/v1/tasks",
+    "status": 201,
+    "media_type": "application/json",
+    "body": {
+      "generation": 0,
+      "goal": "fixture-goal",
+      "id": "task-8fd4b3bbf79b67f9467251a5a9f03f1c",
+      "plan_revision": 1,
+      "project_id": "fixture-project",
+      "state": "ready"
+    },
+    "request": {
+      "plan_hash": "6af3e9210b13a2b6498459870c5afe86273261d94a870832bc37de74eea1d182",
+      "preview_id": "preview-80480efda69859037d20685db72ab1e10e24a4ccc0330aa47cf31ea2f05b0038"
+    },
+    "request_headers": {
+      "Idempotency-Key": "fixture-contract-submit"
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/agent/v1/tasks/task-8fd4b3bbf79b67f9467251a5a9f03f1c",
+    "status": 200,
+    "media_type": "application/json",
+    "body": {
+      "generation": 0,
+      "goal": "fixture-goal",
+      "id": "task-8fd4b3bbf79b67f9467251a5a9f03f1c",
+      "plan_revision": 1,
+      "project_id": "fixture-project",
+      "state": "ready"
+    },
+    "headers": {
+      "ETag": "\"p1-g0-ready\""
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/control/v1/tasks/task-8fd4b3bbf79b67f9467251a5a9f03f1c/budget",
+    "status": 200,
+    "media_type": "application/json",
+    "body": {
+      "max_calls": 50,
+      "max_reworks": 1,
+      "used_calls": 0,
+      "used_reworks": 0
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/control/v1/tasks/task-8fd4b3bbf79b67f9467251a5a9f03f1c/plan",
+    "status": 200,
+    "media_type": "application/json",
+    "body": {
+      "bindings": {
+        "design": {
+          "mode": "locked",
+          "source": "global",
+          "target": {
+            "account": "fixture-account",
+            "billing_path": "fixture-subscription",
+            "capabilities": null,
+            "credential_identity": "fixture-credential",
+            "effort": {
+              "requested_mode": "default",
+              "value": "medium"
+            },
+            "lock_enforcement": "controlled_calls",
+            "plugin_version": null,
+            "requested_model": "fixture-model-a",
+            "resolved_model": "fixture-model-a",
+            "route": {
+              "id": "fixture-route",
+              "revision": 1
+            },
+            "runtime_version": "fixture-runtime",
+            "upstream_reported_model": null,
+            "workspace": "fixture-workspace"
+          }
+        }
+      },
+      "hash": "6af3e9210b13a2b6498459870c5afe86273261d94a870832bc37de74eea1d182",
+      "required_roles": [
+        "design"
+      ],
+      "revision": 1,
+      "schema_version": 1
+    },
+    "headers": {
+      "ETag": "\"1\""
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/control/v1/tasks/task-8fd4b3bbf79b67f9467251a5a9f03f1c/preset",
+    "status": 200,
+    "media_type": "application/json",
+    "body": {
+      "preset": null
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/control/v1/projects/fixture-project/configuration",
+    "status": 200,
+    "media_type": "application/json",
+    "body": {
+      "configuration": {
+        "default_budget": {
+          "max_calls": 50,
+          "max_reworks": 1
+        },
+        "global": {
+          "roles": {
+            "design": {
+              "effort": {
+                "mode": "default"
+              },
+              "mode": "locked",
+              "model": "fixture-model-a",
+              "route": {
+                "id": "fixture-route",
+                "revision": 1
+              }
+            }
+          }
+        },
+        "project": {},
+        "routes": [
+          {
+            "account": "fixture-account",
+            "admitted": true,
+            "billing_known": true,
+            "billing_path": "fixture-subscription",
+            "capabilities": null,
+            "credential_identity": "fixture-credential",
+            "default_effort": "medium",
+            "efforts": [
+              "medium"
+            ],
+            "id": "fixture-route",
+            "lock_enforcement": "controlled_calls",
+            "model": "fixture-model-a",
+            "no_effort": false,
+            "plugin_version": null,
+            "revision": 1,
+            "runtime_version": "fixture-runtime",
+            "workspace": "fixture-workspace"
+          },
+          {
+            "account": "fixture-account",
+            "admitted": true,
+            "billing_known": true,
+            "billing_path": "fixture-subscription",
+            "capabilities": null,
+            "credential_identity": "fixture-credential",
+            "default_effort": null,
+            "efforts": null,
+            "id": "fixture-route-b",
+            "lock_enforcement": "controlled_calls",
+            "model": "fixture-model-b",
+            "no_effort": true,
+            "plugin_version": null,
+            "revision": 1,
+            "runtime_version": "fixture-runtime",
+            "workspace": "fixture-workspace"
+          }
+        ]
+      },
+      "revision": 2
+    },
+    "headers": {
+      "ETag": "\"2\""
+    }
+  },
+  {
+    "method": "PUT",
+    "path": "/control/v1/projects/fixture-project/presets/fixture-preset",
+    "status": 201,
+    "media_type": "application/json",
+    "body": {
+      "created": true,
+      "preset": {
+        "created_at": "2026-10-03T13:34:14.862Z",
+        "hash": "a3a39a20b85ab9cfbe79e48f2b74a7dbac83035698362fe537f9afc4746fd3dd",
+        "id": "fixture-preset",
+        "layer": {
+          "roles": {
+            "acceptance": {
+              "mode": "inherit"
+            },
+            "design": {
+              "effort": {
+                "mode": "default"
+              },
+              "mode": "locked",
+              "model": "fixture-model-a",
+              "route": {
+                "id": "fixture-route",
+                "revision": 1
+              }
+            },
+            "implementation": {
+              "mode": "inherit"
+            },
+            "review": {
+              "mode": "inherit"
+            },
+            "testing": {
+              "mode": "inherit"
+            }
+          }
+        },
+        "name": "工程预设",
+        "project_id": "fixture-project",
+        "revision": 1
+      }
+    },
+    "request": {
+      "layer": {
+        "groups": {
+          "design_planning": {
+            "effort": {
+              "mode": "default"
+            },
+            "mode": "locked",
+            "model": "fixture-model-a",
+            "route": {
+              "id": "fixture-route",
+              "revision": 1
+            }
+          }
+        }
+      },
+      "name": "工程预设"
+    },
+    "headers": {
+      "ETag": "\"1\"",
+      "Location": "/control/v1/projects/fixture-project/presets/fixture-preset/versions/1"
+    },
+    "request_headers": {
+      "If-Match": "\"0\""
+    }
+  },
+  {
+    "method": "PUT",
+    "path": "/control/v1/projects/fixture-project/presets/fixture-preset",
+    "status": 200,
+    "media_type": "application/json",
+    "body": {
+      "created": false,
+      "preset": {
+        "created_at": "2026-10-03T13:34:14.862Z",
+        "hash": "a3a39a20b85ab9cfbe79e48f2b74a7dbac83035698362fe537f9afc4746fd3dd",
+        "id": "fixture-preset",
+        "layer": {
+          "roles": {
+            "acceptance": {
+              "mode": "inherit"
+            },
+            "design": {
+              "effort": {
+                "mode": "default"
+              },
+              "mode": "locked",
+              "model": "fixture-model-a",
+              "route": {
+                "id": "fixture-route",
+                "revision": 1
+              }
+            },
+            "implementation": {
+              "mode": "inherit"
+            },
+            "review": {
+              "mode": "inherit"
+            },
+            "testing": {
+              "mode": "inherit"
+            }
+          }
+        },
+        "name": "工程预设",
+        "project_id": "fixture-project",
+        "revision": 1
+      }
+    },
+    "request": {
+      "layer": {
+        "groups": {
+          "design_planning": {
+            "effort": {
+              "mode": "default"
+            },
+            "mode": "locked",
+            "model": "fixture-model-a",
+            "route": {
+              "id": "fixture-route",
+              "revision": 1
+            }
+          }
+        }
+      },
+      "name": "工程预设"
+    },
+    "headers": {
+      "ETag": "\"1\"",
+      "Location": "/control/v1/projects/fixture-project/presets/fixture-preset/versions/1"
+    },
+    "request_headers": {
+      "If-Match": "\"0\""
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/control/v1/projects/fixture-project/presets",
+    "status": 200,
+    "media_type": "application/json",
+    "body": {
+      "presets": [
+        {
+          "created_at": "2026-10-03T13:34:14.862Z",
+          "hash": "a3a39a20b85ab9cfbe79e48f2b74a7dbac83035698362fe537f9afc4746fd3dd",
+          "id": "fixture-preset",
+          "layer": {
+            "roles": {
+              "acceptance": {
+                "mode": "inherit"
+              },
+              "design": {
+                "effort": {
+                  "mode": "default"
+                },
+                "mode": "locked",
+                "model": "fixture-model-a",
+                "route": {
+                  "id": "fixture-route",
+                  "revision": 1
+                }
+              },
+              "implementation": {
+                "mode": "inherit"
+              },
+              "review": {
+                "mode": "inherit"
+              },
+              "testing": {
+                "mode": "inherit"
+              }
+            }
+          },
+          "name": "工程预设",
+          "project_id": "fixture-project",
+          "revision": 1
+        }
+      ]
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/control/v1/projects/fixture-project/presets/fixture-preset",
+    "status": 200,
+    "media_type": "application/json",
+    "body": {
+      "created_at": "2026-10-03T13:34:14.862Z",
+      "hash": "a3a39a20b85ab9cfbe79e48f2b74a7dbac83035698362fe537f9afc4746fd3dd",
+      "id": "fixture-preset",
+      "layer": {
+        "roles": {
+          "acceptance": {
+            "mode": "inherit"
+          },
+          "design": {
+            "effort": {
+              "mode": "default"
+            },
+            "mode": "locked",
+            "model": "fixture-model-a",
+            "route": {
+              "id": "fixture-route",
+              "revision": 1
+            }
+          },
+          "implementation": {
+            "mode": "inherit"
+          },
+          "review": {
+            "mode": "inherit"
+          },
+          "testing": {
+            "mode": "inherit"
+          }
+        }
+      },
+      "name": "工程预设",
+      "project_id": "fixture-project",
+      "revision": 1
+    },
+    "headers": {
+      "ETag": "\"1\""
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/control/v1/projects/fixture-project/presets/fixture-preset/versions/1",
+    "status": 200,
+    "media_type": "application/json",
+    "body": {
+      "created_at": "2026-10-03T13:34:14.862Z",
+      "hash": "a3a39a20b85ab9cfbe79e48f2b74a7dbac83035698362fe537f9afc4746fd3dd",
+      "id": "fixture-preset",
+      "layer": {
+        "roles": {
+          "acceptance": {
+            "mode": "inherit"
+          },
+          "design": {
+            "effort": {
+              "mode": "default"
+            },
+            "mode": "locked",
+            "model": "fixture-model-a",
+            "route": {
+              "id": "fixture-route",
+              "revision": 1
+            }
+          },
+          "implementation": {
+            "mode": "inherit"
+          },
+          "review": {
+            "mode": "inherit"
+          },
+          "testing": {
+            "mode": "inherit"
+          }
+        }
+      },
+      "name": "工程预设",
+      "project_id": "fixture-project",
+      "revision": 1
+    },
+    "headers": {
+      "ETag": "\"1\""
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/control/v1/tasks/preview",
+    "status": 200,
+    "media_type": "application/json",
+    "body": {
+      "budget": {
+        "max_calls": 50,
+        "max_reworks": 1
+      },
+      "configuration_revision": 2,
+      "expires_at": "2026-10-03T21:39:14.869889+08:00",
+      "plan": {
+        "bindings": {
+          "design": {
+            "mode": "locked",
+            "source": "task",
+            "target": {
+              "account": "fixture-account",
+              "billing_path": "fixture-subscription",
+              "capabilities": null,
+              "credential_identity": "fixture-credential",
+              "effort": {
+                "requested_mode": "default",
+                "value": "medium"
+              },
+              "lock_enforcement": "controlled_calls",
+              "plugin_version": null,
+              "requested_model": "fixture-model-a",
+              "resolved_model": "fixture-model-a",
+              "route": {
+                "id": "fixture-route",
+                "revision": 1
+              },
+              "runtime_version": "fixture-runtime",
+              "upstream_reported_model": null,
+              "workspace": "fixture-workspace"
+            }
+          }
+        },
+        "hash": "a0e25c7b4577f261e09b1d8e9ff1dffbbeaefc777b062c5e50c5787ed1c7acdf",
+        "required_roles": [
+          "design"
+        ],
+        "revision": 1,
+        "schema_version": 1
+      },
+      "preset": {
+        "hash": "a3a39a20b85ab9cfbe79e48f2b74a7dbac83035698362fe537f9afc4746fd3dd",
+        "id": "fixture-preset",
+        "revision": 1
+      },
+      "preview_id": "preview-96281670a4b4d54de846b41014246d9f74e42a607827931f29be538301d6f9e5"
+    },
+    "request": {
+      "goal": "fixture-goal",
+      "preset": {
+        "id": "fixture-preset",
+        "revision": 1
+      },
+      "project_id": "fixture-project",
+      "required_roles": [
+        "design"
+      ]
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/agent/v1/tasks",
+    "status": 201,
+    "media_type": "application/json",
+    "body": {
+      "generation": 0,
+      "goal": "fixture-goal",
+      "id": "task-ddac7623e2f01bed20a324e9756e818b",
+      "plan_revision": 1,
+      "project_id": "fixture-project",
+      "state": "ready"
+    },
+    "request": {
+      "plan_hash": "a0e25c7b4577f261e09b1d8e9ff1dffbbeaefc777b062c5e50c5787ed1c7acdf",
+      "preview_id": "preview-96281670a4b4d54de846b41014246d9f74e42a607827931f29be538301d6f9e5"
+    },
+    "request_headers": {
+      "Idempotency-Key": "fixture-contract-preset-submit"
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/control/v1/tasks/task-ddac7623e2f01bed20a324e9756e818b/preset",
+    "status": 200,
+    "media_type": "application/json",
+    "body": {
+      "preset": {
+        "hash": "a3a39a20b85ab9cfbe79e48f2b74a7dbac83035698362fe537f9afc4746fd3dd",
+        "id": "fixture-preset",
+        "revision": 1
+      }
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/control/v1/defaults/global",
+    "status": 200,
+    "media_type": "application/json",
+    "body": {
+      "configured": false,
+      "created_at": null,
+      "hash": null,
+      "id": "global",
+      "layer": null,
+      "revision": 0,
+      "scope": "global"
+    },
+    "headers": {
+      "ETag": "\"0\""
+    }
+  },
+  {
+    "method": "PUT",
+    "path": "/control/v1/defaults/global",
+    "status": 201,
+    "media_type": "application/json",
+    "body": {
+      "created": true,
+      "default_layer": {
+        "created_at": "2026-10-03T13:34:14.876Z",
+        "hash": "625c73edb18ee698448bac86956e69162ee4745eef6eb801a128b7053aa7939a",
+        "id": "global",
+        "layer": {
+          "roles": {
+            "acceptance": {
+              "mode": "inherit"
+            },
+            "design": {
+              "effort": {
+                "mode": "default"
+              },
+              "mode": "locked",
+              "model": "fixture-model-a",
+              "route": {
+                "id": "fixture-route",
+                "revision": 1
+              }
+            },
+            "implementation": {
+              "mode": "inherit"
+            },
+            "review": {
+              "mode": "inherit"
+            },
+            "testing": {
+              "mode": "inherit"
+            }
+          }
+        },
+        "revision": 1,
+        "scope": "global"
+      }
+    },
+    "request": {
+      "layer": {
+        "roles": {
+          "design": {
+            "effort": {
+              "mode": "default"
+            },
+            "mode": "locked",
+            "model": "fixture-model-a",
+            "route": {
+              "id": "fixture-route",
+              "revision": 1
+            }
+          }
+        }
+      }
+    },
+    "headers": {
+      "ETag": "\"1\"",
+      "Location": "/control/v1/defaults/global/versions/1"
+    },
+    "request_headers": {
+      "If-Match": "\"0\""
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/control/v1/defaults/global",
+    "status": 200,
+    "media_type": "application/json",
+    "body": {
+      "configured": true,
+      "created_at": "2026-10-03T13:34:14.876Z",
+      "hash": "625c73edb18ee698448bac86956e69162ee4745eef6eb801a128b7053aa7939a",
+      "id": "global",
+      "layer": {
+        "roles": {
+          "acceptance": {
+            "mode": "inherit"
+          },
+          "design": {
+            "effort": {
+              "mode": "default"
+            },
+            "mode": "locked",
+            "model": "fixture-model-a",
+            "route": {
+              "id": "fixture-route",
+              "revision": 1
+            }
+          },
+          "implementation": {
+            "mode": "inherit"
+          },
+          "review": {
+            "mode": "inherit"
+          },
+          "testing": {
+            "mode": "inherit"
+          }
+        }
+      },
+      "revision": 1,
+      "scope": "global"
+    },
+    "headers": {
+      "ETag": "\"1\""
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/control/v1/defaults/global/versions/1",
+    "status": 200,
+    "media_type": "application/json",
+    "body": {
+      "configured": true,
+      "created_at": "2026-10-03T13:34:14.876Z",
+      "hash": "625c73edb18ee698448bac86956e69162ee4745eef6eb801a128b7053aa7939a",
+      "id": "global",
+      "layer": {
+        "roles": {
+          "acceptance": {
+            "mode": "inherit"
+          },
+          "design": {
+            "effort": {
+              "mode": "default"
+            },
+            "mode": "locked",
+            "model": "fixture-model-a",
+            "route": {
+              "id": "fixture-route",
+              "revision": 1
+            }
+          },
+          "implementation": {
+            "mode": "inherit"
+          },
+          "review": {
+            "mode": "inherit"
+          },
+          "testing": {
+            "mode": "inherit"
+          }
+        }
+      },
+      "revision": 1,
+      "scope": "global"
+    },
+    "headers": {
+      "ETag": "\"1\""
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/control/v1/projects/fixture-project/defaults",
+    "status": 200,
+    "media_type": "application/json",
+    "body": {
+      "configured": false,
+      "created_at": null,
+      "hash": null,
+      "id": "fixture-project",
+      "layer": null,
+      "revision": 0,
+      "scope": "project"
+    },
+    "headers": {
+      "ETag": "\"0\""
+    }
+  },
+  {
+    "method": "PUT",
+    "path": "/control/v1/projects/fixture-project/defaults",
+    "status": 201,
+    "media_type": "application/json",
+    "body": {
+      "created": true,
+      "default_layer": {
+        "created_at": "2026-10-03T13:34:14.88Z",
+        "hash": "de52b390d00ac71205d386aa8f9f29ecc3dc307949eb6f075f2973d513b21fbc",
+        "id": "fixture-project",
+        "layer": {
+          "roles": {
+            "acceptance": {
+              "mode": "inherit"
+            },
+            "design": {
+              "effort": {
+                "mode": "default"
+              },
+              "mode": "locked",
+              "model": "fixture-model-a",
+              "route": {
+                "id": "fixture-route",
+                "revision": 1
+              }
+            },
+            "implementation": {
+              "mode": "inherit"
+            },
+            "review": {
+              "mode": "inherit"
+            },
+            "testing": {
+              "mode": "inherit"
+            }
+          }
+        },
+        "revision": 1,
+        "scope": "project"
+      }
+    },
+    "request": {
+      "layer": {
+        "roles": {
+          "design": {
+            "effort": {
+              "mode": "default"
+            },
+            "mode": "locked",
+            "model": "fixture-model-a",
+            "route": {
+              "id": "fixture-route",
+              "revision": 1
+            }
+          }
+        }
+      }
+    },
+    "headers": {
+      "ETag": "\"1\"",
+      "Location": "/control/v1/projects/fixture-project/defaults/versions/1"
+    },
+    "request_headers": {
+      "If-Match": "\"0\""
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/control/v1/projects/fixture-project/defaults",
+    "status": 200,
+    "media_type": "application/json",
+    "body": {
+      "configured": true,
+      "created_at": "2026-10-03T13:34:14.88Z",
+      "hash": "de52b390d00ac71205d386aa8f9f29ecc3dc307949eb6f075f2973d513b21fbc",
+      "id": "fixture-project",
+      "layer": {
+        "roles": {
+          "acceptance": {
+            "mode": "inherit"
+          },
+          "design": {
+            "effort": {
+              "mode": "default"
+            },
+            "mode": "locked",
+            "model": "fixture-model-a",
+            "route": {
+              "id": "fixture-route",
+              "revision": 1
+            }
+          },
+          "implementation": {
+            "mode": "inherit"
+          },
+          "review": {
+            "mode": "inherit"
+          },
+          "testing": {
+            "mode": "inherit"
+          }
+        }
+      },
+      "revision": 1,
+      "scope": "project"
+    },
+    "headers": {
+      "ETag": "\"1\""
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/control/v1/projects/fixture-project/defaults/versions/1",
+    "status": 200,
+    "media_type": "application/json",
+    "body": {
+      "configured": true,
+      "created_at": "2026-10-03T13:34:14.88Z",
+      "hash": "de52b390d00ac71205d386aa8f9f29ecc3dc307949eb6f075f2973d513b21fbc",
+      "id": "fixture-project",
+      "layer": {
+        "roles": {
+          "acceptance": {
+            "mode": "inherit"
+          },
+          "design": {
+            "effort": {
+              "mode": "default"
+            },
+            "mode": "locked",
+            "model": "fixture-model-a",
+            "route": {
+              "id": "fixture-route",
+              "revision": 1
+            }
+          },
+          "implementation": {
+            "mode": "inherit"
+          },
+          "review": {
+            "mode": "inherit"
+          },
+          "testing": {
+            "mode": "inherit"
+          }
+        }
+      },
+      "revision": 1,
+      "scope": "project"
+    },
+    "headers": {
+      "ETag": "\"1\""
+    }
+  },
+  {
+    "method": "PUT",
+    "path": "/control/v1/projects/fixture-project/defaults",
+    "status": 200,
+    "media_type": "application/json",
+    "body": {
+      "created": false,
+      "default_layer": {
+        "created_at": "2026-10-03T13:34:14.88Z",
+        "hash": "de52b390d00ac71205d386aa8f9f29ecc3dc307949eb6f075f2973d513b21fbc",
+        "id": "fixture-project",
+        "layer": {
+          "roles": {
+            "acceptance": {
+              "mode": "inherit"
+            },
+            "design": {
+              "effort": {
+                "mode": "default"
+              },
+              "mode": "locked",
+              "model": "fixture-model-a",
+              "route": {
+                "id": "fixture-route",
+                "revision": 1
+              }
+            },
+            "implementation": {
+              "mode": "inherit"
+            },
+            "review": {
+              "mode": "inherit"
+            },
+            "testing": {
+              "mode": "inherit"
+            }
+          }
+        },
+        "revision": 1,
+        "scope": "project"
+      }
+    },
+    "request": {
+      "layer": {
+        "roles": {
+          "design": {
+            "effort": {
+              "mode": "default"
+            },
+            "mode": "locked",
+            "model": "fixture-model-a",
+            "route": {
+              "id": "fixture-route",
+              "revision": 1
+            }
+          }
+        }
+      }
+    },
+    "headers": {
+      "ETag": "\"1\"",
+      "Location": "/control/v1/projects/fixture-project/defaults/versions/1"
+    },
+    "request_headers": {
+      "If-Match": "\"0\""
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/control/v1/tasks/task-a2810239aa2d1b7b3dbe0977c7ddf739/plan/preview",
+    "status": 200,
+    "media_type": "application/json",
+    "body": {
+      "budget": {
+        "max_calls": 3,
+        "max_reworks": 1
+      },
+      "configuration_revision": 2,
+      "expires_at": "2026-10-03T21:39:14.931502+08:00",
+      "plan": {
+        "bindings": {
+          "design": {
+            "mode": "locked",
+            "source": "global",
+            "target": {
+              "account": "fixture-account",
+              "billing_path": "fixture-subscription",
+              "capabilities": null,
+              "credential_identity": "fixture-credential",
+              "effort": {
+                "requested_mode": "default",
+                "value": "medium"
+              },
+              "lock_enforcement": "controlled_calls",
+              "plugin_version": null,
+              "requested_model": "fixture-model-a",
+              "resolved_model": "fixture-model-a",
+              "route": {
+                "id": "fixture-route",
+                "revision": 1
+              },
+              "runtime_version": "fixture-runtime",
+              "upstream_reported_model": null,
+              "workspace": "fixture-workspace"
+            }
+          },
+          "review": {
+            "mode": "locked",
+            "source": "task",
+            "target": {
+              "account": "fixture-account",
+              "billing_path": "fixture-subscription",
+              "capabilities": null,
+              "credential_identity": "fixture-credential",
+              "effort": {
+                "requested_mode": "default",
+                "value": "medium"
+              },
+              "lock_enforcement": "controlled_calls",
+              "plugin_version": null,
+              "requested_model": "fixture-model-b",
+              "resolved_model": "fixture-model-b",
+              "route": {
+                "id": "fixture-route-b",
+                "revision": 1
+              },
+              "runtime_version": "fixture-runtime",
+              "upstream_reported_model": null,
+              "workspace": "fixture-workspace"
+            }
+          }
+        },
+        "hash": "9aa421dfa8353a56163abcb8b14552e04d8ba793fca2e8a9d03abf927dbcc03d",
+        "required_roles": [
+          "design",
+          "review"
+        ],
+        "revision": 2,
+        "schema_version": 1
+      },
+      "preview_id": "preview-ed9ae16c88a3403d3742b75f7ec744e77159803f98b7581c07971ff78a389a85"
+    },
+    "request": {
+      "task": {
+        "roles": {
+          "review": {
+            "effort": {
+              "mode": "default"
+            },
+            "mode": "locked",
+            "model": "fixture-model-b",
+            "route": {
+              "id": "fixture-route-b",
+              "revision": 1
+            }
+          }
+        }
+      }
+    },
+    "headers": {
+      "ETag": "\"1\""
+    },
+    "request_headers": {
+      "If-Match": "\"1\""
+    }
+  },
+  {
+    "method": "PUT",
+    "path": "/control/v1/tasks/task-a2810239aa2d1b7b3dbe0977c7ddf739/plan",
+    "status": 200,
+    "media_type": "application/json",
+    "body": {
+      "bindings": {
+        "design": {
+          "mode": "locked",
+          "source": "global",
+          "target": {
+            "account": "fixture-account",
+            "billing_path": "fixture-subscription",
+            "capabilities": null,
+            "credential_identity": "fixture-credential",
+            "effort": {
+              "requested_mode": "default",
+              "value": "medium"
+            },
+            "lock_enforcement": "controlled_calls",
+            "plugin_version": null,
+            "requested_model": "fixture-model-a",
+            "resolved_model": "fixture-model-a",
+            "route": {
+              "id": "fixture-route",
+              "revision": 1
+            },
+            "runtime_version": "fixture-runtime",
+            "upstream_reported_model": null,
+            "workspace": "fixture-workspace"
+          }
+        },
+        "review": {
+          "mode": "locked",
+          "source": "task",
+          "target": {
+            "account": "fixture-account",
+            "billing_path": "fixture-subscription",
+            "capabilities": null,
+            "credential_identity": "fixture-credential",
+            "effort": {
+              "requested_mode": "default",
+              "value": "medium"
+            },
+            "lock_enforcement": "controlled_calls",
+            "plugin_version": null,
+            "requested_model": "fixture-model-b",
+            "resolved_model": "fixture-model-b",
+            "route": {
+              "id": "fixture-route-b",
+              "revision": 1
+            },
+            "runtime_version": "fixture-runtime",
+            "upstream_reported_model": null,
+            "workspace": "fixture-workspace"
+          }
+        }
+      },
+      "hash": "9aa421dfa8353a56163abcb8b14552e04d8ba793fca2e8a9d03abf927dbcc03d",
+      "required_roles": [
+        "design",
+        "review"
+      ],
+      "revision": 2,
+      "schema_version": 1
+    },
+    "request": {
+      "plan_hash": "9aa421dfa8353a56163abcb8b14552e04d8ba793fca2e8a9d03abf927dbcc03d",
+      "preview_id": "preview-ed9ae16c88a3403d3742b75f7ec744e77159803f98b7581c07971ff78a389a85"
+    },
+    "headers": {
+      "ETag": "\"2\""
+    },
+    "request_headers": {
+      "If-Match": "\"1\""
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/control/v1/projects/fixture-project/quota",
+    "status": 200,
+    "media_type": "application/json",
+    "body": {
+      "configuration_revision": 1,
+      "pools": [],
+      "routes": [
+        {
+          "identity": {
+            "account": "fixture-account",
+            "generation": 1,
+            "provider": "fixture-provider",
+            "region": "CN",
+            "workspace": "fixture-workspace"
+          },
+          "route": {
+            "id": "fixture-route",
+            "revision": 1
+          },
+          "status": "unknown"
+        }
+      ]
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/control/v1/projects/fixture-project/quota/fixture-route/refresh",
+    "status": 200,
+    "media_type": "application/json",
+    "body": {
+      "configuration_revision": 1,
+      "pools": [
+        {
+          "aliases": [
+            {
+              "account": "fixture-account",
+              "generation": 1,
+              "provider": "fixture-provider",
+              "region": "CN",
+              "workspace": "fixture-workspace"
+            }
+          ],
+          "pool": {
+            "id": "fixture-pool",
+            "owner": "fixture-account",
+            "provider": "fixture-provider",
+            "region": "CN",
+            "scope": "account",
+            "verified": true
+          },
+          "snapshot": {
+            "complete": true,
+            "identity": {
+              "account": "fixture-account",
+              "generation": 1,
+              "provider": "fixture-provider",
+              "region": "CN",
+              "workspace": "fixture-workspace"
+            },
+            "observed_at": "2026-10-03T13:34:14.970144Z",
+            "pool": {
+              "id": "fixture-pool",
+              "owner": "fixture-account",
+              "provider": "fixture-provider",
+              "region": "CN",
+              "scope": "account",
+              "verified": true
+            },
+            "received_at": "2026-10-03T13:34:14.970144Z",
+            "resources": null,
+            "source": "fixture-quota",
+            "status": "available",
+            "windows": [
+              {
+                "kind": "coding_plan",
+                "name": "five-hour",
+                "raw": {
+                  "used_percent": 30
+                },
+                "remaining_percent": null,
+                "reset_at": null,
+                "span_seconds": null,
+                "unit": "percent",
+                "used_percent": 30
+              }
+            ]
+          }
+        }
+      ],
+      "routes": [
+        {
+          "identity": {
+            "account": "fixture-account",
+            "generation": 1,
+            "provider": "fixture-provider",
+            "region": "CN",
+            "workspace": "fixture-workspace"
+          },
+          "route": {
+            "id": "fixture-route",
+            "revision": 1
+          },
+          "snapshot": {
+            "complete": true,
+            "identity": {
+              "account": "fixture-account",
+              "generation": 1,
+              "provider": "fixture-provider",
+              "region": "CN",
+              "workspace": "fixture-workspace"
+            },
+            "observed_at": "2026-10-03T13:34:14.970144Z",
+            "pool": {
+              "id": "fixture-pool",
+              "owner": "fixture-account",
+              "provider": "fixture-provider",
+              "region": "CN",
+              "scope": "account",
+              "verified": true
+            },
+            "received_at": "2026-10-03T13:34:14.970144Z",
+            "resources": null,
+            "source": "fixture-quota",
+            "status": "available",
+            "windows": [
+              {
+                "kind": "coding_plan",
+                "name": "five-hour",
+                "raw": {
+                  "used_percent": 30
+                },
+                "remaining_percent": null,
+                "reset_at": null,
+                "span_seconds": null,
+                "unit": "percent",
+                "used_percent": 30
+              }
+            ]
+          },
+          "status": "available"
+        }
+      ]
+    },
+    "request": {}
+  },
+  {
+    "method": "POST",
+    "path": "/control/v1/tasks/task-76efb6a0b7623f24cdba4f5961d0f7b3/pause",
+    "status": 200,
+    "media_type": "application/json",
+    "body": {
+      "changed": true,
+      "task": {
+        "generation": 1,
+        "goal": "fixture-goal",
+        "id": "task-76efb6a0b7623f24cdba4f5961d0f7b3",
+        "plan_revision": 1,
+        "project_id": "fixture-project",
+        "state": "paused"
+      }
+    },
+    "request": {},
+    "headers": {
+      "Location": "/agent/v1/tasks/task-76efb6a0b7623f24cdba4f5961d0f7b3",
+      "X-Fusion-Task-ETag": "\"p1-g1-paused\""
+    },
+    "request_headers": {
+      "If-Match": "\"p1-g0-ready\""
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/control/v1/tasks/task-76efb6a0b7623f24cdba4f5961d0f7b3/pause",
+    "status": 200,
+    "media_type": "application/json",
+    "body": {
+      "changed": false,
+      "task": {
+        "generation": 1,
+        "goal": "fixture-goal",
+        "id": "task-76efb6a0b7623f24cdba4f5961d0f7b3",
+        "plan_revision": 1,
+        "project_id": "fixture-project",
+        "state": "paused"
+      }
+    },
+    "request": {},
+    "headers": {
+      "Location": "/agent/v1/tasks/task-76efb6a0b7623f24cdba4f5961d0f7b3",
+      "X-Fusion-Task-ETag": "\"p1-g1-paused\""
+    },
+    "request_headers": {
+      "If-Match": "\"p1-g1-paused\""
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/control/v1/tasks/task-76efb6a0b7623f24cdba4f5961d0f7b3/continue",
+    "status": 200,
+    "media_type": "application/json",
+    "body": {
+      "changed": true,
+      "task": {
+        "generation": 2,
+        "goal": "fixture-goal",
+        "id": "task-76efb6a0b7623f24cdba4f5961d0f7b3",
+        "plan_revision": 1,
+        "project_id": "fixture-project",
+        "state": "ready"
+      }
+    },
+    "request": {},
+    "headers": {
+      "Location": "/agent/v1/tasks/task-76efb6a0b7623f24cdba4f5961d0f7b3",
+      "X-Fusion-Task-ETag": "\"p1-g2-ready\""
+    },
+    "request_headers": {
+      "If-Match": "\"p1-g1-paused\""
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/control/v1/tasks/task-76efb6a0b7623f24cdba4f5961d0f7b3/continue",
+    "status": 200,
+    "media_type": "application/json",
+    "body": {
+      "changed": false,
+      "task": {
+        "generation": 2,
+        "goal": "fixture-goal",
+        "id": "task-76efb6a0b7623f24cdba4f5961d0f7b3",
+        "plan_revision": 1,
+        "project_id": "fixture-project",
+        "state": "ready"
+      }
+    },
+    "request": {},
+    "headers": {
+      "Location": "/agent/v1/tasks/task-76efb6a0b7623f24cdba4f5961d0f7b3",
+      "X-Fusion-Task-ETag": "\"p1-g2-ready\""
+    },
+    "request_headers": {
+      "If-Match": "\"p1-g2-ready\""
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/control/v1/tasks/task-6323bec7853b0f8b3b5730c11742f598/start",
+    "status": 202,
+    "media_type": "application/json",
+    "body": {
+      "created": true,
+      "run": {
+        "attempt": 1,
+        "generation": 1,
+        "id": "run-9ab50678b06120dfde36a62c8dc53079",
+        "launch_confirmed": true,
+        "plan_revision": 1,
+        "role": "design",
+        "startup_intent": true,
+        "state": "running",
+        "target": {
+          "account": "fixture-account",
+          "billing_path": "fixture-subscription",
+          "capabilities": null,
+          "credential_identity": "fixture-credential",
+          "effort": {
+            "requested_mode": "default",
+            "value": "medium"
+          },
+          "lock_enforcement": "controlled_calls",
+          "plugin_version": null,
+          "requested_model": "fixture-model-a",
+          "resolved_model": "fixture-model-a",
+          "route": {
+            "id": "fixture-route",
+            "revision": 1
+          },
+          "runtime_version": "fixture-runtime",
+          "upstream_reported_model": null,
+          "workspace": "fixture-workspace"
+        },
+        "task_id": "task-6323bec7853b0f8b3b5730c11742f598"
+      }
+    },
+    "request": {
+      "role": "design"
+    },
+    "headers": {
+      "Location": "/agent/v1/tasks/task-6323bec7853b0f8b3b5730c11742f598/runs/run-9ab50678b06120dfde36a62c8dc53079",
+      "X-Fusion-Task-ETag": "\"p1-g1-running\""
+    },
+    "request_headers": {
+      "Idempotency-Key": "fixture-contract-held",
+      "If-Match": "\"p1-g0-ready\""
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/control/v1/tasks/task-6323bec7853b0f8b3b5730c11742f598/pause",
+    "status": 202,
+    "media_type": "application/json",
+    "body": {
+      "changed": true,
+      "run": {
+        "attempt": 1,
+        "generation": 1,
+        "id": "run-9ab50678b06120dfde36a62c8dc53079",
+        "launch_confirmed": true,
+        "plan_revision": 1,
+        "role": "design",
+        "startup_intent": true,
+        "state": "cancelling",
+        "target": {
+          "account": "fixture-account",
+          "billing_path": "fixture-subscription",
+          "capabilities": null,
+          "credential_identity": "fixture-credential",
+          "effort": {
+            "requested_mode": "default",
+            "value": "medium"
+          },
+          "lock_enforcement": "controlled_calls",
+          "plugin_version": null,
+          "requested_model": "fixture-model-a",
+          "resolved_model": "fixture-model-a",
+          "route": {
+            "id": "fixture-route",
+            "revision": 1
+          },
+          "runtime_version": "fixture-runtime",
+          "upstream_reported_model": null,
+          "workspace": "fixture-workspace"
+        },
+        "task_id": "task-6323bec7853b0f8b3b5730c11742f598"
+      },
+      "task": {
+        "generation": 1,
+        "goal": "fixture-goal",
+        "id": "task-6323bec7853b0f8b3b5730c11742f598",
+        "plan_revision": 1,
+        "project_id": "fixture-project",
+        "state": "pausing"
+      }
+    },
+    "request": {},
+    "headers": {
+      "Location": "/agent/v1/tasks/task-6323bec7853b0f8b3b5730c11742f598",
+      "X-Fusion-Task-ETag": "\"p1-g1-pausing\""
+    },
+    "request_headers": {
+      "If-Match": "\"p1-g1-running\""
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/control/v1/tasks/task-6323bec7853b0f8b3b5730c11742f598/pause",
+    "status": 409,
+    "media_type": "application/json",
+    "body": {
+      "changed": false,
+      "error": {
+        "code": "execution_requires_reconciliation",
+        "message": "Conflict"
+      },
+      "run": {
+        "attempt": 1,
+        "generation": 1,
+        "id": "run-9ab50678b06120dfde36a62c8dc53079",
+        "launch_confirmed": true,
+        "plan_revision": 1,
+        "role": "design",
+        "startup_intent": true,
+        "state": "cancelled",
+        "target": {
+          "account": "fixture-account",
+          "billing_path": "fixture-subscription",
+          "capabilities": null,
+          "credential_identity": "fixture-credential",
+          "effort": {
+            "requested_mode": "default",
+            "value": "medium"
+          },
+          "lock_enforcement": "controlled_calls",
+          "plugin_version": null,
+          "requested_model": "fixture-model-a",
+          "resolved_model": "fixture-model-a",
+          "route": {
+            "id": "fixture-route",
+            "revision": 1
+          },
+          "runtime_version": "fixture-runtime",
+          "upstream_reported_model": null,
+          "workspace": "fixture-workspace"
+        },
+        "task_id": "task-6323bec7853b0f8b3b5730c11742f598"
+      },
+      "task": {
+        "generation": 1,
+        "goal": "fixture-goal",
+        "id": "task-6323bec7853b0f8b3b5730c11742f598",
+        "plan_revision": 1,
+        "project_id": "fixture-project",
+        "state": "pausing"
+      }
+    },
+    "request": {},
+    "headers": {
+      "Location": "/agent/v1/tasks/task-6323bec7853b0f8b3b5730c11742f598",
+      "X-Fusion-Task-ETag": "\"p1-g1-pausing\""
+    },
+    "request_headers": {
+      "If-Match": "\"p1-g1-pausing\""
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/control/v1/tasks/task-6323bec7853b0f8b3b5730c11742f598/continue",
+    "status": 409,
+    "media_type": "application/json",
+    "body": {
+      "error": {
+        "code": "execution_requires_reconciliation",
+        "message": "Conflict"
+      }
+    },
+    "request": {},
+    "request_headers": {
+      "If-Match": "\"p1-g1-pausing\""
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/control/v1/tasks/task-06795cc3004b2ab07c409bd3900b8d06/cancel",
+    "status": 200,
+    "media_type": "application/json",
+    "body": {
+      "changed": true,
+      "task": {
+        "generation": 1,
+        "goal": "fixture-goal",
+        "id": "task-06795cc3004b2ab07c409bd3900b8d06",
+        "plan_revision": 1,
+        "project_id": "fixture-project",
+        "state": "cancelled"
+      }
+    },
+    "request": {},
+    "headers": {
+      "Location": "/agent/v1/tasks/task-06795cc3004b2ab07c409bd3900b8d06",
+      "X-Fusion-Task-ETag": "\"p1-g1-cancelled\""
+    },
+    "request_headers": {
+      "If-Match": "\"p1-g0-ready\""
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/control/v1/tasks/task-06795cc3004b2ab07c409bd3900b8d06/cancel",
+    "status": 200,
+    "media_type": "application/json",
+    "body": {
+      "changed": false,
+      "task": {
+        "generation": 1,
+        "goal": "fixture-goal",
+        "id": "task-06795cc3004b2ab07c409bd3900b8d06",
+        "plan_revision": 1,
+        "project_id": "fixture-project",
+        "state": "cancelled"
+      }
+    },
+    "request": {},
+    "headers": {
+      "Location": "/agent/v1/tasks/task-06795cc3004b2ab07c409bd3900b8d06",
+      "X-Fusion-Task-ETag": "\"p1-g1-cancelled\""
+    },
+    "request_headers": {
+      "If-Match": "\"p1-g1-cancelled\""
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/control/v1/tasks/task-2b8504bab0b52a7f9e0f20ea5e9d78ff/start",
+    "status": 202,
+    "media_type": "application/json",
+    "body": {
+      "created": true,
+      "run": {
+        "attempt": 1,
+        "generation": 1,
+        "id": "run-ded6d502d6751431bad27f0c173727c1",
+        "launch_confirmed": true,
+        "plan_revision": 1,
+        "role": "design",
+        "startup_intent": true,
+        "state": "running",
+        "target": {
+          "account": "fixture-account",
+          "billing_path": "fixture-subscription",
+          "capabilities": null,
+          "credential_identity": "fixture-credential",
+          "effort": {
+            "requested_mode": "default",
+            "value": "medium"
+          },
+          "lock_enforcement": "controlled_calls",
+          "plugin_version": null,
+          "requested_model": "fixture-model-a",
+          "resolved_model": "fixture-model-a",
+          "route": {
+            "id": "fixture-route",
+            "revision": 1
+          },
+          "runtime_version": "fixture-runtime",
+          "upstream_reported_model": null,
+          "workspace": "fixture-workspace"
+        },
+        "task_id": "task-2b8504bab0b52a7f9e0f20ea5e9d78ff"
+      }
+    },
+    "request": {
+      "role": "design"
+    },
+    "headers": {
+      "Location": "/agent/v1/tasks/task-2b8504bab0b52a7f9e0f20ea5e9d78ff/runs/run-ded6d502d6751431bad27f0c173727c1",
+      "X-Fusion-Task-ETag": "\"p1-g1-running\""
+    },
+    "request_headers": {
+      "Idempotency-Key": "fixture-contract-task-cancel-held",
+      "If-Match": "\"p1-g0-ready\""
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/control/v1/tasks/task-2b8504bab0b52a7f9e0f20ea5e9d78ff/cancel",
+    "status": 202,
+    "media_type": "application/json",
+    "body": {
+      "changed": true,
+      "run": {
+        "attempt": 1,
+        "generation": 1,
+        "id": "run-ded6d502d6751431bad27f0c173727c1",
+        "launch_confirmed": true,
+        "plan_revision": 1,
+        "role": "design",
+        "startup_intent": true,
+        "state": "cancelling",
+        "target": {
+          "account": "fixture-account",
+          "billing_path": "fixture-subscription",
+          "capabilities": null,
+          "credential_identity": "fixture-credential",
+          "effort": {
+            "requested_mode": "default",
+            "value": "medium"
+          },
+          "lock_enforcement": "controlled_calls",
+          "plugin_version": null,
+          "requested_model": "fixture-model-a",
+          "resolved_model": "fixture-model-a",
+          "route": {
+            "id": "fixture-route",
+            "revision": 1
+          },
+          "runtime_version": "fixture-runtime",
+          "upstream_reported_model": null,
+          "workspace": "fixture-workspace"
+        },
+        "task_id": "task-2b8504bab0b52a7f9e0f20ea5e9d78ff"
+      },
+      "task": {
+        "generation": 1,
+        "goal": "fixture-goal",
+        "id": "task-2b8504bab0b52a7f9e0f20ea5e9d78ff",
+        "plan_revision": 1,
+        "project_id": "fixture-project",
+        "state": "cancelling"
+      }
+    },
+    "request": {},
+    "headers": {
+      "Location": "/agent/v1/tasks/task-2b8504bab0b52a7f9e0f20ea5e9d78ff",
+      "X-Fusion-Task-ETag": "\"p1-g1-cancelling\""
+    },
+    "request_headers": {
+      "If-Match": "\"p1-g1-running\""
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/control/v1/tasks/task-2b8504bab0b52a7f9e0f20ea5e9d78ff/cancel",
+    "status": 409,
+    "media_type": "application/json",
+    "body": {
+      "changed": false,
+      "error": {
+        "code": "execution_requires_reconciliation",
+        "message": "Conflict"
+      },
+      "run": {
+        "attempt": 1,
+        "generation": 1,
+        "id": "run-ded6d502d6751431bad27f0c173727c1",
+        "launch_confirmed": true,
+        "plan_revision": 1,
+        "role": "design",
+        "startup_intent": true,
+        "state": "cancelled",
+        "target": {
+          "account": "fixture-account",
+          "billing_path": "fixture-subscription",
+          "capabilities": null,
+          "credential_identity": "fixture-credential",
+          "effort": {
+            "requested_mode": "default",
+            "value": "medium"
+          },
+          "lock_enforcement": "controlled_calls",
+          "plugin_version": null,
+          "requested_model": "fixture-model-a",
+          "resolved_model": "fixture-model-a",
+          "route": {
+            "id": "fixture-route",
+            "revision": 1
+          },
+          "runtime_version": "fixture-runtime",
+          "upstream_reported_model": null,
+          "workspace": "fixture-workspace"
+        },
+        "task_id": "task-2b8504bab0b52a7f9e0f20ea5e9d78ff"
+      },
+      "task": {
+        "generation": 1,
+        "goal": "fixture-goal",
+        "id": "task-2b8504bab0b52a7f9e0f20ea5e9d78ff",
+        "plan_revision": 1,
+        "project_id": "fixture-project",
+        "state": "cancelling"
+      }
+    },
+    "request": {},
+    "headers": {
+      "Location": "/agent/v1/tasks/task-2b8504bab0b52a7f9e0f20ea5e9d78ff",
+      "X-Fusion-Task-ETag": "\"p1-g1-cancelling\""
+    },
+    "request_headers": {
+      "If-Match": "\"p1-g1-cancelling\""
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/control/v1/tasks/task-c5f5db47f44263924d3f1f67980742bf/start",
+    "status": 202,
+    "media_type": "application/json",
+    "body": {
+      "created": true,
+      "run": {
+        "attempt": 1,
+        "generation": 1,
+        "id": "run-778800b65acd71716509c5a3a7aa7a8a",
+        "launch_confirmed": true,
+        "plan_revision": 1,
+        "role": "design",
+        "startup_intent": true,
+        "state": "running",
+        "target": {
+          "account": "fixture-account",
+          "billing_path": "fixture-subscription",
+          "capabilities": null,
+          "credential_identity": "fixture-credential",
+          "effort": {
+            "requested_mode": "default",
+            "value": "medium"
+          },
+          "lock_enforcement": "controlled_calls",
+          "plugin_version": null,
+          "requested_model": "fixture-model-a",
+          "resolved_model": "fixture-model-a",
+          "route": {
+            "id": "fixture-route",
+            "revision": 1
+          },
+          "runtime_version": "fixture-runtime",
+          "upstream_reported_model": null,
+          "workspace": "fixture-workspace"
+        },
+        "task_id": "task-c5f5db47f44263924d3f1f67980742bf"
+      }
+    },
+    "request": {
+      "role": "design"
+    },
+    "headers": {
+      "Location": "/agent/v1/tasks/task-c5f5db47f44263924d3f1f67980742bf/runs/run-778800b65acd71716509c5a3a7aa7a8a",
+      "X-Fusion-Task-ETag": "\"p1-g1-running\""
+    },
+    "request_headers": {
+      "Idempotency-Key": "fixture-contract-start",
+      "If-Match": "\"p1-g0-ready\""
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/agent/v1/tasks/task-c5f5db47f44263924d3f1f67980742bf/runs/run-778800b65acd71716509c5a3a7aa7a8a",
+    "status": 200,
+    "media_type": "application/json",
+    "body": {
+      "created": false,
+      "run": {
+        "attempt": 1,
+        "generation": 1,
+        "id": "run-778800b65acd71716509c5a3a7aa7a8a",
+        "launch_confirmed": true,
+        "plan_revision": 1,
+        "role": "design",
+        "startup_intent": true,
+        "state": "running",
+        "target": {
+          "account": "fixture-account",
+          "billing_path": "fixture-subscription",
+          "capabilities": null,
+          "credential_identity": "fixture-credential",
+          "effort": {
+            "requested_mode": "default",
+            "value": "medium"
+          },
+          "lock_enforcement": "controlled_calls",
+          "plugin_version": null,
+          "requested_model": "fixture-model-a",
+          "resolved_model": "fixture-model-a",
+          "route": {
+            "id": "fixture-route",
+            "revision": 1
+          },
+          "runtime_version": "fixture-runtime",
+          "upstream_reported_model": null,
+          "workspace": "fixture-workspace"
+        },
+        "task_id": "task-c5f5db47f44263924d3f1f67980742bf"
+      }
+    },
+    "headers": {
+      "X-Fusion-Task-ETag": "\"p1-g1-running\""
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/control/v1/tasks/task-c5f5db47f44263924d3f1f67980742bf/runs/run-778800b65acd71716509c5a3a7aa7a8a/cancel",
+    "status": 202,
+    "media_type": "application/json",
+    "body": {
+      "created": false,
+      "run": {
+        "attempt": 1,
+        "generation": 1,
+        "id": "run-778800b65acd71716509c5a3a7aa7a8a",
+        "launch_confirmed": true,
+        "plan_revision": 1,
+        "role": "design",
+        "startup_intent": true,
+        "state": "cancelling",
+        "target": {
+          "account": "fixture-account",
+          "billing_path": "fixture-subscription",
+          "capabilities": null,
+          "credential_identity": "fixture-credential",
+          "effort": {
+            "requested_mode": "default",
+            "value": "medium"
+          },
+          "lock_enforcement": "controlled_calls",
+          "plugin_version": null,
+          "requested_model": "fixture-model-a",
+          "resolved_model": "fixture-model-a",
+          "route": {
+            "id": "fixture-route",
+            "revision": 1
+          },
+          "runtime_version": "fixture-runtime",
+          "upstream_reported_model": null,
+          "workspace": "fixture-workspace"
+        },
+        "task_id": "task-c5f5db47f44263924d3f1f67980742bf"
+      }
+    },
+    "request": {},
+    "headers": {
+      "X-Fusion-Task-ETag": "\"p1-g1-running\""
+    },
+    "request_headers": {
+      "If-Match": "\"p1-g1-running\""
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/control/v1/tasks/preview",
+    "status": 401,
+    "media_type": "text/plain",
+    "body": "Unauthorized\n",
+    "request": {
+      "goal": "fixture-goal",
+      "preset": {
+        "id": "fixture-preset",
+        "revision": 1
+      },
+      "project_id": "fixture-project",
+      "required_roles": [
+        "design"
+      ]
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/control/v1/tasks/preview",
+    "status": 403,
+    "media_type": "text/plain",
+    "body": "Forbidden\n",
+    "request": {
+      "goal": "fixture-goal",
+      "preset": {
+        "id": "fixture-preset",
+        "revision": 1
+      },
+      "project_id": "fixture-project",
+      "required_roles": [
+        "design"
+      ]
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/control/v1/tasks/preview",
+    "status": 405,
+    "media_type": "text/plain",
+    "body": "Method Not Allowed\n"
+  },
+  {
+    "method": "POST",
+    "path": "/control/v1/tasks/preview",
+    "status": 400,
+    "media_type": "application/json",
+    "body": {
+      "error": {
+        "code": "invalid_request",
+        "message": "Bad Request"
+      }
+    },
+    "request": {}
+  },
+  {
+    "method": "GET",
+    "path": "/agent/v1/tasks/task-ddac7623e2f01bed20a324e9756e818b/events",
+    "status": 200,
+    "media_type": "text/event-stream",
+    "body": {
+      "generation": 0,
+      "kind": "created",
+      "run_id": "",
+      "seq": 1,
+      "task_id": "task-ddac7623e2f01bed20a324e9756e818b"
+    }
+  }
+]

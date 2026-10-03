@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/scripts/fusion/check-openapi.py", line 158, in <module>
+    print(json.dumps(verify(args.contract, args.standard_schema, args.samples), indent=2))
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/scripts/fusion/check-openapi.py", line 55, in verify
+    assert actual == EXPECTED, "implemented Handler path/method coverage differs"
+AssertionError: implemented Handler path/method coverage differs
