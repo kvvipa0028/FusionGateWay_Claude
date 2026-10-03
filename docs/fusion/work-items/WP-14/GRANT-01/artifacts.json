@@ -1,0 +1,22 @@
+{
+  "base_commit": "a08edc6153d4f1737869e592f69b91d3e8c0b68d",
+  "source_files_sha256": {
+    "internal/fusion/policy/auth.go": "f6a321790df6342cae4c7f0743e2ecd4d3ecc615c6034da54f3d602d99a81844",
+    "internal/fusion/policy/pending_model.go": "febb662b10386bc0a310b94417463746575b8a3b64e731dd61eee31ff3ffd971",
+    "internal/fusion/policy/pending_model_test.go": "17397ec6169aa621d49dbaae9a62e0df6c0cdc70f2f2b0ce543e694a6b7f1baa",
+    "internal/fusion/policy/auth_store_test.go": "d35d682dfdaf4d2fb74aeadee2981b15c8cb7fa4a6627aec07f8208bd0530110",
+    "docs/fusion/contracts/stage-credential-contract.md": "ffea1bb08fe363cb3942701b1772c42f92eec79700d679cd974fc54ad7a40054",
+    "docs/fusion/work-items/WP-14/summary.md": "b08e544fbb5f29ea30315b10738ccbf4b513a2a61946a59b887009110517b74e"
+  },
+  "packet_files_sha256": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "2af21641392bbee78c777d3559b39e11ea0206baaba19524249259d545b1be59",
+    "build-results.json": "f6e6a0359ecc1721118d10cd7ab38d9b487fe917dfaa997df46718a46bc6dc6c",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "summary.md": "ed0e49fd32c38df7fca91fc89affc7007b21ee7eb826b7009b349cb94604c2b5",
+    "test-results.json": "3fb92e3abedc9adf96f9d4822600a645085aec73d70202fed396f9be0b0676fc",
+    "wp14-grant-fusion-race.log": "70841206f47f567fece46ab9c442f816d056f1408389da4a029974562556d939",
+    "wp14-grant-green.log": "e3e72581ad225c3edf98a34db5f51ba102767f5c09563bfe9ecaa469aca42dfa",
+    "wp14-grant-red.log": "8aae013967479ebaa43142eba724f32f754766cac2fc423aac2df7a343652b0f"
+  }
+}

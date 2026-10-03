@@ -37,3 +37,7 @@ Native stream 出现 system/ui_invalidate、init、status、stream_event、assis
 ## WP-14-CALLS-01
 
 新增 authenticated Messages CallGate、共享 run 调用互斥、逐 HTTP Permit 与响应 model 核对。实际固定 Native 的成功和 429/SDK retry 诊断分别有 1/2 次 HTTP 与 Permit，协议完成；持久 Store 预算另经真实 loopback 验证。详情见 [调用出口交付记录](CALLS-01/summary.md)。该 Handler 尚未注册生产；Native 环境、启动后 grant 交付和实际 Transport/额度/计费仍待接线与验证。
+
+## WP-14-GRANT-01
+
+新增无授权的 Native 随机值准备与 ConfirmStarted 后一次性激活原语，原 StoreValidator 保持不变。真实 Store 测试证明 starting 拒绝、running 允许、finished 再拒绝。详见 [启动身份交付记录](GRANT-01/summary.md)。生产 Supervisor/Native 启动通道尚未接入。

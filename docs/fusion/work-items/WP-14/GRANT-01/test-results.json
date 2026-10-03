@@ -1,0 +1,22 @@
+{
+  "work_item": "WP-14-GRANT-01",
+  "status": "done",
+  "parent_status": "in_progress",
+  "new_top_level_tests": 3,
+  "existing_store_scope_test_extended": true,
+  "checks": [
+    {
+      "command": "go test -race -v -count=1 -mod=readonly -tags fusion,nogui ./internal/fusion/...",
+      "exit_code": 0,
+      "top_level_pass": 202,
+      "top_level_skip": 3,
+      "log": "wp14-grant-fusion-race.log"
+    }
+  ],
+  "red_logs": [
+    "wp14-grant-red.log"
+  ],
+  "build_report": "build-results.json",
+  "real_model_calls": 0,
+  "supervisor_native_channel_registered": false
+}

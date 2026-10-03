@@ -1,0 +1,10 @@
+# github.com/yetone/magpie/internal/fusion/policy [github.com/yetone/magpie/internal/fusion/policy.test]
+internal/fusion/policy/pending_model_test.go:16:12: m.PrepareModel undefined (type *Manager has no field or method PrepareModel)
+internal/fusion/policy/pending_model_test.go:73:14: m.PrepareModel undefined (type *Manager has no field or method PrepareModel)
+internal/fusion/policy/pending_model_test.go:118:16: m.PrepareModel undefined (type *Manager has no field or method PrepareModel)
+internal/fusion/policy/pending_model_test.go:123:16: m.PrepareModel undefined (type *Manager has no field or method PrepareModel)
+internal/fusion/policy/pending_model_test.go:128:16: m.PrepareModel undefined (type *Manager has no field or method PrepareModel)
+internal/fusion/policy/pending_model_test.go:132:15: m.PrepareModel undefined (type *Manager has no field or method PrepareModel)
+internal/fusion/policy/pending_model_test.go:139:11: m.prepared undefined (type *Manager has no field or method prepared)
+FAIL	github.com/yetone/magpie/internal/fusion/policy [build failed]
+FAIL

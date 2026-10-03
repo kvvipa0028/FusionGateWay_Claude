@@ -49,6 +49,7 @@ type Manager struct {
 	admin        [32]byte
 	adminEnabled bool
 	grants       map[[32]byte]grant
+	prepared     map[[32]byte]preparedModel
 	revokedRuns  map[string]bool
 	validate     func(Claims) bool
 	origins      map[string]bool
@@ -94,7 +95,12 @@ func (m *Manager) Issue(c Claims, ttl time.Duration) (string, error) {
 			delete(m.grants, key)
 		}
 	}
-	if len(m.grants) >= 4096 {
+	for key, p := range m.prepared {
+		if !now.Before(p.expiry) {
+			delete(m.prepared, key)
+		}
+	}
+	if len(m.grants)+len(m.prepared) >= 4096 {
 		return "", ErrForbidden
 	}
 	var entropy [32]byte
@@ -111,6 +117,7 @@ func (m *Manager) RevokeManagement() {
 	defer m.mu.Unlock()
 	m.adminEnabled = false
 	m.grants = map[[32]byte]grant{}
+	m.prepared = map[[32]byte]preparedModel{}
 }
 func (m *Manager) RevokeRun(runID string) {
 	m.mu.Lock()
@@ -119,6 +126,11 @@ func (m *Manager) RevokeRun(runID string) {
 	for key, g := range m.grants {
 		if g.claims.RunID == runID {
 			delete(m.grants, key)
+		}
+	}
+	for key, p := range m.prepared {
+		if p.claims.RunID == runID {
+			delete(m.prepared, key)
 		}
 	}
 }

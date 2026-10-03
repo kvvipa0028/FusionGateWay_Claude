@@ -17,3 +17,5 @@ Manager 的 StoreValidator 为已验证的默认作用域检查器。其他 vali
 WP-15 长连接管理 Context 仅保存当前 issuer 的私有标识，不携带原始管理秘密。ManagementCurrent 必须核对同一 issuer、未取消/过期的 Context 和仍有效的管理身份；其他 Context 或 issuer 的值不获授权。SSE 每次发送及轮询都重查，撤销后关闭 stream；已发送字节不会被追回，HTTP EOF 不改变 Worker 状态或提供 stop proof。管理 Key 引导和真实 GUI 接入仍待后续完成。
 
 WP-14 CallGate 在当前 Manager.Stage Context 上调用 ModelCurrent：核对同一 issuer 的仍有效 model grant 与完整预期 Claims，不用 FromContext 单独建立授权。BeginModelCall 与 Dispatcher 共用 per-run 互斥，release 幂等且不退预算。Native HTTP 入口须每次 Permit 后和响应交付前重查；静态请求/事件数量不能替代全部实际 HTTP 预算。当前只完成 Handler 与合成 Native 接线，生产 model grant 仍须在 ConfirmStarted 后交付，不通过放宽 StoreValidator 解决启动顺序。
+
+PendingModelGrant 允许在启动前预分配一分钟有效的随机值，但 prepared 项不参与任何阶段鉴权。可信控制器只能在 ConfirmStarted 后按原 StoreValidator 激活一次，才形成 model grant；TTL 从激活计时，重放不续期。prepared 与 active 共用 4096 容量，run/management 撤销与 Cancel 都清理相应准备项。该原语不是开放的 HTTP 签发入口；生产 Native 交付与失败停止仍待接线。

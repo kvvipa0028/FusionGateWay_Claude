@@ -148,8 +148,8 @@
     },
     {
       "path": "docs/fusion/contracts/stage-credential-contract.md",
-      "sha256": "32a246992507cad95dd0129ca21d84eef3168d4844c7fe2368a0b18f6b36bc50",
-      "bytes": 3641
+      "sha256": "ffea1bb08fe363cb3942701b1772c42f92eec79700d679cd974fc54ad7a40054",
+      "bytes": 4103
     },
     {
       "path": "docs/fusion/contracts/stage-plan.schema.json",
@@ -1382,6 +1382,56 @@
       "bytes": 396
     },
     {
+      "path": "docs/fusion/work-items/WP-14/GRANT-01/artifacts.json",
+      "sha256": "8bea570dacbcdc0b6e3a8aed578c267699d4b1d5062ceef3e3d19cc5ad4db578",
+      "bytes": 1657
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/GRANT-01/build-cli.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/GRANT-01/build-gui.log",
+      "sha256": "2af21641392bbee78c777d3559b39e11ea0206baaba19524249259d545b1be59",
+      "bytes": 5686
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/GRANT-01/build-results.json",
+      "sha256": "f6e6a0359ecc1721118d10cd7ab38d9b487fe917dfaa997df46718a46bc6dc6c",
+      "bytes": 1651
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/GRANT-01/build-vet.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/GRANT-01/summary.md",
+      "sha256": "ed0e49fd32c38df7fca91fc89affc7007b21ee7eb826b7009b349cb94604c2b5",
+      "bytes": 2637
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/GRANT-01/test-results.json",
+      "sha256": "3fb92e3abedc9adf96f9d4822600a645085aec73d70202fed396f9be0b0676fc",
+      "bytes": 576
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/GRANT-01/wp14-grant-fusion-race.log",
+      "sha256": "70841206f47f567fece46ab9c442f816d056f1408389da4a029974562556d939",
+      "bytes": 49981
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/GRANT-01/wp14-grant-green.log",
+      "sha256": "e3e72581ad225c3edf98a34db5f51ba102767f5c09563bfe9ecaa469aca42dfa",
+      "bytes": 1615
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/GRANT-01/wp14-grant-red.log",
+      "sha256": "8aae013967479ebaa43142eba724f32f754766cac2fc423aac2df7a343652b0f",
+      "bytes": 1078
+    },
+    {
       "path": "docs/fusion/work-items/WP-14/PROTOCOL-01/artifacts.json",
       "sha256": "58497c940042f294943d82aa1b551f284f4eb4baac2d4d46246319dcd5f5288c",
       "bytes": 1901
@@ -1533,8 +1583,8 @@
     },
     {
       "path": "docs/fusion/work-items/WP-14/summary.md",
-      "sha256": "886823edea24787831336fb517e095aadcae5ca6655bd9fba04460ff4dd9da25",
-      "bytes": 4480
+      "sha256": "b08e544fbb5f29ea30315b10738ccbf4b513a2a61946a59b887009110517b74e",
+      "bytes": 4813
     },
     {
       "path": "docs/fusion/work-items/WP-14/test-results.json",

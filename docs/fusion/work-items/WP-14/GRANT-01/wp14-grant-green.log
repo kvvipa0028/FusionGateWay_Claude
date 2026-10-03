@@ -1,0 +1,20 @@
+=== RUN   TestPreparedModelSecretHasNoAuthorityBeforeCurrentActivation
+--- PASS: TestPreparedModelSecretHasNoAuthorityBeforeCurrentActivation (0.00s)
+=== RUN   TestPreparedModelActivationExpiryRevocationAndIssuerIsolation
+=== RUN   TestPreparedModelActivationExpiryRevocationAndIssuerIsolation/prepare_expired
+=== RUN   TestPreparedModelActivationExpiryRevocationAndIssuerIsolation/run_revoked
+=== RUN   TestPreparedModelActivationExpiryRevocationAndIssuerIsolation/manager_revoked
+=== RUN   TestPreparedModelActivationExpiryRevocationAndIssuerIsolation/cancelled
+=== RUN   TestPreparedModelActivationExpiryRevocationAndIssuerIsolation/active_expired
+=== RUN   TestPreparedModelActivationExpiryRevocationAndIssuerIsolation/identity
+--- PASS: TestPreparedModelActivationExpiryRevocationAndIssuerIsolation (0.00s)
+    --- PASS: TestPreparedModelActivationExpiryRevocationAndIssuerIsolation/prepare_expired (0.00s)
+    --- PASS: TestPreparedModelActivationExpiryRevocationAndIssuerIsolation/run_revoked (0.00s)
+    --- PASS: TestPreparedModelActivationExpiryRevocationAndIssuerIsolation/manager_revoked (0.00s)
+    --- PASS: TestPreparedModelActivationExpiryRevocationAndIssuerIsolation/cancelled (0.00s)
+    --- PASS: TestPreparedModelActivationExpiryRevocationAndIssuerIsolation/active_expired (0.00s)
+    --- PASS: TestPreparedModelActivationExpiryRevocationAndIssuerIsolation/identity (0.00s)
+=== RUN   TestPreparedModelRejectsMissingScopeUnsafeTTLAndBoundedCapacity
+--- PASS: TestPreparedModelRejectsMissingScopeUnsafeTTLAndBoundedCapacity (0.62s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/policy	2.269s

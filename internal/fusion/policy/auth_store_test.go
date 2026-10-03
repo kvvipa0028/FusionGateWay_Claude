@@ -1,6 +1,7 @@
 package policy
 
 import (
+	"context"
 	"github.com/yetone/magpie/internal/fusion/stageplan"
 	"github.com/yetone/magpie/internal/fusion/store"
 	"os"
@@ -36,6 +37,20 @@ func TestStageScopeUsesPersistedRunAndRejectsCompletedGeneration(t *testing.T) {
 	if _, e = m.Issue(c, time.Minute); e == nil {
 		t.Fatal("model credential issued before startup confirmation")
 	}
+	pending, e := m.PrepareModel(c, time.Minute)
+	if e != nil {
+		t.Fatal(e)
+	}
+	preparedSecret, e := pending.Secret()
+	if e != nil {
+		t.Fatal(e)
+	}
+	if _, e = m.AuthenticateStage(preparedSecret, c); e == nil {
+		t.Fatal("prepared secret authorized starting run")
+	}
+	if e = pending.Activate(); e == nil {
+		t.Fatal("prepared model activated before persistent startup confirmation")
+	}
 	events := c
 	events.Audience = EventsAudience
 	if _, e = m.Issue(events, time.Minute); e != nil {
@@ -43,6 +58,13 @@ func TestStageScopeUsesPersistedRunAndRejectsCompletedGeneration(t *testing.T) {
 	}
 	if e = s.ConfirmStarted(run.ID, run.Generation, run.Owner, "fixture-session"); e != nil {
 		t.Fatal(e)
+	}
+	if e = pending.Activate(); e != nil {
+		t.Fatal(e)
+	}
+	preparedContext, e := m.WithStage(context.Background(), preparedSecret, c)
+	if e != nil || !m.ModelCurrent(preparedContext, c) {
+		t.Fatal("confirmed prepared grant unavailable", e)
 	}
 	raw, e := m.Issue(c, time.Minute)
 	if e != nil {
@@ -60,6 +82,9 @@ func TestStageScopeUsesPersistedRunAndRejectsCompletedGeneration(t *testing.T) {
 	}
 	if _, e = m.AuthenticateStage(raw, c); e == nil {
 		t.Fatal("completed run accepted new request")
+	}
+	if m.ModelCurrent(preparedContext, c) {
+		t.Fatal("prepared grant ignored persistent completed run")
 	}
 	s.Close()
 	if _, e = m.Issue(c, time.Minute); e == nil {
