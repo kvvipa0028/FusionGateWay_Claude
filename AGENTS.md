@@ -3,7 +3,7 @@
 - 默认使用中文交流；代码标识、工具名和日志原文保持原文。
 - 本仓库以 Magpie `main@1a50db1a8afd0849df2853f92a47da9d5e2f2cc9` 为源码快照；以 `docs/fusion/upstream-lock.json` 为当前基线记录。
 - `origin` 指向 FusionGateWay_Claude；`upstream` 指向 yetone/magpie。不得向上游推送。
-- 实施文档位于 `docs/fusion/planning/`；WP-01–WP-11 已完成基线、隔离、fixtures、绑定编译、独立任务存储与入口鉴权，WP-12/WP-14/WP-15 为 in_progress，其他工作包仍为 planned，60 类最终验收仍为 not_run。
+- 实施文档位于 `docs/fusion/planning/`；WP-01–WP-11 已完成基线、隔离、fixtures、绑定编译、独立任务存储与入口鉴权，WP-12/WP-13/WP-14/WP-15 为 in_progress，其他工作包仍为 planned，60 类最终验收仍为 not_run。
 - Fusion 产品构建必须使用 `fusion` tag 和 `scripts/fusion/build-dev.py` / `run-dev.py`；无 tag 构建保留原版回归语义，不能作为 Fusion 产品交付。开发实例必须使用仓库外私有 HOME/XDG，不读取旧共享 Keychain。
 - 基础准备完成源码和文档导入、工具链准备及基线核验；2026-10-03 用户选择 OAuth 方案 A，Google 订阅路径改用私有外部客户端配置并校验身份。五角色绑定编译、快照与独立存储已完成；strict locked 出口已有离线验证；产品 API/GUI 和 Native Adapter 尚未完成；受管 Worker 单进程/无网络基础已验证；不要把原版 manual 模式当成 Fusion locked。
 - 后续按获分派工作包实施；保留内置/插件执行路径说明。插件迁移不代表获准安装插件、访问账号或发布。

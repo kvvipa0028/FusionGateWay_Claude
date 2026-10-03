@@ -1,0 +1,67 @@
+{
+  "mode": "baseline",
+  "native_version": "grok1.0.48/b94d5072c95f",
+  "executable_sha256": "1ed292eb62206b1a2ec3d17dc69c9c8406a07f5ff414305f953baee5b72a4a05",
+  "pid": 8245,
+  "exit": 0,
+  "timeout": false,
+  "http": [
+    {
+      "path": "/v1/chat/completions",
+      "model": "grok-4.6",
+      "stream": true,
+      "tools_count": 1,
+      "tools": [
+        "session_title"
+      ],
+      "purpose": "title"
+    },
+    {
+      "path": "/v1/chat/completions",
+      "model": "fixture-model",
+      "stream": true,
+      "tools_count": 25,
+      "tools": [
+        "run_terminal_command",
+        "read_file",
+        "search_replace",
+        "list_dir",
+        "grep",
+        "kill_command_or_subagent",
+        "todo_write",
+        "get_command_or_subagent_output",
+        "spawn_subagent",
+        "scheduler_create",
+        "scheduler_delete",
+        "scheduler_list",
+        "monitor",
+        "search_tool",
+        "use_tool",
+        "workflow",
+        "enter_plan_mode",
+        "exit_plan_mode",
+        "ask_user_question",
+        "send_feedback",
+        "image_gen",
+        "image_edit",
+        "image_to_video",
+        "reference_to_video",
+        "write"
+      ],
+      "purpose": "agent"
+    },
+    {
+      "path": "/v1/chat/completions",
+      "model": "fixture-model",
+      "stream": true,
+      "tools_count": 0,
+      "tools": [],
+      "purpose": "dashboard-summary"
+    }
+  ],
+  "real_model_calls": 0,
+  "real_credentials_used": false,
+  "worker_isolation_verified": false,
+  "stdout": "{\"type\":\"available_commands\",\"tools\":[\"run_terminal_command\",\"read_file\",\"search_replace\",\"list_dir\",\"grep\",\"kill_command_or_subagent\",\"todo_write\",\"get_command_or_subagent_output\",\"spawn_subagent\",\"scheduler_create\",\"scheduler_delete\",\"scheduler_list\",\"monitor\",\"search_tool\",\"use_tool\",\"workflow\",\"enter_plan_mode\",\"exit_plan_mode\",\"ask_user_question\",\"send_feedback\",\"image_gen\",\"image_edit\",\"image_to_video\",\"reference_to_video\",\"write\"],\"commands\":[\"compact\",\"always-approve\",\"context\",\"session-info\",\"feedback\",\"deep-research\",\"workflow\",\"goal\",\"loop\"]}\n{\"type\":\"available_commands\",\"tools\":[\"run_terminal_command\",\"read_file\",\"search_replace\",\"list_dir\",\"grep\",\"kill_command_or_subagent\",\"todo_write\",\"get_command_or_subagent_output\",\"spawn_subagent\",\"scheduler_create\",\"scheduler_delete\",\"scheduler_list\",\"monitor\",\"search_tool\",\"use_tool\",\"workflow\",\"enter_plan_mode\",\"exit_plan_mode\",\"ask_user_question\",\"send_feedback\",\"image_gen\",\"image_edit\",\"image_to_video\",\"reference_to_video\",\"write\"],\"commands\":[\"compact\",\"always-approve\",\"context\",\"session-info\",\"feedback\",\"deep-research\",\"workflow\",\"goal\",\"loop\"]}\n{\"type\":\"text\",\"data\":\"Fixture ready.\"}\n{\"type\":\"available_commands\",\"tools\":[\"run_terminal_command\",\"read_file\",\"search_replace\",\"list_dir\",\"grep\",\"kill_command_or_subagent\",\"todo_write\",\"get_command_or_subagent_output\",\"spawn_subagent\",\"scheduler_create\",\"scheduler_delete\",\"scheduler_list\",\"monitor\",\"search_tool\",\"use_tool\",\"workflow\",\"enter_plan_mode\",\"exit_plan_mode\",\"ask_user_question\",\"send_feedback\",\"image_gen\",\"image_edit\",\"image_to_video\",\"reference_to_video\",\"write\"],\"commands\":[\"compact\",\"always-approve\",\"context\",\"session-info\",\"feedback\",\"deep-research\",\"workflow\",\"goal\",\"loop\"]}\n{\"type\":\"usage\",\"usage\":{\"input_tokens\":3,\"output_tokens\":2,\"cache_read_input_tokens\":0,\"cache_creation_input_tokens\":0,\"reasoning_tokens\":0}}\n{\"type\":\"end\",\"stopReason\":\"end_turn\",\"sessionId\":\"11111111-1111-4111-8111-111111111111\",\"requestId\":\"7b83aa25-4814-4856-b9b6-3c5841c12c2d\",\"usage\":{\"input_tokens\":3,\"cache_read_input_tokens\":0,\"cache_creation_input_tokens\":0,\"output_tokens\":2,\"reasoning_tokens\":0,\"total_tokens\":5},\"num_turns\":1,\"modelUsage\":{\"fixture-model\":{\"inputTokens\":3,\"outputTokens\":2,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"modelCalls\":1}}}\n",
+  "stderr": "\u001b[2m2026-10-03T15:36:07.155736Z\u001b[0m \u001b[31mERROR\u001b[0m git_cli: Command::output() FAILED (spawn error) \u001b[3merror\u001b[0m\u001b[2m=\u001b[0mOperation not permitted (os error 1) \u001b[3merror_kind\u001b[0m\u001b[2m=\u001b[0mPermissionDenied \u001b[3mcwd\u001b[0m\u001b[2m=\u001b[0m<fixture-root>/workspace\n"
+}

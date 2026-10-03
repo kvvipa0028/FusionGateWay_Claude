@@ -292,7 +292,7 @@
       "id": "WP-13",
       "title": "实现 Grok Build 官方 CLI Adapter",
       "milestone": "M2",
-      "status": "planned",
+      "status": "in_progress",
       "depends_on": [
         "WP-08",
         "WP-11"

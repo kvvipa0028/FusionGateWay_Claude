@@ -1,0 +1,14 @@
+{
+  "mode": "invalid-model",
+  "native_version": "grok1.0.48/b94d5072c95f",
+  "executable_sha256": "1ed292eb62206b1a2ec3d17dc69c9c8406a07f5ff414305f953baee5b72a4a05",
+  "pid": 8211,
+  "exit": 1,
+  "timeout": false,
+  "http": [],
+  "real_model_calls": 0,
+  "real_credentials_used": false,
+  "worker_isolation_verified": false,
+  "stdout": "{\"type\":\"error\",\"message\":\"Couldn't set model 'invalid-fixture-model': Invalid params: \\\"unknown model id\\\". Run 'grok models' to see available models.\"}\n",
+  "stderr": "Error: Couldn't set model 'invalid-fixture-model': Invalid params: \"unknown model id\". Run 'grok models' to see available models.\n"
+}

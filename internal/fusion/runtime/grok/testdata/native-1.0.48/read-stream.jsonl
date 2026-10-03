@@ -1,0 +1,6 @@
+{"type":"available_commands","tools":["read_file","search_tool","use_tool"],"commands":["compact","always-approve","context","session-info","feedback","goal"]}
+{"type":"available_commands","tools":["read_file","search_tool","use_tool"],"commands":["compact","always-approve","context","session-info","feedback","goal"]}
+{"type":"text","data":"Fixture ready."}
+{"type":"available_commands","tools":["read_file","search_tool","use_tool"],"commands":["compact","always-approve","context","session-info","feedback","goal"]}
+{"type":"usage","usage":{"input_tokens":3,"output_tokens":2,"cache_read_input_tokens":0,"cache_creation_input_tokens":0,"reasoning_tokens":0}}
+{"type":"end","stopReason":"end_turn","sessionId":"11111111-1111-4111-8111-111111111111","requestId":"32fb30b8-2f0d-43df-8f48-58d910564242","usage":{"input_tokens":3,"cache_read_input_tokens":0,"cache_creation_input_tokens":0,"output_tokens":2,"reasoning_tokens":0,"total_tokens":5},"num_turns":1,"modelUsage":{"fixture-model":{"inputTokens":3,"outputTokens":2,"cacheReadInputTokens":0,"cacheCreationInputTokens":0,"modelCalls":1}}}

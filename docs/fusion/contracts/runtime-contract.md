@@ -1,5 +1,7 @@
 # Runtime 与 Worker 合同 v1
 
+WP-13-PROTOCOL-01 新增 [固定 Grok headless 观察器](grok-headless-protocol.md)；它尚未提供公共 Adapter 的 Start/Probe/Resume 或注册 Worker。原生终态的 modelCalls 不包含已观察到的辅助请求，不能作为完整调用锁定、额度/计费或停止证明。
+
 `Adapter` 提供 Probe/Start/Resume，Handle 提供 Events/Cancel/Wait。能力明确区分 start/events/cancel/resume/child_processes/network。默认只支持本机 macOS 单进程、无网络；WP-14-CHANNEL-01 增加可信 ClaudeChannel 的唯一双栈 loopback 端口，泛用 Probe 仍不报告任意 network/child_processes。resume 与其他平台返回 unsupported，需要工具子进程或外部网络的路线拒绝准入。不存在隐含的非沙箱 fallback。
 
 WP-15 的 [可信执行控制器](execution-controller.md) 现可通过 PrepareOnce 编排 Adapter、owned lifetime、取消、实际 wait 和可信 release。已有启动请求只读；HTTP 断线不取消。已完成原生合成上游全链路验证，产品管理端与实际账户准入仍未注册。

@@ -1,0 +1,25 @@
+# 固定 Grok 1.0.48 的锁定能力与缺口
+
+2026-10-03 在独立临时 HOME/XDG/GROK_HOME、空项目、合成 key 和本机假上游中运行固定 Native。真实账号、真实模型调用和真实额度查询均为零。诊断 profile 只允许连接假上游端口，禁止 fork、securityd 和日常配置文件读取，但允许较宽的 Mach lookup；它不是生产 Worker 隔离证明。Native stderr 中 git spawn 被拒绝，三种正常诊断仍退出 0，不能据此宣称工具子进程或工程闭环已通过。
+
+| 检查 | 本机观察 | 能说明什么 |
+| --- | --- | --- |
+| Native 版本/hash | `1.0.48/b94d5072c95f`，hash 与合同一致 | 精确 fixture 基线 |
+| publisher | codesign strict verify 退出 0；Apple Root CA → Developer ID → X.AI Corporation，TeamIdentifier `5Y6N3AJ54S` | 此文件的本机签名核验；未检查 notarization/安装/更新，也不等于账号或路线准入 |
+| headless | streaming-json 返回 sessionId/requestId/end/usage | 可解析已观察到的终态 |
+| `--no-auto-update` | help 没显示；实际 headless 参数解析接受 | 不能仅用 help 中缺少参数判定 unsupported；未通过网络观察证明所有更新行为 |
+| 无效模型 | error 帧、退出 1、假上游请求 0 | 不把未知模型 silently 改为默认模型 |
+| `--tools ''` | 主请求 25 工具，包含 spawn_subagent；虽然传了 no-subagents | 空字符串不能表示无工具；这里只证明工具被公布，未实际测试子 Agent 执行 |
+| `--tools Read` | 主请求公布 read_file/search_tool/use_tool | Read 单项仍含通用发现/调用工具 |
+| 明确 disallow | 加 `--disallowed-tools search_tool,use_tool` 后只公布 read_file | 该冻结版本的声明与请求 tool set 可限定；未验证实际 tool execution 权限 |
+| 默认辅助调用 | title 使用 grok-4.6；dashboard summary 使用 fixture-model | 主模型参数不能覆盖全部调用 |
+| 固定辅助配置 | models.session_summary=fixture，features.turn_summary=false | 去掉 dashboard 调用；title 和主请求均使用 fixture-model，但实际仍有 2 HTTP |
+| 终态调用数 | 上述 2 HTTP 的 end.modelUsage 仍只有 modelCalls=1 | 终态计数不能代替 Scheduler.Permit 的完整调用审计 |
+| session/effort | 观察到精确新 session UUID；effort 没有协议级证明 | Resume、effort、跨会话隔离须继续独立验证 |
+| 取消/停止 | 此包仅 Cancel 意图与 Finish 状态测试 | 没有 Grok 受管进程树停止/取消后不写证明 |
+
+因此 WP-13 仍 in_progress，真实 Grok 生成路线保持未准入。后续必须在真实获准订阅路线验证辅助请求、模型/effort/账号/计费、完整调用许可、权限与取消、准确会话恢复。不能通过普通 API key、网页 Cookie 反代、primary-only 解释或 fixture true 标记代替这些证据。
+
+官方 [headless 文档](https://docs.x.ai/build/cli/headless-scripting) 说明结构化输出和关闭更新；[settings 文档](https://docs.x.ai/build/settings) 说明 GROK_HOME。其会话参数概述不替代本机 help：当前 session-id 仅创建新 UUID 会话，恢复应使用准确 resume UUID，不能使用标题或 continue。参考源码独立固定于 [xai-org/grok-build@2bdd1d6a6369de0e8c68132ea4539e9abd9e14a8](https://github.com/xai-org/grok-build/tree/2bdd1d6a6369de0e8c68132ea4539e9abd9e14a8)，SOURCE_REV=`559751fdcec02d413e4c57c8832ab275e4f44980`，与本机 b94d5072 不同，只用于定位调查，不能当成 Native 等价源码。
+
+证据：[PROTOCOL-01](PROTOCOL-01/summary.md)。旧 WP-08 未检查 publisher 的记录保持历史事实，本次签名报告不回写旧报告、也不修改准入 flags。

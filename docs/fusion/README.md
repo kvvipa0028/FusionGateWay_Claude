@@ -69,3 +69,7 @@ WP-09 quota normalization and bounded broker completed with synthetic inputs: [c
 WP-10 准入/调度预算与原子预留已完成离线验证：[阻断原因与调度合同](contracts/blocked-reason-catalog.md)、[验证证据](work-items/WP-10/summary.md)。实际进程树退出证明和真实路线准入仍待后续工作包。
 
 WP-11 Worker/项目副本基础已完成本机原生沙箱验证：[Runtime 合同](contracts/runtime-contract.md)、[沙箱证据](contracts/sandbox-proof.md)、[结果](work-items/WP-11/summary.md)。多进程、网络、resume 未获准，真实 Native Adapter 仍待接入验证。
+
+## Grok 接入进度
+
+Grok 固定 Native 的 headless 观察器已有本机合成诊断和回归，WP-13 仍在实施中：[进度](work-items/WP-13/summary.md)、[锁定边界](work-items/WP-13/grok-lock-capability.md)。真实 Grok Worker、订阅准入及准确恢复尚未完成。

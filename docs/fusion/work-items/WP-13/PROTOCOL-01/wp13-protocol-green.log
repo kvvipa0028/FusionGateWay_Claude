@@ -1,0 +1,98 @@
+=== RUN   TestPinnedTerminalRequiresCleanEOFWithoutPromotingMetadata
+--- PASS: TestPinnedTerminalRequiresCleanEOFWithoutPromotingMetadata (0.00s)
+=== RUN   TestIncompleteOrNonzeroExitNeverSucceeds
+=== RUN   TestIncompleteOrNonzeroExitNeverSucceeds/no_end
+=== RUN   TestIncompleteOrNonzeroExitNeverSucceeds/exit_nonzero
+=== RUN   TestIncompleteOrNonzeroExitNeverSucceeds/only_end
+=== RUN   TestIncompleteOrNonzeroExitNeverSucceeds/duplicate_end
+=== RUN   TestIncompleteOrNonzeroExitNeverSucceeds/after_end
+--- PASS: TestIncompleteOrNonzeroExitNeverSucceeds (0.00s)
+    --- PASS: TestIncompleteOrNonzeroExitNeverSucceeds/no_end (0.00s)
+    --- PASS: TestIncompleteOrNonzeroExitNeverSucceeds/exit_nonzero (0.00s)
+    --- PASS: TestIncompleteOrNonzeroExitNeverSucceeds/only_end (0.00s)
+    --- PASS: TestIncompleteOrNonzeroExitNeverSucceeds/duplicate_end (0.00s)
+    --- PASS: TestIncompleteOrNonzeroExitNeverSucceeds/after_end (0.00s)
+=== RUN   TestBindingFrozenAndCurrentAtEveryBoundary
+--- PASS: TestBindingFrozenAndCurrentAtEveryBoundary (0.00s)
+=== RUN   TestToolsAreExactAndReadonly
+=== RUN   TestToolsAreExactAndReadonly/read_file-search_tool
+=== RUN   TestToolsAreExactAndReadonly/spawn_subagent
+=== RUN   TestToolsAreExactAndReadonly/run_terminal_command
+=== RUN   TestToolsAreExactAndReadonly/read_file-read_file
+=== RUN   TestToolsAreExactAndReadonly/#00
+--- PASS: TestToolsAreExactAndReadonly (0.00s)
+    --- PASS: TestToolsAreExactAndReadonly/read_file-search_tool (0.00s)
+    --- PASS: TestToolsAreExactAndReadonly/spawn_subagent (0.00s)
+    --- PASS: TestToolsAreExactAndReadonly/run_terminal_command (0.00s)
+    --- PASS: TestToolsAreExactAndReadonly/read_file-read_file (0.00s)
+    --- PASS: TestToolsAreExactAndReadonly/#00 (0.00s)
+=== RUN   TestEndIdentityModelAndUsageAreValidated
+=== RUN   TestEndIdentityModelAndUsageAreValidated/session
+=== RUN   TestEndIdentityModelAndUsageAreValidated/request
+=== RUN   TestEndIdentityModelAndUsageAreValidated/reason
+=== RUN   TestEndIdentityModelAndUsageAreValidated/turns
+=== RUN   TestEndIdentityModelAndUsageAreValidated/model
+=== RUN   TestEndIdentityModelAndUsageAreValidated/extra_model
+=== RUN   TestEndIdentityModelAndUsageAreValidated/tokens
+=== RUN   TestEndIdentityModelAndUsageAreValidated/calls
+=== RUN   TestEndIdentityModelAndUsageAreValidated/missing_usage
+=== RUN   TestEndIdentityModelAndUsageAreValidated/missing_model
+=== RUN   TestEndIdentityModelAndUsageAreValidated/total
+--- PASS: TestEndIdentityModelAndUsageAreValidated (0.01s)
+    --- PASS: TestEndIdentityModelAndUsageAreValidated/session (0.00s)
+    --- PASS: TestEndIdentityModelAndUsageAreValidated/request (0.00s)
+    --- PASS: TestEndIdentityModelAndUsageAreValidated/reason (0.00s)
+    --- PASS: TestEndIdentityModelAndUsageAreValidated/turns (0.00s)
+    --- PASS: TestEndIdentityModelAndUsageAreValidated/model (0.00s)
+    --- PASS: TestEndIdentityModelAndUsageAreValidated/extra_model (0.00s)
+    --- PASS: TestEndIdentityModelAndUsageAreValidated/tokens (0.00s)
+    --- PASS: TestEndIdentityModelAndUsageAreValidated/calls (0.00s)
+    --- PASS: TestEndIdentityModelAndUsageAreValidated/missing_usage (0.00s)
+    --- PASS: TestEndIdentityModelAndUsageAreValidated/missing_model (0.00s)
+    --- PASS: TestEndIdentityModelAndUsageAreValidated/total (0.00s)
+=== RUN   TestCancellationAndNativeErrorsDoNotBecomeSuccess
+=== RUN   TestCancellationAndNativeErrorsDoNotBecomeSuccess/before_end
+=== RUN   TestCancellationAndNativeErrorsDoNotBecomeSuccess/after_end
+=== RUN   TestCancellationAndNativeErrorsDoNotBecomeSuccess/error
+=== RUN   TestCancellationAndNativeErrorsDoNotBecomeSuccess/max_turns
+--- PASS: TestCancellationAndNativeErrorsDoNotBecomeSuccess (0.00s)
+    --- PASS: TestCancellationAndNativeErrorsDoNotBecomeSuccess/before_end (0.00s)
+    --- PASS: TestCancellationAndNativeErrorsDoNotBecomeSuccess/after_end (0.00s)
+    --- PASS: TestCancellationAndNativeErrorsDoNotBecomeSuccess/error (0.00s)
+    --- PASS: TestCancellationAndNativeErrorsDoNotBecomeSuccess/max_turns (0.00s)
+=== RUN   TestNativeJSONIsBoundedAndUnambiguous
+=== RUN   TestNativeJSONIsBoundedAndUnambiguous/frames
+=== RUN   TestNativeJSONIsBoundedAndUnambiguous/bytes
+--- PASS: TestNativeJSONIsBoundedAndUnambiguous (0.68s)
+    --- PASS: TestNativeJSONIsBoundedAndUnambiguous/frames (0.06s)
+    --- PASS: TestNativeJSONIsBoundedAndUnambiguous/bytes (0.61s)
+=== RUN   TestInvalidBindingsAndResumeAreUnsupported
+=== RUN   TestInvalidBindingsAndResumeAreUnsupported/version
+=== RUN   TestInvalidBindingsAndResumeAreUnsupported/hash
+=== RUN   TestInvalidBindingsAndResumeAreUnsupported/session
+=== RUN   TestInvalidBindingsAndResumeAreUnsupported/cwd
+=== RUN   TestInvalidBindingsAndResumeAreUnsupported/generation
+=== RUN   TestInvalidBindingsAndResumeAreUnsupported/role
+=== RUN   TestInvalidBindingsAndResumeAreUnsupported/model
+=== RUN   TestInvalidBindingsAndResumeAreUnsupported/turns
+=== RUN   TestInvalidBindingsAndResumeAreUnsupported/tool
+=== RUN   TestInvalidBindingsAndResumeAreUnsupported/duplicate
+=== RUN   TestInvalidBindingsAndResumeAreUnsupported/nil_current
+--- PASS: TestInvalidBindingsAndResumeAreUnsupported (0.00s)
+    --- PASS: TestInvalidBindingsAndResumeAreUnsupported/version (0.00s)
+    --- PASS: TestInvalidBindingsAndResumeAreUnsupported/hash (0.00s)
+    --- PASS: TestInvalidBindingsAndResumeAreUnsupported/session (0.00s)
+    --- PASS: TestInvalidBindingsAndResumeAreUnsupported/cwd (0.00s)
+    --- PASS: TestInvalidBindingsAndResumeAreUnsupported/generation (0.00s)
+    --- PASS: TestInvalidBindingsAndResumeAreUnsupported/role (0.00s)
+    --- PASS: TestInvalidBindingsAndResumeAreUnsupported/model (0.00s)
+    --- PASS: TestInvalidBindingsAndResumeAreUnsupported/turns (0.00s)
+    --- PASS: TestInvalidBindingsAndResumeAreUnsupported/tool (0.00s)
+    --- PASS: TestInvalidBindingsAndResumeAreUnsupported/duplicate (0.00s)
+    --- PASS: TestInvalidBindingsAndResumeAreUnsupported/nil_current (0.00s)
+=== RUN   TestActualNativeDefaultsAndImplicitToolsAreRefused
+--- PASS: TestActualNativeDefaultsAndImplicitToolsAreRefused (0.00s)
+=== RUN   TestNativeEndUsageCannotAccountForAuxiliaryHTTPCalls
+--- PASS: TestNativeEndUsageCannotAccountForAuxiliaryHTTPCalls (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime/grok	2.262s

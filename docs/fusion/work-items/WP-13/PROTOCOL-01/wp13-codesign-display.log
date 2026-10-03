@@ -1,0 +1,30 @@
+Executable=/Users/zhaojianzhi/.grok/downloads/grok-1.0.48-macos-aarch64
+Identifier=xai-grok-pager
+Format=Mach-O thin (arm64)
+CodeDirectory v=20500 size=295354 flags=0x10000(runtime) hashes=9224+2 location=embedded
+VersionPlatform=1
+VersionMin=720896
+VersionSDK=1705216
+Hash type=sha256 size=32
+CandidateCDHash sha256=d3afcdefe8c8f52d83b6ab19a1ece22dc8ce4434
+CandidateCDHashFull sha256=d3afcdefe8c8f52d83b6ab19a1ece22dc8ce4434b867eea903f90b4864289692
+Hash choices=sha256
+CMSDigest=d3afcdefe8c8f52d83b6ab19a1ece22dc8ce4434b867eea903f90b4864289692
+CMSDigestType=2
+Executable Segment base=0
+Executable Segment limit=142901248
+Executable Segment flags=0x1
+Page size=16384
+CDHash=d3afcdefe8c8f52d83b6ab19a1ece22dc8ce4434
+Signature size=8982
+Authority=Developer ID Application: X.AI Corporation (5Y6N3AJ54S)
+Authority=Developer ID Certification Authority
+Authority=Apple Root CA
+Timestamp=Oct 2, 2026 at 08:06:41
+Info.plist=not bound
+TeamIdentifier=5Y6N3AJ54S
+Runtime Version=26.5.0
+Sealed Resources=none
+Internal requirements count=1 size=176
+Total signatures=1
+Chosen signature=1
