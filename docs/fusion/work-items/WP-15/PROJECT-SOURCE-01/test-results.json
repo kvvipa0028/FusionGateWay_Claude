@@ -1,0 +1,41 @@
+{
+  "work_item": "WP-15-PROJECT-SOURCE-01",
+  "status": "done",
+  "parent_status": "in_progress",
+  "new_tests": 8,
+  "checks": [
+    {
+      "check": "full Fusion race",
+      "exit_code": 0,
+      "log": "wp15-project-source-final-all-race.log",
+      "pass": 360,
+      "skip": 10,
+      "fail": 0
+    },
+    {
+      "check": "CLI/GUI/full tagged vet",
+      "exit_code": 0,
+      "result": "build-results.json"
+    },
+    {
+      "check": "JSON / zsh syntax / gofmt / diff",
+      "exit_code": 0
+    }
+  ],
+  "failed_runs_preserved": {
+    "wp15-project-source-red.log": "missing bootstrap implementation",
+    "wp15-project-source-api-green.log": "temporary Store root mode was not private; fixture corrected to0700",
+    "wp15-project-source-admission-final.log": "strengthened reason assertion initially used flat error field; corrected to existing error.code contract"
+  },
+  "schema_version": 5,
+  "schema_changed": false,
+  "production_registered": false,
+  "real_model_calls": 0,
+  "real_quota_queries": 0,
+  "runtime_probed": false,
+  "route_admission_granted": false,
+  "real_project_created": false,
+  "jev": "off",
+  "platform_verified": "macOS/arm64",
+  "other_platforms": "not_verified"
+}

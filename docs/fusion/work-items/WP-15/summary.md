@@ -35,3 +35,5 @@
 [WP-15-CANCEL-STORE-01](CANCEL-STORE-01/summary.md) 已完成整项 CancelTask 存储基础，覆盖尚未启动/paused、活动 owned 取消与停止证明收尾、暂停升级取消、完整版本/lease fencing、全历史执行停止证据与重启 unknown。10 项新增测试、全量 Fusion race 341 PASS / 9 SKIP，CLI/GUI/vet 和既有 Native 回归通过。未注册整项取消 HTTP/Controller/Native 调用链，随后接线；父包保持 in_progress。
 
 [WP-15-CANCEL-API-01](CANCEL-API-01/summary.md) 已完成 Controller owned 整项取消、Management/全 Task If-Match 的 HTTP cancel、安全意图 receipt 和 OpenAPI/capture。12 新测试；固定 Native inflight 整项取消真实 wait/StopProof/release→cancelled，预算不退/旧启动不重放。全量 Fusion race 352 PASS / 10 SKIP，CLI/GUI/vet 通过；当前24路径/28操作/49样本。产品 bootstrap/listener/GUI、真实路线准入和剩余工程闭环继续实施，父包 in_progress。
+
+[WP-15-PROJECT-SOURCE-01](PROJECT-SOURCE-01/summary.md) 已完成 Git 外私有本机项目配置加载组件：已有文件夹及明确 read/write、精确内置路线元数据、五角色空选继承、预算边界与来源/文件夹身份重查。配置不能授予真实准入，实际 Handler 可读未准入登记而 preview 拒绝；产品 CLI/listener/Resolver/GUI 尚未接线。父包保持 in_progress，真实项目选取与账号/计费/额度仍待验证。

@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "revision": 1,
+  "global": {},
+  "routes": [],
+  "projects": [
+    {
+      "id": "local-pilot",
+      "name": "本机试点项目",
+      "path": "/ABSOLUTE/PATH/TO/PROJECT",
+      "read": true,
+      "write": false,
+      "routes": [],
+      "layer": {},
+      "max_calls": 50,
+      "max_reworks": 1
+    }
+  ]
+}

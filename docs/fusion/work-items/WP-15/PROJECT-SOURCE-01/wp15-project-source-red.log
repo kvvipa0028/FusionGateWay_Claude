@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/bootstrap [github.com/yetone/magpie/internal/fusion/bootstrap.test]
+internal/fusion/bootstrap/config_test.go:17:43: undefined: Document
+internal/fusion/bootstrap/config_test.go:29:7: undefined: Document
+internal/fusion/bootstrap/config_test.go:29:57: undefined: RouteDeclaration
+internal/fusion/bootstrap/config_test.go:29: undefined: ProjectDeclaration
+internal/fusion/bootstrap/config_test.go:33:47: undefined: Document
+internal/fusion/bootstrap/config_test.go:46:15: undefined: Load
+internal/fusion/bootstrap/config_test.go:78:13: undefined: Load
+internal/fusion/bootstrap/config_test.go:78:39: undefined: ErrRegistration
+internal/fusion/bootstrap/config_test.go:88:12: undefined: Load
+internal/fusion/bootstrap/config_test.go:88:38: undefined: ErrRegistration
+internal/fusion/bootstrap/config_test.go:88:38: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap [build failed]
+FAIL

@@ -1,0 +1,28 @@
+{
+  "base_commit": "9af4e0568ad39c7a9e8a79f72c5a019d7ff4fb78",
+  "source_files_sha256": {
+    "docs/fusion/contracts/local-project-source.md": "5cacb6da6391f9f9f291b2eb228e066ebdf7c8df7fe703a1fb22eeda05996c4e",
+    "docs/fusion/examples/projects.example.json": "666f0597ed04215a3528c5d76cbf3b378a8c36a30301dbe2d7cd7e137307fef3",
+    "docs/fusion/work-items/WP-15/summary.md": "c1efa177d91ff4b89d91771b6145a39d4165f7c36d214f6c49110f38b97fe94f",
+    "internal/fusion/bootstrap/config.go": "48fa13cec0f8f8c009daceaa4ee1c74e97079a9ccf293f1dbf3e8f167db23005",
+    "internal/fusion/bootstrap/config_other.go": "5e63e6560bb0db9e7b70b936c04b80d96b3cf081bb2d4632a50b6ab0e9d266e7",
+    "internal/fusion/bootstrap/config_test.go": "89eef40ac9d9e2077e632366415d17087dd3bd27b19a6177ce53f4145b8fb92d",
+    "internal/fusion/bootstrap/config_unix.go": "8cbbcc02ce5262386a2cce7d47a42716dc6eb69afd35ddf964f31517c6e8946f"
+  },
+  "packet_files_sha256": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "16988e07d157662fc25fc033c0b20714b750d100e995b650b29fe1edf3a44680",
+    "build-results.json": "f3c7d16511c5303c902fb96c8af8d3f3a9c1573da83c336ed1ee9351854b8d45",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "summary.md": "1421b0f5484832c4bb1fab1fa50ce304bee2bad4dab9d6f0f10469cac552d075",
+    "test-results.json": "6cdd3ba892ad73d9200898b5aaaa5cea1c0faa07c5234aa59de97efe87edaa73",
+    "wp15-project-source-admission-final.log": "99346a5f170fbfdacefc8a3f37255d8a8fbe041ce1ce1ec315c14735226398b6",
+    "wp15-project-source-api-final.log": "89b0f90b66e3c04e0776591eb7b7d3d12bd070912ba6ed51c531a4641cea4515",
+    "wp15-project-source-api-green.log": "3e34cf8ff054ff29f034727eb669aa8a39aaf08761baa3d82f295229db008c86",
+    "wp15-project-source-complete-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "wp15-project-source-final-all-race.log": "1ec934f8c1b905863e9ca039a0f2bfb152c45c518f42f8bc7710e40af2856066",
+    "wp15-project-source-first.log": "984beba4f33f418f57379afa308bc03629ec7f23bb36cc3caeb10d81e2c2b15f",
+    "wp15-project-source-green.log": "53e474bfe8e870b962fc27b2d6d4bdc58f5f8fecdbfa8ccdcdd40c3545df42fe",
+    "wp15-project-source-red.log": "a743e681b6eb4d6ba060c1035d00f7ef623bc8b5e8426ed4bf09dd58ba64264f"
+  }
+}
