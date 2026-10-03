@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/runtime [github.com/yetone/magpie/internal/fusion/runtime.test]
+internal/fusion/runtime/claude_channel_test.go:25:28: cannot use http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {…}) (value of func type http.HandlerFunc) as string value in argument to NewClaudeChannel
+internal/fusion/runtime/claude_channel_test.go:29:24: ch.Close undefined (type *ClaudeChannel has no field or method Close)
+internal/fusion/runtime/claude_channel_test.go:35:6: declared and not used: p
+internal/fusion/runtime/claude_channel_test.go:81:9: ch.acquire undefined (type *ClaudeChannel has no field or method acquire)
+internal/fusion/runtime/claude_channel_test.go:82:8: ch.Close undefined (type *ClaudeChannel has no field or method Close)
+internal/fusion/runtime/claude_channel_test.go:82:29: ch.acquire undefined (type *ClaudeChannel has no field or method acquire)
+internal/fusion/runtime/claude_channel_test.go:84:5: ch.release undefined (type *ClaudeChannel has no field or method release)
+internal/fusion/runtime/claude_channel_test.go:86:13: ch.Close undefined (type *ClaudeChannel has no field or method Close)
+internal/fusion/runtime/claude_channel_test.go:110:35: cannot use http.HandlerFunc(func(http.ResponseWriter, *http.Request) {}) (value of func type http.HandlerFunc) as string value in argument to NewClaudeChannel
+internal/fusion/runtime/claude_channel_test.go:111:10: extra.Close undefined (type *ClaudeChannel has no field or method Close)
+internal/fusion/runtime/claude_channel_test.go:111:10: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/runtime [build failed]
+FAIL

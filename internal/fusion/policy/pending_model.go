@@ -32,6 +32,19 @@ func (p *PendingModelGrant) Claims() Claims {
 	return p.claims
 }
 
+// PreparedFor permits trusted launch preparation only; it never authenticates
+// a caller. Activation TTL must cover the complete bounded process lifetime.
+func (p *PendingModelGrant) PreparedFor(expected Claims, lifetime time.Duration) bool {
+	if p == nil || p.manager == nil || lifetime <= 0 || lifetime > 4*time.Minute {
+		return false
+	}
+	m := p.manager
+	m.mu.Lock()
+	defer m.mu.Unlock()
+	prepared, ok := m.prepared[p.hash]
+	return ok && prepared.claims == expected && p.claims == expected && m.adminEnabled && !m.revokedRuns[expected.RunID] && m.now().Before(prepared.expiry) && prepared.ttl >= lifetime+20*time.Second
+}
+
 // PrepareModel may precede process startup. Its output is unknown to stage
 // authentication until activation, expires after one minute if unactivated,
 // and shares the issuer's capacity bound with already active capabilities.

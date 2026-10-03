@@ -32,7 +32,67 @@ static int timezone_probe(void) {
     return 0;
 }
 
+static int connect_port(const char *raw) {
+    char *end = NULL;
+    long number = strtol(raw, &end, 10);
+    if (*end != '\0' || number < 1 || number > 65535) return 0;
+    struct sockaddr_in address = {0};
+    address.sin_family = AF_INET;
+    address.sin_port = htons((unsigned short)number);
+    address.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
+    int fd = socket(AF_INET, SOCK_STREAM, 0);
+    int connected = fd >= 0 && connect(fd, (struct sockaddr *)&address, sizeof(address)) == 0;
+    if (fd >= 0) close(fd);
+    return connected;
+}
+
+static int connect_port6(const char *raw) {
+    char *end = NULL;
+    long number = strtol(raw, &end, 10);
+    if (*end != '\0' || number < 1 || number > 65535) return 0;
+    struct sockaddr_in6 address = {0};
+    address.sin6_family = AF_INET6;
+    address.sin6_port = htons((unsigned short)number);
+    address.sin6_addr = in6addr_loopback;
+    int fd = socket(AF_INET6, SOCK_STREAM, 0);
+    int connected = fd >= 0 && connect(fd, (struct sockaddr *)&address, sizeof(address)) == 0;
+    if (fd >= 0) close(fd);
+    return connected;
+}
+
+static int channel_probe(int argc, char **argv) {
+    int control = strcmp(argv[1], "--channel-control") == 0;
+    if ((control && argc != 4) || (!control && argc != 5)) return 100;
+    if (!connect_port(argv[2]) || !connect_port6(argv[2]) || connect_port(argv[3]) != control) return 101;
+    if (!control) {
+        const char *key = getenv("ANTHROPIC_API_KEY");
+        const char *token = getenv("ANTHROPIC_AUTH_TOKEN");
+        const char *model = getenv("ANTHROPIC_MODEL");
+        const char *native_tmp = getenv("CLAUDE_CODE_TMPDIR");
+        const char *tmp = getenv("TMPDIR");
+        if (key == NULL || strncmp(key, "fgs_", 4) != 0 || token == NULL || strcmp(key, token) != 0 || model == NULL || strcmp(model, "glm-5.3") != 0 || native_tmp == NULL || tmp == NULL || strcmp(native_tmp, tmp) != 0 || getenv("FUSION_MANAGEMENT_SECRET") != NULL) return 102;
+        mach_port_t port = MACH_PORT_NULL;
+        if (bootstrap_look_up(bootstrap_port, "com.apple.SecurityServer", &port) == KERN_SUCCESS) {
+            mach_port_deallocate(mach_task_self(), port);
+            return 103;
+        }
+        pid_t child = fork();
+        if (child == 0) _exit(0);
+        if (child > 0) { int status = 0; waitpid(child, &status, 0); return 104; }
+        if (errno != EPERM) return 105;
+        int ready = 0;
+        for (int i = 0; i < 2000; i++) {
+            if (access(argv[4], F_OK) == 0) { ready = 1; break; }
+            usleep(1000);
+        }
+        if (!ready) return 106;
+    }
+    puts("fixture-completed");
+    return 0;
+}
+
 int main(int argc, char **argv) {
+    if (argc >= 2 && (strcmp(argv[1], "--channel") == 0 || strcmp(argv[1], "--channel-control") == 0)) return channel_probe(argc, argv);
     if (argc == 2 && strcmp(argv[1], "--timezone") == 0) return timezone_probe();
     int control = argc == 2 && strcmp(argv[1], "--control") == 0;
     mach_port_t port = MACH_PORT_NULL;

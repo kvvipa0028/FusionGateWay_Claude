@@ -3,3 +3,4 @@ docs/fusion/work-items/WP-11/*.log -whitespace
 # Keep the native CLI help export verbatim.
 docs/fusion/work-items/WP-12/wp12-native-help.log -whitespace
 docs/fusion/work-items/WP-15/REVISION-01/wp15-revision-api-red.log -whitespace
+docs/fusion/work-items/WP-14/CHANNEL-01/wp14-channel-profile-red.log -whitespace

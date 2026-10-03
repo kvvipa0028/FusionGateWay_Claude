@@ -78,8 +78,8 @@ func (s *Supervisor) Resume(context.Context, store.StageRun) (*Handle, error) {
 }
 
 // Start consumes an already committed reservation. Spec is assembled by a
-// trusted adapter, never decoded from an HTTP request. This first sandbox has
-// no child-process or network capability; adapters needing either stay blocked.
+// trusted adapter, never decoded from an HTTP request. Child processes remain
+// denied; a ClaudeChannel adds only its controller-owned loopback port.
 func (s *Supervisor) Start(ctx context.Context, r store.StageRun, in Spec) (*Handle, error) {
 	if s == nil || s.store == nil || ctx.Err() != nil || in.ValidateOutcome == nil || in.Timeout <= 0 || in.Timeout > 10*time.Minute || in.NativeSessionID == "" || len(in.Input) > 64<<10 || !filepath.IsAbs(in.Executable) || strings.ContainsRune(in.NativeSessionID, 0) {
 		return nil, ErrLaunch
@@ -92,6 +92,20 @@ func (s *Supervisor) Start(ctx context.Context, r store.StageRun, in Spec) (*Han
 	if e != nil || in.Writable && reservation.WriteKey == "" {
 		return nil, ErrLaunch
 	}
+	if c := in.ClaudeChannel; c != nil {
+		task, e := s.store.Task(current.TaskID)
+		inputTarget, _ := json.Marshal(r.Target)
+		storedTarget, _ := json.Marshal(current.Target)
+		if e != nil || current.Role != r.Role || current.Attempt != r.Attempt || string(inputTarget) != string(storedTarget) || !c.acquire(current, task.ProjectID, in.Timeout) {
+			return nil, ErrLaunch
+		}
+	}
+	owned := false
+	defer func() {
+		if !owned {
+			in.ClaudeChannel.release()
+		}
+	}()
 	actual, e := FileHash(in.Executable)
 	if e != nil || actual != in.ExecutableHash {
 		return nil, ErrLaunch
@@ -179,6 +193,18 @@ func (s *Supervisor) Start(ctx context.Context, r store.StageRun, in Spec) (*Han
 		return nil, ErrLaunch
 	}
 	h.emit("started")
+	owned = true
+	if c := spec.ClaudeChannel; c != nil {
+		if e = c.grant.Activate(); e != nil {
+			c.cancel()
+			h.cancelRequested = true
+			_ = s.store.CancelIntent(r.ID, r.Generation, r.Owner)
+			h.emit("authorization_failed")
+			h.cancel <- struct{}{}
+			go h.supervise(ctx)
+			return h, ErrLaunch
+		}
+	}
 	go h.supervise(ctx)
 	return h, nil
 }
@@ -253,6 +279,7 @@ func (h *Handle) Cancel() error {
 	if e := h.supervisor.store.CancelIntent(h.run.ID, h.run.Generation, h.run.Owner); e != nil {
 		return ErrIdentity
 	}
+	h.spec.ClaudeChannel.cancel()
 	h.cancelRequested = true
 	select {
 	case h.cancel <- struct{}{}:
@@ -261,6 +288,7 @@ func (h *Handle) Cancel() error {
 	return signalProcess(h.identity, syscall.SIGTERM)
 }
 func (h *Handle) supervise(ctx context.Context) {
+	defer h.spec.ClaudeChannel.cancel()
 	wait := make(chan error, 1)
 	go func() { wait <- h.cmd.Wait() }()
 	deadline := time.NewTimer(h.spec.Timeout)
@@ -270,7 +298,12 @@ func (h *Handle) supervise(ctx context.Context) {
 	var kill <-chan time.Time
 	var killTimer *time.Timer
 	var waitErr error
+	var channelFailure <-chan struct{}
+	if h.spec.ClaudeChannel != nil {
+		channelFailure = h.spec.ClaudeChannel.failure
+	}
 	stop := func() {
+		h.spec.ClaudeChannel.cancel()
 		h.mu.Lock()
 		if !h.cancelRequested {
 			h.cancelRequested = true
@@ -289,6 +322,9 @@ func (h *Handle) supervise(ctx context.Context) {
 			goto exited
 		case <-h.cancel:
 			stop()
+		case <-channelFailure:
+			stop()
+			channelFailure = nil
 		case <-ctx.Done():
 			stop()
 			ctx = context.Background()
@@ -363,6 +399,7 @@ exited:
 		h.supervisor.mu.Unlock()
 	}
 	h.emit(state)
+	h.spec.ClaudeChannel.release()
 	close(h.events)
 	close(h.done)
 }

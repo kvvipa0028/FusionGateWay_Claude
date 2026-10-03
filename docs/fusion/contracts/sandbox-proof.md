@@ -10,4 +10,8 @@
 
 WP-14-SYSTEM-DATA-01 增加 `/usr/share/icu` 与 `/private/var/db/timezone` 的只读数据访问。未开放整个 /usr 或 /var，未授予这两个目录写权限或可执行映射。系统 libicucore 的真实时区枚举在旧 profile 返回错误，新增只读权限后在 Supervisor 内成功并获得当前控制器 StopProof；既有 Keychain/Mach、网络、fork、兄弟目录读取和越界写反例继续验证。
 
-固定 Claude Code 2.1.287 的独立无工具诊断进行四组消融：无权限、仅 ICU、仅时区均在首个请求前超时；同时开放两个目录后完成一次本地假上游请求。诊断额外授予唯一 loopback 端口与 synthetic env，不经过生产 Supervisor，因此其 parent wait 不代表生产 Native StopProof 或网络准入。生产 profile 仍拒绝所有网络与 fork；实际 GLM Adapter、全部调用预算、真实计费与额度未因此通过。详见 [本项证据](../work-items/WP-14/SYSTEM-DATA-01/summary.md)。
+固定 Claude Code 2.1.287 的独立无工具诊断进行四组消融：无权限、仅 ICU、仅时区均在首个请求前超时；同时开放两个目录后完成一次本地假上游请求。诊断额外授予唯一 loopback 端口与 synthetic env，不经过生产 Supervisor，因此其 parent wait 不代表生产 Native StopProof 或网络准入。该历史修复本身没有开放生产网络或 fork，详见 [本项证据](../work-items/WP-14/SYSTEM-DATA-01/summary.md)。
+
+WP-14-CHANNEL-01 的本机实验发现 remote tcp 数字 IP 规则被 sandbox-exec 拒绝；localhost:port 实际匹配 127.0.0.1 与 ::1，同端口均通过，对有阳性对照的邻端口拒绝。127.0.0.2 在本机不能绑定，明确不计作沙箱反例。对应生产通道必须同时独占两个 loopback 地址，只增加该一个端口；没有开放任意 localhost、network-bind、fork 或 Mach 服务。
+
+更新后的原生 C fixture 在同一生产 Supervisor 内证明双栈通道均可达、邻端口仍拒绝、SecurityServer lookup 与 fork 仍拒绝。固定 Native CLI 另经生产 Supervisor、真实 Store 和 CallGate 完成四个合成场景及真实 wait/reap/StopProof。证据只覆盖这个宿主和固定 Native 的无工具模式，Bash/多进程工具仍未支持，真实账号/额度/计费与产品 Adapter 准入保持未验证。详见 [通道证据](../work-items/WP-14/CHANNEL-01/summary.md)。

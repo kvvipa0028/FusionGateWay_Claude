@@ -1,0 +1,14 @@
+=== RUN   TestManagedClaudeChannelActivatesAfterConfirmationAndReapsOneProcess
+    claude_channel_darwin_test.go:108: confirmed run grant not active authentication required
+--- FAIL: TestManagedClaudeChannelActivatesAfterConfirmationAndReapsOneProcess (0.51s)
+=== RUN   TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops
+=== RUN   TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops/scope
+    claude_channel_darwin_test.go:149: unsafe channel start accepted
+=== RUN   TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops/activate
+    claude_channel_darwin_test.go:149: unsafe channel start accepted
+--- FAIL: TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops (0.43s)
+    --- FAIL: TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops/scope (0.22s)
+    --- FAIL: TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops/activate (0.21s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime	1.573s
+FAIL

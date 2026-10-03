@@ -14,10 +14,11 @@ import (
 	"unicode"
 	"unicode/utf8"
 
+	managed "github.com/yetone/magpie/internal/fusion/runtime"
 	"github.com/yetone/magpie/internal/fusion/stageplan"
 )
 
-const CLIVersion = "2.1.287"
+const CLIVersion = managed.ClaudeCLIVersion
 const Endpoint = "https://open.bigmodel.cn/api/anthropic"
 
 var (

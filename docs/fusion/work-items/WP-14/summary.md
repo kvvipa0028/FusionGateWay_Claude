@@ -1,6 +1,6 @@
 # WP-14 进度与私有临时目录修复
 
-状态：`in_progress`。本次完成子工作项 `WP-14-TEMP-01`：隔离 Claude Code 内部临时目录，并捕获锁定 Native 版本的 tool-free stream-json fixture。完整 Runtime Adapter 与真实严格执行仍未完成。
+状态：`in_progress`。最新完成子工作项 `WP-14-CHANNEL-01`：将固定 Claude Code 接入生产 Supervisor、受控双栈 loopback、启动后 grant 激活与真实 Store 预算。下文保留各轮证据边界；完整产品 Adapter、真实路线准入和 Gate A 仍未完成。
 
 ## 修复与验证
 
@@ -24,7 +24,7 @@ Native stream 出现 system/ui_invalidate、init、status、stream_event、assis
 
 本轮发现 `~/.local/bin/claude` 已指向 2.1.288。2.1.287 的冻结文件仍存在且 hash 与 WP-08 相同；characterization 直接使用该文件。未把 symlink 更新视为旧任务版本已更新，也没有把 2.1.288 标为已准入。
 
-仍需实现 GLM protocol state machine、受管执行出口、取消/恢复与全部模型调用控制，以及真实套餐/额度/计费核验。WP-14、WP-17、Gate A 和相关最终 T 场景保持未完成。
+TEMP-01 当时仍缺 GLM protocol state machine 与受管执行出口，后续子项分别补充。当前仍需产品 Adapter 注册、工具执行能力、恢复合同和真实套餐/额度/计费核验。WP-14、WP-17、Gate A 和相关最终 T 场景保持未完成。
 
 ## WP-14-PROTOCOL-01
 
@@ -41,3 +41,7 @@ Native stream 出现 system/ui_invalidate、init、status、stream_event、assis
 ## WP-14-GRANT-01
 
 新增无授权的 Native 随机值准备与 ConfirmStarted 后一次性激活原语，原 StoreValidator 保持不变。真实 Store 测试证明 starting 拒绝、running 允许、finished 再拒绝。详见 [启动身份交付记录](GRANT-01/summary.md)。生产 Supervisor/Native 启动通道尚未接入。
+
+## WP-14-CHANNEL-01
+
+原生受管通道已接入 Supervisor。macOS 的 localhost 沙箱规则同时允许 IPv4/IPv6，因此控制器必须占有两边同一端口，Worker 存活时不能释放。真实固定 Native 无工具测试完成正常调用、SDK 重试、预算耗尽和调用中取消；使用 fake upstream 和 synthetic key，真实模型调用数 0。详见 [受管通道交付记录](CHANNEL-01/summary.md)。本项不注册产品任务 API，不升级实际账号/地区/额度/计费/effort 证据，父 WP-14 保持 in_progress。

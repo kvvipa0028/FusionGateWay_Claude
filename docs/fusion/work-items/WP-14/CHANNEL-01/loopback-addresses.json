@@ -1,0 +1,28 @@
+{
+  "diagnostic_only": true,
+  "real_model_calls": 0,
+  "profile": "allow default; deny network-outbound; only remote tcp localhost at one owned port",
+  "cases": [
+    {
+      "address": "127.0.0.1",
+      "approved_port": true,
+      "positive_control_exit": 0,
+      "sandbox_exit": 0
+    },
+    {
+      "address": "::1",
+      "approved_port": true,
+      "positive_control_exit": 0,
+      "sandbox_exit": 0
+    },
+    {
+      "address": "127.0.0.1",
+      "approved_port": false,
+      "positive_control_exit": 0,
+      "sandbox_exit": 1
+    }
+  ],
+  "compiler_exit": 0,
+  "probe_sha256": "6e15b1f8d1dd67e1e6052d2d74af84b0d6374035a2e03e69bfd49f708040d5c6",
+  "alias_127_0_0_2": "unavailable on this host: bind EADDRNOTAVAIL, not counted as a sandbox negative"
+}

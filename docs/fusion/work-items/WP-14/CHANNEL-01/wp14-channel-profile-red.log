@@ -1,0 +1,12 @@
+=== RUN   TestManagedClaudeChannelActivatesAfterConfirmationAndReapsOneProcess
+    claude_channel_darwin_test.go:116: synthetic channel stderr: sandbox-exec: host must be * or localhost in network address
+        
+        Backtrace: 
+        <input string>:23:26:
+        	(remote tcp "127.0.0.1:49666")
+        
+    claude_channel_darwin_test.go:117: channel boundary or stop unverified failed 65
+--- FAIL: TestManagedClaudeChannelActivatesAfterConfirmationAndReapsOneProcess (0.26s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime	0.714s
+FAIL

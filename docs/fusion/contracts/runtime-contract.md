@@ -1,10 +1,10 @@
 # Runtime 与 Worker 合同 v1
 
-`Adapter` 提供 Probe/Start/Resume，Handle 提供 Events/Cancel/Wait。能力明确区分 start/events/cancel/resume/child_processes/network。首版只支持本机 macOS 单进程、无网络；resume 与其他平台返回 unsupported，需要工具子进程或外部网络的路线拒绝准入。不存在隐含的非沙箱 fallback。
+`Adapter` 提供 Probe/Start/Resume，Handle 提供 Events/Cancel/Wait。能力明确区分 start/events/cancel/resume/child_processes/network。默认只支持本机 macOS 单进程、无网络；WP-14-CHANNEL-01 增加可信 ClaudeChannel 的唯一双栈 loopback 端口，泛用 Probe 仍不报告任意 network/child_processes。resume 与其他平台返回 unsupported，需要工具子进程或外部网络的路线拒绝准入。不存在隐含的非沙箱 fallback。
 
 执行顺序：可信 workspace/route/quota/预算检查 → Scheduler.Prepare 原子保存 intent/reservation → Supervisor 校验 starting/current generation/held → fsync launch intent → sandbox-exec → 记录 PID/出生时间/nonce/可执行文件与 profile hash → ConfirmStarted → heartbeat → native validator + wait/reap → 写终态/stop journal → 可信 StopProof → Scheduler.Release。
 
-Spec 的路径、argv、stdin 与 validator 只由注册的可信 Adapter 构造。argv 是数组，stdin 有界 64KiB；没有 shell 拼接、ambient env 或 ExtraFiles。环境仅固定 HOME/XDG/TMP/PATH，额外 fixture 字段有白名单，不接受管理/API/OAuth secret env。真实 Adapter 的授权通道必须单独验证。本包不读取任何真实凭据。
+Spec 的路径、argv、stdin 与 validator 只由可信 Adapter 构造。argv 是数组，stdin 有界 64KiB；没有 shell 拼接、ambient env 或 ExtraFiles。默认环境仅固定 HOME/XDG/TMP/PATH，额外 fixture 字段有白名单。ClaudeChannel 只增加固定私有 Native 路径、冻结模型、controller endpoint 与尚未激活的 stage 随机值；不接受管理、真实 API key 或 OAuth secret env，也不能与 fixture env 混用。本包不读取任何真实凭据。
 
 macOS profile 可只读系统 ICU 与时区数据目录，供 Native 初始化使用；不开放父目录或这些数据目录的写/执行权限。该启动依赖修复不授予网络、fork 或 Native 凭据环境，GLM 的受管通信仍需独立 Adapter 与执行出口准入。
 
@@ -18,4 +18,8 @@ stdout/stderr 各最大 64KiB，超限取消且不判成功；总时限最大 10
 
 控制器每次最多保留 4096 个 launch/proof 防止无限内存增长；到限拒绝新启动，需停派单并对账后重启。
 
-WP-14 的 CallGate 是独立可信 Handler；当前不授予 Spec 新环境或 loopback 权限。固定 Native 的手工 profile 诊断证明 HTTP/SDK retry 经 gate 逐次核验，生产 Native Adapter、启动后 capability 交付与受管 OS 通信边界仍需完成。Native api_retry 仅是有界信息，不能当作新调用 Permit、stop proof、严格锁定或真实计费证明。
+WP-14 的 CallGate 是独立可信 Handler。ClaudeChannel 构造时必须同时绑定 127.0.0.1 与 ::1 的同一随机端口，失败最多重试八次，不能退回单栈。端口由构造器产生，不接受 HTTP DTO 自选 URL、listener、环境或 Claims。两边使用同一个 authenticated Handler，最多 16 个连接、16KiB headers，header/read/write/idle 时限分别 3/10/70/5 秒，服务端日志不回显请求。
+
+Supervisor 从持久 Store 重核冻结 target、role/attempt/revision/generation/project，独占 acquire 通道后才写启动 intent。prepared TTL 须覆盖执行时限加 20 秒，通道执行最长四分钟。ConfirmStarted 后激活一次；激活失败返回已知 Handle 加错误，撤销身份并 TERM/KILL/wait，不丢掉已启动进程。取消、心跳失败、超时、listener 异常与终态均撤销 grant；存活 Worker 的 Close 被拒绝，只有实际 wait/reap 后释放两个端口。原启动失败路径完成 wait 或确认未启动后才能释放端口，不能用 token 撤销代替进程退出。
+
+固定 Claude 2.1.287 在真实 Supervisor/profile 内，通过 CallGate 与真实 Store 完成无工具合成成功、429 重试、预算耗尽和调用中取消，已产生当前控制器 StopProof。Native api_retry 仅是有界信息，实际每个 HTTP 仍各自 Permit；原手工 profile 的历史诊断不升级为本次证据。产品 Adapter/任务 API 尚未注册，实际 Transport、账号、地区、额度、计费与 GLM 执行 effort 仍需独立准入，详见 [本项证据](../work-items/WP-14/CHANNEL-01/summary.md)。

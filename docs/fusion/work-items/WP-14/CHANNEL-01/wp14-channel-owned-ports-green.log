@@ -1,0 +1,28 @@
+=== RUN   TestManagedClaudeChannelActivatesAfterConfirmationAndReapsOneProcess
+--- PASS: TestManagedClaudeChannelActivatesAfterConfirmationAndReapsOneProcess (0.48s)
+=== RUN   TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops
+=== RUN   TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops/scope
+=== RUN   TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops/activate
+--- PASS: TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops (0.39s)
+    --- PASS: TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops/scope (0.18s)
+    --- PASS: TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops/activate (0.21s)
+=== RUN   TestClaudeChannelOwnsBothLoopbackFamiliesAndScopedPreparation
+=== RUN   TestClaudeChannelOwnsBothLoopbackFamiliesAndScopedPreparation/scope
+=== RUN   TestClaudeChannelOwnsBothLoopbackFamiliesAndScopedPreparation/project
+=== RUN   TestClaudeChannelOwnsBothLoopbackFamiliesAndScopedPreparation/target
+=== RUN   TestClaudeChannelOwnsBothLoopbackFamiliesAndScopedPreparation/timeout
+=== RUN   TestClaudeChannelOwnsBothLoopbackFamiliesAndScopedPreparation/activated
+=== RUN   TestClaudeChannelOwnsBothLoopbackFamiliesAndScopedPreparation/cancelled
+--- PASS: TestClaudeChannelOwnsBothLoopbackFamiliesAndScopedPreparation (0.00s)
+    --- PASS: TestClaudeChannelOwnsBothLoopbackFamiliesAndScopedPreparation/scope (0.00s)
+    --- PASS: TestClaudeChannelOwnsBothLoopbackFamiliesAndScopedPreparation/project (0.00s)
+    --- PASS: TestClaudeChannelOwnsBothLoopbackFamiliesAndScopedPreparation/target (0.00s)
+    --- PASS: TestClaudeChannelOwnsBothLoopbackFamiliesAndScopedPreparation/timeout (0.00s)
+    --- PASS: TestClaudeChannelOwnsBothLoopbackFamiliesAndScopedPreparation/activated (0.00s)
+    --- PASS: TestClaudeChannelOwnsBothLoopbackFamiliesAndScopedPreparation/cancelled (0.00s)
+=== RUN   TestClaudeChannelRetainsPortsUntilManagedProcessIsReaped
+--- PASS: TestClaudeChannelRetainsPortsUntilManagedProcessIsReaped (0.00s)
+=== RUN   TestClaudeChannelCopiesTargetAndNeverSerializesGrant
+--- PASS: TestClaudeChannelCopiesTargetAndNeverSerializesGrant (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime	2.528s

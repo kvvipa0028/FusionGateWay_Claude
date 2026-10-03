@@ -1,0 +1,8 @@
+# github.com/yetone/magpie/internal/fusion/runtime [github.com/yetone/magpie/internal/fusion/runtime.test]
+internal/fusion/runtime/claude_channel_test.go:14:37: undefined: ClaudeChannel
+internal/fusion/runtime/claude_channel_test.go:22:166: undefined: ClaudeCLIVersion
+internal/fusion/runtime/claude_channel_test.go:23:11: undefined: NewClaudeChannel
+internal/fusion/runtime/claude_channel_test.go:37:14: undefined: NewClaudeChannel
+internal/fusion/runtime/claude_channel_test.go:89:14: undefined: NewClaudeChannel
+FAIL	github.com/yetone/magpie/internal/fusion/runtime [build failed]
+FAIL

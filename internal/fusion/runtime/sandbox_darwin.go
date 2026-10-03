@@ -67,5 +67,26 @@ func sandbox(spec Spec) (string, []string, error) {
 		}
 		env = append(env, k+"="+v)
 	}
+	if c := spec.ClaudeChannel; c != nil {
+		if len(spec.FixtureEnvironment) != 0 {
+			return "", nil, ErrLaunch
+		}
+		secret, e := c.grant.Secret()
+		if e != nil {
+			return "", nil, ErrLaunch
+		}
+		// Seatbelt accepts localhost (both families), not numeric IPs here.
+		// ClaudeChannel exclusively owns IPv4 and IPv6 on this exact port.
+		profile += fmt.Sprintf("(allow network-outbound (remote tcp %s))\n", strconv.Quote("localhost:"+c.port))
+		env = append(env,
+			"USERPROFILE="+filepath.Join(spec.Root, "home"),
+			"CLAUDE_CONFIG_DIR="+filepath.Join(spec.Root, "config", "claude"),
+			"CLAUDE_CODE_TMPDIR="+filepath.Join(spec.Root, "tmp"),
+			"ANTHROPIC_API_KEY="+secret, "ANTHROPIC_AUTH_TOKEN="+secret,
+			"ANTHROPIC_BASE_URL="+c.endpoint, "ANTHROPIC_MODEL="+c.target.RequestedModel,
+			"DISABLE_UPDATES=1", "DISABLE_TELEMETRY=1", "DISABLE_ERROR_REPORTING=1",
+			"CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1", "DISABLE_COMPACT=1",
+			"DO_NOT_TRACK=1", "API_TIMEOUT_MS=5000")
+	}
 	return profile, env, nil
 }

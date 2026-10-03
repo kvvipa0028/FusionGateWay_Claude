@@ -1,0 +1,36 @@
+{
+  "work_item": "WP-14-CHANNEL-01",
+  "status": "done",
+  "parent_status": "in_progress",
+  "checks": [
+    {
+      "command": "go test -race -v -count=1 -mod=readonly -tags fusion,nogui ./internal/fusion/...",
+      "exit_code": 0,
+      "top_level_pass": 208,
+      "top_level_skip": 4,
+      "log": "wp14-channel-fusion-race.log"
+    },
+    {
+      "command": "go test -race -v -count=1 -mod=readonly -tags fusion,nogui ./internal/fusion/runtime/glm -run ^TestManagedPinnedNativeClaudeChannel$ -args -fusion-native-claude PINNED_2.1.287",
+      "exit_code": 0,
+      "top_level_pass": 1,
+      "subcase_pass": 4,
+      "log": "wp14-channel-managed-native-green.log"
+    }
+  ],
+  "red_logs": [
+    "wp14-channel-red.log",
+    "wp14-channel-native-boundary-red.log",
+    "wp14-channel-profile-red.log",
+    "wp14-channel-owned-ports-red.log",
+    "wp14-channel-managed-native-first.log"
+  ],
+  "build_report": "build-results.json",
+  "real_model_calls": 0,
+  "production_supervisor_synthetic_native_verified": true,
+  "product_adapter_registered": false,
+  "real_route_admitted": false,
+  "billing_verified": false,
+  "quota_verified": false,
+  "real_key_excluded_from_packet": true
+}

@@ -1,0 +1,5 @@
+# github.com/yetone/magpie/internal/fusion/runtime/glm [github.com/yetone/magpie/internal/fusion/runtime/glm.test]
+internal/fusion/runtime/glm/managed_native_test.go:74:59: cannot use maxCalls (variable of type int64) as int value in struct literal
+internal/fusion/runtime/glm/managed_native_test.go:187:37: invalid operation: budget.UsedCalls != want (mismatched types int and int64)
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/glm [build failed]
+FAIL

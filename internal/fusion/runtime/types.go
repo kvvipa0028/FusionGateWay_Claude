@@ -38,6 +38,7 @@ type Spec struct {
 	FixtureEnvironment         map[string]string
 	Input                      []byte
 	ValidateOutcome            func([]byte) bool
+	ClaudeChannel              *ClaudeChannel
 }
 type Identity struct {
 	PID         int   `json:"pid"`

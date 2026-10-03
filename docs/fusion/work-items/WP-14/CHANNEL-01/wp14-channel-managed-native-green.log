@@ -1,0 +1,16 @@
+=== RUN   TestManagedPinnedNativeClaudeChannel
+=== RUN   TestManagedPinnedNativeClaudeChannel/success
+    managed_native_test.go:32: Pinned Native 2.1.287 -> production Supervisor/dual-loopback CallGate -> 1 fake upstream requests, 1 persisted calls -> succeeded, exit=0, verified reaping; real model calls=0, admission/billing/quota unverified
+=== RUN   TestManagedPinnedNativeClaudeChannel/sdk_retry
+    managed_native_test.go:32: Pinned Native 2.1.287 -> production Supervisor/dual-loopback CallGate -> 2 fake upstream requests, 2 persisted calls -> succeeded, exit=0, verified reaping; real model calls=0, admission/billing/quota unverified
+=== RUN   TestManagedPinnedNativeClaudeChannel/budget_exhausted
+    managed_native_test.go:32: Pinned Native 2.1.287 -> production Supervisor/dual-loopback CallGate -> 1 fake upstream requests, 1 persisted calls -> failed, exit=1, verified reaping; real model calls=0, admission/billing/quota unverified
+=== RUN   TestManagedPinnedNativeClaudeChannel/cancel_inflight
+    managed_native_test.go:32: Pinned Native 2.1.287 -> production Supervisor/dual-loopback CallGate -> 1 fake upstream requests, 1 persisted calls -> cancelled, exit=143, verified reaping; real model calls=0, admission/billing/quota unverified
+--- PASS: TestManagedPinnedNativeClaudeChannel (3.35s)
+    --- PASS: TestManagedPinnedNativeClaudeChannel/success (0.55s)
+    --- PASS: TestManagedPinnedNativeClaudeChannel/sdk_retry (1.16s)
+    --- PASS: TestManagedPinnedNativeClaudeChannel/budget_exhausted (1.12s)
+    --- PASS: TestManagedPinnedNativeClaudeChannel/cancel_inflight (0.52s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime/glm	5.000s

@@ -1,0 +1,37 @@
+{
+  "base_commit": "626275807db5afc630854dcc963e737c03e415e7",
+  "source_files_sha256": {
+    "internal/fusion/policy/pending_model.go": "63dd38a007a7e013fb6198957fe67d42a1253731dd0df49ef55154d3e416f9e0",
+    "internal/fusion/runtime/claude_channel.go": "3d85ee68ea07c41e6f012e86bea80ff9b1e65a312400c348fb9d1d25919091d0",
+    "internal/fusion/runtime/claude_channel_test.go": "096ae61764c0c91b439f13358ad627e1cc95a5fbf534bfbdd1bc34e94f5928f0",
+    "internal/fusion/runtime/claude_channel_darwin_test.go": "044422181cfc36f63376836062adc3f2b124fc40093959539326fc4c5dc3ff4d",
+    "internal/fusion/runtime/supervisor.go": "ea54f725a6633664343daaef5327209a30f1b781532b189686c1386356fde08a",
+    "internal/fusion/runtime/sandbox_darwin.go": "dad2d4eb50e1379f6b7a8e38a9ce43f3e15b85e146d8f302645c79cafdf570a2",
+    "internal/fusion/runtime/types.go": "10df7daa5dca5b2924c038667715d6e9433edd377ac0ac906bd1ac0231b5f01f",
+    "internal/fusion/runtime/glm/session.go": "3f8007511c2d8670f524dd5cfaf73a72f4551adf47d189a550bd161cc961e180",
+    "internal/fusion/runtime/glm/managed_native_test.go": "e57603fcf697ee8c57288cd05b260327a89fcc0b67f8b3a98dbb184b45a9e76e",
+    "tests/fusion/fixtures/sandbox-probe.c": "a1c1ab498977cec3abf825ccb47d1ea175aee1bd365576df72113cdd96b05188",
+    "docs/fusion/contracts/runtime-contract.md": "360fc2b397e354c289e3f72255ceb85fda0c37e4c39e1d94491ff354b22938ca",
+    "docs/fusion/contracts/sandbox-proof.md": "8d2336737cc1c5d4fee104804f6c389117965653fd2444eff0dc6526d8b554f9",
+    "docs/fusion/contracts/stage-credential-contract.md": "c4eee4d91386fa848a5c55464ddfb53327351300aa2f8a39688ab1b5c9d4d9b6",
+    "docs/fusion/work-items/WP-14/summary.md": "4996b6cb4d41260681f81d7afaf98ff6fbb565a0ccc2be8b61ff93d04573eee8"
+  },
+  "packet_files_sha256": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "47babe92b779e1ed67e39db7f10bdce26a28f28d9c73774cc49a91720e0908b3",
+    "build-results.json": "8cd12f01d7c45172491513c71c6f46b31dedd7c763f0fe643acde3562d0b8809",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "characterize-loopback-addresses.py": "85e3970b69098e30422ed4584405daf856e2189cd7b85173831cbff499ac532e",
+    "loopback-addresses.json": "1c0a05cb442aea48240c550e3b7dfc1cf2601b978b99363d04d004ae9c8dfa97",
+    "summary.md": "6f507164b55b0902f777a1b592c9bfddc7d200cff852ed7df262a8127e6586e9",
+    "test-results.json": "0b3f2d46d17cdd6185d73bf8cf1ebce123be81d4cbacb6c4ae1fd52e7268eda6",
+    "wp14-channel-fusion-race.log": "83a1225f55269080f71ff456efd897d158d6cef3aeec0dd98aa1075ef04d4a60",
+    "wp14-channel-managed-native-first.log": "eef96445203ec4236e47fd3b20818d6b15c1962b5be8dd235fb9777ba17ef242",
+    "wp14-channel-managed-native-green.log": "9c16c3264defa400c5b87a0eaf7838d54526a3ef673564d0ca8e4d0a35bf91cd",
+    "wp14-channel-native-boundary-red.log": "d4bdc608a791c0c549e108164f7f63bbe2680afa7c004483c43b7d3dbf257c6c",
+    "wp14-channel-owned-ports-green.log": "268a99ce025e392951fb684cdfe6f0f571e96d91c9e05e1b924175c5b7aed2f9",
+    "wp14-channel-owned-ports-red.log": "35884c62b66fb42248f314871e04485433354d0bf65959e44d1c07bf9022ce58",
+    "wp14-channel-profile-red.log": "323ce4235d1d0bbc1caaeaf37089e850cc46074f83bf4695e17ac64db2067d03",
+    "wp14-channel-red.log": "2bd6a3f879cc32021b0d1235f88560eadd7ccb8b6361cbd129ec8da54937e310"
+  }
+}
