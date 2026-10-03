@@ -1,0 +1,34 @@
+{
+  "work_item": "WP-15-PREPARE-ONCE-01",
+  "status": "done",
+  "parent_status": "in_progress",
+  "new_tests": 6,
+  "checks": [
+    {
+      "command": "go test -race -v -count=1 -mod=readonly -tags fusion,nogui ./internal/fusion/...",
+      "exit_code": 0,
+      "top_level_pass": 237,
+      "top_level_skip": 7,
+      "log": "wp15-prepare-once-fusion-race.log"
+    },
+    {
+      "command": "go test -race -v -count=1 -mod=readonly -tags fusion,nogui ./internal/fusion/policy -run TestPrepareOnce|TestSchedulerPrepare|TestSchedulerRevalidates",
+      "exit_code": 0,
+      "top_level_pass": 9,
+      "log": "wp15-prepare-once-green.log"
+    },
+    {
+      "command": "go test -race -v -count=1 -timeout=30s -mod=readonly -tags fusion,nogui ./internal/fusion/runtime/glm -run TestGLMAdapterPinnedNativeLifecycle -args -fusion-native-claude <frozen-2.1.287>",
+      "exit_code": 0,
+      "native_synthetic_scenarios": 8,
+      "log": "wp15-prepare-once-native.log"
+    }
+  ],
+  "red_logs": [
+    "wp15-prepare-once-red.log"
+  ],
+  "build_report": "build-results.json",
+  "real_model_calls": 0,
+  "real_quota_queries": 0,
+  "production_registered": false
+}

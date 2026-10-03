@@ -101,19 +101,42 @@ func (s *Scheduler) inspect(ctx context.Context, t store.Task, role stageplan.Ro
 // Prepare commits both the startup intent and capacity/write reservation before
 // external spawning. The exact frozen target is resolved by the server caller.
 func (s *Scheduler) Prepare(ctx context.Context, in store.StartRequest) (store.StageRun, error) {
+	if in.IdempotencyKey != "" {
+		return store.StageRun{}, blocked("start_request_invalid")
+	}
+	req, e := s.prepareReservation(ctx, in)
+	if e != nil {
+		return store.StageRun{}, e
+	}
+	r, e := s.Store.StartReserved(in, req)
+	if e != nil {
+		if errors.Is(e, store.ErrConflict) {
+			return store.StageRun{}, blocked("capacity_busy")
+		}
+		if errors.Is(e, store.ErrBudget) {
+			return store.StageRun{}, blocked("budget_exhausted")
+		}
+		return store.StageRun{}, blocked("reservation_failed")
+	}
+	return r, nil
+}
+
+// prepareReservation reads current admission without recording intent or
+// spending a call. Both entry points retain exactly the same admission gates.
+func (s *Scheduler) prepareReservation(ctx context.Context, in store.StartRequest) (store.ReservationRequest, error) {
 	if s == nil || s.Store == nil {
-		return store.StageRun{}, blocked("admission_unavailable")
+		return store.ReservationRequest{}, blocked("admission_unavailable")
 	}
 	t, e := s.Store.Task(in.TaskID)
 	if e != nil {
-		return store.StageRun{}, blocked("task_unavailable")
+		return store.ReservationRequest{}, blocked("task_unavailable")
 	}
-	if t.State != "ready" || t.PlanRevision != in.PlanRevision {
-		return store.StageRun{}, blocked("task_not_ready")
+	if t.State != "ready" || t.PlanRevision != in.PlanRevision || in.ExpectedGeneration != nil && *in.ExpectedGeneration != t.Generation {
+		return store.ReservationRequest{}, blocked("task_not_ready")
 	}
 	p, e := s.Store.Plan(t.ID, t.PlanRevision)
 	if e != nil {
-		return store.StageRun{}, blocked("plan_unavailable")
+		return store.ReservationRequest{}, blocked("plan_unavailable")
 	}
 	b, ok := p.Bindings[in.Role]
 	allowed := ok && b.Mode == stageplan.Locked && b.Target != nil && sameJSON(*b.Target, in.Target)
@@ -125,34 +148,24 @@ func (s *Scheduler) Prepare(ctx context.Context, in store.StartRequest) (store.S
 		}
 	}
 	if !allowed {
-		return store.StageRun{}, blocked("target_not_approved")
+		return store.ReservationRequest{}, blocked("target_not_approved")
 	}
 	inspection, e := s.inspect(ctx, t, in.Role, in.Target)
 	if e != nil {
-		return store.StageRun{}, e
+		return store.ReservationRequest{}, e
 	}
 	budget, e := s.Store.Budget(t.ID)
 	if e != nil {
-		return store.StageRun{}, blocked("budget_missing")
+		return store.ReservationRequest{}, blocked("budget_missing")
 	}
 	if budget.UsedCalls >= budget.MaxCalls {
-		return store.StageRun{}, blocked("budget_exhausted")
+		return store.ReservationRequest{}, blocked("budget_exhausted")
 	}
 	limit, e := s.Store.Capacity()
 	if e != nil {
-		return store.StageRun{}, blocked("capacity_unavailable")
+		return store.ReservationRequest{}, blocked("capacity_unavailable")
 	}
-	r, e := s.Store.StartReserved(in, store.ReservationRequest{PoolKey: physicalPool(inspection.Quota.Pool), WriteKey: inspection.WriteKey, GlobalLimit: limit, AdmissionHash: inspection.ProofHash})
-	if e != nil {
-		if errors.Is(e, store.ErrConflict) {
-			return store.StageRun{}, blocked("capacity_busy")
-		}
-		if errors.Is(e, store.ErrBudget) {
-			return store.StageRun{}, blocked("budget_exhausted")
-		}
-		return store.StageRun{}, blocked("reservation_failed")
-	}
-	return r, nil
+	return store.ReservationRequest{PoolKey: physicalPool(inspection.Quota.Pool), WriteKey: inspection.WriteKey, GlobalLimit: limit, AdmissionHash: inspection.ProofHash}, nil
 }
 
 // CheckPrepared repeats current admission immediately before an external

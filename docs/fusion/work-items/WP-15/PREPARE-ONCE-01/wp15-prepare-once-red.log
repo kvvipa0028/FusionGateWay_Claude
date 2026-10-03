@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/policy [github.com/yetone/magpie/internal/fusion/policy.test]
+internal/fusion/policy/scheduler_once_test.go:60:16: s.PrepareOnce undefined (type *Scheduler has no field or method PrepareOnce)
+internal/fusion/policy/scheduler_once_test.go:83:14: s.PrepareOnce undefined (type *Scheduler has no field or method PrepareOnce)
+internal/fusion/policy/scheduler_once_test.go:102:16: s.PrepareOnce undefined (type *Scheduler has no field or method PrepareOnce)
+internal/fusion/policy/scheduler_once_test.go:115:14: s.PrepareOnce undefined (type *Scheduler has no field or method PrepareOnce)
+internal/fusion/policy/scheduler_once_test.go:123:15: s.PrepareOnce undefined (type *Scheduler has no field or method PrepareOnce)
+internal/fusion/policy/scheduler_once_test.go:145:13: s.PrepareOnce undefined (type *Scheduler has no field or method PrepareOnce)
+internal/fusion/policy/scheduler_once_test.go:161:13: s.PrepareOnce undefined (type *Scheduler has no field or method PrepareOnce)
+internal/fusion/policy/scheduler_once_test.go:171:12: s.PrepareOnce undefined (type *Scheduler has no field or method PrepareOnce)
+internal/fusion/policy/scheduler_once_test.go:181:11: s.PrepareOnce undefined (type *Scheduler has no field or method PrepareOnce)
+internal/fusion/policy/scheduler_once_test.go:183:16: s.PrepareOnce undefined (type *Scheduler has no field or method PrepareOnce)
+internal/fusion/policy/scheduler_once_test.go:183:16: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/policy [build failed]
+FAIL

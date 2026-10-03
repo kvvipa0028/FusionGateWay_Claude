@@ -1,0 +1,22 @@
+{
+  "base_commit": "4e747098d037648370dd601e8bb04824fd4d9339",
+  "source_files_sha256": {
+    "internal/fusion/policy/scheduler.go": "c7188dd31516fd12c8e99e3d6b60a8ec4ece5feafd6264d4702f0d85dd98c793",
+    "internal/fusion/policy/scheduler_once.go": "63a6b6de1f6fe3fc12edcb4dec349db9868dae3bcec3c555d354973e1d37e303",
+    "internal/fusion/policy/scheduler_once_test.go": "762954ca409f32675102014f7ec5543473d6d6b7458454ec45c295ae867185c3",
+    "docs/fusion/contracts/blocked-reason-catalog.md": "b22115eece5ecf838d14451faaefc28efa497d14a65f102cbf792d66ce372bb7",
+    "docs/fusion/work-items/WP-15/summary.md": "44eaacb85c8d82534733b9c323cef4d614b9aac6e760dd81422ed3db558d97af"
+  },
+  "packet_files_sha256": {
+    "wp15-prepare-once-red.log": "dee2de874f1001a94f80a6365ef3602cfb0590dea07dbc0c3ea46828b2a64257",
+    "test-results.json": "45d0596cac7b5b40a121e8a3e6391139358688a907ca64abb0c873af8bf148c9",
+    "summary.md": "afbe46fe523a465e3da28808bb8896bfcc0694fb603df296c466e769f2709178",
+    "wp15-prepare-once-native.log": "a738c46071acea955d11d4a653b15144f311cf5183eab7954964338ce9b69745",
+    "wp15-prepare-once-green.log": "eabd53890519e9fb75633ec403e91a22fb534cc87b151533fbb4c25ab3ee16a3",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-results.json": "6957cd0e389a2f5d0cd52208a3c9e12e104a1c2bbb057d3c789d6b2ea4e3389d",
+    "wp15-prepare-once-fusion-race.log": "6c14a4b39bf2fde37b5e7619f869bcc7f02137d94e6fd91a216c81270fa547c9",
+    "build-gui.log": "87a111445a685dfdacc355e465e3744980bd9fc3757559299369f3ceee01a20a",
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

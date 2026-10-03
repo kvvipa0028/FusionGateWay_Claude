@@ -1,0 +1,32 @@
+=== RUN   TestPrepareOnceRetryDoesNotInspectOrSpendAfterTerminal
+--- PASS: TestPrepareOnceRetryDoesNotInspectOrSpendAfterTerminal (0.07s)
+=== RUN   TestPrepareOnceRecoveryReadsUnknownWithoutAdmission
+--- PASS: TestPrepareOnceRecoveryReadsUnknownWithoutAdmission (0.06s)
+=== RUN   TestPrepareOncePayloadConflictsAndInvalidRequestsDoNotInspect
+--- PASS: TestPrepareOncePayloadConflictsAndInvalidRequestsDoNotInspect (0.05s)
+=== RUN   TestPrepareOnceNewRequestStillRequiresCurrentQuotaAndGeneration
+--- PASS: TestPrepareOnceNewRequestStillRequiresCurrentQuotaAndGeneration (0.05s)
+=== RUN   TestPrepareOnceConcurrentRequestsHaveOneLaunchWinner
+--- PASS: TestPrepareOnceConcurrentRequestsHaveOneLaunchWinner (0.08s)
+=== RUN   TestPrepareOnceLosingInspectionReadsCommittedWinner
+--- PASS: TestPrepareOnceLosingInspectionReadsCommittedWinner (0.05s)
+=== RUN   TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls
+=== RUN   TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/valid
+=== RUN   TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/quota
+=== RUN   TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/proof
+=== RUN   TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/owner
+=== RUN   TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/target
+=== RUN   TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/running
+--- PASS: TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls (0.21s)
+    --- PASS: TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/valid (0.03s)
+    --- PASS: TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/quota (0.03s)
+    --- PASS: TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/proof (0.03s)
+    --- PASS: TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/owner (0.03s)
+    --- PASS: TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/target (0.03s)
+    --- PASS: TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/running (0.04s)
+=== RUN   TestSchedulerPrepareRequiresBudgetAndNoImplicitFallback
+--- PASS: TestSchedulerPrepareRequiresBudgetAndNoImplicitFallback (0.03s)
+=== RUN   TestSchedulerPrepareSpendAndVerifiedReleaseUseOnePersistentContract
+--- PASS: TestSchedulerPrepareSpendAndVerifiedReleaseUseOnePersistentContract (0.05s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/policy	2.285s

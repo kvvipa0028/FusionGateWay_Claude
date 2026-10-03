@@ -6,6 +6,7 @@ Scheduler 仅接受受信任的路线、权限、sandbox、验证执行器与额
 |---|---|
 | admission_unavailable / admission_proof_missing | 服务或当前证据未准备 |
 | task_unavailable / task_not_ready / plan_unavailable | 任务/版本/状态不允许启动 |
+| start_request_invalid / start_request_conflict / start_conflict | 启动 key/generation/角色不合法、相同 key 对应不同请求/目标、或启动事务发生状态/容量竞争 |
 | target_not_approved / route_changed | 目标不在快照中或路线身份/版本已变化 |
 | data_permission_denied / write_permission_denied | 数据或写入权限未获准 |
 | sandbox_unverified / verification_unavailable | 隔离或实际验证要求无法执行 |
@@ -24,6 +25,8 @@ task_budgets 持久化全部阶段共享的 model call 与 rework 计数，不�
 
 Dispatcher 在同一 issuer/run 中只允许一个模型调用在途，防止同阶段凭据并行请求绕过 pool 限制。实际 Native Adapter 必须证明所有模型调用都经这个出口计数，或关闭该路线；一个受管宿主进程不自动证明内部只有一个 Agent。
 
-SQLite schema 2 将预算、global policy 和 pool/write reservations 与任务同库保存，迁移保留 schema 1/checksum，并核验新增迁移 hash。并发争抢/事件写入失败都在同一事务中处理。重启/lease expiry 产生 unknown，预留和已用预算继续保留，不释放成“可重试”。该本地预留不等于供应商余额，也不能阻止用户其他应用消耗同池额度。
+SQLite schema 2 将预算、global policy 和 pool/write reservations 与任务同库保存，schema 3 再增加启动请求映射；迁移保留旧 checksum，并核验每份新增迁移 hash。并发争抢/事件写入失败都在同一事务中处理。重启/lease expiry 产生 unknown，预留和已用预算继续保留，不释放成“可重试”。该本地预留不等于供应商余额，也不能阻止用户其他应用消耗同池额度。
+
+`PrepareOnce` 强制 key 和 expected task generation。已有请求先只读持久 receipt，返回 `Created=false`，不调用 Inspection、不刷新 lease、不增加模型调用或释放 held reservation；终态和 unknown 仍可查询。并发请求在准入期间已有另一相同请求提交时，也只读该 receipt。不同 payload/Target 使用同 key 拒绝。仅新提交的 `Created=true` 允许后续尝试启动，启动前仍需 CheckPrepared，发送前仍需 Permit，不能将 receipt 当成新的能力凭据。原 Prepare 不返回 Created，故拒绝带 key 的请求。认证和冻结 Target 的解析仍由可信控制端负责，当前尚未注册产品控制接口。
 
 Release 需受信任 Supervisor 核验 native session、generation、process identity、全部 descendants 已停止与 report hash，再检查持久化 terminal 状态；来自用户请求的 stopped=true 不构成证明。unknown 必须先由后续恢复合同对账。WP-11 提供实际 OS/进程证明，当前测试使用合成 StopProof，未开放真实执行。

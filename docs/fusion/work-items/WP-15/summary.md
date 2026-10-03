@@ -11,3 +11,5 @@
 [WP-15-REVISION-01](REVISION-01/summary.md) 已完成尚未开始角色的计划预览、If-Match 修订及读取组件；冻结已开始/已结束绑定，原子重查竞态，保留活动凭据、历史与预算。189 个 Fusion tagged race tests、CLI/GUI 编译和全仓 vet 通过。暂停/取消/继续、预设/额度、OpenAPI 与生产/UI/调度接线仍未完成。
 
 [WP-15-START-ONCE-01](START-ONCE-01/summary.md) 已完成启动 intent 的持久幂等映射、task generation CAS 和新建/重读区分，与容量预留同事务提交；重启 unknown、终态重试、故障回滚及 schema 2→3 数据保留通过验证。此项是启动控制的存储基础，尚未注册产品 endpoint 或连接实际 Runtime；父工作包继续 in_progress。
+
+[WP-15-PREPARE-ONCE-01](PREPARE-ONCE-01/summary.md) 将上述事务接入 Scheduler；已提交请求在准入检查之前只读 receipt，并发准入失败时也能只读另一个已提交的相同请求，新 key 仍需实时准入和 generation CAS。237 个 Fusion race tests、原生 Claude Code 合成上游 8 个场景及编译/vet 通过。真实控制器/产品 endpoint、暂停/取消/恢复、预设/额度、OpenAPI 与 UI 接线继续实施。
