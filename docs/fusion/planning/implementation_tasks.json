@@ -189,7 +189,7 @@
       "id": "WP-09",
       "title": "额度标准化与来源保真",
       "milestone": "M2",
-      "status": "planned",
+      "status": "done",
       "depends_on": [
         "WP-03",
         "WP-04",

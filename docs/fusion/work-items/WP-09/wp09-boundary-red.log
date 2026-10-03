@@ -1,0 +1,15 @@
+=== RUN   TestContradictoryRemainingAndMalformedSourceTimestampCannotAdmit
+    quota_test.go:228: unsafe reading admitted: {"kind":"subscription","asOf":"invalid","windows":[{"used":0}]}
+    quota_test.go:228: unsafe reading admitted: {"kind":"subscription","windows":[{"used":0,"remaining":0}]}
+    quota_test.go:228: unsafe reading admitted: {"kind":"subscription","windows":[{"used":0,"unlimited":true}]}
+    quota_test.go:233: unknown GLM quota kind admitted
+--- FAIL: TestContradictoryRemainingAndMalformedSourceTimestampCannotAdmit (0.00s)
+=== RUN   TestNewPartialPoolObservationDoesNotHideBehindOlderGoodAlias
+    quota_test.go:245: partial new reading hidden by good alias
+--- FAIL: TestNewPartialPoolObservationDoesNotHideBehindOlderGoodAlias (0.00s)
+=== RUN   TestBrokerDoesNotEchoReaderSecrets
+    quota_test.go:256: raw reader error escaped
+--- FAIL: TestBrokerDoesNotEchoReaderSecrets (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/quota	0.527s
+FAIL

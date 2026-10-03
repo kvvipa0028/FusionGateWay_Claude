@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "identities": "synthetic only",
+  "cases": {
+    "magpie_empty": {},
+    "magpie_missing": {
+      "kind": "subscription",
+      "windows": [
+        {
+          "name": "fixture-5h"
+        }
+      ]
+    },
+    "magpie_zero": {
+      "kind": "subscription",
+      "windows": [
+        {
+          "name": "fixture-5h",
+          "used": 100
+        }
+      ]
+    },
+    "codex_alias": {
+      "rateLimits": {
+        "primary": {
+          "usedPercent": 20
+        }
+      },
+      "rateLimitsByLimitId": {
+        "fixture-limit": {
+          "primary": {
+            "usedPercent": 50
+          }
+        }
+      }
+    },
+    "glm_missing": {
+      "success": true,
+      "data": {
+        "limits": [
+          {
+            "type": "TOKENS_LIMIT",
+            "unit": 3,
+            "number": 5
+          }
+        ]
+      }
+    },
+    "glm_mcp": {
+      "success": true,
+      "data": {
+        "limits": [
+          {
+            "type": "TIME_LIMIT",
+            "percentage": 20
+          }
+        ]
+      }
+    },
+    "balance": {
+      "kind": "balance",
+      "balance": "fixture-20 USD",
+      "windows": []
+    }
+  }
+}

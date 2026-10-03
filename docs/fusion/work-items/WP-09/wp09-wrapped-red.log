@@ -1,0 +1,8 @@
+=== RUN   TestWrappedQuotaErrorsCannotLeakSecrets
+    quota_test.go:332: wrapped secret escaped
+    quota_test.go:332: wrapped secret escaped
+    quota_test.go:332: wrapped secret escaped
+--- FAIL: TestWrappedQuotaErrorsCannotLeakSecrets (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/quota	0.527s
+FAIL

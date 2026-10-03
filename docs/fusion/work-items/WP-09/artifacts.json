@@ -1,0 +1,28 @@
+{
+  "base_commit": "b0a6e8cfeba87c16c8738ef8f290a72edd55e84b",
+  "source_files_sha256": {
+    "AGENTS.md": "6f89f0ae7f8a8c85609ea1a0a31a3fe7800b679ae6dcd4241a395d39e7d862de",
+    "README.md": "f51424206bcf37555074a362039aad29858aefc26ac60f2bd19adfa86aea21d1",
+    "docs/fusion/README.md": "54fb2bd652c3232bd200494716fee5734e7433d29c9a2e1ac579f9e8ada3e865",
+    "docs/fusion/contracts/quota-adapters.md": "735af7b20fbb83264456a6c26ae4e72cf83ed2ae5e40422b78593e3a369c751a",
+    "docs/fusion/contracts/quota-snapshot.schema.json": "e99ba8444b4352df6a1e069320bce015bde1653fa046ebdc19312e2c6c89d3db",
+    "docs/fusion/integration/quota-fixtures.json": "961da7017115d73772a32ae121fa941212d8bc82696b3553b83d02802885eda6",
+    "docs/fusion/planning/Fusion_Magpie_Fork_Agent\u5de5\u4f5c\u5305_v1.0.md": "e1974abef12c6f71a0ecd05aa5b9cab7cc0f0dcc51e2df661613da56e3ce1f10",
+    "docs/fusion/planning/implementation_tasks.json": "5108bdaae85191825487173efec45fc932a4d769ccb9597f82eb7186c46e19a7",
+    "internal/fusion/quota/adapters.go": "3dce87cede13a2f5cbd684abda7fc889c54e2949edbe0bb528577bffdc741630",
+    "internal/fusion/quota/broker.go": "379a645a1e365ce2610a099c8c981dde836a2ea0a76ac46ebc6f604a4795a8a9",
+    "internal/fusion/quota/quota_test.go": "6bb4b15329c87daeaa1d4551959544e15beaa5efaf8c1a0ae52cabcd026f1a6b",
+    "internal/fusion/quota/types.go": "b988f5fdaea26f4cdc0f1f0d680749dcd2dd22591aff81954e7ff4a53fb36c7e"
+  },
+  "logs_sha256": {
+    "wp09-race-green.log": "bac643b5e6564534b8475faffbef49408d501f940fc522929d6f532a8bb96aef",
+    "wp09-resources-red.log": "cf9f537cf8d3825f58614b4818067d3e991d5dc186d36b53e031c5f8575e701e",
+    "wp09-published-red.log": "db43d819a52aa90889e2437ec2c01db67c24b28ce5fc7584bff42c7f14e42e96",
+    "wp09-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "wp09-red.log": "380a2183eda9a69b283eefca57226f40a49a604c943426ab1bded99d141cc2a8",
+    "wp09-wrapped-red.log": "724d9331d36217d2f724d1c75372bd7286381a522e1211c94c435f966d890813",
+    "wp09-retire-red.log": "b3c8bed637cf610a59ba63c7c3a9508b65eab0f53e55815b46da4418c9d75245",
+    "wp09-boundary-red.log": "f62daf3d82c16a612dcc14d22d8705de792bde8e30c2c17e21b4f22a823db64b"
+  },
+  "credentials": "No private credential or real account records in this packet"
+}

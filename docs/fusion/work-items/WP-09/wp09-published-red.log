@@ -1,0 +1,8 @@
+=== RUN   TestPublishedQuotaStatusIsNotOptimisticAndZeroExpires
+    quota_test.go:306: empty published as available
+    quota_test.go:310: zero not explicit
+    quota_test.go:317: invalid value escaped normalized fields
+--- FAIL: TestPublishedQuotaStatusIsNotOptimisticAndZeroExpires (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/quota	0.532s
+FAIL

@@ -1,0 +1,4 @@
+# github.com/yetone/magpie/internal/fusion/quota [github.com/yetone/magpie/internal/fusion/quota.test]
+internal/fusion/quota/quota_test.go:276:4: b.Retire undefined (type *Broker has no field or method Retire)
+FAIL	github.com/yetone/magpie/internal/fusion/quota [build failed]
+FAIL

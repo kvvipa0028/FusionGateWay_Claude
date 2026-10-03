@@ -1,6 +1,6 @@
 # Fusion Gateway 开发入口
 
-已完成源码/文档导入、Go 1.26.3、OAuth 修复和 WP-01–WP-08：基线、开发隔离、离线 fixtures、五角色绑定编译、独立任务存储、入口鉴权。GLM/Claude Code 连接诊断通过；strict 出口离线验证通过；产品 API、Runtime Adapter 和最终 Gate 尚未完成。
+已完成源码/文档导入、Go 1.26.3、OAuth 修复和 WP-01–WP-09：基线、开发隔离、离线 fixtures、五角色绑定编译、独立任务存储、入口鉴权。GLM/Claude Code 连接诊断通过；strict 出口离线验证通过；产品 API、Runtime Adapter 和最终 Gate 尚未完成。
 
 ## 阅读顺序
 
@@ -10,7 +10,7 @@
 4. [验收矩阵](planning/Fusion_Magpie_Fork_验收矩阵_v1.0.md)：T01–T60；当前均为 `not_run`。
 5. [源码与工具链锁](upstream-lock.json)、[基线报告](baseline/baseline-report.md)：本轮实际准备与验证证据。
 
-`planning/implementation_tasks.json` 和 `planning/acceptance_tests.json` 由本地三份 Markdown 提取，已核对编号、引用及依赖无环；它们不是原 ZIP 的恢复副本。WP-01–WP-08 为 `done`，其他包为 `planned`；最终验收仍为 `not_run`。
+`planning/implementation_tasks.json` 和 `planning/acceptance_tests.json` 由本地三份 Markdown 提取，已核对编号、引用及依赖无环；它们不是原 ZIP 的恢复副本。WP-01–WP-09 为 `done`，其他包为 `planned`；最终验收仍为 `not_run`。
 
 ## 源码与 Git
 
@@ -63,3 +63,5 @@ WP-04 role merge/freeze contract completed: [evidence](work-items/WP-04/summary.
 [WP-06 evidence](work-items/WP-06/summary.md), [stage credential contract](contracts/stage-credential-contract.md), [ingress auth map](contracts/ingress-auth-map.md).
 
 WP-08 official native candidate inventory: [account routes](integration/account-route-matrix.md), [capabilities](integration/capability-matrix.json), [live checklist](integration/live-probe-checklist.md). All real generation/quota routes remain unverified.
+
+WP-09 quota normalization and bounded broker completed with synthetic inputs: [contract](contracts/quota-adapters.md), [schema](contracts/quota-snapshot.schema.json), [fixtures](integration/quota-fixtures.json). No real quota query admitted yet.

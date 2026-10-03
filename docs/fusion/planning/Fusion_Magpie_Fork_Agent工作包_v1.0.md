@@ -278,7 +278,9 @@
 
 ### WP-09 · 额度标准化与来源保真
 
-**阶段：**M2　**负责人角色：**额度 Agent　**状态：**planned
+**阶段：**M2　**负责人角色：**额度 Agent　**状态：**done
+
+**Completion evidence:**`../work-items/WP-09/summary.md`.
 
 **输入/前置：**WP-03, WP-04, WP-08。同时读取这些前置包的合同、测试日志、阻断项与当前仓库 HEAD。
 

@@ -1,0 +1,5 @@
+# github.com/yetone/magpie/internal/fusion/quota [github.com/yetone/magpie/internal/fusion/quota.test]
+internal/fusion/quota/quota_test.go:293:23: s.Resources undefined (type Snapshot has no field or method Resources)
+internal/fusion/quota/quota_test.go:297:23: s.Resources undefined (type Snapshot has no field or method Resources)
+FAIL	github.com/yetone/magpie/internal/fusion/quota [build failed]
+FAIL

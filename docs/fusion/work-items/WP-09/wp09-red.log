@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/quota [github.com/yetone/magpie/internal/fusion/quota.test]
+internal/fusion/quota/quota_test.go:12:19: undefined: Meta
+internal/fusion/quota/quota_test.go:12:88: undefined: Identity
+internal/fusion/quota/quota_test.go:12: undefined: Pool
+internal/fusion/quota/quota_test.go:14:156: undefined: AdaptMagpie
+internal/fusion/quota/quota_test.go:14:208: undefined: State
+internal/fusion/quota/quota_test.go:14:243: undefined: Unknown
+internal/fusion/quota/quota_test.go:15:167: undefined: AdaptMagpie
+internal/fusion/quota/quota_test.go:15:219: undefined: State
+internal/fusion/quota/quota_test.go:15:254: undefined: Stale
+internal/fusion/quota/quota_test.go:16:39: undefined: AdaptMagpie
+internal/fusion/quota/quota_test.go:16:39: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/quota [build failed]
+FAIL

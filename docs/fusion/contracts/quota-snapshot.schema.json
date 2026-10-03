@@ -1,0 +1,233 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Fusion quota snapshot v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "identity",
+    "source",
+    "observed_at",
+    "received_at",
+    "pool",
+    "complete",
+    "status",
+    "windows",
+    "resources"
+  ],
+  "properties": {
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider",
+        "account",
+        "workspace",
+        "region",
+        "generation"
+      ],
+      "properties": {
+        "provider": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "account": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "workspace": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "region": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "generation": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "source": {
+      "type": "string",
+      "minLength": 1
+    },
+    "observed_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "received_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "pool": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "provider",
+        "region",
+        "scope",
+        "owner",
+        "verified"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "provider": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string"
+        },
+        "owner": {
+          "type": "string"
+        },
+        "verified": {
+          "type": "boolean"
+        }
+      }
+    },
+    "complete": {
+      "type": "boolean"
+    },
+    "status": {
+      "enum": [
+        "available",
+        "zero",
+        "unknown",
+        "stale",
+        "unverified",
+        "auth_required",
+        "unsupported"
+      ]
+    },
+    "windows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "kind",
+          "unit",
+          "used_percent",
+          "remaining_percent",
+          "span_seconds",
+          "reset_at",
+          "raw"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "subscription",
+              "coding_plan",
+              "mcp",
+              "on-demand",
+              "balance",
+              "credits",
+              "local_tokens",
+              "unknown",
+              ""
+            ]
+          },
+          "unit": {
+            "enum": [
+              "percent",
+              "tokens",
+              "money",
+              "vendor_display",
+              "unknown"
+            ]
+          },
+          "used_percent": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 100
+          },
+          "remaining_percent": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 100
+          },
+          "span_seconds": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1
+          },
+          "reset_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "raw": {
+            "type": "object"
+          }
+        }
+      },
+      "maxItems": 512
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "kind",
+          "unit",
+          "display",
+          "raw"
+        ],
+        "properties": {
+          "kind": {
+            "enum": [
+              "balance",
+              "credits",
+              "local_tokens",
+              "on-demand"
+            ]
+          },
+          "unit": {
+            "enum": [
+              "vendor_display",
+              "tokens",
+              "money",
+              "unknown"
+            ]
+          },
+          "display": {
+            "type": "string"
+          },
+          "raw": {
+            "type": "object"
+          }
+        }
+      },
+      "maxItems": 512
+    }
+  }
+}

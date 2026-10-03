@@ -1,0 +1,36 @@
+{
+  "checks": [
+    {
+      "command": "go test -race -v -count=1 -mod=readonly -tags fusion,nogui ./internal/fusion/...",
+      "exit_code": 0,
+      "passed_top_level_tests": 79,
+      "quota_tests": 14,
+      "skips": 1,
+      "log": "wp09-race-green.log"
+    },
+    {
+      "command": "go vet -mod=readonly -tags fusion,nogui ./internal/fusion/quota",
+      "exit_code": 0,
+      "log": "wp09-vet.log"
+    },
+    {
+      "command": "Draft202012 schema meta-validation and six exported Go snapshots",
+      "exit_code": 0,
+      "report": "schema-check.json"
+    }
+  ],
+  "red_evidence": [
+    "wp09-red.log",
+    "wp09-boundary-red.log",
+    "wp09-retire-red.log",
+    "wp09-resources-red.log",
+    "wp09-published-red.log",
+    "wp09-wrapped-red.log"
+  ],
+  "not_verified": [
+    "real provider quota requests",
+    "official Native Reader authentication/permissions",
+    "Grok/CodexBar quota sources",
+    "final T05-T11/T30/T55"
+  ]
+}
