@@ -1,0 +1,32 @@
+{
+  "checks": [
+    {
+      "command": "go test -race -v -count=1 -mod=readonly -tags fusion,nogui ./internal/fusion/...",
+      "exit_code": 0,
+      "passed_top_level_tests": 104,
+      "skips": 2,
+      "log": "wp11-race-green.log"
+    },
+    {
+      "command": "native Mach SecurityServer/network/fork positive control + same fixture in kernel sandbox",
+      "exit_code": 0,
+      "log": "wp11-native-boundaries.log"
+    },
+    {
+      "command": "python3 scripts/fusion/build-dev.py (CLI, GUI, full vet)",
+      "exit_code": 0
+    }
+  ],
+  "red_evidence": [
+    "wp11-red.log",
+    "wp11-sandbox-red.log",
+    "wp11-inherited-lock-red.log"
+  ],
+  "build_report": true,
+  "not_verified": [
+    "official Runtime generation/network/child-process capability",
+    "model-call accounting and quota admission",
+    "native resume/reconciliation after controller restart",
+    "final T02/T14-T19/T25/T35/T56/T58/T59 E2E"
+  ]
+}

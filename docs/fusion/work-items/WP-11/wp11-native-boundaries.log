@@ -1,0 +1,4 @@
+=== RUN   TestNativeMachNetworkAndForkBoundariesHavePositiveControls
+--- PASS: TestNativeMachNetworkAndForkBoundariesHavePositiveControls (0.55s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime	2.161s

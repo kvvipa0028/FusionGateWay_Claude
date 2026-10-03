@@ -1,0 +1,34 @@
+{
+  "base_commit": "3ee2fa6c5d4a2960194b83e88c963723bef5f774",
+  "source_files_sha256": {
+    ".gitattributes": "84e83f3fea0c9bb3c6cc0028d6ada1c067779d5b238be6a2e6f0aa767ddec9d3",
+    "AGENTS.md": "f95055731ed132002dc7565cd0a5397cebe89a590d0299201ba0d2ac9c3c949b",
+    "README.md": "5de63c98c1d0c18be4fe3fc90ab2e878b814d13b4854dbd520ebce10df3cb96a",
+    "docs/fusion/README.md": "d56ec35aa88c527b5d86d867454945e661e3655d91f9078f8f8f16b41a88aa36",
+    "docs/fusion/contracts/runtime-contract.md": "1161973aa8f9456d5e7b97b879dd00e7214f3b39361061592f4de6e25a4b684d",
+    "docs/fusion/contracts/sandbox-proof.md": "8a2e246e97cd66f506318ba61b3de1c12e97e89005bc5712fc63f39afe8b3d8e",
+    "docs/fusion/planning/Fusion_Magpie_Fork_Agent\u5de5\u4f5c\u5305_v1.0.md": "dc8f6de395b027d0ca81c6066a3d643c66603dc53bec62788707e856930255d9",
+    "docs/fusion/planning/implementation_tasks.json": "80f214828004418e71c51a279cc3e7de05063b2baf6e2d5ec58beacce225ddc6",
+    "internal/fusion/runtime/process_darwin.go": "017d7af3cc20aacf50c0763a56f354c8e0607b40af9b167439d31edebce2e57d",
+    "internal/fusion/runtime/process_unsupported.go": "49843f044246eadb198787f6d2d5b07b82dc7081a2126ca81aef562611151620",
+    "internal/fusion/runtime/sandbox_darwin.go": "d6239249a86eccf0e907f8571cf01a0a843fb0a6e9184fa7c0a929b435f810f0",
+    "internal/fusion/runtime/supervisor.go": "ff2ae4bfa36c7758732419695f9812497fc9fc69077ef56c3097d86252736863",
+    "internal/fusion/runtime/supervisor_test.go": "e70a2a368820b497f77982187973be18bf0ba09ef16b05fa972f88c0088f9cf2",
+    "internal/fusion/runtime/types.go": "8d431599e17683c056f25420d3e4a4b13f3ad0083e379de103895312e72dce1c",
+    "internal/fusion/store/lock_unix.go": "12b848bc575f8a49566188984584afa9132c840aeb04dbfc36c8e722dff2afb9",
+    "internal/fusion/workspace/copy.go": "926a6ac4cd129c3cb6b4c17bd2e674b344bfeffeb8c765fee85b7673a35f0b11",
+    "internal/fusion/workspace/copy_test.go": "647af73254e8bb549ad9e5b4ede31662ddf9732ce21925da8d7bc95336ac0c29",
+    "tests/fusion/fixtures/sandbox-probe.c": "20b4a6acd65e69b90aa25ca933f8776376b750247b7b7fbbdac6dbae026c0a1f"
+  },
+  "logs_sha256": {
+    "wp11-red.log": "64da5784dbb1c6bb71110577c43751a0efe3c0ab1ea668ae0bd9ace9f9744e9a",
+    "wp11-sandbox-red.log": "ad3699a005f699f4f83202e61eb46e0f77bcd34118c8ce1917e029af31c32f45",
+    "wp11-race-green.log": "2a54955764210760ef0db9798e580abd37c9f4ac49c93fea49de5d79c523c7e1",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "wp11-inherited-lock-red.log": "1d5d8cc93906e69aac1fbacab0320d390ab543165ba28151220db0afa936a46e",
+    "build-gui.log": "01d094f208c33eab1faa987b746d1c2dcb0f8410e209ffd2db98091d1cc91da4",
+    "wp11-native-boundaries.log": "62484f0e3abc1810566d0d5bb08ee4fdedb012209bb4a1be1831a47cce516ee1",
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "credentials": "No private credential or real account records in this packet"
+}

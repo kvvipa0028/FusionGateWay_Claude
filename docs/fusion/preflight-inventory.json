@@ -43,8 +43,8 @@
   "documents": [
     {
       "path": "docs/fusion/README.md",
-      "sha256": "fb26f388c245967a33e2d4c7a788f3f84e9c1c39d30d074f733d67c81cf4fae9",
-      "bytes": 6163
+      "sha256": "d56ec35aa88c527b5d86d867454945e661e3655d91f9078f8f8f16b41a88aa36",
+      "bytes": 6450
     },
     {
       "path": "docs/fusion/baseline/artifacts.json",
@@ -135,6 +135,16 @@
       "path": "docs/fusion/contracts/route-contract.md",
       "sha256": "4ce4f695ec42492fd3ec8cf30e59e1141737c389ce29da027e65058537baf0ae",
       "bytes": 4172
+    },
+    {
+      "path": "docs/fusion/contracts/runtime-contract.md",
+      "sha256": "1161973aa8f9456d5e7b97b879dd00e7214f3b39361061592f4de6e25a4b684d",
+      "bytes": 2539
+    },
+    {
+      "path": "docs/fusion/contracts/sandbox-proof.md",
+      "sha256": "8a2e246e97cd66f506318ba61b3de1c12e97e89005bc5712fc63f39afe8b3d8e",
+      "bytes": 1540
     },
     {
       "path": "docs/fusion/contracts/stage-credential-contract.md",
@@ -238,8 +248,8 @@
     },
     {
       "path": "docs/fusion/planning/Fusion_Magpie_Fork_Agent工作包_v1.0.md",
-      "sha256": "a2f7b3ee3866348ee16892d2c0bd8928b42aa915d37004f3430ffc402087a1cf",
-      "bytes": 51549
+      "sha256": "dc8f6de395b027d0ca81c6066a3d643c66603dc53bec62788707e856930255d9",
+      "bytes": 51605
     },
     {
       "path": "docs/fusion/planning/Fusion_Magpie_Fork_实施计划_v1.0.md",
@@ -258,8 +268,8 @@
     },
     {
       "path": "docs/fusion/planning/implementation_tasks.json",
-      "sha256": "1b7e92e56bbf05b0fb3ff16b132cfc1a3320e49837fdedc02192eec736d00946",
-      "bytes": 17446
+      "sha256": "80f214828004418e71c51a279cc3e7de05063b2baf6e2d5ec58beacce225ddc6",
+      "bytes": 17443
     },
     {
       "path": "docs/fusion/preflight-review.md",
@@ -1100,6 +1110,81 @@
       "path": "docs/fusion/work-items/WP-10/wp10-store-red.log",
       "sha256": "0b3a31e3333c077ae9d82c64f083d2bb26d5346e19027119e5821a36d23c0318",
       "bytes": 1347
+    },
+    {
+      "path": "docs/fusion/work-items/WP-11/artifacts.json",
+      "sha256": "1ff61b65d7e80c7264f5f21bc55abc3e0bd484fb039743c8b1ed21a1d4b9f978",
+      "bytes": 2948
+    },
+    {
+      "path": "docs/fusion/work-items/WP-11/blockers.md",
+      "sha256": "ab3db21cc8992e728ff637d1e1342b4c7f59d2232832a26c4a992a06d73c56a7",
+      "bytes": 594
+    },
+    {
+      "path": "docs/fusion/work-items/WP-11/build-cli.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/fusion/work-items/WP-11/build-gui.log",
+      "sha256": "01d094f208c33eab1faa987b746d1c2dcb0f8410e209ffd2db98091d1cc91da4",
+      "bytes": 5431
+    },
+    {
+      "path": "docs/fusion/work-items/WP-11/build-results.json",
+      "sha256": "d463160a4933babaa6dd61e8cda71418bb2071a7d1c3566277c08faa4a5e5683",
+      "bytes": 1651
+    },
+    {
+      "path": "docs/fusion/work-items/WP-11/build-vet.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/fusion/work-items/WP-11/changed-files.txt",
+      "sha256": "921c2bbde815942d926ff982c250ac601290d19ac28a818fae17d54c868dbdb4",
+      "bytes": 1366
+    },
+    {
+      "path": "docs/fusion/work-items/WP-11/handoff.md",
+      "sha256": "b44a56f362b22846e00d6366560e940e7ad1cb6793d97d826735565ece4f774d",
+      "bytes": 941
+    },
+    {
+      "path": "docs/fusion/work-items/WP-11/summary.md",
+      "sha256": "99b004a121cbf94102d4c8732311a3aeaf7cd39c03f794fb8f47568449e05116",
+      "bytes": 1526
+    },
+    {
+      "path": "docs/fusion/work-items/WP-11/test-results.json",
+      "sha256": "9140aae61406aef480561d7c7531b65cf6daf7d6e3ea0e3a0f3fe33f23299c13",
+      "bytes": 927
+    },
+    {
+      "path": "docs/fusion/work-items/WP-11/wp11-inherited-lock-red.log",
+      "sha256": "1d5d8cc93906e69aac1fbacab0320d390ab543165ba28151220db0afa936a46e",
+      "bytes": 2445
+    },
+    {
+      "path": "docs/fusion/work-items/WP-11/wp11-native-boundaries.log",
+      "sha256": "62484f0e3abc1810566d0d5bb08ee4fdedb012209bb4a1be1831a47cce516ee1",
+      "bytes": 212
+    },
+    {
+      "path": "docs/fusion/work-items/WP-11/wp11-race-green.log",
+      "sha256": "2a54955764210760ef0db9798e580abd37c9f4ac49c93fea49de5d79c523c7e1",
+      "bytes": 24025
+    },
+    {
+      "path": "docs/fusion/work-items/WP-11/wp11-red.log",
+      "sha256": "64da5784dbb1c6bb71110577c43751a0efe3c0ab1ea668ae0bd9ace9f9744e9a",
+      "bytes": 1312
+    },
+    {
+      "path": "docs/fusion/work-items/WP-11/wp11-sandbox-red.log",
+      "sha256": "ad3699a005f699f4f83202e61eb46e0f77bcd34118c8ce1917e029af31c32f45",
+      "bytes": 691
     }
   ],
   "product_implementation_started": true,
@@ -1246,7 +1331,8 @@
     "WP-07",
     "WP-08",
     "WP-09",
-    "WP-10"
+    "WP-10",
+    "WP-11"
   ],
   "implementation_branch": "fusion/development",
   "development_isolation": {

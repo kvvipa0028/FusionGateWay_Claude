@@ -13,7 +13,7 @@ func privateOwner(info os.FileInfo) bool {
 	return ok && int(s.Uid) == os.Getuid()
 }
 func lockController(path string) (*os.File, error) {
-	fd, e := unix.Open(path, unix.O_RDWR|unix.O_CREAT|unix.O_NOFOLLOW, 0600)
+	fd, e := unix.Open(path, unix.O_RDWR|unix.O_CREAT|unix.O_NOFOLLOW|unix.O_CLOEXEC, 0600)
 	if e != nil {
 		return nil, e
 	}

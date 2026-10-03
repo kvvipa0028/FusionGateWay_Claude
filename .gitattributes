@@ -1,0 +1,2 @@
+# Preserve verbatim native diagnostic evidence, including trailing spaces.
+docs/fusion/work-items/WP-11/*.log -whitespace

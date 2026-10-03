@@ -1,0 +1,39 @@
+=== RUN   TestWorkerFixture
+    supervisor_test.go:25: worker helper only
+--- SKIP: TestWorkerFixture (0.00s)
+=== RUN   TestNativeWorkerCompletionAndUnforgeableStopProof
+--- PASS: TestNativeWorkerCompletionAndUnforgeableStopProof (1.12s)
+=== RUN   TestNativeWorkerCancellationTimeoutAndWriteUncertainty
+=== RUN   TestNativeWorkerCancellationTimeoutAndWriteUncertainty/delay
+=== RUN   TestNativeWorkerCancellationTimeoutAndWriteUncertainty/write_loss
+=== RUN   TestNativeWorkerCancellationTimeoutAndWriteUncertainty/overflow
+--- PASS: TestNativeWorkerCancellationTimeoutAndWriteUncertainty (2.25s)
+    --- PASS: TestNativeWorkerCancellationTimeoutAndWriteUncertainty/delay (0.09s)
+    --- PASS: TestNativeWorkerCancellationTimeoutAndWriteUncertainty/write_loss (0.08s)
+    --- PASS: TestNativeWorkerCancellationTimeoutAndWriteUncertainty/overflow (2.08s)
+=== RUN   TestNativeWorkerSandboxDeniesChildCreationAndReadonlyWrites
+=== RUN   TestNativeWorkerSandboxDeniesChildCreationAndReadonlyWrites/fork
+=== RUN   TestNativeWorkerSandboxDeniesChildCreationAndReadonlyWrites/readonly
+--- PASS: TestNativeWorkerSandboxDeniesChildCreationAndReadonlyWrites (2.21s)
+    --- PASS: TestNativeWorkerSandboxDeniesChildCreationAndReadonlyWrites/fork (1.10s)
+    --- PASS: TestNativeWorkerSandboxDeniesChildCreationAndReadonlyWrites/readonly (1.12s)
+=== RUN   TestBirthIdentityRejectsPIDReuseWithoutSignalling
+--- PASS: TestBirthIdentityRejectsPIDReuseWithoutSignalling (0.00s)
+=== RUN   TestWorkerRestartCannotAttachOrDuplicateUnknown
+    supervisor_test.go:219: controller already active
+--- FAIL: TestWorkerRestartCannotAttachOrDuplicateUnknown (1.09s)
+=== RUN   TestReportContainsNoEnvironmentOrOutput
+--- PASS: TestReportContainsNoEnvironmentOrOutput (1.12s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime	8.536s
+=== RUN   TestCopyPreservesSourceAndExcludesAuthentication
+--- PASS: TestCopyPreservesSourceAndExcludesAuthentication (0.00s)
+=== RUN   TestCopyRejectsLinksAndNeverLeavesPartialWorkspace
+=== RUN   TestCopyRejectsLinksAndNeverLeavesPartialWorkspace/symlink
+=== RUN   TestCopyRejectsLinksAndNeverLeavesPartialWorkspace/hardlink
+--- PASS: TestCopyRejectsLinksAndNeverLeavesPartialWorkspace (0.00s)
+    --- PASS: TestCopyRejectsLinksAndNeverLeavesPartialWorkspace/symlink (0.00s)
+    --- PASS: TestCopyRejectsLinksAndNeverLeavesPartialWorkspace/hardlink (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/workspace	1.553s
+FAIL

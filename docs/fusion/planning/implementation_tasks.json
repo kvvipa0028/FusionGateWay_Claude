@@ -238,7 +238,7 @@
       "id": "WP-11",
       "title": "受管 Worker 隔离、取消与恢复",
       "milestone": "M2",
-      "status": "planned",
+      "status": "done",
       "depends_on": [
         "WP-03",
         "WP-05",

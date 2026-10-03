@@ -1,0 +1,6 @@
+=== RUN   TestNativeWorkerCompletionAndUnforgeableStopProof
+    supervisor_test.go:143: completion not verified: {State:failed ExitCode:-1 StoppedVerified:true OutputHash:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 OutputBytes:0 Proof:{RunID:run-a32027b6eaedc0d137424827eb3bdf2a Generation:1 NativeSessionID:fixture-session ProcessIdentityHash:efb5889d88d5750b3a88da1041673f8db1b8a9a73465972e0815da39ce5b21a1 ReportHash:f3c1bd41bfdf0f26de6d7d7f9a470d3ec1c93b3572604408d063e041df004fc2 DescendantsStopped:true}}; synthetic stderr: 
+--- FAIL: TestNativeWorkerCompletionAndUnforgeableStopProof (0.05s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime	0.608s
+FAIL

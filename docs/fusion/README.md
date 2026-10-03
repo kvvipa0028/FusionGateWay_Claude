@@ -1,6 +1,6 @@
 # Fusion Gateway 开发入口
 
-已完成源码/文档导入、Go 1.26.3、OAuth 修复和 WP-01–WP-10：基线、开发隔离、离线 fixtures、五角色绑定编译、独立任务存储、入口鉴权。GLM/Claude Code 连接诊断通过；strict 出口离线验证通过；产品 API、Runtime Adapter 和最终 Gate 尚未完成。
+已完成源码/文档导入、Go 1.26.3、OAuth 修复和 WP-01–WP-11：基线、开发隔离、离线 fixtures、五角色绑定编译、独立任务存储、入口鉴权。GLM/Claude Code 连接诊断通过；strict 出口离线验证通过；产品 API、Runtime Adapter 和最终 Gate 尚未完成。
 
 ## 阅读顺序
 
@@ -10,7 +10,7 @@
 4. [验收矩阵](planning/Fusion_Magpie_Fork_验收矩阵_v1.0.md)：T01–T60；当前均为 `not_run`。
 5. [源码与工具链锁](upstream-lock.json)、[基线报告](baseline/baseline-report.md)：本轮实际准备与验证证据。
 
-`planning/implementation_tasks.json` 和 `planning/acceptance_tests.json` 由本地三份 Markdown 提取，已核对编号、引用及依赖无环；它们不是原 ZIP 的恢复副本。WP-01–WP-10 为 `done`，其他包为 `planned`；最终验收仍为 `not_run`。
+`planning/implementation_tasks.json` 和 `planning/acceptance_tests.json` 由本地三份 Markdown 提取，已核对编号、引用及依赖无环；它们不是原 ZIP 的恢复副本。WP-01–WP-11 为 `done`，其他包为 `planned`；最终验收仍为 `not_run`。
 
 ## 源码与 Git
 
@@ -67,3 +67,5 @@ WP-08 official native candidate inventory: [account routes](integration/account-
 WP-09 quota normalization and bounded broker completed with synthetic inputs: [contract](contracts/quota-adapters.md), [schema](contracts/quota-snapshot.schema.json), [fixtures](integration/quota-fixtures.json). No real quota query admitted yet.
 
 WP-10 准入/调度预算与原子预留已完成离线验证：[阻断原因与调度合同](contracts/blocked-reason-catalog.md)、[验证证据](work-items/WP-10/summary.md)。实际进程树退出证明和真实路线准入仍待后续工作包。
+
+WP-11 Worker/项目副本基础已完成本机原生沙箱验证：[Runtime 合同](contracts/runtime-contract.md)、[沙箱证据](contracts/sandbox-proof.md)、[结果](work-items/WP-11/summary.md)。多进程、网络、resume 未获准，真实 Native Adapter 仍待接入验证。

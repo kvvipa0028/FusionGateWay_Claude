@@ -1,0 +1,19 @@
+# github.com/yetone/magpie/internal/fusion/workspace [github.com/yetone/magpie/internal/fusion/workspace.test]
+internal/fusion/workspace/copy_test.go:17:7: undefined: Copy
+internal/fusion/workspace/copy_test.go:21:9: undefined: Copy
+internal/fusion/workspace/copy_test.go:27:10: undefined: Copy
+# github.com/yetone/magpie/internal/fusion/runtime [github.com/yetone/magpie/internal/fusion/runtime.test]
+internal/fusion/runtime/supervisor_test.go:42:50: undefined: Supervisor
+internal/fusion/runtime/supervisor_test.go:42:62: undefined: Handle
+internal/fusion/runtime/supervisor_test.go:42:97: undefined: Spec
+internal/fusion/runtime/supervisor_test.go:49:33: undefined: FileHash
+internal/fusion/runtime/supervisor_test.go:51:8: undefined: Spec
+internal/fusion/runtime/supervisor_test.go:52:7: undefined: NewSupervisor
+internal/fusion/runtime/supervisor_test.go:55:27: undefined: Handle
+internal/fusion/runtime/supervisor_test.go:55:35: undefined: Result
+internal/fusion/runtime/supervisor_test.go:79:12: undefined: processIdentity
+internal/fusion/runtime/supervisor_test.go:80:5: undefined: sameProcess
+internal/fusion/runtime/supervisor_test.go:80:5: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/runtime [build failed]
+FAIL	github.com/yetone/magpie/internal/fusion/workspace [build failed]
+FAIL

@@ -334,7 +334,9 @@
 
 ### WP-11 · 受管 Worker 隔离、取消与恢复
 
-**阶段：**M2　**负责人角色：**Runtime 基础 Agent　**状态：**planned
+**阶段：**M2　**负责人角色：**Runtime 基础 Agent　**状态：**done
+
+**Completion evidence:**`../work-items/WP-11/summary.md`.
 
 **输入/前置：**WP-03, WP-05, WP-06。同时读取这些前置包的合同、测试日志、阻断项与当前仓库 HEAD。
 
