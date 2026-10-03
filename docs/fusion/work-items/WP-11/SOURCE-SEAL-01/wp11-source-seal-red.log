@@ -1,0 +1,10 @@
+# github.com/yetone/magpie/internal/fusion/workspace [github.com/yetone/magpie/internal/fusion/workspace.test]
+internal/fusion/workspace/source_test.go:14:20: s.SourceCurrent undefined (type Snapshot has no field or method SourceCurrent)
+internal/fusion/workspace/source_test.go:18:8: s.SourceCurrent undefined (type Snapshot has no field or method SourceCurrent)
+internal/fusion/workspace/source_test.go:20:7: s.SourceCurrent undefined (type Snapshot has no field or method SourceCurrent)
+internal/fusion/workspace/source_test.go:20:39: (Snapshot{}).SourceCurrent undefined (type Snapshot has no field or method SourceCurrent)
+internal/fusion/workspace/source_test.go:60:9: s.SourceCurrent undefined (type Snapshot has no field or method SourceCurrent)
+internal/fusion/workspace/source_test.go:71:11: undefined: copyWorkspace
+internal/fusion/workspace/source_test.go:100:8: s.SourceCurrent undefined (type Snapshot has no field or method SourceCurrent)
+FAIL	github.com/yetone/magpie/internal/fusion/workspace [build failed]
+FAIL

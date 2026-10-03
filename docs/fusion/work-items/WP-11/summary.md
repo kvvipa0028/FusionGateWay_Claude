@@ -1,5 +1,7 @@
 # WP-11
 
+后续子项 [SOURCE-SEAL-01](SOURCE-SEAL-01/summary.md) 完成项目副本发布前的整个源树复核与私有 SourceCurrent。原生命周期/沙箱证据保持，下文计数为初始交付；新增组件不等于产品整个 Source 准入或最终 Gate 完成。
+
 实现受管 Worker 生命周期接口、独立 HOME/XDG/临时目录、项目副本与 macOS kernel sandbox。当前安全能力仅支持单进程、禁止网络、禁止子进程；需要这些能力的 Native Adapter 保持未准入，不自动放宽沙箱。
 
 启动在既有持久化预留之后；launch intent/fsync 在 spawn 前，出生时间+PID+nonce/hash 标识进程，取消 TERM→200ms KILL 并等待真正 reap。超限输出、timeout、取消竞争、旧 generation 与写后失联都有明确终态；写入后失败进入 interrupted/needs_review，禁止重放。StopProof 仅由当前监督器实际退出记录核验，重启不能凭 JSON 伪造或恢复。

@@ -1,0 +1,83 @@
+{
+  "base_commit": "935007f20366f6defe8eb956728cae59530744eb",
+  "go_version": "1.26.3",
+  "jev": "off",
+  "checks": {
+    "wp11-source-seal-red.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 0,
+      "failed_subtests": 0,
+      "compile_red": true
+    },
+    "wp11-source-seal-publication-red.log": {
+      "pass": 5,
+      "skip": 0,
+      "fail": 1,
+      "passed_subtests": 12,
+      "failed_subtests": 3,
+      "compile_red": false
+    },
+    "wp11-source-seal-limit-red.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 1,
+      "passed_subtests": 0,
+      "failed_subtests": 0,
+      "compile_red": false
+    },
+    "wp11-source-seal-green.log": {
+      "pass": 6,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 15,
+      "failed_subtests": 0,
+      "compile_red": false
+    },
+    "wp11-source-seal-host-final.log": {
+      "pass": 7,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 15,
+      "failed_subtests": 0,
+      "compile_red": false
+    },
+    "wp11-source-seal-host-complete-final.log": {
+      "pass": 7,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 15,
+      "failed_subtests": 0,
+      "compile_red": false
+    },
+    "wp11-source-seal-fusion-final.log": {
+      "pass": 454,
+      "skip": 20,
+      "fail": 0,
+      "passed_subtests": 656,
+      "failed_subtests": 0,
+      "compile_red": false
+    }
+  },
+  "new_top_level_tests": 5,
+  "host_top_pass": 7,
+  "host_passed_subtests": 15,
+  "whole_fusion": {
+    "pass": 454,
+    "skip": 20,
+    "fail": 0,
+    "passed_subtests": 656,
+    "failed_subtests": 0,
+    "compile_red": false
+  },
+  "source_recheck": "private in-memory origin observation; not an atomic tree snapshot or writer lock",
+  "production_execution_registered": false,
+  "real_model_calls": 0,
+  "real_quota_calls": 0,
+  "final_gate": "not_run",
+  "graph": {
+    "nodes": 13618,
+    "edges": 119589
+  }
+}

@@ -14,7 +14,7 @@ macOS profile 可只读系统 ICU 与时区数据目录，供 Native 初始化�
 
 stdout/stderr 各最大 64KiB，超限取消且不判成功；总时限最大 10 分钟。心跳每 2 秒按 generation 续租。TERM 后 200ms KILL，只针对出生身份匹配的进程；Wait/reap 前不会提供退出证明。派生被 kernel 拒绝，不用 PID 组推断逃逸子进程已停止。
 
-需要源目录批准和稳定源数据，才调用 Copy；复制到仓库外私有目录，源不改写。排除 .git/.claude/.codex/.grok/.fusion-dev/.env；拒绝 symlink/hardlink/特殊文件，使用 os.Root + O_NOFOLLOW 限定读边界。上限 10000 文件、单文件 20MiB/总量 100MiB。只读角色由沙箱拒绝 workspace 写，HOME/缓存仍可写。写 lease 由持久化 reservations 控制。
+需要源目录批准和稳定源数据，才调用 Copy；复制到仓库外私有目录，源不改写。排除 .git/.claude/.codex/.grok/.fusion-dev/.env；拒绝 symlink/hardlink/特殊文件，使用 os.Root + O_NOFOLLOW 限定读边界。上限 10000 文件、单文件 20MiB/总量 100MiB；后续 SOURCE-SEAL-01 新增包含根目录的 20000 条目上限、发布前整个来源复核和私有 Snapshot.SourceCurrent，见 [来源合同](workspace-source-seal.md)。它是有界观察，实际产品派单接线和复核后的并发变更防护仍未完成。只读角色由沙箱拒绝 workspace 写，HOME/缓存仍可写。写 lease 由持久化 reservations 控制。
 
 新控制器不自动接管旧 worker，启动 gap 或失败后 writes 保留为 execution_uncertain/interrupted/needs_review；未对账不能重放或释放锁。Supervisor 退出证据只在本控制器内核验，launch.json/hash 本身不是可恢复授权。
 

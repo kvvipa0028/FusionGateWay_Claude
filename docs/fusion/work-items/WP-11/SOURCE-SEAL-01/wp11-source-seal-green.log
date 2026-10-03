@@ -1,0 +1,44 @@
+=== RUN   TestCopyPreservesSourceAndExcludesAuthentication
+--- PASS: TestCopyPreservesSourceAndExcludesAuthentication (0.00s)
+=== RUN   TestCopyRejectsLinksAndNeverLeavesPartialWorkspace
+=== RUN   TestCopyRejectsLinksAndNeverLeavesPartialWorkspace/symlink
+=== RUN   TestCopyRejectsLinksAndNeverLeavesPartialWorkspace/hardlink
+--- PASS: TestCopyRejectsLinksAndNeverLeavesPartialWorkspace (0.00s)
+    --- PASS: TestCopyRejectsLinksAndNeverLeavesPartialWorkspace/symlink (0.00s)
+    --- PASS: TestCopyRejectsLinksAndNeverLeavesPartialWorkspace/hardlink (0.00s)
+=== RUN   TestSnapshotSourceCurrentUsesPrivateSeal
+--- PASS: TestSnapshotSourceCurrentUsesPrivateSeal (0.00s)
+=== RUN   TestSnapshotSourceCurrentRejectsWholeTreeDrift
+=== RUN   TestSnapshotSourceCurrentRejectsWholeTreeDrift/content
+=== RUN   TestSnapshotSourceCurrentRejectsWholeTreeDrift/same_bytes_replacement
+=== RUN   TestSnapshotSourceCurrentRejectsWholeTreeDrift/add_file
+=== RUN   TestSnapshotSourceCurrentRejectsWholeTreeDrift/remove_file
+=== RUN   TestSnapshotSourceCurrentRejectsWholeTreeDrift/add_directory
+=== RUN   TestSnapshotSourceCurrentRejectsWholeTreeDrift/replace_directory
+=== RUN   TestSnapshotSourceCurrentRejectsWholeTreeDrift/symlink
+=== RUN   TestSnapshotSourceCurrentRejectsWholeTreeDrift/hardlink
+=== RUN   TestSnapshotSourceCurrentRejectsWholeTreeDrift/mode
+=== RUN   TestSnapshotSourceCurrentRejectsWholeTreeDrift/root_replacement
+--- PASS: TestSnapshotSourceCurrentRejectsWholeTreeDrift (0.03s)
+    --- PASS: TestSnapshotSourceCurrentRejectsWholeTreeDrift/content (0.00s)
+    --- PASS: TestSnapshotSourceCurrentRejectsWholeTreeDrift/same_bytes_replacement (0.00s)
+    --- PASS: TestSnapshotSourceCurrentRejectsWholeTreeDrift/add_file (0.00s)
+    --- PASS: TestSnapshotSourceCurrentRejectsWholeTreeDrift/remove_file (0.00s)
+    --- PASS: TestSnapshotSourceCurrentRejectsWholeTreeDrift/add_directory (0.01s)
+    --- PASS: TestSnapshotSourceCurrentRejectsWholeTreeDrift/replace_directory (0.00s)
+    --- PASS: TestSnapshotSourceCurrentRejectsWholeTreeDrift/symlink (0.00s)
+    --- PASS: TestSnapshotSourceCurrentRejectsWholeTreeDrift/hardlink (0.00s)
+    --- PASS: TestSnapshotSourceCurrentRejectsWholeTreeDrift/mode (0.00s)
+    --- PASS: TestSnapshotSourceCurrentRejectsWholeTreeDrift/root_replacement (0.00s)
+=== RUN   TestCopyRechecksWholeSourceBeforePublication
+=== RUN   TestCopyRechecksWholeSourceBeforePublication/content
+=== RUN   TestCopyRechecksWholeSourceBeforePublication/new_file
+=== RUN   TestCopyRechecksWholeSourceBeforePublication/root_replacement
+--- PASS: TestCopyRechecksWholeSourceBeforePublication (0.00s)
+    --- PASS: TestCopyRechecksWholeSourceBeforePublication/content (0.00s)
+    --- PASS: TestCopyRechecksWholeSourceBeforePublication/new_file (0.00s)
+    --- PASS: TestCopyRechecksWholeSourceBeforePublication/root_replacement (0.00s)
+=== RUN   TestSnapshotSourceExclusionsAndPrivateCopy
+--- PASS: TestSnapshotSourceExclusionsAndPrivateCopy (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/workspace	1.566s

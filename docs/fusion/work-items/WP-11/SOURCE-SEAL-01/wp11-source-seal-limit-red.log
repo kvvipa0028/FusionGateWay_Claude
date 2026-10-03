@@ -1,0 +1,6 @@
+=== RUN   TestCopyBoundsEmptyDirectoryTree
+    source_test.go:184: unbounded directory tree accepted <nil>
+--- FAIL: TestCopyBoundsEmptyDirectoryTree (5.39s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/workspace	5.733s
+FAIL

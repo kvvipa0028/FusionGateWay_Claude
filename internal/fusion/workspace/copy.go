@@ -1,10 +1,7 @@
 package workspace
 
 import (
-	"crypto/sha256"
-	"encoding/hex"
 	"errors"
-	"io"
 	"os"
 	"path/filepath"
 	"strings"
@@ -19,8 +16,9 @@ type File struct {
 	Bytes int64  `json:"bytes"`
 }
 type Snapshot struct {
-	Path  string
-	Files []File
+	Path   string
+	Files  []File
+	source *sourceSeal
 }
 
 // CanonicalDirectory rejects linked parents and state inside an existing Git
@@ -63,6 +61,10 @@ func PrivateState(p string) error {
 	return nil
 }
 func Copy(source, root, name string) (Snapshot, error) {
+	return copyWorkspace(source, root, name, nil)
+}
+
+func copyWorkspace(source, root, name string, beforePublish func()) (Snapshot, error) {
 	var result Snapshot
 	if CanonicalDirectory(source, false) != nil || PrivateState(root) != nil || name == "" || name == "." || name == ".." || strings.ContainsAny(name, "/\\\x00\n\r") {
 		return result, ErrUnsafe
@@ -84,68 +86,35 @@ func Copy(source, root, name string) (Snapshot, error) {
 		return result, ErrUnsafe
 	}
 	defer sourceRoot.Close()
-	var total int64
-	e = filepath.WalkDir(source, func(path string, d os.DirEntry, e error) error {
-		if e != nil {
-			return ErrUnsafe
+	seal := &sourceSeal{path: source, entries: map[string]sourceEntry{}}
+	e = walkSource(sourceRoot, nil, func(rel string, i os.FileInfo, b []byte) error {
+		hash := ""
+		if !i.IsDir() {
+			hash = contentHash(b)
 		}
-		rel, e := filepath.Rel(source, path)
-		if e != nil {
-			return ErrUnsafe
-		}
+		seal.entries[rel] = sourceEntry{info: i, hash: hash}
 		if rel == "." {
 			return nil
-		}
-		switch d.Name() {
-		case ".git", ".claude", ".codex", ".grok", ".fusion-dev", ".env":
-			if d.IsDir() {
-				return filepath.SkipDir
-			}
-			return nil
-		}
-		i, e := os.Lstat(path)
-		if e != nil {
-			return ErrUnsafe
 		}
 		out := filepath.Join(tmp, rel)
 		if i.IsDir() {
 			return os.Mkdir(out, 0700)
 		}
-		st, ok := i.Sys().(*syscall.Stat_t)
-		if !i.Mode().IsRegular() || !ok || st.Nlink != 1 || len(result.Files) >= 10000 || i.Size() > 20<<20 || total+i.Size() > 100<<20 {
-			return ErrUnsafe
-		}
-		in, e := sourceRoot.OpenFile(rel, os.O_RDONLY|syscall.O_NOFOLLOW, 0)
-		if e != nil {
-			return ErrUnsafe
-		}
-		defer in.Close()
-		opened, e := in.Stat()
-		if e != nil || !os.SameFile(i, opened) {
-			return ErrUnsafe
-		}
-		openedStat, ok := opened.Sys().(*syscall.Stat_t)
-		if !ok || openedStat.Nlink != 1 {
-			return ErrUnsafe
-		}
-		b, e := io.ReadAll(io.LimitReader(in, i.Size()+1))
-		if e != nil || int64(len(b)) != i.Size() {
-			return ErrUnsafe
-		}
-		after, e := in.Stat()
-		if e != nil || after.Size() != i.Size() || !after.ModTime().Equal(i.ModTime()) {
-			return ErrUnsafe
-		}
-		if e = os.WriteFile(out, b, 0600); e != nil {
+		if e := os.WriteFile(out, b, 0600); e != nil {
 			return e
 		}
-		h := sha256.Sum256(b)
-		result.Files = append(result.Files, File{rel, hex.EncodeToString(h[:]), int64(len(b))})
-		total += int64(len(b))
+		result.Files = append(result.Files, File{rel, hash, int64(len(b))})
 		return nil
 	})
 	if e != nil {
 		return Snapshot{}, e
+	}
+	result.source = seal
+	if beforePublish != nil {
+		beforePublish()
+	}
+	if !result.SourceCurrent() {
+		return Snapshot{}, ErrUnsafe
 	}
 	if e = os.Rename(tmp, dest); e != nil {
 		return Snapshot{}, e
