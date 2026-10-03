@@ -2,6 +2,8 @@
 
 状态：`in_progress`。子工作项 [WP-15-PREVIEW-01](PREVIEW-01/summary.md) 已完成：受鉴权的无调用计划预览、冻结提交和任务读取组件。
 
+[WP-15-GROK-01](GROK-01/summary.md) 已补齐原始 GrokChannel 在 intent 前的拒绝，并验证可信 Controller→Grok Adapter→固定 Native 的 7 个实际生命周期场景、幂等 receipt、HTTP 断线、暂停/取消/关闭和实际 StopProof/release。全量 Fusion race 409 PASS / 17 SKIP，固定 Claude 控制器 3 项兼容回归及 CLI/GUI/vet 通过。产品执行注册、真实路线准入、Native Resume 和完整工程闭环仍未完成。
+
 当前 Handler 已由 fusion-control 注册到独立草稿 listener；生产执行 Controller/GUI 尚未接线，旧执行入口继续关闭。完整 WP-15 仍需真实项目/Runtime/额度来源接线及新增行为对应的合同扩展；当前已实现 Handler 的 OpenAPI 合同已按下述 OPENAPI-01 及后续扩展完成。预算与输入事务、阶段计划修订、启动/阶段取消、暂停/继续、默认层读写、额度、预设组件及持久 sequence SSE 的已完成子项见下文。实际 UI 合同随后按最终接口交付。此组件测试不作为 T13/T25/T28/T33–T36/T43/T45/T49/T50/T56 的完整最终验收。
 
 [WP-15-BUDGET-01](BUDGET-01/summary.md) 已完成预览预算、提交预算事务和预算读取；任务、快照、幂等与预算共同提交，重试不退还已消耗的次数。162 个 Fusion tagged race tests 通过。剩余阶段修订、控制、事件流与接线继续实施。

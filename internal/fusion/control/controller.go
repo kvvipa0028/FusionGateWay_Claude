@@ -318,7 +318,7 @@ func validLaunch(l Launch, role stageplan.Role) bool {
 		filepath.IsAbs(s.Root) && filepath.Clean(s.Root) == s.Root && filepath.IsAbs(s.Workspace) && filepath.Clean(s.Workspace) == s.Workspace &&
 		!strings.ContainsRune(s.Root, 0) && !strings.ContainsRune(s.Workspace, 0) && s.Root != s.Workspace &&
 		s.Timeout > 0 && s.Timeout <= 10*time.Minute && len(s.Input) > 0 && len(s.Input) <= 64<<10 && utf8.Valid(s.Input) &&
-		(!s.Writable || role == stageplan.Implementation || role == stageplan.Testing) && s.Executable == "" && s.ExecutableHash == "" && len(s.Args) == 0 && len(s.FixtureEnvironment) == 0 && s.NativeSessionID == "" && s.ValidateOutcome == nil && s.ClaudeChannel == nil
+		(!s.Writable || role == stageplan.Implementation || role == stageplan.Testing) && s.Executable == "" && s.ExecutableHash == "" && len(s.Args) == 0 && len(s.FixtureEnvironment) == 0 && s.NativeSessionID == "" && s.ValidateOutcome == nil && s.ClaudeChannel == nil && s.GrokChannel == nil
 }
 func (c *Controller) unlaunched(j *executionJob) {
 	j.cancel()

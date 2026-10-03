@@ -1,0 +1,104 @@
+=== RUN   TestControllerPinnedNativeRunsOnceAndReleasesActualStopProof
+    controller_native_test.go:32: explicit pinned Controller Native fixture only
+--- SKIP: TestControllerPinnedNativeRunsOnceAndReleasesActualStopProof (0.00s)
+=== RUN   TestControllerPinnedNativePauseStopsInFlightAndRequiresReview
+    controller_native_test.go:100: explicit pinned Controller Native pause fixture only
+--- SKIP: TestControllerPinnedNativePauseStopsInFlightAndRequiresReview (0.00s)
+=== RUN   TestControllerPinnedNativeTaskCancelStopsInFlightAndCloses
+    controller_native_test.go:173: explicit pinned Controller Native task cancel fixture only
+--- SKIP: TestControllerPinnedNativeTaskCancelStopsInFlightAndCloses (0.00s)
+=== RUN   TestControllerRetriesStartRuntimeOnlyOnceAndHTTPDisconnectDoesNotCancel
+--- PASS: TestControllerRetriesStartRuntimeOnlyOnceAndHTTPDisconnectDoesNotCancel (0.07s)
+=== RUN   TestControllerNoHandleRetainsReservationForReconciliation
+--- PASS: TestControllerNoHandleRetainsReservationForReconciliation (0.04s)
+=== RUN   TestControllerKnownHandleErrorIsCancelledWaitedAndReleased
+--- PASS: TestControllerKnownHandleErrorIsCancelledWaitedAndReleased (0.04s)
+=== RUN   TestControllerStopAndReleaseFailuresDoNotFreeCapacity
+=== RUN   TestControllerStopAndReleaseFailuresDoNotFreeCapacity/no_stop
+=== RUN   TestControllerStopAndReleaseFailuresDoNotFreeCapacity/wait_error
+=== RUN   TestControllerStopAndReleaseFailuresDoNotFreeCapacity/release_error
+=== RUN   TestControllerStopAndReleaseFailuresDoNotFreeCapacity/wrong_proof
+--- PASS: TestControllerStopAndReleaseFailuresDoNotFreeCapacity (0.17s)
+    --- PASS: TestControllerStopAndReleaseFailuresDoNotFreeCapacity/no_stop (0.04s)
+    --- PASS: TestControllerStopAndReleaseFailuresDoNotFreeCapacity/wait_error (0.04s)
+    --- PASS: TestControllerStopAndReleaseFailuresDoNotFreeCapacity/release_error (0.04s)
+    --- PASS: TestControllerStopAndReleaseFailuresDoNotFreeCapacity/wrong_proof (0.05s)
+=== RUN   TestControllerCancelRequiresOwnedRunAndGeneration
+--- PASS: TestControllerCancelRequiresOwnedRunAndGeneration (0.05s)
+=== RUN   TestControllerCloseStopsOwnedExecutionAndRefusesNewLaunch
+--- PASS: TestControllerCloseStopsOwnedExecutionAndRefusesNewLaunch (0.04s)
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/argv
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/grok_channel
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/claude_channel
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/env
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/session
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/executable
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/validator
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/write
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/timeout
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/input
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/path
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/backend
+--- PASS: TestControllerRejectsUntrustedSpecBeforeIntent (0.39s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/argv (0.03s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/grok_channel (0.03s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/claude_channel (0.03s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/env (0.03s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/session (0.03s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/executable (0.03s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/validator (0.03s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/write (0.03s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/timeout (0.03s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/input (0.03s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/path (0.03s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/backend (0.03s)
+=== RUN   TestControllerRestartReadsUnknownWithoutResolvingOrLaunching
+--- PASS: TestControllerRestartReadsUnknownWithoutResolvingOrLaunching (0.06s)
+=== RUN   TestControllerCancellationBeforeHandlePublicationStillWaitsAndReleases
+--- PASS: TestControllerCancellationBeforeHandlePublicationStillWaitsAndReleases (0.05s)
+=== RUN   TestControllerCloseTimeoutDoesNotClaimStopped
+--- PASS: TestControllerCloseTimeoutDoesNotClaimStopped (0.06s)
+=== RUN   TestControllerFrozenAutoSelectionCannotEscapeApprovedCandidates
+--- PASS: TestControllerFrozenAutoSelectionCannotEscapeApprovedCandidates (0.03s)
+=== RUN   TestControllerPinnedGrokNativeLifecycle
+    grok_native_test.go:42: explicit pinned Grok Controller fixture only
+--- SKIP: TestControllerPinnedGrokNativeLifecycle (0.00s)
+=== RUN   TestControllerPauseContinueIdleNeverInvokesRuntime
+--- PASS: TestControllerPauseContinueIdleNeverInvokesRuntime (0.03s)
+=== RUN   TestControllerPauseOwnedRunStopsAndRetainsReviewWithoutReplay
+--- PASS: TestControllerPauseOwnedRunStopsAndRetainsReviewWithoutReplay (0.05s)
+=== RUN   TestControllerPauseUnverifiedOrFailedReleaseKeepsHeld
+=== RUN   TestControllerPauseUnverifiedOrFailedReleaseKeepsHeld/no_stop
+=== RUN   TestControllerPauseUnverifiedOrFailedReleaseKeepsHeld/release_error
+--- PASS: TestControllerPauseUnverifiedOrFailedReleaseKeepsHeld (0.10s)
+    --- PASS: TestControllerPauseUnverifiedOrFailedReleaseKeepsHeld/no_stop (0.05s)
+    --- PASS: TestControllerPauseUnverifiedOrFailedReleaseKeepsHeld/release_error (0.05s)
+=== RUN   TestControllerPauseForeignOwnershipAndStaleVersionCannotCancel
+--- PASS: TestControllerPauseForeignOwnershipAndStaleVersionCannotCancel (0.05s)
+=== RUN   TestControllerPauseContinueManagementRecheckedBeforeMutation
+--- PASS: TestControllerPauseContinueManagementRecheckedBeforeMutation (0.03s)
+=== RUN   TestControllerPauseCancelsHandleReturnedAfterIntent
+--- PASS: TestControllerPauseCancelsHandleReturnedAfterIntent (0.05s)
+=== RUN   TestControllerCancelTaskIdleNeverInvokesRuntime
+=== RUN   TestControllerCancelTaskIdleNeverInvokesRuntime/ready
+=== RUN   TestControllerCancelTaskIdleNeverInvokesRuntime/paused
+--- PASS: TestControllerCancelTaskIdleNeverInvokesRuntime (0.07s)
+    --- PASS: TestControllerCancelTaskIdleNeverInvokesRuntime/ready (0.03s)
+    --- PASS: TestControllerCancelTaskIdleNeverInvokesRuntime/paused (0.04s)
+=== RUN   TestControllerCancelTaskOwnedRunStopsAndClosesWithoutReplay
+--- PASS: TestControllerCancelTaskOwnedRunStopsAndClosesWithoutReplay (0.05s)
+=== RUN   TestControllerCancelTaskUnverifiedOrFailedReleaseKeepsHeld
+=== RUN   TestControllerCancelTaskUnverifiedOrFailedReleaseKeepsHeld/no_stop
+=== RUN   TestControllerCancelTaskUnverifiedOrFailedReleaseKeepsHeld/release_error
+--- PASS: TestControllerCancelTaskUnverifiedOrFailedReleaseKeepsHeld (0.10s)
+    --- PASS: TestControllerCancelTaskUnverifiedOrFailedReleaseKeepsHeld/no_stop (0.05s)
+    --- PASS: TestControllerCancelTaskUnverifiedOrFailedReleaseKeepsHeld/release_error (0.05s)
+=== RUN   TestControllerCancelTaskForeignOwnershipAndStaleVersionCannotCancel
+--- PASS: TestControllerCancelTaskForeignOwnershipAndStaleVersionCannotCancel (0.05s)
+=== RUN   TestControllerCancelTaskCancelsHandleReturnedAfterIntent
+--- PASS: TestControllerCancelTaskCancelsHandleReturnedAfterIntent (0.05s)
+=== RUN   TestControllerCancelTaskRechecksManagementBeforeMutation
+--- PASS: TestControllerCancelTaskRechecksManagementBeforeMutation (0.03s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/control	3.111s

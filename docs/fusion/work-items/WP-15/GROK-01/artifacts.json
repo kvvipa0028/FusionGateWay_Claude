@@ -1,0 +1,34 @@
+{
+  "base_commit": "20d39f144960d85c4da97f1f125333665aac0cd3",
+  "source_files_sha256": {
+    "AGENTS.md": "55e3aaaef560dbc84c036c667dee4fb3dd1a14e0acf6e2ad385dce5e1527648a",
+    "docs/fusion/contracts/execution-controller.md": "dc4a59a5ce9d5ec77d2d0f38eaae49a9b20ceba59d65333b57f925ecdf0cc75c",
+    "docs/fusion/planning/Fusion_Magpie_Fork_Agent工作包_v1.0.md": "220282eeed8d4a55444b2ab26d23b6d0ea8beea8f62b839f125e93d2420b0bb0",
+    "docs/fusion/work-items/WP-13/summary.md": "d3c098430338f0ad718465a466d48375140e62e0929c148e5238239a6696fc21",
+    "docs/fusion/work-items/WP-15/summary.md": "84d15890a0b67fec239c266935cb98fe113005a92870ff0cf2b60801750a04c7",
+    "internal/fusion/control/controller.go": "2771aba30dcb498c9869452945072de56d70f332b39868fd1ca39e9cf9f56513",
+    "internal/fusion/control/controller_test.go": "8f8da3aa96ee51fa91027fb6d945e6a916b4bed0934ac06793859687159dad15",
+    "internal/fusion/control/grok_native_test.go": "263327370d34b59ff0d37947d828e7b8b739b80916dfc37a47167dc9e9822aec",
+    "internal/fusion/policy/scheduler.go": "c7188dd31516fd12c8e99e3d6b60a8ec4ece5feafd6264d4702f0d85dd98c793",
+    "internal/fusion/runtime/grok/adapter.go": "210a12920e7e08284c605b2b2644c250a93b0552d4a53c81bb6e82add0646b6b",
+    "internal/fusion/runtime/grok/call_gate.go": "fe4c9549a9a1d947419fea74ad6c0636243c159255f849016a13d3a87d3df260",
+    "internal/fusion/runtime/grok/read_tools.go": "a90717dadc83a2362a712dc571c25550d8cadbbbd4922ed5ee9cc327b4093730",
+    "internal/fusion/runtime/grok/session.go": "b6181092bcb6e2e5a92e034240e145d61269b09f5bf3073b2639df17a8cbbf6b",
+    "internal/fusion/runtime/grok_channel.go": "68378721d8d3b4f0ab015dca3867b293dbf2fa13d9156b6d158201753e75e39f",
+    "internal/fusion/runtime/sandbox_darwin.go": "cfc59c9c98907f2a0a8f23621f20394ff5082caca8cff31d4320e8241477ecac",
+    "internal/fusion/runtime/supervisor.go": "9ad608314cdcc16d3f444497a4748a47cd3524712f3467807485171ac072acde"
+  },
+  "packet_files_sha256": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "2f20947da76d7c09cfcdc0fc81c341a7fa8f994c3873281b26daea6f866e6a54",
+    "build-results.json": "bbb6497ddaee6ae048f0cdc8180ab5fded96fc643e31dac95f81e093549fc79b",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "summary.md": "8b7da29479b2d133ce0d78161c04a372aaf3c81c1e0369d06610072a31292b58",
+    "test-results.json": "162467b24936272ebfb696486be2bdf4bf823f69fa4721c0c749ea65783c6eb5",
+    "wp15-grok-claude-control-native.log": "9cd5bb12a1562098b9afe8117dea56ef85dc8dfc472debd8b5f384b03c630f1a",
+    "wp15-grok-control-green.log": "75fe6877c96caba510f13aafba36ea44203481b93d72cd73c317147721c9d4ce",
+    "wp15-grok-fusion-tagged-race.log": "88291404e585411bec331f85b5841ca9035296e8c1e2bce863a88725372a0d8c",
+    "wp15-grok-guard-red.log": "85f074808e8b41ad7bd6d32edd5e065b2867ff1efbc5530914d6628d4ed0a297",
+    "wp15-grok-native-first.log": "229eabf7c8058f4e157ec340c24652776f18d6cef08dd213d1f04f3721a67c53"
+  }
+}

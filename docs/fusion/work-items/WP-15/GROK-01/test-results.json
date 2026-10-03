@@ -1,0 +1,77 @@
+{
+  "base_commit": "20d39f144960d85c4da97f1f125333665aac0cd3",
+  "go_version": "1.26.3",
+  "jev": "off",
+  "real_model_calls": 0,
+  "real_quota_calls": 0,
+  "parent_wp15": "in_progress",
+  "parent_wp13": "in_progress",
+  "final_gate": "not_run",
+  "checks": {
+    "wp15-grok-claude-control-native.log": {
+      "pass": 3,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 0,
+      "expected_red": false
+    },
+    "wp15-grok-control-green.log": {
+      "pass": 23,
+      "skip": 4,
+      "fail": 0,
+      "passed_subtests": 22,
+      "expected_red": false
+    },
+    "wp15-grok-fusion-tagged-race.log": {
+      "pass": 409,
+      "skip": 17,
+      "fail": 0,
+      "passed_subtests": 500,
+      "expected_red": false
+    },
+    "wp15-grok-guard-red.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 1,
+      "passed_subtests": 0,
+      "expected_red": true
+    },
+    "wp15-grok-native-first.log": {
+      "pass": 1,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 7,
+      "expected_red": false
+    }
+  },
+  "native_controller": {
+    "grok_version": "1.0.48",
+    "grok_sha256": "1ed292eb62206b1a2ec3d17dc69c9c8406a07f5ff414305f953baee5b72a4a05",
+    "scenarios": [
+      "success",
+      "read",
+      "disconnect",
+      "pause",
+      "task_cancel",
+      "stage_cancel",
+      "close"
+    ],
+    "inspection_quota_upstream": "synthetic",
+    "authenticated_start": true,
+    "durable_receipt_no_replay": true,
+    "actual_stop_proof_and_release": true,
+    "readonly_source_unchanged": true,
+    "strict_lock_verified": false,
+    "billing_verified": false,
+    "quota_verified": false,
+    "native_resume_verified": false,
+    "production_forwarder_supplied": false,
+    "registered_in_product": false
+  },
+  "claude_native_compatibility": {
+    "version": "2.1.287",
+    "scenarios": 3,
+    "passed": true
+  },
+  "changes_after_checks": "documentation and evidence packet only"
+}

@@ -1,0 +1,8 @@
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/grok_channel
+    controller_test.go:330: <nil>
+--- FAIL: TestControllerRejectsUntrustedSpecBeforeIntent (0.06s)
+    --- FAIL: TestControllerRejectsUntrustedSpecBeforeIntent/grok_channel (0.06s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/control	0.698s
+FAIL

@@ -60,15 +60,19 @@ func fixturePrivate(t *testing.T) string {
 }
 func newControlFixture(t *testing.T) *controlFixture {
 	t.Helper()
+	effort := "high"
+	route := stageplan.Route{ID: "fixture-route", Revision: 1, Model: "glm-5.3", Account: "fixture-account", Workspace: "fixture-workspace", CredentialIdentity: "fixture-credential", RuntimeVersion: "2.1.287", BillingPath: "coding_plan", BillingKnown: true, Admitted: true, Efforts: []string{effort}, DefaultEffort: &effort, Capabilities: []string{"text"}, LockEnforcement: stageplan.ControlledCalls}
+	return controlRouteFixture(t, route, stageplan.EffortSelection{Mode: stageplan.EffortExplicit, Value: effort})
+}
+func controlRouteFixture(t *testing.T, route stageplan.Route, effort stageplan.EffortSelection) *controlFixture {
+	t.Helper()
 	root := fixturePrivate(t)
 	st, e := store.Open(root)
 	if e != nil {
 		t.Fatal(e)
 	}
 	t.Cleanup(func() { st.Close() })
-	effort := "high"
-	route := stageplan.Route{ID: "fixture-route", Revision: 1, Model: "glm-5.3", Account: "fixture-account", Workspace: "fixture-workspace", CredentialIdentity: "fixture-credential", RuntimeVersion: "2.1.287", BillingPath: "coding_plan", BillingKnown: true, Admitted: true, Efforts: []string{effort}, DefaultEffort: &effort, Capabilities: []string{"text"}, LockEnforcement: stageplan.ControlledCalls}
-	plan, e := stageplan.Compile(1, []stageplan.Role{stageplan.Design}, stageplan.Layer{Roles: map[stageplan.Role]stageplan.Binding{stageplan.Design: {Mode: stageplan.Locked, Model: route.Model, Route: &stageplan.RouteRef{ID: route.ID, Revision: 1}, Effort: &stageplan.EffortSelection{Mode: stageplan.EffortExplicit, Value: effort}}}}, stageplan.Layer{}, stageplan.Layer{}, []stageplan.Route{route})
+	plan, e := stageplan.Compile(1, []stageplan.Role{stageplan.Design}, stageplan.Layer{Roles: map[stageplan.Role]stageplan.Binding{stageplan.Design: {Mode: stageplan.Locked, Model: route.Model, Route: &stageplan.RouteRef{ID: route.ID, Revision: 1}, Effort: &effort}}}, stageplan.Layer{}, stageplan.Layer{}, []stageplan.Route{route})
 	if e != nil {
 		t.Fatal(e)
 	}
@@ -296,10 +300,14 @@ func TestControllerCloseStopsOwnedExecutionAndRefusesNewLaunch(t *testing.T) {
 	}
 }
 func TestControllerRejectsUntrustedSpecBeforeIntent(t *testing.T) {
-	for _, mode := range []string{"argv", "env", "session", "executable", "validator", "write", "timeout", "input", "path", "backend"} {
+	for _, mode := range []string{"argv", "grok_channel", "claude_channel", "env", "session", "executable", "validator", "write", "timeout", "input", "path", "backend"} {
 		t.Run(mode, func(t *testing.T) {
 			f := newControlFixture(t)
 			switch mode {
+			case "grok_channel":
+				f.launch.Spec.GrokChannel = &managed.GrokChannel{}
+			case "claude_channel":
+				f.launch.Spec.ClaudeChannel = &managed.ClaudeChannel{}
 			case "argv":
 				f.launch.Spec.Args = []string{"fixture"}
 			case "env":

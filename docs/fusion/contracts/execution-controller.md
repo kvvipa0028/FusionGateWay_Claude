@@ -6,7 +6,7 @@
 
 Start 先读取持久启动映射，已有请求直接返回 Created=false，不再解析 Runtime、探测能力或调用准入服务。新请求核对任务当前状态、版本和 generation，locked 直接采用 exact frozen Target；auto 需要可信 SelectAuto，选择结果必须与原冻结 candidates 中一项完全相同。传入选择器/Resolver 的 Target、候选及实际 launch input 使用独立副本，不能改写冻结授权。
 
-Resolver 返回的 Backend/Spec 只来自服务器配置。控制器在写 intent 前拒绝 caller argv/executable/env/session/validator/channel、非法路径/UTF-8/input/time limit 和只读角色写权限。泛用 controller 时限最多十分钟，GLM Adapter 仍独立限制四分钟，服务端 resolver 必须使用该路线支持的范围。当前仅接受 Probe/Start/Events/Cancel 且无任意 network/child_processes 的能力；可信 ClaudeChannel 的局部通信由 Adapter/Supervisor 控制，不据此开放泛用网络。
+Resolver 返回的 Backend/Spec 只来自服务器配置。控制器在写 intent 前拒绝 caller argv/executable/env/session/validator/channel（包含 ClaudeChannel 和 GrokChannel）、非法路径/UTF-8/input/time limit 和只读角色写权限。泛用 controller 时限最多十分钟，GLM Adapter 仍独立限制四分钟，服务端 resolver 必须使用该路线支持的范围。当前仅接受 Probe/Start/Events/Cancel 且无任意 network/child_processes 的能力；可信 Claude/Grok channel 的局部通信由 Adapter/Supervisor 控制，不据此开放泛用网络。
 
 调用 Scheduler.PrepareOnce 将 intent/预留/请求映射一次提交；只有 Created=true 继续。CheckPrepared 在启动前重查实时准入。执行 lifetime 从控制器父 Context 派生，提交之后 HTTP 请求 Context 失效不会取消它；明确 Cancel、Close、应用退出和 Runtime deadline 可取消。取消必须匹配 task/run/generation，并由当前控制器持有 job；重启 unknown 和非本控制器的运行记录不自动接管。终态取消幂等，只读取终态。
 
@@ -21,3 +21,5 @@ Backend.Start 没有返回 Handle 时，控制器标记 interrupted/needs_review
 WP-15-PAUSE-API-01 新增 Pause/Continue 与同 issuer 管理重查，Store 全 TaskVersion CAS 后仅取消 owned job，已提交意图不随 HTTP 消失。Start 返回晚到 Handle 后仍交付已取消 lifetime 的 Cancel，RED→GREEN 验证。新增固定 Native inflight Pause 实际 wait/proof/release 通过，停止后需核对，不隐式恢复。
 
 WP-15-CANCEL-API-01 新增 CancelTask/CancelTaskAuthorized：全 TaskVersion Store 意图事务后才取消精确 owned lifetime/Handle，不能接管 unknown 或改变 frozen Target。空闲取消不解析/启动 Runtime；不确定证明/释放仍保留 receipt/held。6 项 Controller 测试及新增固定 Native inflight TaskCancel→实际 wait/StopProof/release→cancelled 通过；现有 Pause 与 Stage Cancel 语义保持，合成准入不提升为真实账号准入。
+
+[WP-15-GROK-01](../work-items/WP-15/GROK-01/summary.md) 补齐原始 GrokChannel 在 intent 前的拒绝，固定 Grok 1.0.48 经可信 Adapter 绑定完成 7 个真实 Native 控制器场景：成功、Read、断线、Pause、TaskCancel、Stage Cancel、Close。幂等 receipt 不重复执行，停止后核验实际 proof/release；独立模型/计费/额度证据未升级。固定 Claude 2.1.287 的 3 项控制器回归通过。产品 Worker/真实 Forwarder/准入未注册，同 key 重读不代表 Native Resume。
