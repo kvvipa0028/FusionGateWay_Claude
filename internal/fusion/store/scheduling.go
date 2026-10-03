@@ -2,6 +2,7 @@ package store
 
 import (
 	"database/sql"
+	"encoding/json"
 	"errors"
 	"time"
 )
@@ -92,11 +93,36 @@ func (s *Store) Capacity() (int, error) {
 	return limit, e
 }
 func (s *Store) StartReserved(in StartRequest, req ReservationRequest) (StageRun, error) {
+	// Legacy callers have no Created discriminator and cannot safely consume
+	// an idempotent replay as fresh authorization to launch.
+	if in.IdempotencyKey != "" {
+		return StageRun{}, ErrInvalid
+	}
+	r, e := s.startReserved(in, req)
+	return r.Run, e
+}
+func (s *Store) startReserved(in StartRequest, req ReservationRequest) (StartReceipt, error) {
 	var result StageRun
-	if !opaque(in.Owner) || in.TTL <= 0 || in.TTL > time.Minute || !opaque(req.PoolKey) || req.WriteKey != "" && !opaque(req.WriteKey) || !validHash(req.AdmissionHash) {
-		return result, ErrInvalid
+	created := false
+	if !opaque(in.Owner) || in.TTL <= 0 || in.TTL > time.Minute || !opaque(req.PoolKey) || req.WriteKey != "" && !opaque(req.WriteKey) || !validHash(req.AdmissionHash) || in.ExpectedGeneration != nil && *in.ExpectedGeneration < 0 {
+		return StartReceipt{}, ErrInvalid
 	}
 	e := s.transaction(func(tx *sql.Tx) error {
+		if in.IdempotencyKey != "" {
+			old, e := lookupStartIn(tx, in.IdempotencyKey, startIdentity(in))
+			if e == nil {
+				requested, _ := json.Marshal(in.Target)
+				frozen, _ := json.Marshal(old.Target)
+				if string(requested) != string(frozen) {
+					return ErrConflict
+				}
+				result = old
+				return nil
+			}
+			if !errors.Is(e, ErrNotFound) {
+				return e
+			}
+		}
 		var limit, active int
 		if e := tx.QueryRow("SELECT max_active FROM controller_policy WHERE id=1").Scan(&limit); e != nil {
 			return e
@@ -136,12 +162,18 @@ func (s *Store) StartReserved(in StartRequest, req ReservationRequest) (StageRun
 		if _, e = tx.Exec("INSERT INTO reservations(run_id,pool_key,write_key,state,admission_hash) VALUES(?,?,?,'held',?)", result.ID, req.PoolKey, req.WriteKey, req.AdmissionHash); e != nil {
 			return e
 		}
+		if in.IdempotencyKey != "" {
+			if _, e = tx.Exec("INSERT INTO start_requests(key,task_id,payload_hash,run_id) VALUES(?,?,?,?)", in.IdempotencyKey, result.TaskID, startHash(startIdentity(in)), result.ID); e != nil {
+				return e
+			}
+		}
+		created = true
 		return event(tx, result.TaskID, "reservation_held", result.ID, result.Generation)
 	})
 	if e != nil {
-		return StageRun{}, e
+		return StartReceipt{}, e
 	}
-	return result, nil
+	return StartReceipt{Run: result, Created: created}, nil
 }
 func (s *Store) Reservation(runID string) (ReservationRequest, error) {
 	s.mu.Lock()

@@ -4,7 +4,7 @@
 
 ## 持久化与事务
 
-schema/migrations 当前为 `migrations/001.sql`：Task、StagePlanRevision、StageRun、RouteRevision、EvidenceRef、idempotency 和带 task 内序号的 Event。版本及迁移 SHA256 校验失败拒绝打开；现存未知数据库不能当成空数据库迁移。WAL、foreign_keys 和 synchronous=FULL 启用，单连接配合控制器锁与事务串行写入。
+schema 当前为 3，依次使用 `migrations/001.sql`、`002.sql`、`003.sql`；初始表包含 Task、StagePlanRevision、StageRun、RouteRevision、EvidenceRef、idempotency 和带 task 内序号的 Event，扩展表见下文。版本及每份迁移 SHA256 校验失败拒绝打开；现存未知数据库不能当成空数据库迁移。WAL、foreign_keys 和 synchronous=FULL 启用，单连接配合控制器锁与事务串行写入。
 
 Create 的幂等键限定在 project 内，payload hash 包含项目、目标及完整快照。相同键和 payload 返回同一个 task；不同 payload 拒绝。数据库事务不会调用 Runtime，也不隐式执行任务。
 
@@ -41,3 +41,13 @@ task 内事件 seq 由同一事务分配，从 1 连续增长；失败事务不�
 新增 `controller_policy`、`task_budgets`、`reservations`。001 checksum 保持不变，002 checksum 单独保存；从 schema 1 在事务内升级，未知版本/校验不符拒绝打开。
 
 启动 intent、全局/物理额度池/项目写锁预留同事务提交。协议终态后预留继续 held；同任务下一阶段也须等待可信进程退出证明。恢复 unknown 继续占用，不退款、不自动释放或重放。调用/返工计数与事件原子持久化，共享任务上限。迁移前备份；向 schema 1 回退需恢复对应数据库备份，不能仅回滚 binary。
+
+## WP-15 schema 3 启动幂等扩展
+
+新增不可修改的 `start_requests`，保存全局 opaque 幂等键、任务、请求 hash 和唯一 run 引用。请求身份包含 task、role、plan revision、expected task generation；不同请求使用相同键返回 conflict。具体 Target 必须来自服务端冻结绑定，不能来自 HTTP 自由输入。Owner、租期和准入观察由控制器提供，不改变原请求身份；重复启动也不能改写原 Target。
+
+`StartReservedOnce` 强制提供 key 和非负 ExpectedGeneration，在同一事务校验任务 generation、生成 attempt/intent、预留容量、保存映射与事件。只在新提交时返回 `Created=true`；仅此值允许控制器尝试一次外部启动，不替代 Runtime、quota、权限及当前状态校验。重复请求在容量与预算检查之前读取已有 run，返回 `Created=false`，不刷新租约、不消费容量、不退还调用预算。
+
+控制器重启后 `LookupStart` 只读已有状态，包括 unknown 和终态；禁止据此再次调用 Runtime。新 key 也必须使用当前 generation，避免完成后旧请求再起一个 attempt。原 `StartIntent` / `StartReserved` 不返回 Created，故拒绝携带幂等键；旧无 key 调用行为保留，后续产品控制接口必须使用新合同。StageRun succeeded 仍不代表工程验收；本扩展不授予返工或自动恢复权限。
+
+003 在独立事务升级 schema 1/2，001/002 原 checksum 保持不变，003 单独校验。向 schema 2/1 回滚必须恢复相应的一致性数据库备份，旧 binary 会拒绝 schema 3。已验证并发重试、终态与 unknown 重读、stale generation、键冲突、映射写入故障的全事务回滚、schema 2 数据和历史事件保留；当前尚未注册产品启动 endpoint 或实际控制器。

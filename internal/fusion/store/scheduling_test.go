@@ -205,7 +205,7 @@ func TestMigrationTwoPreservesVerifiedVersionOneDatabase(t *testing.T) {
 	defer s.Close()
 	var version int
 	s.db.QueryRow("PRAGMA user_version").Scan(&version)
-	if version != 2 {
+	if version != 3 {
 		t.Fatal(version)
 	}
 }

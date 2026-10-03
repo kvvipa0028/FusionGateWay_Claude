@@ -1,0 +1,18 @@
+=== RUN   TestMigrationTwoPreservesVerifiedVersionOneDatabase
+--- PASS: TestMigrationTwoPreservesVerifiedVersionOneDatabase (0.03s)
+=== RUN   TestStartOnceConcurrentRetriesCreateOneIntentAndReservation
+--- PASS: TestStartOnceConcurrentRetriesCreateOneIntentAndReservation (0.04s)
+=== RUN   TestStartOnceReplayNeverReservesAgainOrRefundsConsumedBudget
+    start_once_test.go:118: replay rewrote reservation
+--- FAIL: TestStartOnceReplayNeverReservesAgainOrRefundsConsumedBudget (0.04s)
+=== RUN   TestStartOnceGenerationAndPayloadConflictAreAtomic
+--- PASS: TestStartOnceGenerationAndPayloadConflictAreAtomic (0.03s)
+=== RUN   TestStartOnceRecoveryReturnsUnknownWithoutExecution
+--- PASS: TestStartOnceRecoveryReturnsUnknownWithoutExecution (0.04s)
+=== RUN   TestStartOnceMappingFailureRollsBackEverything
+--- PASS: TestStartOnceMappingFailureRollsBackEverything (0.03s)
+=== RUN   TestMigrationThreePreservesVersionTwoAndRejectsChecksumDrift
+--- PASS: TestMigrationThreePreservesVersionTwoAndRejectsChecksumDrift (0.03s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/store	0.851s
+FAIL

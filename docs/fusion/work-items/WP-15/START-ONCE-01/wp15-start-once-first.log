@@ -1,0 +1,7 @@
+# github.com/yetone/magpie/internal/fusion/store [github.com/yetone/magpie/internal/fusion/store.test]
+internal/fusion/store/scheduling.go:113:21: undefined: json
+internal/fusion/store/scheduling.go:114:18: undefined: json
+internal/fusion/store/start_once_test.go:113:21: res.State undefined (type ReservationRequest has no field or method State)
+internal/fusion/store/start_once_test.go:198:9: res.State undefined (type ReservationRequest has no field or method State)
+FAIL	github.com/yetone/magpie/internal/fusion/store [build failed]
+FAIL

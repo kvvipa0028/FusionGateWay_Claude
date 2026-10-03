@@ -1,0 +1,29 @@
+{
+  "work_item": "WP-15-START-ONCE-01",
+  "status": "done",
+  "parent_status": "in_progress",
+  "checks": [
+    {
+      "command": "go test -race -v -count=1 -mod=readonly -tags fusion,nogui ./internal/fusion/...",
+      "exit_code": 0,
+      "top_level_pass": 231,
+      "top_level_skip": 7,
+      "log": "wp15-start-once-fusion-race.log"
+    },
+    {
+      "command": "go test -race -v -count=1 -mod=readonly -tags fusion,nogui ./internal/fusion/store -run TestStartOnce|TestMigrationThree|TestMigrationTwo",
+      "exit_code": 0,
+      "top_level_pass": 9,
+      "log": "wp15-start-once-targeted-final.log"
+    }
+  ],
+  "new_tests": 8,
+  "build_report": "build-results.json",
+  "real_model_calls": 0,
+  "production_registered": false,
+  "red_logs": [
+    "wp15-start-once-red.log",
+    "wp15-start-once-first.log",
+    "wp15-start-once-green.log"
+  ]
+}

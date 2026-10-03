@@ -49,7 +49,7 @@ func (s *Store) CheckActive(runID string, generation int64) (StageRun, error) {
 	return result, err
 }
 func (s *Store) StartIntent(in StartRequest) (StageRun, error) {
-	if !opaque(in.Owner) || in.TTL <= 0 || in.TTL > time.Minute {
+	if in.IdempotencyKey != "" || !opaque(in.Owner) || in.TTL <= 0 || in.TTL > time.Minute || in.ExpectedGeneration != nil && *in.ExpectedGeneration < 0 {
 		return StageRun{}, ErrInvalid
 	}
 	var result StageRun
@@ -62,6 +62,9 @@ func (s *Store) startIntentIn(tx *sql.Tx, in StartRequest, result *StageRun) err
 		return e
 	}
 	if t.PlanRevision != in.PlanRevision || t.State != "ready" {
+		return ErrConflict
+	}
+	if in.ExpectedGeneration != nil && *in.ExpectedGeneration != t.Generation {
 		return ErrConflict
 	}
 	p, e := planIn(tx, t.ID, in.PlanRevision)

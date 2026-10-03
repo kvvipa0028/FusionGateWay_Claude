@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/store [github.com/yetone/magpie/internal/fusion/store.test]
+internal/fusion/store/start_once_test.go:15:5: in.IdempotencyKey undefined (type StartRequest has no field or method IdempotencyKey)
+internal/fusion/store/start_once_test.go:16:29: in.ExpectedGeneration undefined (type StartRequest has no field or method ExpectedGeneration)
+internal/fusion/store/start_once_test.go:20:34: undefined: StartIdentity
+internal/fusion/store/start_once_test.go:20:57: undefined: StartIdentity
+internal/fusion/store/start_once_test.go:20:152: in.ExpectedGeneration undefined (type StartRequest has no field or method ExpectedGeneration)
+internal/fusion/store/start_once_test.go:24:46: undefined: StartReceipt
+internal/fusion/store/start_once_test.go:25:80: s.StartReservedOnce undefined (type *Store has no field or method StartReservedOnce)
+internal/fusion/store/start_once_test.go:30:14: s.LookupStart undefined (type *Store has no field or method LookupStart)
+internal/fusion/store/start_once_test.go:30:29: in.IdempotencyKey undefined (type StartRequest has no field or method IdempotencyKey)
+internal/fusion/store/start_once_test.go:42:16: s.StartReservedOnce undefined (type *Store has no field or method StartReservedOnce)
+internal/fusion/store/start_once_test.go:42:16: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/store [build failed]
+FAIL

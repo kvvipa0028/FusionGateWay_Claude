@@ -1,0 +1,27 @@
+{
+  "base_commit": "f0bc2eb0762a15f0d0f7d05bda97a768b7e40a41",
+  "source_files_sha256": {
+    "internal/fusion/store/runs.go": "a45f4d87928fff57f43133707b11b8e6ce1ba5894e80be11d30b4b19db81e323",
+    "internal/fusion/store/scheduling.go": "fda5603599d1284d447a04684b4ca21c3456057bc77929cbd3025aa53cef4f8c",
+    "internal/fusion/store/scheduling_test.go": "173853e00651aaad6ad4fef9ff4992a443c852fa1ce9703ae050ef16bcf2005e",
+    "internal/fusion/store/store.go": "9f13bae64d2000abae43fd362ad4605a7d2e08491d1b013f515cc9e9f6b8d7cb",
+    "internal/fusion/store/start_once.go": "81fb6e5617e251e1db4131e87e4de54203928be233d1855914ea0e02ab07762d",
+    "internal/fusion/store/start_once_test.go": "54102d9b2e31b566897ee99f3e7078fc044f6c5296d736592a95655123b3bf95",
+    "internal/fusion/store/migrations/003.sql": "490401966583aa2fd45615603b6b40ede8004340e8665d96b5527715d8a0c65f",
+    "docs/fusion/contracts/state-transition-contract.md": "2ae0dc13a7742663b4c8092801e8749b62ef995804ebb98eb78dc6de6aab7c67",
+    "docs/fusion/work-items/WP-15/summary.md": "affdf647470a5e4f69d88ffb68e37b5d27e172c3d7e4cb0d2198c6cc71865985"
+  },
+  "packet_files_sha256": {
+    "wp15-start-once-targeted-final.log": "872739d28a6268439664eea9ec334836f1723447be6ebdee2d1de808fdbc724a",
+    "wp15-start-once-green.log": "dc1b24adefbc41635f63f44cdfe23dcc4eedbcd79b40dc0b0237d821d5fb9ed4",
+    "test-results.json": "97ae323a437a02e78b36f4debba13a2cd4e645dabf335116c27cce273b36f058",
+    "summary.md": "414fae8335155eee730ff5d0426d07acd4c51c60c49a45b7a285dbacddbfead2",
+    "wp15-start-once-first.log": "93cb96575ae87dff5210a6280f210ed7ff75cafcd9ea27a3d7008c09555e3098",
+    "wp15-start-once-fusion-race.log": "144e690f959a4485e9bfd5d53eabd5044c82c93176343b391449b8d1527b76af",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-results.json": "9da4ca30ac04237e08f3439d9b529eb7019125219db85bc2b548cb291c6767f5",
+    "wp15-start-once-red.log": "f3d299fd64157a070958fb0c6fdd0968e1b6fc0a4496d7d50a04040f1bccb5f1",
+    "build-gui.log": "686742a732e66c0a5a8bc594569bb67c0c25d8a6407145484f6aa5299934d2a2",
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

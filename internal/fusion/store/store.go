@@ -24,6 +24,9 @@ var migration string
 
 //go:embed migrations/002.sql
 var migrationTwo string
+
+//go:embed migrations/003.sql
+var migrationThree string
 var (
 	ErrConflict         = errors.New("store conflict")
 	ErrFenced           = errors.New("execution fenced")
@@ -45,12 +48,14 @@ type CreateRequest struct {
 	Budget    *Budget            `json:"budget,omitempty"`
 }
 type StartRequest struct {
-	TaskID       string
-	Role         stageplan.Role
-	PlanRevision int64
-	Owner        string
-	TTL          time.Duration
-	Target       stageplan.ExecutionTarget
+	TaskID             string
+	Role               stageplan.Role
+	PlanRevision       int64
+	Owner              string
+	TTL                time.Duration
+	Target             stageplan.ExecutionTarget
+	IdempotencyKey     string
+	ExpectedGeneration *int64
 }
 type Store struct {
 	mu   sync.Mutex
@@ -145,7 +150,7 @@ func Open(root string) (*Store, error) {
 		}); e != nil {
 			return fail(e)
 		}
-	} else if version != 1 && version != 2 {
+	} else if version != 1 && version != 2 && version != 3 {
 		return fail(ErrUnsupported)
 	}
 	var checksum string
@@ -164,6 +169,20 @@ func Open(root string) (*Store, error) {
 		}
 	}
 	if e = s.db.QueryRow("SELECT value FROM metadata WHERE key='migration_002_sha256'").Scan(&checksum); e != nil || checksum != hash([]byte(migrationTwo)) {
+		return fail(ErrUnsupported)
+	}
+	if version < 3 {
+		if e = s.transaction(func(tx *sql.Tx) error {
+			if _, e := tx.Exec(migrationThree); e != nil {
+				return e
+			}
+			_, e := tx.Exec("INSERT INTO metadata VALUES('migration_003_sha256',?)", hash([]byte(migrationThree)))
+			return e
+		}); e != nil {
+			return fail(e)
+		}
+	}
+	if e = s.db.QueryRow("SELECT value FROM metadata WHERE key='migration_003_sha256'").Scan(&checksum); e != nil || checksum != hash([]byte(migrationThree)) {
 		return fail(ErrUnsupported)
 	}
 	if e = s.recover(); e != nil {

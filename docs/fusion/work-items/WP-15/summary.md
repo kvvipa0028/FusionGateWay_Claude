@@ -9,3 +9,5 @@
 [WP-15-EVENTS-01](EVENTS-01/summary.md) 已完成持久序列 SSE、重连补读、当前管理 Context 验证与撤销、连接/页/写入界限。实际 loopback HTTP 验证通过，完整 Fusion tagged race 173 个通过。剩余 If-Match、阶段控制、预设/额度与生产接线仍未完成。
 
 [WP-15-REVISION-01](REVISION-01/summary.md) 已完成尚未开始角色的计划预览、If-Match 修订及读取组件；冻结已开始/已结束绑定，原子重查竞态，保留活动凭据、历史与预算。189 个 Fusion tagged race tests、CLI/GUI 编译和全仓 vet 通过。暂停/取消/继续、预设/额度、OpenAPI 与生产/UI/调度接线仍未完成。
+
+[WP-15-START-ONCE-01](START-ONCE-01/summary.md) 已完成启动 intent 的持久幂等映射、task generation CAS 和新建/重读区分，与容量预留同事务提交；重启 unknown、终态重试、故障回滚及 schema 2→3 数据保留通过验证。此项是启动控制的存储基础，尚未注册产品 endpoint 或连接实际 Runtime；父工作包继续 in_progress。
