@@ -1,0 +1,38 @@
+=== RUN   TestTaskCancelIdleAndPausedPreservesSnapshotAndBudget
+=== RUN   TestTaskCancelIdleAndPausedPreservesSnapshotAndBudget/ready
+=== RUN   TestTaskCancelIdleAndPausedPreservesSnapshotAndBudget/paused
+--- PASS: TestTaskCancelIdleAndPausedPreservesSnapshotAndBudget (0.09s)
+    --- PASS: TestTaskCancelIdleAndPausedPreservesSnapshotAndBudget/ready (0.05s)
+    --- PASS: TestTaskCancelIdleAndPausedPreservesSnapshotAndBudget/paused (0.04s)
+=== RUN   TestTaskCancelRunningRequiresProofAndDoesNotRefund
+--- PASS: TestTaskCancelRunningRequiresProofAndDoesNotRefund (0.05s)
+=== RUN   TestTaskCancelFinishedHeldAndPausingWaitForProof
+=== RUN   TestTaskCancelFinishedHeldAndPausingWaitForProof/finished-success
+=== RUN   TestTaskCancelFinishedHeldAndPausingWaitForProof/finished-failure
+=== RUN   TestTaskCancelFinishedHeldAndPausingWaitForProof/finished-cancelled
+=== RUN   TestTaskCancelFinishedHeldAndPausingWaitForProof/pausing
+--- PASS: TestTaskCancelFinishedHeldAndPausingWaitForProof (0.18s)
+    --- PASS: TestTaskCancelFinishedHeldAndPausingWaitForProof/finished-success (0.04s)
+    --- PASS: TestTaskCancelFinishedHeldAndPausingWaitForProof/finished-failure (0.04s)
+    --- PASS: TestTaskCancelFinishedHeldAndPausingWaitForProof/finished-cancelled (0.04s)
+    --- PASS: TestTaskCancelFinishedHeldAndPausingWaitForProof/pausing (0.05s)
+=== RUN   TestTaskCancelFencesForeignExpiredAndStaleConditions
+--- PASS: TestTaskCancelFencesForeignExpiredAndStaleConditions (0.04s)
+=== RUN   TestTaskCancelAndStartRaceHaveOneDurableWinner
+--- PASS: TestTaskCancelAndStartRaceHaveOneDurableWinner (0.42s)
+=== RUN   TestTaskCancelIntentAndSettlementFailureRollback
+--- PASS: TestTaskCancelIntentAndSettlementFailureRollback (0.06s)
+=== RUN   TestTaskCancelRestartKeepsIdleTerminalAndActiveUnknown
+=== RUN   TestTaskCancelRestartKeepsIdleTerminalAndActiveUnknown/idle
+=== RUN   TestTaskCancelRestartKeepsIdleTerminalAndActiveUnknown/active
+--- PASS: TestTaskCancelRestartKeepsIdleTerminalAndActiveUnknown (0.09s)
+    --- PASS: TestTaskCancelRestartKeepsIdleTerminalAndActiveUnknown/idle (0.04s)
+    --- PASS: TestTaskCancelRestartKeepsIdleTerminalAndActiveUnknown/active (0.05s)
+=== RUN   TestTaskCancelCannotInventLegacyStopAndInterruptedNeedsReview
+=== RUN   TestTaskCancelCannotInventLegacyStopAndInterruptedNeedsReview/legacy
+=== RUN   TestTaskCancelCannotInventLegacyStopAndInterruptedNeedsReview/interrupted
+--- PASS: TestTaskCancelCannotInventLegacyStopAndInterruptedNeedsReview (0.08s)
+    --- PASS: TestTaskCancelCannotInventLegacyStopAndInterruptedNeedsReview/legacy (0.04s)
+    --- PASS: TestTaskCancelCannotInventLegacyStopAndInterruptedNeedsReview/interrupted (0.04s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/store	2.690s

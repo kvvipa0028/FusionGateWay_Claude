@@ -69,3 +69,7 @@ schema 4 数据保留及 005 写入失败回滚、checksum 异常已验证；原
 ## WP-15 暂停与继续存储状态
 
 schema 5 不变；PauseTask 使用完整 TaskVersion 原子条件。空闲暂停/继续递增 generation，运行中 pausing/cancelling 保持 generation 供原 owner 停止。协议 Finish 保留 pausing，真实 release 后才按成功且全部历史执行已停止来置 paused；取消/失败/中断或任何未知副作用转 needs_review。ContinueTask 不执行 Runtime、不重置计数、不接管 unknown。详见 [task-pause-store.md](task-pause-store.md)；Controller/HTTP 暂停接口已由 PAUSE-API-01 接入并作固定 Native 合成停止验证，见 [task-control-api.md](task-control-api.md)。产品 listener/GUI 及 Native 恢复/副作用核对仍未完成。
+
+## WP-15 整项任务取消存储
+
+CancelTask 使用同一完整 TaskVersion 原子条件；空闲且全任务历史执行已可信停止时 cancelled / generation +1。活动 owned 执行同事务提交 run cancel_intent 与 Task cancelling，保留 generation；Finish 保留 cancelling，只有真实 release 与全历史 quiescence 才置 cancelled，否则 needs_review。暂停可升级为整项取消，Continue 不恢复 cancelling/cancelled。原阶段取消接口兼容，不退还预算或回滚文件副作用。schema 5/001–005/旧 payload hash 不变；Controller/HTTP 整项取消接线待实施。详见 [task-cancel-store.md](task-cancel-store.md)。

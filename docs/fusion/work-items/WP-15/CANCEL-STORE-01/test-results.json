@@ -1,0 +1,60 @@
+{
+  "work_item": "WP-15-CANCEL-STORE-01",
+  "status": "done",
+  "parent_status": "in_progress",
+  "new_store_tests": 10,
+  "schema_version": 5,
+  "schema_changed": false,
+  "migration_001_005_unchanged": true,
+  "existing_task_start_payload_unchanged": true,
+  "checks": [
+    {
+      "check": "task cancellation targeted race",
+      "exit_code": 0,
+      "log": "wp15-cancel-store-green.log",
+      "pass": 10,
+      "skip": 0,
+      "fail": 0
+    },
+    {
+      "check": "full Fusion race",
+      "exit_code": 0,
+      "log": "wp15-cancel-store-final-race.log",
+      "pass": 341,
+      "skip": 9,
+      "fail": 0
+    },
+    {
+      "check": "existing fixed Native success/pause regression",
+      "exit_code": 0,
+      "log": "wp15-cancel-store-native-regression.log",
+      "pass": 2,
+      "skip": 0,
+      "fail": 0,
+      "new_task_cancellation_exercised": false
+    },
+    {
+      "check": "CLI/GUI/full tagged vet",
+      "exit_code": 0,
+      "result": "build-results.json"
+    }
+  ],
+  "failed_runs_preserved": {
+    "wp15-cancel-store-red.log": "CancelTask/ErrCancelReconcile missing before implementation"
+  },
+  "native_version": "Claude Code 2.1.287",
+  "native_runtime_sha256": "6eab8333fe2121553100d8f40bfada384a3e989b94f947e18ba6677a6fcb41ea",
+  "native_regression_synthetic_http_per_case": 1,
+  "native_regression_synthetic_permit_per_case": 1,
+  "actual_native_regression_wait_stop_proof_release_verified": true,
+  "controller_http_task_cancel_registered": false,
+  "production_registered": false,
+  "real_model_calls": 0,
+  "real_quota_queries": 0,
+  "jev": "off",
+  "skip_explanation": [
+    "six Native opt-ins; two existing Controller Native tests independently executed",
+    "one private-key live quota opt-in not enabled",
+    "two isolated helper child tests"
+  ]
+}

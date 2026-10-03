@@ -241,11 +241,11 @@ func (s *Store) Finish(runID string, gen int64, owner, outcome string) error {
 		if e != nil {
 			return e
 		}
-		// Protocol completion does not prove that the process stopped. A pause
-		// remains pending until trusted reservation release; interrupted work
-		// already requires reconciliation even when no handle was obtained.
-		if task.State == "pausing" && state != "needs_review" {
-			state = "pausing"
+		// Protocol completion does not prove process exit. Task pause/cancellation
+		// remains pending until trusted release. Interrupted work already needs
+		// reconciliation even when no handle was obtained.
+		if (task.State == "pausing" || task.State == "cancelling") && state != "needs_review" {
+			state = task.State
 		}
 		if _, e = tx.Exec("UPDATE tasks SET state=? WHERE id=?", state, r.TaskID); e != nil {
 			return e

@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/store [github.com/yetone/magpie/internal/fusion/store.test]
+internal/fusion/store/cancel_test.go:34:14: s.CancelTask undefined (type *Store has no field or method CancelTask)
+internal/fusion/store/cancel_test.go:42:19: s.CancelTask undefined (type *Store has no field or method CancelTask)
+internal/fusion/store/cancel_test.go:50:16: s.CancelTask undefined (type *Store has no field or method CancelTask)
+internal/fusion/store/cancel_test.go:82:12: s.CancelTask undefined (type *Store has no field or method CancelTask)
+internal/fusion/store/cancel_test.go:89:17: s.CancelTask undefined (type *Store has no field or method CancelTask)
+internal/fusion/store/cancel_test.go:147:14: s.CancelTask undefined (type *Store has no field or method CancelTask)
+internal/fusion/store/cancel_test.go:170:15: s.CancelTask undefined (type *Store has no field or method CancelTask)
+internal/fusion/store/cancel_test.go:174:16: s.CancelTask undefined (type *Store has no field or method CancelTask)
+internal/fusion/store/cancel_test.go:183:14: s.CancelTask undefined (type *Store has no field or method CancelTask)
+internal/fusion/store/cancel_test.go:190:14: s.CancelTask undefined (type *Store has no field or method CancelTask)
+internal/fusion/store/cancel_test.go:190:14: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/store [build failed]
+FAIL
