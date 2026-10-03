@@ -1,0 +1,30 @@
+{
+  "base_commit": "8e409d612ae5f55f0ed98ca1262c70ef925e39b2",
+  "source_files_sha256": {
+    "internal/fusion/api/preview.go": "9e4bc40ff006a9c7d73545616fd3df734708e1ba4256742a3c8f38f392296a24",
+    "internal/fusion/api/quota.go": "da82b838124e0a55ed2cbbc2bc7d21a7e30c176f9422b514ac0d18655318d9c9",
+    "internal/fusion/api/quota_test.go": "5e7b9905f7f47902e5e5582036cbb1cf1fffb60767b9927f1d15c48587a4baaa",
+    "internal/fusion/quota/broker.go": "f63b08527bbab7beb16f6e08c71aea8bd2370166d348117dea8a34247c334a7b",
+    "docs/fusion/contracts/quota-api.md": "8579fd5e58fff8c0fa431dd5acd20f4502c410f502eee8bd452a735b78c1d7ae",
+    "docs/fusion/contracts/task-execution-api.md": "2c195b327598e7448f2adf7521699323a338dee994add50ba24490aaa28d6ee7",
+    "docs/fusion/openapi-fusion.yaml": "adb7a1842868fc568fa3f52f822af0978fb119e98bc2b6b0f1a1630f1bbd6d94",
+    "docs/fusion/work-items/WP-15/summary.md": "72e27cc20bddc8146fa6f1bb11ffbcea3f9609eeb0b17ed56c0bbc164d1c2959"
+  },
+  "packet_files_sha256": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "930febe7f481c42389829854f43effa3fc87e550f4b5ad0f0385dee60edd9c59",
+    "build-results.json": "a0f52e248e9f12b0873694229865dc9a443fb063a67317afa08aa833e8fc3f1b",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "summary.md": "8554032d4f23f80cbb45416212a7fe7140e466609994cbce4a227f0702f7cf96",
+    "test-results.json": "d7b9067f4dc34fd5c82d82c3e06479fb584139478790fe66525c9fcd2ed363b6",
+    "wp15-quota-api-authority-race.log": "0a1fdbf7ffe47d3dfbc8ce1784788b16ca0c451e514a946db1b7875bf6ba252d",
+    "wp15-quota-api-context-red.log": "121283b4ac11ee8279dd0f427e55c9066faaf87ec708bb6f9da41370450084c6",
+    "wp15-quota-api-empty-pools-red.log": "eacbd3216100188e937813cbb999ae32a165f3708e49c4293a06d22022c979d4",
+    "wp15-quota-api-final-green.log": "2821780ffce5a7a52fff3bead45160df3616d22eacb4613344cdd89fb971347b",
+    "wp15-quota-api-final-race.log": "7169840e87851699fb6f1fe4fcc6c53145506be7eea114bef818b78fe7674c2e",
+    "wp15-quota-api-first.log": "ce90d878b4a435c639b596b03072dfd9861840b6774997f574927778d25a0595",
+    "wp15-quota-api-fusion-race.log": "f659a1d133d8ac73ade2a841981b81f9d5960c3f2d51a73702af8f07abe36e3d",
+    "wp15-quota-api-green.log": "cbfa5de8998747f959170829ce203f4500dfbff2bf5956bb0e5225214e1a38c8",
+    "wp15-quota-api-red.log": "999dcb95585250dcfae7b6da8fa321850687045610add0339af8fe5bf625591c"
+  }
+}

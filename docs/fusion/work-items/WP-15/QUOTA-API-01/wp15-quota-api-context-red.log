@@ -1,0 +1,6 @@
+=== RUN   TestQuotaAPIWorkerPreservesIssuerContextAndBoundedDeadline
+    quota_test.go:373: worker lost local issuer grant or deadline {2 [{{fixture-route 1} 0xc00062e960 unknown <nil> 0xc00041da40}] []}
+--- FAIL: TestQuotaAPIWorkerPreservesIssuerContextAndBoundedDeadline (0.03s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/api	0.665s
+FAIL

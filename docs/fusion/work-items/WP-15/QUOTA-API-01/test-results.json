@@ -1,0 +1,36 @@
+{
+  "work_item": "WP-15-QUOTA-API-01",
+  "status": "done",
+  "parent_status": "in_progress",
+  "new_tests": 12,
+  "checks": [
+    {
+      "check": "final targeted quota API race",
+      "exit_code": 0,
+      "log": "wp15-quota-api-final-green.log",
+      "top_level_pass": 12,
+      "top_level_skip": 0,
+      "top_level_fail": 0
+    },
+    {
+      "check": "final full fusion tagged race",
+      "exit_code": 0,
+      "log": "wp15-quota-api-authority-race.log",
+      "top_level_pass": 272,
+      "top_level_skip": 8,
+      "top_level_fail": 0
+    }
+  ],
+  "build_report": "build-results.json",
+  "real_model_calls": 0,
+  "real_quota_queries": 0,
+  "actual_http_transport_test": true,
+  "quota_reader": "synthetic fixture only in new API tests",
+  "openapi_check": {
+    "yaml_parsed": true,
+    "implemented_paths": 6,
+    "status": "draft-partial",
+    "full_standard_validation": false
+  },
+  "production_registered": false
+}

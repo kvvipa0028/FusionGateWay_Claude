@@ -1,0 +1,11 @@
+# github.com/yetone/magpie/internal/fusion/api [github.com/yetone/magpie/internal/fusion/api.test]
+internal/fusion/api/quota_test.go:22:9: undefined: QuotaSource
+internal/fusion/api/quota_test.go:34:13: undefined: QuotaSource
+internal/fusion/api/quota_test.go:40:10: s.SetQuotaSources undefined (type *Server has no field or method SetQuotaSources)
+internal/fusion/api/quota_test.go:40:46: undefined: QuotaSource
+internal/fusion/api/quota_test.go:45:45: undefined: QuotaReply
+internal/fusion/api/quota_test.go:46:20: undefined: QuotaReply
+internal/fusion/api/quota_test.go:104:12: f.s.SetQuotaSources undefined (type *Server has no field or method SetQuotaSources)
+internal/fusion/api/quota_test.go:104:48: undefined: QuotaSource
+FAIL	github.com/yetone/magpie/internal/fusion/api [build failed]
+FAIL

@@ -81,22 +81,24 @@ type receipt struct {
 	applied   bool
 }
 type Server struct {
-	mu         sync.Mutex
-	store      *store.Store
-	auth       *policy.Manager
-	projects   map[string]project
-	previews   map[string]*receipt
-	now        func() time.Time
-	eventPoll  time.Duration
-	eventSlots chan struct{}
-	controller *control.Controller
+	mu            sync.Mutex
+	store         *store.Store
+	auth          *policy.Manager
+	projects      map[string]project
+	previews      map[string]*receipt
+	now           func() time.Time
+	eventPoll     time.Duration
+	eventSlots    chan struct{}
+	controller    *control.Controller
+	quotaProjects map[string]*quotaRegistration
+	quotaSlots    chan struct{}
 }
 
 func New(st *store.Store, auth *policy.Manager) (*Server, error) {
 	if st == nil || auth == nil {
 		return nil, errInvalid
 	}
-	return &Server{store: st, auth: auth, projects: map[string]project{}, previews: map[string]*receipt{}, now: time.Now, eventPoll: time.Second, eventSlots: make(chan struct{}, 8)}, nil
+	return &Server{store: st, auth: auth, projects: map[string]project{}, previews: map[string]*receipt{}, now: time.Now, eventPoll: time.Second, eventSlots: make(chan struct{}, 8), quotaSlots: make(chan struct{}, 8)}, nil
 }
 func opaque(s string) bool {
 	return s != "" && len(s) <= 256 && !strings.ContainsAny(s, "/\\") && !strings.ContainsFunc(s, func(r rune) bool { return unicode.IsSpace(r) || unicode.IsControl(r) })
@@ -278,6 +280,8 @@ func (s *Server) Handler() http.Handler {
 			return
 		}
 		switch {
+		case strings.HasPrefix(r.URL.Path, "/control/v1/projects/") && (strings.HasSuffix(r.URL.Path, "/quota") || strings.HasSuffix(r.URL.Path, "/refresh")):
+			s.quotaControl(w, r)
 		case strings.HasPrefix(r.URL.Path, "/control/v1/tasks/") && (strings.HasSuffix(r.URL.Path, "/start") || strings.HasSuffix(r.URL.Path, "/cancel")):
 			s.executionControl(w, r)
 		case strings.HasPrefix(r.URL.Path, "/control/v1/tasks/") && (strings.HasSuffix(r.URL.Path, "/plan") || strings.HasSuffix(r.URL.Path, "/plan/preview")):

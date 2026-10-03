@@ -1,0 +1,24 @@
+=== RUN   TestQuotaAPICacheReadHasNoOutboundAndRefreshPreservesSourceAge
+--- PASS: TestQuotaAPICacheReadHasNoOutboundAndRefreshPreservesSourceAge (0.03s)
+=== RUN   TestQuotaAPIRejectsUnsafeCallsBeforeFetch
+--- PASS: TestQuotaAPIRejectsUnsafeCallsBeforeFetch (0.02s)
+=== RUN   TestQuotaAPIRevokedSourceAndConfigurationCannotReturnCachedAvailability
+--- PASS: TestQuotaAPIRevokedSourceAndConfigurationCannotReturnCachedAvailability (0.02s)
+=== RUN   TestQuotaAPIFailedRefreshNeverLeaksErrorsOrFreshensCache
+--- PASS: TestQuotaAPIFailedRefreshNeverLeaksErrorsOrFreshensCache (0.03s)
+=== RUN   TestQuotaAPIConcurrentRefreshIsCoalescedAndRevocationDiscardsResult
+--- PASS: TestQuotaAPIConcurrentRefreshIsCoalescedAndRevocationDiscardsResult (0.02s)
+=== RUN   TestQuotaAPIFirstFailureRetainsAuthStatusWithoutSnapshot
+--- PASS: TestQuotaAPIFirstFailureRetainsAuthStatusWithoutSnapshot (0.02s)
+=== RUN   TestQuotaAPIRegistrationRequiresExactRouteAndCannotBeHotReplaced
+--- PASS: TestQuotaAPIRegistrationRequiresExactRouteAndCannotBeHotReplaced (0.02s)
+=== RUN   TestQuotaAPIServiceSlotsRemainOccupiedUntilFetchActuallyReturns
+--- PASS: TestQuotaAPIServiceSlotsRemainOccupiedUntilFetchActuallyReturns (0.02s)
+=== RUN   TestQuotaAPIServiceCapacityRejectsBeforeFetch
+--- PASS: TestQuotaAPIServiceCapacityRejectsBeforeFetch (0.02s)
+=== RUN   TestQuotaAPISharedPoolAliasesAreNotAddedAndPartialNewerReadWins
+--- PASS: TestQuotaAPISharedPoolAliasesAreNotAddedAndPartialNewerReadWins (0.03s)
+=== RUN   TestQuotaAPIActualHTTPRefreshUsesRegisteredSource
+--- PASS: TestQuotaAPIActualHTTPRefreshUsesRegisteredSource (0.02s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/api	2.321s

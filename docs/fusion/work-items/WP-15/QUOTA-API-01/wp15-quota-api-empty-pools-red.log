@@ -1,0 +1,6 @@
+=== RUN   TestQuotaAPICacheReadHasNoOutboundAndRefreshPreservesSourceAge
+    quota_test.go:67: GET fetched or fabricated quota 200 {1 [{{fixture-route 1} 0xc0000ba820 unknown <nil> <nil>}] []}
+--- FAIL: TestQuotaAPICacheReadHasNoOutboundAndRefreshPreservesSourceAge (0.03s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/api	0.669s
+FAIL

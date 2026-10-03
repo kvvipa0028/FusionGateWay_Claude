@@ -21,4 +21,4 @@ Run/start/cancel 响应的 `X-Fusion-Task-ETag` 是相关 Task 当前条件，Lo
 
 10 个 API 测试覆盖真实 loopback HTTP、合法启动/重读/取消/运行读取、强条件与状态变化、15 类越权 body、重复 header、管理撤销发生在 Resolve/Inspection 时、同 key 冲突、失败 intent 与错误脱敏、跨 task/gen 读取取消，以及跨 Store/热替换控制器拒绝。这里的 Runtime/StopProof 为合成 fixture；真实 Native 停止证明的控制器链路证据见 CONTROLLER-01，不能把此接口测试当作真实账号 smoke。
 
-[openapi-fusion.yaml](../openapi-fusion.yaml) 当前是上述已实现执行接口的 draft，后续必须补全已有 preview/submit/plan/budget/events 及尚未实现的 pause/resume/presets/quota；不是完整 WP-15 OpenAPI 交付。实际账户/项目配置、产品注册、暂停/恢复/返工与 UI 继续实施。Jev off。
+[openapi-fusion.yaml](../openapi-fusion.yaml) 当前覆盖已实现执行与额度接口的 draft，后续必须补全已有 preview/submit/plan/budget/events 及尚未实现的 pause/resume/presets；不是完整 WP-15 OpenAPI 交付。额度 Handler 见 [quota-api.md](quota-api.md)。实际账户/项目配置、产品注册、暂停/恢复/返工与 UI 继续实施。Jev off。

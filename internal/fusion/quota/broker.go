@@ -176,7 +176,7 @@ func safeQueryError(e error) error {
 	if e == nil {
 		return nil
 	}
-	for _, known := range []error{ErrSuperseded, ErrMalformed, context.Canceled, context.DeadlineExceeded} {
+	for _, known := range []error{ErrSuperseded, ErrMalformed, ErrBusy, context.Canceled, context.DeadlineExceeded} {
 		if errors.Is(e, known) {
 			return known
 		}

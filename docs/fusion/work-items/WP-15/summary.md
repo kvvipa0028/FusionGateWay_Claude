@@ -2,7 +2,7 @@
 
 状态：`in_progress`。子工作项 [WP-15-PREVIEW-01](PREVIEW-01/summary.md) 已完成：受鉴权的无调用计划预览、冻结提交和任务读取组件。
 
-当前 Handler 尚未注册到生产 listener/GUI，旧执行入口继续关闭。完整 WP-15 仍需执行预算与输入事务、阶段计划修订、暂停/取消/继续、预设/额度、持久 sequence 的 SSE、断线重连和真实调度接线；OpenAPI 与实际 UI 合同随后按最终接口交付。此组件测试不作为 T13/T25/T28/T33–T36/T43/T45/T49/T50/T56 的完整最终验收。
+当前 Handler 尚未注册到生产 listener/GUI，旧执行入口继续关闭。完整 WP-15 仍需暂停/继续、执行预设、真实项目/Runtime/额度来源接线和完整 OpenAPI；预算与输入事务、阶段计划修订、启动/取消、额度组件及持久 sequence SSE 的已完成子项见下文。实际 UI 合同随后按最终接口交付。此组件测试不作为 T13/T25/T28/T33–T36/T43/T45/T49/T50/T56 的完整最终验收。
 
 [WP-15-BUDGET-01](BUDGET-01/summary.md) 已完成预览预算、提交预算事务和预算读取；任务、快照、幂等与预算共同提交，重试不退还已消耗的次数。162 个 Fusion tagged race tests 通过。剩余阶段修订、控制、事件流与接线继续实施。
 
@@ -19,3 +19,5 @@
 [WP-15-EXECUTION-API-01](EXECUTION-API-01/summary.md) 已将内部 Handler 的受管理鉴权启动/取消/运行记录读取接到可信 Controller；Task strong ETag 跟踪 revision/generation/state，重读原启动映射不重复执行，慢预检查期间管理身份撤销会阻止新 intent。258 个 Fusion race tests、CLI/GUI 和 vet 通过，新增执行接口 OpenAPI draft。完整 OpenAPI、产品 listener/GUI 注册、实际配置、暂停/恢复/返工、预设/额度仍未完成，父包继续 in_progress。
 
 [WP-15-CANCEL-REVISION-01](CANCEL-REVISION-01/summary.md) 将取消的 Task revision 条件放入 cancel_intent 写入事务，关闭未来角色修订保持活动 generation 时的预检查竞态。旧版本不会取消 Worker，当前版本可取消历史计划的活动 run；终态重读仍检查当前版本。父包继续 in_progress。
+
+[WP-15-QUOTA-API-01](QUOTA-API-01/summary.md) 已完成 Management 保护的项目额度缓存读取/手动刷新、精确来源登记、过期/撤销/失败状态和共享 pool 展示，以及全服务八个采集 Worker 名额。采集器为 fixture；真实额度来源与产品注册继续接线，完整 OpenAPI、预设/暂停/恢复及 UI 未完成。

@@ -1,8 +1,8 @@
 openapi: 3.1.0
 info:
-  title: Fusion task execution API
+  title: Fusion task control API
   version: 0.1.0-draft
-  description: 仅已实现 execution Handler 接口草案。未注册产品 listener。完整 WP-15 的其他接口仍待补全。
+  description: 已实现 execution/quota Handler 接口草案。未注册产品 listener。完整 WP-15 的其他接口仍待补全。
 x-fusion-status: draft-partial
 x-fusion-production-registered: false
 security:
@@ -227,6 +227,58 @@ paths:
         '429': *id009
         '500': *id010
         '503': *id011
+  /control/v1/projects/{project_id}/quota:
+    get:
+      operationId: readProjectQuota
+      description: 只读缓存，不触发上游采集；status 按来源时间重评估，共享 pool 不累加。
+      parameters:
+      - &quotaProjectId
+        name: project_id
+        in: path
+        required: true
+        schema: {type: string, minLength: 1, maxLength: 256}
+      responses:
+        '200': &quotaResponse
+          description: 当前配置 revision 的 route/pool 额度视图；不代表生成准入。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuotaReply'
+        '400': *id002
+        '401': *id003
+        '403': *id004
+        '404': *id005
+        '405': *id006
+        '409': *id012
+        '500': *id010
+  /control/v1/projects/{project_id}/quota/{route_id}/refresh:
+    post:
+      operationId: refreshProjectQuota
+      description: 只刷新服务端登记来源；上游失败为固定 Error 与保守 status，无 Token/URL/workspace DTO。
+      parameters:
+      - *quotaProjectId
+      - name: route_id
+        in: path
+        required: true
+        schema: {type: string, minLength: 1, maxLength: 256}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+      responses:
+        '200': *quotaResponse
+        '400': *id002
+        '401': *id003
+        '403': *id004
+        '404': *id005
+        '405': *id006
+        '409': *id012
+        '429': *id009
+        '500': *id010
+        '503': *id011
 components:
   securitySchemes:
     ManagementBearer:
@@ -234,6 +286,48 @@ components:
       scheme: bearer
       description: 仅服务端管理凭据。stage fgs_ identity 被拒绝；禁止通过 query/body 提供凭据。
   schemas:
+    QuotaStatus:
+      type: string
+      enum: [available, zero, unknown, stale, unverified, auth_required, unsupported]
+    RouteQuota:
+      type: object
+      additionalProperties: false
+      required: [route, status]
+      properties:
+        route:
+          type: object
+          additionalProperties: false
+          required: [id, revision]
+          properties:
+            id: {type: string}
+            revision: {type: integer, minimum: 1}
+        identity:
+          type: object
+          description: 精确 quota Identity；完整字段见 quota-snapshot.schema.json。
+        status:
+          $ref: '#/components/schemas/QuotaStatus'
+        snapshot:
+          type: object
+          description: quota Snapshot；原始来源时间、窗口、单位与值保留，完整字段见 quota-snapshot.schema.json。
+        error:
+          $ref: '#/components/schemas/ControlError'
+    QuotaReply:
+      type: object
+      additionalProperties: false
+      required: [configuration_revision, routes, pools]
+      properties:
+        configuration_revision: {type: integer, minimum: 1}
+        routes:
+          type: array
+          maxItems: 256
+          items:
+            $ref: '#/components/schemas/RouteQuota'
+        pools:
+          type: array
+          maxItems: 256
+          items:
+            type: object
+            description: GroupPools 的 pool/aliases/snapshot；不累加 alias 配额。
     Role:
       type: string
       enum:

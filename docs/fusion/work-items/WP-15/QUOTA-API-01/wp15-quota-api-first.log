@@ -1,0 +1,15 @@
+=== RUN   TestQuotaAPICacheReadHasNoOutboundAndRefreshPreservesSourceAge
+--- PASS: TestQuotaAPICacheReadHasNoOutboundAndRefreshPreservesSourceAge (0.03s)
+=== RUN   TestQuotaAPIRejectsUnsafeCallsBeforeFetch
+    quota_test.go:89: expected 404 got 500
+    quota_test.go:89: expected 400 got 403
+--- FAIL: TestQuotaAPIRejectsUnsafeCallsBeforeFetch (0.02s)
+=== RUN   TestQuotaAPIRevokedSourceAndConfigurationCannotReturnCachedAvailability
+--- PASS: TestQuotaAPIRevokedSourceAndConfigurationCannotReturnCachedAvailability (0.02s)
+=== RUN   TestQuotaAPIFailedRefreshNeverLeaksErrorsOrFreshensCache
+--- PASS: TestQuotaAPIFailedRefreshNeverLeaksErrorsOrFreshensCache (0.02s)
+=== RUN   TestQuotaAPIConcurrentRefreshIsCoalescedAndRevocationDiscardsResult
+--- PASS: TestQuotaAPIConcurrentRefreshIsCoalescedAndRevocationDiscardsResult (0.02s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/api	0.770s
+FAIL
