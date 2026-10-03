@@ -1,0 +1,35 @@
+[
+  {
+    "command": "codex --version",
+    "exit_code": 0,
+    "output": "codex-cli 0.160.0",
+    "stderr": "WARNING: proceeding, even though we could not create PATH aliases: Refusing to create helper binaries under temporary dir \"/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/\" (codex_home: AbsolutePathBuf(\"/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-version-dcp_a008/.codex\"))",
+    "launcher_path": "/Users/zhaojianzhi/.local/bin/codex",
+    "executable_path": "/Users/zhaojianzhi/.codex/packages/standalone/releases/0.160.0-aarch64-apple-darwin/bin/codex",
+    "executable_sha256": "112fae7a5a1223e673c8a1791d32338f37df8b527ff1159bb8adac6c4dbf1b4b",
+    "official_publisher_verified": false,
+    "authentication": "not inspected"
+  },
+  {
+    "command": "grok --version",
+    "exit_code": 0,
+    "output": "grok 1.0.48 (b94d5072c95f)",
+    "stderr": "",
+    "launcher_path": "/Users/zhaojianzhi/.local/bin/grok",
+    "executable_path": "/Users/zhaojianzhi/.grok/downloads/grok-1.0.48-macos-aarch64",
+    "executable_sha256": "1ed292eb62206b1a2ec3d17dc69c9c8406a07f5ff414305f953baee5b72a4a05",
+    "official_publisher_verified": false,
+    "authentication": "not inspected"
+  },
+  {
+    "command": "claude --version",
+    "exit_code": 0,
+    "output": "2.1.287 (Claude Code)",
+    "stderr": "",
+    "launcher_path": "/Users/zhaojianzhi/.local/bin/claude",
+    "executable_path": "/Users/zhaojianzhi/.local/share/claude/versions/2.1.287",
+    "executable_sha256": "6eab8333fe2121553100d8f40bfada384a3e989b94f947e18ba6677a6fcb41ea",
+    "official_publisher_verified": false,
+    "authentication": "not inspected"
+  }
+]

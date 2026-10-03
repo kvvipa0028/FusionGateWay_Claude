@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/routes [github.com/yetone/magpie/internal/fusion/routes.test]
+internal/fusion/routes/catalogue_test.go:10:5: undefined: NewRegistry
+internal/fusion/routes/catalogue_test.go:14:83: undefined: ErrNotAdmitted
+internal/fusion/routes/catalogue_test.go:20:5: undefined: NewRegistry
+internal/fusion/routes/catalogue_test.go:24:19: undefined: Candidate
+internal/fusion/routes/catalogue_test.go:26:5: undefined: NewRegistry
+internal/fusion/routes/catalogue_test.go:26:24: undefined: Evidence
+internal/fusion/routes/catalogue_test.go:27:12: undefined: Evidence
+internal/fusion/routes/catalogue_test.go:28:177: undefined: Evidence
+internal/fusion/routes/catalogue_test.go:34:5: undefined: NewRegistry
+internal/fusion/routes/catalogue_test.go:35:22: undefined: Evidence
+internal/fusion/routes/catalogue_test.go:35:22: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/routes [build failed]
+FAIL

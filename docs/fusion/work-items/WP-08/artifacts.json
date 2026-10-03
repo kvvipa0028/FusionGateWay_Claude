@@ -1,0 +1,23 @@
+{
+  "base_commit": "d0fed76c660ad9a148e565e0d1ee83e30dd7918c",
+  "source_files_sha256": {
+    "AGENTS.md": "364535c0d1c0b91ffe32f1c3ae583c5652fa92d285233bccc428ebdbeeb15dac",
+    "README.md": "1d8e0bca25ba5d5212051403b1aa15f91da3a3001e5c53d8a51bf73055fed2bf",
+    "docs/fusion/README.md": "8613f5faa89336b44770f03be89ee9e73deb48c28dca9b5d4ee5d2a043992419",
+    "docs/fusion/integration/account-route-matrix.md": "727744e841120396c590a3f67b5e1e81cbe2c016057dd251a1d2e18e3cba0903",
+    "docs/fusion/integration/capability-matrix.json": "b89cbeb68d1d608214a6994ee196bdc6be6d33f94edba605a7ec813f522e41c4",
+    "docs/fusion/integration/live-probe-checklist.md": "15f28eb2f31c3e80a4d8b92ae0560712c3fbdcd8d9c951ab734b4c0deda60bae",
+    "docs/fusion/planning/Fusion_Magpie_Fork_Agent\u5de5\u4f5c\u5305_v1.0.md": "85c5f859a2ad320024393c2f258eeba7d3749a1d39057e1c4874ef72f4e9c094",
+    "docs/fusion/planning/implementation_tasks.json": "d5f4172071e4ac9e7b2812a0ab587f9fce20b01a87afaa23720bb894745576ea",
+    "internal/fusion/routes/catalogue.go": "69effcbe57dba709222bf57de62a1a96088698f0671fa61c517e6f22ac6fc6d6",
+    "internal/fusion/routes/catalogue_test.go": "18b7aeaf541347288dce0c8d5cbad8be950d3fd807df284375b3733b39ffe01b"
+  },
+  "logs_sha256": {
+    "wp08-red.log": "4e6b265b5b1df90ea36f7c8e901158cb05d98f83576a74601b53594f972266b7",
+    "wp08-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "wp08-race-green.log": "4fa4c2a7555459e6fd7b8fa93aabf175fbb07ca9f62971a8de13f484dd3cb218",
+    "wp08-boundary-red.log": "80fbb4d6a6e890142e711e3a05faff7c059a73ddaee3b2303e9e24f62fcf5a01",
+    "wp08-manifest-red.log": "5f416fe16f2ad3043ea0c9105c9798a332bd128580c571b35a1eb27009f6d196"
+  },
+  "credentials": "No private credential or real account records in this packet"
+}

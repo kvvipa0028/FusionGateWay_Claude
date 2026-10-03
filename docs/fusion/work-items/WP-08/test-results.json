@@ -1,0 +1,34 @@
+{
+  "checks": [
+    {
+      "command": "go test -race -v -count=1 -mod=readonly -tags fusion,nogui ./internal/fusion/...",
+      "exit_code": 0,
+      "passed_top_level_tests": 65,
+      "skips": 1,
+      "log": "wp08-race-green.log"
+    },
+    {
+      "command": "go vet -mod=readonly -tags fusion,nogui ./internal/fusion/routes",
+      "exit_code": 0,
+      "log": "wp08-vet.log"
+    },
+    {
+      "command": "isolated codex/grok/claude --version; private environment, no login",
+      "exit_code": 0,
+      "report": "local-runtime-inventory.json"
+    }
+  ],
+  "red_evidence": [
+    "wp08-red.log",
+    "wp08-boundary-red.log",
+    "wp08-manifest-red.log"
+  ],
+  "not_verified": [
+    "publisher signatures",
+    "OpenAI/X private login",
+    "quota queries",
+    "live billing",
+    "all-calls native enforcement",
+    "all final T families"
+  ]
+}

@@ -163,7 +163,7 @@
       "id": "WP-08",
       "title": "建立三订阅路线及真实接入核查清单",
       "milestone": "M2",
-      "status": "planned",
+      "status": "done",
       "depends_on": [
         "WP-02",
         "WP-03",

@@ -1,0 +1,4 @@
+# github.com/yetone/magpie/internal/fusion/routes [github.com/yetone/magpie/internal/fusion/routes.test]
+internal/fusion/routes/catalogue_test.go:61:23: unknown field RouteHash in struct literal of type Evidence
+FAIL	github.com/yetone/magpie/internal/fusion/routes [build failed]
+FAIL

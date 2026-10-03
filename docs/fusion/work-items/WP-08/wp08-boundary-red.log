@@ -1,0 +1,13 @@
+=== RUN   TestThreeOfficialCandidatesRemainSeparatelyUnverified
+--- PASS: TestThreeOfficialCandidatesRemainSeparatelyUnverified (0.00s)
+=== RUN   TestCandidateReturnedCopiesCannotGrantAdmission
+--- PASS: TestCandidateReturnedCopiesCannotGrantAdmission (0.00s)
+=== RUN   TestAdmissionRequiresTrustedVersionBoundEvidence
+    catalogue_test.go:100: invalidated proof still executable
+    catalogue_test.go:105: revoked revision re-admitted
+--- FAIL: TestAdmissionRequiresTrustedVersionBoundEvidence (0.00s)
+=== RUN   TestUnverifiedBillingOrCommunityPluginCannotExecute
+--- PASS: TestUnverifiedBillingOrCommunityPluginCannotExecute (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/routes	0.346s
+FAIL

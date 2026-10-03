@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-03",
+  "scope": "candidate_inventory_not_live_admission",
+  "candidate_source": "internal/fusion/routes.Builtins",
+  "candidates": [
+    {
+      "id": "codex-chatgpt",
+      "revision": 1,
+      "provider": "openai",
+      "kind": "official_runtime",
+      "runtime": "codex",
+      "region": "unverified",
+      "auth_method": "oauth",
+      "authentication_owner": "local_user",
+      "billing": "subscription",
+      "allowed_purposes": [
+        "engineering",
+        "diagnostic",
+        "quota"
+      ],
+      "generation": {
+        "status": "unverified",
+        "reason": "native route admission evidence missing",
+        "report_hash": null
+      },
+      "quota": {
+        "status": "unverified",
+        "reason": "native route admission evidence missing",
+        "report_hash": null
+      }
+    },
+    {
+      "id": "grok-subscription",
+      "revision": 1,
+      "provider": "xai",
+      "kind": "official_runtime",
+      "runtime": "grok",
+      "region": "unverified",
+      "auth_method": "oauth",
+      "authentication_owner": "local_user",
+      "billing": "subscription",
+      "allowed_purposes": [
+        "engineering",
+        "diagnostic",
+        "quota"
+      ],
+      "generation": {
+        "status": "unverified",
+        "reason": "native route admission evidence missing",
+        "report_hash": null
+      },
+      "quota": {
+        "status": "unverified",
+        "reason": "native route admission evidence missing",
+        "report_hash": null
+      }
+    },
+    {
+      "id": "glm-cn-claude",
+      "revision": 1,
+      "provider": "bigmodel",
+      "kind": "official_runtime",
+      "runtime": "claude",
+      "region": "CN",
+      "auth_method": "api_key",
+      "authentication_owner": "local_user",
+      "billing": "coding_plan",
+      "allowed_purposes": [
+        "engineering",
+        "diagnostic",
+        "quota"
+      ],
+      "generation": {
+        "status": "unverified",
+        "reason": "native route admission evidence missing",
+        "report_hash": null
+      },
+      "quota": {
+        "status": "unverified",
+        "reason": "native route admission evidence missing",
+        "report_hash": null
+      }
+    }
+  ],
+  "local_runtime_inventory": [
+    {
+      "command": "codex --version",
+      "exit_code": 0,
+      "output": "codex-cli 0.160.0",
+      "stderr": "WARNING: proceeding, even though we could not create PATH aliases: Refusing to create helper binaries under temporary dir \"/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/\" (codex_home: AbsolutePathBuf(\"/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-version-dcp_a008/.codex\"))",
+      "launcher_path": "/Users/zhaojianzhi/.local/bin/codex",
+      "executable_path": "/Users/zhaojianzhi/.codex/packages/standalone/releases/0.160.0-aarch64-apple-darwin/bin/codex",
+      "executable_sha256": "112fae7a5a1223e673c8a1791d32338f37df8b527ff1159bb8adac6c4dbf1b4b",
+      "official_publisher_verified": false,
+      "authentication": "not inspected"
+    },
+    {
+      "command": "grok --version",
+      "exit_code": 0,
+      "output": "grok 1.0.48 (b94d5072c95f)",
+      "stderr": "",
+      "launcher_path": "/Users/zhaojianzhi/.local/bin/grok",
+      "executable_path": "/Users/zhaojianzhi/.grok/downloads/grok-1.0.48-macos-aarch64",
+      "executable_sha256": "1ed292eb62206b1a2ec3d17dc69c9c8406a07f5ff414305f953baee5b72a4a05",
+      "official_publisher_verified": false,
+      "authentication": "not inspected"
+    },
+    {
+      "command": "claude --version",
+      "exit_code": 0,
+      "output": "2.1.287 (Claude Code)",
+      "stderr": "",
+      "launcher_path": "/Users/zhaojianzhi/.local/bin/claude",
+      "executable_path": "/Users/zhaojianzhi/.local/share/claude/versions/2.1.287",
+      "executable_sha256": "6eab8333fe2121553100d8f40bfada384a3e989b94f947e18ba6677a6fcb41ea",
+      "official_publisher_verified": false,
+      "authentication": "not inspected"
+    }
+  ],
+  "diagnostic": {
+    "route_id": "glm-cn-claude",
+    "model": "glm-5.3",
+    "runtime_result": "FUSION_GLM_OK",
+    "generation_admitted": false,
+    "quota_admitted": false,
+    "billing_verified": false,
+    "strict_locked_verified": false,
+    "evidence": "../work-items/GLM-PROBE-01/live-probe.json"
+  },
+  "live_account_state": {
+    "openai": "not_logged_into_private_runtime",
+    "xai": "not_logged_into_private_runtime",
+    "glm": "external_private_key_present"
+  },
+  "source_verification": {
+    "runtime_version": "observed locally",
+    "executable_hash": "observed locally",
+    "publisher_trust": "unverified",
+    "model_entitlement": "unverified",
+    "quota": "unverified",
+    "billing": "unverified",
+    "lock_enforcement": "unverified"
+  }
+}
