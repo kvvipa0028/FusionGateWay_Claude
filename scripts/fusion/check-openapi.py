@@ -33,6 +33,7 @@ EXPECTED = {
     "/agent/v1/tasks/{task_id}": {"get"},
     "/agent/v1/tasks/{task_id}/runs/{run_id}": {"get"},
     "/agent/v1/tasks/{task_id}/events": {"get"},
+    "/agent/v1/tasks/{task_id}/events/page/{after}": {"get"},
     "/control/v1/tasks/preview": {"post"},
     "/control/v1/tasks/{task_id}/budget": {"get"},
     "/control/v1/tasks/{task_id}/plan": {"get", "put"},
@@ -180,6 +181,12 @@ def verify(contract, official, samples):
     ]
     for value in invalid_tasks:
         assert not task_response.is_valid(value)
+    page_response = validator({"$ref": "#/components/schemas/EventPageReply"})
+    event = {"task_id":"fixture", "seq":1, "kind":"created", "run_id":"", "generation":0}
+    valid_page = {"task_id":"fixture", "after":0, "next_after":1, "has_more":False, "events":[event]}
+    invalid_pages = [dict(valid_page, events=None),dict(valid_page, events=[event]*33),dict(valid_page, after=-1),dict(valid_page, next_after=-1),dict(valid_page, has_more="true"),dict(valid_page, token="forbidden"),dict(valid_page, events=[dict(event,seq=0)]),dict(valid_page, events=[dict(event,kind="<svg>")])]
+    for value in invalid_pages:
+        assert not page_response.is_valid(value)
     submission_response = validator({"$ref": "#/components/schemas/SubmissionReply"})
     valid_submission = next(s["body"]["submission"] for s in json.loads(samples.read_text()) if s["path"].endswith("/submission") and s["status"] == 200 and s["body"]["submission"] is not None)
     invalid_submissions = [
@@ -191,7 +198,7 @@ def verify(contract, official, samples):
     ]
     for value in invalid_submissions:
         assert not submission_response.is_valid(value)
-    return {"official_openapi_document_schema": "3.1/2022-10-07", "paths": len(EXPECTED), "operations": len(operations), "handler_samples": count, "covered_operations": len(covered), "negative_schema_cases": len(negative), "negative_project_response_cases": len(invalid_inventory), "negative_task_response_cases": len(invalid_tasks), "negative_submission_response_cases": len(invalid_submissions), "offline": True, "production_registered": False}
+    return {"official_openapi_document_schema": "3.1/2022-10-07", "paths": len(EXPECTED), "operations": len(operations), "handler_samples": count, "covered_operations": len(covered), "negative_schema_cases": len(negative), "negative_project_response_cases": len(invalid_inventory), "negative_task_response_cases": len(invalid_tasks), "negative_submission_response_cases": len(invalid_submissions), "negative_event_page_cases":len(invalid_pages), "offline": True, "production_registered": False}
 
 
 if __name__ == "__main__":

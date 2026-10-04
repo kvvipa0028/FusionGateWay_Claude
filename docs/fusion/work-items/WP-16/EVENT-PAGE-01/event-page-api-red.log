@@ -1,0 +1,6 @@
+=== RUN   TestEventPageReadsContiguousDurableSuffixWithoutWork
+    event_page_test.go:20: event page unavailable 400
+--- FAIL: TestEventPageReadsContiguousDurableSuffixWithoutWork (0.01s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/api	1.020s
+FAIL

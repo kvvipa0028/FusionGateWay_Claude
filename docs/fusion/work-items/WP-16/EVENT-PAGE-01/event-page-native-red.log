@@ -1,0 +1,6 @@
+=== RUN   TestNativeEventPageUsesOwnedTaskScopeWithoutExecution
+    native_events_test.go:35: Native event page unavailable 404
+--- FAIL: TestNativeEventPageUsesOwnedTaskScopeWithoutExecution (0.02s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	0.628s
+FAIL

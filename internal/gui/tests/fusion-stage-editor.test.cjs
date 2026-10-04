@@ -705,3 +705,72 @@ test('quota pane: elapsed source age downgrades cached availability without HTTP
  await page.getByLabel('配置范围',{exact:true}).selectOption('global');
  assert.match(await row.textContent(),/额度：已过期/);assert.equal(reads,1);assert.deepEqual(errors,[]);
 });
+test('event history: reads durable metadata without creating task work and retains exact sequence on replay',async t=>{
+ const f=await fixture(t,true),{page,task,errors}=await savedControlTask(t,f);
+ assert.equal(await page.locator('#task-events').count(),1);
+ await page.locator('#task-events summary').click();await page.getByRole('button',{name:'读取新事件',exact:true}).click();
+ await page.locator('#events-status').filter({hasText:'已读取任务事件'}).waitFor();
+ assert.match(await page.locator('#event-history').textContent(),/#1 · created/);
+ const before=await f.request('/agent/v1/tasks/'+task.id);const first=await f.request('/agent/v1/tasks/'+task.id+'/events/page/0');
+ assert.equal(first.body.events.length,1);assert.equal(first.body.next_after,1);
+ await page.locator('#task-events').scrollIntoViewIfNeeded();await page.locator('#task-events').screenshot({path:path.join(repo,'.fusion-dev/implementation/event-page-desktop.png')});
+ await page.setViewportSize({width:390,height:844});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'original event layout must fit narrow windows');
+ assert.ok(await page.locator('#event-history p').isVisible());await page.locator('#task-events').screenshot({path:path.join(repo,'.fusion-dev/implementation/event-page-mobile.png')});
+ await page.getByRole('button',{name:'读取新事件',exact:true}).click();await page.locator('#events-status').filter({hasText:'暂无新事件'}).waitFor();
+ assert.equal(await page.locator('#event-history p').count(),1);
+ await page.getByRole('button',{name:'从头读取事件',exact:true}).click();await page.locator('#events-status').filter({hasText:'已读取任务事件'}).waitFor();
+ assert.equal(await page.locator('#event-history p').count(),1);const after=await f.request('/agent/v1/tasks/'+task.id);assert.deepEqual(after.body,before.body);assert.deepEqual(errors,[]);
+});
+test('event history: actual idle control events page without gaps or automatic state adoption',async t=>{
+ const f=await fixture(t,true),{page,task,errors}=await savedControlTask(t,f);let current=task;
+ for(let n=0;n<70;n++)for(const action of ['pause','continue']){
+  const r=await f.request('/control/v1/tasks/'+task.id+'/'+action,'POST',{},'"p'+current.plan_revision+'-g'+current.generation+'-'+current.state+'"');
+  assert.equal(r.status,200);current=r.body.task;
+ }
+ await page.locator('#task-events summary').click();
+ for(const [next,count] of [[32,32],[64,64],[96,96],[128,128],[141,128]]){
+  await page.getByRole('button',{name:'读取新事件',exact:true}).click();await page.locator('#events-status').filter({hasText:'已读取任务事件至 #'+next+'。'}).waitFor();
+  assert.equal(await page.locator('#event-history p').count(),count);
+ }
+ const seq=await page.locator('#event-history p').allTextContents();assert.deepEqual(seq.map(s=>Number(s.match(/^#(\d+)/)[1])),Array.from({length:128},(_,n)=>n+14));
+ assert.match(await page.locator('#task-detail').textContent(),/generation 0/);assert.match(await page.locator('#events-status').textContent(),/仅显示最近 128 条/);
+ await page.getByRole('button',{name:'从头读取事件',exact:true}).click();await page.locator('#events-status').filter({hasText:'已读取任务事件至 #32。'}).waitFor();
+ assert.equal(await page.locator('#event-history p').count(),32);assert.deepEqual(errors,[]);
+});
+test('event history: malformed successful pages retain the original cursor and independent metadata',async t=>{
+ const f=await fixture(t,true),{page,context,task,errors}=await savedControlTask(t,f);await page.locator('#task-events summary').click();
+ await page.getByRole('button',{name:'读取新事件',exact:true}).click();await page.locator('#events-status').filter({hasText:'已读取任务事件'}).waitFor();
+ const url='/agent/v1/tasks/'+task.id+'/events/page/1',original=(await f.request(url)).body,requests=[];
+ for(const mutate of [v=>v.next_after=2,v=>{v.has_more=true},v=>{v.task_id='foreign-task'},v=>{v.events=[{task_id:task.id,seq:2,kind:'<svg>',run_id:'',generation:0}];v.next_after=2}]){
+  const body=structuredClone(original);mutate(body);body.secret='never-render-this';
+  await context.route('**/events/page/*',r=>{requests.push(new URL(r.request().url()).pathname);return r.fulfill({status:200,json:body})});
+  await page.getByRole('button',{name:'读取新事件',exact:true}).click();await page.locator('#events-status').filter({hasText:'原事件和游标已保留'}).waitFor();
+  assert.equal(await page.locator('#event-history p').count(),1);assert.doesNotMatch(await page.locator('#task-events').textContent(),/foreign-task|never-render-this|<svg>/);
+  await context.unroute('**/events/page/*');
+ }
+ assert.deepEqual(requests,Array(4).fill(url));assert.deepEqual(errors,[]);
+});
+test('event history: a lost read reply retries the same page with no additional work',async t=>{
+ const f=await fixture(t,true),{page,context,task,errors}=await savedControlTask(t,f);await page.locator('#task-events summary').click();const paths=[];
+ await context.route('**/events/page/*',async r=>{paths.push(new URL(r.request().url()).pathname);if(paths.length===1){await r.fetch();return r.abort('failed')}return r.continue()});
+ await page.getByRole('button',{name:'读取新事件',exact:true}).click();await page.locator('#events-status').filter({hasText:'原事件和游标已保留'}).waitFor();assert.equal(await page.locator('#event-history p').count(),0);
+ await page.getByRole('button',{name:'读取新事件',exact:true}).click();await page.locator('#events-status').filter({hasText:'已读取任务事件'}).waitFor();
+ assert.deepEqual(paths,Array(2).fill('/agent/v1/tasks/'+task.id+'/events/page/0'));assert.equal(await page.locator('#event-history p').count(),1);
+ const body=(await f.request(paths[0])).body;assert.equal(body.events.length,1);assert.deepEqual(errors,[]);
+});
+test('event history: late reply for another selected task cannot replace current history',async t=>{
+ const f=await fixture(t,true),{page,context,task,errors}=await savedControlTask(t,f);
+ const preview=await f.request('/control/v1/tasks/preview','POST',{project_id:'synthetic-ui',goal:'另一个事件任务',required_roles:['design']});assert.equal(preview.status,200);
+ const saved=await f.request('/agent/v1/tasks','POST',{preview_id:preview.body.preview_id||preview.body.id,plan_hash:preview.body.plan.hash},null,'fixture-event-other');assert.equal(saved.status,201);
+ await page.getByRole('button',{name:'刷新任务列表',exact:true}).click();await page.getByLabel('查看任务 '+saved.body.id).waitFor();
+ await page.locator('#task-events summary').click();let release,entered;const held=new Promise(r=>release=r),started=new Promise(r=>entered=r);
+ await context.route('**/events/page/*',async r=>{if(r.request().url().includes(task.id)){const reply=await r.fetch();entered();await held;return r.fulfill({response:reply})}return r.continue()});
+ try{
+  await page.getByRole('button',{name:'读取新事件',exact:true}).click();await started;
+  await page.getByLabel('查看任务 '+saved.body.id).click();await page.locator('#task-detail').filter({hasText:'另一个事件任务'}).waitFor();
+  const arrived=page.waitForResponse(r=>r.url().includes(task.id+'/events/page/'));release();await arrived;
+  assert.equal(await page.locator('#event-history p').count(),0);await page.locator('#task-events summary').click();
+  await page.getByRole('button',{name:'读取新事件',exact:true}).click();await page.locator('#events-status').filter({hasText:'已读取任务事件'}).waitFor();
+  assert.equal(await page.locator('#event-history p').count(),1);assert.deepEqual(errors,[]);
+ }finally{release()}
+});

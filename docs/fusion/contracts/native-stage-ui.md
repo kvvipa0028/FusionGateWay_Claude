@@ -39,3 +39,5 @@ launcher 使用私有 HOME/XDG 和环境允许清单。启动 stdout 仅含产�
 任务列表、冻结提交和详情的 Native 桥已完成函数级/真实私有 HTTP 验证；本轮未重跑实际 Native 窗口。阶段执行控制工作台、真实 provider/Factory/账号/额度准入、完整工程闭环和最终 T01–T60 继续待完成；不能据此宣称用户已能执行真实任务。
 
 后续 [QUOTA-UI-01](quota-ui.md)增加已登记项目 quota GET、精确 route refresh POST 和 quota.mjs GET/HEAD；fusion-ui 可显式选择三个 GLM quota 参数登记只查询宿主，启动 JSON 增加 quota_query_enabled。8 秒 Native 期限、窗口/来源/鉴权约束不变，不注册生成 Controller。
+
+后续 [EVENT-PAGE-01](task-event-page.md)新增精确事件分页 GET 及原 UI 默认折叠记录区；仅持久状态元数据回读，原 SSE 不开放到 Native 桥，不修改运行回执或自动推进 Task。CSS 未改，实际 Native 事件按钮未验证。

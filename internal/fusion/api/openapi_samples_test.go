@@ -231,6 +231,14 @@ func TestImplementedAPIContractSamples(t *testing.T) {
 	}
 	add("GET", "/control/v1/tasks/preview", "", 405, request(h, "GET", "/control/v1/tasks/preview", "", "", "fixture-management"), nil)
 	add("POST", "/control/v1/tasks/preview", `{}`, 400, request(h, "POST", "/control/v1/tasks/preview", `{}`, "", "fixture-management"), nil)
+	pagePath := "/agent/v1/tasks/" + task.ID + "/events/page/0"
+	add("GET", pagePath, "", 200, request(h, "GET", pagePath, "", "", "fixture-management"), nil)
+	add("GET", strings.TrimSuffix(pagePath, "0")+"9223372036854775807", "", 409, request(h, "GET", strings.TrimSuffix(pagePath, "0")+"9223372036854775807", "", "", "fixture-management"), nil)
+	add("GET", strings.TrimSuffix(pagePath, "0")+"01", "", 400, request(h, "GET", strings.TrimSuffix(pagePath, "0")+"01", "", "", "fixture-management"), nil)
+	add("GET", "/agent/v1/tasks/fixture-missing/events/page/0", "", 404, request(h, "GET", "/agent/v1/tasks/fixture-missing/events/page/0", "", "", "fixture-management"), nil)
+	add("GET", pagePath, "", 401, request(h, "GET", pagePath, "", "", ""), nil)
+	add("GET", pagePath, "", 403, request(h, "GET", pagePath, "", "", "fgs_fixture"), nil)
+	add("POST", pagePath, "", 405, request(h, "POST", pagePath, "", "", "fixture-management"), nil)
 	// Actual loopback SSE: capture its first durable event, then disconnect.
 	ts := httptest.NewServer(h)
 	defer ts.Close()

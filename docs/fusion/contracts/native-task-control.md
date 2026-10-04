@@ -30,3 +30,5 @@ If-Match 和 Content-Type 原样保留多值，API 独立拒绝缺失/弱/重复
 新增 4 个顶层测试，包括 3 类运行生命周期及 11 类输入边界；真实 owned loopback HTTP、真实 Store/Controller、合成 Runtime/StopProof。验证 idle pause/continue/cancel 的完整 generation CAS 与重复只读、运行中的暂停/两类取消、原启动 key 在终态的重读、跨 Task Run 拒绝、错误窗口/来源撤销、缺失或重复 header、未知/未登记 Task 和草稿宿主不可执行。既有无条件 start/cancel 测试从“路径 404”按授权的新固定路径改为“缺 Task 条件 428”，仍断言零 Runtime 检查与零执行事件。
 
 54 顶层/100 子测试 PASS、0 FAIL/0 SKIP，Go1.26.3 CLI/GUI/vet exit0。UI/assets 未变，浏览器无需重复，实际 Native 窗口内容/按钮仍未验证。完整日志、边界与复现命令见 [CONTROL-BRIDGE-01](../work-items/WP-16/CONTROL-BRIDGE-01/summary.md)。
+
+后续 [EVENT-PAGE-01](task-event-page.md)新增精确事件分页 GET 及原 UI 默认折叠记录区；仅持久状态元数据回读，原 SSE 不开放到 Native 桥，不修改运行回执或自动推进 Task。CSS 未改，实际 Native 事件按钮未验证。

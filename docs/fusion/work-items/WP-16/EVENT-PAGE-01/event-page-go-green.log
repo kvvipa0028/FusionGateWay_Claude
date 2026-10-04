@@ -1,0 +1,38 @@
+=== RUN   TestEventPageReadsContiguousDurableSuffixWithoutWork
+--- PASS: TestEventPageReadsContiguousDurableSuffixWithoutWork (0.13s)
+=== RUN   TestEventPageRejectsInvalidCursorScopeMethodAndCredentials
+--- PASS: TestEventPageRejectsInvalidCursorScopeMethodAndCredentials (0.06s)
+=== RUN   TestEventPageRechecksAuthorityAfterBlockedLookup
+=== RUN   TestEventPageRechecksAuthorityAfterBlockedLookup/revoke
+=== RUN   TestEventPageRechecksAuthorityAfterBlockedLookup/cancel
+--- PASS: TestEventPageRechecksAuthorityAfterBlockedLookup (0.11s)
+    --- PASS: TestEventPageRechecksAuthorityAfterBlockedLookup/revoke (0.06s)
+    --- PASS: TestEventPageRechecksAuthorityAfterBlockedLookup/cancel (0.05s)
+=== RUN   TestSSEReconnectOnlyReadsPersistentEvents
+--- PASS: TestSSEReconnectOnlyReadsPersistentEvents (0.07s)
+=== RUN   TestSSEDisconnectDoesNotCancelRunningAttempt
+--- PASS: TestSSEDisconnectDoesNotCancelRunningAttempt (0.06s)
+=== RUN   TestSSERevocationClosesLiveConnectionBeforeNewEvent
+--- PASS: TestSSERevocationClosesLiveConnectionBeforeNewEvent (0.06s)
+=== RUN   TestSSERejectsInvalidUnknownAndAheadCursors
+--- PASS: TestSSERejectsInvalidUnknownAndAheadCursors (0.05s)
+=== RUN   TestSSERequiresManagementAndNeverAcceptsQueryCredentials
+--- PASS: TestSSERequiresManagementAndNeverAcceptsQueryCredentials (0.05s)
+=== RUN   TestSSEConnectionCapacityIsBoundedAndReleasedOnDisconnect
+--- PASS: TestSSEConnectionCapacityIsBoundedAndReleasedOnDisconnect (0.06s)
+=== RUN   TestSSEEventFieldsCannotInjectControlLines
+--- PASS: TestSSEEventFieldsCannotInjectControlLines (0.00s)
+=== RUN   TestSSEUnsupportedTransportCannotOpenAnUnboundedStream
+--- PASS: TestSSEUnsupportedTransportCannotOpenAnUnboundedStream (0.05s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/api	2.343s
+=== RUN   TestNativeEventPageUsesOwnedTaskScopeWithoutExecution
+--- PASS: TestNativeEventPageUsesOwnedTaskScopeWithoutExecution (0.08s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	1.872s
+=== RUN   TestEventsPageIsBoundedOrderedAndTaskScoped
+--- PASS: TestEventsPageIsBoundedOrderedAndTaskScoped (0.07s)
+=== RUN   TestEventsPageRejectsMissingDurableTail
+--- PASS: TestEventsPageRejectsMissingDurableTail (0.05s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/store	1.880s

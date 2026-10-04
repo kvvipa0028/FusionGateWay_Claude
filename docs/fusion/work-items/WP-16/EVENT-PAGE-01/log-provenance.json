@@ -1,0 +1,58 @@
+{
+  "event-page-api-red.log": {
+    "sha256": "6262f1a2d53908c9c9727819eb146d197ea0f79b0950b246a998379b9d4d40ba",
+    "role": "historical intermediate or RED; not final result"
+  },
+  "event-page-api-green.log": {
+    "sha256": "5f00df16d25e578f9faddf0658be53a236abc860a9d31dae93897e203a0e6227",
+    "role": "historical intermediate or RED; not final result"
+  },
+  "event-page-native-red.log": {
+    "sha256": "91a1803c5e45329e56371a63e0daeda9920608752ef52c2ec5e57b9de06ce3c7",
+    "role": "historical intermediate or RED; not final result"
+  },
+  "event-page-browser-red.log": {
+    "sha256": "a355c06832c85e813e0c3ca98a91299be1ef6f017dd28e3407554acbb99da533",
+    "role": "historical intermediate or RED; not final result",
+    "raw_sha256": "ed684eb6645991f3a88a72a24a1435bc8474726eeffce61247a25d1213a38450",
+    "normalization": "only trailing spaces/tabs removed; raw scratch log retained"
+  },
+  "event-page-browser-green.log": {
+    "sha256": "d908bb410a23aab0a48fb0dc288f4faa23987cad0294555d59f45a2020fbef37",
+    "role": "historical intermediate or RED; not final result"
+  },
+  "event-page-go-green.log": {
+    "sha256": "63ef6c4a408fc76d0cef6be4313b485c2a8f7065fddd39400288242a16991ad8",
+    "role": "historical intermediate or RED; not final result"
+  },
+  "event-page-native-restart.log": {
+    "sha256": "c3a57dbec68a60b725bd8520a5a9edbf4f450747c667c9a1af63523a74a556b5",
+    "role": "historical intermediate or RED; not final result"
+  },
+  "event-page-browser-boundaries.log": {
+    "sha256": "804b2d992cfae00bc675029494bc0e900373969ec87a10f981724cac2ca5aceb",
+    "role": "historical intermediate or RED; not final result",
+    "raw_sha256": "492cad906c5d90553399147a2c9e569f5d40f0285c31c88a2480531bc4624fb4",
+    "normalization": "only trailing spaces/tabs removed; raw scratch log retained"
+  },
+  "event-page-browser-boundaries-verified.log": {
+    "sha256": "724f2b7441fc6d1231948d565bbf868bd714849587a2ea5678dedd8c3191ef74",
+    "role": "historical intermediate or RED; not final result"
+  },
+  "event-page-fixture-build.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "role": "historical intermediate or RED; not final result"
+  },
+  "event-page-api-final.log": {
+    "sha256": "384b14fb215572df47052df6d3e531ab9883341ee8a9d7a4c259b04ae919b8ab",
+    "role": "final verified result"
+  },
+  "event-page-native-final.log": {
+    "sha256": "dbd2f3a748d0d3dbab3095be3d32c540bc0df8fac11f68187f6e6d70d5eca0c3",
+    "role": "final verified result"
+  },
+  "event-page-browser-final.log": {
+    "sha256": "30fd4911d907806f13fbcee12bf6604795f7b0068429bf69042b4ca27f690478",
+    "role": "final verified result"
+  }
+}

@@ -1,0 +1,13 @@
+✔ event history: reads durable metadata without creating task work and retains exact sequence on replay (1285.166833ms)
+✔ event history: actual idle control events page without gaps or automatic state adoption (1249.467042ms)
+✔ event history: malformed successful pages retain the original cursor and independent metadata (1236.443917ms)
+✔ event history: a lost read reply retries the same page with no additional work (1079.374291ms)
+✔ event history: late reply for another selected task cannot replace current history (1200.089375ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6245.423458

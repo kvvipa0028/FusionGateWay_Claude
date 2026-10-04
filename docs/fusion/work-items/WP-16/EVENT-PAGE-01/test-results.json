@@ -1,0 +1,47 @@
+{
+  "component": "WP-16-EVENT-PAGE-01",
+  "base_commit": "47df7781f8b4c5d2ec9ad9d90a26e0f1576f4e60",
+  "browser": {
+    "command": "node --test --test-concurrency=1 internal/gui/tests/fusion-stage-editor.test.cjs",
+    "pass": 49,
+    "fail": 0,
+    "skip": 0,
+    "log": "event-page-browser-final.log"
+  },
+  "api_race": {
+    "command": "run-go.py LOG test -mod=readonly -tags fusion,nogui -race -count=1 -v ./internal/fusion/api -args -fusion-api-contract-out=ABSOLUTE_SAMPLES_JSON",
+    "top_pass": 113,
+    "sub_pass": 81,
+    "fail": 0,
+    "skip": 0,
+    "log": "event-page-api-final.log"
+  },
+  "native_store_race": {
+    "command": "run-go.py LOG test -mod=readonly -tags fusion,nogui -race -count=1 -run 'TestNativeEventPage|TestNativeStageBridge|TestEventsPage' -v ./internal/fusion/bootstrap ./internal/fusion/store",
+    "top_pass": 12,
+    "sub_pass": 22,
+    "fail": 0,
+    "skip": 0,
+    "log": "event-page-native-final.log"
+  },
+  "openapi": {
+    "official_openapi_document_schema": "3.1/2022-10-07",
+    "paths": 33,
+    "operations": 38,
+    "handler_samples": 85,
+    "covered_operations": 38,
+    "negative_schema_cases": 9,
+    "negative_project_response_cases": 5,
+    "negative_task_response_cases": 7,
+    "negative_submission_response_cases": 7,
+    "negative_event_page_cases": 8,
+    "offline": true,
+    "production_registered": false
+  },
+  "build": "Go1.26.3 CLI/GUI/full fusion,nogui vet exit0; see build-results.json",
+  "actual_Native_UI": "not run in this component; bridge/HTTP/browser is not native pixels/clicks",
+  "real_model_calls": 0,
+  "real_quota_queries": 0,
+  "Jev": "off",
+  "parents": "WP15/WP16 in_progress; final T01-T60 not_run"
+}

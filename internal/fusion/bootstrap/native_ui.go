@@ -193,6 +193,21 @@ func nativeTaskReadID(path string) string {
 		if opaque(id) {
 			return id
 		}
+		parts := strings.Split(id, "/")
+		if len(parts) == 4 && opaque(parts[0]) && parts[1] == "events" && parts[2] == "page" {
+			value := parts[3]
+			if value == "" || len(value) > 19 || len(value) > 1 && value[0] == '0' {
+				return ""
+			}
+			for _, c := range value {
+				if c < '0' || c > '9' {
+					return ""
+				}
+			}
+			if _, e := strconv.ParseInt(value, 10, 64); e == nil {
+				return parts[0]
+			}
+		}
 	}
 	if strings.HasPrefix(path, "/control/v1/tasks/") {
 		parts := strings.Split(strings.TrimPrefix(path, "/control/v1/tasks/"), "/")

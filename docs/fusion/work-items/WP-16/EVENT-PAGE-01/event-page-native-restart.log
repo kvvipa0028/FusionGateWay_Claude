@@ -1,0 +1,6 @@
+=== RUN   TestNativeEventPageUsesOwnedTaskScopeWithoutExecution
+--- PASS: TestNativeEventPageUsesOwnedTaskScopeWithoutExecution (0.07s)
+=== RUN   TestNativeEventPageSurvivesHostRestartAndRejectsUnregisteredHistory
+--- PASS: TestNativeEventPageSurvivesHostRestartAndRejectsUnregisteredHistory (0.10s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	1.792s

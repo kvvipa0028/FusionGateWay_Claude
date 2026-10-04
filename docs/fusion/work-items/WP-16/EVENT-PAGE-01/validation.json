@@ -1,0 +1,17 @@
+{
+  "source_files": 21,
+  "packet_files_before_validation": 25,
+  "local_links_checked": 169,
+  "gofmt": "pass",
+  "node_syntax": "workbench.mjs/test.cjs pass",
+  "python_syntax": "pass",
+  "diff": "pass",
+  "private_key_byte_exclusion": "pass; no credential contents or digests emitted",
+  "original_Magpie_assets": "byte-equal locked upstream",
+  "Fusion_CSS": "editor.css byte-equal BASE; app.css is mapped original asset",
+  "Store_schema_Controller_Runtime_SSE": "unchanged",
+  "build_binary_and_log_hashes": "pass",
+  "graph": "refreshed14089nodes125783edges",
+  "actual_Native_UI": "not run; bridge/HTTP/browser only",
+  "whole_goal": "active; WP15/WP16 in_progress; final T01-T60 not_run"
+}

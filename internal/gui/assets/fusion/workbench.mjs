@@ -38,6 +38,32 @@ const stateName=s=>({ready:'待执行',running:'运行中',paused:'已暂停',pa
 function readFailure(e){return e.status===401||e.status===403?'管理授权已失效，请重新连接。':e.status===503?'本机服务不可用或已撤销。':'读取失败，请重新读取。'}
 export function createWorkbench({request,onLock,onNotice,onRestore}){
  let project='',preview=null,attempt=null,expiry=null,epoch=0,listSerial=0,detailSerial=0,listBusy=false,detailBusy=false,next='',items=[],selected='',busy=false,recoveryBlocked=false,taskData=null,controlAttempt=null,controlBusy=false,knownRun=null;
+ let eventTask='',eventSerial=0,eventCursor=0,eventRows=[],eventBusy=false;
+ function clearEvents(id=''){
+  eventTask=id;eventSerial++;eventCursor=0;eventRows=[];eventBusy=false;$('event-history').replaceChildren();$('task-events').open=false;$('events-status').textContent=id?'尚未读取任务事件。':'选择任务后读取事件。';
+ }
+ function renderEvents(){
+  const root=$('event-history');root.replaceChildren();
+  for(const v of eventRows)root.append(node('p','#'+v.seq+' · '+v.kind+' · generation '+v.generation+(v.run_id?' · run '+v.run_id:''),'details'));
+ }
+ async function readEvents(reset=false){
+  if(eventBusy||detailBusy||!taskData||selected!==taskData.task.id||!eventTask)return;
+  const id=eventTask,version=epoch,serial=++eventSerial,after=reset?0:eventCursor;
+  eventBusy=true;$('events-status').textContent='正在读取任务事件…';controls();
+  try{
+   const result=await request('/agent/v1/tasks/'+encodeURIComponent(id)+'/events/page/'+after),v=result.body;
+   if(version!==epoch||serial!==eventSerial||id!==eventTask)return;
+   if(result.status!==200||v?.task_id!==id||v.after!==after||!integer(v.next_after)||typeof v.has_more!=='boolean'||!Array.isArray(v.events)||v.events.length>32||v.has_more&&v.events.length!==32)throw bad();
+   const rows=v.events.map((e,n)=>{
+    if(e?.task_id!==id||e.seq!==after+n+1||!integer(e.seq,1)||!integer(e.generation)||typeof e.kind!=='string'||!(/^[a-z0-9_]{1,64}$/).test(e.kind)||!(e.run_id===''||opaque(e.run_id)))throw bad();
+    return {seq:e.seq,kind:e.kind,generation:e.generation,run_id:e.run_id};
+   });
+   if(v.next_after!==(rows.length?rows.at(-1).seq:after))throw bad();
+   const combined=reset?rows:[...eventRows,...rows];eventRows=combined.slice(-128);eventCursor=v.next_after;renderEvents();
+   $('events-status').textContent=(rows.length?'已读取任务事件至 #'+eventCursor+'。':'暂无新事件，已核对至 #'+eventCursor+'。')+(v.has_more?'仍有更晚事件，请继续读取。':'')+(eventRows.length===128?'仅显示最近 128 条；可从头读取历史。':'');
+  }catch(e){if(version===epoch&&serial===eventSerial&&id===eventTask)$('events-status').textContent=readFailure(e)+'原事件和游标已保留，不自动重试。'}
+  finally{if(version===epoch&&serial===eventSerial&&id===eventTask){eventBusy=false;controls()}}
+ }
  function lock(value){onLock(value||controlBusy||!!controlAttempt)}
  function executionNotice(message){$('execution-status').textContent=message}
  function controls(){
@@ -51,6 +77,7 @@ export function createWorkbench({request,onLock,onNotice,onRestore}){
   $('abandon-submission').disabled=busy;$('abandon-submission').textContent=attempt?.action==='abandon'?'重试放弃原请求':'放弃未提交请求';
   $('refresh-tasks').disabled=!project||listBusy;$('older-tasks').hidden=!next;$('older-tasks').disabled=listBusy;
   $('reload-task').disabled=!selected||detailBusy||controlBusy;
+  $('task-events').hidden=!selected;$('read-events').disabled=eventBusy||detailBusy||!taskData||busy||controlBusy;$('reset-events').disabled=$('read-events').disabled;
   const unavailable=busy||!!attempt||recoveryBlocked||controlBusy||!!controlAttempt||detailBusy||!taskData;
   $('execution-controls').hidden=!selected;
   $('execution-role').disabled=unavailable;
@@ -89,6 +116,7 @@ export function createWorkbench({request,onLock,onNotice,onRestore}){
  }
  async function loadTask(id,internal=false){
   if(!project||!opaque(id)||controlBusy&&!internal||controlAttempt&&controlAttempt.task.id!==id)return;
+  if(eventTask!==id)clearEvents(id);
   const scope=project,version=epoch,serial=++detailSerial;if(selected!==id){knownRun=null;$('run-record').replaceChildren();executionNotice('')}selected=id;taskData=null;detailBusy=true;$('task-detail').replaceChildren();$('task-detail-status').textContent='正在读取任务详情…';controls();
   try{
    let data;
@@ -166,6 +194,7 @@ export function createWorkbench({request,onLock,onNotice,onRestore}){
  }
  async function setProject(id){
   if(attempt||recoveryBlocked||controlAttempt||controlBusy)return;
+  clearEvents();
   project=id;taskData=null;knownRun=null;$('run-record').replaceChildren();executionNotice('');epoch++;listSerial++;detailSerial++;items=[];next='';selected='';listBusy=false;detailBusy=false;invalidate();renderList();$('task-detail').replaceChildren();$('task-detail-status').textContent='选择任务读取完整目标、冻结计划和预算。';controls();if(project){refreshList();await readOriginal(true)}
  }
  function setPreview(value,context){
@@ -276,6 +305,7 @@ export function createWorkbench({request,onLock,onNotice,onRestore}){
    }else{p.unknown=true;executionNotice('运行结果未确认。原运行请求已保留，不能换 key 或条件重新启动；请重试原运行请求或重新读取任务。')}
   }finally{controlBusy=false;lock(!!attempt||recoveryBlocked);controls();renderList()}
  }
+ $('read-events').onclick=()=>readEvents();$('reset-events').onclick=()=>readEvents(true);
  $('start-role').onclick=()=>execute('start');$('pause-task').onclick=()=>execute('pause');$('continue-task').onclick=()=>execute('continue');$('cancel-task').onclick=()=>execute('cancel');$('retry-execution').onclick=()=>execute('',true);
  $('submit-task').onclick=submit;$('retry-task').onclick=submit;$('refresh-submission').onclick=()=>readOriginal();$('abandon-submission').onclick=abandon;$('refresh-tasks').onclick=()=>refreshList();$('older-tasks').onclick=()=>refreshList(true);$('reload-task').onclick=()=>loadTask(selected);
  window.addEventListener('beforeunload',event=>{if(attempt||controlAttempt){event.preventDefault();event.returnValue=''}});

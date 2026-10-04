@@ -10,6 +10,8 @@
 
 [GLM 产品额度宿主](contracts/glm-quota-host.md)已接显式只查询的 CLI 与 Management API，并完成一次真实 CN 额度读取；生成、物理池和账号归属仍未准入，[额度观察区](contracts/quota-ui.md)已以默认折叠列表接入原 Magpie UI，支持缓存读取和手动刷新；浏览器/Native 桥验证通过，实际 Native 点击尚未验证。
 
+[任务事件回读](contracts/task-event-page.md)已在原详情附近加入默认折叠区，逐页读取持久状态元数据；CSS 未改。浏览器、Native 桥和宿主重开验证通过，实际 Native 点击与真实模型输出仍未验证。
+
 ## 阅读顺序
 
 1. [当前需求摘录](requirements-summary.md)：已知目标与未取得的原始需求文档。

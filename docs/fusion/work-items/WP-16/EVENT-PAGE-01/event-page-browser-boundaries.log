@@ -1,0 +1,26 @@
+✔ event history: reads durable metadata without creating task work and retains exact sequence on replay (1242.753375ms)
+✖ event history: actual idle control events page without gaps or automatic state adoption (31090.453666ms)
+✔ event history: malformed successful pages retain the original cursor and independent metadata (1328.883ms)
+✔ event history: a lost read reply retries the same page with no additional work (1068.979958ms)
+✔ event history: late reply for another selected task cannot replace current history (1196.874333ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 36119.720209
+
+✖ failing tests:
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:721:1
+✖ event history: actual idle control events page without gaps or automatic state adoption (31090.453666ms)
+  locator.waitFor: Timeout 30000ms exceeded.
+  Call log:
+  [2m  - waiting for locator('#events-status').filter({ hasText: '已读取任务事件至 #32.' }) to be visible[22m
+
+      at TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:729:145) {
+    name: 'TimeoutError',
+    log: [ "  - waiting for locator('#events-status').filter({ hasText: '已读取任务事件至 #32.' }) to be visible" ]
+  }

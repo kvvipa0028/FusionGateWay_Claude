@@ -49,3 +49,5 @@ PATH="$HOME/.local/bin:$PATH" python3 docs/fusion/work-items/WP-13/CALLS-01/run-
 测试使用私有临时目录与隔离环境，浏览器另起临时 profile，只允许访问本测试宿主；自己启动的宿主退出后清理对应目录，Management token 不进入日志。没有读取日常认证或执行真实 provider 调用。初始结果、失败修正及截图见 [TASK-UI-01](../work-items/WP-16/TASK-UI-01/summary.md)。Native 桥/HTTP 和 GUI 编译已有验证，本组件没有重跑实际 Native 窗口，浏览器截图不替代 Native 视觉证据。
 
 当前恢复 UI 的最终回归与截图见 [SUBMISSION-UI-01](../work-items/WP-16/SUBMISSION-UI-01/summary.md)。Go/API/Native DTO 与样式未在本 UI 组件修改。
+
+后续 [EVENT-PAGE-01](task-event-page.md)新增精确事件分页 GET 及原 UI 默认折叠记录区；仅持久状态元数据回读，原 SSE 不开放到 Native 桥，不修改运行回执或自动推进 Task。CSS 未改，实际 Native 事件按钮未验证。

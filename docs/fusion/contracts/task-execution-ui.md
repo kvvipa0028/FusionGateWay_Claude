@@ -23,3 +23,5 @@ Management 凭据仍由 [Native 桥](native-task-control.md)注入，页面不�
 阶段 succeeded 不等于整项验收；取消不证明文件回滚或预算退款。已知运行显示 run ID、角色、state、attempt、generation、模型和路线/effort，不展示凭据。状态由手动回读获得，没有 SSE/自动轮询、额度面板、计划修订、checkpoint 恢复或工程阶段 Gate。
 
 产品 fusion-ui/fusion-control 的 OpenControl 仍为 execution_enabled=false；新增按钮没有注册真实 Factory 或授予准入，产品控制仍可能返回 503。test-only fixture 显式 hold/success 接真实 HTTP/Store/Controller，但运行、额度、session、StopProof 为合成；无真实模型调用。实际 Native 窗口的这些按钮仍未验证，Jev off，父 WP-16/整体目标 in_progress，最终 T01–T60 not_run。测试记录、截图与复现见 [CONTROL-UI-01](../work-items/WP-16/CONTROL-UI-01/summary.md)。
+
+后续 [EVENT-PAGE-01](task-event-page.md)新增精确事件分页 GET 及原 UI 默认折叠记录区；仅持久状态元数据回读，原 SSE 不开放到 Native 桥，不修改运行回执或自动推进 Task。CSS 未改，实际 Native 事件按钮未验证。

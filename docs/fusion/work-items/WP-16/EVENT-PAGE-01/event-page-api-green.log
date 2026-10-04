@@ -1,0 +1,4 @@
+=== RUN   TestEventPageReadsContiguousDurableSuffixWithoutWork
+--- PASS: TestEventPageReadsContiguousDurableSuffixWithoutWork (0.01s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/api	0.600s

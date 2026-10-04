@@ -410,6 +410,8 @@ func (s *Server) Handler() http.Handler {
 				return
 			}
 			respond(w, 200, budget)
+		case eventPagePath(r.URL.Path):
+			s.eventsPage(w, r)
 		case strings.HasPrefix(r.URL.Path, "/agent/v1/tasks/") && strings.HasSuffix(r.URL.Path, "/events"):
 			s.events(w, r)
 		case strings.HasPrefix(r.URL.Path, "/agent/v1/tasks/") && strings.Contains(r.URL.Path, "/runs/"):

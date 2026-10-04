@@ -1,0 +1,195 @@
+{
+  "base_commit": "47df7781f8b4c5d2ec9ad9d90a26e0f1576f4e60",
+  "source_files": [
+    {
+      "path": "docs/fusion/README.md",
+      "sha256": "23a398993a7ceb09acd3e4646521cbd4a04a2469db6fdb14e61661295ce88569"
+    },
+    {
+      "path": "docs/fusion/contracts/native-stage-ui.md",
+      "sha256": "3e0f08879e54bd5c76e930182f18e66d13456ff2481479b6f63e86ecf0aad8ab"
+    },
+    {
+      "path": "docs/fusion/contracts/native-task-control.md",
+      "sha256": "8d1375980b5e9f6874b2e43583684b0402275353d5f085aec18f5ccfa924ab16"
+    },
+    {
+      "path": "docs/fusion/contracts/openapi-verification.md",
+      "sha256": "e8e4fad1bb4ce980219ee5089f8ec53cfe29cfc91a70b6bbc9849ab2495d512a"
+    },
+    {
+      "path": "docs/fusion/contracts/task-event-page.md",
+      "sha256": "23361a9f178552462757fb10b9a1209191add207b2e919db96dc89a50bd6eee1"
+    },
+    {
+      "path": "docs/fusion/contracts/task-execution-ui.md",
+      "sha256": "96f2ce7489825f98a95d75be60bd4c66c7dd91d4deb16d449b1d18c7ab297696"
+    },
+    {
+      "path": "docs/fusion/contracts/task-workbench.md",
+      "sha256": "76228c0602fdd3fa5c9521241a317ccf10bfc514f3b5e960bef4651033cd045d"
+    },
+    {
+      "path": "docs/fusion/openapi-fusion.yaml",
+      "sha256": "d7968c23c19714af1840dcfef35fe28003819ed9788134daefb9f59ab3df06ca"
+    },
+    {
+      "path": "docs/fusion/planning/Fusion_Magpie_Fork_Agent工作包_v1.0.md",
+      "sha256": "3c87f4279e4ba23b981ccc6159fa010c987c8afaa00fd8abb4a23a42205cecf9"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/summary.md",
+      "sha256": "87a96eae4bf509ea6af7bb19b860c41a941b15e480fb2fd08741b2fe67e5b327"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/summary.md",
+      "sha256": "a27f2e7aeb17d2bdab67065be05eb7a2ed389568a35f08f9a3d64ad39532383f"
+    },
+    {
+      "path": "internal/fusion/api/event_page.go",
+      "sha256": "14b7ad74de9ec935fd1cc5ec97865f74c997221e72a00e47884543749d597265"
+    },
+    {
+      "path": "internal/fusion/api/event_page_test.go",
+      "sha256": "f6dbb47fe2c6cfa4f16abc81e3c81d726386c2db2d324fb99f6f29fcfb790b86"
+    },
+    {
+      "path": "internal/fusion/api/openapi_samples_test.go",
+      "sha256": "e077e9e6de0e02799bca446489a61cc21816881aef6568246b2006c9eda8065a"
+    },
+    {
+      "path": "internal/fusion/api/preview.go",
+      "sha256": "97e0637b38821879864488cde884f62f1cac08e31eced70a581ba2af42d6af87"
+    },
+    {
+      "path": "internal/fusion/bootstrap/native_events_test.go",
+      "sha256": "b9a6c29bd3d96b398c2038d2c60894bfed5f026048e9a95e5dd1bcf4419d8af1"
+    },
+    {
+      "path": "internal/fusion/bootstrap/native_ui.go",
+      "sha256": "f64ceab20985a5e9308a09a0692d44baa76b0f0d56958c47bd93c713e3c18d2c"
+    },
+    {
+      "path": "internal/gui/assets/fusion/index.html",
+      "sha256": "c6b970349e6f3e346487df8b080ba668b9be3bd605a0dbc74a78cc1049263ae4"
+    },
+    {
+      "path": "internal/gui/assets/fusion/workbench.mjs",
+      "sha256": "a77882202670c2099318cb2295083b4dd11238bb557e98a7ed915e4d27fea77c"
+    },
+    {
+      "path": "internal/gui/tests/fusion-stage-editor.test.cjs",
+      "sha256": "6c4ebc12cde94f674989553a3a1db843033bdd18c50c32fb5ea48b00c1776b99"
+    },
+    {
+      "path": "scripts/fusion/check-openapi.py",
+      "sha256": "2d780c675c87c1db0d64f531f1b786cba2f8f0172cdbf2b7c71136eb79468150"
+    }
+  ],
+  "packet_files": [
+    {
+      "path": "docs/fusion/work-items/WP-16/EVENT-PAGE-01/build-cli.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/EVENT-PAGE-01/build-gui.log",
+      "sha256": "da95dd366c30db8c4682334cde6c7a97118f858f36117705e4bac7758fc47e36"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/EVENT-PAGE-01/build-results.json",
+      "sha256": "8f6c0876a8608fdc4213c82e91099f5530d3ecad67e3580e68a84be687509e03"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/EVENT-PAGE-01/build-vet.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/EVENT-PAGE-01/desktop.png",
+      "sha256": "e6b09363c6b169a1f068785362c013c165104c2e1fae1df93827ce74a3d80e63"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/EVENT-PAGE-01/event-page-api-final.log",
+      "sha256": "384b14fb215572df47052df6d3e531ab9883341ee8a9d7a4c259b04ae919b8ab"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/EVENT-PAGE-01/event-page-api-green.log",
+      "sha256": "5f00df16d25e578f9faddf0658be53a236abc860a9d31dae93897e203a0e6227"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/EVENT-PAGE-01/event-page-api-red.log",
+      "sha256": "6262f1a2d53908c9c9727819eb146d197ea0f79b0950b246a998379b9d4d40ba"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/EVENT-PAGE-01/event-page-browser-boundaries-verified.log",
+      "sha256": "724f2b7441fc6d1231948d565bbf868bd714849587a2ea5678dedd8c3191ef74"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/EVENT-PAGE-01/event-page-browser-boundaries.log",
+      "sha256": "804b2d992cfae00bc675029494bc0e900373969ec87a10f981724cac2ca5aceb"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/EVENT-PAGE-01/event-page-browser-final.log",
+      "sha256": "30fd4911d907806f13fbcee12bf6604795f7b0068429bf69042b4ca27f690478"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/EVENT-PAGE-01/event-page-browser-green.log",
+      "sha256": "d908bb410a23aab0a48fb0dc288f4faa23987cad0294555d59f45a2020fbef37"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/EVENT-PAGE-01/event-page-browser-red.log",
+      "sha256": "a355c06832c85e813e0c3ca98a91299be1ef6f017dd28e3407554acbb99da533"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/EVENT-PAGE-01/event-page-fixture-build.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/EVENT-PAGE-01/event-page-go-green.log",
+      "sha256": "63ef6c4a408fc76d0cef6be4313b485c2a8f7065fddd39400288242a16991ad8"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/EVENT-PAGE-01/event-page-native-final.log",
+      "sha256": "dbd2f3a748d0d3dbab3095be3d32c540bc0df8fac11f68187f6e6d70d5eca0c3"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/EVENT-PAGE-01/event-page-native-red.log",
+      "sha256": "91a1803c5e45329e56371a63e0daeda9920608752ef52c2ec5e57b9de06ce3c7"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/EVENT-PAGE-01/event-page-native-restart.log",
+      "sha256": "c3a57dbec68a60b725bd8520a5a9edbf4f450747c667c9a1af63523a74a556b5"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/EVENT-PAGE-01/graph.json",
+      "sha256": "8595f6cd11cc29f14c411a7c52cb036bb5b25a8cd711550eb4754c92b88f2433"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/EVENT-PAGE-01/handler-samples.json",
+      "sha256": "c4f10a8eb1d7dce0e90aabd433b0a19a8688b0454ab97f1ddce1f5cfa412d30f"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/EVENT-PAGE-01/log-provenance.json",
+      "sha256": "365070fca67affc387db7bb422ca276c0cfccc551985882944b13eca8b822249"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/EVENT-PAGE-01/mobile.png",
+      "sha256": "df3ae64c24f0f59d5c21db3b41eafd67661dc0a7a054a9e873116f68e4cdd614"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/EVENT-PAGE-01/openapi-final.json",
+      "sha256": "17399446c807c007e30ce8ae7b562d5aa5ea340303c6477d84b89fa18f34ced7"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/EVENT-PAGE-01/summary.md",
+      "sha256": "bc2cd36244a23754b64977397035a392e5888f4a08f3946156f0dea6aeecd10a"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/EVENT-PAGE-01/test-results.json",
+      "sha256": "9bea8d78202f93c1f79d65598ac7cf24507c9863a4070289f1bf8ff34f1523ad"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/EVENT-PAGE-01/validation.json",
+      "sha256": "6f6574a453812fbca0818e2781945d914b6b8f37d6cbfddfba059c10dbb57e99"
+    }
+  ]
+}
