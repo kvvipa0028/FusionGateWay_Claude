@@ -1,0 +1,21 @@
+✖ successful synthetic server preview renders the actual role-indexed bindings without execution (638.631916ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8860.770042
+
+✖ failing tests:
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:69:1
+✖ successful synthetic server preview renders the actual role-indexed bindings without execution (638.631916ms)
+  Error: invalid startup response
+      at Socket.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:36:146)
+      at Socket.emit (node:events:514:20)
+      at addChunk (node:internal/streams/readable:576:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:527:3)
+      at Readable.push (node:internal/streams/readable:407:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:194:23)

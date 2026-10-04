@@ -1,0 +1,7 @@
+--- FAIL: TestNativeStageBridgeUsesOwnedAuthenticatedHost (0.03s)
+    native_ui_test.go:184: native resource /fusion/app.css 404
+--- FAIL: TestControlHostStageUIAssetsAreManagementProtected (0.02s)
+    ui_test.go:25: authenticated stage asset /fusion/app.css 404
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	0.649s
+FAIL

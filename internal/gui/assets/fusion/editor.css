@@ -1,12 +1,46 @@
-:root{color-scheme:light dark;--bg:#f4f4f6;--card:#fff;--fg:#1c1c21;--quiet:#575762;--line:#e3e3e8;--accent:#4f46e5;--warn:#915208;--error:#b52d36;--font:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Segoe UI",system-ui,sans-serif}
-@media(prefers-color-scheme:dark){:root{--bg:#1a1a1e;--card:#232327;--fg:#ededf1;--quiet:#b9b9c1;--line:#41414a;--accent:#b5b9ff;--warn:#f2c36b;--error:#ff969c}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.6 var(--font)}header,main{max-width:1100px;margin:auto;padding:28px 36px}header{padding-bottom:10px}.brand{font-weight:650;color:var(--quiet)}h1{font-size:28px;font-weight:650;margin:8px 0}h2,h3{font-size:18px;margin:0}p{margin:6px 0;color:var(--quiet);max-width:78ch}.toolbar,.presets{display:flex;gap:16px;align-items:end;flex-wrap:wrap}.toolbar label{min-width:180px}.toolbar button{margin-left:auto}.priority{margin:12px 0 20px}.presets{padding:16px 0;border-block:1px solid var(--line);margin-bottom:22px}.presets label:first-child{flex:1}.presets input{width:110px}
-label{display:flex;flex-direction:column;gap:5px;font-size:13px;color:var(--quiet)}
-.preset-save{display:flex;gap:12px;align-items:end;flex-wrap:wrap;margin-bottom:22px}.preset-save label{flex:1;min-width:160px}.preset-save p{flex-basis:100%;font-size:13px}.preset-save input{width:100%}
-select,input,textarea,button{font:inherit;color:var(--fg);border:1px solid var(--line);background:var(--card);border-radius:6px;padding:8px 10px;min-height:40px}
-select{width:100%;max-width:100%}button{cursor:pointer;font-size:14px;white-space:nowrap}button:hover:enabled{border-color:var(--accent)}button:disabled{opacity:.55;cursor:default}.primary{background:var(--accent);color:var(--card);border-color:transparent;font-weight:600}
-:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-.group{background:var(--card);padding:20px 22px;border:1px solid var(--line);border-radius:10px;margin-bottom:16px}
-.group-heading{display:flex;align-items:center;gap:12px}.group-heading span{font-size:13px;color:var(--quiet)}.group-heading button{margin-left:auto}
-.role{padding-top:16px}.role+.role{border-top:1px solid var(--line);margin-top:16px}.role-title{font-size:14px;font-weight:600;margin-bottom:8px}.controls{display:grid;grid-template-columns:150px minmax(180px,1fr) 180px;gap:14px}.details{font-size:13px;margin-top:8px;overflow-wrap:anywhere}.warning{color:var(--warn)}.error{color:var(--error)}.candidate{padding:12px 0;border-bottom:1px solid var(--line)}.candidate .controls{grid-template-columns:minmax(180px,1fr) 180px auto}.group-tools{display:flex;gap:10px;align-items:center;margin-top:16px}.group-tools span{font-size:13px;color:var(--quiet)}footer{display:flex;gap:18px;align-items:center;background:var(--bg);padding:16px 0;border-top:1px solid var(--line)}footer p{font-size:14px}#task,#preview{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px 22px;margin:16px 0}#task label{margin-top:12px}textarea{resize:vertical}#task-role{width:180px}
-@media(max-width:700px){header,main{padding:20px 16px}.toolbar label{flex:1;min-width:130px}.controls,.candidate .controls{grid-template-columns:1fr}.group{padding:16px}.group-heading{flex-wrap:wrap}.group-heading button{margin-left:0}.presets{gap:10px}footer{align-items:stretch;flex-direction:column;gap:8px}.group-tools{flex-wrap:wrap}h1{font-size:25px}}
+/* The shell, tokens, lists, rows and buttons come from Magpie's app.css.
+   Only the additional stage forms and their narrow-window layout live here. */
+.fusion-stage .seg button.on { background: var(--seg-thumb); box-shadow: var(--seg-edge); }
+.fusion-stage .toolbar, .fusion-stage .presets, .fusion-stage .preset-save { align-items: end; flex-wrap: wrap; }
+.fusion-stage label { display: flex; flex-direction: column; gap: 4px; min-width: 0; font-size: 12px; color: var(--fg-2); }
+.fusion-stage select, .fusion-stage input, .fusion-stage textarea { font: inherit; color: var(--fg); min-width: 0; max-width: 100%; }
+.fusion-stage select { width: 100%; height: 27px; padding: 0 8px; border: 0; border-radius: 6px; background: var(--pill); }
+.fusion-stage input, .fusion-stage textarea { padding: 5px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--card); user-select: text; }
+.fusion-stage button:disabled, .fusion-stage select:disabled, .fusion-stage input:disabled, .fusion-stage textarea:disabled { opacity: .55; cursor: default; }
+.fusion-stage .toolbar label { min-width: 160px; }
+.fusion-stage .toolbar button { margin-left: auto; }
+.fusion-stage p { color: var(--muted); line-height: 1.5; }
+.fusion-stage .priority { padding: 8px 4px; }
+.fusion-stage .presets { padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+.fusion-stage .presets label:first-child { flex: 1; }
+.fusion-stage .presets input { width: 100px; }
+.fusion-stage .preset-save { padding-bottom: 12px; }
+.fusion-stage .preset-save label { flex: 1; min-width: 160px; }
+.fusion-stage .preset-save p { flex-basis: 100%; }
+.fusion-stage #groups { display: grid; gap: 12px; }
+.fusion-stage .group-heading h2, .fusion-stage #task h2 { font-size: 13px; font-weight: 600; }
+.fusion-stage .group-heading span { color: var(--muted); font-size: 11.5px; }
+.fusion-stage .group-heading button { margin-left: auto; }
+.fusion-stage .role { padding: 12px; border-top: 1px solid var(--line-2); }
+.fusion-stage .role-title { font-size: 12px; font-weight: 500; margin-bottom: 8px; }
+.fusion-stage .controls { display: grid; grid-template-columns: 150px minmax(0, 1fr) 160px; gap: 10px; }
+.fusion-stage .details { margin-top: 6px; font-size: 11.5px; overflow-wrap: anywhere; }
+.fusion-stage .warning { color: var(--amber); }
+.fusion-stage .error { color: var(--red); }
+.fusion-stage .candidate { padding: 10px 0; border-bottom: 1px solid var(--line-2); }
+.fusion-stage .candidate .controls { grid-template-columns: minmax(0, 1fr) 160px auto; }
+.fusion-stage .group-tools { display: flex; gap: 10px; align-items: center; padding: 0 12px 12px; color: var(--muted); font-size: 11.5px; }
+.fusion-stage footer { display: flex; gap: 12px; align-items: center; padding: 12px 4px; }
+.fusion-stage #task, .fusion-stage #preview { padding: 12px; margin-top: 12px; }
+.fusion-stage #task label { margin-top: 10px; }
+.fusion-stage #task p { margin-top: 6px; }
+.fusion-stage textarea { resize: vertical; }
+.fusion-stage #task-role { width: 160px; }
+@media (max-width: 700px) {
+  .fusion-stage .toolbar label { flex: 1; min-width: 130px; }
+  .fusion-stage .controls, .fusion-stage .candidate .controls { grid-template-columns: minmax(0, 1fr); }
+  .fusion-stage .group-heading { flex-wrap: wrap; }
+  .fusion-stage .group-heading button { margin-left: 0; }
+  .fusion-stage .group-tools { flex-wrap: wrap; }
+  .fusion-stage footer { align-items: stretch; flex-direction: column; gap: 8px; }
+}

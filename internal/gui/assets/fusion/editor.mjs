@@ -2,7 +2,7 @@ import {roles,labels,groups,copy,expandLayer,groupShared,shareGroup,exactRoute,t
 const $=id=>document.getElementById(id);
 const state={project:"",scope:"project",routes:[],layers:{},tags:{},config:{},presets:[],preset:null,editingPreset:null,presetNameDirty:false,expanded:new Set(),dirty:new Set(),loading:true,saving:false,uncertain:null,notice:"正在读取本机配置…"};
 const messages={route_unavailable:"模型或路线版本已失效，请重新选择。",effort_unspecified:"请选择推理档位。",effort_unsupported:"该模型不支持此推理选择。",candidates_missing:"请明确添加批准的候选。",candidate_duplicate:"同一路线版本不能重复。",mode_invalid:"配置模式无效。",lock_exception_unaccepted:"此配置含未接受的锁定例外。"};
-function el(tag,text,attrs={}){const n=document.createElement(tag);if(text!==null)n.textContent=text;for(const[k,v]of Object.entries(attrs))n.setAttribute(k,v);return n}
+function el(tag,text,attrs={}){const n=document.createElement(tag);if(text!==null)n.textContent=text;for(const[k,v]of Object.entries(attrs))n.setAttribute(k,v);if(tag==="button")n.classList.add("text","action");if(tag==="select")n.classList.add("field");return n}
 function option(select,value,text){select.append(el("option",text,{value}))}
 class RequestError extends Error{constructor(status,code){super("request_failed");this.status=status;this.code=code}}
 function defaultSnapshot(value,etag,status=500,fallback){
@@ -33,7 +33,7 @@ function presetOptions(selected=""){
 async function request(path,options={}){
  let response;try{response=await fetch(path,{...options,cache:"no-store",credentials:"omit",redirect:"error",headers:{"Content-Type":"application/json",...(options.headers||{})}})}catch{throw new RequestError(0,"transport_unconfirmed")}
  let body;try{body=await response.json()}catch{throw new RequestError(response.status,"response_unavailable")}
- if(!response.ok)throw new RequestError(response.status,body.error?.code);
+ if(!response.ok)throw new RequestError(response.status,body?.error?.code);
  return {body,etag:response.headers.get("ETag")};
 }
 function errorText(e,saving=false){
@@ -109,8 +109,8 @@ function roleEditor(role){
 function render(){
  const focus=document.activeElement?.getAttribute("aria-label"),root=$("groups");root.replaceChildren();
  if(state.layers[state.scope])for(const group of groups){
-  const section=el("section",null,{class:"group"}),heading=el("div",null,{class:"group-heading"});
-  heading.append(el("h2",group.title));section.append(heading,roleEditor(group.roles[0]));
+  const section=el("section",null,{class:"group list"}),heading=el("div",null,{class:"group-heading row"});
+  heading.append(el("h2",group.title,{class:"name"}));section.append(heading,roleEditor(group.roles[0]));
   if(group.roles.length>1){
    const separate=!groupShared(activeLayer(),group.id);
    if(separate)heading.append(el("span","两个角色分别设置"));
@@ -163,17 +163,24 @@ $("apply-preset").onclick=async()=>{
  const revision=Number($("preset-version").value),id=$("preset").value;
  if(!/^[1-9][0-9]*$/.test($("preset-version").value)||!Number.isSafeInteger(revision)){state.error=true;state.notice="请选择明确的正整数预设版本。";render();return}
  if((state.dirty.has(state.scope)||state.presetNameDirty)&&!window.confirm("载入预设会覆盖当前范围的五角色本地选择和未保存的预设名称。继续？"))return;
- state.loading=true;render();
+ state.loading=true;$("preview").hidden=true;render();
  try{const p=await request("/control/v1/projects/"+encodeURIComponent(state.project)+"/presets/"+encodeURIComponent(id)+"/versions/"+revision);const snapshot=presetSnapshot(p.body,p.etag,state.project,id,revision);state.layers[state.scope]=snapshot.layer;state.editingPreset=snapshot;state.presetNameDirty=false;$("preset-name").value=snapshot.name;if(state.scope==="task")state.preset={id,revision};state.dirty.add(state.scope);state.error=false;state.notice="已载入明确版本，尚未保存。"}catch(e){state.error=true;state.notice=errorText(e)}
  state.loading=false;render();
 };
 $("save").onclick=async()=>{
  const scope=state.scope,id=state.project;state.saving=true;state.error=false;render();
  if(scope==="task"){
+  $("preview").hidden=true;
   try{const goal=$("goal").value.trim();if(!goal){state.notice="请填写任务目标。";return}
    const body={project_id:id,goal,required_roles:[$("task-role").value],task:activeLayer()};if(state.preset)body.preset=state.preset;
    const preview=await request("/control/v1/tasks/preview",{method:"POST",body:JSON.stringify(body)});
-   $("preview").replaceChildren(el("h2","服务端计划预览"));for(const b of preview.body.plan.bindings)$("preview").append(el("p",labels[b.role]+"："+(b.target?.resolved_model||"批准候选内自动选择")));
+   const plan=preview.body?.plan,role=body.required_roles[0];
+   if(!Array.isArray(plan?.required_roles)||plan.required_roles.length!==1||plan.required_roles[0]!==role||!plan.bindings||Array.isArray(plan.bindings)||Object.keys(plan.bindings).length!==1)throw new RequestError(200,"response_unavailable");
+   const b=plan.bindings[role];let description;
+   if(b?.mode==="locked"&&typeof b.target?.resolved_model==="string"&&b.target.resolved_model.length>0)description=b.target.resolved_model;
+   else if(b?.mode==="auto"&&Array.isArray(b.candidates)&&b.candidates.length>0&&b.candidates.every(c=>typeof c.resolved_model==="string"&&c.resolved_model.length>0))description="批准候选："+b.candidates.map(c=>c.resolved_model).join("、");
+   else throw new RequestError(200,"response_unavailable");
+   $("preview").replaceChildren(el("h2","服务端计划预览"),el("p",labels[role]+"："+description));
    $("preview").hidden=false;state.notice="已核对冻结阶段计划，尚未提交或启动任务。";
   }catch(e){state.error=true;state.notice=errorText(e)}
   finally{state.saving=false;render()}
@@ -188,6 +195,8 @@ $("save").onclick=async()=>{
  }catch(e){const uncertain=e.status===0||(e.status>=200&&e.status<300&&e.code==="response_unavailable");state.error=true;state.notice=uncertain?errorText(new RequestError(0,"transport_unconfirmed"),true):errorText(e,true);if(uncertain)state.uncertain=attempt;else state.uncertain=null}
  state.saving=false;render();
 };
+function invalidatePreview(){if(!$("preview").hidden){$("preview").hidden=true;state.notice="目标或阶段已改变，请重新预览。";render()}}
+$("goal").oninput=invalidatePreview;$("task-role").onchange=invalidatePreview;
 $("preset-name").oninput=()=>{state.presetNameDirty=true;render()};
 async function savePreset(attempt){
  state.saving=true;state.error=false;render();

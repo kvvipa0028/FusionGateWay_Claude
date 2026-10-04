@@ -1,0 +1,43 @@
+{
+  "source_files": {
+    "docs/fusion/README.md": "346ab864c5179c309a27256a6a703adfeaab2363f88844f06d258742023b7617",
+    "docs/fusion/contracts/native-stage-ui.md": "db53aebe999cdb9dae9a54b62587d3c43a384358b2726937196df1dd2f18e01c",
+    "docs/fusion/contracts/stage-editor.md": "231d77f9631c64ec7e27790ebae29d000b0b4ab9812d2fdb3fcef0bc25daec25",
+    "docs/fusion/planning/Fusion_Magpie_Fork_Agent工作包_v1.0.md": "5ff784032f02a544a79ee5e6270ae24d9d3b7c78c879267119b53a9512fc5d1b",
+    "docs/fusion/work-items/WP-16/summary.md": "7598ea52b1785e6689019b2fbf8c61badc249c1875bab1d4a3ddb34c64bdc2a8",
+    "internal/fusion/bootstrap/native_ui.go": "2942b8c97592334779428152f84410296dd8945e375b022ac2256d282acd9cb5",
+    "internal/fusion/bootstrap/native_ui_test.go": "639fc025d666927decfad26f2dc749e3444cf3a0cfcd9da31846be5b5a153997",
+    "internal/fusion/bootstrap/ui_test.go": "538dd6229610bede532bfc19b36ad5afbabd4913fafd8c719edc95035fd5e9b4",
+    "internal/fusion/bootstrap/workbench_fixture_test.go": "28edf475b1ae14f4bd217af5e35651093dc80d08347c4c8e04aa5731ffdfa46e",
+    "internal/gui/assets/app.css": "86f8853f683605079737d7cc9d2f0702fbdf46a0af5026f2fc3b7501ef47a471",
+    "internal/gui/assets/app.js": "4484b81c5581925ad88808754c6539818719465614e0d72ac7ea7147e37cbc80",
+    "internal/gui/assets/fusion/editor.css": "b213f786b216c041eaad332e753ce246f0628f80fe9b45fe8ed62db6bb235361",
+    "internal/gui/assets/fusion/editor.mjs": "fa6a11e071b92a6f7544a40579430522a426655014ef22449244d0d7a2940bf3",
+    "internal/gui/assets/fusion/embed.go": "d35bce4f70090c0c092b09af3d0a8524686082393392b7c85296dc11d61ad53e",
+    "internal/gui/assets/fusion/index.html": "2ec8206623a80b6c765e783143a6140586e0a0d4e5d8aac16f83a2ef441f2b2e",
+    "internal/gui/assets/index.html": "07c2658d16f14d160afd286f8e3f0d5752c4cce831e79b902f57b09589e41b64",
+    "internal/gui/assets/shared.go": "104180947ea8126e108e500744da051dd4e0e91c673d98f05506f67add9fc4a6",
+    "internal/gui/tests/fusion-stage-editor.test.cjs": "00b22a248069781e633560402e72527ec5556ffdb99c0f4dfa0d970e0fa2f95f"
+  },
+  "packet_files": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "f69262f7b7a3ac610209821fc28d99941ead11f418f5c7500249b1f5948c5e5e",
+    "build-results.json": "7a70429954de9bbb2f32ec66499bc5338dfad3f51b86b95fc12f11f1dd261065",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "desktop.png": "9308aabc9f107793ebdc94d2f438c1b846c87cc3681b60110d49d33555cd3588",
+    "magpie-ui-bootstrap-final.log": "133a582df20d97a6a5b40b288715e4036df8b55dbc7a6dc577243dd08a164d9a",
+    "magpie-ui-browser-final.log": "63cff12125b88c998ddcc48f6c0f7db38e023d9582376b4960e42ff175f938fc",
+    "magpie-ui-browser-verified.log": "82b459e086362f8a3a66421837c17a52e7827a2820a632b2552781ef28c90e23",
+    "magpie-ui-fixture-build-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "magpie-ui-green.log": "1ccf9521cf9c880845a1c4f6033e9e47eaf2dcac171247886c146f622d81ab84",
+    "magpie-ui-model-final.log": "055f3e198f74b12910841354df4465ef6cb87000c38cc686c226f0d9e9c51aef",
+    "magpie-ui-preview-fixture-diagnostic.log": "7568965e9c22a24b2cecd3b0e3a41dd745bb5856bba3a518935afd08cab7c270",
+    "magpie-ui-preview-red.log": "ea49f2690a0e5c4ab02c515137df4a1ef7ff83d4970c33976cc01ed05507ce45",
+    "magpie-ui-preview-red2.log": "efefcc407289130b54a9232a6f51314608afebb5eb7aeb86dd251d83f6112f2d",
+    "magpie-ui-preview-red3.log": "95ba3a75f81c2a207a72ed2515d331dfdbc455a2e9f3264c5edb872ba72df73c",
+    "magpie-ui-red.log": "51f94ff17f24eb6baa0ba86c790d40da4c28c56fdb000de873455184b007d85b",
+    "mobile.png": "691b48549c911234992d9e172b8eb6538f545fcba9202dcfca462c9ad36602d6",
+    "summary.md": "f23e0cac5fc56691e19fa930fb38f153e4f8a5c3adcaf34bffcbdbdea2e641a0",
+    "test-results.json": "3930ad7c27abf2448133dc305933eb48f8ab9fa0c16665e33053e335f4360621"
+  }
+}

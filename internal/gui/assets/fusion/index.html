@@ -1,22 +1,22 @@
 <!doctype html>
 <html lang="zh-CN">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Fusion Gateway · 阶段模型配置</title><link rel="stylesheet" href="./editor.css"></head>
-<body>
-<header><span class="brand">Fusion Gateway</span><h1>阶段模型配置</h1><p>按阶段指定模型与推理档位，保存完整的选择。</p></header>
-<main>
-<div class="toolbar">
+<title>Fusion Gateway · 阶段模型配置</title><link rel="stylesheet" href="./app.css"><link rel="stylesheet" href="./editor.css"></head>
+<body class="web fusion-stage">
+<header class="top"><div class="brand"><span>Magpie · Fusion</span></div><nav class="seg" id="nav" aria-label="当前页面"><button class="on" aria-current="page" type="button">阶段模型配置</button></nav></header>
+<main class="view" id="view-fusion">
+<div class="toolbar profiles">
 <label>项目<select id="project" aria-label="项目"></select></label>
 <label>配置范围<select id="scope" aria-label="配置范围"><option value="project">项目配置</option><option value="global">全局默认</option><option value="task">本次任务</option></select></label>
-<button id="reload">重新载入</button>
+<button id="reload" class="text action">重新载入</button>
 </div>
 <p class="priority">本次任务 ＞ 项目配置 ＞ 全局默认。继承使用较低层的完整选择。</p>
-<div class="presets"><label>预设<select id="preset" aria-label="预设"><option value="">不载入预设</option></select></label><label>明确版本<input id="preset-version" aria-label="预设版本" inputmode="numeric"></label><button id="apply-preset">载入此版本</button><span id="preset-source"></span></div>
-<div class="preset-save"><label>预设名称<input id="preset-name" aria-label="预设名称"></label><button id="create-preset">保存为新预设</button><button id="save-preset">保存预设新版本</button><button id="retry-preset" hidden>重试同一预设保存</button><p id="preset-editing">保存当前范围的五角色选择；不会改写默认配置或启动模型。</p></div>
+<div class="presets profiles"><label>预设<select id="preset" aria-label="预设"><option value="">不载入预设</option></select></label><label>明确版本<input id="preset-version" aria-label="预设版本" inputmode="numeric"></label><button id="apply-preset" class="text action">载入此版本</button><span id="preset-source"></span></div>
+<div class="preset-save profiles"><label>预设名称<input id="preset-name" aria-label="预设名称"></label><button id="create-preset" class="text action">保存为新预设</button><button id="save-preset" class="text action">保存预设新版本</button><button id="retry-preset" class="text action" hidden>重试同一预设保存</button><p id="preset-editing">保存当前范围的五角色选择；不会改写默认配置或启动模型。</p></div>
 <div id="groups"></div>
-<section id="task" hidden><h2>单阶段任务预览</h2><label>任务目标<textarea id="goal" aria-label="任务目标" rows="3"></textarea></label><label>本次阶段<select id="task-role" aria-label="本次阶段"></select></label><p>预览核对服务端模型绑定，不启动任务。</p></section>
-<footer><button id="save" class="primary" disabled>保存项目配置</button><p id="status" role="status" aria-live="polite">正在读取本机配置…</p></footer>
-<section id="preview" hidden aria-label="计划预览"></section>
+<section id="task" class="list" hidden><h2>单阶段任务预览</h2><label>任务目标<textarea id="goal" aria-label="任务目标" rows="3"></textarea></label><label>本次阶段<select id="task-role" aria-label="本次阶段"></select></label><p>预览核对服务端模型绑定，不启动任务。</p></section>
+<footer><button id="save" class="text primary" disabled>保存项目配置</button><p id="status" role="status" aria-live="polite">正在读取本机配置…</p></footer>
+<section id="preview" class="list" hidden aria-label="计划预览"></section>
 </main>
 <script type="module" src="./editor.mjs"></script>
 </body></html>

@@ -1,0 +1,53 @@
+{
+  "baseline": "c791ec86ecf17b8746dd81bc930b9b48acb678b9",
+  "go_version": "1.26.3",
+  "browser": {
+    "pass": 10,
+    "fail": 0,
+    "source": "magpie-ui-browser-verified.log"
+  },
+  "model": {
+    "pass": 10,
+    "fail": 0,
+    "source": "magpie-ui-model-final.log"
+  },
+  "bootstrap_race": {
+    "top_level": {
+      "pass": 31,
+      "fail": 0,
+      "skip": 3
+    },
+    "subtests": {
+      "pass": 129,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "native_visual": "not rerun in this component; browser screenshots only",
+  "graph": {
+    "nodes": 13959,
+    "edges": 123866,
+    "assets_excluded": true
+  },
+  "jev": "off",
+  "production_execution_admission": "unchanged; test-only synthetic metadata does not admit real routes",
+  "original_log_sha256": {
+    "magpie-ui-red.log": "51f94ff17f24eb6baa0ba86c790d40da4c28c56fdb000de873455184b007d85b",
+    "magpie-ui-green.log": "1ccf9521cf9c880845a1c4f6033e9e47eaf2dcac171247886c146f622d81ab84",
+    "magpie-ui-preview-red.log": "ea49f2690a0e5c4ab02c515137df4a1ef7ff83d4970c33976cc01ed05507ce45",
+    "magpie-ui-preview-red2.log": "efefcc407289130b54a9232a6f51314608afebb5eb7aeb86dd251d83f6112f2d",
+    "magpie-ui-preview-fixture-diagnostic.log": "7568965e9c22a24b2cecd3b0e3a41dd745bb5856bba3a518935afd08cab7c270",
+    "magpie-ui-preview-red3.log": "154959eec3356af451516b13dac76f90fa16241b73ad5c03a627075cea3da114",
+    "magpie-ui-fixture-build-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "magpie-ui-bootstrap-final.log": "133a582df20d97a6a5b40b288715e4036df8b55dbc7a6dc577243dd08a164d9a",
+    "magpie-ui-browser-final.log": "63cff12125b88c998ddcc48f6c0f7db38e023d9582376b4960e42ff175f938fc",
+    "magpie-ui-browser-verified.log": "82b459e086362f8a3a66421837c17a52e7827a2820a632b2552781ef28c90e23",
+    "magpie-ui-model-final.log": "055f3e198f74b12910841354df4465ef6cb87000c38cc686c226f0d9e9c51aef",
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "f69262f7b7a3ac610209821fc28d99941ead11f418f5c7500249b1f5948c5e5e",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "log_transform": "remove trailing whitespace only; original logs retained in ignored development state",
+  "setup_failures": "initial synthetic fixture launch lacked existing private parent directories; corrected test fixture setup and retained failure logs; three owned failed startup folders cleaned",
+  "remaining": "task submit/start/manual controls/events/quota/plan revisions, real provider/Factory/account admission and final T01-T60"
+}

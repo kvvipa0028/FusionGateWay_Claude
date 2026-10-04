@@ -10,37 +10,41 @@ const repo=path.resolve(__dirname,"../../..");
 const binary=path.join(repo,".fusion-dev/fusion-gateway-cli");
 const models={a:"fixture-model-a",b:"fixture-model-b",c:"<svg>"};
 const key=id=>JSON.stringify(["fixture-"+id,1,models[id]]);
-async function fixture(t){
+async function fixture(t,admitted=false){
  const root=await fs.realpath(await fs.mkdtemp(path.join(os.tmpdir(),"fusion-stage-ui-")));
  await fs.chmod(root,0o700);
  for(const name of ["workspace","private","private/config"])await fs.mkdir(path.join(root,name),{mode:0o700});
  const doc={schema_version:1,revision:1,global:{roles:{design:{mode:"locked",route:{id:"fixture-a",revision:1},model:models.a,effort:{mode:"none"}}}},
- routes:Object.entries(models).map(([id,model])=>({id:"fixture-"+id,revision:1,native_route:"glm-cn-claude",model,account:"fixture-account-"+id,workspace:"fixture-workspace",credential_identity:"fixture-identity-"+id,runtime_version:"fixture-runtime",no_effort:true})),
- projects:[{id:"synthetic-ui",name:"界面验证项目",path:path.join(root,"workspace"),read:true,write:false,routes:Object.keys(models).map(id=>({id:"fixture-"+id,revision:1})),layer:{}}]};
+ routes:Object.entries(models).filter(([id])=>!admitted||id!=="c").map(([id,model])=>({id:"fixture-"+id,revision:1,native_route:"glm-cn-claude",model,account:"fixture-account-"+id,workspace:"fixture-workspace",credential_identity:"fixture-identity-"+id,runtime_version:"fixture-runtime",no_effort:true})),
+ projects:[{id:"synthetic-ui",name:"界面验证项目",path:path.join(root,"workspace"),read:true,write:false,routes:Object.keys(models).filter(id=>!admitted||id!=="c").map(id=>({id:"fixture-"+id,revision:1})),layer:{}}]};
  const source=path.join(root,"private/config/projects.json");await fs.writeFile(source,JSON.stringify(doc),{mode:0o600});
  const go=execFileSync("which",["go"],{encoding:"utf8"}).trim();
- const child=spawn("python3",[path.join(repo,"scripts/fusion/run-dev.py"),"--root",path.join(root,"state"),"--binary",binary,"--go",go,"--","fusion-control","--projects",source],{cwd:repo,stdio:["ignore","pipe","pipe"]});
+ const control=path.join(root,"state/data/fusion-gateway/control");
+ if(admitted)for(const name of ["state","state/data","state/data/fusion-gateway"])await fs.mkdir(path.join(root,name),{mode:0o700});
+ const child=admitted?spawn(path.join(repo,".fusion-dev/task-ui-fixture"),["-test.run=^TestTaskUIFixtureProcess$","-fusion-ui-fixture-source",source,"-fusion-ui-fixture-root",control],{cwd:repo,env:{PATH:"/usr/bin:/bin",HOME:path.join(root,"private"),XDG_CONFIG_HOME:path.join(root,"private/config"),XDG_DATA_HOME:path.join(root,"private/data"),XDG_CACHE_HOME:path.join(root,"private/cache"),TMPDIR:path.join(root,"private")},stdio:["ignore","pipe","pipe"]}):spawn("python3",[path.join(repo,"scripts/fusion/run-dev.py"),"--root",path.join(root,"state"),"--binary",binary,"--go",go,"--","fusion-control","--projects",source],{cwd:repo,stdio:["ignore","pipe","pipe"]});
  let output="",errors="",browser=null,token=null;
  t.after(async()=>{
   try{if(browser)await browser.close()}finally{
-   if(child.exitCode===null){const done=once(child,"exit");child.kill("SIGTERM");await Promise.race([done,new Promise((_,reject)=>setTimeout(()=>reject(Error("fixture shutdown deadline")),8000))]);}
-   assert.equal(child.exitCode,0);if(token){assert.ok(!output.includes(token));assert.ok(!errors.includes(token));}
-   await fs.rm(root,{recursive:true,force:true});
+   try{
+    if(child.exitCode===null){const done=once(child,"exit");let timer;child.kill("SIGTERM");try{await Promise.race([done,new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error("fixture shutdown deadline")),8000)})])}finally{clearTimeout(timer)}}
+    assert.equal(child.exitCode,0);if(token){assert.ok(!output.includes(token));assert.ok(!errors.includes(token));}
+   }finally{if(child.exitCode!==null||child.signalCode!==null)await fs.rm(root,{recursive:true,force:true})}
   }
  });
  child.stderr.on("data",b=>errors+=b);
  const announcement=await new Promise((resolve,reject)=>{
   const timer=setTimeout(()=>reject(Error("fixture startup deadline")),15000);
-  child.once("exit",()=>{clearTimeout(timer);reject(Error("fixture exited before startup"))});
-  child.stdout.on("data",b=>{output+=b;if(output.includes("\n")){clearTimeout(timer);try{resolve(JSON.parse(output.split("\n")[0]))}catch{reject(Error("invalid startup response"))}}});
+  child.once("exit",()=>{clearTimeout(timer);const reason=["invalid private UI fixture","non-synthetic UI fixture scope","non-synthetic UI fixture identity","synthetic UI host initialization","synthetic UI host service"].find(s=>output.includes(s));reject(Error("fixture exited before startup"+(reason?": "+reason:"")))});
+  child.stdout.on("data",b=>{output+=b;for(const line of output.split("\n").slice(0,-1)){if(admitted&&!line.startsWith("{"))continue;clearTimeout(timer);try{resolve(JSON.parse(line))}catch{reject(Error("invalid startup response"))}break}});
  });
  const origin=announcement.control_address;
- assert.equal(announcement.execution_enabled,false);assert.equal(announcement.jev,"off");
+ if(admitted){assert.equal(announcement.synthetic_fixture,true);assert.equal(announcement.execution_supported,false)}else assert.equal(announcement.execution_enabled,false);
+ assert.equal(announcement.jev,"off");
  token=(await fs.readFile(path.join(root,"state/data/fusion-gateway/control/management.token"),"utf8")).trim();
- for(const name of ["index.html","editor.mjs","model.mjs","editor.css"]){
+ for(const name of ["index.html","editor.mjs","model.mjs","editor.css","app.css"]){
   const response=await fetch(origin+"/fusion/"+name,{headers:{Authorization:"Bearer "+token},redirect:"error"});
   assert.equal(response.status,200);
-  const actual=await response.text(),expected=await fs.readFile(path.join(repo,"internal/gui/assets/fusion",name),"utf8");
+  const actual=await response.text(),expected=await fs.readFile(path.join(repo,"internal/gui/assets",name==="app.css"?name:path.join("fusion",name)),"utf8");
   assert.ok(actual===expected,"stage bundle differs from current source");
  }
  browser=await chromium.launch({channel:"chrome",headless:true});
@@ -64,8 +68,39 @@ async function choose(page,label,id){
  await page.getByLabel(label+"推理档位",{exact:true}).selectOption("none");
 }
 async function status(page,text){await page.getByRole("status").filter({hasText:text}).waitFor()}
+test("successful synthetic server preview renders the actual role-indexed bindings without execution",async t=>{
+ const f=await fixture(t,true),{page,context,errors}=await f.newPage();
+ await page.getByLabel("配置范围").selectOption("task");
+ await page.getByLabel("任务目标").fill("合成设计预览，不启动 Runtime");
+ const response=page.waitForResponse(r=>r.url().endsWith("/control/v1/tasks/preview"));
+ await page.getByRole("button",{name:"预览单阶段任务",exact:true}).click();
+ const actual=await response;assert.equal(actual.status(),200);
+ const preview=await actual.json();assert.equal(preview.plan.bindings.design.target.resolved_model,models.a);
+ await page.getByRole("status").filter({hasText:"已核对冻结阶段计划"}).waitFor({timeout:2000});
+ assert.equal(await page.getByRole("region",{name:"计划预览"}).getByText("设计：fixture-model-a",{exact:true}).count(),1);
+ const tasks=await f.request("/control/v1/projects/synthetic-ui/tasks");assert.equal(tasks.status,200);assert.deepEqual(tasks.body.tasks,[]);
+ assert.deepEqual(errors,[]);
+ await page.getByLabel("任务目标").fill("修改后的目标");assert.equal(await page.getByRole("region",{name:"计划预览"}).isVisible(),false);
+ await page.getByLabel("设计模式",{exact:true}).selectOption("auto");
+ await page.getByLabel("设计添加批准候选",{exact:true}).click();
+ await page.getByLabel("设计候选1模型",{exact:true}).selectOption(key("b"));
+ await page.getByLabel("设计候选1推理档位",{exact:true}).selectOption("none");
+ await page.getByRole("button",{name:"预览单阶段任务",exact:true}).click();await status(page,"已核对冻结阶段计划");
+ assert.equal(await page.getByRole("region",{name:"计划预览"}).getByText("设计：批准候选：fixture-model-b",{exact:true}).count(),1);
+ await page.getByLabel("本次阶段",{exact:true}).selectOption("review");assert.equal(await page.getByRole("region",{name:"计划预览"}).isVisible(),false);
+ await page.getByLabel("本次阶段",{exact:true}).selectOption("design");
+ await context.route("**/control/v1/tasks/preview",async route=>{const actual=await route.fetch(),body=await actual.json();body.plan.bindings=[];await route.fulfill({response:actual,json:body})});
+ await page.getByRole("button",{name:"预览单阶段任务",exact:true}).click();await status(page,"请求未完成");
+ assert.equal(await page.getByRole("region",{name:"计划预览"}).isVisible(),false);
+ assert.deepEqual(errors,[]);
+});
 test("actual private CLI/API: independent roles, fold/reload, explicit overwrite and safe model text",async t=>{
  const f=await fixture(t),{page,errors}=await f.newPage();
+ await page.emulateMedia({colorScheme:"light"});
+ assert.deepEqual(await page.evaluate(()=>({font:getComputedStyle(document.body).fontSize,header:document.querySelector(".top").getBoundingClientRect().height,background:getComputedStyle(document.body).backgroundColor})),{font:"13px",header:46,background:"rgb(244, 244, 246)"});
+ await page.emulateMedia({colorScheme:"dark"});
+ assert.equal(await page.evaluate(()=>getComputedStyle(document.body).backgroundColor),"rgb(26, 26, 30)");
+ await page.emulateMedia({colorScheme:"light"});
  await page.getByLabel("实施与测试展开").click();
  await choose(page,"实施","a");await choose(page,"测试","b");
  await page.getByLabel("审查与验收展开").click();await choose(page,"审查","a");await choose(page,"验收","c");
@@ -83,10 +118,12 @@ test("actual private CLI/API: independent roles, fold/reload, explicit overwrite
  page.once("dialog",d=>d.accept());await page.getByLabel("实施与测试共用").click();
  assert.equal(await page.getByLabel("测试模型",{exact:true}).inputValue(),key("a"));
  await page.getByRole("button",{name:"保存项目配置",exact:true}).click();await status(page,"已保存版本 2");
+ await page.locator("#view-fusion").evaluate(n=>n.scrollTop=0);
  await page.screenshot({path:path.join(repo,".fusion-dev/implementation/stage-editor-desktop.png"),fullPage:true});
  const mobile=await f.newPage(null,{width:390,height:844});
  await mobile.page.getByLabel("实施与测试展开").click();await mobile.page.getByLabel("审查与验收展开").click();
  assert.ok(await mobile.page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+ await mobile.page.locator("#view-fusion").evaluate(n=>n.scrollTop=0);
  await mobile.page.screenshot({path:path.join(repo,".fusion-dev/implementation/stage-editor-mobile.png"),fullPage:true});
  assert.deepEqual(mobile.errors,[]);
  assert.deepEqual(errors,[]);

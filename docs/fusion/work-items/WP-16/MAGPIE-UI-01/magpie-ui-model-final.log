@@ -1,0 +1,18 @@
+✔ expands groups then complete role overrides; explicit inherit masks group (1.2025ms)
+✔ independent testing and acceptance survive five-role serialize/reload (0.191083ms)
+✔ collapsed visual grouping never rewrites role bindings (0.162167ms)
+✔ unknown modes, roles and groups are rejected rather than discarded (0.2155ms)
+✔ expired exact route stays visible in draft, never falls back (0.134959ms)
+✔ all effort modes require declared capability; null is unspecified (0.138375ms)
+✔ automatic candidates are explicit, exact, nonempty and unique (0.125041ms)
+✔ model and route cannot splice account, version or another model (0.092ms)
+✔ route selection starts with unspecified effort, not a guessed default (0.116ms)
+✔ draft saving validation does not promote unadmitted route (0.145709ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 97.754458

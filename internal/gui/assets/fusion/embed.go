@@ -1,10 +1,13 @@
-// Package fusionassets serves only the five explicitly embedded stage assets.
+// Package fusionassets serves explicitly embedded stage assets and the original
+// Magpie stylesheet through a fixed path.
 // Its caller must authenticate the request; it never reads a local credential.
 package fusionassets
 
 import (
 	"embed"
 	"net/http"
+
+	magpieassets "github.com/yetone/magpie/internal/gui/assets"
 )
 
 //go:embed index.html editor.mjs model.mjs editor.css
@@ -31,11 +34,17 @@ func Handler() http.Handler {
 			name = "model.mjs"
 		case "/fusion/editor.css":
 			name = "editor.css"
+		case "/fusion/app.css":
+			name = "app.css"
 		default:
 			http.NotFound(w, r)
 			return
 		}
-		b, err := assets.ReadFile(name)
+		files := assets
+		if name == "app.css" {
+			files = magpieassets.Styles
+		}
+		b, err := files.ReadFile(name)
 		if err != nil {
 			http.Error(w, "Service Unavailable", 503)
 			return
@@ -43,7 +52,7 @@ func Handler() http.Handler {
 		kind := "text/javascript; charset=utf-8"
 		if name == "index.html" {
 			kind = "text/html; charset=utf-8"
-		} else if name == "editor.css" {
+		} else if name == "editor.css" || name == "app.css" {
 			kind = "text/css; charset=utf-8"
 		}
 		w.Header().Set("Content-Type", kind)

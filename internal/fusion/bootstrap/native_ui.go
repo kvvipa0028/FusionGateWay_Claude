@@ -116,7 +116,7 @@ func nativeStageRequest(r *http.Request) bool {
 func (b *NativeStageBridge) allowed(method, path string) bool {
 	if method == "GET" || method == "HEAD" {
 		switch path {
-		case "/fusion/", "/fusion/index.html", "/fusion/editor.mjs", "/fusion/model.mjs", "/fusion/editor.css":
+		case "/fusion/", "/fusion/index.html", "/fusion/editor.mjs", "/fusion/model.mjs", "/fusion/editor.css", "/fusion/app.css":
 			return true
 		}
 	}

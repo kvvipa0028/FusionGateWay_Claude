@@ -1,0 +1,19 @@
+✖ successful synthetic server preview renders the actual role-indexed bindings without execution (18.4725ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 245.386834
+
+✖ failing tests:
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:69:1
+✖ successful synthetic server preview renders the actual role-indexed bindings without execution (18.4725ms)
+  Error: fixture exited before startup: synthetic UI host initialization
+      at ChildProcess.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:35:257)
+      at ChildProcess.wrapper (node:events:639:12)
+      at ChildProcess.emit (node:events:514:20)
+      at ChildProcess._handle.onexit (node:internal/child_process:323:12)

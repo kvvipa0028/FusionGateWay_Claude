@@ -1,0 +1,18 @@
+✔ successful synthetic server preview renders the actual role-indexed bindings without execution (1924.701208ms)
+✔ actual private CLI/API: independent roles, fold/reload, explicit overwrite and safe model text (2614.114584ms)
+✔ actual API: stale editor keeps draft; lost acknowledgement retries the identical version/body (1166.615625ms)
+✔ actual API: explicit preset version, auto candidates and single-role preview remains unadmitted (1050.401667ms)
+✔ actual API: edit layer and version come from the same defaults response (927.4875ms)
+✔ actual API: malformed successful save acknowledgement freezes the identical retry (932.89475ms)
+✔ actual API: expired route never selects a replacement; global and project drafts stay separate (999.932167ms)
+✔ preset UI: creates five-role preset and revisions without changing defaults or old task source (1102.447833ms)
+✔ preset UI: stale loaded revision conflicts; committed but malformed acknowledgement retries identical body/tag/id (1279.311167ms)
+✔ preset UI: creation retry keeps its id/base after head advances and invalid selection/name blocks save (983.423083ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 21190.895625

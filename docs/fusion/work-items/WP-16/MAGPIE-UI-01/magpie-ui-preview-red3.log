@@ -1,0 +1,22 @@
+✖ successful synthetic server preview renders the actual role-indexed bindings without execution (3434.155292ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11675.643125
+
+✖ failing tests:
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:70:1
+✖ successful synthetic server preview renders the actual role-indexed bindings without execution (3434.155292ms)
+  locator.waitFor: Timeout 2000ms exceeded.
+  Call log:
+  [2m  - waiting for getByRole('status').filter({ hasText: '已核对冻结阶段计划' }) to be visible[22m
+
+      at TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:78:63) {
+    name: 'TimeoutError',
+    log: [ "  - waiting for getByRole('status').filter({ hasText: '已核对冻结阶段计划' }) to be visible" ]
+  }
