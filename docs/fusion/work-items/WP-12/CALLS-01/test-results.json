@@ -1,0 +1,52 @@
+{
+  "work_item": "WP-12-CALLS-01",
+  "base_commit": "d28abd8afee468e7f10cb43f0a03e841b03ee9a5",
+  "parent_status": "in_progress",
+  "checks": [
+    {
+      "log": "codex-calls-final-targeted.log",
+      "exit_code": 0,
+      "passed_top_level": 41,
+      "skipped_top_level": 0,
+      "failed_top_level": 0,
+      "passed_subtests": 127,
+      "race_detected": false
+    },
+    {
+      "log": "codex-calls-full.log",
+      "exit_code": 0,
+      "passed_top_level": 486,
+      "skipped_top_level": 24,
+      "failed_top_level": 0,
+      "passed_subtests": 835,
+      "race_detected": false
+    }
+  ],
+  "new_tests": {
+    "top_level": 16,
+    "passed_subtests": 93
+  },
+  "persistent_budget_oracle": {
+    "max_calls": 2,
+    "upstream_statuses": [
+      429,
+      200
+    ],
+    "third_request_status": 403,
+    "used_calls": 2,
+    "forwarded": 2,
+    "third_request_additional_spend": 0
+  },
+  "synthetic_inspection_and_forwarder": true,
+  "actual_native_http": false,
+  "real_model_calls": 0,
+  "real_login_calls": 0,
+  "route_generation_admitted": false,
+  "graph": {
+    "project": "fusion-development",
+    "nodes": 13774,
+    "edges": 121471
+  },
+  "jev": "off",
+  "final_acceptance": "not_run"
+}

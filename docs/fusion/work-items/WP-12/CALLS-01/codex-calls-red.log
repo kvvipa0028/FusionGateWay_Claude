@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/runtime/codex [github.com/yetone/magpie/internal/fusion/runtime/codex.test]
+internal/fusion/runtime/codex/call_gate_test.go:20:76: undefined: ForwardResponse
+internal/fusion/runtime/codex/call_gate_test.go:21:83: undefined: ForwardResponse
+internal/fusion/runtime/codex/call_gate_test.go:34:33: undefined: CallGateConfig
+internal/fusion/runtime/codex/call_gate_test.go:41:11: undefined: CallGateConfig
+internal/fusion/runtime/codex/call_gate_test.go:41: undefined: ForwardResponse
+internal/fusion/runtime/codex/call_gate_test.go:45:28: undefined: ForwardResponse
+internal/fusion/runtime/codex/call_gate_test.go:45:51: undefined: ForwardResponse
+internal/fusion/runtime/codex/call_gate_test.go:46:43: undefined: CallGate
+internal/fusion/runtime/codex/call_gate_test.go:47:14: undefined: CallGate
+internal/fusion/runtime/codex/call_gate_test.go:48:21: undefined: CallGate
+internal/fusion/runtime/codex/call_gate_test.go:45:51: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/codex [build failed]
+FAIL

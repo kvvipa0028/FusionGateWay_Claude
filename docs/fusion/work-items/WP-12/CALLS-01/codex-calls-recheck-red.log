@@ -1,0 +1,9 @@
+=== RUN   TestCodexCallGateChecksGrantAfterCurrentCallback
+    call_gate_test.go:364: revoked callback released output 200
+--- FAIL: TestCodexCallGateChecksGrantAfterCurrentCallback (0.00s)
+=== RUN   TestCodexCallGateRejectsUnfinishedAddedItem
+    call_gate_test.go:379: unfinished item ignored 200
+--- FAIL: TestCodexCallGateRejectsUnfinishedAddedItem (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/codex	0.635s
+FAIL

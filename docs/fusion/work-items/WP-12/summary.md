@@ -36,3 +36,7 @@ T01/T02/T14/T15/T25/T31/T32/T35/T44/T53/T59 的最终端到端状态继续为 `n
 ## 私有 Native 启动组件
 
 [NATIVE-ISOLATION-01](NATIVE-ISOLATION-01/summary.md) 实现固定 Codex 的专用只读偏好许可与受管双向 stdio，保留 MDM，拒绝 Keychain/其他偏好域/网络/fork。真实 Client+StdioPeer+Supervisor+Store 验证15场景、12次 Native、3类 intent 前拒绝；所有执行均 wait/StopProof/release，空账号/私有 home，登录、模型与额度请求0。另修复实际通知 `emittedAtMs` 被错误拒绝的问题。合同见 [Codex bootstrap](../../contracts/codex-bootstrap-channel.md)。完整父 WP-12、真实账号准入与最终 Gate 仍未完成。
+
+## 受控模型 HTTP 组件
+
+[CALLS-01](CALLS-01/summary.md) 增加 authenticated text-only Responses Gate，冻结 target/identity/effort，每次发送和429重试通过持久 Scheduler 预算；完整有界 SSE 与真实上游 ReportedModel 校验后才交付，未知工具/事件、未完成项、漂移和凭据反射均拒绝。仅合成 transport/准入验证；未接入实际 Native HTTP，不开放原生生成或真实订阅路线。合同见 [codex-call-gate.md](../../contracts/codex-call-gate.md)。父 WP-12 与最终 Gate仍未完成。

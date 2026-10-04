@@ -1,0 +1,6 @@
+=== RUN   TestCodexCallGateRejectsTextDeltaAttachedToReasoning
+    call_gate_test.go:622: text attached to reasoning escaped 200
+--- FAIL: TestCodexCallGateRejectsTextDeltaAttachedToReasoning (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/codex	0.622s
+FAIL

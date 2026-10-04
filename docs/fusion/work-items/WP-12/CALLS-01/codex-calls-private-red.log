@@ -1,0 +1,9 @@
+=== RUN   TestCodexCallGateRejectsInvalidUTF8AnywhereInStream
+    call_gate_test.go:596: invalid UTF8 escaped through comment 200
+--- FAIL: TestCodexCallGateRejectsInvalidUTF8AnywhereInStream (0.00s)
+=== RUN   TestCodexForwardResponseCannotSerializePrivatePayload
+    call_gate_test.go:608: private payload escaped DTO/format
+--- FAIL: TestCodexForwardResponseCannotSerializePrivatePayload (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/codex	0.617s
+FAIL

@@ -1,0 +1,29 @@
+{
+  "base_commit": "d28abd8afee468e7f10cb43f0a03e841b03ee9a5",
+  "source_files_sha256": {
+    "docs/fusion/README.md": "f04a0d33cf081bd39315fd238c7d64e962df4365d2035fe031050145bd284b73",
+    "docs/fusion/contracts/codex-call-gate.md": "6f14b6f9323d3c04076ea2639ed0727471e6007261001ac7a5a996d252301939",
+    "docs/fusion/work-items/WP-12/summary.md": "835ce4721c05ab50640040adad28a276926ab6f40432045b6a294b20889b35fb",
+    "docs/fusion/work-items/WP-12/codex-lock-capability.md": "83ef1a3969611604bc12fefd900934bcad4bcdef77e306945a31b1f04c9a8217",
+    "internal/fusion/runtime/codex/call_gate.go": "140bbeed5a9c1d0df7e7f70b4c9e916c612ea1034e9f6287937da9e0a57b19d0",
+    "internal/fusion/runtime/codex/call_gate_store_test.go": "749220870834be9fa87861859f5ba572f1d2d432f3c923d6446c5f5531844e96",
+    "internal/fusion/runtime/codex/call_gate_test.go": "c387a2a88179a378c778576b8db5e0ab6f240f65cb1c7a44df6ac754a286fd35",
+    "internal/fusion/runtime/codex/responses_stream.go": "2e7e7a3efd665dd7e0f4e1fdd013ecd56877142938dc3b9ce5dab7071e73949b"
+  },
+  "packet_files_sha256": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "d0deada1487bb366aee61ff84936444f1fe55d88285ec3af56d9ea93a9832811",
+    "build-results.json": "7e345e1b75edf7bc065b8eb0cf592f694de2ce9371698c7dd72a2383ddf39d67",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "codex-calls-final-targeted.log": "68bbfea731e7b129c857e8b895c3261cbd0d3f222bdc70dfaedb9dcf819c2e44",
+    "codex-calls-full.log": "10e193be4cf5872917db9803b96ebb12806e700633be44e7578364a1a6a058d0",
+    "codex-calls-green-initial.log": "22ae351d037e69378327b775b7d403ddc648a843a4785ff1dd8c7263fb4ccf8e",
+    "codex-calls-item-red.log": "7c1fcbe1b35b8bb415718e34b0fb354d4e6aec0d959c5fd2e483e7106a39c655",
+    "codex-calls-private-red.log": "7b293fe57f05172afea0b353f11df4e8f681ba485d3f8fbee5a97023ec5aef19",
+    "codex-calls-recheck-red.log": "a6f94461de073d5b0153828767760028b76bb5518fa390375b4119f14f570d23",
+    "codex-calls-red.log": "c9074f84e8c92e2f3ec2c436cc187f42e3fb6db258a47b8e97b39e2e479f89f2",
+    "reference-sha256.json": "03cdf8b4c94d4ad42d6cafc836eb8f1d53cfece74e3a8fd27d445d91a9838b56",
+    "summary.md": "29f1086425ec29d315b18bd6a4da270d68998f65835029239c3f869c0145d9dd",
+    "test-results.json": "ef6a0beaff1275ef4245a0b74c345f3e9bcaba617f48d20c106ea635ef2a1e44"
+  }
+}

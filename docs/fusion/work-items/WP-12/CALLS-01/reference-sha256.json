@@ -1,0 +1,22 @@
+{
+  "reference_tag": "rust-v0.160.0",
+  "source_reference_only": true,
+  "references": [
+    {
+      "url": "https://github.com/openai/codex/blob/rust-v0.160.0/codex-rs/codex-api/src/common.rs",
+      "sha256": "1b01d4b2d7784c67e302b38d5b44aaa5ff733d8b575fb776cc4e2902ccb3a14c"
+    },
+    {
+      "url": "https://github.com/openai/codex/blob/rust-v0.160.0/codex-rs/codex-api/src/endpoint/responses.rs",
+      "sha256": "4f2fff3da4ca3ca9fcfa40ada8e98a0229af296094e03febb4d823f32ef932c8"
+    },
+    {
+      "url": "https://github.com/openai/codex/blob/rust-v0.160.0/codex-rs/codex-api/src/sse/responses.rs",
+      "sha256": "327127fb7e6886b0ffe73c74c753cc44b2c09e72c090600a861756334397cd2b"
+    },
+    {
+      "url": "https://github.com/openai/codex/blob/rust-v0.160.0/codex-rs/app-server-protocol/src/protocol/common.rs",
+      "sha256": "d0cca691d21ffe282d3ca3d8ca9eaee8afe9aab058b04a3d4ef579f72a6918c7"
+    }
+  ]
+}

@@ -1,0 +1,338 @@
+=== RUN   TestCodexCallGatePersistentBudgetCountsFailedAttemptAndRetry
+--- PASS: TestCodexCallGatePersistentBudgetCountsFailedAttemptAndRetry (0.10s)
+=== RUN   TestCodexCallGateRechecksPersistentInspection
+=== RUN   TestCodexCallGateRechecksPersistentInspection/quota
+=== RUN   TestCodexCallGateRechecksPersistentInspection/permission
+=== RUN   TestCodexCallGateRechecksPersistentInspection/proof
+--- PASS: TestCodexCallGateRechecksPersistentInspection (0.21s)
+    --- PASS: TestCodexCallGateRechecksPersistentInspection/quota (0.07s)
+    --- PASS: TestCodexCallGateRechecksPersistentInspection/permission (0.07s)
+    --- PASS: TestCodexCallGateRechecksPersistentInspection/proof (0.07s)
+=== RUN   TestCodexCallGateSpendsEverySendAndRetry
+--- PASS: TestCodexCallGateSpendsEverySendAndRetry (0.00s)
+=== RUN   TestCodexCallGateRejectsInvalidRequestsBeforeSpend
+=== RUN   TestCodexCallGateRejectsInvalidRequestsBeforeSpend/model
+=== RUN   TestCodexCallGateRejectsInvalidRequestsBeforeSpend/effort
+=== RUN   TestCodexCallGateRejectsInvalidRequestsBeforeSpend/duplicate
+=== RUN   TestCodexCallGateRejectsInvalidRequestsBeforeSpend/alias
+=== RUN   TestCodexCallGateRejectsInvalidRequestsBeforeSpend/unknown
+=== RUN   TestCodexCallGateRejectsInvalidRequestsBeforeSpend/tool
+=== RUN   TestCodexCallGateRejectsInvalidRequestsBeforeSpend/history_tool
+=== RUN   TestCodexCallGateRejectsInvalidRequestsBeforeSpend/summary
+=== RUN   TestCodexCallGateRejectsInvalidRequestsBeforeSpend/stored
+=== RUN   TestCodexCallGateRejectsInvalidRequestsBeforeSpend/nonstream
+=== RUN   TestCodexCallGateRejectsInvalidRequestsBeforeSpend/include
+=== RUN   TestCodexCallGateRejectsInvalidRequestsBeforeSpend/role
+=== RUN   TestCodexCallGateRejectsInvalidRequestsBeforeSpend/image
+=== RUN   TestCodexCallGateRejectsInvalidRequestsBeforeSpend/null
+=== RUN   TestCodexCallGateRejectsInvalidRequestsBeforeSpend/service_tier
+=== RUN   TestCodexCallGateRejectsInvalidRequestsBeforeSpend/metadata
+=== RUN   TestCodexCallGateRejectsInvalidRequestsBeforeSpend/query
+=== RUN   TestCodexCallGateRejectsInvalidRequestsBeforeSpend/absolute
+=== RUN   TestCodexCallGateRejectsInvalidRequestsBeforeSpend/compact
+=== RUN   TestCodexCallGateRejectsInvalidRequestsBeforeSpend/encoded_path
+=== RUN   TestCodexCallGateRejectsInvalidRequestsBeforeSpend/gzip
+=== RUN   TestCodexCallGateRejectsInvalidRequestsBeforeSpend/get
+=== RUN   TestCodexCallGateRejectsInvalidRequestsBeforeSpend/oversize
+=== RUN   TestCodexCallGateRejectsInvalidRequestsBeforeSpend/trailing
+=== RUN   TestCodexCallGateRejectsInvalidRequestsBeforeSpend/subagent
+=== RUN   TestCodexCallGateRejectsInvalidRequestsBeforeSpend/stage_reflection
+=== RUN   TestCodexCallGateRejectsInvalidRequestsBeforeSpend/escaped_reflection
+--- PASS: TestCodexCallGateRejectsInvalidRequestsBeforeSpend (0.02s)
+    --- PASS: TestCodexCallGateRejectsInvalidRequestsBeforeSpend/model (0.00s)
+    --- PASS: TestCodexCallGateRejectsInvalidRequestsBeforeSpend/effort (0.00s)
+    --- PASS: TestCodexCallGateRejectsInvalidRequestsBeforeSpend/duplicate (0.00s)
+    --- PASS: TestCodexCallGateRejectsInvalidRequestsBeforeSpend/alias (0.00s)
+    --- PASS: TestCodexCallGateRejectsInvalidRequestsBeforeSpend/unknown (0.00s)
+    --- PASS: TestCodexCallGateRejectsInvalidRequestsBeforeSpend/tool (0.00s)
+    --- PASS: TestCodexCallGateRejectsInvalidRequestsBeforeSpend/history_tool (0.00s)
+    --- PASS: TestCodexCallGateRejectsInvalidRequestsBeforeSpend/summary (0.00s)
+    --- PASS: TestCodexCallGateRejectsInvalidRequestsBeforeSpend/stored (0.00s)
+    --- PASS: TestCodexCallGateRejectsInvalidRequestsBeforeSpend/nonstream (0.00s)
+    --- PASS: TestCodexCallGateRejectsInvalidRequestsBeforeSpend/include (0.00s)
+    --- PASS: TestCodexCallGateRejectsInvalidRequestsBeforeSpend/role (0.00s)
+    --- PASS: TestCodexCallGateRejectsInvalidRequestsBeforeSpend/image (0.00s)
+    --- PASS: TestCodexCallGateRejectsInvalidRequestsBeforeSpend/null (0.00s)
+    --- PASS: TestCodexCallGateRejectsInvalidRequestsBeforeSpend/service_tier (0.00s)
+    --- PASS: TestCodexCallGateRejectsInvalidRequestsBeforeSpend/metadata (0.00s)
+    --- PASS: TestCodexCallGateRejectsInvalidRequestsBeforeSpend/query (0.00s)
+    --- PASS: TestCodexCallGateRejectsInvalidRequestsBeforeSpend/absolute (0.00s)
+    --- PASS: TestCodexCallGateRejectsInvalidRequestsBeforeSpend/compact (0.00s)
+    --- PASS: TestCodexCallGateRejectsInvalidRequestsBeforeSpend/encoded_path (0.00s)
+    --- PASS: TestCodexCallGateRejectsInvalidRequestsBeforeSpend/gzip (0.00s)
+    --- PASS: TestCodexCallGateRejectsInvalidRequestsBeforeSpend/get (0.00s)
+    --- PASS: TestCodexCallGateRejectsInvalidRequestsBeforeSpend/oversize (0.00s)
+    --- PASS: TestCodexCallGateRejectsInvalidRequestsBeforeSpend/trailing (0.00s)
+    --- PASS: TestCodexCallGateRejectsInvalidRequestsBeforeSpend/subagent (0.00s)
+    --- PASS: TestCodexCallGateRejectsInvalidRequestsBeforeSpend/stage_reflection (0.00s)
+    --- PASS: TestCodexCallGateRejectsInvalidRequestsBeforeSpend/escaped_reflection (0.00s)
+=== RUN   TestCodexCallGateAuthenticationDoesNotPoisonRun
+=== RUN   TestCodexCallGateAuthenticationDoesNotPoisonRun/token
+=== RUN   TestCodexCallGateAuthenticationDoesNotPoisonRun/management
+=== RUN   TestCodexCallGateAuthenticationDoesNotPoisonRun/duplicate
+=== RUN   TestCodexCallGateAuthenticationDoesNotPoisonRun/origin
+--- PASS: TestCodexCallGateAuthenticationDoesNotPoisonRun (0.01s)
+    --- PASS: TestCodexCallGateAuthenticationDoesNotPoisonRun/token (0.00s)
+    --- PASS: TestCodexCallGateAuthenticationDoesNotPoisonRun/management (0.00s)
+    --- PASS: TestCodexCallGateAuthenticationDoesNotPoisonRun/duplicate (0.00s)
+    --- PASS: TestCodexCallGateAuthenticationDoesNotPoisonRun/origin (0.00s)
+=== RUN   TestCodexCallGateRechecksAfterSpendAndOutput
+=== RUN   TestCodexCallGateRechecksAfterSpendAndOutput/permit
+=== RUN   TestCodexCallGateRechecksAfterSpendAndOutput/revoked
+=== RUN   TestCodexCallGateRechecksAfterSpendAndOutput/identity
+=== RUN   TestCodexCallGateRechecksAfterSpendAndOutput/send_drift
+=== RUN   TestCodexCallGateRechecksAfterSpendAndOutput/body_drift
+=== RUN   TestCodexCallGateRechecksAfterSpendAndOutput/transport
+=== RUN   TestCodexCallGateRechecksAfterSpendAndOutput/mutate
+--- PASS: TestCodexCallGateRechecksAfterSpendAndOutput (0.01s)
+    --- PASS: TestCodexCallGateRechecksAfterSpendAndOutput/permit (0.00s)
+    --- PASS: TestCodexCallGateRechecksAfterSpendAndOutput/revoked (0.00s)
+    --- PASS: TestCodexCallGateRechecksAfterSpendAndOutput/identity (0.00s)
+    --- PASS: TestCodexCallGateRechecksAfterSpendAndOutput/send_drift (0.00s)
+    --- PASS: TestCodexCallGateRechecksAfterSpendAndOutput/body_drift (0.00s)
+    --- PASS: TestCodexCallGateRechecksAfterSpendAndOutput/transport (0.00s)
+    --- PASS: TestCodexCallGateRechecksAfterSpendAndOutput/mutate (0.00s)
+=== RUN   TestCodexCallGateNeverReleasesUnsafePartialResponse
+=== RUN   TestCodexCallGateNeverReleasesUnsafePartialResponse/model
+=== RUN   TestCodexCallGateNeverReleasesUnsafePartialResponse/reported_model
+=== RUN   TestCodexCallGateNeverReleasesUnsafePartialResponse/missing_model
+=== RUN   TestCodexCallGateNeverReleasesUnsafePartialResponse/missing_terminal
+=== RUN   TestCodexCallGateNeverReleasesUnsafePartialResponse/failed
+=== RUN   TestCodexCallGateNeverReleasesUnsafePartialResponse/unknown
+=== RUN   TestCodexCallGateNeverReleasesUnsafePartialResponse/tool
+=== RUN   TestCodexCallGateNeverReleasesUnsafePartialResponse/duplicate
+=== RUN   TestCodexCallGateNeverReleasesUnsafePartialResponse/terminal_id
+=== RUN   TestCodexCallGateNeverReleasesUnsafePartialResponse/output_mismatch
+=== RUN   TestCodexCallGateNeverReleasesUnsafePartialResponse/usage
+=== RUN   TestCodexCallGateNeverReleasesUnsafePartialResponse/encoding
+=== RUN   TestCodexCallGateNeverReleasesUnsafePartialResponse/status
+=== RUN   TestCodexCallGateNeverReleasesUnsafePartialResponse/event_name
+=== RUN   TestCodexCallGateNeverReleasesUnsafePartialResponse/extra_terminal
+=== RUN   TestCodexCallGateNeverReleasesUnsafePartialResponse/unterminated
+=== RUN   TestCodexCallGateNeverReleasesUnsafePartialResponse/stage_reflection
+=== RUN   TestCodexCallGateNeverReleasesUnsafePartialResponse/escaped_reflection
+=== RUN   TestCodexCallGateNeverReleasesUnsafePartialResponse/credential_reflection
+=== RUN   TestCodexCallGateNeverReleasesUnsafePartialResponse/oversize
+--- PASS: TestCodexCallGateNeverReleasesUnsafePartialResponse (0.03s)
+    --- PASS: TestCodexCallGateNeverReleasesUnsafePartialResponse/model (0.00s)
+    --- PASS: TestCodexCallGateNeverReleasesUnsafePartialResponse/reported_model (0.00s)
+    --- PASS: TestCodexCallGateNeverReleasesUnsafePartialResponse/missing_model (0.00s)
+    --- PASS: TestCodexCallGateNeverReleasesUnsafePartialResponse/missing_terminal (0.00s)
+    --- PASS: TestCodexCallGateNeverReleasesUnsafePartialResponse/failed (0.00s)
+    --- PASS: TestCodexCallGateNeverReleasesUnsafePartialResponse/unknown (0.00s)
+    --- PASS: TestCodexCallGateNeverReleasesUnsafePartialResponse/tool (0.00s)
+    --- PASS: TestCodexCallGateNeverReleasesUnsafePartialResponse/duplicate (0.00s)
+    --- PASS: TestCodexCallGateNeverReleasesUnsafePartialResponse/terminal_id (0.00s)
+    --- PASS: TestCodexCallGateNeverReleasesUnsafePartialResponse/output_mismatch (0.00s)
+    --- PASS: TestCodexCallGateNeverReleasesUnsafePartialResponse/usage (0.00s)
+    --- PASS: TestCodexCallGateNeverReleasesUnsafePartialResponse/encoding (0.00s)
+    --- PASS: TestCodexCallGateNeverReleasesUnsafePartialResponse/status (0.00s)
+    --- PASS: TestCodexCallGateNeverReleasesUnsafePartialResponse/event_name (0.00s)
+    --- PASS: TestCodexCallGateNeverReleasesUnsafePartialResponse/extra_terminal (0.00s)
+    --- PASS: TestCodexCallGateNeverReleasesUnsafePartialResponse/unterminated (0.00s)
+    --- PASS: TestCodexCallGateNeverReleasesUnsafePartialResponse/stage_reflection (0.00s)
+    --- PASS: TestCodexCallGateNeverReleasesUnsafePartialResponse/escaped_reflection (0.00s)
+    --- PASS: TestCodexCallGateNeverReleasesUnsafePartialResponse/credential_reflection (0.00s)
+    --- PASS: TestCodexCallGateNeverReleasesUnsafePartialResponse/oversize (0.02s)
+=== RUN   TestCodexCallGateChecksGrantAfterCurrentCallback
+--- PASS: TestCodexCallGateChecksGrantAfterCurrentCallback (0.00s)
+=== RUN   TestCodexCallGateRejectsUnfinishedAddedItem
+--- PASS: TestCodexCallGateRejectsUnfinishedAddedItem (0.00s)
+=== RUN   TestCodexCallGateRequiresFrozenControllerBinding
+=== RUN   TestCodexCallGateRequiresFrozenControllerBinding/manager
+=== RUN   TestCodexCallGateRequiresFrozenControllerBinding/current
+=== RUN   TestCodexCallGateRequiresFrozenControllerBinding/permit
+=== RUN   TestCodexCallGateRequiresFrozenControllerBinding/forwarder
+=== RUN   TestCodexCallGateRequiresFrozenControllerBinding/account
+=== RUN   TestCodexCallGateRequiresFrozenControllerBinding/identity
+=== RUN   TestCodexCallGateRequiresFrozenControllerBinding/scope
+=== RUN   TestCodexCallGateRequiresFrozenControllerBinding/claims
+=== RUN   TestCodexCallGateRequiresFrozenControllerBinding/audience
+=== RUN   TestCodexCallGateRequiresFrozenControllerBinding/revision
+=== RUN   TestCodexCallGateRequiresFrozenControllerBinding/version
+=== RUN   TestCodexCallGateRequiresFrozenControllerBinding/billing
+=== RUN   TestCodexCallGateRequiresFrozenControllerBinding/plugin
+=== RUN   TestCodexCallGateRequiresFrozenControllerBinding/lock
+=== RUN   TestCodexCallGateRequiresFrozenControllerBinding/effort
+=== RUN   TestCodexCallGateRequiresFrozenControllerBinding/path
+=== RUN   TestCodexCallGateRequiresFrozenControllerBinding/role
+--- PASS: TestCodexCallGateRequiresFrozenControllerBinding (0.01s)
+    --- PASS: TestCodexCallGateRequiresFrozenControllerBinding/manager (0.00s)
+    --- PASS: TestCodexCallGateRequiresFrozenControllerBinding/current (0.00s)
+    --- PASS: TestCodexCallGateRequiresFrozenControllerBinding/permit (0.00s)
+    --- PASS: TestCodexCallGateRequiresFrozenControllerBinding/forwarder (0.00s)
+    --- PASS: TestCodexCallGateRequiresFrozenControllerBinding/account (0.00s)
+    --- PASS: TestCodexCallGateRequiresFrozenControllerBinding/identity (0.00s)
+    --- PASS: TestCodexCallGateRequiresFrozenControllerBinding/scope (0.00s)
+    --- PASS: TestCodexCallGateRequiresFrozenControllerBinding/claims (0.00s)
+    --- PASS: TestCodexCallGateRequiresFrozenControllerBinding/audience (0.00s)
+    --- PASS: TestCodexCallGateRequiresFrozenControllerBinding/revision (0.00s)
+    --- PASS: TestCodexCallGateRequiresFrozenControllerBinding/version (0.00s)
+    --- PASS: TestCodexCallGateRequiresFrozenControllerBinding/billing (0.00s)
+    --- PASS: TestCodexCallGateRequiresFrozenControllerBinding/plugin (0.00s)
+    --- PASS: TestCodexCallGateRequiresFrozenControllerBinding/lock (0.00s)
+    --- PASS: TestCodexCallGateRequiresFrozenControllerBinding/effort (0.00s)
+    --- PASS: TestCodexCallGateRequiresFrozenControllerBinding/path (0.00s)
+    --- PASS: TestCodexCallGateRequiresFrozenControllerBinding/role (0.00s)
+=== RUN   TestCodexCallGateSerializesSendsAndCancelsWaiter
+--- PASS: TestCodexCallGateSerializesSendsAndCancelsWaiter (0.00s)
+=== RUN   TestCodexCallGatePinnedTextStreamProjection
+=== RUN   TestCodexCallGatePinnedTextStreamProjection/delta
+=== RUN   TestCodexCallGatePinnedTextStreamProjection/crlf
+=== RUN   TestCodexCallGatePinnedTextStreamProjection/model_in_header
+=== RUN   TestCodexCallGatePinnedTextStreamProjection/reasoning
+=== RUN   TestCodexCallGatePinnedTextStreamProjection/assistant_history
+--- PASS: TestCodexCallGatePinnedTextStreamProjection (0.01s)
+    --- PASS: TestCodexCallGatePinnedTextStreamProjection/delta (0.00s)
+    --- PASS: TestCodexCallGatePinnedTextStreamProjection/crlf (0.00s)
+    --- PASS: TestCodexCallGatePinnedTextStreamProjection/model_in_header (0.00s)
+    --- PASS: TestCodexCallGatePinnedTextStreamProjection/reasoning (0.00s)
+    --- PASS: TestCodexCallGatePinnedTextStreamProjection/assistant_history (0.00s)
+=== RUN   TestCodexCallGateRejectsContradictoryTextStream
+=== RUN   TestCodexCallGateRejectsContradictoryTextStream/delta
+=== RUN   TestCodexCallGateRejectsContradictoryTextStream/sequence
+=== RUN   TestCodexCallGateRejectsContradictoryTextStream/output_index
+=== RUN   TestCodexCallGateRejectsContradictoryTextStream/item_id
+=== RUN   TestCodexCallGateRejectsContradictoryTextStream/part
+=== RUN   TestCodexCallGateRejectsContradictoryTextStream/done_text
+=== RUN   TestCodexCallGateRejectsContradictoryTextStream/tool_delta
+=== RUN   TestCodexCallGateRejectsContradictoryTextStream/empty_usage
+=== RUN   TestCodexCallGateRejectsContradictoryTextStream/negative_usage
+=== RUN   TestCodexCallGateRejectsContradictoryTextStream/reasoning_summary
+--- PASS: TestCodexCallGateRejectsContradictoryTextStream (0.01s)
+    --- PASS: TestCodexCallGateRejectsContradictoryTextStream/delta (0.00s)
+    --- PASS: TestCodexCallGateRejectsContradictoryTextStream/sequence (0.00s)
+    --- PASS: TestCodexCallGateRejectsContradictoryTextStream/output_index (0.00s)
+    --- PASS: TestCodexCallGateRejectsContradictoryTextStream/item_id (0.00s)
+    --- PASS: TestCodexCallGateRejectsContradictoryTextStream/part (0.00s)
+    --- PASS: TestCodexCallGateRejectsContradictoryTextStream/done_text (0.00s)
+    --- PASS: TestCodexCallGateRejectsContradictoryTextStream/tool_delta (0.00s)
+    --- PASS: TestCodexCallGateRejectsContradictoryTextStream/empty_usage (0.00s)
+    --- PASS: TestCodexCallGateRejectsContradictoryTextStream/negative_usage (0.00s)
+    --- PASS: TestCodexCallGateRejectsContradictoryTextStream/reasoning_summary (0.00s)
+=== RUN   TestCodexCallGateRejectsInvalidUTF8AnywhereInStream
+--- PASS: TestCodexCallGateRejectsInvalidUTF8AnywhereInStream (0.00s)
+=== RUN   TestCodexForwardResponseCannotSerializePrivatePayload
+--- PASS: TestCodexForwardResponseCannotSerializePrivatePayload (0.00s)
+=== RUN   TestCodexCallGateRejectsTextDeltaAttachedToReasoning
+--- PASS: TestCodexCallGateRejectsTextDeltaAttachedToReasoning (0.00s)
+=== RUN   TestProtocolMatchesPinnedSchemaValidatedVectors
+--- PASS: TestProtocolMatchesPinnedSchemaValidatedVectors (0.00s)
+=== RUN   TestProtocolPinsTargetAndUsesNativeTerminalState
+--- PASS: TestProtocolPinsTargetAndUsesNativeTerminalState (0.00s)
+=== RUN   TestUnverifiedRouteOrChangedIdentitySendsNoGeneration
+=== RUN   TestUnverifiedRouteOrChangedIdentitySendsNoGeneration/unverified
+=== RUN   TestUnverifiedRouteOrChangedIdentitySendsNoGeneration/account
+=== RUN   TestUnverifiedRouteOrChangedIdentitySendsNoGeneration/workspace
+=== RUN   TestUnverifiedRouteOrChangedIdentitySendsNoGeneration/credential
+=== RUN   TestUnverifiedRouteOrChangedIdentitySendsNoGeneration/generation
+=== RUN   TestUnverifiedRouteOrChangedIdentitySendsNoGeneration/scope
+--- PASS: TestUnverifiedRouteOrChangedIdentitySendsNoGeneration (0.00s)
+    --- PASS: TestUnverifiedRouteOrChangedIdentitySendsNoGeneration/unverified (0.00s)
+    --- PASS: TestUnverifiedRouteOrChangedIdentitySendsNoGeneration/account (0.00s)
+    --- PASS: TestUnverifiedRouteOrChangedIdentitySendsNoGeneration/workspace (0.00s)
+    --- PASS: TestUnverifiedRouteOrChangedIdentitySendsNoGeneration/credential (0.00s)
+    --- PASS: TestUnverifiedRouteOrChangedIdentitySendsNoGeneration/generation (0.00s)
+    --- PASS: TestUnverifiedRouteOrChangedIdentitySendsNoGeneration/scope (0.00s)
+=== RUN   TestNativeErrorAndInterruptedAreSanitized
+=== RUN   TestNativeErrorAndInterruptedAreSanitized/failed
+=== RUN   TestNativeErrorAndInterruptedAreSanitized/interrupted
+--- PASS: TestNativeErrorAndInterruptedAreSanitized (0.00s)
+    --- PASS: TestNativeErrorAndInterruptedAreSanitized/failed (0.00s)
+    --- PASS: TestNativeErrorAndInterruptedAreSanitized/interrupted (0.00s)
+=== RUN   TestResumeKeepsAccountAndEffortAndNeverInventsCapabilities
+--- PASS: TestResumeKeepsAccountAndEffortAndNeverInventsCapabilities (0.00s)
+=== RUN   TestRerouteNestedCallsAndStaleEventsBlockStrictStatus
+=== RUN   TestRerouteNestedCallsAndStaleEventsBlockStrictStatus/model/rerouted
+=== RUN   TestRerouteNestedCallsAndStaleEventsBlockStrictStatus/thread/compacted
+=== RUN   TestRerouteNestedCallsAndStaleEventsBlockStrictStatus/item/started
+--- PASS: TestRerouteNestedCallsAndStaleEventsBlockStrictStatus (0.00s)
+    --- PASS: TestRerouteNestedCallsAndStaleEventsBlockStrictStatus/model/rerouted (0.00s)
+    --- PASS: TestRerouteNestedCallsAndStaleEventsBlockStrictStatus/thread/compacted (0.00s)
+    --- PASS: TestRerouteNestedCallsAndStaleEventsBlockStrictStatus/item/started (0.00s)
+=== RUN   TestProtocolRejectsDuplicateKeysAndResolvedDrift
+=== RUN   TestProtocolRejectsDuplicateKeysAndResolvedDrift/model
+=== RUN   TestProtocolRejectsDuplicateKeysAndResolvedDrift/reasoningEffort
+=== RUN   TestProtocolRejectsDuplicateKeysAndResolvedDrift/modelProvider
+=== RUN   TestProtocolRejectsDuplicateKeysAndResolvedDrift/cwd
+--- PASS: TestProtocolRejectsDuplicateKeysAndResolvedDrift (0.00s)
+    --- PASS: TestProtocolRejectsDuplicateKeysAndResolvedDrift/model (0.00s)
+    --- PASS: TestProtocolRejectsDuplicateKeysAndResolvedDrift/reasoningEffort (0.00s)
+    --- PASS: TestProtocolRejectsDuplicateKeysAndResolvedDrift/modelProvider (0.00s)
+    --- PASS: TestProtocolRejectsDuplicateKeysAndResolvedDrift/cwd (0.00s)
+=== RUN   TestUnacknowledgedTurnCannotBeBlindlyReplayed
+--- PASS: TestUnacknowledgedTurnCannotBeBlindlyReplayed (0.00s)
+=== RUN   TestMissingNativeItemsOrContradictoryErrorCannotSucceed
+--- PASS: TestMissingNativeItemsOrContradictoryErrorCannotSucceed (0.00s)
+=== RUN   TestFiveRolesUseApprovedNativeWriteBoundary
+=== RUN   TestFiveRolesUseApprovedNativeWriteBoundary/design
+=== RUN   TestFiveRolesUseApprovedNativeWriteBoundary/implementation
+=== RUN   TestFiveRolesUseApprovedNativeWriteBoundary/testing
+=== RUN   TestFiveRolesUseApprovedNativeWriteBoundary/review
+=== RUN   TestFiveRolesUseApprovedNativeWriteBoundary/acceptance
+--- PASS: TestFiveRolesUseApprovedNativeWriteBoundary (0.00s)
+    --- PASS: TestFiveRolesUseApprovedNativeWriteBoundary/design (0.00s)
+    --- PASS: TestFiveRolesUseApprovedNativeWriteBoundary/implementation (0.00s)
+    --- PASS: TestFiveRolesUseApprovedNativeWriteBoundary/testing (0.00s)
+    --- PASS: TestFiveRolesUseApprovedNativeWriteBoundary/review (0.00s)
+    --- PASS: TestFiveRolesUseApprovedNativeWriteBoundary/acceptance (0.00s)
+=== RUN   TestInitializeRequiresExactVersionAndExplicitLogin
+--- PASS: TestInitializeRequiresExactVersionAndExplicitLogin (0.00s)
+=== RUN   TestThreadStartupRequiresAdmissionAndExplicitNetworkPolicy
+--- PASS: TestThreadStartupRequiresAdmissionAndExplicitNetworkPolicy (0.00s)
+=== RUN   TestHiddenCallsInItemsOrCompletionCannotSucceed
+--- PASS: TestHiddenCallsInItemsOrCompletionCannotSucceed (0.01s)
+=== RUN   TestInitializeCannotBorrowOtherNativeHome
+--- PASS: TestInitializeCannotBorrowOtherNativeHome (0.00s)
+=== RUN   TestUnknownItemOrReadonlyFileChangeMakesExecutionUncertain
+--- PASS: TestUnknownItemOrReadonlyFileChangeMakesExecutionUncertain (0.00s)
+=== RUN   TestDecodeRejectsUnicodeCaseAliasesAndInvalidUTF8
+--- PASS: TestDecodeRejectsUnicodeCaseAliasesAndInvalidUTF8 (0.00s)
+=== RUN   TestStdioCorrelatesResponseAndSeparatesNotifications
+--- PASS: TestStdioCorrelatesResponseAndSeparatesNotifications (0.00s)
+=== RUN   TestStdioPinnedNotificationTimestamp
+=== RUN   TestStdioPinnedNotificationTimestamp/0
+=== RUN   TestStdioPinnedNotificationTimestamp/1234
+=== RUN   TestStdioPinnedNotificationTimestamp/9223372036854775807
+=== RUN   TestStdioPinnedNotificationTimestamp/-9223372036854775808
+=== RUN   TestStdioPinnedNotificationTimestamp/null
+=== RUN   TestStdioPinnedNotificationTimestamp/-1
+=== RUN   TestStdioPinnedNotificationTimestamp/1.5
+=== RUN   TestStdioPinnedNotificationTimestamp/"1234"
+=== RUN   TestStdioPinnedNotificationTimestamp/9223372036854775808
+=== RUN   TestStdioPinnedNotificationTimestamp/-9223372036854775809
+=== RUN   TestStdioPinnedNotificationTimestamp/{}
+--- PASS: TestStdioPinnedNotificationTimestamp (0.00s)
+    --- PASS: TestStdioPinnedNotificationTimestamp/0 (0.00s)
+    --- PASS: TestStdioPinnedNotificationTimestamp/1234 (0.00s)
+    --- PASS: TestStdioPinnedNotificationTimestamp/9223372036854775807 (0.00s)
+    --- PASS: TestStdioPinnedNotificationTimestamp/-9223372036854775808 (0.00s)
+    --- PASS: TestStdioPinnedNotificationTimestamp/null (0.00s)
+    --- PASS: TestStdioPinnedNotificationTimestamp/-1 (0.00s)
+    --- PASS: TestStdioPinnedNotificationTimestamp/1.5 (0.00s)
+    --- PASS: TestStdioPinnedNotificationTimestamp/"1234" (0.00s)
+    --- PASS: TestStdioPinnedNotificationTimestamp/9223372036854775808 (0.00s)
+    --- PASS: TestStdioPinnedNotificationTimestamp/-9223372036854775809 (0.00s)
+    --- PASS: TestStdioPinnedNotificationTimestamp/{} (0.00s)
+=== RUN   TestStdioDeclinesServerPermissionRequests
+--- PASS: TestStdioDeclinesServerPermissionRequests (0.00s)
+=== RUN   TestStdioBadCorrelationOrDuplicateReplyClosesTransport
+=== RUN   TestStdioBadCorrelationOrDuplicateReplyClosesTransport/{"id":2,"result":{}}
+=== RUN   TestStdioBadCorrelationOrDuplicateReplyClosesTransport/{"id":1,"result":{},"result":{"secret":"fixture"}}
+=== RUN   TestStdioBadCorrelationOrDuplicateReplyClosesTransport/{"id":1,"error":{"message":"fixture_secret"}}
+--- PASS: TestStdioBadCorrelationOrDuplicateReplyClosesTransport (0.00s)
+    --- PASS: TestStdioBadCorrelationOrDuplicateReplyClosesTransport/{"id":2,"result":{}} (0.00s)
+    --- PASS: TestStdioBadCorrelationOrDuplicateReplyClosesTransport/{"id":1,"result":{},"result":{"secret":"fixture"}} (0.00s)
+    --- PASS: TestStdioBadCorrelationOrDuplicateReplyClosesTransport/{"id":1,"error":{"message":"fixture_secret"}} (0.00s)
+=== RUN   TestStdioTimeoutMakesLostAckNonRetryable
+--- PASS: TestStdioTimeoutMakesLostAckNonRetryable (0.02s)
+=== RUN   TestStdioRejectsWrongScopeAndManagementMethodsWithoutWrite
+--- PASS: TestStdioRejectsWrongScopeAndManagementMethodsWithoutWrite (0.01s)
+=== RUN   TestStdioFinalResponseSurvivesImmediateEOF
+--- PASS: TestStdioFinalResponseSurvivesImmediateEOF (0.00s)
+=== RUN   TestStdioOversizeOrUndrainedNotificationsRevokeTransport
+--- PASS: TestStdioOversizeOrUndrainedNotificationsRevokeTransport (0.00s)
+=== RUN   TestStdioUnansweredServerRequestCannotHangIdlePeer
+--- PASS: TestStdioUnansweredServerRequestCannotHangIdlePeer (1.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime/codex	3.165s
