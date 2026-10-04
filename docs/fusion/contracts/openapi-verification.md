@@ -65,3 +65,6 @@ python3 scripts/fusion/check-openapi.py \
 新增 [PROJECT-INDEX-01](../work-items/WP-15/PROJECT-INDEX-01/summary.md) 的只读项目发现列表已纳入最新合同和样本；最小字段、128容量、默认层版本更新、读取后撤销与真实loopback来源撤销由独立测试证明，不授予真实路线准入。
 
 最新 [TASK-INDEX-01](../work-items/WP-15/TASK-INDEX-01/summary.md) 纳入两个只读任务分页路径和 7 份实际 Handler 样本。当前 29 paths/33 operations/63 samples，保留 9 项输入与 5 项项目响应反例，另增加 7 项任务页响应反例。前文各旧数量是对应历史组件结果；可信 Native GET 通路已验证，工作台消费者及真实 Factory 准入仍待完成。
+
+
+[SUBMISSION-RECEIPT-01](../work-items/WP-15/SUBMISSION-RECEIPT-01/summary.md) 新增无进程内预览的新 Server 原提交回读样本，合同当前为 29 paths/33 operations/64 samples，生产注册仍 false。提交 201 返回同一任务的当前 Task；持久回执不是原创建时状态快照，也不授予执行准入。窗口关闭后的原请求恢复仍未完成。

@@ -344,7 +344,7 @@ func TestMigrationThreePreservesVersionTwoAndRejectsChecksumDrift(t *testing.T) 
 	var version int
 	s.db.QueryRow("PRAGMA user_version").Scan(&version)
 	limit, _ := s.Capacity()
-	if version != 5 || limit != 4 {
+	if version != 6 || limit != 4 {
 		t.Fatal("migration lost existing policy")
 	}
 	task, e := s.Task("fixture-v2-task")

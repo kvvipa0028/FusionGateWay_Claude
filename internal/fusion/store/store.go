@@ -33,6 +33,9 @@ var migrationFour string
 
 //go:embed migrations/005.sql
 var migrationFive string
+
+//go:embed migrations/006.sql
+var migrationSix string
 var (
 	ErrConflict         = errors.New("store conflict")
 	ErrFenced           = errors.New("execution fenced")
@@ -158,7 +161,7 @@ func Open(root string) (*Store, error) {
 		}); e != nil {
 			return fail(e)
 		}
-	} else if version != 1 && version != 2 && version != 3 && version != 4 && version != 5 {
+	} else if version != 1 && version != 2 && version != 3 && version != 4 && version != 5 && version != 6 {
 		return fail(ErrUnsupported)
 	}
 	var checksum string
@@ -219,6 +222,20 @@ func Open(root string) (*Store, error) {
 		}
 	}
 	if e = s.db.QueryRow("SELECT value FROM metadata WHERE key='migration_005_sha256'").Scan(&checksum); e != nil || checksum != hash([]byte(migrationFive)) {
+		return fail(ErrUnsupported)
+	}
+	if version < 6 {
+		if e = s.transaction(func(tx *sql.Tx) error {
+			if _, e := tx.Exec(migrationSix); e != nil {
+				return e
+			}
+			_, e := tx.Exec("INSERT INTO metadata VALUES('migration_006_sha256',?)", hash([]byte(migrationSix)))
+			return e
+		}); e != nil {
+			return fail(e)
+		}
+	}
+	if e = s.db.QueryRow("SELECT value FROM metadata WHERE key='migration_006_sha256'").Scan(&checksum); e != nil || checksum != hash([]byte(migrationSix)) {
 		return fail(ErrUnsupported)
 	}
 	if e = s.recover(); e != nil {
@@ -314,10 +331,10 @@ func event(tx *sql.Tx, t string, kind, run string, gen int64) error {
 	return e
 }
 func (s *Store) Create(key string, in CreateRequest) (Task, error) {
-	return s.create(key, in, nil)
+	return s.create(key, in, nil, nil)
 }
 func (s *Store) CreateCurrent(key string, in CreateRequest, expected DefaultStamp) (Task, error) {
-	return s.create(key, in, &expected)
+	return s.create(key, in, &expected, nil)
 }
 func creationPayload(key string, in CreateRequest) (CreateRequest, string, error) {
 	if !opaque(key) || !opaque(in.ProjectID) || in.Goal == "" || len(in.Goal) > 65536 || in.Plan.Revision != 1 || stageplan.VerifySnapshot(in.Plan) != nil {
@@ -369,7 +386,7 @@ func (s *Store) LookupCreation(key string, in CreateRequest) (Task, error) {
 	}
 	return taskIn(s.db, taskID)
 }
-func (s *Store) create(key string, in CreateRequest, expected *DefaultStamp) (Task, error) {
+func (s *Store) create(key string, in CreateRequest, expected *DefaultStamp, submission *creationSubmission) (Task, error) {
 	in, payloadHash, e := creationPayload(key, in)
 	if e != nil {
 		return Task{}, e
@@ -377,16 +394,36 @@ func (s *Store) create(key string, in CreateRequest, expected *DefaultStamp) (Ta
 	var result Task
 	e = s.transaction(func(tx *sql.Tx) error {
 		var oldHash, taskID string
+		if submission != nil {
+			var oldKey, oldProject, oldPlan string
+			e := tx.QueryRow("SELECT idempotency_key,project_id,plan_hash,payload_hash,task_id FROM task_submissions WHERE preview_id=?", submission.previewID).Scan(&oldKey, &oldProject, &oldPlan, &oldHash, &taskID)
+			if e == nil {
+				if oldKey != key || oldProject != in.ProjectID || oldPlan != in.Plan.Hash || oldHash != payloadHash {
+					return ErrConflict
+				}
+				result, e = taskIn(tx, taskID)
+				return e
+			}
+			if !errors.Is(e, sql.ErrNoRows) {
+				return e
+			}
+		}
 		e := tx.QueryRow("SELECT payload_hash,task_id FROM idempotency WHERE project_id=? AND key=?", in.ProjectID, key).Scan(&oldHash, &taskID)
 		if e == nil {
 			if oldHash != payloadHash {
 				return ErrConflict
+			}
+			if e = saveSubmission(tx, submission, key, payloadHash, in, taskID); e != nil {
+				return e
 			}
 			result, e = taskIn(tx, taskID)
 			return e
 		}
 		if !errors.Is(e, sql.ErrNoRows) {
 			return e
+		}
+		if submission != nil && submission.existingOnly {
+			return ErrNotFound
 		}
 		if e = checkDefaults(tx, in.ProjectID, expected); e != nil {
 			return e
@@ -425,6 +462,9 @@ func (s *Store) create(key string, in CreateRequest, expected *DefaultStamp) (Ta
 			return e
 		}
 		if e = event(tx, taskID, "created", "", 0); e != nil {
+			return e
+		}
+		if e = saveSubmission(tx, submission, key, payloadHash, in, taskID); e != nil {
 			return e
 		}
 		result, e = taskIn(tx, taskID)

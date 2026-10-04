@@ -78,14 +78,12 @@ type SubmitRequest struct {
 	PlanHash  string `json:"plan_hash"`
 }
 type receipt struct {
-	preview   Preview
-	request   PreviewRequest
-	committed store.Task
-	key       string
-	taskID    string
-	base      int64
-	applied   bool
-	defaults  store.DefaultStamp
+	preview  Preview
+	request  PreviewRequest
+	taskID   string
+	base     int64
+	applied  bool
+	defaults store.DefaultStamp
 }
 type Server struct {
 	mu            sync.Mutex
@@ -220,26 +218,31 @@ func (s *Server) submit(in SubmitRequest, key string) (store.Task, error) {
 	}
 	s.mu.Lock()
 	defer s.mu.Unlock()
+	// The exact original submission survives receipt eviction and host restart.
+	// It proves creation only; it never authorizes execution or recompiles a plan.
+	if task, e := s.store.LookupSubmission(in.PreviewID, key, in.PlanHash); !errors.Is(e, store.ErrNotFound) {
+		if errors.Is(e, store.ErrConflict) {
+			return store.Task{}, errPreview
+		}
+		if e != nil {
+			return store.Task{}, e
+		}
+		if _, registered := s.projects[task.ProjectID]; !registered {
+			return store.Task{}, errProject
+		}
+		return task, nil
+	}
 	r, ok := s.previews[in.PreviewID]
 	if !ok || r.taskID != "" || r.preview.Plan.Hash != in.PlanHash {
 		return store.Task{}, errPreview
 	}
-	// Retry of an already committed receipt returns its task, even if global
-	// configuration changed. It neither recompiles nor starts a new attempt.
-	if r.committed.ID != "" {
-		if r.key != key {
-			return store.Task{}, errPreview
-		}
-		return s.store.Task(r.committed.ID)
+	if _, registered := s.projects[r.request.ProjectID]; !registered {
+		return store.Task{}, errProject
 	}
 	budget := store.Budget{MaxCalls: r.preview.Budget.MaxCalls, MaxReworks: r.preview.Budget.MaxReworks}
 	request := store.CreateRequest{ProjectID: r.request.ProjectID, Goal: r.request.Goal, Plan: r.preview.Plan, Budget: &budget, Preset: r.preview.Preset}
 	readCommitted := func() (store.Task, error) {
-		task, e := s.store.LookupCreation(key, request)
-		if e == nil {
-			r.committed, r.key = task, key
-		}
-		return task, e
+		return s.store.LookupCreationSubmission(in.PreviewID, key, request)
 	}
 	// A peer may have committed this exact request. Read its durable receipt
 	// before checking eligibility to create a new task.
@@ -257,15 +260,13 @@ func (s *Server) submit(in SubmitRequest, key string) (store.Task, error) {
 		}
 		return store.Task{}, errPreview
 	}
-	task, e := s.store.CreateCurrent(key, request, r.defaults)
+	task, e := s.store.CreateSubmission(in.PreviewID, key, request, r.defaults)
 	if errors.Is(e, store.ErrDefaultsChanged) {
 		return store.Task{}, errPreview
 	}
 	if e != nil {
 		return store.Task{}, e
 	}
-	r.committed = task
-	r.key = key
 	return task, nil
 }
 func failure(w http.ResponseWriter, e error) {
@@ -380,6 +381,12 @@ func (s *Server) Handler() http.Handler {
 				return
 			}
 			task, e := s.submit(in, values[0])
+			// Creation may already be committed; revoked callers get no receipt
+			// data and must reconcile the original request after reauthentication.
+			if !s.auth.ManagementCurrent(r.Context()) {
+				controlFailure(w, control.ErrForbidden)
+				return
+			}
 			if e != nil {
 				failure(w, e)
 				return

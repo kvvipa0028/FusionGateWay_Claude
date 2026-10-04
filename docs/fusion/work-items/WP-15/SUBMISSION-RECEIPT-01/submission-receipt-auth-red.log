@@ -1,0 +1,11 @@
+=== RUN   TestSubmissionReceiptDoesNotDiscloseAfterAuthorityRevokedDuringRead
+=== RUN   TestSubmissionReceiptDoesNotDiscloseAfterAuthorityRevokedDuringRead/revoke
+    submission_receipt_test.go:71: late authority disclosed task 201
+=== RUN   TestSubmissionReceiptDoesNotDiscloseAfterAuthorityRevokedDuringRead/cancel
+    submission_receipt_test.go:71: late authority disclosed task 201
+--- FAIL: TestSubmissionReceiptDoesNotDiscloseAfterAuthorityRevokedDuringRead (0.10s)
+    --- FAIL: TestSubmissionReceiptDoesNotDiscloseAfterAuthorityRevokedDuringRead/revoke (0.05s)
+    --- FAIL: TestSubmissionReceiptDoesNotDiscloseAfterAuthorityRevokedDuringRead/cancel (0.04s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/api	0.760s
+FAIL

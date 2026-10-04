@@ -1,0 +1,9 @@
+=== RUN   TestSubmissionReceiptSurvivesPreviewEviction
+    submission_receipt_test.go:37: evicted committed preview lost its receipt 409
+--- FAIL: TestSubmissionReceiptSurvivesPreviewEviction (0.05s)
+=== RUN   TestSubmissionReceiptSurvivesStoreReopenAndRequiresRegisteredProject
+    submission_receipt_test.go:88: unregistered project recovered 409
+--- FAIL: TestSubmissionReceiptSurvivesStoreReopenAndRequiresRegisteredProject (0.04s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/api	0.795s
+FAIL

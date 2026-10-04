@@ -318,9 +318,10 @@ func TestPreviewFailureHasSafeActionableReason(t *testing.T) {
 		t.Fatal("request leaked into error")
 	}
 }
-func TestControllerRestartRequiresNewPreviewAndPreservesTaskIdempotency(t *testing.T) {
+func TestControllerRestartRecoversCommittedSubmissionButNotUncommittedPreview(t *testing.T) {
 	_, st, h := setup(t)
 	p := preview(t, h)
+	uncommitted := preview(t, h)
 	first := submit(t, h, p, "fixture-key")
 	var task store.Task
 	json.Unmarshal(first.Body.Bytes(), &task)
@@ -332,8 +333,16 @@ func TestControllerRestartRequiresNewPreviewAndPreservesTaskIdempotency(t *testi
 		t.Fatal(e)
 	}
 	h = next.Handler()
-	if w := submit(t, h, p, "fixture-key"); w.Code != 409 {
-		t.Fatal("old process preview survived without proof")
+	if w := submit(t, h, p, "fixture-key"); w.Code != 201 {
+		t.Fatal("committed durable submission did not recover", w.Code)
+	} else {
+		var recovered store.Task
+		if json.Unmarshal(w.Body.Bytes(), &recovered) != nil || recovered != task {
+			t.Fatal("restart replaced original task")
+		}
+	}
+	if w := submit(t, h, uncommitted, "fixture-key"); w.Code != 409 {
+		t.Fatal("uncommitted preview survived without proof", w.Code)
 	}
 	fresh := preview(t, h)
 	w := submit(t, h, fresh, "fixture-key")

@@ -2,6 +2,8 @@
 
 状态：`in_progress`。子工作项 [WP-15-PREVIEW-01](PREVIEW-01/summary.md) 已完成：受鉴权的无调用计划预览、冻结提交和任务读取组件。
 
+[SUBMISSION-RECEIPT-01](SUBMISSION-RECEIPT-01/summary.md) 已补齐 schema 6 持久提交身份，原 preview_id/plan_hash/key 在预览清理、Server 重建及 Store/宿主重启后仍能读回同一任务的当前状态。回执与任务/计划/预算/幂等记录/事件同事务，真实本机 HTTP/Native 桥重启及来源撤销已验证；不执行 Runtime、不重置计数，未登记项目拒绝恢复。未提交预览重启后仍失效，旧任务不猜造 preview 身份。窗口原请求持久保存及阶段运行 UI、真实供应商准入仍未完成，父包保持 in_progress。
+
 [TASK-INDEX-01](TASK-INDEX-01/summary.md) 完成已登记项目的任务分页只读接口和精确 Native GET 通路，固定 32 项、同项目 taskID 边界、有限目标摘要和同一行 Task ETag。实际本机 HTTP 创建 33 任务、分页/桥接读取与 Source 撤销验证通过；不触发检查/执行，不改变准入。当前可信执行宿主和阶段配置 GUI 已有接线，真实供应商 Factory/账号/quota 与任务工作台仍待完成；下文保留各历史组件当时的边界。OpenAPI 当前 29 路径 33 操作 63 样本。
 
 [CODEX-01](CODEX-01/summary.md) 完成可信 Codex Adapter → Controller 接线核验，并补齐 Adapter-specific preflight：prompt/时限/来源/路线/身份的已知错误在 intent 前拒绝，validator 获得冻结副本，慢检查后仍重核管理/来源。固定 Codex 11 场景真实 wait/StopProof/release 通过；同 key 不重放，HTTP 断线不取消，Pause/Cancel/Close 精确 owned lifetime。Grok/Claude 25 次既有 Native 与 Codex Adapter 13 次另回归通过。完整 Fusion 514 PASS/29 SKIP/0 FAIL，构建/vet 通过。真实账号/Forwarder/quota、产品 HTTP/Factory 和完整闭环继续未完成。

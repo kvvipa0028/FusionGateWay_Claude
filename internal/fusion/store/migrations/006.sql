@@ -1,0 +1,5 @@
+CREATE TABLE task_submissions(preview_id TEXT PRIMARY KEY,idempotency_key TEXT NOT NULL,project_id TEXT NOT NULL,plan_hash TEXT NOT NULL,payload_hash TEXT NOT NULL,task_id TEXT NOT NULL REFERENCES tasks(id),FOREIGN KEY(project_id,idempotency_key) REFERENCES idempotency(project_id,key));
+CREATE TRIGGER validate_task_submission BEFORE INSERT ON task_submissions WHEN NOT EXISTS(SELECT 1 FROM idempotency i JOIN tasks t ON t.id=i.task_id JOIN plan_revisions p ON p.task_id=t.id AND p.revision=1 WHERE i.project_id=NEW.project_id AND i.key=NEW.idempotency_key AND i.payload_hash=NEW.payload_hash AND i.task_id=NEW.task_id AND t.project_id=NEW.project_id AND p.hash=NEW.plan_hash) BEGIN SELECT RAISE(ABORT,'submission receipt mismatch'); END;
+CREATE TRIGGER immutable_task_submissions BEFORE UPDATE ON task_submissions BEGIN SELECT RAISE(ABORT,'immutable submission receipt'); END;
+CREATE TRIGGER preserve_task_submissions BEFORE DELETE ON task_submissions BEGIN SELECT RAISE(ABORT,'preserve submission receipt'); END;
+PRAGMA user_version=6;

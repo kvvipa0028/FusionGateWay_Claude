@@ -1085,7 +1085,7 @@ paths:
           pattern: ^[^\s/\\\u0000-\u001f\u007f-\u009f]+$
       responses:
         '201':
-          description: 新建及相同 key 重读均返回原始 Task；不启动 Runtime。
+          description: 新建及相同 preview_id/plan_hash/key 重读均返回同一任务的当前 Task；已提交回执支持预览清理或宿主重启后的核对，所属项目仍须登记。不启动 Runtime。
           content:
             application/json:
               schema:

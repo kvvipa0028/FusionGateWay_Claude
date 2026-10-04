@@ -1,0 +1,10 @@
+{
+  "source_files": 23,
+  "json_checked": 6,
+  "local_links_checked": 138,
+  "gofmt": "pass",
+  "diff": "pass",
+  "private_key_byte_exclusion": "pass; no credential or its hash emitted",
+  "UI_assets": "unchanged",
+  "build_log_and_binary_hashes": "pass"
+}

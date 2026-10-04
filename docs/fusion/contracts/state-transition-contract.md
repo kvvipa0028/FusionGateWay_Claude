@@ -73,3 +73,8 @@ schema 5 不变；PauseTask 使用完整 TaskVersion 原子条件。空闲暂停
 ## WP-15 整项任务取消存储
 
 CancelTask 使用同一完整 TaskVersion 原子条件；空闲且全任务历史执行已可信停止时 cancelled / generation +1。活动 owned 执行同事务提交 run cancel_intent 与 Task cancelling，保留 generation；Finish 保留 cancelling，只有真实 release 与全历史 quiescence 才置 cancelled，否则 needs_review。暂停可升级为整项取消，Continue 不恢复 cancelling/cancelled。原阶段取消接口兼容，不退还预算或回滚文件副作用。schema 5/001–005/旧 payload hash 不变；Controller/HTTP 整项取消已由 CANCEL-API-01 接线并作实际固定 Native 合成停止验证；产品注册/GUI仍待实施。详见 [task-cancel-store.md](task-cancel-store.md)。
+
+
+## WP-15 schema 6 提交身份
+
+新增 task_submissions 保存原预览/提交 key/项目/原计划 hash/原 payload hash/任务的不可变关联；001–005 文件与旧 payload hash 不变。新回执与任务创建事务原子提交。旧任务迁移不猜造预览身份，仍保留旧完整 payload 幂等回读；后续真实进程内预览可附加到已提交的相同项目/key/payload。当前版本为 6，未来版本拒绝测试使用 7，历史 schema 1–5 fixture 与数据断言保留。回滚到 schema 5 或更早需恢复对应一致性备份，不能通过改 user_version 降级。详情及未完成窗口恢复边界见 [task-submission-receipt.md](task-submission-receipt.md)。

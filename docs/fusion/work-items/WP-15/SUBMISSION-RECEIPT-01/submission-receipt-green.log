@@ -1,0 +1,12 @@
+=== RUN   TestSubmissionReceiptSurvivesPreviewEviction
+--- PASS: TestSubmissionReceiptSurvivesPreviewEviction (0.06s)
+=== RUN   TestSubmissionReceiptSurvivesStoreReopenAndRequiresRegisteredProject
+=== RUN   TestSubmissionReceiptSurvivesStoreReopenAndRequiresRegisteredProject/wrong-key
+=== RUN   TestSubmissionReceiptSurvivesStoreReopenAndRequiresRegisteredProject/missing-preview
+=== RUN   TestSubmissionReceiptSurvivesStoreReopenAndRequiresRegisteredProject/wrong-hash
+--- PASS: TestSubmissionReceiptSurvivesStoreReopenAndRequiresRegisteredProject (0.05s)
+    --- PASS: TestSubmissionReceiptSurvivesStoreReopenAndRequiresRegisteredProject/wrong-key (0.00s)
+    --- PASS: TestSubmissionReceiptSurvivesStoreReopenAndRequiresRegisteredProject/missing-preview (0.00s)
+    --- PASS: TestSubmissionReceiptSurvivesStoreReopenAndRequiresRegisteredProject/wrong-hash (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/api	1.793s

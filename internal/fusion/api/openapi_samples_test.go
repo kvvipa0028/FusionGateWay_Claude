@@ -12,6 +12,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/yetone/magpie/internal/fusion/policy"
 	"github.com/yetone/magpie/internal/fusion/store"
 )
 
@@ -75,6 +76,16 @@ func TestImplementedAPIContractSamples(t *testing.T) {
 		ID string `json:"id"`
 	}
 	json.Unmarshal(w.Body.Bytes(), &task)
+	// A fresh Server has no process-local preview, but the exact persisted
+	// submission still returns the current original Task through Management.
+	restarted, e := New(indexStore, policy.NewManager("fixture-management", nil, nil))
+	if e != nil {
+		t.Fatal(e)
+	}
+	if e = restarted.SetProject("fixture-project", configuration()); e != nil {
+		t.Fatal(e)
+	}
+	add("POST", "/agent/v1/tasks", string(sbody), 201, submit(t, restarted.Handler(), p, "fixture-contract-submit"), map[string]string{"Idempotency-Key": "fixture-contract-submit"})
 	add("GET", indexPath, "", 200, request(h, "GET", indexPath, "", "", "fixture-management"), nil)
 	add("GET", indexPath+"/before/"+task.ID, "", 200, request(h, "GET", indexPath+"/before/"+task.ID, "", "", "fixture-management"), nil)
 	for i := 0; i < 34; i++ {
