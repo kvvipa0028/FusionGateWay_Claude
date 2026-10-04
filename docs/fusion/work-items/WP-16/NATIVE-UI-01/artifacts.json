@@ -1,17 +1,17 @@
 {
   "source_files": {
-    "docs/fusion/README.md": "879d818a1780a2a220a91159b0fd3c555c6b45c95c2bd8db5197edf417c5c46d",
-    "docs/fusion/contracts/native-stage-ui.md": "95b6bca2127e307a5308726b4d0114483ef8e58d182d905be9badbe113259e21",
-    "docs/fusion/contracts/stage-editor.md": "e9f2f94ae208d49d250f15fd077a748c797f4176388b316bbf7b20b44862203a",
-    "docs/fusion/work-items/WP-16/summary.md": "010ea1b65d60303bbdb9e8087109fbdfa4ccd1cdefc335e15bc98087bb1db36c",
+    "docs/fusion/README.md": "804cbd76670de6f310e322d458b0e0f54e338b7023051954f5c920941b67dc7b",
+    "docs/fusion/contracts/native-stage-ui.md": "859c146d312acfdd2d16b07b09a6e0d2e1cabfbfe2d7f47b5e1d7edee49ad7d7",
+    "docs/fusion/contracts/stage-editor.md": "02eb8607a79525c4856d5e4da35e17b2ed011e6ef43bde85403b9a527ef18b98",
+    "docs/fusion/work-items/WP-16/summary.md": "d4183b060dd89f54f710be74dc7ece9e9aa042e85a49d3628daa965f82c24bc6",
     "fusion_control_cli.go": "689a169993d08ba2c3b144810f7fbe9292da7cf01e0758eea08675465d3cfa90",
     "fusion_gui_cli.go": "a861a3762f3419ba5768683c21abd68af4990ef8a2e4801cb4725191e5a421ce",
     "fusion_gui_unsupported.go": "0d09f601106942e563ba4f11a32141b9c822d92e70e62e1f0404481b43c3efac",
     "fusion_gui_unsupported_test.go": "e30e1ccf67e09f5ec698294310bdd9643378eace21894fa17b79b62fc616d572",
-    "internal/fusion/bootstrap/native_ui.go": "1509b9453beddc6d1db8cc11e354caaaff42bfda033fa2c4811dced292ca1aca",
-    "internal/fusion/bootstrap/native_ui_test.go": "26e116537381f6218d39bc5a239b298266673e8647dd89c7646bd12a226fffe8",
+    "internal/fusion/bootstrap/native_ui.go": "4a9c493dd7d867b90d8026d9542382eb2c35f13747ab92a95d75c0b7dd896e71",
+    "internal/fusion/bootstrap/native_ui_test.go": "cd71c11904093d073e6ad5588bcbb92a098910d1ccb9f1db0518b1b79cee268f",
     "internal/fusion/bootstrap/ui_test.go": "de8766bae3b8b9ff1798d630aa186140c75fd2282fdd885d8826318e431b395a",
-    "internal/gui/fusion_native_darwin.go": "feb14575c63d5acc312cc39edc61b015760e11714edde5bf20b42db039fd51a7",
+    "internal/gui/fusion_native_darwin.go": "23689c12bbb66df92e7ef62cc714980e08a5e749b6c068f69fd5935a33792e7b",
     "internal/gui/fusion_native_darwin_test.go": "23c031a7c7cef079ff86d46dfca691b5408fc7e0e98cde2f78850f0c14dcb894"
   },
   "packet_files": {
@@ -27,9 +27,17 @@
     "native-ui-close-red.log": "7477d50cd1a0370490b47e20578b330bd480ca0e8d904f6a167e588d59013281",
     "native-ui-navigation-green.log": "3295acc9ded51cc861173fa6f7aa2694ec4cd0ba85787b9690049bd058a093f9",
     "native-ui-navigation-red.log": "2c6846675fc3fe27629818c2f5d76920b3a55dc54c18eac686588c3ae2f53dd6",
+    "native-ui-observation.json": "59617cdfdb7b9940c340c9aa79ad5b34b69938eb76664ef648a4a1316cb12232",
+    "native-ui-readback.json": "8e176d6f25719b4187a0de3ca68ec06ba4a8b9ed354ba48b548d608d23d28869",
+    "native-ui-sdk-final.log": "5932a73592257bfe571a93debf1423c712e2cb2cbb021d9a8081aca03a8b7349",
+    "native-ui-sdk-red.log": "0800dbc32cb019afcbe61748cce47343b8737a5fe76c25f49c7def1d8a7c4a78",
     "native-ui-unsupported.log": "35f75a3ad47a1b49ff322c36ad1b0d46a7360111731129c52e5850ce7b759282",
-    "summary.md": "079b52b5cc547c4e74c604119afe12c5d388aee8dac6c4181ed5a008bc8f5692",
-    "test-results.json": "098b39d6a59b4812041da3b030145da44e82da0ec7b6adf01e01c1f94558ad21"
+    "sdk-build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sdk-build-gui.log": "3392ff09e9d603914f8b4974785fafebd8cdbb82a3a7d98e24a851ba0e31269d",
+    "sdk-build-results.json": "ce3555c1228a65b5395fa4ab24ec8ef23f296c574643214919b418041ad1c1e3",
+    "sdk-build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "summary.md": "51a7d1311db492fdb75397f17bb4897de43484c8093927be78010ef02fbe2965",
+    "test-results.json": "c75627b73dd7071087695bf7b081a1d74d3422a03b99a5811d0f09028392fb2e"
   },
-  "status": "implementation verified; Native window acceptance pending"
+  "status": "bounded draft Native component complete; actual save/reload/window close verified; parent WP16 incomplete"
 }

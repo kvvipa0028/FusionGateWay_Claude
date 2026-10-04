@@ -1,0 +1,38 @@
+{
+  "etag": "\"1\"",
+  "defaults": {
+    "scope": "project",
+    "id": "native-ui-fixture",
+    "revision": 1,
+    "configured": true,
+    "layer": {
+      "roles": {
+        "acceptance": {
+          "mode": "inherit"
+        },
+        "design": {
+          "mode": "locked",
+          "route": {
+            "id": "native-b",
+            "revision": 1
+          },
+          "model": "native-fixture-b",
+          "effort": {
+            "mode": "none"
+          }
+        },
+        "implementation": {
+          "mode": "inherit"
+        },
+        "review": {
+          "mode": "inherit"
+        },
+        "testing": {
+          "mode": "inherit"
+        }
+      }
+    },
+    "hash": "b6efef4b883a96b7866f264f70195dacd706ed16f2b8beb6386961d2ad859d41",
+    "created_at": "2026-10-04T15:10:59.504Z"
+  }
+}

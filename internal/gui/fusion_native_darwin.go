@@ -122,7 +122,7 @@ func RunFusion(parent context.Context, source, root string, out io.Writer) error
 	})
 	window.RegisterHook(events.Common.WindowClosing, func(*application.WindowEvent) { go app.Quit() })
 	app.Event.OnApplicationEvent(events.Common.ApplicationStarted, func(*application.ApplicationEvent) {
-		if C.restrictFusionNavigation(window.NativeWindow()) != 1 {
+		if bridge.BindNativeWindow(window.ID()) != nil || C.restrictFusionNavigation(window.NativeWindow()) != 1 {
 			cancel()
 			return
 		}

@@ -1,0 +1,6 @@
+=== RUN   TestNativeStageBridgeAcceptsSDKWindowHeaders
+    native_ui_test.go:38: real SDK window metadata rejected 403
+--- FAIL: TestNativeStageBridgeAcceptsSDKWindowHeaders (0.05s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	0.681s
+FAIL

@@ -1,6 +1,6 @@
 {
   "baseline": "e6353eb76151b0938eb72cdbbe65868ced358702",
-  "component_status": "in_progress",
+  "component_status": "complete: bounded draft bridge and basic Native save/reload/exit; parent WP16 remains in_progress",
   "implementation_checks": [
     {
       "log": "native-ui-bridge-red.log",
@@ -73,21 +73,36 @@
       "subtest_pass": 0,
       "fail": 0,
       "skip": 0
+    },
+    {
+      "log": "native-ui-sdk-red.log",
+      "original_sha256": "0800dbc32cb019afcbe61748cce47343b8737a5fe76c25f49c7def1d8a7c4a78",
+      "pass": 0,
+      "subtest_pass": 0,
+      "fail": 1
+    },
+    {
+      "log": "native-ui-sdk-final.log",
+      "original_sha256": "5932a73592257bfe571a93debf1423c712e2cb2cbb021d9a8081aca03a8b7349",
+      "pass": 31,
+      "subtest_pass": 107,
+      "fail": 0
     }
   ],
   "graph": {
-    "nodes": 13926,
-    "edges": 123465
+    "nodes": 13932,
+    "edges": 123527
   },
   "native_window": {
-    "status": "not_verified",
-    "inventory_running": true,
-    "process_startup_mode": "native-stage-editor",
-    "execution_enabled": false,
-    "jev": "off",
-    "blocking_error": "ScreenCaptureKit -3811; getApp failed repeatedly including reset",
-    "actual_save_reload_window_exit": "not_run"
+    "status": "verified basic actual operation",
+    "evidence": "native-ui-observation.json",
+    "store_readback": "native-ui-readback.json",
+    "launcher_exit_code": 0,
+    "owned_control_port_closed": true,
+    "screenshot": "not_captured ScreenCaptureKit -3812",
+    "earlier_capture_errors": "-3811 before relaunch; actual user observed Forbidden; final AX actions succeeded"
   },
   "credential_scope": "synthetic fixtures only; no provider credential used",
-  "bootstrap_command_filter": "TestNativeStageBridge|TestControlHost|TestProject|TestRunFusion|TestFusionControl"
+  "bootstrap_command_filter": "TestNativeStageBridge|TestControlHost|TestProject|TestRunFusion|TestFusionControl",
+  "final_bootstrap_command_filter": "TestNativeStageBridge|TestControlHost|TestProject|TestRunFusion|TestFusionControl|TestFusionUI"
 }

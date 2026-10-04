@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-04",
+  "fixture": "native-ui-fixture; synthetic unadmitted routes",
+  "earlier_user_observation": "Forbidden",
+  "cause": "Wails injects x-wails-window-id/name; blanket x-* rejection",
+  "final_native_actions": [
+    {
+      "action": "getApp",
+      "observed": "已载入当前配置。保存选择不会启动模型。"
+    },
+    {
+      "action": "design locked / native-fixture-b / none",
+      "observed": "保存项目配置 enabled"
+    },
+    {
+      "action": "click 保存项目配置",
+      "observed": "已保存版本 1，未启动模型。"
+    },
+    {
+      "action": "independent authenticated HTTP readback",
+      "artifact": "native-ui-readback.json",
+      "assertions": "project revision1; design locked native-b@1/native-fixture-b/none"
+    },
+    {
+      "action": "click 重新载入",
+      "observed": "model B and none retained; 已载入当前配置。保存选择不会启动模型。"
+    },
+    {
+      "action": "click owned close button",
+      "observed": "app absent from running inventory; launcher exit0; port64350 connection refused"
+    }
+  ],
+  "screenshot": "not_captured: ScreenCaptureKit -3812",
+  "evidence_type": "record of actual CUA accessibility observations/actions and independent HTTP readback; not a screenshot or raw AX export",
+  "execution_enabled": false,
+  "jev": "off"
+}

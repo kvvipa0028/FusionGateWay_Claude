@@ -19,7 +19,87 @@ func nativeRequest(method, path, body string) *http.Request {
 	r.RemoteAddr = "192.0.2.1:1234"
 	r.URL.Scheme = ""
 	r.URL.Host = ""
+	r.Header.Set("X-Wails-Window-Id", "1")
+	r.Header.Set("X-Wails-Window-Name", "fusion-stage-editor")
 	return r
+}
+
+func TestNativeStageBridgeAcceptsSDKWindowHeaders(t *testing.T) {
+	path, _ := sourceFixture(t)
+	h, err := OpenControl(path, filepath.Join(filepath.Dir(path), "control"), "127.0.0.1:0")
+	if err != nil {
+		t.Fatal(err)
+	}
+	serveExecutionHost(t, h)
+	bridge, err := newNativeTestBridge(t, h)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer bridge.Close()
+	r := nativeRequest("GET", "/fusion/", "")
+	r.Header.Set("X-Wails-Window-Id", "1")
+	r.Header.Set("X-Wails-Window-Name", "fusion-stage-editor")
+	w := httptest.NewRecorder()
+	bridge.ServeHTTP(w, r)
+	if w.Code != 200 {
+		t.Fatal("real SDK window metadata rejected", w.Code)
+	}
+}
+
+func newNativeTestBridge(t *testing.T, h *ControlHost) (*NativeStageBridge, error) {
+	t.Helper()
+	b, err := NewNativeStageBridge(h)
+	if err == nil {
+		err = b.BindNativeWindow(1)
+	}
+	return b, err
+}
+
+func TestNativeStageBridgeFreezesOwnedWindow(t *testing.T) {
+	path, _ := sourceFixture(t)
+	h, err := OpenControl(path, filepath.Join(filepath.Dir(path), "control"), "127.0.0.1:0")
+	if err != nil {
+		t.Fatal(err)
+	}
+	serveExecutionHost(t, h)
+	b, err := NewNativeStageBridge(h)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer b.Close()
+	w := httptest.NewRecorder()
+	b.ServeHTTP(w, nativeRequest("GET", "/fusion/", ""))
+	if w.Code != 403 {
+		t.Fatal("unbound bridge accepted request", w.Code)
+	}
+	if b.BindNativeWindow(0) == nil || b.BindNativeWindow(1) != nil || b.BindNativeWindow(2) == nil {
+		t.Fatal("window binding did not freeze")
+	}
+	for _, tc := range []struct {
+		name   string
+		change func(*http.Request)
+	}{
+		{"missing-id", func(r *http.Request) { r.Header.Del("X-Wails-Window-Id") }},
+		{"other-id", func(r *http.Request) { r.Header.Set("X-Wails-Window-Id", "2") }},
+		{"missing-name", func(r *http.Request) { r.Header.Del("X-Wails-Window-Name") }},
+		{"other-name", func(r *http.Request) { r.Header.Set("X-Wails-Window-Name", "other-window") }},
+		{"duplicate-id", func(r *http.Request) { r.Header.Add("X-Wails-Window-Id", "1") }},
+		{"duplicate-name", func(r *http.Request) { r.Header.Add("X-Wails-Window-Name", "fusion-stage-editor") }},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			r := nativeRequest("GET", "/fusion/", "")
+			tc.change(r)
+			w := httptest.NewRecorder()
+			b.ServeHTTP(w, r)
+			if w.Code != 403 {
+				t.Fatal("window metadata expansion", w.Code)
+			}
+		})
+	}
+	b.Close()
+	if b.BindNativeWindow(1) == nil {
+		t.Fatal("closed bridge rebound")
+	}
 }
 
 type nativeBodyReader struct {
@@ -40,7 +120,7 @@ func TestNativeStageBridgeCloseCancelsAnUnfinishedBody(t *testing.T) {
 		t.Fatal(e)
 	}
 	serveExecutionHost(t, h)
-	b, e := NewNativeStageBridge(h)
+	b, e := newNativeTestBridge(t, h)
 	if e != nil {
 		t.Fatal(e)
 	}
@@ -87,7 +167,7 @@ func TestNativeStageBridgeUsesOwnedAuthenticatedHost(t *testing.T) {
 		t.Fatal(e)
 	}
 	serveExecutionHost(t, h)
-	bridge, e := NewNativeStageBridge(h)
+	bridge, e := newNativeTestBridge(t, h)
 	if e != nil {
 		t.Fatal(e)
 	}
@@ -136,7 +216,7 @@ func TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion(t *testing.T) {
 		t.Fatal(e)
 	}
 	serveExecutionHost(t, h)
-	bridge, e := NewNativeStageBridge(h)
+	bridge, e := newNativeTestBridge(t, h)
 	if e != nil {
 		t.Fatal(e)
 	}
@@ -195,7 +275,7 @@ func TestNativeStageBridgeRevocationAndClose(t *testing.T) {
 				t.Fatal(e)
 			}
 			serveExecutionHost(t, h)
-			bridge, e := NewNativeStageBridge(h)
+			bridge, e := newNativeTestBridge(t, h)
 			if e != nil {
 				t.Fatal(e)
 			}

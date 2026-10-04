@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"net/url"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -24,6 +25,7 @@ type NativeStageBridge struct {
 	active    sync.WaitGroup
 	host      *ControlHost
 	secret    string
+	windowID  string
 	client    *http.Client
 	transport *http.Transport
 	ctx       context.Context
@@ -32,6 +34,21 @@ type NativeStageBridge struct {
 
 func (*NativeStageBridge) String() string   { return "Fusion Native stage bridge (redacted)" }
 func (*NativeStageBridge) GoString() string { return "NativeStageBridge(<redacted>)" }
+
+// BindNativeWindow freezes the one window whose SDK metadata is accepted.
+// The bridge remains inert until this trusted startup call succeeds.
+func (b *NativeStageBridge) BindNativeWindow(id uint) error {
+	if b == nil || id == 0 {
+		return ErrControlHost
+	}
+	b.mu.Lock()
+	defer b.mu.Unlock()
+	if b.closed || b.windowID != "" {
+		return ErrControlHost
+	}
+	b.windowID = strconv.FormatUint(uint64(id), 10)
+	return nil
+}
 
 func NewNativeStageBridge(h *ControlHost) (*NativeStageBridge, error) {
 	if h == nil {
@@ -86,6 +103,9 @@ func nativeStageRequest(r *http.Request) bool {
 	}
 	for key := range r.Header {
 		lower := strings.ToLower(key)
+		if lower == "x-wails-window-id" || lower == "x-wails-window-name" {
+			continue
+		}
 		if lower == "authorization" || lower == "cookie" || lower == "forwarded" || strings.HasPrefix(lower, "proxy-") || strings.HasPrefix(lower, "x-") {
 			return false
 		}
@@ -149,6 +169,11 @@ func (b *NativeStageBridge) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if b.closed {
 		b.mu.Unlock()
 		http.Error(w, "Service Unavailable", 503)
+		return
+	}
+	if b.windowID == "" || len(r.Header.Values("X-Wails-Window-Id")) != 1 || r.Header.Get("X-Wails-Window-Id") != b.windowID || len(r.Header.Values("X-Wails-Window-Name")) != 1 || r.Header.Get("X-Wails-Window-Name") != "fusion-stage-editor" {
+		b.mu.Unlock()
+		http.Error(w, "Forbidden", 403)
 		return
 	}
 	b.active.Add(1)

@@ -6,7 +6,7 @@
 
 入口创建一个独立 ControlHost 和一个 Wails 窗口，不调用 legacy gateway 的启动流程。管理凭据留在 Go 内存和原有私有文件；页面不接收 token，不用 URL、cookie 或 JavaScript 保存授权。现有 HTTP Management middleware 及 Source/token 的身份、内容和权限核验继续生效，普通浏览器直接访问仍需管理授权。
 
-NativeStageBridge 仅用于 Wails 的进程内虚拟资源回调，禁止挂到网络 listener。校验 SDK RemoteAddr 标记、localhost Host、相对 URL、wails Origin/Referer 和 fetch-site；拒绝外部来源、null Origin、查询参数、转义路径、调用方 Authorization/cookie/转发及 x-* header。
+NativeStageBridge 仅用于 Wails 的进程内虚拟资源回调，禁止挂到网络 listener。校验 SDK RemoteAddr 标记、localhost Host、相对 URL、wails Origin/Referer 和 fetch-site；拒绝外部来源、null Origin、查询参数、转义路径、调用方 Authorization/cookie/转发及其它 x-* header。Wails 自动注入的 x-wails-window-id/name 只接受启动时冻结的本窗口 ID 与固定名称；缺失、重复或其它窗口值拒绝，绑定前保持关闭，不能重新绑定。这两个 header 不向 HTTP 上游转送。
 
 允许阶段页面 GET/HEAD、项目列表/配置/预设 GET、global/project defaults GET/PUT、精确历史预设 GET 和 tasks/preview POST。项目必须已登记。任务提交/执行/取消、legacy API、通用 Wails runtime/binding handlers 不在允许范围内。桥只向自己拥有的数字 loopback 地址发送请求，不使用环境代理，不跟随重定向；只转送 Content-Type/If-Match，凭据由 Go 注入。响应只透传有限元数据，剔除 Location/cookie/auth。成功创建 defaults 的 201 仍保留正常回执。
 
@@ -32,6 +32,6 @@ launcher 使用私有 HOME/XDG 和环境允许清单。启动 stdout 仅含产�
 
 真实私有 ControlHost 的桥接保存及 Store 回读、非法来源/权限扩大拒绝、Source/token 撤销、关闭取消未完成请求体，均已有 race 测试。Foundation/Objective-C 测试直接调用生产导航谓词，验证规范 URL 与拒绝集合；CLI/GUI 编译和 full vet 已通过。
 
-本机隔离 Native 进程已启动并输出受限模式，应用 inventory 确认运行。2026-10-04 的实际窗口读取连续受到 ScreenCaptureKit -3811 错误阻挡，因此窗口显示、实际点击保存/重新载入及窗口退出仍未验收。桥接 HTTP 测试、导航谓词测试和进程启动不能代替这些证据。
+2026-10-04 完成实际 Native 窗口载入、模型 B/none 的锁定选择、项目保存、独立 HTTP Store 回读、重新载入和窗口关闭。保存显示版本 1，回读确认完整绑定；关闭后进程 exit0，控制端口关闭。前期工具捕捉失败后，用户指出实际 Forbidden；SDK header 复现测试证实原因并完成严格本窗口修正。最终 CUA accessibility 操作成功，截图仍因 ScreenCaptureKit -3812 未取得，未声称完成截图视觉验收。
 
 预设创建保存、执行工作台、真实 provider/Factory/账号/额度准入、完整工程闭环和最终 T01–T60 继续待完成；不能据此宣称用户已能执行真实任务。
