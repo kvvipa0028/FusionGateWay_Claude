@@ -1,0 +1,110 @@
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/codex_channel
+    controller_test.go:336: <nil>
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/argv
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/grok_channel
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/claude_channel
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/env
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/session
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/executable
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/validator
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/write
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/timeout
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/input
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/path
+=== RUN   TestControllerRejectsUntrustedSpecBeforeIntent/backend
+--- FAIL: TestControllerRejectsUntrustedSpecBeforeIntent (0.49s)
+    --- FAIL: TestControllerRejectsUntrustedSpecBeforeIntent/codex_channel (0.05s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/argv (0.04s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/grok_channel (0.03s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/claude_channel (0.03s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/env (0.03s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/session (0.03s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/executable (0.04s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/validator (0.04s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/write (0.04s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/timeout (0.04s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/input (0.04s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/path (0.04s)
+    --- PASS: TestControllerRejectsUntrustedSpecBeforeIntent/backend (0.04s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/control	0.926s
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/codex_channel
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/args
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/executable
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/hash
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/env
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/validator
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/session
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/claude
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/grok
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/empty
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/utf8
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/nul
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/oversize
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/timeout
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/write
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/quota
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/owner
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/identity
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/root
+=== RUN   TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/workspace
+--- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls (0.79s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/codex_channel (0.05s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/args (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/executable (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/hash (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/env (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/validator (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/session (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/claude (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/grok (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/empty (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/utf8 (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/nul (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/oversize (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/timeout (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/write (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/quota (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/owner (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/identity (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/root (0.04s)
+    --- PASS: TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls/workspace (0.04s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime/grok	2.425s
+=== RUN   TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn
+=== RUN   TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/codex_channel
+=== RUN   TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/args
+=== RUN   TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/grok_channel
+=== RUN   TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/executable
+=== RUN   TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/hash
+=== RUN   TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/environment
+=== RUN   TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/validator
+=== RUN   TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/session
+=== RUN   TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/empty_prompt
+=== RUN   TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/bad_utf8
+=== RUN   TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/timeout
+=== RUN   TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/write_role
+=== RUN   TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/quota
+=== RUN   TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/identity
+=== RUN   TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/owner
+--- PASS: TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn (0.60s)
+    --- PASS: TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/codex_channel (0.05s)
+    --- PASS: TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/args (0.04s)
+    --- PASS: TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/grok_channel (0.04s)
+    --- PASS: TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/executable (0.04s)
+    --- PASS: TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/hash (0.04s)
+    --- PASS: TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/environment (0.04s)
+    --- PASS: TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/validator (0.04s)
+    --- PASS: TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/session (0.04s)
+    --- PASS: TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/empty_prompt (0.04s)
+    --- PASS: TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/bad_utf8 (0.04s)
+    --- PASS: TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/timeout (0.04s)
+    --- PASS: TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/write_role (0.04s)
+    --- PASS: TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/quota (0.04s)
+    --- PASS: TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/identity (0.04s)
+    --- PASS: TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn/owner (0.04s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime/glm	2.227s
+FAIL

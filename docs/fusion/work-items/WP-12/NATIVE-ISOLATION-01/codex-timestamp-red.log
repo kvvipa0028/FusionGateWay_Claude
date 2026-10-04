@@ -1,0 +1,27 @@
+=== RUN   TestStdioPinnedNotificationTimestamp
+=== RUN   TestStdioPinnedNotificationTimestamp/0
+    stdio_test.go:81: pinned timestamp contract native codex request failed
+=== RUN   TestStdioPinnedNotificationTimestamp/1234
+    stdio_test.go:81: pinned timestamp contract native codex request failed
+=== RUN   TestStdioPinnedNotificationTimestamp/18446744073709551615
+    stdio_test.go:81: pinned timestamp contract native codex request failed
+=== RUN   TestStdioPinnedNotificationTimestamp/null
+    stdio_test.go:81: pinned timestamp contract native codex request failed
+=== RUN   TestStdioPinnedNotificationTimestamp/-1
+=== RUN   TestStdioPinnedNotificationTimestamp/1.5
+=== RUN   TestStdioPinnedNotificationTimestamp/"1234"
+=== RUN   TestStdioPinnedNotificationTimestamp/18446744073709551616
+=== RUN   TestStdioPinnedNotificationTimestamp/{}
+--- FAIL: TestStdioPinnedNotificationTimestamp (0.00s)
+    --- FAIL: TestStdioPinnedNotificationTimestamp/0 (0.00s)
+    --- FAIL: TestStdioPinnedNotificationTimestamp/1234 (0.00s)
+    --- FAIL: TestStdioPinnedNotificationTimestamp/18446744073709551615 (0.00s)
+    --- FAIL: TestStdioPinnedNotificationTimestamp/null (0.00s)
+    --- PASS: TestStdioPinnedNotificationTimestamp/-1 (0.00s)
+    --- PASS: TestStdioPinnedNotificationTimestamp/1.5 (0.00s)
+    --- PASS: TestStdioPinnedNotificationTimestamp/"1234" (0.00s)
+    --- PASS: TestStdioPinnedNotificationTimestamp/18446744073709551616 (0.00s)
+    --- PASS: TestStdioPinnedNotificationTimestamp/{} (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/codex	0.529s
+FAIL

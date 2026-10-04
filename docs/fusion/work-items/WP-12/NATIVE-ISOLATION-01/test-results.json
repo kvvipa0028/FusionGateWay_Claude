@@ -1,0 +1,76 @@
+{
+  "work_item": "WP-12-NATIVE-ISOLATION-01",
+  "base_commit": "e5e3e71e572b8d0f9649f2009fbb8a6ad47603d9",
+  "parent_status": "in_progress",
+  "checks": [
+    {
+      "log": "codex-isolation-full.log",
+      "exit_code": 0,
+      "passed_top_level": 470,
+      "skipped_top_level": 24,
+      "failed_top_level": 0,
+      "passed_subtests": 742,
+      "race_detected": false
+    },
+    {
+      "log": "codex-isolation-native-final.log",
+      "exit_code": 0,
+      "passed_top_level": 1,
+      "skipped_top_level": 0,
+      "failed_top_level": 0,
+      "passed_subtests": 15,
+      "race_detected": false
+    },
+    {
+      "log": "codex-isolation-native-regression.log",
+      "exit_code": 0,
+      "passed_top_level": 7,
+      "skipped_top_level": 0,
+      "failed_top_level": 0,
+      "passed_subtests": 17,
+      "race_detected": false
+    },
+    {
+      "log": "codex-isolation-native-host.log",
+      "exit_code": 0,
+      "passed_top_level": 1,
+      "skipped_top_level": 0,
+      "failed_top_level": 0,
+      "passed_subtests": 5,
+      "race_detected": false
+    }
+  ],
+  "codex_native": {
+    "scenarios": 15,
+    "actual_processes": 12,
+    "preintent_refusals": 3,
+    "metadata_rpc_requests": 24,
+    "login_requests": 0,
+    "model_requests": 0,
+    "quota_requests": 0,
+    "budget_used": 0,
+    "private_account_empty": true,
+    "all_launched_processes_os_wait_and_stop_proof_release": true,
+    "generation_admitted": false
+  },
+  "native_regression": {
+    "grok_claude_controller_scenarios": 20,
+    "actual_processes": 25,
+    "authenticated_grok_host_scenarios": 5,
+    "actual_host_processes": 5,
+    "synthetic_host_model_http": 10,
+    "real_upstream": false
+  },
+  "native_pin": {
+    "version": "0.160.0",
+    "sha256": "112fae7a5a1223e673c8a1791d32338f37df8b527ff1159bb8adac6c4dbf1b4b",
+    "publisher_trust": "unverified"
+  },
+  "graph": {
+    "project": "fusion-development",
+    "nodes": 13706,
+    "edges": 120742
+  },
+  "jev": "off",
+  "final_acceptance": "not_run"
+}

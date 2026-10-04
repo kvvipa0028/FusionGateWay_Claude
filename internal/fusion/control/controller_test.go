@@ -300,10 +300,12 @@ func TestControllerCloseStopsOwnedExecutionAndRefusesNewLaunch(t *testing.T) {
 	}
 }
 func TestControllerRejectsUntrustedSpecBeforeIntent(t *testing.T) {
-	for _, mode := range []string{"argv", "grok_channel", "claude_channel", "env", "session", "executable", "validator", "write", "timeout", "input", "path", "backend"} {
+	for _, mode := range []string{"codex_channel", "argv", "grok_channel", "claude_channel", "env", "session", "executable", "validator", "write", "timeout", "input", "path", "backend"} {
 		t.Run(mode, func(t *testing.T) {
 			f := newControlFixture(t)
 			switch mode {
+			case "codex_channel":
+				f.launch.Spec.CodexChannel = &managed.CodexChannel{}
 			case "grok_channel":
 				f.launch.Spec.GrokChannel = &managed.GrokChannel{}
 			case "claude_channel":

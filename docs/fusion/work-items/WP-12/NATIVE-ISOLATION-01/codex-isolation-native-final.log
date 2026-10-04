@@ -1,0 +1,46 @@
+=== RUN   TestManagedPinnedCodexBootstrap
+=== RUN   TestManagedPinnedCodexBootstrap/success
+    codex_native_darwin_test.go:254: pinned Native metadata only; real wait/StopProof/release; login=0 model=0 quota=0
+=== RUN   TestManagedPinnedCodexBootstrap/driver_failure
+    codex_native_darwin_test.go:254: pinned Native metadata only; real wait/StopProof/release; login=0 model=0 quota=0
+=== RUN   TestManagedPinnedCodexBootstrap/semantic_failure
+    codex_native_darwin_test.go:254: pinned Native metadata only; real wait/StopProof/release; login=0 model=0 quota=0
+=== RUN   TestManagedPinnedCodexBootstrap/validator_source_drift
+    codex_native_darwin_test.go:254: pinned Native metadata only; real wait/StopProof/release; login=0 model=0 quota=0
+=== RUN   TestManagedPinnedCodexBootstrap/validator_identity_drift
+    codex_native_darwin_test.go:254: pinned Native metadata only; real wait/StopProof/release; login=0 model=0 quota=0
+=== RUN   TestManagedPinnedCodexBootstrap/cancel
+    codex_native_darwin_test.go:254: pinned Native metadata only; real wait/StopProof/release; login=0 model=0 quota=0
+=== RUN   TestManagedPinnedCodexBootstrap/parent_cancel
+    codex_native_darwin_test.go:254: pinned Native metadata only; real wait/StopProof/release; login=0 model=0 quota=0
+=== RUN   TestManagedPinnedCodexBootstrap/timeout
+    codex_native_darwin_test.go:254: pinned Native metadata only; real wait/StopProof/release; login=0 model=0 quota=0
+=== RUN   TestManagedPinnedCodexBootstrap/source_drift
+    codex_native_darwin_test.go:254: pinned Native metadata only; real wait/StopProof/release; login=0 model=0 quota=0
+=== RUN   TestManagedPinnedCodexBootstrap/identity_drift
+    codex_native_darwin_test.go:254: pinned Native metadata only; real wait/StopProof/release; login=0 model=0 quota=0
+=== RUN   TestManagedPinnedCodexBootstrap/transport_overflow
+    codex_native_darwin_test.go:254: pinned Native metadata only; real wait/StopProof/release; login=0 model=0 quota=0
+=== RUN   TestManagedPinnedCodexBootstrap/ignored_overflow
+    codex_native_darwin_test.go:254: pinned Native metadata only; real wait/StopProof/release; login=0 model=0 quota=0
+=== RUN   TestManagedPinnedCodexBootstrap/prelaunch_stale
+=== RUN   TestManagedPinnedCodexBootstrap/prelaunch_args
+=== RUN   TestManagedPinnedCodexBootstrap/prelaunch_target
+--- PASS: TestManagedPinnedCodexBootstrap (10.89s)
+    --- PASS: TestManagedPinnedCodexBootstrap/success (0.47s)
+    --- PASS: TestManagedPinnedCodexBootstrap/driver_failure (0.48s)
+    --- PASS: TestManagedPinnedCodexBootstrap/semantic_failure (0.42s)
+    --- PASS: TestManagedPinnedCodexBootstrap/validator_source_drift (0.40s)
+    --- PASS: TestManagedPinnedCodexBootstrap/validator_identity_drift (0.46s)
+    --- PASS: TestManagedPinnedCodexBootstrap/cancel (0.47s)
+    --- PASS: TestManagedPinnedCodexBootstrap/parent_cancel (0.50s)
+    --- PASS: TestManagedPinnedCodexBootstrap/timeout (1.46s)
+    --- PASS: TestManagedPinnedCodexBootstrap/source_drift (2.43s)
+    --- PASS: TestManagedPinnedCodexBootstrap/identity_drift (2.46s)
+    --- PASS: TestManagedPinnedCodexBootstrap/transport_overflow (0.54s)
+    --- PASS: TestManagedPinnedCodexBootstrap/ignored_overflow (0.50s)
+    --- PASS: TestManagedPinnedCodexBootstrap/prelaunch_stale (0.05s)
+    --- PASS: TestManagedPinnedCodexBootstrap/prelaunch_args (0.04s)
+    --- PASS: TestManagedPinnedCodexBootstrap/prelaunch_target (0.07s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime	12.530s

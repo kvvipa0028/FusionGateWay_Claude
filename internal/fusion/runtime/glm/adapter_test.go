@@ -104,10 +104,12 @@ func TestGLMAdapterRequiresTrustedServicesAndRedactsCredential(t *testing.T) {
 }
 
 func TestGLMAdapterRejectsClientLaunchControlsBeforeSecretsOrSpawn(t *testing.T) {
-	for _, mode := range []string{"args", "grok_channel", "executable", "hash", "environment", "validator", "session", "empty_prompt", "bad_utf8", "timeout", "write_role", "quota", "identity", "owner"} {
+	for _, mode := range []string{"codex_channel", "args", "grok_channel", "executable", "hash", "environment", "validator", "session", "empty_prompt", "bad_utf8", "timeout", "write_role", "quota", "identity", "owner"} {
 		t.Run(mode, func(t *testing.T) {
 			c, r, in, env, loads := adapterFixture(t, "/fixture/native-claude", stageplan.Design)
 			switch mode {
+			case "codex_channel":
+				in.CodexChannel = &managed.CodexChannel{}
 			case "grok_channel":
 				in.GrokChannel = &managed.GrokChannel{}
 			case "args":

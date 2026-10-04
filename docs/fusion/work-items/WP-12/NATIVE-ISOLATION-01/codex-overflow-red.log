@@ -1,0 +1,8 @@
+=== RUN   TestManagedPinnedCodexBootstrap
+=== RUN   TestManagedPinnedCodexBootstrap/ignored_overflow
+    codex_native_darwin_test.go:219: negative accepted ignored_overflow
+--- FAIL: TestManagedPinnedCodexBootstrap (0.53s)
+    --- FAIL: TestManagedPinnedCodexBootstrap/ignored_overflow (0.40s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime	1.195s
+FAIL

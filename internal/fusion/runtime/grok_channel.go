@@ -37,6 +37,9 @@ func NewGrokChannel(handler http.Handler, grant *policy.PendingModelGrant, targe
 
 // A launch has exactly one typed channel, or none for an offline worker.
 func (s Spec) modelChannel() (*modelChannel, error) {
+	if s.CodexChannel != nil && (s.ClaudeChannel != nil || s.GrokChannel != nil || !s.CodexChannel.launchValid(s)) {
+		return nil, ErrLaunch
+	}
 	if s.ClaudeChannel != nil && s.GrokChannel != nil {
 		return nil, ErrLaunch
 	}

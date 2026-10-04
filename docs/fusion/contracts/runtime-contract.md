@@ -1,5 +1,7 @@
 # Runtime 与 Worker 合同 v1
 
+WP-12-NATIVE-ISOLATION-01 新增 [Codex 私有启动通道](codex-bootstrap-channel.md)：固定0.160.0只读偏好许可、无账号/无网络/无fork、Store-bound双向stdio与实际停止证明。它不是生产生成 Adapter，不升级通用 Probe 的能力或真实路线准入。
+
 WP-13-PROTOCOL-01 新增 [固定 Grok headless 观察器](grok-headless-protocol.md)；它尚未提供公共 Adapter 的 Start/Probe/Resume 或注册 Worker。[CALLS-01](grok-call-gate.md) 提供逐 HTTP Gate 的合成验证，生产 NativeForwarder/Worker 尚未注册。原生终态的 modelCalls 不包含已观察到的辅助请求，不能作为完整调用锁定、额度/计费或停止证明。
 
 `Adapter` 提供 Probe/Start/Resume，Handle 提供 Events/Cancel/Wait。能力明确区分 start/events/cancel/resume/child_processes/network。默认只支持本机 macOS 单进程、无网络；WP-14-CHANNEL-01 增加可信 ClaudeChannel 的唯一双栈 loopback 端口，泛用 Probe 仍不报告任意 network/child_processes。resume 与其他平台返回 unsupported，需要工具子进程或外部网络的路线拒绝准入。不存在隐含的非沙箱 fallback。

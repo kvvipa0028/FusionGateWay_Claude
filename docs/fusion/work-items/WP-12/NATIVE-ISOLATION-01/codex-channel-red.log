@@ -1,0 +1,11 @@
+# github.com/yetone/magpie/internal/fusion/runtime [github.com/yetone/magpie/internal/fusion/runtime.test]
+internal/fusion/runtime/codex_channel_test.go:18: undefined: CodexCLIVersion
+internal/fusion/runtime/codex_channel_test.go:18: cannot use &effort (value of type *string) as stageplan.FrozenEffort value in struct literal
+internal/fusion/runtime/codex_channel_test.go:24:10: undefined: NewCodexChannel
+internal/fusion/runtime/codex_channel_test.go:26:90: undefined: CodexExecutableSHA256
+internal/fusion/runtime/codex_channel_test.go:26:221: unknown field CodexChannel in struct literal of type Spec
+internal/fusion/runtime/codex_channel_test.go:28:3: invalid operation: cannot indirect r.Target.Effort (variable of struct type stageplan.FrozenEffort)
+internal/fusion/runtime/codex_channel_test.go:83:15: undefined: NewCodexChannel
+internal/fusion/runtime/codex_channel_test.go:86:7: undefined: CodexChannel
+FAIL	github.com/yetone/magpie/internal/fusion/runtime [build failed]
+FAIL

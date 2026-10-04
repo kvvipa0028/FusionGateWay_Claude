@@ -1,0 +1,9 @@
+=== RUN   TestManagedPinnedCodexBootstrap
+=== RUN   TestManagedPinnedCodexBootstrap/success
+    codex_native_darwin_test.go:126: [map[id:1 method: paramsNull:false resultKeys:[codexHome platformFamily platformOs userAgent] topKeys:[result id]] map[id: method:remoteControl/status/changed paramsNull:false resultKeys:[] topKeys:[method params emittedAtMs]]]
+    codex_native_darwin_test.go:126: native metadata not validated cancelled 0
+--- FAIL: TestManagedPinnedCodexBootstrap (0.52s)
+    --- FAIL: TestManagedPinnedCodexBootstrap/success (0.39s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime	1.162s
+FAIL

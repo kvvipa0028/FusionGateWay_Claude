@@ -61,10 +61,12 @@ func TestGrokAdapterRequiresTrustedServices(t *testing.T) {
 	}
 }
 func TestGrokAdapterRejectsCallerLaunchAuthorityBeforeSpawnOrCalls(t *testing.T) {
-	for _, mode := range []string{"args", "executable", "hash", "env", "validator", "session", "claude", "grok", "empty", "utf8", "nul", "oversize", "timeout", "write", "quota", "owner", "identity", "root", "workspace"} {
+	for _, mode := range []string{"codex_channel", "args", "executable", "hash", "env", "validator", "session", "claude", "grok", "empty", "utf8", "nul", "oversize", "timeout", "write", "quota", "owner", "identity", "root", "workspace"} {
 		t.Run(mode, func(t *testing.T) {
 			c, r, in, calls, status := adapterFixture(t)
 			switch mode {
+			case "codex_channel":
+				in.CodexChannel = &managed.CodexChannel{}
 			case "args":
 				in.Args = []string{"--allow-all"}
 			case "executable":

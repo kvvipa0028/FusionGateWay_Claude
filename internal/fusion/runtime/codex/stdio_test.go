@@ -65,6 +65,45 @@ func TestStdioCorrelatesResponseAndSeparatesNotifications(t *testing.T) {
 		t.Fatal("notification timeout")
 	}
 }
+
+func TestStdioPinnedNotificationTimestamp(t *testing.T) {
+	for _, stamp := range []string{"0", "1234", "9223372036854775807", "-9223372036854775808", "null", "-1", "1.5", `"1234"`, "9223372036854775808", "-9223372036854775809", "{}"} {
+		t.Run(stamp, func(t *testing.T) {
+			p, b, _ := pipePeer(t)
+			go func() {
+				readFrame(t, bufio.NewReader(b))
+				b.Write([]byte(`{"method":"remoteControl/status/changed","params":{},"emittedAtMs":` + stamp + "}\n"))
+				b.Write([]byte("{\"id\":1,\"result\":{}}\n"))
+			}()
+			ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+			defer cancel()
+			_, e := p.Call(ctx, 1, "initialize", json.RawMessage(`{}`))
+			allowed := stamp == "0" || stamp == "1234" || stamp == "9223372036854775807" || stamp == "-9223372036854775808" || stamp == "-1"
+			if (e == nil) != allowed {
+				t.Fatal("pinned timestamp contract", e)
+			}
+			if allowed {
+				select {
+				case frame := <-p.Notifications():
+					if !strings.Contains(string(frame), `"emittedAtMs":`+stamp) {
+						t.Fatal("timestamp lost")
+					}
+				case <-ctx.Done():
+					t.Fatal("notification missing")
+				}
+			}
+		})
+	}
+	for _, frame := range []string{`{"id":1,"result":{},"emittedAtMs":1}`, `{"id":2,"method":"item/fileChange/requestApproval","params":{},"emittedAtMs":1}`, `{"method":"thread/started","params":{},"emittedAtMs":1,"EmittedAtMs":2}`, `{"method":"thread/started","params":{},"emittedAtMs":1,"extra":2}`} {
+		p, b, _ := pipePeer(t)
+		go func() { readFrame(t, bufio.NewReader(b)); b.Write([]byte(frame + "\n")) }()
+		ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+		if _, e := p.Call(ctx, 1, "initialize", json.RawMessage(`{}`)); e == nil {
+			t.Fatal("timestamp widened another envelope")
+		}
+		cancel()
+	}
+}
 func TestStdioDeclinesServerPermissionRequests(t *testing.T) {
 	p, b, _ := pipePeer(t)
 	go func() {

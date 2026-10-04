@@ -1,0 +1,13 @@
+{
+  "native_source_tag": "rust-v0.160.0",
+  "private_reference_files_sha256": {
+    "codex-managed-preferences-0.160.0.rs": "36dd560f67b3b45bf3d63f4e2b962571456c12dc2f9ca55304f8729d49bee0c5",
+    "codex-rs-config-src-loader-application.rs": "2ba93ecbbfbc777ea004a135a2241a4df0ec68c1a7946cb16b51fc853a810da3",
+    "codex-app-server-protocol-src-protocol-common.rs": "d0cca691d21ffe282d3ca3d8ca9eaee8afe9aab058b04a3d4ef579f72a6918c7",
+    "codex-app-server-src-outgoing_message.rs": "b16156e72d8a33a1087896bfd211b22094c3ef3e69a2331a7fed8c0530dd657a"
+  },
+  "local_generated_server_notification_sha256": "d3479ecf59ca421a8b052d3d15e8196d23d297a0bd85ae5a270a34ddd9c865c9",
+  "macos": "27.0.1",
+  "go": "1.26.3",
+  "reference_sources_not_vendored": true
+}

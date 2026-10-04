@@ -174,13 +174,22 @@ func (p *StdioPeer) read() {
 		}
 		for k := range f {
 			switch k {
-			case "jsonrpc", "id", "method", "params", "result", "error":
+			case "jsonrpc", "id", "method", "params", "result", "error", "emittedAtMs":
 			default:
 				return
 			}
 		}
 		if j, ok := f["jsonrpc"]; ok && !bytes.Equal(j, []byte(`"2.0"`)) {
 			return
+		}
+		if timestamp, ok := f["emittedAtMs"]; ok {
+			// Pinned ServerNotificationEnvelope is an optional int64, emitted
+			// only on notifications. It is observational metadata, never a
+			// response ID, generation/ordering fence or admission timestamp.
+			var value int64
+			if f["method"] == nil || f["id"] != nil || bytes.Equal(timestamp, []byte("null")) || json.Unmarshal(timestamp, &value) != nil {
+				return
+			}
 		}
 		if m, ok := f["method"]; ok {
 			var method string

@@ -42,6 +42,7 @@ type Spec struct {
 	ValidateOutcome            func([]byte) bool
 	ClaudeChannel              *ClaudeChannel
 	GrokChannel                *GrokChannel
+	CodexChannel               *CodexChannel
 }
 
 // Absence preserves legacy diagnostic semantics, never verified provenance.

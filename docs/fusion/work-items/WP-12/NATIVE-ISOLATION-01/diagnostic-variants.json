@@ -1,0 +1,96 @@
+{
+  "diagnostic_only": true,
+  "before_production_duplex_integration": true,
+  "variants": [
+    {
+      "variant": "fixed-home",
+      "initialize_response_received": false,
+      "metadata_handshake_passed": false,
+      "exit_code": 1,
+      "os_reaped": true,
+      "login_calls": 0,
+      "model_calls": 0
+    },
+    {
+      "variant": "avoid-daemon",
+      "initialize_response_received": false,
+      "metadata_handshake_passed": false,
+      "exit_code": 1,
+      "os_reaped": true,
+      "login_calls": 0,
+      "model_calls": 0
+    },
+    {
+      "variant": "fixed-avoid",
+      "initialize_response_received": false,
+      "metadata_handshake_passed": false,
+      "exit_code": 1,
+      "os_reaped": true,
+      "login_calls": 0,
+      "model_calls": 0
+    },
+    {
+      "variant": "domain-read",
+      "initialize_response_received": false,
+      "metadata_handshake_passed": false,
+      "exit_code": 1,
+      "os_reaped": true,
+      "login_calls": 0,
+      "model_calls": 0
+    },
+    {
+      "variant": "domain-read-fixed-avoid",
+      "initialize_response_received": false,
+      "metadata_handshake_passed": false,
+      "exit_code": 1,
+      "os_reaped": true,
+      "login_calls": 0,
+      "model_calls": 0
+    },
+    {
+      "variant": "pref-reader",
+      "initialize_response_received": false,
+      "metadata_handshake_passed": false,
+      "exit_code": 1,
+      "os_reaped": true,
+      "login_calls": 0,
+      "model_calls": 0
+    },
+    {
+      "variant": "pref-reader-fixed",
+      "initialize_response_received": false,
+      "metadata_handshake_passed": false,
+      "exit_code": 1,
+      "os_reaped": true,
+      "login_calls": 0,
+      "model_calls": 0
+    },
+    {
+      "variant": "pref-local-reader",
+      "initialize_response_received": false,
+      "metadata_handshake_passed": false,
+      "exit_code": 1,
+      "os_reaped": true,
+      "login_calls": 0,
+      "model_calls": 0
+    },
+    {
+      "variant": "pref-local-shm-reader",
+      "initialize_response_received": true,
+      "metadata_handshake_passed": false,
+      "exit_code": 0,
+      "os_reaped": true,
+      "login_calls": 0,
+      "model_calls": 0
+    },
+    {
+      "variant": "pref-correlated",
+      "initialize_response_received": true,
+      "metadata_handshake_passed": true,
+      "exit_code": 0,
+      "os_reaped": true,
+      "login_calls": 0,
+      "model_calls": 0
+    }
+  ]
+}

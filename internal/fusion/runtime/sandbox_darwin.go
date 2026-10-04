@@ -26,6 +26,14 @@ func platformCommand(profile string, spec Spec) *exec.Cmd {
 	return cmd
 }
 
+// These are read-only CFPreferences permissions, not the system.sb blanket
+// imports. The immutable Codex binary reads forced com.openai.codex MDM values;
+// no user-preference-write, Keychain service or general Mach right is granted.
+const codexPreferencesRules = `(allow mach-lookup (global-name "com.apple.cfprefsd.agent") (global-name "com.apple.cfprefsd.daemon") (local-name "com.apple.cfprefsd.agent"))
+(allow user-preference-read (preference-domain "com.openai.codex"))
+(allow ipc-posix-shm-read* (ipc-posix-name-prefix "apple.cfprefs."))
+`
+
 func sandbox(spec Spec) (string, []string, error) {
 	channel, channelErr := spec.modelChannel()
 	if channelErr != nil || channel != nil && len(spec.FixtureEnvironment) != 0 {
@@ -124,6 +132,17 @@ func sandbox(spec Spec) (string, []string, error) {
 			return "", nil, ErrLaunch
 		}
 		env = append(env, "GROK_HOME="+home, "LANG=en_US.UTF-8", "DO_NOT_TRACK=1", "RUST_LOG=error")
+	}
+	if c := spec.CodexChannel; c != nil {
+		if !c.launchValid(spec) || !c.current() {
+			return "", nil, ErrLaunch
+		}
+		home := filepath.Join(spec.Root, "config", "codex")
+		if os.Mkdir(home, 0700) != nil {
+			return "", nil, ErrLaunch
+		}
+		profile += codexPreferencesRules
+		env = append(env, "CODEX_HOME="+home, "CFFIXED_USER_HOME="+filepath.Join(spec.Root, "home"))
 	}
 	return profile, env, nil
 }

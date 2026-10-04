@@ -29,6 +29,9 @@ type Handle struct {
 	run                store.StageRun
 	spec               Spec
 	channel            *modelChannel
+	codexStream        *codexStream
+	codexCancel        context.CancelFunc
+	codexResult        chan error
 	cmd                *exec.Cmd
 	identity           Identity
 	nonce, profileHash string
@@ -112,9 +115,18 @@ func (s *Supervisor) Start(ctx context.Context, r store.StageRun, in Spec) (*Han
 		}
 	}
 	owned := false
+	if c := in.CodexChannel; c != nil {
+		inputTarget, _ := json.Marshal(r.Target)
+		storedTarget, _ := json.Marshal(current.Target)
+		if current.Role != r.Role || current.Attempt != r.Attempt || string(inputTarget) != string(storedTarget) || !c.acquire(current, in) {
+			channel.release()
+			return nil, ErrLaunch
+		}
+	}
 	defer func() {
 		if !owned {
 			channel.release()
+			in.CodexChannel.release()
 		}
 	}()
 	actual, e := FileHash(in.Executable)
@@ -173,6 +185,22 @@ func (s *Supervisor) Start(ctx context.Context, r store.StageRun, in Spec) (*Han
 	cmd.Stdin = bytes.NewReader(spec.Input)
 	cmd.Stdout = &h.output
 	cmd.Stderr = &h.stderr
+	if c := spec.CodexChannel; c != nil {
+		stream, err := newCodexStream(func() bool {
+			live, err := s.store.CheckActive(current.ID, current.Generation)
+			return err == nil && live.Owner == current.Owner && spec.SourceCurrent() && c.current()
+		}, &h.output)
+		if err != nil {
+			return nil, ErrLaunch
+		}
+		h.codexStream = stream
+		cmd.Stdin, cmd.Stdout = stream.childRead, stream.childWrite
+		defer func() {
+			if !owned {
+				stream.Close()
+			}
+		}()
+	}
 	h.cmd = cmd
 	if !spec.SourceCurrent() {
 		return nil, ErrLaunch
@@ -183,6 +211,9 @@ func (s *Supervisor) Start(ctx context.Context, r store.StageRun, in Spec) (*Han
 		close(h.done)
 		close(h.events)
 		return nil, ErrLaunch
+	}
+	if h.codexStream != nil {
+		h.codexStream.closeChildEnds()
 	}
 	h.identity, e = processIdentity(cmd.Process.Pid)
 	if e != nil {
@@ -211,6 +242,23 @@ func (s *Supervisor) Start(ctx context.Context, r store.StageRun, in Spec) (*Han
 	}
 	h.emit("started")
 	owned = true
+	if c := spec.CodexChannel; c != nil {
+		driverCtx, cancel := context.WithCancel(ctx)
+		h.codexCancel = cancel
+		h.codexResult = make(chan error, 1)
+		go func() {
+			defer h.codexStream.Close()
+			if !spec.SourceCurrent() || !c.current() {
+				h.codexResult <- ErrLaunch
+				return
+			}
+			err := c.driver(driverCtx, h.codexStream)
+			if !spec.SourceCurrent() || !c.current() {
+				err = ErrLaunch
+			}
+			h.codexResult <- err
+		}()
+	}
 	if c := channel; c != nil {
 		if e = c.grant.Activate(); e != nil {
 			c.cancel()
@@ -316,11 +364,17 @@ func (h *Handle) supervise(ctx context.Context) {
 	var killTimer *time.Timer
 	var waitErr error
 	var channelFailure <-chan struct{}
+	var driverResult <-chan error = h.codexResult
+	driverFinished, driverSucceeded := driverResult == nil, driverResult == nil
 	if h.channel != nil {
 		channelFailure = h.channel.failure
 	}
 	stop := func() {
 		h.channel.cancel()
+		if h.codexCancel != nil {
+			h.codexCancel()
+			h.codexStream.Close()
+		}
 		h.mu.Lock()
 		if !h.cancelRequested {
 			h.cancelRequested = true
@@ -337,6 +391,12 @@ func (h *Handle) supervise(ctx context.Context) {
 		select {
 		case waitErr = <-wait:
 			goto exited
+		case err := <-driverResult:
+			driverFinished, driverSucceeded = true, err == nil
+			driverResult = nil
+			if err != nil {
+				stop()
+			}
 		case <-h.cancel:
 			stop()
 		case <-channelFailure:
@@ -353,7 +413,7 @@ func (h *Handle) supervise(ctx context.Context) {
 			h.mu.Lock()
 			cancelled := h.cancelRequested
 			h.mu.Unlock()
-			if over || errOver || cancelled || !h.spec.SourceCurrent() {
+			if over || errOver || cancelled || !h.spec.SourceCurrent() || h.spec.CodexChannel != nil && !h.spec.CodexChannel.current() {
 				stop()
 			} else if h.supervisor.store.RenewLease(h.run.ID, h.run.Generation, h.run.Owner, time.Minute) != nil {
 				stop()
@@ -366,6 +426,22 @@ func (h *Handle) supervise(ctx context.Context) {
 		}
 	}
 exited:
+	if !driverFinished {
+		// A validated reply may have arrived just before EOF/Wait. Let the
+		// trusted driver consume it, with a bounded join; late completion can
+		// never turn an already recorded failure into success.
+		timer := time.NewTimer(200 * time.Millisecond)
+		select {
+		case err := <-driverResult:
+			driverSucceeded = err == nil
+		case <-timer.C:
+		}
+		timer.Stop()
+	}
+	if h.codexCancel != nil {
+		h.codexCancel()
+		h.codexStream.Close()
+	}
 	if killTimer != nil {
 		killTimer.Stop()
 	}
@@ -379,7 +455,7 @@ exited:
 	state := "failed"
 	if h.cancelRequested {
 		state = "cancelled"
-	} else if waitErr == nil && !over && !errOver && h.spec.SourceCurrent() && h.spec.ValidateOutcome(out) && h.spec.SourceCurrent() {
+	} else if waitErr == nil && driverSucceeded && (h.codexStream == nil || !h.codexStream.failed.Load()) && !over && !errOver && h.spec.SourceCurrent() && (h.spec.CodexChannel == nil || h.spec.CodexChannel.current()) && h.spec.ValidateOutcome(out) && h.spec.SourceCurrent() && (h.spec.CodexChannel == nil || h.spec.CodexChannel.current()) {
 		state = "succeeded"
 	}
 	if state != "succeeded" && h.spec.Writable {
@@ -417,6 +493,7 @@ exited:
 	}
 	h.emit(state)
 	h.channel.release()
+	h.spec.CodexChannel.release()
 	close(h.events)
 	close(h.done)
 }
