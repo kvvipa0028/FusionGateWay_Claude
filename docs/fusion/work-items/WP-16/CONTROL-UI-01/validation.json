@@ -1,0 +1,14 @@
+{
+  "source_files": 14,
+  "json_checked": 6,
+  "local_links_checked": 144,
+  "node_syntax": "pass",
+  "gofmt": "pass",
+  "diff": "pass",
+  "private_key_byte_exclusion": "pass; no credential or credential hash emitted",
+  "UI": "Magpie three original assets byte-equal locked source; Fusion CSS byte-equal BASE",
+  "production_Go_API_Store_Controller_Native_OpenAPI": "unchanged; only test fixture Go altered",
+  "build_log_and_binary_hashes": "pass",
+  "graph": "14053 nodes 125250 edges; final Go indexed; later changes only excluded UI/docs/tests",
+  "actual_native_controls": "not_verified"
+}

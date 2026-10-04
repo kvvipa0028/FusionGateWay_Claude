@@ -7,11 +7,14 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	managed "github.com/yetone/magpie/internal/fusion/runtime"
+	"github.com/yetone/magpie/internal/fusion/workspace"
 	"os"
 	"os/signal"
 	"strings"
 	"syscall"
 	"testing"
+	"time"
 
 	"github.com/yetone/magpie/internal/fusion/control"
 	"github.com/yetone/magpie/internal/fusion/policy"
@@ -20,13 +23,18 @@ import (
 )
 
 var uiFixtureSource = flag.String("fusion-ui-fixture-source", "", "explicit synthetic UI fixture source; test binary only")
+var uiFixtureExecution = flag.String("fusion-ui-fixture-execution", "", "synthetic hold/success execution; test binary only")
 var uiFixtureRoot = flag.String("fusion-ui-fixture-root", "", "explicit private UI fixture state; test binary only")
 
 // This is a browser test process, not a product entry point. Its admitted
-// metadata is explicitly synthetic; execution and quota inspection always fail.
+// metadata is explicitly synthetic; default execution/inspection stays closed.
+// Opt-in modes simulate Runtime/StopProof without a real process or provider.
 func TestTaskUIFixtureProcess(t *testing.T) {
 	if *uiFixtureSource == "" && *uiFixtureRoot == "" {
 		t.Skip("explicit synthetic browser fixture only")
+	}
+	if *uiFixtureExecution != "" && *uiFixtureExecution != "hold" && *uiFixtureExecution != "success" {
+		t.Fatal("invalid synthetic execution mode")
 	}
 	source, err := Load(*uiFixtureSource)
 	if err != nil || *uiFixtureRoot == "" {
@@ -58,13 +66,73 @@ func TestTaskUIFixtureProcess(t *testing.T) {
 				reg.Routes[p.ID] = append(reg.Routes[p.ID], route)
 			}
 		}
+		if *uiFixtureExecution != "" {
+			reg.Inspect = func(_ context.Context, task store.Task, _ stageplan.Role, target stageplan.ExecutionTarget) (policy.Inspection, error) {
+				for _, r := range reg.Routes[task.ProjectID] {
+					if r.ID == target.Route.ID && r.Revision == target.Route.Revision {
+						return fixtureHostInspection(r), nil
+					}
+				}
+				return policy.Inspection{}, control.ErrUnsupported
+			}
+			reg.Resolve = func(_ context.Context, task store.Task, _ stageplan.Role, _ stageplan.ExecutionTarget) (control.Launch, error) {
+				p, err := env.Source.Project(task.ProjectID)
+				if err != nil {
+					return control.Launch{}, err
+				}
+				snapshot, err := workspace.Copy(p.Path, privateExecutionDir(t), "copy")
+				if err != nil {
+					return control.Launch{}, err
+				}
+				guard, err := snapshot.Guard()
+				if err != nil {
+					return control.Launch{}, err
+				}
+				return control.Launch{Spec: managed.Spec{Root: privateExecutionDir(t), Workspace: snapshot.Path, Source: guard, Input: []byte("synthetic browser execution"), Timeout: 5 * time.Second}, Backend: control.Backend{
+					Probe: func(context.Context) (managed.Capabilities, error) {
+						return managed.Capabilities{Probe: true, Start: true, Events: true, Cancel: true}, nil
+					},
+					Start: func(ctx context.Context, run store.StageRun, _ managed.Spec) (control.Execution, error) {
+						if err := env.Store.ConfirmStarted(run.ID, run.Generation, run.Owner, "synthetic-ui-session"); err != nil {
+							return nil, err
+						}
+						x := &hostExecution{done: make(chan struct{}), cancelled: make(chan struct{})}
+						go func() {
+							var success <-chan time.Time
+							var timer *time.Timer
+							if *uiFixtureExecution == "success" {
+								timer = time.NewTimer(100 * time.Millisecond)
+								success = timer.C
+								defer timer.Stop()
+							}
+							outcome := "cancelled"
+							select {
+							case <-success:
+								outcome = "succeeded"
+							case <-x.cancelled:
+							case <-ctx.Done():
+								x.Cancel()
+							}
+							if err := env.Store.Finish(run.ID, run.Generation, run.Owner, outcome); err != nil {
+								t.Error(err)
+							}
+							x.result = managed.Result{State: outcome, StoppedVerified: true, Proof: policy.StopProof{RunID: run.ID, Generation: run.Generation, NativeSessionID: "synthetic-ui-session", ProcessIdentityHash: strings.Repeat("b", 64), ReportHash: strings.Repeat("c", 64), DescendantsStopped: true}}
+							close(x.done)
+						}()
+						return x, nil
+					}, Release: func(proof policy.StopProof) error {
+						return env.Store.ReleaseReserved(proof.RunID, proof.Generation, proof.ReportHash, true)
+					},
+				}}, nil
+			}
+		}
 		return reg, nil
 	})
 	if err != nil {
 		t.Fatal("synthetic UI host initialization")
 	}
 	defer h.Close()
-	announcement, _ := json.Marshal(map[string]any{"control_address": "http://" + h.Addr(), "synthetic_fixture": true, "execution_supported": false, "jev": "off"})
+	announcement, _ := json.Marshal(map[string]any{"control_address": "http://" + h.Addr(), "synthetic_fixture": true, "execution_supported": *uiFixtureExecution != "", "synthetic_execution_mode": *uiFixtureExecution, "jev": "off"})
 	fmt.Println(string(announcement))
 	if err := h.Serve(ctx); err != nil {
 		t.Fatal("synthetic UI host service")

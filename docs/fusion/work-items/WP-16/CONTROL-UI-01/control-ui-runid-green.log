@@ -1,0 +1,11 @@
+✔ execution controls: idle pause continue cancel use the frozen Task condition without starting Runtime (1884.712625ms)
+✔ execution controls: a lost start receipt retries the exact original key and role then cancels one run (1167.366958ms)
+✔ execution controls: substituted successful run ID keeps the original start request until independent run read proves it (1032.302916ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4265.984583

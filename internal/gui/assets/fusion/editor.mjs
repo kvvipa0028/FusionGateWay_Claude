@@ -5,7 +5,7 @@ const state={project:"",scope:"project",routes:[],layers:{},tags:{},config:{},pr
 const messages={route_unavailable:"模型或路线版本已失效，请重新选择。",effort_unspecified:"请选择推理档位。",effort_unsupported:"该模型不支持此推理选择。",candidates_missing:"请明确添加批准的候选。",candidate_duplicate:"同一路线版本不能重复。",mode_invalid:"配置模式无效。",lock_exception_unaccepted:"此配置含未接受的锁定例外。"};
 function el(tag,text,attrs={}){const n=document.createElement(tag);if(text!==null)n.textContent=text;for(const[k,v]of Object.entries(attrs))n.setAttribute(k,v);if(tag==="button")n.classList.add("text","action");if(tag==="select")n.classList.add("field");return n}
 function option(select,value,text){select.append(el("option",text,{value}))}
-class RequestError extends Error{constructor(status,code){super("request_failed");this.status=status;this.code=code}}
+class RequestError extends Error{constructor(status,code,reply){super("request_failed");this.status=status;this.code=code;this.reply=reply}}
 function defaultSnapshot(value,etag,status=500,fallback){
  try{
   if(!/^"(0|[1-9][0-9]*)"$/.test(etag)||!Number.isSafeInteger(value?.revision)||value.revision<0||etag!=='"'+value.revision+'"')throw Error();
@@ -34,8 +34,9 @@ function presetOptions(selected=""){
 async function request(path,options={}){
  let response;try{response=await fetch(path,{...options,cache:"no-store",credentials:"omit",redirect:"error",headers:{"Content-Type":"application/json",...(options.headers||{})}})}catch{throw new RequestError(0,"transport_unconfirmed")}
  let body;try{body=await response.json()}catch{throw new RequestError(response.status,"response_unavailable")}
- if(!response.ok)throw new RequestError(response.status,body?.error?.code);
- return {body,etag:response.headers.get("ETag"),status:response.status};
+ const reply={body,etag:response.headers.get("ETag"),taskEtag:response.headers.get("X-Fusion-Task-ETag"),status:response.status};
+ if(!response.ok)throw new RequestError(response.status,body?.error?.code,reply);
+ return reply;
 }
 function errorText(e,saving=false){
  if(e.status===412)return"配置已被其他窗口更新。本地修改已保留；重新载入后再保存。";

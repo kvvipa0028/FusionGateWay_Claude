@@ -1,0 +1,22 @@
+✖ execution controls: changing project disables old task actions while new configuration is still loading (31097.828958ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 31290.455083
+
+✖ failing tests:
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:593:1
+✖ execution controls: changing project disables old task actions while new configuration is still loading (31097.828958ms)
+  locator.isDisabled: Timeout 30000ms exceeded.
+  Call log:
+  [2m  - waiting for getByRole('button', { name: '启动所选阶段', exact: true })[22m
+
+      at TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:597:77) {
+    name: 'TimeoutError',
+    log: [ "  - waiting for getByRole('button', { name: '启动所选阶段', exact: true })" ]
+  }

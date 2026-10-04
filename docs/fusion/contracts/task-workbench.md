@@ -1,6 +1,6 @@
 # 单阶段任务工作台：冻结提交与回读
 
-组件 WP-16-TASK-UI-01，后续增补 SUBMISSION-UI-01。界面直接复用 Magpie 原 `app.css` 及列表/行/按钮控件，在阶段视图中增补工作台；不引入另一套 UI 框架或配色。当前完成冻结提交、任务发现和完整目标/计划/预算回读，阶段启动及运行控制仍待接入。
+组件 WP-16-TASK-UI-01，后续增补 SUBMISSION-UI-01、CONTROL-UI-01。界面直接复用 Magpie 原 `app.css` 及列表/行/按钮控件，在阶段视图中增补工作台；不引入另一套 UI 框架或配色。当前完成冻结提交、任务发现和完整目标/计划/预算回读；[运行控制页面](task-execution-ui.md)已在同一详情区接入明确阶段启动、暂停、继续与整项取消。真实供应商准入和实际 Native 运行操作仍未验证。
 
 ## 操作
 
@@ -26,7 +26,7 @@
 
 列表校验页大小、项目、ID 去重、目标截断标记及 next_before 的页尾关系。刷新列表和选择项目/任务均有独立请求序号；旧项目或旧任务的迟到响应不能替换当前显示。目标、模型、状态和服务端字段通过 textContent/DOM 展示，不作为 HTML 或指令执行。
 
-Native 桥新增固定 POST `/agent/v1/tasks`、GET `/agent/v1/tasks/{id}`、GET `/control/v1/tasks/{id}/plan`、`budget`；新增固定工作台模块资源，不开放通用 assets。详情先核验本窗口及私有宿主，再核对 Task 所属项目在可信 Source 中；未知和未登记项目的任务同为 404。Idempotency-Key 只转送冻结提交和受限原提交准备/确认/封存路径；缺少/重复 header 仍由原 API 拒绝。后续[运行控制桥](native-task-control.md)已开放受限 start/pause/continue/cancel 和 run 读取/取消，但本工作台页面尚未消费它们；events/quota 通路继续待接入。来源/token 撤销、响应大小/期限和关闭取消沿用原桥保护。
+Native 桥新增固定 POST `/agent/v1/tasks`、GET `/agent/v1/tasks/{id}`、GET `/control/v1/tasks/{id}/plan`、`budget`；新增固定工作台模块资源，不开放通用 assets。详情先核验本窗口及私有宿主，再核对 Task 所属项目在可信 Source 中；未知和未登记项目的任务同为 404。Idempotency-Key 只转送冻结提交和受限原提交准备/确认/封存路径；缺少/重复 header 仍由原 API 拒绝。后续[运行控制桥](native-task-control.md)已开放受限 start/pause/continue/cancel 和 run 读取/取消，现由[运行控制页面](task-execution-ui.md)消费其中的阶段启动、Task 暂停/继续/取消和 run 读取；run 单独取消没有新增页面按钮，events/quota 通路继续待接入。来源/token 撤销、响应大小/期限和关闭取消沿用原桥保护。
 
 ## 复现与证据
 

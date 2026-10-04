@@ -1,0 +1,49 @@
+{
+  "component": "WP-16-CONTROL-UI-01",
+  "component_status": "done",
+  "parent_WP16": "in_progress",
+  "browser": [
+    {
+      "log": "control-ui-browser-verified.log",
+      "pass": 35,
+      "fail": 0,
+      "skip": 0,
+      "scope": "full previous 27 + new 8; before only existing class task-submit was added for wrapping"
+    },
+    {
+      "log": "control-ui-layout-final.log",
+      "pass": 8,
+      "fail": 0,
+      "skip": 0,
+      "scope": "all new execution tests after final markup wrapping change"
+    },
+    {
+      "log": "control-ui-project-final.log",
+      "pass": 1,
+      "fail": 0,
+      "skip": 0,
+      "scope": "additional cross-project loading invariant, test-only locator fix; product unchanged"
+    }
+  ],
+  "targeted_Go": {
+    "top_pass": 45,
+    "sub_pass": 100,
+    "fail": 0,
+    "skip": 0,
+    "log": "control-ui-go-final.log"
+  },
+  "build": "Go1.26.3 CLI/GUI/full fusion,nogui vet exit0",
+  "runtime": "opt-in test-only in-process synthetic hold/success; real HTTP Store Controller, synthetic Runtime/session/quota/StopProof",
+  "actual_native_controls": "not_verified",
+  "real_provider_calls": 0,
+  "jev": "off",
+  "final_T01_T60": "not_run",
+  "original_Magpie_UI": "unchanged; Fusion CSS unchanged",
+  "remaining": [
+    "start identity recovery after window close",
+    "events/quota UI",
+    "plan revision/checkpoint UI",
+    "real production Factory/Forwarder/quota",
+    "engineering stages/final Gate"
+  ]
+}

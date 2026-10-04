@@ -62,4 +62,4 @@
 
 [WP-15-PROJECT-INDEX-01](PROJECT-INDEX-01/summary.md) 已完成鉴权只读项目列表，供阶段界面发现已有登记；不公开目录/凭据，不新增登记/执行准入。API97PASS、bootstrap19PASS/2SKIP、构建/vet通过，OpenAPI27路径31操作56样本同步。WP-16页面与GUI鉴权、真实供应商准入及最终Gate仍待完成。
 
-后续 [WP-16-CONTROL-BRIDGE-01](../WP-16/CONTROL-BRIDGE-01/summary.md) 已接精确 Native start/pause/continue/cancel/run 读取与取消，沿用既有 Controller/HTTP 条件和幂等合同；运行控制页面及真实供应商 Factory 仍未完成。
+后续 [WP-16-CONTROL-BRIDGE-01](../WP-16/CONTROL-BRIDGE-01/summary.md) 已接精确 Native start/pause/continue/cancel/run 读取与取消，沿用既有 Controller/HTTP 条件和幂等合同；后续 [CONTROL-UI-01](../WP-16/CONTROL-UI-01/summary.md) 已接原详情区按钮及手动状态回读，真实供应商 Factory 与实际 Native 操作仍未验证。

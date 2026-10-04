@@ -1,0 +1,197 @@
+✔ successful synthetic server preview renders the actual role-indexed bindings without execution (1817.350708ms)
+✖ actual private CLI/API: independent roles, fold/reload, explicit overwrite and safe model text (589.52475ms)
+✖ actual API: stale editor keeps draft; lost acknowledgement retries the identical version/body (74.211542ms)
+✖ actual API: explicit preset version, auto candidates and single-role preview remains unadmitted (66.06775ms)
+✖ actual API: edit layer and version come from the same defaults response (66.996208ms)
+✖ actual API: malformed successful save acknowledgement freezes the identical retry (64.658125ms)
+✖ actual API: expired route never selects a replacement; global and project drafts stay separate (64.66325ms)
+✖ preset UI: creates five-role preset and revisions without changing defaults or old task source (65.439541ms)
+✖ preset UI: stale loaded revision conflicts; committed but malformed acknowledgement retries identical body/tag/id (64.712917ms)
+✖ preset UI: creation retry keeps its id/base after head advances and invalid selection/name blocks save (66.453167ms)
+✔ submission recovery: task POST follows persisted original preparation and matching acknowledgement (911.259ms)
+✔ submission recovery: opening a window restores a prepared original request without posting a task (1325.981666ms)
+✔ submission recovery: closed window restores committed original and same-task retry clears acknowledgement (1382.6125ms)
+✔ task workbench: frozen submit persists ready task and reload reads actual plan/budget safely (2052.768792ms)
+✔ submission recovery: unknown preparation never posts a task; window reopen recovers the original key (1382.119125ms)
+✔ submission recovery: lost acknowledgement retries only the original acknowledgement and does not repeat task POST (933.5675ms)
+✔ submission recovery: lost seal response cannot release editing or send another task POST (868.977041ms)
+✔ submission recovery: prepared request survives real host restart; lost preview requires explicit seal (950.51625ms)
+✔ submission recovery: startup discovers the pending project instead of creating a new request in the first project (518.184583ms)
+✔ submission recovery: malformed prepare metadata keeps original identity and never posts a task (981.562083ms)
+✔ submission recovery: another window reads the same pending original without submitting its new preview (1229.9085ms)
+✔ submission recovery: a substituted task ID is unproved until the original journal and task read agree (967.258541ms)
+✔ submission recovery: an unavailable project journal blocks editing until a successful explicit reread (889.103375ms)
+✔ task workbench: lost successful receipt 503 freezes editing; identical request retry returns one task (1081.442417ms)
+✔ task workbench: lost successful receipt malformed201 freezes editing; identical request retry returns one task (1044.671625ms)
+✔ task workbench: changed configuration rejects old preview; expired preview never submits (998.577875ms)
+✔ task workbench: actual 32+1 pagination and late previous-project response cannot replace current list (1174.591208ms)
+✔ execution controls: idle pause continue cancel use the frozen Task condition without starting Runtime (1092.968084ms)
+✔ execution controls: a lost start receipt retries the exact original key and role then cancels one run (1236.212834ms)
+✔ execution controls: substituted successful run ID keeps the original start request until independent run read proves it (1032.199125ms)
+✔ execution controls: stale Task condition rejects start and requires a new explicit Task read (1017.537625ms)
+✔ execution controls: lost pause receipt reads the changed Task condition without resending or starting (1033.964ms)
+✔ execution controls: running pause is needs_review after cancelled outcome and never a blind continue (1082.764625ms)
+✔ execution controls: successful synthetic stage stays separate from whole-task acceptance in the original Magpie layout (1265.080292ms)
+✖ execution controls: unavailable run detail keeps independently read Task state and never enables another start (1000.116083ms)
+ℹ tests 35
+ℹ suites 0
+ℹ pass 25
+ℹ fail 10
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 30580.151833
+
+✖ failing tests:
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:109:1
+✖ actual private CLI/API: independent roles, fold/reload, explicit overwrite and safe model text (589.52475ms)
+  AssertionError [ERR_ASSERTION]: stage bundle differs from current source
+      at fixture (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:53:10)
+      at async TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:110:10)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:143:1
+✖ actual API: stale editor keeps draft; lost acknowledgement retries the identical version/body (74.211542ms)
+  AssertionError [ERR_ASSERTION]: stage bundle differs from current source
+      at fixture (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:53:10)
+      at async TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:144:10)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:165:1
+✖ actual API: explicit preset version, auto candidates and single-role preview remains unadmitted (66.06775ms)
+  AssertionError [ERR_ASSERTION]: stage bundle differs from current source
+      at fixture (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:53:10)
+      at async TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:166:10)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:192:1
+✖ actual API: edit layer and version come from the same defaults response (66.996208ms)
+  AssertionError [ERR_ASSERTION]: stage bundle differs from current source
+      at fixture (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:53:10)
+      at async TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:193:10)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:210:1
+✖ actual API: malformed successful save acknowledgement freezes the identical retry (64.658125ms)
+  AssertionError [ERR_ASSERTION]: stage bundle differs from current source
+      at fixture (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:53:10)
+      at async TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:211:10)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:226:1
+✖ actual API: expired route never selects a replacement; global and project drafts stay separate (64.66325ms)
+  AssertionError [ERR_ASSERTION]: stage bundle differs from current source
+      at fixture (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:53:10)
+      at async TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:227:10)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:256:1
+✖ preset UI: creates five-role preset and revisions without changing defaults or old task source (65.439541ms)
+  AssertionError [ERR_ASSERTION]: stage bundle differs from current source
+      at fixture (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:53:10)
+      at async TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:257:10)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:281:1
+✖ preset UI: stale loaded revision conflicts; committed but malformed acknowledgement retries identical body/tag/id (64.712917ms)
+  AssertionError [ERR_ASSERTION]: stage bundle differs from current source
+      at fixture (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:53:10)
+      at async TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:282:10)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:314:1
+✖ preset UI: creation retry keeps its id/base after head advances and invalid selection/name blocks save (66.453167ms)
+  AssertionError [ERR_ASSERTION]: stage bundle differs from current source
+      at fixture (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:53:10)
+      at async TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:315:10)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:585:1
+✖ execution controls: unavailable run detail keeps independently read Task state and never enables another start (1000.116083ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+    assert.ok((await page.locator('#task-detail').innerText()).includes('running'))
+
+      at TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:589:154)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

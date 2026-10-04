@@ -1,0 +1,72 @@
+[
+  {
+    "source": ".fusion-dev/implementation/control-ui-red.log",
+    "source_sha256": "f6571ec67f72c28ac7438e87b251e08d9a30ce9f031db9a92a4664f5480d5bc7",
+    "packet": "control-ui-red.log",
+    "packet_sha256": "3b95520da9e6638fee26e944d2c286b935e24c683109427a230b1b2555a7ba8b",
+    "normalization": "rstrip each line only; original retained in ignored scratch"
+  },
+  {
+    "source": ".fusion-dev/implementation/control-ui-green.log",
+    "source_sha256": "5fb31a5e865757724befac5fcaffb86fd99034355cd528b19204313bfb42ea13",
+    "packet": "control-ui-green.log",
+    "packet_sha256": "5fb31a5e865757724befac5fcaffb86fd99034355cd528b19204313bfb42ea13",
+    "normalization": "rstrip each line only; original retained in ignored scratch"
+  },
+  {
+    "source": ".fusion-dev/implementation/control-ui-runid-red.log",
+    "source_sha256": "c6cb213818e6c3ff004392bea1e4b1321c062d4687434cc34d6ca86d1d035a3a",
+    "packet": "control-ui-runid-red.log",
+    "packet_sha256": "84be7753d497ade61f38f1a381cac18f6ad0ce1799448d9c4ce4516780ef5963",
+    "normalization": "rstrip each line only; original retained in ignored scratch"
+  },
+  {
+    "source": ".fusion-dev/implementation/control-ui-runid-green.log",
+    "source_sha256": "698a6f296de15ecac135a83ad5eb7eb423f6081530d39a729f8c9debb192328d",
+    "packet": "control-ui-runid-green.log",
+    "packet_sha256": "698a6f296de15ecac135a83ad5eb7eb423f6081530d39a729f8c9debb192328d",
+    "normalization": "rstrip each line only; original retained in ignored scratch"
+  },
+  {
+    "source": ".fusion-dev/implementation/control-ui-browser-final.log",
+    "source_sha256": "8dcefe036fa832feb3f3471ab30dd8e7428d7b05e3f0136e99290b1e21317a27",
+    "packet": "control-ui-browser-final.log",
+    "packet_sha256": "4ae4d6cd09218a5c1ed4ece6080b3b493b780dd5e4b7da7eed5cf64c32c0b790",
+    "normalization": "rstrip each line only; original retained in ignored scratch"
+  },
+  {
+    "source": ".fusion-dev/implementation/control-ui-browser-verified.log",
+    "source_sha256": "b562868ee2dd2a50305b290e00802bd6619e97b1e91cad224e9d2f96f0e3c2dc",
+    "packet": "control-ui-browser-verified.log",
+    "packet_sha256": "b562868ee2dd2a50305b290e00802bd6619e97b1e91cad224e9d2f96f0e3c2dc",
+    "normalization": "rstrip each line only; original retained in ignored scratch"
+  },
+  {
+    "source": ".fusion-dev/implementation/control-ui-layout-final.log",
+    "source_sha256": "80f10b46cd81adf68d76b5e14a055911989f9fad1fc7a5e455e5afbe2931dfb8",
+    "packet": "control-ui-layout-final.log",
+    "packet_sha256": "80f10b46cd81adf68d76b5e14a055911989f9fad1fc7a5e455e5afbe2931dfb8",
+    "normalization": "rstrip each line only; original retained in ignored scratch"
+  },
+  {
+    "source": ".fusion-dev/implementation/control-ui-project-verified.log",
+    "source_sha256": "66a540cecf8410d0255d9fb1fe0247c90b0b5e067fe2254d41e8cdba265eb1ab",
+    "packet": "control-ui-project-verified.log",
+    "packet_sha256": "8a230f6f64ac4747fc58d023b6c12b8aa8eb696fd8dee542b099e82295baf270",
+    "normalization": "rstrip each line only; original retained in ignored scratch"
+  },
+  {
+    "source": ".fusion-dev/implementation/control-ui-project-final.log",
+    "source_sha256": "b50ccdb07792ac21cc22915977a6fbd8851937a2ea426817f20f1b5230fbf1a2",
+    "packet": "control-ui-project-final.log",
+    "packet_sha256": "b50ccdb07792ac21cc22915977a6fbd8851937a2ea426817f20f1b5230fbf1a2",
+    "normalization": "rstrip each line only; original retained in ignored scratch"
+  },
+  {
+    "source": ".fusion-dev/implementation/control-ui-go-final.log",
+    "source_sha256": "5af0d9428d1e987df95f885f9e68ba6061c5d92c83528aa6279b91fe8039ca94",
+    "packet": "control-ui-go-final.log",
+    "packet_sha256": "5af0d9428d1e987df95f885f9e68ba6061c5d92c83528aa6279b91fe8039ca94",
+    "normalization": "rstrip each line only; original retained in ignored scratch"
+  }
+]

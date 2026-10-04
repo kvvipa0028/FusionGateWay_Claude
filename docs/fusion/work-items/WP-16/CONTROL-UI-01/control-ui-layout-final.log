@@ -1,0 +1,16 @@
+✔ execution controls: idle pause continue cancel use the frozen Task condition without starting Runtime (1860.058083ms)
+✔ execution controls: a lost start receipt retries the exact original key and role then cancels one run (1170.697958ms)
+✔ execution controls: substituted successful run ID keeps the original start request until independent run read proves it (1049.028792ms)
+✔ execution controls: stale Task condition rejects start and requires a new explicit Task read (1050.184125ms)
+✔ execution controls: lost pause receipt reads the changed Task condition without resending or starting (1016.707709ms)
+✔ execution controls: running pause is needs_review after cancelled outcome and never a blind continue (1082.714375ms)
+✔ execution controls: successful synthetic stage stays separate from whole-task acceptance in the original Magpie layout (1281.245209ms)
+✔ execution controls: unavailable run detail keeps independently read Task state and never enables another start (1157.622417ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9851.740709

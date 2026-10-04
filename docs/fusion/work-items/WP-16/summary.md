@@ -18,6 +18,8 @@
 
 服务端 [SUBMISSION-RECEIPT-01](../WP-15/SUBMISSION-RECEIPT-01/summary.md)、[SUBMISSION-JOURNAL-01](../WP-15/SUBMISSION-JOURNAL-01/summary.md) 和 [SUBMISSION-API-01](../WP-15/SUBMISSION-API-01/summary.md) 提供原回执、私有记录与受限桥接。浏览器测试包含真正停止并重开 owned 私有宿主；它不替代 Native 窗口验证。
 
-[CONTROL-BRIDGE-01](CONTROL-BRIDGE-01/summary.md) 已开放精确 Native start/pause/continue/cancel/run 读取与取消；54 项 targeted 回归及 CLI/GUI/vet 通过。仅桥接层完成，页面按钮/状态/事件、真实供应商 Factory 和实际 Native 操作继续待接入或验证。页面与 CSS 未改。
+[CONTROL-BRIDGE-01](CONTROL-BRIDGE-01/summary.md) 已开放精确 Native start/pause/continue/cancel/run 读取与取消；54 项 targeted 回归及 CLI/GUI/vet 通过。该项完成桥接层，后续 CONTROL-UI-01 已接按钮和手动状态回读；事件、真实供应商 Factory 和实际 Native 操作仍待接入或验证。桥接组件当时页面与 CSS 未改。
 
-单阶段执行、下一阶段手动触发、运行事件/额度/取消暂停/计划修订工作台及实际 Native 恢复窗口仍待实施或验证。页面测试未证明真实 provider 或账号执行；最终验收矩阵保持 not_run，Jev off。
+[CONTROL-UI-01](CONTROL-UI-01/summary.md) 已在原任务详情区接入明确角色启动、暂停、继续、整项取消、运行记录回读及未确认原运行请求重试；复用原样式，CSS 未改。浏览器与合成执行、版本/回执边界通过验证，真实供应商执行与实际 Native 运行按钮仍未验证。
+
+工程流程的下一阶段 Gate、运行事件/额度/计划修订工作台、关闭窗口后的原启动身份恢复及实际 Native 恢复窗口仍待实施或验证。页面测试未证明真实 provider 或账号执行；最终验收矩阵保持 not_run，Jev off。

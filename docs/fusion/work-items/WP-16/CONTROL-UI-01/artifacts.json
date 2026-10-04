@@ -1,0 +1,147 @@
+{
+  "base_commit": "89192e09a744b91f5a41ed2362a04b7f384c1e6b",
+  "source_files": [
+    {
+      "path": "docs/fusion/README.md",
+      "sha256": "d217f34b8e051853c9b503b6c9e9928c587f6ccd520f902e235c3884d6207a2f"
+    },
+    {
+      "path": "docs/fusion/contracts/native-stage-ui.md",
+      "sha256": "28f85cb50a05bf819961f914b9c60ac8d29b797080decbbca5e0d8dbf87d7349"
+    },
+    {
+      "path": "docs/fusion/contracts/native-task-control.md",
+      "sha256": "eb97749c387d9c5f8f3a62cc4e033e4276b1acfa963f3ebf961bfac58ea7f8fd"
+    },
+    {
+      "path": "docs/fusion/contracts/stage-editor.md",
+      "sha256": "281b36c8b0d971d793e39f321b90e4543bcf82f59026fd7a113395fc1e47c584"
+    },
+    {
+      "path": "docs/fusion/contracts/task-execution-ui.md",
+      "sha256": "d8b4b98108ef92b2173ac31c06bc2617776c9d8a6c954418b1a728b393b8ba06"
+    },
+    {
+      "path": "docs/fusion/contracts/task-workbench.md",
+      "sha256": "d7519417ae91b142c3f224ac6e07d4b0af6755617a83bd663b62762f3e53631b"
+    },
+    {
+      "path": "docs/fusion/planning/Fusion_Magpie_Fork_Agent工作包_v1.0.md",
+      "sha256": "0efefc237bde95e32526512aea44e8418e867cbdbb380765a91e72b9a28780c6"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/summary.md",
+      "sha256": "d755d515bc3dec7fb509d4ea9ccbbdac9da63ee780e86573a62b37f92c866e33"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/summary.md",
+      "sha256": "de87de71198e594f99cc09222e2f716a9242c16557bc43f1ba45572c54328c66"
+    },
+    {
+      "path": "internal/fusion/bootstrap/workbench_fixture_test.go",
+      "sha256": "5cf60fa8186cc950c93402f93a766385559865332e9036cc87ac8c02f94613e1"
+    },
+    {
+      "path": "internal/gui/assets/fusion/editor.mjs",
+      "sha256": "298cf1af9979a4855cab0601128d90f6d396bd5905964ccf9402a5d8d8b816ca"
+    },
+    {
+      "path": "internal/gui/assets/fusion/index.html",
+      "sha256": "ab8a1beedfe12b053328644d325d88eeb445c9cf8d8126c3bf749a48bd64b7e3"
+    },
+    {
+      "path": "internal/gui/assets/fusion/workbench.mjs",
+      "sha256": "879187e561d2b4ca1873a85c8f9a5b581168f07149b6fb1cd411b80312b0afdd"
+    },
+    {
+      "path": "internal/gui/tests/fusion-stage-editor.test.cjs",
+      "sha256": "1e3af325c4f2c6bc2c2a6fe3087aae1ee3da933f75babe404e0e44060ec82e76"
+    }
+  ],
+  "packet_files": [
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-UI-01/build-cli.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-UI-01/build-gui.log",
+      "sha256": "b7aa48227da1c4aee1f55682ae595c513db7b6fbf5ef3e07ea8e84191d6f9c09"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-UI-01/build-results.json",
+      "sha256": "f9492c75951e9ea3836903d835a7f390c12bbd8cc1bb4f03d3104ee4d25a8375"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-UI-01/build-vet.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-UI-01/control-ui-browser-final.log",
+      "sha256": "4ae4d6cd09218a5c1ed4ece6080b3b493b780dd5e4b7da7eed5cf64c32c0b790"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-UI-01/control-ui-browser-verified.log",
+      "sha256": "b562868ee2dd2a50305b290e00802bd6619e97b1e91cad224e9d2f96f0e3c2dc"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-UI-01/control-ui-go-final.log",
+      "sha256": "5af0d9428d1e987df95f885f9e68ba6061c5d92c83528aa6279b91fe8039ca94"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-UI-01/control-ui-green.log",
+      "sha256": "5fb31a5e865757724befac5fcaffb86fd99034355cd528b19204313bfb42ea13"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-UI-01/control-ui-layout-final.log",
+      "sha256": "80f10b46cd81adf68d76b5e14a055911989f9fad1fc7a5e455e5afbe2931dfb8"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-UI-01/control-ui-project-final.log",
+      "sha256": "b50ccdb07792ac21cc22915977a6fbd8851937a2ea426817f20f1b5230fbf1a2"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-UI-01/control-ui-project-verified.log",
+      "sha256": "8a230f6f64ac4747fc58d023b6c12b8aa8eb696fd8dee542b099e82295baf270"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-UI-01/control-ui-red.log",
+      "sha256": "3b95520da9e6638fee26e944d2c286b935e24c683109427a230b1b2555a7ba8b"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-UI-01/control-ui-runid-green.log",
+      "sha256": "698a6f296de15ecac135a83ad5eb7eb423f6081530d39a729f8c9debb192328d"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-UI-01/control-ui-runid-red.log",
+      "sha256": "84be7753d497ade61f38f1a381cac18f6ad0ce1799448d9c4ce4516780ef5963"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-UI-01/desktop.png",
+      "sha256": "7282e7955c2b3f5a44a9f924d19033f05e2e1de92c59d37f8a7a722f205e5c4d"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-UI-01/graph.json",
+      "sha256": "9d373e4085d2aaefeb1c9575422e36d189c66aeacbe51c2c008b7625518a2f13"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-UI-01/log-provenance.json",
+      "sha256": "caa9cc0942de2723c79f8cd282d62c215bcecce5aa9b49a844a4e3bc74e295a6"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-UI-01/mobile.png",
+      "sha256": "cfa4fbc37a3d72d30d469c74d11bd6c872ddcbb38fcdc7efece94dcae216e1d4"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-UI-01/summary.md",
+      "sha256": "4a465c8da3ed5fea7d719ad19febd3c72d04c2a7f7a4724f2fba1bc054135eb7"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-UI-01/test-results.json",
+      "sha256": "065708046aba8edfcfe44f545f05027481ce3067786923d2405a6ee35ef672e3"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-UI-01/validation.json",
+      "sha256": "3deb62fc24ede86cb418ae6ee437ae029e70e505957efeea43d5da9fbb6fb744"
+    }
+  ]
+}

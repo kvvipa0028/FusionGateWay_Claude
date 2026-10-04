@@ -1,6 +1,6 @@
 # 阶段配置界面合同
 
-组件：WP-16-EDITOR-01，后续增补 MAGPIE-UI-01、TASK-UI-01 和 SUBMISSION-UI-01。五角色绑定合同、Store 与 Management API 保持不变；页面只编辑完整选择及请求服务端预览，不作执行准入判断。
+组件：WP-16-EDITOR-01，后续增补 MAGPIE-UI-01、TASK-UI-01、SUBMISSION-UI-01、CONTROL-UI-01。五角色绑定合同、Store 与 Management API 保持不变；页面只编辑完整选择及请求服务端预览，不作执行准入判断。
 
 ## 页面与权限
 
@@ -43,10 +43,10 @@ PATH="$HOME/.local/bin:$PATH" python3 docs/fusion/work-items/WP-13/CALLS-01/run-
   ./internal/fusion/bootstrap ./internal/fusion/api
 ```
 
-浏览器测试启动真实私有产品 CLI，检查服务资源逐字等于当前源文件，操作页面后直接回读实际 Store API。退出时等待自己启动的宿主停止并删除自己创建的目录；截屏写到 `.fusion-dev/implementation/`。成功预览额外使用 `_test.go` 中的合成 RuntimeFactory 宿主：仅接受 synthetic-ui/fixture 标识的只读项目，Inspect/Resolve 始终拒绝，不提供真实执行。该旗标只存在测试二进制，产品 CLI 不具备这条准入入口。服务或浏览器不可用时保留失败证据，不能以模型单元测试替代浏览器验证。
+浏览器测试启动真实私有产品 CLI，检查服务资源逐字等于当前源文件，操作页面后直接回读实际 Store API。退出时等待自己启动的宿主停止并删除自己创建的目录；截屏写到 `.fusion-dev/implementation/`。成功预览额外使用 `_test.go` 中的合成 RuntimeFactory 宿主：仅接受 synthetic-ui/fixture 标识的只读项目，默认 Inspect/Resolve 拒绝；后续 CONTROL-UI-01 的显式 test-only hold/success 模式接真实 Store/Controller 与进程内合成执行，不启动 Native/provider，StopProof 与额度为合成值。该旗标只存在测试二进制，产品 CLI 不具备这条准入入口。服务或浏览器不可用时保留失败证据，不能以模型单元测试替代浏览器验证。
 
 ## 操作流程与当前边界
 
 Native 配置窗口操作：选择登记项目和配置范围 → 展开需要独立设置的角色 → 指定模型及 effort，或批准 auto 候选 → 保存并核对版本。合并前核对覆盖提示；有冲突时保留草稿，重新载入当前配置后再编辑。切换项目或重新载入需确认丢弃未保存内容。本次任务填写目标、选择一个阶段，点击预览；预览与执行是两个步骤，当前页面可冻结提交并回读任务、计划和预算；这两个操作均不启动阶段。
 
-当前隔离验证可以按照上述测试命令复现交互；不可声称用户已经能在 Native GUI 运行真实任务。任务列表、冻结提交及详情已接入；阶段启动、下一阶段手动触发、取消/暂停、事件/日志、额度读取、运行计划修订、真实账号/Factory 准入仍待后续组件。[原请求恢复 UI](task-submission-ui.md)已接入，浏览器恢复已验证；实际 Native 恢复窗口验证仍待桌面解锁。最终 T01–T60 状态保持 not_run。
+当前隔离验证可以按照上述测试命令复现交互；不可声称用户已经能在 Native GUI 运行真实任务。任务列表、冻结提交及详情已接入；[阶段启动、暂停/继续/整项取消](task-execution-ui.md)已由 CONTROL-UI-01 接入原详情区；工程流程的下一阶段 Gate、事件/日志、额度读取、运行计划修订、真实账号/Factory 准入仍待后续组件。[原请求恢复 UI](task-submission-ui.md)已接入，浏览器恢复已验证；实际 Native 恢复窗口验证仍待桌面解锁。最终 T01–T60 状态保持 not_run。
