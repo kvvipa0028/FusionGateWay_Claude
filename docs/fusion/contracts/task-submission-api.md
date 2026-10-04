@@ -1,6 +1,6 @@
 # 原提交恢复 API 与 Native 通路
 
-WP-15-SUBMISSION-API-01 完成受管理认证的原提交记录准备、读取和解决，以及精确 Native 桥接。本 API 组件未修改 UI；后续[原请求恢复 UI](task-submission-ui.md)已消费这些接口，浏览器恢复通过，实际 Native 恢复窗口操作仍待验证。依赖 [私有提交存储](task-submission-journal.md) 与 [原 Task 提交回执](task-submission-receipt.md)，schema 7 不变。
+WP-15-SUBMISSION-API-01 完成受管理认证的原提交记录准备、读取和解决，以及精确 Native 桥接。本 API 组件未修改 UI；后续[原请求恢复 UI](task-submission-ui.md)已消费这些接口，浏览器恢复通过，实际 Native 恢复窗口操作仍待验证。依赖 [私有提交存储](task-submission-journal.md) 与 [原 Task 提交回执](task-submission-receipt.md)，该组件时 schema7 不变。
 
 ## 接口与输入
 
@@ -59,3 +59,5 @@ python3 scripts/fusion/check-openapi.py \
 ```
 
 run-go/build-dev 使用临时私有 HOME/XDG 和环境白名单；合成管理材料只属于测试宿主，不读取日常账号/共享 Keychain，不需要发送真实 key。该验证不启动生产账号任务。
+
+后续[原启动记录](task-start-journal.md)将当前 Store 扩展至schema8，任务提交恢复语义保持；它的HTTP/Native/UI消费尚未接入。

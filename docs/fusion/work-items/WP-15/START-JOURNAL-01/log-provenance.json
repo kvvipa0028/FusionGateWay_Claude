@@ -1,0 +1,50 @@
+{
+  "start-journal-red.log": {
+    "role": "historical intermediate or RED, not final result",
+    "sha256": "5032faf0d7a35a29ba8097638af9af7a64594693fe6d1a53bacc992ca4cf62d4"
+  },
+  "start-journal-green-first.log": {
+    "role": "historical intermediate or RED, not final result",
+    "sha256": "1c8bf1142839edc0fe5f129ca3b056ecd34d519cfff29820f2d28d4bd3636ea4"
+  },
+  "start-journal-green-expanded.log": {
+    "role": "historical intermediate or RED, not final result",
+    "sha256": "09835e8310ad9d87740fc35efa1f99a9fe05a41b0399e83b19ff523a236df4cc"
+  },
+  "start-journal-store-before-corrupt-fixture.log": {
+    "role": "historical intermediate or RED, not final result",
+    "sha256": "5abbaabb4f3a9f71a8095bdfaa49bd930d77bee03c8c776a94668fa594396c1e"
+  },
+  "start-journal-fusion-before-link-fix.log": {
+    "role": "historical intermediate or RED, not final result",
+    "sha256": "d46f2619bb48f694e4f993ed824717997ecde0f39e2914a76d1ea2edf07197d9"
+  },
+  "start-journal-missing-link-red.log": {
+    "role": "historical intermediate or RED, not final result",
+    "sha256": "088b4afdef1fca0fda0ce811ce391db28f5497d714d06dab090af547766e4000"
+  },
+  "start-journal-fusion-before-mapping-fix.log": {
+    "role": "historical intermediate or RED, not final result",
+    "sha256": "7dc63cbdc5db1a30983df7abf223af1a4818486238f60df9ef687419264ca996"
+  },
+  "start-journal-mapping-red.log": {
+    "role": "historical intermediate or RED, not final result",
+    "sha256": "b03fc8f1530face506c1c19d3708bae3cfa9906bcb4d31c39a0b28045f8f6ef9"
+  },
+  "start-journal-fusion-final.log": {
+    "role": "final result",
+    "sha256": "bab4b0b4dd39da1ec0b4f51dbf38c7623dd2f46bd4eeebfaa857a39a9a0db137"
+  },
+  "start-journal-build-first.log": {
+    "role": "historical intermediate or RED, not final result",
+    "sha256": "ee5843ba8efa1fc8bd85d79079ecd1a564c46c02021ed3bf2844076b9f3dcfe2"
+  },
+  "start-journal-build-before-mapping-fix.log": {
+    "role": "historical intermediate or RED, not final result",
+    "sha256": "ee5843ba8efa1fc8bd85d79079ecd1a564c46c02021ed3bf2844076b9f3dcfe2"
+  },
+  "start-journal-build-final.log": {
+    "role": "final result",
+    "sha256": "ee5843ba8efa1fc8bd85d79079ecd1a564c46c02021ed3bf2844076b9f3dcfe2"
+  }
+}

@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/store [github.com/yetone/magpie/internal/fusion/store.test]
+internal/fusion/store/start_journal_test.go:13:16: s.PrepareStart undefined (type *Store has no field or method PrepareStart)
+internal/fusion/store/start_journal_test.go:29:14: s.PendingStart undefined (type *Store has no field or method PendingStart)
+internal/fusion/store/start_journal_test.go:31:16: s.PrepareStart undefined (type *Store has no field or method PrepareStart)
+internal/fusion/store/start_journal_test.go:34:13: s.LookupStartJournal undefined (type *Store has no field or method LookupStartJournal)
+internal/fusion/store/start_journal_test.go:40:15: s.PrepareStart undefined (type *Store has no field or method PrepareStart)
+internal/fusion/store/start_journal_test.go:41:15: s.ResolveStart undefined (type *Store has no field or method ResolveStart)
+internal/fusion/store/start_journal_test.go:43:12: s.PendingStart undefined (type *Store has no field or method PendingStart)
+internal/fusion/store/start_journal_test.go:44:15: s.ResolveStart undefined (type *Store has no field or method ResolveStart)
+internal/fusion/store/start_journal_test.go:45:15: s.ResolveStart undefined (type *Store has no field or method ResolveStart)
+internal/fusion/store/start_journal_test.go:47:11: s.LookupStartJournal undefined (type *Store has no field or method LookupStartJournal)
+internal/fusion/store/start_journal_test.go:47:11: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/store [build failed]
+FAIL

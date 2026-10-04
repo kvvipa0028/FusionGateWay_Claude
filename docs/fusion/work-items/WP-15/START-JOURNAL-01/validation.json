@@ -1,0 +1,17 @@
+{
+  "source_files": 23,
+  "packet_files_before_validation": 20,
+  "json_checked": 4,
+  "local_links_checked": 171,
+  "gofmt": "pass",
+  "diff": "pass",
+  "private_key_byte_exclusion": "pass; no credential contents or digests emitted",
+  "original_Magpie_assets": "byte-equal locked upstream",
+  "Fusion_UI_CSS_browser_tests": "byte-equal BASE",
+  "migration001_007": "byte-equal BASE; schema8 new",
+  "API_OpenAPI_Controller_Runtime_policy_dependencies": "unchanged",
+  "build_binary_and_log_hashes": "pass final source",
+  "graph": "refreshed14116nodes126141edges",
+  "actual_Native_UI": "not run; no UI changes",
+  "whole_goal": "active; WP15/WP16 in_progress; HTTP/Native/UI recovery not integrated; final T01-T60 not_run"
+}

@@ -484,6 +484,8 @@
 
 [EVENT-PAGE-01](../work-items/WP-16/EVENT-PAGE-01/summary.md)已接有界事件分页及原 UI 默认折叠回读，CSS 未改；浏览器/Native 桥与宿主重开通过，实际 Native 点击与实时推送仍未验证。
 
+[START-JOURNAL-01](../work-items/WP-15/START-JOURNAL-01/summary.md)已补齐原启动持久记录Store基础及schema8迁移，HTTP/Native/UI消费者尚未接入，实际跨窗口启动恢复未交付。
+
 **输入/前置：**WP-04, WP-06, WP-15。同时读取这些前置包的合同、测试日志、阻断项与当前仓库 HEAD。
 
 **改动范围：**internal/gui/assets/ 下拟新增 fusion 模块；现有导航入口小范围改动。

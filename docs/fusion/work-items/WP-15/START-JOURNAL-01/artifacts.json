@@ -1,0 +1,183 @@
+{
+  "base_commit": "b3cae7bb05456971297d2ce29222d5f814d9f30f",
+  "source_files": [
+    {
+      "path": "docs/fusion/README.md",
+      "sha256": "89e56b33b9ed9de488145faca1214b3cc91a21e213e1f3ee4984df0fcbff469b"
+    },
+    {
+      "path": "docs/fusion/contracts/state-transition-contract.md",
+      "sha256": "4a51bfbe802833f8d83e3da6691c4f9d990124cb1a5d0f3b06a6011e13cc9905"
+    },
+    {
+      "path": "docs/fusion/contracts/task-execution-ui.md",
+      "sha256": "f9a235b442a9f598dea8ebcdbf0c6febce46ce58c449e20a329e0a4975eac253"
+    },
+    {
+      "path": "docs/fusion/contracts/task-start-journal.md",
+      "sha256": "5283b582939c941f05a8490e608053f90e997db33c612d5d7fb7c39108a7979b"
+    },
+    {
+      "path": "docs/fusion/contracts/task-submission-api.md",
+      "sha256": "4e80128d5d4dcf8579f75c2ea8a1e6772c320d9ea831ef0d43d7a0f41d0f67fe"
+    },
+    {
+      "path": "docs/fusion/contracts/task-submission-journal.md",
+      "sha256": "821e80a281ce218c7db37eb2b4396f21a395b16f518622f733f4724e60ebf5a2"
+    },
+    {
+      "path": "docs/fusion/contracts/task-submission-receipt.md",
+      "sha256": "f3700082250fddac87c81f3448ca0033dd4d01be9ff26f4a70f29e9a55f72b19"
+    },
+    {
+      "path": "docs/fusion/contracts/task-submission-ui.md",
+      "sha256": "b705dbcf458bb23cbca5f8e2c09d50031d1579651fc417584d2b6fd064433d2d"
+    },
+    {
+      "path": "docs/fusion/planning/Fusion_Magpie_Fork_Agent工作包_v1.0.md",
+      "sha256": "e2807cca7b041697c8a06afa2a771354c066b714b2dfa7c8e0bd19ff465a8262"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/summary.md",
+      "sha256": "6e3816abaebb80149b028aba73d18fe193e30e5f53c80e97cc0202f2099688cf"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/summary.md",
+      "sha256": "51d2fd5d320dec0f145c7162dc98c2a2e190f81953d8283e187ac041383b5d6f"
+    },
+    {
+      "path": "internal/fusion/store/defaults_migration_test.go",
+      "sha256": "ab8a7976991d746abebf0b9a6f928ca7bfa23d68e5b02ba98d57624094ea3c71"
+    },
+    {
+      "path": "internal/fusion/store/migrations/008.sql",
+      "sha256": "9e3a689c4d0f6fad84d83b31274919bbd4f4b13f4e4f00e12dd968129d20fcdb"
+    },
+    {
+      "path": "internal/fusion/store/preset_migration_test.go",
+      "sha256": "d7e571df4b959dc73af8a1ac177a0b8811c499be42b0fc965590392571fd4f6c"
+    },
+    {
+      "path": "internal/fusion/store/scheduling_test.go",
+      "sha256": "a1d3c7e4f38277ade8b770251709c366fd5c807fb08130c4e5481088f2c066b9"
+    },
+    {
+      "path": "internal/fusion/store/start_journal.go",
+      "sha256": "8678663c46d854bf11efe8ba972eee2384c77056fe4e3db897d7b417f4ac2ba3"
+    },
+    {
+      "path": "internal/fusion/store/start_journal_migration_test.go",
+      "sha256": "56219fe65094f55f1c124c22aeb7f0bd25e466f1c78875645b17df65b829947c"
+    },
+    {
+      "path": "internal/fusion/store/start_journal_test.go",
+      "sha256": "b1e1647eb933af348d9e1c858325657e2ec790fb9f3c1df7ec119786a89271bf"
+    },
+    {
+      "path": "internal/fusion/store/start_once.go",
+      "sha256": "871dc83a333bfc7b37531d8b52ee2fc84885e96309232f76cbec57158332d59e"
+    },
+    {
+      "path": "internal/fusion/store/start_once_test.go",
+      "sha256": "887fc5d86de344a94ca3f421b882043e01c3f5f45e5f96e43af88bea89b1a413"
+    },
+    {
+      "path": "internal/fusion/store/store.go",
+      "sha256": "dd677838395a28fbdee1a8b32b49773a1d512ba4c6165d949c7540a4ed6cc4e6"
+    },
+    {
+      "path": "internal/fusion/store/submission_journal_migration_test.go",
+      "sha256": "8037530cb3c9a6e0ae4d11e17c4c7f6b2786c1cb4909c042e3abca9e02a9ee4f"
+    },
+    {
+      "path": "internal/fusion/store/submission_migration_test.go",
+      "sha256": "8764df5488d03b1fdd455fe41518f8e6633e9ca5dac0a3353ed4d28a8d7ac2cc"
+    }
+  ],
+  "packet_files": [
+    {
+      "path": "docs/fusion/work-items/WP-15/START-JOURNAL-01/build-cli.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/START-JOURNAL-01/build-gui.log",
+      "sha256": "d59bc4241d20f062f7db4e72685d9ae292406821cc414fab9dfb584e334181fd"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/START-JOURNAL-01/build-results.json",
+      "sha256": "39dfab99bec8f7bf7e8a8cf611ea9b1ade6eb9a8ba5cdc3fe0c8d01c495e2d4e"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/START-JOURNAL-01/build-vet.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/START-JOURNAL-01/graph.json",
+      "sha256": "3387d8cee49a524f67572422164ada4b5d0806d2ff82fc9a62f646c6e8d78ca2"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/START-JOURNAL-01/log-provenance.json",
+      "sha256": "cfcb3cf4abd79919b5294587a2f3389cbe5074ebb1845f5e03b285023ab1e9bf"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/START-JOURNAL-01/start-journal-build-before-mapping-fix.log",
+      "sha256": "ee5843ba8efa1fc8bd85d79079ecd1a564c46c02021ed3bf2844076b9f3dcfe2"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/START-JOURNAL-01/start-journal-build-final.log",
+      "sha256": "ee5843ba8efa1fc8bd85d79079ecd1a564c46c02021ed3bf2844076b9f3dcfe2"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/START-JOURNAL-01/start-journal-build-first.log",
+      "sha256": "ee5843ba8efa1fc8bd85d79079ecd1a564c46c02021ed3bf2844076b9f3dcfe2"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/START-JOURNAL-01/start-journal-fusion-before-link-fix.log",
+      "sha256": "d46f2619bb48f694e4f993ed824717997ecde0f39e2914a76d1ea2edf07197d9"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/START-JOURNAL-01/start-journal-fusion-before-mapping-fix.log",
+      "sha256": "7dc63cbdc5db1a30983df7abf223af1a4818486238f60df9ef687419264ca996"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/START-JOURNAL-01/start-journal-fusion-final.log",
+      "sha256": "bab4b0b4dd39da1ec0b4f51dbf38c7623dd2f46bd4eeebfaa857a39a9a0db137"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/START-JOURNAL-01/start-journal-green-expanded.log",
+      "sha256": "09835e8310ad9d87740fc35efa1f99a9fe05a41b0399e83b19ff523a236df4cc"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/START-JOURNAL-01/start-journal-green-first.log",
+      "sha256": "1c8bf1142839edc0fe5f129ca3b056ecd34d519cfff29820f2d28d4bd3636ea4"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/START-JOURNAL-01/start-journal-mapping-red.log",
+      "sha256": "b03fc8f1530face506c1c19d3708bae3cfa9906bcb4d31c39a0b28045f8f6ef9"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/START-JOURNAL-01/start-journal-missing-link-red.log",
+      "sha256": "088b4afdef1fca0fda0ce811ce391db28f5497d714d06dab090af547766e4000"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/START-JOURNAL-01/start-journal-red.log",
+      "sha256": "5032faf0d7a35a29ba8097638af9af7a64594693fe6d1a53bacc992ca4cf62d4"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/START-JOURNAL-01/start-journal-store-before-corrupt-fixture.log",
+      "sha256": "5abbaabb4f3a9f71a8095bdfaa49bd930d77bee03c8c776a94668fa594396c1e"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/START-JOURNAL-01/summary.md",
+      "sha256": "180af4e3204067e4a1798d05b78e6974624f5239d2ea643538e2f84494572b1b"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/START-JOURNAL-01/test-results.json",
+      "sha256": "985ead83212684e3feb6299648bf974d20116c52f5402701ba78ac2ecc3c3b6b"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/START-JOURNAL-01/validation.json",
+      "sha256": "6348ee8b14c6d308fd437c671ff06fff3004ebe7d24cba7361bdb2a50fc1eca0"
+    }
+  ]
+}

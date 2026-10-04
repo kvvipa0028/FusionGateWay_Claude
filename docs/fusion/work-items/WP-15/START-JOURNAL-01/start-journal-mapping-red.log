@@ -1,0 +1,6 @@
+=== RUN   TestStartJournalPreparedRowWithCommittedMappingCannotBeSealed
+    start_journal_test.go:116: existing run mapping discarded <nil>
+--- FAIL: TestStartJournalPreparedRowWithCommittedMappingCannotBeSealed (0.07s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/store	0.653s
+FAIL

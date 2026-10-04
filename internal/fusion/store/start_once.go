@@ -78,6 +78,9 @@ func lookupStartIn(q queryRow, key string, in StartIdentity) (StageRun, error) {
 	if !opaque(key) || !validStartIdentity(in) {
 		return StageRun{}, ErrInvalid
 	}
+	if e := checkStartJournal(q, key, in); e != nil {
+		return StageRun{}, e
+	}
 	var payload, runID string
 	e := q.QueryRow("SELECT payload_hash,run_id FROM start_requests WHERE key=?", key).Scan(&payload, &runID)
 	if errors.Is(e, sql.ErrNoRows) {

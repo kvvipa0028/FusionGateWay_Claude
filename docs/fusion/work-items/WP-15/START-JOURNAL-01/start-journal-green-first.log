@@ -1,0 +1,14 @@
+=== RUN   TestStartJournalPrepareFreezesOriginalBeforeDispatchAndReopens
+--- PASS: TestStartJournalPrepareFreezesOriginalBeforeDispatchAndReopens (0.09s)
+=== RUN   TestStartJournalRunReceiptCommitsAtomicallyAndAcknowledgesExactRun
+--- PASS: TestStartJournalRunReceiptCommitsAtomicallyAndAcknowledgesExactRun (0.09s)
+=== RUN   TestStartJournalAbandonSealsLateStartAndPreservesHistory
+--- PASS: TestStartJournalAbandonSealsLateStartAndPreservesHistory (0.07s)
+=== RUN   TestStartJournalOnlyOnePendingPerProjectAndRejectsChangedIdentity
+--- PASS: TestStartJournalOnlyOnePendingPerProjectAndRejectsChangedIdentity (0.06s)
+=== RUN   TestStartJournalAbandonAndStartHaveOneDurableWinner
+    start_journal_test.go:214: race consumed duplicate work
+--- FAIL: TestStartJournalAbandonAndStartHaveOneDurableWinner (0.54s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/store	1.528s
+FAIL

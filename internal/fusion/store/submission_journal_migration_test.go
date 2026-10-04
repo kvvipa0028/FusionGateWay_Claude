@@ -44,8 +44,8 @@ func TestSubmissionJournalMigrationSevenPreservesReceiptsAndLegacyHistory(t *tes
 	}
 	defer s.Close()
 	var version, count int
-	if e = s.db.QueryRow("PRAGMA user_version").Scan(&version); e != nil || version != 7 {
-		t.Fatal("schema7 missing", e)
+	if e = s.db.QueryRow("PRAGMA user_version").Scan(&version); e != nil || version != 8 {
+		t.Fatal("current schema8 missing", e)
 	}
 	if e = s.db.QueryRow("SELECT COUNT(*) FROM submission_journals").Scan(&count); e != nil || count != 0 {
 		t.Fatal("migration guessed pending input", e)

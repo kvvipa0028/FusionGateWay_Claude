@@ -27,3 +27,5 @@
 [QUOTA-UI-01](QUOTA-UI-01/summary.md)以默认折叠列表接入缓存读取和显式供应商刷新，复用 Magpie UI，CSS 不改。空值/历史/共享池/来源时间、跨项目响应和失效授权已验证；Native query-only 产品启动/未知缓存/退出通过，实际窗口点击因锁屏未验证。
 
 [EVENT-PAGE-01](EVENT-PAGE-01/summary.md)新增有界只读事件分页及精确 Native 通路，在原详情附近用默认折叠区按序回读，CSS 未改。完整浏览器49PASS、API113顶层/81子、Native/Store12顶层/22子PASS；关闭重开、授权/来源撤销和游标边界验证通过。实际 Native 点击、实时推送、真实供应商执行和完整工程闭环仍未完成；父包保持 in_progress，最终60类验收 not_run。
+
+[START-JOURNAL-01](../WP-15/START-JOURNAL-01/summary.md)补齐跨窗口原启动身份恢复所需的Store基础；本页尚未消费，UI/CSS没有改动，关闭窗口后的start恢复仍待接入。

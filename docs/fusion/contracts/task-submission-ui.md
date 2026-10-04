@@ -1,6 +1,6 @@
 # 原请求恢复 UI
 
-组件 WP-16-SUBMISSION-UI-01。在 Magpie 原布局中增加“原任务提交”列表区，复用原行、按钮、字体和色彩；原 app.css/app.js/index.html 与已锁定上游逐字一致，Fusion editor.css 未改。API/Store/schema 7 和执行准入未变。
+组件 WP-16-SUBMISSION-UI-01。在 Magpie 原布局中增加“原任务提交”列表区，复用原行、按钮、字体和色彩；原 app.css/app.js/index.html 与已锁定上游逐字一致，Fusion editor.css 未改。该 UI 组件时 API/Store/schema7 和执行准入未变。
 
 ## 操作与证明
 
@@ -25,3 +25,5 @@ prepare 本身未达到持久存储的草稿仍可能在关闭窗口时丢失；
 最终 27 项浏览器回归全部通过，包括真正关闭并重开私有宿主；新增桌面/390px 窄窗口恢复区截图及无横向溢出检查通过。40 项 targeted Go 测试（86 子测试）、Go1.26.3 CLI/GUI/vet 通过。日志、复现命令及边界见 [交付记录](../work-items/WP-16/SUBMISSION-UI-01/summary.md)。
 
 实际 Native 恢复窗口启动曾遭工具错误 “The Mac is locked”。私有 HTTP 回读和 owned launcher 正常退出不是窗口内容/按钮/关闭重开证明；这些实际操作仍待解锁后验证。阶段执行控制、真实供应商准入、工程闭环及最终 T01–T60 继续未完成。
+
+后续[原启动记录](task-start-journal.md)将当前 Store 扩展至schema8，任务提交恢复语义保持；它的HTTP/Native/UI消费尚未接入。

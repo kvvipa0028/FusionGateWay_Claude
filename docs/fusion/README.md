@@ -12,6 +12,8 @@
 
 [任务事件回读](contracts/task-event-page.md)已在原详情附近加入默认折叠区，逐页读取持久状态元数据；CSS 未改。浏览器、Native 桥和宿主重开验证通过，实际 Native 点击与真实模型输出仍未验证。
 
+[原阶段启动持久记录](contracts/task-start-journal.md)已完成 Store 基础：准备原 key/身份、原子关联 run 和封存迟到启动，schema8迁移/回退已验证。HTTP/Native/UI 恢复消费仍待接入，不代表已经完成关闭窗口后的启动恢复。
+
 ## 阅读顺序
 
 1. [当前需求摘录](requirements-summary.md)：已知目标与未取得的原始需求文档。

@@ -1,0 +1,6 @@
+=== RUN   TestStartJournalMissingLinkedTaskIsCorruptionRatherThanAbsentDraft
+    start_journal_test.go:94: known damaged draft interpreted as absent record not found
+--- FAIL: TestStartJournalMissingLinkedTaskIsCorruptionRatherThanAbsentDraft (0.07s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/store	0.726s
+FAIL

@@ -14,7 +14,7 @@ schema 6 的 `task_submissions` 将 preview_id 唯一绑定到原 key、project_
 
 ## 迁移与恢复边界
 
-006 自动迁移现有 schema 1–5，保留旧文件 checksum、Task、历史计划、预算及已用计数、预设、默认层、事件和旧 payload hash。旧任务没有原 preview_id，迁移不伪造 HTTP 关联。006/checksum 写入失败整步回滚，可修复阻塞后重试；历史 SUBMISSION-RECEIPT-01 使用 schema 6。当前 [SUBMISSION-JOURNAL-01](task-submission-journal.md) 新增 schema 7 的私有记录，checksum drift 和版本 8 及以后拒绝打开；旧 schema≤6 二进制不支持 7。回滚须在宿主停止后恢复对应一致性备份，不能改版本号降级。
+006 自动迁移现有 schema 1–5，保留旧文件 checksum、Task、历史计划、预算及已用计数、预设、默认层、事件和旧 payload hash。旧任务没有原 preview_id，迁移不伪造 HTTP 关联。006/checksum 写入失败整步回滚，可修复阻塞后重试；历史 SUBMISSION-RECEIPT-01 使用 schema 6。后续 [SUBMISSION-JOURNAL-01](task-submission-journal.md) 新增 schema7 的私有提交记录，[START-JOURNAL-01](task-start-journal.md) 进一步迁移至schema8。当前 checksum drift 和版本9及以上拒绝打开；旧schema≤7二进制不支持8。回滚须在宿主停止后恢复对应一致性备份，不能改版本号降级。
 
 本项已验证预览真实到期清理、新 Server、Store Close/Open 和 owned loopback 宿主重启，以及真实 HTTP→Native 桥原请求回读、未登记项目/Source 撤销拒绝。没有声称新增 SIGKILL/硬件断电测试或实际 Native 窗口视觉验证。
 

@@ -23,7 +23,7 @@ Task、计划、预算、预设来源、幂等和 created 事件、原提交回�
 
 ## 迁移与验证边界
 
-schema 7 的 007 新增表、每项目未解决唯一索引、不可变草稿、合法状态转移、committed Task 回执关联、保留历史和拒绝 abandoned 原回执的约束。001–006 文件/checksum、已有 payload hash 和 HTTP 回执不变；迁移不猜造旧任务/旧窗口的原请求。007/checksum 写入失败整步回滚到 schema 6，可重试；checksum drift 和未来版本 8 及以后拒绝。旧二进制不支持 7，回退须恢复对应一致性备份，不能改 user_version 降级。
+schema 7 的 007 新增表、每项目未解决唯一索引、不可变草稿、合法状态转移、committed Task 回执关联、保留历史和拒绝 abandoned 原回执的约束。001–006 文件/checksum、已有 payload hash 和 HTTP 回执不变；迁移不猜造旧任务/旧窗口的原请求。007/checksum 写入失败整步回滚到 schema 6，可重试；007 组件当时拒绝 checksum drift 和未来版本8；后续[START-JOURNAL-01](task-start-journal.md)已迁移至schema8，当前未来9及以上拒绝。旧二进制不支持 7，回退须恢复对应一致性备份，不能改 user_version 降级。
 
 实际测试覆盖准备后无 Task、持久重开、身份/项目冲突、两种确定提交/封存顺序与并发、整项创建回滚、终态重复、解决失败、已用预算/计划修订、旧 schema 6 数据保留、007 回滚/漂移/未来拒绝、损坏冻结记录拒绝。没有新增真实账号调用或实际 Native 窗口操作。
 
