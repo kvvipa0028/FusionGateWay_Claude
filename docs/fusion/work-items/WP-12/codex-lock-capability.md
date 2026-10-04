@@ -36,3 +36,7 @@ turn/start 发出前先进入 execution_uncertain；成功收到 inProgress 的�
 ## 本地阶段协议客户端
 
 [GATEWAY-CLIENT-01](GATEWAY-CLIENT-01/summary.md) 将实际私有stage provider接入类型化Client；默认openai/auth guard保持。Gateway只支持readonly/tool-free单thread/turn，严格处理固定Native通知与interrupt；恢复、write/tools与正式Adapter仍待独立证明。阶段账号空值和workspaceRouting=null不是官方订阅identity或quota准入。
+
+## 受管只读生命周期
+
+[ADAPTER-01](ADAPTER-01/summary.md) 完成文字 Adapter 接线：真实 Scheduler.Permit、来源/私有目录核验、固定启动参数与 grant、类型化终态观察、真实 wait/StopProof/release。缺省 SourceGuard 或调用方执行控制参数在启动前拒绝。实际固定 Native 上游响应、identity 和 quota 仍为合成；真实路线、产品注册与完整 all-calls 生产准入继续未完成。五角色均只读/无工具，普通 Resume unsupported。

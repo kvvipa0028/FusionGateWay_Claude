@@ -1,0 +1,16 @@
+{
+  "native_version": "0.160.0",
+  "native_executable_sha256": "112fae7a5a1223e673c8a1791d32338f37df8b527ff1159bb8adac6c4dbf1b4b",
+  "previous_protocol_component_commit": "35bceba4641da04dbf812b8dab5626097803bfcf",
+  "protocol_schema_reference": "../GATEWAY-CLIENT-01/reference-sha256.json",
+  "real_native_processes": 13,
+  "prelaunch_no_process_cases": 6,
+  "synthetic_upstream_sends": 11,
+  "persistent_used_calls": 11,
+  "identity_quota_upstream": "synthetic fixtures; not actual account/subscription admission",
+  "graph": {
+    "project": "fusion-development",
+    "nodes": 13866,
+    "edges": 122606
+  }
+}

@@ -1,0 +1,4 @@
+# github.com/yetone/magpie/internal/fusion/runtime/codexadapter [github.com/yetone/magpie/internal/fusion/runtime/codexadapter.test]
+internal/fusion/runtime/codexadapter/adapter_test.go:218:6: undefined: safeOutput
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/codexadapter [build failed]
+FAIL

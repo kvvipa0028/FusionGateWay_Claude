@@ -1,0 +1,8 @@
+# github.com/yetone/magpie/internal/fusion/runtime/codexadapter [github.com/yetone/magpie/internal/fusion/runtime/codexadapter.test]
+internal/fusion/runtime/codexadapter/adapter_test.go:34:36: undefined: AdapterConfig
+internal/fusion/runtime/codexadapter/adapter_test.go:51:5: undefined: AdapterConfig
+internal/fusion/runtime/codexadapter/adapter_test.go:57: undefined: NewAdapter
+internal/fusion/runtime/codexadapter/adapter_test.go:60: undefined: NewAdapter
+internal/fusion/runtime/codexadapter/adapter_test.go:62:103: undefined: NewAdapter
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/codexadapter [build failed]
+FAIL

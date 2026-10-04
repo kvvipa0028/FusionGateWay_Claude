@@ -1,0 +1,70 @@
+=== RUN   TestCodexAdapterRequiresTrustedServices
+=== RUN   TestCodexAdapterRequiresTrustedServices/store
+=== RUN   TestCodexAdapterRequiresTrustedServices/inspect
+=== RUN   TestCodexAdapterRequiresTrustedServices/manager
+=== RUN   TestCodexAdapterRequiresTrustedServices/identity
+=== RUN   TestCodexAdapterRequiresTrustedServices/current
+=== RUN   TestCodexAdapterRequiresTrustedServices/forwarder
+=== RUN   TestCodexAdapterRequiresTrustedServices/path
+=== RUN   TestCodexAdapterRequiresTrustedServices/nul
+--- PASS: TestCodexAdapterRequiresTrustedServices (0.05s)
+    --- PASS: TestCodexAdapterRequiresTrustedServices/store (0.00s)
+    --- PASS: TestCodexAdapterRequiresTrustedServices/inspect (0.00s)
+    --- PASS: TestCodexAdapterRequiresTrustedServices/manager (0.00s)
+    --- PASS: TestCodexAdapterRequiresTrustedServices/identity (0.00s)
+    --- PASS: TestCodexAdapterRequiresTrustedServices/current (0.00s)
+    --- PASS: TestCodexAdapterRequiresTrustedServices/forwarder (0.00s)
+    --- PASS: TestCodexAdapterRequiresTrustedServices/path (0.00s)
+    --- PASS: TestCodexAdapterRequiresTrustedServices/nul (0.00s)
+=== RUN   TestCodexAdapterRejectsCallerControlsAndUnverifiedSource
+=== RUN   TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/args
+=== RUN   TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/exe
+=== RUN   TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/hash
+=== RUN   TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/env
+=== RUN   TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/validator
+=== RUN   TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/session
+=== RUN   TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/claude
+=== RUN   TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/grok
+=== RUN   TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/codex
+=== RUN   TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/empty
+=== RUN   TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/utf8
+=== RUN   TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/nul
+=== RUN   TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/oversize
+=== RUN   TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/encoded_size
+=== RUN   TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/timeout
+=== RUN   TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/write
+=== RUN   TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/source_missing
+=== RUN   TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/source_drift
+=== RUN   TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/quota
+=== RUN   TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/owner
+=== RUN   TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/identity
+=== RUN   TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/root
+=== RUN   TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/workspace
+--- PASS: TestCodexAdapterRejectsCallerControlsAndUnverifiedSource (0.95s)
+    --- PASS: TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/args (0.04s)
+    --- PASS: TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/exe (0.04s)
+    --- PASS: TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/hash (0.04s)
+    --- PASS: TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/env (0.04s)
+    --- PASS: TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/validator (0.04s)
+    --- PASS: TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/session (0.04s)
+    --- PASS: TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/claude (0.04s)
+    --- PASS: TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/grok (0.04s)
+    --- PASS: TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/codex (0.04s)
+    --- PASS: TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/empty (0.04s)
+    --- PASS: TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/utf8 (0.04s)
+    --- PASS: TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/nul (0.04s)
+    --- PASS: TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/oversize (0.04s)
+    --- PASS: TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/encoded_size (0.04s)
+    --- PASS: TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/timeout (0.04s)
+    --- PASS: TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/write (0.04s)
+    --- PASS: TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/source_missing (0.04s)
+    --- PASS: TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/source_drift (0.04s)
+    --- PASS: TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/quota (0.04s)
+    --- PASS: TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/owner (0.04s)
+    --- PASS: TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/identity (0.04s)
+    --- PASS: TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/root (0.04s)
+    --- PASS: TestCodexAdapterRejectsCallerControlsAndUnverifiedSource/workspace (0.04s)
+=== RUN   TestCodexAdapterNoUnverifiedResumeOutputOrStop
+--- PASS: TestCodexAdapterNoUnverifiedResumeOutputOrStop (0.04s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime/codexadapter	2.681s

@@ -1,0 +1,98 @@
+{
+  "codex-adapter-red.log": {
+    "top_level": {
+      "pass": 0,
+      "fail": 0,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 0,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "codex-adapter-host-initial.log": {
+    "top_level": {
+      "pass": 3,
+      "fail": 0,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 31,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "codex-adapter-native-initial.log": {
+    "top_level": {
+      "pass": 0,
+      "fail": 1,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 10,
+      "fail": 2,
+      "skip": 0
+    }
+  },
+  "codex-adapter-output-red.log": {
+    "top_level": {
+      "pass": 0,
+      "fail": 0,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 0,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "codex-adapter-native-green.log": {
+    "top_level": {
+      "pass": 1,
+      "fail": 0,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 12,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "codex-adapter-native-final.log": {
+    "top_level": {
+      "pass": 2,
+      "fail": 0,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 19,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "codex-adapter-host-final.log": {
+    "top_level": {
+      "pass": 4,
+      "fail": 0,
+      "skip": 2
+    },
+    "subtests": {
+      "pass": 31,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "codex-adapter-full-fusion.log": {
+    "top_level": {
+      "pass": 510,
+      "fail": 0,
+      "skip": 28
+    },
+    "subtests": {
+      "pass": 925,
+      "fail": 0,
+      "skip": 10
+    }
+  }
+}

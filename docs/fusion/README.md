@@ -4,7 +4,7 @@
 
 本机服务已有 [可信执行接线](contracts/execution-host.md)，可由进程内 Factory 安装来源绑定 Controller 与额度读取；鉴权 HTTP→固定 Native 的合成端到端验证已通过。真实 Factory/账号准入与产品 CLI/GUI 尚待完成，草稿 CLI仍不执行任务。
 
-固定 Codex 的 [私有启动通道](contracts/codex-bootstrap-channel.md) 已完成实际 metadata 握手、隔离与停止验证；另有[逐次 Responses HTTP 控制组件](contracts/codex-call-gate.md)，已验证冻结目标、持久预算与完整响应拒绝；[独占 HTTP 通道](contracts/codex-http-channel.md) 已验证固定 Native 的文字请求、预算拒绝与取消；[类型化阶段客户端](contracts/codex-gateway-client.md) 已验证实际 thread/turn/通知及原生 interrupt；真实登录、全部 Native 调用接线和 Codex 生产 Adapter 尚未完成，不能将组件测试作为生成准入。
+固定 Codex 的 [私有启动通道](contracts/codex-bootstrap-channel.md) 已完成实际 metadata 握手、隔离与停止验证；另有[逐次 Responses HTTP 控制组件](contracts/codex-call-gate.md)、[独占 HTTP 通道](contracts/codex-http-channel.md) 和[类型化阶段客户端](contracts/codex-gateway-client.md)。[受管只读 Adapter](contracts/codex-managed-adapter.md) 已接通真实 Scheduler、来源核验及停止释放，并通过固定 Native 合成生命周期测试。真实登录、订阅 Forwarder、quota 与产品 Factory 注册仍未完成，不能将组件测试作为真实生成准入。
 
 ## 阅读顺序
 

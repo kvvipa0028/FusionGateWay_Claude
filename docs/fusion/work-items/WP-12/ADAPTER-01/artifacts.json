@@ -1,0 +1,30 @@
+{
+  "base_commit": "35bceba4641da04dbf812b8dab5626097803bfcf",
+  "source_files_sha256": {
+    "docs/fusion/README.md": "3f5cb619c39f07d3c4fe50a0181feaad6d251a578ac449011c81a73f3ce93c08",
+    "docs/fusion/contracts/codex-gateway-client.md": "da9af9fd8bd348809acb42baabfb6be48802e03e991016675f8c3cf56fa70ef3",
+    "docs/fusion/contracts/codex-managed-adapter.md": "33c8682aa91222a4922e9b16e13454efd400c6e145ab43b962f33baf59c04e74",
+    "docs/fusion/work-items/WP-12/codex-lock-capability.md": "7d80ca24e93240ad821c870a001b0dbc2cfd6071bbea4a196453463fce3e9c57",
+    "docs/fusion/work-items/WP-12/summary.md": "e35c629eda6883cdea3ef582ceb80640d6b09ef8aa1fe184ff63f633a406b742",
+    "internal/fusion/runtime/codexadapter/adapter.go": "d58e6a733da73618121db408db90a339606107a8690e9bc016f7c70e2bed0b2b",
+    "internal/fusion/runtime/codexadapter/adapter_native_darwin_test.go": "90985cb8adeeadf8b4f7e632f687dd7cffad5ea4af596d915faab9265b22d762",
+    "internal/fusion/runtime/codexadapter/adapter_test.go": "6409e68b936b7eaf72ef63e1a0fddf758add60247d18553a12bc51d575f259fe"
+  },
+  "packet_files_sha256": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "9383c6de53e0f61c9bc1acca1fcbe597527ac8d7979270683ad291657cd7ab40",
+    "build-results.json": "4ca0e68947b4cec97f3c0be29fc9d340738336af2fe078fdd15548dff1fa4bd3",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "codex-adapter-full-fusion.log": "476026e9b539837530a21968406f0dfecb06fabe9f0b4ba7aece465846428d17",
+    "codex-adapter-host-final.log": "1d1dfe42ceb529fa8b7c0da6b799f43762d13fa818c7d97f3b913e357acc19e0",
+    "codex-adapter-host-initial.log": "555b72f306db3822ce7f6d9e0d93333d5436b00d87aad7b160803feb41fcdf0c",
+    "codex-adapter-native-final.log": "884ed66f75f0a2a89101291e0429689a6fe44ac1ddd5f39677c890adb2e4e029",
+    "codex-adapter-native-green.log": "3a2b182ec9ecb23534fe5b6b8315076353fd4f2b4a57b6e629138f8b47256eb9",
+    "codex-adapter-native-initial.log": "5f218a365ce123c12f8a6b42a0f1980375748b705c67b59ef406644a6b4c7fc8",
+    "codex-adapter-output-red.log": "9bfeb6427cc306a67dae5e59c8a5351e197926a57cf265ac967f74d95e5c1a07",
+    "codex-adapter-red.log": "f6b08668b8d77f7f6547b64613ead8b227bd25fd7453a7bb95544c088c771c9c",
+    "reference-sha256.json": "ae743c81ebefb09fe7bf4ba4a9857650201d0e39d1a80601aa036f511d9db622",
+    "summary.md": "edb306e0cbf5d1b8b28657e15e8e4dc56d9a7e3527c8992854421a9a19046b86",
+    "test-results.json": "d1ad74a10367549363fb1d5ffd5f3229242eb07c4630271dbc093be7e7c81d8d"
+  }
+}

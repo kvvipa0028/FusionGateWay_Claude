@@ -1,0 +1,41 @@
+=== RUN   TestCodexAdapterPinnedNative
+=== RUN   TestCodexAdapterPinnedNative/success
+    adapter_native_darwin_test.go:168: unexpected stage result failed succeeded 0
+=== RUN   TestCodexAdapterPinnedNative/rate_limit
+    adapter_native_darwin_test.go:208: pinned Native Adapter; stage failed send/budget 1 actual wait/StopProof/release; synthetic subscription admission
+=== RUN   TestCodexAdapterPinnedNative/unsafe503
+    adapter_native_darwin_test.go:208: pinned Native Adapter; stage failed send/budget 1 actual wait/StopProof/release; synthetic subscription admission
+=== RUN   TestCodexAdapterPinnedNative/cancel
+    adapter_native_darwin_test.go:208: pinned Native Adapter; stage cancelled send/budget 1 actual wait/StopProof/release; synthetic subscription admission
+=== RUN   TestCodexAdapterPinnedNative/parent_cancel
+    adapter_native_darwin_test.go:208: pinned Native Adapter; stage cancelled send/budget 1 actual wait/StopProof/release; synthetic subscription admission
+=== RUN   TestCodexAdapterPinnedNative/timeout
+    adapter_native_darwin_test.go:208: pinned Native Adapter; stage cancelled send/budget 1 actual wait/StopProof/release; synthetic subscription admission
+=== RUN   TestCodexAdapterPinnedNative/source_drift
+    adapter_native_darwin_test.go:208: pinned Native Adapter; stage cancelled send/budget 1 actual wait/StopProof/release; synthetic subscription admission
+=== RUN   TestCodexAdapterPinnedNative/identity_drift
+    adapter_native_darwin_test.go:208: pinned Native Adapter; stage cancelled send/budget 1 actual wait/StopProof/release; synthetic subscription admission
+=== RUN   TestCodexAdapterPinnedNative/quota_before_send
+    adapter_native_darwin_test.go:208: pinned Native Adapter; stage failed send/budget 0 actual wait/StopProof/release; synthetic subscription admission
+=== RUN   TestCodexAdapterPinnedNative/activation_refused
+    adapter_native_darwin_test.go:208: pinned Native Adapter; stage cancelled send/budget 0 actual wait/StopProof/release; synthetic subscription admission
+=== RUN   TestCodexAdapterPinnedNative/snapshot_prompt
+    adapter_native_darwin_test.go:168: unexpected stage result failed succeeded 0
+=== RUN   TestCodexAdapterPinnedNative/duplicate
+    adapter_native_darwin_test.go:208: pinned Native Adapter; stage cancelled send/budget 1 actual wait/StopProof/release; synthetic subscription admission
+--- FAIL: TestCodexAdapterPinnedNative (12.61s)
+    --- FAIL: TestCodexAdapterPinnedNative/success (0.98s)
+    --- PASS: TestCodexAdapterPinnedNative/rate_limit (0.82s)
+    --- PASS: TestCodexAdapterPinnedNative/unsafe503 (1.69s)
+    --- PASS: TestCodexAdapterPinnedNative/cancel (0.79s)
+    --- PASS: TestCodexAdapterPinnedNative/parent_cancel (0.78s)
+    --- PASS: TestCodexAdapterPinnedNative/timeout (2.37s)
+    --- PASS: TestCodexAdapterPinnedNative/source_drift (0.83s)
+    --- PASS: TestCodexAdapterPinnedNative/identity_drift (0.80s)
+    --- PASS: TestCodexAdapterPinnedNative/quota_before_send (1.43s)
+    --- PASS: TestCodexAdapterPinnedNative/activation_refused (0.51s)
+    --- FAIL: TestCodexAdapterPinnedNative/snapshot_prompt (0.81s)
+    --- PASS: TestCodexAdapterPinnedNative/duplicate (0.79s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/codexadapter	13.251s
+FAIL

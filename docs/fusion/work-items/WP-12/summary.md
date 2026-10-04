@@ -48,3 +48,7 @@ T01/T02/T14/T15/T25/T31/T32/T35/T44/T53/T59 的最终端到端状态继续为 `n
 ## 类型化阶段协议客户端
 
 [GATEWAY-CLIENT-01](GATEWAY-CLIENT-01/summary.md) 增加可信NewGateway，固定本地stage provider与独立上游Identity/准入，原生account=null不打开默认openai客户端。实际typed Client完成thread/turn/严格通知/成功失败/turn interrupt；丢失thread确认、未观察终态item、迟到取消确认均拒绝。五个新增Native场景与前项回归通过；生产Adapter/官方登录/Forwarder/真实quota/工具/恢复仍未完成，父WP和最终Gate不升级。
+
+## 受管只读 Adapter
+
+[ADAPTER-01](ADAPTER-01/summary.md) 已将类型化 Client、独占 HTTP 通道接到真实 Store/Scheduler/Manager/Supervisor，强制来源证明和私有目录、冻结 prompt/Target、逐次 Permit/预算、原生终态文字、实际停止证明及 reservation 释放。13 个实际固定 Native 生命周期场景和 6 类启动前身份拒绝通过。真实官方账号/Forwarder/quota、产品 Controller/Factory 注册、工具/写入/恢复及最终 Gate 仍未完成；父 WP-12 继续 in_progress。

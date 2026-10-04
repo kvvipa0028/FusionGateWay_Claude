@@ -31,3 +31,5 @@ turn/interrupt固定当前thread/turn，进入cancelling，最终按Native终态
 固定Native实际通过typed Client→StdioPeer→Supervisor→私有stage grant→Responses Gate→合成upstream→原生终态。五个新增场景：文字成功、429终止、unsafe503后的Native重试拒绝、Supervisor inflight取消、原生turn/interrupt。逐次持久预算与实际发送均核对；前项HTTP预算与metadata启动场景同时回归。
 
 本项未把合成Current/admitted callback升级为真实身份/权限/权益证明；Native诊断Permit使用真实Store.ReserveCall，生产Adapter必须接到真实Scheduler.Permit/SourceGuard/registry与单次Forwarder。quota通知不是正式额度pool证据，Gate/SSE completed不是阶段产物验收；64KiBstdio限额仍为当前有界组件约束。没有真实OAuth/APIkey/Keychain导入或真实订阅模型请求，Jev off。
+
+后续 [受管只读 Adapter](codex-managed-adapter.md) 已接通 Scheduler.Permit、SourceGuard、可信 registry callbacks 和单次 Forwarder 接口，并完成实际 Native 合成生命周期核验；真实 registry/Forwarder/quota 与产品注册仍须独立完成，不能升级为真实订阅准入。
