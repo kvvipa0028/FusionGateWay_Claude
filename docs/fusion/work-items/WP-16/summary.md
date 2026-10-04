@@ -14,10 +14,8 @@
 
 [TASK-UI-01](TASK-UI-01/summary.md) 已接通服务端预览的冻结提交、未确认原请求重试、32+1 任务分页及完整目标/计划/预算读取；复用原 Magpie UI，浏览器和 Native 桥/HTTP 验证通过。当前私有产品入口真实路线仍未准入，合成 Factory 不可代替真实账号验证。
 
-单阶段执行、下一阶段手动触发、运行事件/额度/取消暂停/计划修订工作台及窗口/宿主重启后的未确认提交恢复仍待实施。页面测试未证明真实 provider 或账号执行；最终验收矩阵保持 not_run，Jev off。
+[SUBMISSION-UI-01](SUBMISSION-UI-01/summary.md) 已接入提交前持久准备、打开窗口读取原请求、同请求提交回执核对、保存确认及明确封存。最终 27 项浏览器回归通过，新增恢复区桌面/窄窗口检查通过，40 项 targeted Go 回归及 CLI/GUI/vet 通过；沿用 Magpie 原 UI，CSS 未改。实际 Native 恢复窗口因系统锁屏尚未验证。
 
+服务端 [SUBMISSION-RECEIPT-01](../WP-15/SUBMISSION-RECEIPT-01/summary.md)、[SUBMISSION-JOURNAL-01](../WP-15/SUBMISSION-JOURNAL-01/summary.md) 和 [SUBMISSION-API-01](../WP-15/SUBMISSION-API-01/summary.md) 提供原回执、私有记录与受限桥接。浏览器测试包含真正停止并重开 owned 私有宿主；它不替代 Native 窗口验证。
 
-服务端 [SUBMISSION-RECEIPT-01](../WP-15/SUBMISSION-RECEIPT-01/summary.md) 已实现原请求在预览清理/宿主重启后的持久核对；界面仍复用原 Magpie，未改样式或控件。本窗口持有原 body/key 时可重试；关闭窗口后的原请求恢复仍未完成，不将服务端回执持久化等同于完整工作台恢复。
-
-
-[SUBMISSION-JOURNAL-01](../WP-15/SUBMISSION-JOURNAL-01/summary.md) 提供窗口恢复所需的私有存储与封存/确认事务，[SUBMISSION-API-01](../WP-15/SUBMISSION-API-01/summary.md) 已接恢复 API/Native，尚未接本页面。UI 仍复用原 Magpie，关闭窗口后的原请求恢复继续未完成。
+单阶段执行、下一阶段手动触发、运行事件/额度/取消暂停/计划修订工作台及实际 Native 恢复窗口仍待实施或验证。页面测试未证明真实 provider 或账号执行；最终验收矩阵保持 not_run，Jev off。

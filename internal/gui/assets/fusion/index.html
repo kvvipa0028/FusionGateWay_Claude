@@ -18,6 +18,7 @@
 <footer><button id="save" class="text primary" disabled>保存项目配置</button><p id="status" role="status" aria-live="polite">正在读取本机配置…</p></footer>
 <section id="preview" class="list" hidden aria-label="计划预览"></section>
 <div id="task-submit" class="task-submit" hidden><p>提交固化此预览，不启动阶段。</p><button id="submit-task" class="text primary">冻结提交任务</button><button id="retry-task" class="text action" hidden>重试同一任务提交</button></div>
+<section id="submission-recovery" class="list task-record-panel" aria-label="原任务提交" hidden><div class="row"><h2 class="name">原任务提交</h2><button id="refresh-submission" class="text action">重新核对原请求</button></div><div id="submission-record" class="task-record"></div><div class="task-submit"><button id="abandon-submission" class="text action" hidden>放弃未提交请求</button></div></section>
 <section id="task-workbench" class="list" aria-label="任务工作台"><div class="row"><h2 class="name">已保存任务</h2><button id="refresh-tasks" class="text action">刷新任务列表</button><button id="older-tasks" class="text action" hidden>读取更早任务</button></div><div id="task-list"></div><p id="task-list-status" class="task-record" role="status" aria-live="polite">正在读取任务列表…</p></section>
 <section class="list task-record-panel" aria-label="任务详情"><div class="row"><h2 class="name">任务详情</h2><button id="reload-task" class="text action" disabled>重新读取任务</button></div><div id="task-detail" class="task-record"></div><p id="task-detail-status" class="task-record" role="status" aria-live="polite">选择任务读取完整目标、冻结计划和预算。</p></section>
 </main>

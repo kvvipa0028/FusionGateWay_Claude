@@ -1,0 +1,33 @@
+{
+  "source_files": 15,
+  "json_checked": 5,
+  "local_links_checked": 142,
+  "node_syntax": "pass",
+  "diff": "pass",
+  "private_key_byte_exclusion": "pass; no credential or credential hash emitted",
+  "UI_assets": [
+    {
+      "path": "internal/gui/assets/app.css",
+      "sha256": "86f8853f683605079737d7cc9d2f0702fbdf46a0af5026f2fc3b7501ef47a471",
+      "locked_commit": "1a50db1a8afd0849df2853f92a47da9d5e2f2cc9",
+      "byte_equal": true
+    },
+    {
+      "path": "internal/gui/assets/app.js",
+      "sha256": "4484b81c5581925ad88808754c6539818719465614e0d72ac7ea7147e37cbc80",
+      "locked_commit": "1a50db1a8afd0849df2853f92a47da9d5e2f2cc9",
+      "byte_equal": true
+    },
+    {
+      "path": "internal/gui/assets/index.html",
+      "sha256": "07c2658d16f14d160afd286f8e3f0d5752c4cce831e79b902f57b09589e41b64",
+      "locked_commit": "1a50db1a8afd0849df2853f92a47da9d5e2f2cc9",
+      "byte_equal": true
+    }
+  ],
+  "fusion_css": "unchanged",
+  "Go_API_OpenAPI_schema": "unchanged",
+  "build_log_and_binary_hashes": "pass",
+  "graph": "existing Go graph unchanged; edited assets/browser fixtures excluded by graph scope; no Go symbols changed",
+  "native_recovery_window": "not_verified_mac_locked"
+}

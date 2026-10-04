@@ -45,7 +45,7 @@ function errorText(e,saving=false){
  if(e.status===0)return saving?"保存状态未确认。请重试同一保存，或重新载入核对。":"本机配置读取失败，请重新载入。";
  return"请求未完成，请检查配置并重新载入。";
 }
-const workbench=createWorkbench({request,onLock:value=>{state.taskPending=value;render()},onNotice:(message,error=false)=>{state.notice=message;state.error=error;render()}});
+const workbench=createWorkbench({request,onLock:value=>{state.taskPending=value;render()},onRestore:record=>{state.scope="task";$("scope").value="task";$("goal").value=record.goal;$("task-role").value=record.preview.plan.required_roles[0]},onNotice:(message,error=false)=>{state.notice=message;state.error=error;render()}});
 const disabled=()=>state.loading||state.saving||state.taskPending||!!state.uncertain;
 function clearPreview(){workbench.invalidate();$("preview").hidden=true}
 function activeLayer(){return state.layers[state.scope]||expandLayer()}
@@ -149,12 +149,13 @@ async function loadProject(id){
   const base="/control/v1/projects/"+encodeURIComponent(id);
   const [config,global,project,presets]=await Promise.all([request(base+"/configuration"),request("/control/v1/defaults/global"),request(base+"/defaults"),request(base+"/presets")]);
   const globalDefault=defaultSnapshot(global.body,global.etag,500,config.body.configuration.global||{}),projectDefault=defaultSnapshot(project.body,project.etag,500,config.body.configuration.project||{});
-  state.project=id;workbench.setProject(id);state.routes=config.body.configuration.routes||[];state.config={global:globalDefault.layer,project:projectDefault.layer};
+  state.project=id;state.routes=config.body.configuration.routes||[];state.config={global:globalDefault.layer,project:projectDefault.layer};
   state.layers={global:expandLayer(state.config.global),project:expandLayer(state.config.project),task:expandLayer()};
   state.tags={global:global.etag,project:project.etag};state.presets=presets.body.presets||[];
   state.preset=null;state.editingPreset=null;state.presetNameDirty=false;$("preset-name").value="";state.uncertain=null;state.dirty.clear();state.expanded.clear();
   presetOptions();
   $("preset-version").value="";clearPreview();state.notice="已载入当前配置。保存选择不会启动模型。";
+  await workbench.setProject(id);
  }catch(e){state.project="";state.layers={};state.error=true;state.notice=errorText(e)}
  state.loading=false;render();
 }
@@ -227,7 +228,7 @@ $("save-preset").onclick=()=>{const current=state.editingPreset;if(current&&curr
 $("retry-preset").onclick=()=>{if(state.uncertain?.kind==="preset")savePreset(state.uncertain)};
 for(const role of roles)option($("task-role"),role,labels[role]);
 async function boot(){
- try{const list=await request("/control/v1/projects");for(const p of list.body.projects)option($("project"),p.id,p.id);if(!list.body.projects.length){state.loading=false;state.notice="尚无已登记项目，请先在本机配置中登记项目。";render();return}await loadProject(list.body.projects[0].id)}
+ try{const list=await request("/control/v1/projects");for(const p of list.body.projects)option($("project"),p.id,p.id);if(!list.body.projects.length){state.loading=false;state.notice="尚无已登记项目，请先在本机配置中登记项目。";render();return}const id=await workbench.findPendingProject(list.body.projects.map(p=>p.id));$("project").value=id;await loadProject(id)}
  catch(e){state.loading=false;state.error=true;state.notice=errorText(e);render()}
 }
 boot();

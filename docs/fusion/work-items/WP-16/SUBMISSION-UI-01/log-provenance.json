@@ -1,0 +1,114 @@
+[
+  {
+    "source": ".fusion-dev/implementation/submission-ui-browser-complete.log",
+    "original_sha256": "e0a6800844a64af4122bf0c564baeb634c35707de4f25b314ef67ac84c17811c",
+    "saved": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/submission-ui-browser-complete.log",
+    "saved_sha256": "e0a6800844a64af4122bf0c564baeb634c35707de4f25b314ef67ac84c17811c",
+    "normalization": "strip trailing whitespace per line only"
+  },
+  {
+    "source": ".fusion-dev/implementation/submission-ui-browser-final.log",
+    "original_sha256": "f0d31fd36162f8a9244b53bef3cbd5541d5b6724999a821ade52be47dc41a7f9",
+    "saved": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/submission-ui-browser-final.log",
+    "saved_sha256": "f0d31fd36162f8a9244b53bef3cbd5541d5b6724999a821ade52be47dc41a7f9",
+    "normalization": "strip trailing whitespace per line only"
+  },
+  {
+    "source": ".fusion-dev/implementation/submission-ui-browser-verified.log",
+    "original_sha256": "ac3275d91edff340e2e3507bfdbb71b302a598b08bb74cefea5841e16eb78f1c",
+    "saved": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/submission-ui-browser-verified.log",
+    "saved_sha256": "ac3275d91edff340e2e3507bfdbb71b302a598b08bb74cefea5841e16eb78f1c",
+    "normalization": "strip trailing whitespace per line only"
+  },
+  {
+    "source": ".fusion-dev/implementation/submission-ui-fixture-baseline.log",
+    "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "saved": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/submission-ui-fixture-baseline.log",
+    "saved_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "normalization": "strip trailing whitespace per line only"
+  },
+  {
+    "source": ".fusion-dev/implementation/submission-ui-fixture-final-build.log",
+    "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "saved": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/submission-ui-fixture-final-build.log",
+    "saved_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "normalization": "strip trailing whitespace per line only"
+  },
+  {
+    "source": ".fusion-dev/implementation/submission-ui-fixture-green-build.log",
+    "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "saved": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/submission-ui-fixture-green-build.log",
+    "saved_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "normalization": "strip trailing whitespace per line only"
+  },
+  {
+    "source": ".fusion-dev/implementation/submission-ui-fixture-verified-build.log",
+    "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "saved": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/submission-ui-fixture-verified-build.log",
+    "saved_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "normalization": "strip trailing whitespace per line only"
+  },
+  {
+    "source": ".fusion-dev/implementation/submission-ui-go-regression.log",
+    "original_sha256": "3de4ecac6c27486151a76d893f708879157b745f33d5bdd487f6c9ccf0a8b682",
+    "saved": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/submission-ui-go-regression.log",
+    "saved_sha256": "3de4ecac6c27486151a76d893f708879157b745f33d5bdd487f6c9ccf0a8b682",
+    "normalization": "strip trailing whitespace per line only"
+  },
+  {
+    "source": ".fusion-dev/implementation/submission-ui-green.log",
+    "original_sha256": "8ce56e77d9d706e796332de07f38089333f92df8275f93a94a28dadf6b02c4bf",
+    "saved": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/submission-ui-green.log",
+    "saved_sha256": "8ce56e77d9d706e796332de07f38089333f92df8275f93a94a28dadf6b02c4bf",
+    "normalization": "strip trailing whitespace per line only"
+  },
+  {
+    "source": ".fusion-dev/implementation/submission-ui-red.log",
+    "original_sha256": "01b783b44c483a979922fc6f4cfd7ae6ba2e6851fa1daf65f86da3690dd56688",
+    "saved": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/submission-ui-red.log",
+    "saved_sha256": "6eefe116a96d568a1df64a54b89e763bf205fe1c14db7d23c9d890126be87dc3",
+    "normalization": "strip trailing whitespace per line only"
+  },
+  {
+    "source": ".fusion-dev/implementation/submission-ui-reread-red.log",
+    "original_sha256": "2b564afcd79a98ccffcf368ae8c03fdd58addcddd39b91430b5707922b20e2bf",
+    "saved": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/submission-ui-reread-red.log",
+    "saved_sha256": "a657c26aab3df52353251fac382e980c11611d1753d09d0bcd2fbbb5855325a5",
+    "normalization": "strip trailing whitespace per line only"
+  },
+  {
+    "source": ".fusion-dev/implementation/submission-ui-taskid-red.log",
+    "original_sha256": "dd0ad8b6fa224408223112a8b804be7429c456e6df47bbb7ed26099d410becaa",
+    "saved": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/submission-ui-taskid-red.log",
+    "saved_sha256": "2ef6522b8d16462e736b0e354aabca2ae13332fe8a4deae19062a278f8ba3659",
+    "normalization": "strip trailing whitespace per line only"
+  },
+  {
+    "source": ".fusion-dev/implementation/submission-ui-visual.log",
+    "original_sha256": "e915ead5630a37393aff902634bcb7db891ec69982384faca43867fc6295b124",
+    "saved": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/submission-ui-visual.log",
+    "saved_sha256": "e915ead5630a37393aff902634bcb7db891ec69982384faca43867fc6295b124",
+    "normalization": "strip trailing whitespace per line only"
+  },
+  {
+    "source": ".fusion-dev/build-dev/cli.log",
+    "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "saved": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/build-cli.log",
+    "saved_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "normalization": "strip trailing whitespace per line only"
+  },
+  {
+    "source": ".fusion-dev/build-dev/gui.log",
+    "original_sha256": "2c68ffea5dd442b7efa1b987bab5832d41891d494af963d6e76b291ec8ab04ce",
+    "saved": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/build-gui.log",
+    "saved_sha256": "2c68ffea5dd442b7efa1b987bab5832d41891d494af963d6e76b291ec8ab04ce",
+    "normalization": "strip trailing whitespace per line only"
+  },
+  {
+    "source": ".fusion-dev/build-dev/vet.log",
+    "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "saved": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/build-vet.log",
+    "saved_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "normalization": "strip trailing whitespace per line only"
+  }
+]

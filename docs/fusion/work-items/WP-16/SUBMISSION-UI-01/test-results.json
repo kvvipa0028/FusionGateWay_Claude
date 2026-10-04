@@ -1,0 +1,45 @@
+{
+  "scope": "UI persistence consumer; API/Native/Store unchanged",
+  "browser_final": {
+    "tests": 27,
+    "pass": 27,
+    "fail": 0,
+    "skip": 0,
+    "log": "submission-ui-browser-complete.log"
+  },
+  "visual_addition_after_final_browser": {
+    "targeted_tests": 1,
+    "pass": 1,
+    "fail": 0,
+    "log": "submission-ui-visual.log",
+    "source_change": "test only: desktop/mobile screenshots and narrow width assertion; product source unchanged",
+    "images": [
+      "desktop.png",
+      "mobile.png"
+    ],
+    "visual_inspection": "Magpie original style retained; recovery record wraps in 390px; no horizontal overflow"
+  },
+  "go_targeted": {
+    "top_pass": 40,
+    "sub_pass": 86,
+    "fail": 0,
+    "skip": 0,
+    "log": "submission-ui-go-regression.log",
+    "packages": [
+      "internal/fusion/store",
+      "internal/fusion/api",
+      "internal/fusion/bootstrap"
+    ],
+    "pattern": "^Test(NativeStage|ControlHostStageUI|SubmissionJournal|SubmissionReceipt)"
+  },
+  "red_evidence": [
+    "submission-ui-red.log",
+    "submission-ui-taskid-red.log",
+    "submission-ui-reread-red.log"
+  ],
+  "actual_native_recovery": "not_verified_mac_locked",
+  "real_provider_execution": "not_run",
+  "jev": "off",
+  "parent_WP16": "in_progress",
+  "final_T01_T60": "not_run"
+}

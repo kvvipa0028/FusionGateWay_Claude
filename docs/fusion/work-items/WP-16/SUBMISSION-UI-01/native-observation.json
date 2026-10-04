@@ -1,0 +1,13 @@
+{
+  "scope": "owned private synthetic committed journal reopened in product OpenControl GUI; no real Factory admission",
+  "actual_window_content": "not_verified",
+  "actual_window_controls": "not_verified",
+  "actual_window_close_reopen": "not_verified",
+  "tool_failure": "The Mac is locked and automatic unlock could not unlock it.",
+  "independent_HTTP_readback": "original committed journal and Task unchanged before owned launcher stopped",
+  "launcher_shutdown": "exit_0; only exact owned private launcher stopped",
+  "management_secret_disclosed": false,
+  "provider_runtime_calls": 0,
+  "jev": "off",
+  "follow_up": "after unlock, rebuild/copy latest GUI into stopped isolated app, inspect original, close/reopen, retry same Task and independently verify matching acknowledgement"
+}

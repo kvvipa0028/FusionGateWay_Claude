@@ -1,6 +1,6 @@
 # 原提交恢复 API 与 Native 通路
 
-WP-15-SUBMISSION-API-01 完成受管理认证的原提交记录准备、读取和解决，以及精确 Native 桥接。仍未修改 Magpie/Fusion UI 资源；页面尚未调用这些接口，关闭窗口后的用户操作恢复继续未完成。依赖 [私有提交存储](task-submission-journal.md) 与 [原 Task 提交回执](task-submission-receipt.md)，schema 7 不变。
+WP-15-SUBMISSION-API-01 完成受管理认证的原提交记录准备、读取和解决，以及精确 Native 桥接。本 API 组件未修改 UI；后续[原请求恢复 UI](task-submission-ui.md)已消费这些接口，浏览器恢复通过，实际 Native 恢复窗口操作仍待验证。依赖 [私有提交存储](task-submission-journal.md) 与 [原 Task 提交回执](task-submission-receipt.md)，schema 7 不变。
 
 ## 接口与输入
 
@@ -43,7 +43,7 @@ Native 仅开放已登记项目上述准确路径与方法，沿用固定 SDK/�
 
 Store 精确读取/终态历史/重开/身份及关闭拒绝，API 原生命周期/新 Server/资格检查/输入冲突/取消撤销，真实 owned HTTP 宿主及 Store 关闭重开→Native 原 prepared/committed 恢复、原请求封存、同 Task 重读、来源撤销和零 Inspect/Resolve，均已验证。真实 Native 窗口操作、浏览器恢复 UI、SIGKILL/硬件断电与真实账号/模型/额度没有新增验证。详细日志见 [SUBMISSION-API-01](../work-items/WP-15/SUBMISSION-API-01/summary.md)。
 
-本项不将服务端/桥接结果算作完整窗口恢复。下一步在原 Magpie 工作台 task POST 前准备记录，重开后读取原项目/目标/预览/key，再提供原提交核对与明确解决操作；继续沿用原布局和组件，不改版。运行控制、真实供应商准入、工程闭环和最终 T01–T60 继续待完成，Jev off。
+本项不将服务端/桥接结果算作完整窗口恢复。后续页面已在原 Magpie 工作台 task POST 前准备记录，重开后读取原项目/目标/预览/key，提供同一提交核对与明确解决操作；继续沿用原布局和组件，不改版。运行控制、真实供应商准入、工程闭环和最终 T01–T60 继续待完成，Jev off。
 
 复现需要 Go1.26.3、macOS Xcode SDK、Python3 及离线 checker 所用 PyYAML/jsonschema/referencing。工作树中执行：
 

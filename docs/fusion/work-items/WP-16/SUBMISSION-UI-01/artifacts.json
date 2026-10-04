@@ -1,0 +1,163 @@
+{
+  "base_commit": "a349ce1ab2e817d09c148d4aee692396df6dff0f",
+  "source_files": [
+    {
+      "path": "docs/fusion/README.md",
+      "sha256": "676bb3c0da7b9b11789898855f49d9e1212a99aa240993b4d2709a1de216ffb9"
+    },
+    {
+      "path": "docs/fusion/contracts/native-stage-ui.md",
+      "sha256": "9b5466ef15d388e012890fce54300d08e41ec248747380119e75254007e0822c"
+    },
+    {
+      "path": "docs/fusion/contracts/stage-editor.md",
+      "sha256": "e7404273038066e936ac93ab59a77ca29fb61f3eb8d8e7989bba25fc5aec8251"
+    },
+    {
+      "path": "docs/fusion/contracts/task-submission-api.md",
+      "sha256": "5b250cca86674d0833e9fd5c909e1934a9431b18ce3285748075aeb1f1bec705"
+    },
+    {
+      "path": "docs/fusion/contracts/task-submission-journal.md",
+      "sha256": "e1635431a6a0c0c5278ca9ceda26b9f91d6f54d61a04a59e6e956835ab04032e"
+    },
+    {
+      "path": "docs/fusion/contracts/task-submission-receipt.md",
+      "sha256": "b28b07af578addba959871ed69c8961ac727cba0fc26ebf30441418ad693ed18"
+    },
+    {
+      "path": "docs/fusion/contracts/task-submission-ui.md",
+      "sha256": "810d3410a5f71c944cf70ef1917ef261dc1093430a5de9aa5c147de260f31f30"
+    },
+    {
+      "path": "docs/fusion/contracts/task-workbench.md",
+      "sha256": "0b2819830131f950c052b08fbc6e96ac0e9ece928ad8d43d271e3accab253bcb"
+    },
+    {
+      "path": "docs/fusion/planning/Fusion_Magpie_Fork_Agent工作包_v1.0.md",
+      "sha256": "0e250c5ae7f8816bd15b01864638a3a2d50309c4aca32c2c87302962ed9a5a64"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/summary.md",
+      "sha256": "656921e1e4218f22a4b4843dbe4756de0886e209f2dd218f159955295e52918a"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/summary.md",
+      "sha256": "dfa012ae6344b7c65a987321284a50041dfbed7f5c0473a45264e50d946e82cd"
+    },
+    {
+      "path": "internal/gui/assets/fusion/editor.mjs",
+      "sha256": "17a61f012ed04c8880683f08b2702b690f129333c5c1ac9b17d2375f7eeea3be"
+    },
+    {
+      "path": "internal/gui/assets/fusion/index.html",
+      "sha256": "6f09204060a0f7314663edd4a9d94314e2b5260bcb15e0ff3f03e3499b816ffc"
+    },
+    {
+      "path": "internal/gui/assets/fusion/workbench.mjs",
+      "sha256": "f31db00da30d67569b3667b84cec8857eae014e69300ecbcb421f89fae0073e7"
+    },
+    {
+      "path": "internal/gui/tests/fusion-stage-editor.test.cjs",
+      "sha256": "3677a5b81630d731f9e887eb58a2ba937269c3832db5c37a57c5ced1bf623df2"
+    }
+  ],
+  "packet_files": [
+    {
+      "path": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/build-cli.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/build-gui.log",
+      "sha256": "2c68ffea5dd442b7efa1b987bab5832d41891d494af963d6e76b291ec8ab04ce"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/build-results.json",
+      "sha256": "da0b4ab3e0d203b683f0dc45e7c6a033038955bae969487d6841954f5cb0344a"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/build-vet.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/desktop.png",
+      "sha256": "cffbad0227124c9db87a820805587c4a41dadd09e85dfaf1a79771bef699afdb"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/log-provenance.json",
+      "sha256": "f9c33eabe199353ca827e4169e7d54a592ae12195dcc905e1eb8735097d86b4c"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/mobile.png",
+      "sha256": "0d1270d6bf2600a1b5cdee819096353f0a6e0a0f89501a19e40b6c8d20c4a2b6"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/native-observation.json",
+      "sha256": "98000d74171032131bdb85678392a52798f9f37006b49421fa01797a30ab22df"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/submission-ui-browser-complete.log",
+      "sha256": "e0a6800844a64af4122bf0c564baeb634c35707de4f25b314ef67ac84c17811c"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/submission-ui-browser-final.log",
+      "sha256": "f0d31fd36162f8a9244b53bef3cbd5541d5b6724999a821ade52be47dc41a7f9"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/submission-ui-browser-verified.log",
+      "sha256": "ac3275d91edff340e2e3507bfdbb71b302a598b08bb74cefea5841e16eb78f1c"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/submission-ui-fixture-baseline.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/submission-ui-fixture-final-build.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/submission-ui-fixture-green-build.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/submission-ui-fixture-verified-build.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/submission-ui-go-regression.log",
+      "sha256": "3de4ecac6c27486151a76d893f708879157b745f33d5bdd487f6c9ccf0a8b682"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/submission-ui-green.log",
+      "sha256": "8ce56e77d9d706e796332de07f38089333f92df8275f93a94a28dadf6b02c4bf"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/submission-ui-red.log",
+      "sha256": "6eefe116a96d568a1df64a54b89e763bf205fe1c14db7d23c9d890126be87dc3"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/submission-ui-reread-red.log",
+      "sha256": "a657c26aab3df52353251fac382e980c11611d1753d09d0bcd2fbbb5855325a5"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/submission-ui-taskid-red.log",
+      "sha256": "2ef6522b8d16462e736b0e354aabca2ae13332fe8a4deae19062a278f8ba3659"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/submission-ui-visual.log",
+      "sha256": "e915ead5630a37393aff902634bcb7db891ec69982384faca43867fc6295b124"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/summary.md",
+      "sha256": "97dcbfd10d67e981efb937e7b85e0510511a719f02f846c0201a3394e73b03e3"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/test-results.json",
+      "sha256": "1354c8085c2898f4b5793d92404353f10673beef7b8a37d0f7d9ddd04c2342ef"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/SUBMISSION-UI-01/validation.json",
+      "sha256": "0e91851258412816140291b9443f2308e195dee1c47eea00fe46a6cc07a964a1"
+    }
+  ]
+}

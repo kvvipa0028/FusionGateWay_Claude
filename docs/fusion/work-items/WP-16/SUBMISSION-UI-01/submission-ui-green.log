@@ -1,0 +1,11 @@
+✔ submission recovery: task POST follows persisted original preparation and matching acknowledgement (2065.93675ms)
+✔ submission recovery: opening a window restores a prepared original request without posting a task (865.542042ms)
+✔ submission recovery: closed window restores committed original and same-task retry clears acknowledgement (1461.845083ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4591.553959

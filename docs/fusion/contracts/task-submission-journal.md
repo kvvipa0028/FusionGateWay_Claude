@@ -1,6 +1,6 @@
 # 窗口恢复所需的私有提交记录
 
-组件 WP-15-SUBMISSION-JOURNAL-01 完成 Store 基础。后续 [SUBMISSION-API-01](task-submission-api.md) 已由 API 和 Native 桥消费；UI 尚未调用它，窗口关闭后的原请求恢复仍未交付。界面继续复用 Magpie，本项未修改页面或客户端存储。
+组件 WP-15-SUBMISSION-JOURNAL-01 完成 Store 基础。后续 [SUBMISSION-API-01](task-submission-api.md) 已由 API 和 Native 桥消费；后续[恢复 UI](task-submission-ui.md)已接入，浏览器关闭/宿主重开恢复通过，实际 Native 恢复窗口验证仍未完成。界面继续复用 Magpie，本项未修改页面或客户端存储。
 
 ## 原请求与生命周期
 
@@ -33,7 +33,7 @@ schema 7 的 007 新增表、每项目未解决唯一索引、不可变草稿、
 
 UI 应在任务 POST 前确认原请求已持久保存；prepare 自身丢失回执仍须保留原身份并核对，不能换 key。重开窗口读取未解决记录，明确显示原项目/目标/计划与提交身份后再允许用户核对同一提交；已提交结果只读回原 Task。未提交且预览已丢失时，可明确请求原子封存，成功证明后才允许新预览；封存冲突须核对已提交 Task。acknowledge 的未知回执不能当作已经清除记录。
 
-API/Native 消费已由 [SUBMISSION-API-01](task-submission-api.md) 实现；UI 消费仍待实现，本存储组件不构成端到端窗口恢复，也不扩大执行准入。来源/认证/Factory/quota 的真实验证、运行控制、工程闭环与最终 Gate 继续未完成，Jev off。详细日志与证据见 [SUBMISSION-JOURNAL-01](../work-items/WP-15/SUBMISSION-JOURNAL-01/summary.md)。
+API/Native 消费已由 [SUBMISSION-API-01](task-submission-api.md) 实现；[UI 消费](task-submission-ui.md)已接入并通过浏览器验证，本存储组件独立结果不构成实际 Native 窗口恢复证明，也不扩大执行准入。来源/认证/Factory/quota 的真实验证、运行控制、工程闭环与最终 Gate 继续未完成，Jev off。详细日志与证据见 [SUBMISSION-JOURNAL-01](../work-items/WP-15/SUBMISSION-JOURNAL-01/summary.md)。
 
 ## 复现
 

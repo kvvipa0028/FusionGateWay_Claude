@@ -22,7 +22,8 @@ async function fixture(t,admitted=false,withSecondProject=false){
  const go=execFileSync("which",["go"],{encoding:"utf8"}).trim();
  const control=path.join(root,"state/data/fusion-gateway/control");
  if(admitted)for(const name of ["state","state/data","state/data/fusion-gateway"])await fs.mkdir(path.join(root,name),{mode:0o700});
- const child=admitted?spawn(path.join(repo,".fusion-dev/task-ui-fixture"),["-test.run=^TestTaskUIFixtureProcess$","-fusion-ui-fixture-source",source,"-fusion-ui-fixture-root",control],{cwd:repo,env:{PATH:"/usr/bin:/bin",HOME:path.join(root,"private"),XDG_CONFIG_HOME:path.join(root,"private/config"),XDG_DATA_HOME:path.join(root,"private/data"),XDG_CACHE_HOME:path.join(root,"private/cache"),TMPDIR:path.join(root,"private")},stdio:["ignore","pipe","pipe"]}):spawn("python3",[path.join(repo,"scripts/fusion/run-dev.py"),"--root",path.join(root,"state"),"--binary",binary,"--go",go,"--","fusion-control","--projects",source],{cwd:repo,stdio:["ignore","pipe","pipe"]});
+ const spawnHost=()=>admitted?spawn(path.join(repo,".fusion-dev/task-ui-fixture"),["-test.run=^TestTaskUIFixtureProcess$","-fusion-ui-fixture-source",source,"-fusion-ui-fixture-root",control],{cwd:repo,env:{PATH:"/usr/bin:/bin",HOME:path.join(root,"private"),XDG_CONFIG_HOME:path.join(root,"private/config"),XDG_DATA_HOME:path.join(root,"private/data"),XDG_CACHE_HOME:path.join(root,"private/cache"),TMPDIR:path.join(root,"private")},stdio:["ignore","pipe","pipe"]}):spawn("python3",[path.join(repo,"scripts/fusion/run-dev.py"),"--root",path.join(root,"state"),"--binary",binary,"--go",go,"--","fusion-control","--projects",source],{cwd:repo,stdio:["ignore","pipe","pipe"]});
+ let child=spawnHost();
  let output="",errors="",browser=null,token=null;
  t.after(async()=>{
   try{if(browser)await browser.close()}finally{
@@ -32,13 +33,16 @@ async function fixture(t,admitted=false,withSecondProject=false){
    }finally{if(child.exitCode!==null||child.signalCode!==null)await fs.rm(root,{recursive:true,force:true})}
   }
  });
- child.stderr.on("data",b=>errors+=b);
- const announcement=await new Promise((resolve,reject)=>{
-  const timer=setTimeout(()=>reject(Error("fixture startup deadline")),15000);
-  child.once("exit",()=>{clearTimeout(timer);const reason=["invalid private UI fixture","non-synthetic UI fixture scope","non-synthetic UI fixture identity","synthetic UI host initialization","synthetic UI host service"].find(s=>output.includes(s));reject(Error("fixture exited before startup"+(reason?": "+reason:"")))});
-  child.stdout.on("data",b=>{output+=b;for(const line of output.split("\n").slice(0,-1)){if(admitted&&!line.startsWith("{"))continue;clearTimeout(timer);try{resolve(JSON.parse(line))}catch{reject(Error("invalid startup response"))}break}});
- });
- const origin=announcement.control_address;
+ const announce=async current=>{
+  current.stderr.on("data",b=>errors+=b);let runOutput="";
+  return new Promise((resolve,reject)=>{
+   const timer=setTimeout(()=>reject(Error("fixture startup deadline")),15000);
+   current.once("exit",()=>{clearTimeout(timer);reject(Error("fixture exited before startup"))});
+   current.stdout.on("data",b=>{output+=b;runOutput+=b;for(const line of runOutput.split("\n").slice(0,-1)){if(admitted&&!line.startsWith("{"))continue;clearTimeout(timer);try{resolve(JSON.parse(line))}catch{reject(Error("invalid startup response"))}break}});
+  });
+ };
+ const announcement=await announce(child);
+ let origin=announcement.control_address;
  if(admitted){assert.equal(announcement.synthetic_fixture,true);assert.equal(announcement.execution_supported,false)}else assert.equal(announcement.execution_enabled,false);
  assert.equal(announcement.jev,"off");
  token=(await fs.readFile(path.join(root,"state/data/fusion-gateway/control/management.token"),"utf8")).trim();
@@ -55,10 +59,17 @@ async function fixture(t,admitted=false,withSecondProject=false){
   const page=await context.newPage();
   const errors=[];page.on("pageerror",e=>errors.push(e.message));
   if(beforeLoad)await beforeLoad(context);
-  await page.goto(origin+"/fusion/");await page.getByRole("status").filter({hasText:"已载入当前配置"}).waitFor();
+  await page.goto(origin+"/fusion/");await page.getByRole("status").filter({hasText:/已载入当前配置|已恢复原任务请求/}).waitFor();
   return {page,context,errors};
  };
- return {origin,newPage,async request(url,method="GET",body=null,tag=null,key=null){
+ return {get origin(){return origin},newPage,async restart(){
+  assert.ok(admitted,"restart only owns the synthetic test host");
+  const done=once(child,"exit");child.kill("SIGTERM");let timer;
+  try{await Promise.race([done,new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error("fixture restart shutdown deadline")),8000)})])}finally{clearTimeout(timer)}
+  assert.equal(child.exitCode,0);child=spawnHost();const next=await announce(child);
+  assert.equal(next.synthetic_fixture,true);assert.equal(next.execution_supported,false);assert.equal(next.jev,"off");origin=next.control_address;
+  token=(await fs.readFile(path.join(control,"management.token"),"utf8")).trim();
+ },async request(url,method="GET",body=null,tag=null,key=null){
   const response=await fetch(origin+url,{method,redirect:"error",headers:{Authorization:"Bearer "+token,"Content-Type":"application/json",...(tag?{"If-Match":tag}:{}),...(key?{"Idempotency-Key":key}:{})},...(body?{body:JSON.stringify(body)}:{})});
   return {status:response.status,body:await response.json(),etag:response.headers.get("ETag")};
  }};
@@ -334,6 +345,45 @@ async function taskPreview(page,goal){
  await page.getByLabel('配置范围').selectOption('task');await page.getByLabel('任务目标').fill(goal);
  await page.getByRole('button',{name:'预览单阶段任务',exact:true}).click();await page.getByRole('status').filter({hasText:'已核对冻结阶段计划'}).waitFor({timeout:5000});
 }
+test('submission recovery: task POST follows persisted original preparation and matching acknowledgement',async t=>{
+ const f=await fixture(t,true),{page,context,errors}=await f.newPage();let beforeTask;const taskPosts=[];
+ await context.route('**/agent/v1/tasks',async route=>{
+  beforeTask=await f.request('/control/v1/projects/synthetic-ui/submission');taskPosts.push({body:route.request().postDataJSON(),key:route.request().headers()['idempotency-key']});await route.continue();
+ });
+ const goal='保存原请求后再提交';await taskPreview(page,goal);await page.getByRole('button',{name:'冻结提交任务',exact:true}).click();await status(page,'任务已保存');
+ assert.equal(beforeTask.body.submission?.state,'prepared');assert.equal(beforeTask.body.submission.goal,goal);assert.equal(beforeTask.body.submission.key,taskPosts[0].key);assert.equal(beforeTask.body.submission.preview.preview_id,taskPosts[0].body.preview_id);
+ assert.equal((await f.request('/control/v1/projects/synthetic-ui/submission')).body.submission,null);
+ assert.equal(taskPosts.length,1);assert.equal(await page.getByLabel('任务目标').isDisabled(),false);assert.deepEqual(errors,[]);
+});
+test('submission recovery: opening a window restores a prepared original request without posting a task',async t=>{
+ const f=await fixture(t,true);const goal='<img src=x onerror=alert(1)> 原冻结目标';
+ const p=await f.request('/control/v1/tasks/preview','POST',{project_id:'synthetic-ui',goal,required_roles:['design']});assert.equal(p.status,200);
+ const body={preview_id:p.body.preview_id,plan_hash:p.body.plan.hash},key='original-prepared-window-key';assert.equal((await f.request('/control/v1/projects/synthetic-ui/submission','POST',body,null,key)).status,200);
+ const {page,errors}=await f.newPage();await page.getByRole('status').filter({hasText:'已恢复原任务请求'}).waitFor({timeout:2000});
+ assert.equal(await page.getByLabel('任务目标').inputValue(),goal);assert.equal(await page.getByLabel('任务目标').isDisabled(),true);assert.equal(await page.getByLabel('项目',{exact:true}).isDisabled(),true);
+ const record=page.locator('#submission-record');assert.ok((await record.innerText()).includes(key));assert.ok((await record.innerText()).includes(p.body.plan.hash));assert.equal(await record.locator('img').count(),0);
+ assert.equal((await f.request('/control/v1/projects/synthetic-ui/tasks')).body.tasks.length,0);
+ await page.locator('#submission-recovery').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(repo,'.fusion-dev/implementation/submission-ui-desktop.png'),fullPage:true});
+ const mobile=await f.newPage(null,{width:390,height:844});assert.equal(await mobile.page.getByLabel('任务目标').isDisabled(),true);assert.ok((await mobile.page.locator('#submission-record').innerText()).includes(key));
+ assert.ok(await mobile.page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'recovery section must fit the existing narrow layout');
+ await mobile.page.locator('#submission-recovery').scrollIntoViewIfNeeded();await mobile.page.screenshot({path:path.join(repo,'.fusion-dev/implementation/submission-ui-mobile.png'),fullPage:true});assert.deepEqual(mobile.errors,[]);await mobile.context.close();
+ page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'放弃未提交请求',exact:true}).click();await status(page,'原请求已封存');
+ assert.equal((await f.request('/control/v1/projects/synthetic-ui/submission')).body.submission,null);
+ assert.equal((await f.request('/agent/v1/tasks','POST',body,null,key)).status,409);assert.equal(await page.getByLabel('任务目标').isDisabled(),false);assert.deepEqual(errors,[]);
+});
+test('submission recovery: closed window restores committed original and same-task retry clears acknowledgement',async t=>{
+ const f=await fixture(t,true),first=await f.newPage();let original;
+ await first.context.route('**/agent/v1/tasks',async route=>{
+  original={body:route.request().postDataJSON(),key:route.request().headers()['idempotency-key']};await route.fetch();await route.fulfill({status:503,json:{error:{code:'lost_receipt'}}});
+ });
+ const goal='关闭窗口后核对原任务';await taskPreview(first.page,goal);await first.page.getByRole('button',{name:'冻结提交任务',exact:true}).click();await status(first.page,'提交结果未确认');
+ await first.context.close();await f.restart();const second=await f.newPage();await second.page.getByRole('status').filter({hasText:'已恢复原任务请求'}).waitFor({timeout:2000});
+ assert.equal(await second.page.getByLabel('任务目标').inputValue(),goal);let retried;
+ await second.context.route('**/agent/v1/tasks',async route=>{retried={body:route.request().postDataJSON(),key:route.request().headers()['idempotency-key']};await route.continue()});
+ await second.page.getByRole('button',{name:'重试同一任务提交',exact:true}).click();await status(second.page,'任务已保存');assert.deepEqual(retried,original);
+ assert.equal((await f.request('/control/v1/projects/synthetic-ui/tasks')).body.tasks.length,1);assert.equal((await f.request('/control/v1/projects/synthetic-ui/submission')).body.submission,null);
+ assert.deepEqual(await second.page.evaluate(()=>[localStorage.length,sessionStorage.length]),[0,0]);assert.deepEqual(first.errors,[]);assert.deepEqual(second.errors,[]);
+});
 test('task workbench: frozen submit persists ready task and reload reads actual plan/budget safely',async t=>{
  const f=await fixture(t,true),{page,context,errors}=await f.newPage();
  const goal='<img src=x onerror=alert(1)> 只提交设计任务';await taskPreview(page,goal);
@@ -353,6 +403,78 @@ test('task workbench: frozen submit persists ready task and reload reads actual 
  const mobile=await f.newPage(null,{width:390,height:844});await mobile.page.getByRole('button',{name:'查看任务 '+saved.id,exact:true}).click();await status(mobile.page,'已读取任务详情');assert.ok(await mobile.page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
  await mobile.page.locator('#task-detail').scrollIntoViewIfNeeded();await mobile.page.screenshot({path:path.join(repo,'.fusion-dev/implementation/task-ui-mobile.png'),fullPage:true});assert.deepEqual(mobile.errors,[]);
  assert.deepEqual(errors,[]);
+});
+test('submission recovery: unknown preparation never posts a task; window reopen recovers the original key',async t=>{
+ const f=await fixture(t,true),first=await f.newPage();let preparation,taskPosts=0;
+ await first.context.route('**/control/v1/projects/synthetic-ui/submission',async route=>{
+  if(route.request().method()!=='POST')return route.continue();preparation={body:route.request().postDataJSON(),key:route.request().headers()['idempotency-key']};await route.fetch();await route.fulfill({status:503,json:{error:{code:'lost_preparation'}}});
+ });
+ first.page.on('request',r=>{if(new URL(r.url()).pathname==='/agent/v1/tasks')taskPosts++});
+ await taskPreview(first.page,'丢失原请求保存回执');await first.page.getByRole('button',{name:'冻结提交任务',exact:true}).click();await status(first.page,'原请求保存结果未确认');assert.equal(taskPosts,0);
+ assert.equal((await f.request('/control/v1/projects/synthetic-ui/tasks')).body.tasks.length,0);assert.equal(await first.page.getByLabel('项目',{exact:true}).isDisabled(),true);
+ await first.context.close();const second=await f.newPage();await status(second.page,'已恢复原任务请求');let actual;
+ await second.context.route('**/agent/v1/tasks',async route=>{actual={body:route.request().postDataJSON(),key:route.request().headers()['idempotency-key']};await route.continue()});
+ await second.page.getByRole('button',{name:'重试同一任务提交',exact:true}).click();await status(second.page,'任务已保存');assert.deepEqual(actual,preparation);assert.equal((await f.request('/control/v1/projects/synthetic-ui/tasks')).body.tasks.length,1);
+ assert.deepEqual(first.errors,[]);assert.deepEqual(second.errors,[]);
+});
+test('submission recovery: lost acknowledgement retries only the original acknowledgement and does not repeat task POST',async t=>{
+ const f=await fixture(t,true),{page,context,errors}=await f.newPage();const acknowledgements=[];let taskPosts=0;
+ page.on('request',r=>{if(new URL(r.url()).pathname==='/agent/v1/tasks')taskPosts++});
+ await context.route('**/control/v1/projects/synthetic-ui/submission/acknowledge',async route=>{
+  acknowledgements.push({body:route.request().postData(),key:route.request().headers()['idempotency-key']});const actual=await route.fetch();if(acknowledgements.length===1)await route.fulfill({status:200,json:{submission:null}});else await route.fulfill({response:actual});
+ });
+ await taskPreview(page,'确认回执丢失不重复任务提交');await page.getByRole('button',{name:'冻结提交任务',exact:true}).click();await status(page,'原记录确认未核对');assert.equal(taskPosts,1);
+ assert.equal((await f.request('/control/v1/projects/synthetic-ui/submission')).body.submission,null);assert.equal(await page.getByLabel('任务目标').isDisabled(),true);
+ await page.getByRole('button',{name:'重试任务保存确认',exact:true}).click();await status(page,'任务已保存');assert.equal(taskPosts,1);assert.deepEqual(acknowledgements[0],acknowledgements[1]);assert.equal(await page.getByLabel('任务目标').isDisabled(),false);assert.deepEqual(errors,[]);
+});
+test('submission recovery: lost seal response cannot release editing or send another task POST',async t=>{
+ const f=await fixture(t,true);const p=await f.request('/control/v1/tasks/preview','POST',{project_id:'synthetic-ui',goal:'封存回执丢失',required_roles:['design']});const body={preview_id:p.body.preview_id,plan_hash:p.body.plan.hash},key='seal-original';assert.equal((await f.request('/control/v1/projects/synthetic-ui/submission','POST',body,null,key)).status,200);
+ const {page,context,errors}=await f.newPage();const seals=[];let taskPosts=0;page.on('request',r=>{if(new URL(r.url()).pathname==='/agent/v1/tasks')taskPosts++});
+ await context.route('**/control/v1/projects/synthetic-ui/submission/abandon',async route=>{seals.push({body:route.request().postData(),key:route.request().headers()['idempotency-key']});const actual=await route.fetch();if(seals.length===1)await route.fulfill({status:503,json:{error:{code:'lost_seal'}}});else await route.fulfill({response:actual})});
+ page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'放弃未提交请求',exact:true}).click();await status(page,'放弃结果未确认');assert.equal(await page.getByLabel('任务目标').isDisabled(),true);assert.equal(await page.getByRole('button',{name:'重试同一任务提交',exact:true}).isVisible(),false);assert.equal(taskPosts,0);
+ await page.getByRole('button',{name:'重试放弃原请求',exact:true}).click();await status(page,'原请求已封存');assert.deepEqual(seals[0],seals[1]);assert.equal(taskPosts,0);assert.equal((await f.request('/agent/v1/tasks','POST',body,null,key)).status,409);assert.deepEqual(errors,[]);
+});
+test('submission recovery: prepared request survives real host restart; lost preview requires explicit seal',async t=>{
+ const f=await fixture(t,true);const goal='重启后不复活预览';const p=await f.request('/control/v1/tasks/preview','POST',{project_id:'synthetic-ui',goal,required_roles:['design']});const body={preview_id:p.body.preview_id,plan_hash:p.body.plan.hash},key='restart-prepared';assert.equal((await f.request('/control/v1/projects/synthetic-ui/submission','POST',body,null,key)).status,200);
+ await f.restart();const {page,errors}=await f.newPage();await status(page,'已恢复原任务请求');assert.equal(await page.getByLabel('任务目标').inputValue(),goal);
+ await page.getByRole('button',{name:'重试同一任务提交',exact:true}).click();await status(page,'提交结果未确认');assert.equal(await page.getByLabel('任务目标').isDisabled(),true);assert.equal((await f.request('/control/v1/projects/synthetic-ui/tasks')).body.tasks.length,0);
+ page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'放弃未提交请求',exact:true}).click();await status(page,'原请求已封存');assert.equal(await page.getByLabel('任务目标').isDisabled(),false);assert.deepEqual(errors,[]);
+});
+test('submission recovery: startup discovers the pending project instead of creating a new request in the first project',async t=>{
+ const f=await fixture(t,true,true);const project='synthetic-ui-other',goal='另一个项目的原请求';const p=await f.request('/control/v1/tasks/preview','POST',{project_id:project,goal,required_roles:['design']});assert.equal((await f.request('/control/v1/projects/'+project+'/submission','POST',{preview_id:p.body.preview_id,plan_hash:p.body.plan.hash},null,'other-project-original')).status,200);
+ const {page,errors}=await f.newPage();await status(page,'已恢复原任务请求');assert.equal(await page.getByLabel('项目',{exact:true}).inputValue(),project);assert.equal(await page.getByLabel('任务目标').inputValue(),goal);assert.ok((await page.locator('#submission-record').innerText()).includes('other-project-original'));assert.equal((await f.request('/control/v1/projects/synthetic-ui/tasks')).body.tasks.length,0);assert.deepEqual(errors,[]);
+});
+test('submission recovery: malformed prepare metadata keeps original identity and never posts a task',async t=>{
+ const f=await fixture(t,true),{page,context,errors}=await f.newPage();const preparations=[];let taskPosts=0;
+ page.on('request',r=>{if(new URL(r.url()).pathname==='/agent/v1/tasks')taskPosts++});
+ await context.route('**/control/v1/projects/synthetic-ui/submission',async route=>{
+  if(route.request().method()!=='POST')return route.continue();preparations.push({body:route.request().postData(),key:route.request().headers()['idempotency-key']});const actual=await route.fetch();const body=await actual.json();if(preparations.length===1)body.submission.preview.budget.max_calls++;await route.fulfill({response:actual,json:body});
+ });
+ await taskPreview(page,'不接受替换原预算');await page.getByRole('button',{name:'冻结提交任务',exact:true}).click();await status(page,'原请求保存结果未确认');assert.equal(taskPosts,0);assert.equal(await page.getByLabel('任务目标').isDisabled(),true);
+ await page.getByRole('button',{name:'重试保存原请求',exact:true}).click();await status(page,'任务已保存');assert.deepEqual(preparations[0],preparations[1]);assert.equal(taskPosts,1);assert.deepEqual(errors,[]);
+});
+test('submission recovery: another window reads the same pending original without submitting its new preview',async t=>{
+ const f=await fixture(t,true),first=await f.newPage(),second=await f.newPage();let taskPosts=0,original;
+ second.page.on('request',r=>{if(new URL(r.url()).pathname==='/agent/v1/tasks')taskPosts++});
+ await first.context.route('**/agent/v1/tasks',async route=>{original={body:route.request().postDataJSON(),key:route.request().headers()['idempotency-key']};await route.fetch();await route.fulfill({status:503,json:{error:{code:'lost_receipt'}}})});
+ await taskPreview(first.page,'先前窗口的原目标');await taskPreview(second.page,'另一个窗口的新目标');await first.page.getByRole('button',{name:'冻结提交任务',exact:true}).click();await status(first.page,'提交结果未确认');
+ await second.page.getByRole('button',{name:'冻结提交任务',exact:true}).click();await status(second.page,'已恢复原任务请求');assert.equal(taskPosts,0);assert.equal(await second.page.getByLabel('任务目标').inputValue(),'先前窗口的原目标');assert.ok((await second.page.locator('#submission-record').innerText()).includes(original.key));
+ await first.context.unroute('**/agent/v1/tasks');await first.page.getByRole('button',{name:'重试同一任务提交',exact:true}).click();await status(first.page,'任务已保存');
+ await second.page.getByRole('button',{name:'重新核对原请求',exact:true}).click();await status(second.page,'任务已保存');assert.equal(taskPosts,0);assert.equal((await f.request('/control/v1/projects/synthetic-ui/tasks')).body.tasks.length,1);assert.deepEqual(first.errors,[]);assert.deepEqual(second.errors,[]);
+});
+test('submission recovery: a substituted task ID is unproved until the original journal and task read agree',async t=>{
+ const f=await fixture(t,true),{page,context,errors}=await f.newPage();
+ await context.route('**/agent/v1/tasks',async route=>{const actual=await route.fetch(),body=await actual.json();body.id='fake-ui-task';await route.fulfill({response:actual,json:body})});
+ await taskPreview(page,'错误任务 ID 不能当作原任务');await page.getByRole('button',{name:'冻结提交任务',exact:true}).click();await status(page,'原记录确认未核对');assert.equal(await page.getByLabel('任务目标').isDisabled(),true);
+ assert.ok(!(await page.locator('#submission-record').innerText()).includes('原任务：fake-ui-task'));
+ await page.getByRole('button',{name:'重新核对原请求',exact:true}).click();await status(page,'任务已保存');const tasks=await f.request('/control/v1/projects/synthetic-ui/tasks');assert.equal(tasks.body.tasks.length,1);assert.notEqual(tasks.body.tasks[0].id,'fake-ui-task');assert.equal(await page.getByLabel('任务目标').isDisabled(),false);assert.deepEqual(errors,[]);
+});
+test('submission recovery: an unavailable project journal blocks editing until a successful explicit reread',async t=>{
+ const f=await fixture(t,true,true),{page,context,errors}=await f.newPage();
+ const pendingPath=f.origin+'/control/v1/projects/synthetic-ui-other/submission';
+ await context.route(pendingPath,route=>route.fulfill({status:503,json:{error:{code:'unavailable'}}}));
+ await page.getByLabel('项目',{exact:true}).selectOption('synthetic-ui-other');await status(page,'原请求核对失败');assert.equal(await page.getByLabel('项目',{exact:true}).isDisabled(),true);assert.equal(await page.getByRole('button',{name:'保存项目配置',exact:true}).isDisabled(),true);
+ await context.unroute(pendingPath);await page.getByRole('button',{name:'重新核对原请求',exact:true}).click();await page.getByRole('status').filter({hasText:'已核对，没有未解决原请求'}).waitFor({timeout:2000});assert.equal(await page.getByLabel('项目',{exact:true}).isDisabled(),false);assert.equal(await page.getByRole('button',{name:'保存项目配置',exact:true}).isDisabled(),false);assert.deepEqual(errors,[]);
 });
 for(const receiptMode of ['503','malformed201'])test('task workbench: lost successful receipt '+receiptMode+' freezes editing; identical request retry returns one task',async t=>{
  const f=await fixture(t,true),{page,context,errors}=await f.newPage();const attempts=[];

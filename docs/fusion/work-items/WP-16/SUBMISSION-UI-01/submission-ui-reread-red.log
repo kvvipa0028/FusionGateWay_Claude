@@ -1,0 +1,22 @@
+✖ submission recovery: an unavailable project journal blocks editing until a successful explicit reread (2940.67325ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3149.077875
+
+✖ failing tests:
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:468:1
+✖ submission recovery: an unavailable project journal blocks editing until a successful explicit reread (2940.67325ms)
+  locator.waitFor: Timeout 2000ms exceeded.
+  Call log:
+  [2m  - waiting for getByRole('status').filter({ hasText: '已核对，没有未解决原请求' }) to be visible[22m
+
+      at TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:473:168) {
+    name: 'TimeoutError',
+    log: [ "  - waiting for getByRole('status').filter({ hasText: '已核对，没有未解决原请求' }) to be visible" ]
+  }

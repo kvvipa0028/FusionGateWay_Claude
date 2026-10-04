@@ -1,0 +1,54 @@
+✖ submission recovery: task POST follows persisted original preparation and matching acknowledgement (2515.741708ms)
+✖ submission recovery: opening a window restores a prepared original request without posting a task (2526.344625ms)
+✖ submission recovery: closed window restores committed original and same-task retry clears acknowledgement (3101.337625ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 0
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8355.828416
+
+✖ failing tests:
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:337:1
+✖ submission recovery: task POST follows persisted original preparation and matching acknowledgement (2515.741708ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+
+  + undefined
+  - 'prepared'
+
+      at TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:343:9)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 'prepared',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:347:1
+✖ submission recovery: opening a window restores a prepared original request without posting a task (2526.344625ms)
+  locator.waitFor: Timeout 2000ms exceeded.
+  Call log:
+  [2m  - waiting for getByRole('status').filter({ hasText: '已恢复原任务请求' }) to be visible[22m
+
+      at TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:351:100) {
+    name: 'TimeoutError',
+    log: [ "  - waiting for getByRole('status').filter({ hasText: '已恢复原任务请求' }) to be visible" ]
+  }
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:359:1
+✖ submission recovery: closed window restores committed original and same-task retry clears acknowledgement (3101.337625ms)
+  locator.waitFor: Timeout 2000ms exceeded.
+  Call log:
+  [2m  - waiting for getByRole('status').filter({ hasText: '已恢复原任务请求' }) to be visible[22m
+
+      at TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:365:128) {
+    name: 'TimeoutError',
+    log: [ "  - waiting for getByRole('status').filter({ hasText: '已恢复原任务请求' }) to be visible" ]
+  }
