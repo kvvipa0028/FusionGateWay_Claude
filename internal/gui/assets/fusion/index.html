@@ -12,6 +12,7 @@
 </div>
 <p class="priority">本次任务 ＞ 项目配置 ＞ 全局默认。继承使用较低层的完整选择。</p>
 <div class="presets"><label>预设<select id="preset" aria-label="预设"><option value="">不载入预设</option></select></label><label>明确版本<input id="preset-version" aria-label="预设版本" inputmode="numeric"></label><button id="apply-preset">载入此版本</button><span id="preset-source"></span></div>
+<div class="preset-save"><label>预设名称<input id="preset-name" aria-label="预设名称"></label><button id="create-preset">保存为新预设</button><button id="save-preset">保存预设新版本</button><button id="retry-preset" hidden>重试同一预设保存</button><p id="preset-editing">保存当前范围的五角色选择；不会改写默认配置或启动模型。</p></div>
 <div id="groups"></div>
 <section id="task" hidden><h2>单阶段任务预览</h2><label>任务目标<textarea id="goal" aria-label="任务目标" rows="3"></textarea></label><label>本次阶段<select id="task-role" aria-label="本次阶段"></select></label><p>预览核对服务端模型绑定，不启动任务。</p></section>
 <footer><button id="save" class="primary" disabled>保存项目配置</button><p id="status" role="status" aria-live="polite">正在读取本机配置…</p></footer>

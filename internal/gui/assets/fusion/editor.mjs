@@ -1,6 +1,6 @@
-import {roles,labels,groups,copy,expandLayer,groupShared,shareGroup,exactRoute,targetFor,routeKey,layerIssues} from "./model.mjs";
+import {roles,labels,groups,copy,expandLayer,groupShared,shareGroup,exactRoute,targetFor,routeKey,layerIssues,sameBinding} from "./model.mjs";
 const $=id=>document.getElementById(id);
-const state={project:"",scope:"project",routes:[],layers:{},tags:{},config:{},presets:[],preset:null,expanded:new Set(),dirty:new Set(),loading:true,saving:false,uncertain:null,notice:"正在读取本机配置…"};
+const state={project:"",scope:"project",routes:[],layers:{},tags:{},config:{},presets:[],preset:null,editingPreset:null,presetNameDirty:false,expanded:new Set(),dirty:new Set(),loading:true,saving:false,uncertain:null,notice:"正在读取本机配置…"};
 const messages={route_unavailable:"模型或路线版本已失效，请重新选择。",effort_unspecified:"请选择推理档位。",effort_unsupported:"该模型不支持此推理选择。",candidates_missing:"请明确添加批准的候选。",candidate_duplicate:"同一路线版本不能重复。",mode_invalid:"配置模式无效。",lock_exception_unaccepted:"此配置含未接受的锁定例外。"};
 function el(tag,text,attrs={}){const n=document.createElement(tag);if(text!==null)n.textContent=text;for(const[k,v]of Object.entries(attrs))n.setAttribute(k,v);return n}
 function option(select,value,text){select.append(el("option",text,{value}))}
@@ -12,6 +12,23 @@ function defaultSnapshot(value,etag,status=500,fallback){
   if(!layer||typeof layer!=="object")throw Error();
   return {layer:expandLayer(layer),etag};
  }catch{throw new RequestError(status,"response_unavailable")}
+}
+function presetNameValid(name){
+ return typeof name==="string" && name.trim().length>0 && new TextEncoder().encode(name).length<=256 && !/\p{Cc}/u.test(name) && !/[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/u.test(name);
+}
+function presetSnapshot(value,etag,project,id,revision,status=500,expected){
+ try{
+  if(value?.project_id!==project||value.id!==id||value.revision!==revision||!Number.isSafeInteger(revision)||revision<1||etag!=='"'+revision+'"'||!presetNameValid(value.name)||!/^([0-9a-f]{64})$/.test(value.hash))throw Error();
+  if(!value.layer||typeof value.layer!=="object"||Array.isArray(value.layer))throw Error();
+  const layer=expandLayer(value.layer);
+  if(expected&&(value.name!==expected.name||!sameBinding(layer,expandLayer(expected.layer))))throw Error();
+  return {id,name:value.name,revision,etag,layer};
+ }catch{throw new RequestError(status,"response_unavailable")}
+}
+function presetOptions(selected=""){
+ $("preset").replaceChildren();option($("preset"),"","不载入预设");
+ for(const p of state.presets)option($("preset"),p.id,p.name+" · 最近读取版本 "+p.revision);
+ $("preset").value=selected;
 }
 async function request(path,options={}){
  let response;try{response=await fetch(path,{...options,cache:"no-store",credentials:"omit",redirect:"error",headers:{"Content-Type":"application/json",...(options.headers||{})}})}catch{throw new RequestError(0,"transport_unconfirmed")}
@@ -112,8 +129,13 @@ function render(){
  $("scope").disabled=disabled();$("project").disabled=disabled();$("reload").disabled=state.loading||state.saving;
  $("preset").disabled=disabled();$("preset-version").disabled=disabled();$("apply-preset").disabled=disabled()||!$("preset").value;
  $("task").hidden=state.scope!=="task";$("goal").disabled=disabled();$("task-role").disabled=disabled();
- $("save").textContent=state.uncertain?"重试同一保存":state.scope==="task"?"预览单阶段任务":state.scope==="global"?"保存全局默认":"保存项目配置";
- $("save").disabled=state.loading||state.saving||!state.project||(!state.uncertain&&layerIssues(activeLayer(),state.routes).length>0);
+ $("save").textContent=state.uncertain&&state.uncertain.kind!=="preset"?"重试同一保存":state.scope==="task"?"预览单阶段任务":state.scope==="global"?"保存全局默认":"保存项目配置";
+ $("save").disabled=state.loading||state.saving||state.uncertain?.kind==="preset"||!state.project||(!state.uncertain&&layerIssues(activeLayer(),state.routes).length>0);
+ const canSavePreset=!disabled()&&!!state.project&&presetNameValid($("preset-name").value)&&layerIssues(activeLayer(),state.routes).length===0;
+ $("preset-name").disabled=disabled();$("create-preset").disabled=!canSavePreset;
+ $("save-preset").disabled=!canSavePreset||!state.editingPreset||state.editingPreset.id!==$("preset").value;
+ $("retry-preset").hidden=state.uncertain?.kind!=="preset";$("retry-preset").disabled=state.loading||state.saving;
+ $("preset-editing").textContent=state.editingPreset?"保存当前范围的五角色选择为预设新版本，基于已载入版本 "+state.editingPreset.revision+"；默认配置和已有任务来源保持原值。":"保存当前范围的五角色选择；修改已有预设须先载入明确版本。不会改写默认配置或启动模型。";
  $("status").textContent=state.notice;$("status").className=state.error?"error":"";
  $("preset-source").textContent=state.preset?"本次任务使用预设 "+state.preset.id+"@"+state.preset.revision:"";
  if(focus)[...document.querySelectorAll("[aria-label]")].find(n=>n.getAttribute("aria-label")===focus)?.focus({preventScroll:true});
@@ -127,22 +149,22 @@ async function loadProject(id){
   state.project=id;state.routes=config.body.configuration.routes||[];state.config={global:globalDefault.layer,project:projectDefault.layer};
   state.layers={global:expandLayer(state.config.global),project:expandLayer(state.config.project),task:expandLayer()};
   state.tags={global:global.etag,project:project.etag};state.presets=presets.body.presets||[];
-  state.preset=null;state.uncertain=null;state.dirty.clear();state.expanded.clear();
-  $("preset").replaceChildren();option($("preset"),"","不载入预设");for(const p of state.presets)option($("preset"),p.id,p.name+" · 当前版本 "+p.revision);
+  state.preset=null;state.editingPreset=null;state.presetNameDirty=false;$("preset-name").value="";state.uncertain=null;state.dirty.clear();state.expanded.clear();
+  presetOptions();
   $("preset-version").value="";$("preview").hidden=true;state.notice="已载入当前配置。保存选择不会启动模型。";
  }catch(e){state.project="";state.layers={};state.error=true;state.notice=errorText(e)}
  state.loading=false;render();
 }
 $("scope").onchange=()=>{state.scope=$("scope").value;state.error=false;state.notice=state.dirty.has(state.scope)?"本地选择尚未保存。":"已切换配置范围。";$("preview").hidden=true;render()};
-$("project").onchange=()=>{const id=$("project").value;if(state.dirty.size&&!window.confirm("重新载入项目会丢弃未保存的选择。继续？")){$("project").value=state.project;return}loadProject(id)};
-$("reload").onclick=()=>{if((state.dirty.size||state.uncertain)&&!window.confirm("重新载入并核对服务端配置，本地未保存的选择将被丢弃。继续？"))return;loadProject(state.project||$("project").value)};
-$("preset").onchange=()=>{const p=state.presets.find(p=>p.id===$("preset").value);$("preset-version").value=p?String(p.revision):"";render()};
+$("project").onchange=()=>{const id=$("project").value;if((state.dirty.size||state.presetNameDirty)&&!window.confirm("重新载入项目会丢弃未保存的选择。继续？")){$("project").value=state.project;return}loadProject(id)};
+$("reload").onclick=()=>{if((state.dirty.size||state.presetNameDirty||state.uncertain)&&!window.confirm("重新载入并核对服务端配置，本地未保存的选择将被丢弃。继续？"))return;loadProject(state.project||$("project").value)};
+$("preset").onchange=()=>{const p=state.presets.find(p=>p.id===$("preset").value);$("preset-version").value=p?String(p.revision):"";state.editingPreset=null;render()};
 $("apply-preset").onclick=async()=>{
  const revision=Number($("preset-version").value),id=$("preset").value;
  if(!/^[1-9][0-9]*$/.test($("preset-version").value)||!Number.isSafeInteger(revision)){state.error=true;state.notice="请选择明确的正整数预设版本。";render();return}
- if(state.dirty.has(state.scope)&&!window.confirm("载入预设会覆盖当前范围的五角色本地选择。继续？"))return;
+ if((state.dirty.has(state.scope)||state.presetNameDirty)&&!window.confirm("载入预设会覆盖当前范围的五角色本地选择和未保存的预设名称。继续？"))return;
  state.loading=true;render();
- try{const p=await request("/control/v1/projects/"+encodeURIComponent(state.project)+"/presets/"+encodeURIComponent(id)+"/versions/"+revision);state.layers[state.scope]=expandLayer(p.body.layer);if(state.scope==="task")state.preset={id,revision};state.dirty.add(state.scope);state.error=false;state.notice="已载入明确版本，尚未保存。"}catch(e){state.error=true;state.notice=errorText(e)}
+ try{const p=await request("/control/v1/projects/"+encodeURIComponent(state.project)+"/presets/"+encodeURIComponent(id)+"/versions/"+revision);const snapshot=presetSnapshot(p.body,p.etag,state.project,id,revision);state.layers[state.scope]=snapshot.layer;state.editingPreset=snapshot;state.presetNameDirty=false;$("preset-name").value=snapshot.name;if(state.scope==="task")state.preset={id,revision};state.dirty.add(state.scope);state.error=false;state.notice="已载入明确版本，尚未保存。"}catch(e){state.error=true;state.notice=errorText(e)}
  state.loading=false;render();
 };
 $("save").onclick=async()=>{
@@ -157,7 +179,7 @@ $("save").onclick=async()=>{
   finally{state.saving=false;render()}
   return;
  }
- const attempt=state.uncertain||{scope,url:scope==="global"?"/control/v1/defaults/global":"/control/v1/projects/"+encodeURIComponent(id)+"/defaults",etag:state.tags[scope],body:JSON.stringify({layer:activeLayer()})};
+ const attempt=state.uncertain||{kind:"defaults",scope,url:scope==="global"?"/control/v1/defaults/global":"/control/v1/projects/"+encodeURIComponent(id)+"/defaults",etag:state.tags[scope],body:JSON.stringify({layer:activeLayer()})};
  try{
   const saved=await request(attempt.url,{method:"PUT",headers:{"If-Match":attempt.etag},body:attempt.body});
   const snapshot=defaultSnapshot(saved.body.default_layer,saved.etag,200);
@@ -166,6 +188,31 @@ $("save").onclick=async()=>{
  }catch(e){const uncertain=e.status===0||(e.status>=200&&e.status<300&&e.code==="response_unavailable");state.error=true;state.notice=uncertain?errorText(new RequestError(0,"transport_unconfirmed"),true):errorText(e,true);if(uncertain)state.uncertain=attempt;else state.uncertain=null}
  state.saving=false;render();
 };
+$("preset-name").oninput=()=>{state.presetNameDirty=true;render()};
+async function savePreset(attempt){
+ state.saving=true;state.error=false;render();
+ try{
+  const saved=await request(attempt.url,{method:"PUT",headers:{"If-Match":attempt.etag},body:attempt.body});
+  const snapshot=presetSnapshot(saved.body.preset,saved.etag,attempt.project,attempt.id,attempt.revision,200,JSON.parse(attempt.body));
+  state.editingPreset=snapshot;state.presetNameDirty=false;$("preset-name").value=snapshot.name;
+  const old=state.presets.find(p=>p.id===snapshot.id);
+  if(!old)state.presets.push(snapshot);else if(old.revision<=snapshot.revision)Object.assign(old,snapshot);
+  presetOptions(snapshot.id);$("preset-version").value=String(snapshot.revision);
+  state.uncertain=null;state.notice="已保存预设版本 "+snapshot.revision+"，未改写默认配置或启动模型。";
+ }catch(e){
+  const unknown=e.status===0||(e.status>=200&&e.status<300&&e.code==="response_unavailable");
+  state.error=true;state.uncertain=unknown?attempt:null;
+  state.notice=unknown?"预设保存状态未确认。请重试同一预设保存，或重新载入核对。":e.status===412?"预设已被其他窗口更新。本地选择已保留；载入明确版本后再保存。":e.status===429?"预设数量已达上限，不能创建新预设；已有预设仍可保存新版本。":errorText(e,true);
+ }
+ state.saving=false;render();
+}
+function presetAttempt(id,base){return {kind:"preset",project:state.project,id,url:"/control/v1/projects/"+encodeURIComponent(state.project)+"/presets/"+encodeURIComponent(id),etag:'"'+base+'"',revision:base+1,body:JSON.stringify({name:$("preset-name").value,layer:activeLayer()})}}
+$("create-preset").onclick=()=>{
+ try{const bytes=crypto.getRandomValues(new Uint8Array(16));savePreset(presetAttempt("p_"+[...bytes].map(v=>v.toString(16).padStart(2,"0")).join(""),0))}
+ catch{state.error=true;state.notice="本机无法生成新预设标识，未发起保存。";render()}
+};
+$("save-preset").onclick=()=>{const current=state.editingPreset;if(current&&current.id===$("preset").value&&Number.isSafeInteger(current.revision+1))savePreset(presetAttempt(current.id,current.revision))};
+$("retry-preset").onclick=()=>{if(state.uncertain?.kind==="preset")savePreset(state.uncertain)};
 for(const role of roles)option($("task-role"),role,labels[role]);
 async function boot(){
  try{const list=await request("/control/v1/projects");for(const p of list.body.projects)option($("project"),p.id,p.id);if(!list.body.projects.length){state.loading=false;state.notice="尚无已登记项目，请先在本机配置中登记项目。";render();return}await loadProject(list.body.projects[0].id)}

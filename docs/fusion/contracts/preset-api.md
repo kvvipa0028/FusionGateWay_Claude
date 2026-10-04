@@ -1,6 +1,6 @@
 # 执行预设与配置读取合同
 
-这些接口属于 Management 保护的内部 Handler，尚未注册产品 listener/GUI。预设是项目范围内的版本化选择，不赋予路线或额度准入，也不改写日常 CLI 配置。配置读取仅返回可信 bootstrap 登记的 global/project 层、路线元数据及默认预算；HTTP 不得修改 registry、Admitted、账号、credential identity 或 Runtime。
+这些接口属于 Management 保护的内部 Handler，已由私有 ControlHost 提供；[Native 配置界面](preset-ui.md)按受限允许清单接入预设读写。预设是项目范围内的版本化选择，不赋予路线或额度准入，也不改写日常 CLI 配置。配置读取仅返回可信 bootstrap 登记的 global/project 层、路线元数据及默认预算；HTTP 不得修改 registry、Admitted、账号、credential identity 或 Runtime。
 
 | 方法/路径 | 行为 |
 |---|---|

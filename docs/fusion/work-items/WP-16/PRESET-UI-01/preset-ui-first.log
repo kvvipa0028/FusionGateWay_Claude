@@ -1,0 +1,10 @@
+✔ preset UI: creates five-role preset and revisions without changing defaults or old task source (2060.831166ms)
+✔ preset UI: stale loaded revision conflicts; committed but malformed acknowledgement retries identical body/tag/id (1279.383541ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11568.516709

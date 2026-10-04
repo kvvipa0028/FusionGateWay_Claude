@@ -144,6 +144,9 @@ func (b *NativeStageBridge) allowed(method, path string) bool {
 			return method == "GET" || method == "PUT"
 		}
 	}
+	if len(parts) == 3 && parts[1] == "presets" && parts[2] != "" {
+		return method == "GET" || method == "PUT"
+	}
 	if len(parts) == 5 && parts[1] == "presets" && parts[2] != "" && parts[3] == "versions" && parts[4] != "" {
 		return method == "GET"
 	}

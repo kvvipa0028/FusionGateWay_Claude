@@ -1,0 +1,83 @@
+{
+  "baseline": "657909d2955b6dbb3cbff0b91d27fe22dfb100ae",
+  "component_status": "complete",
+  "parent_wp16": "in_progress",
+  "final_gate": "not_run",
+  "browser_final": {
+    "log": "preset-ui-browser-verified.log",
+    "pass": 9,
+    "fail": 0,
+    "scope": "actual isolated CLI/API/Store + Chrome; exact current source asset comparison"
+  },
+  "targeted_race": {
+    "pass": 20,
+    "subtest_pass": 48,
+    "fail": 0,
+    "filter": "TestNativeStageBridge|TestControlHostStageUI|TestPresetAPI"
+  },
+  "logs": [
+    {
+      "log": "preset-ui-red.log",
+      "original_sha256": "bf77b265b9cb16869c8bc2dad649935493e1a2a1458774831e48ed05dd739e39",
+      "go_pass": 0,
+      "go_subtest_pass": 0,
+      "go_fail": 0
+    },
+    {
+      "log": "preset-ui-bridge-red.log",
+      "original_sha256": "ed689c8b9833bc07192156ee6f101fddd66f907ee05cf4bc8563be227ed5bec5",
+      "go_pass": 0,
+      "go_subtest_pass": 0,
+      "go_fail": 1
+    },
+    {
+      "log": "preset-ui-first.log",
+      "original_sha256": "1fa8f76ea21f5200e2667f4292acec5abe77faa694bbfb7f356e274f11c3cce8",
+      "go_pass": 0,
+      "go_subtest_pass": 0,
+      "go_fail": 0
+    },
+    {
+      "log": "preset-ui-browser-final.log",
+      "original_sha256": "5e5631cbd9b37e2e5ae786f78c5dda5c6c9ec23ae084fa967f8eddb75d8a3dbb",
+      "go_pass": 0,
+      "go_subtest_pass": 0,
+      "go_fail": 0
+    },
+    {
+      "log": "preset-ui-go-final.log",
+      "original_sha256": "28c38103cd87c0d658f83bf89ca7f8c1aa3d4ef96d185ee222cd968b2cb4350a",
+      "go_pass": 20,
+      "go_subtest_pass": 48,
+      "go_fail": 0
+    },
+    {
+      "log": "preset-ui-mobile-fresh.log",
+      "original_sha256": "04c04cb31a58d336b4f184fb57f2d1950f1cca77d52139564280159e86580658",
+      "go_pass": 0,
+      "go_subtest_pass": 0,
+      "go_fail": 0
+    },
+    {
+      "log": "preset-ui-name-draft-red.log",
+      "original_sha256": "076d478e136098ed2f71fd09068a42b1c9a41aada6a1fc54ec0a47fb27ae78e3",
+      "go_pass": 0,
+      "go_subtest_pass": 0,
+      "go_fail": 0
+    },
+    {
+      "log": "preset-ui-browser-verified.log",
+      "original_sha256": "3aee20627ff58a8403d2837100b995cc6108edf25c818c4d521a090713ff26a4",
+      "go_pass": 0,
+      "go_subtest_pass": 0,
+      "go_fail": 0
+    }
+  ],
+  "graph": {
+    "nodes": 13933,
+    "edges": 123553
+  },
+  "native": "native-observation.json",
+  "visual_review": "desktop + independent-context mobile reviewed; repeated earlier capture retained as failure evidence",
+  "credential_scope": "synthetic; private GLM credential excluded from all changed files and packet"
+}

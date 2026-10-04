@@ -1,0 +1,28 @@
+✖ preset UI: creates five-role preset and revisions without changing defaults or old task source (2209.327333ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 10441.408291
+
+✖ failing tests:
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:205:1
+✖ preset UI: creates five-role preset and revisions without changing defaults or old task source (2209.327333ms)
+  AssertionError [ERR_ASSERTION]: preset creation UI missing
+
+  0 !== 1
+
+      at TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:207:9)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

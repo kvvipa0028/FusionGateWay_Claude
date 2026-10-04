@@ -1,0 +1,17 @@
+✔ actual private CLI/API: independent roles, fold/reload, explicit overwrite and safe model text (2248.690125ms)
+✔ actual API: stale editor keeps draft; lost acknowledgement retries the identical version/body (1096.950167ms)
+✔ actual API: explicit preset version, auto candidates and single-role preview remains unadmitted (864.7125ms)
+✔ actual API: edit layer and version come from the same defaults response (662.747583ms)
+✔ actual API: malformed successful save acknowledgement freezes the identical retry (797.295291ms)
+✔ actual API: expired route never selects a replacement; global and project drafts stay separate (793.186375ms)
+✔ preset UI: creates five-role preset and revisions without changing defaults or old task source (855.863375ms)
+✔ preset UI: stale loaded revision conflicts; committed but malformed acknowledgement retries identical body/tag/id (1270.01ms)
+✔ preset UI: creation retry keeps its id/base after head advances and invalid selection/name blocks save (817.161959ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 17625.333917

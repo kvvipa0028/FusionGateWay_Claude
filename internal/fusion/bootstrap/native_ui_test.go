@@ -266,6 +266,48 @@ func TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion(t *testing.T) {
 	}
 }
 
+func TestNativeStageBridgeSavesVersionedPresetOnly(t *testing.T) {
+	path, _ := sourceFixture(t)
+	h, err := OpenControl(path, filepath.Join(filepath.Dir(path), "control"), "127.0.0.1:0")
+	if err != nil {
+		t.Fatal(err)
+	}
+	serveExecutionHost(t, h)
+	b, err := newNativeTestBridge(t, h)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer b.Close()
+	resource := "/control/v1/projects/fixture-project/presets/native-preset"
+	r := nativeRequest("PUT", resource, `{"name":"Native fixture","layer":{}}`)
+	r.Header.Set("If-Match", `"0"`)
+	r.Header.Set("Content-Type", "application/json")
+	w := httptest.NewRecorder()
+	b.ServeHTTP(w, r)
+	if w.Code != 201 || w.Header().Get("ETag") != `"1"` || w.Header().Get("Location") != "" {
+		t.Fatal("Native preset save", w.Code)
+	}
+	for _, p := range []string{resource, resource + "/versions/1"} {
+		w := httptest.NewRecorder()
+		b.ServeHTTP(w, nativeRequest("GET", p, ""))
+		if w.Code != 200 || !strings.Contains(w.Body.String(), `"revision":1`) {
+			t.Fatal("preset readback", w.Code)
+		}
+	}
+	if code, body, _ := hostHTTP(t, h, "GET", resource, "", "", ""); code != 200 || !strings.Contains(string(body), `"revision":1`) {
+		t.Fatal("persistent preset", code)
+	}
+	for _, tc := range []struct{ method, path string }{
+		{"DELETE", resource}, {"POST", resource}, {"PUT", resource + "/versions/1"}, {"PUT", "/control/v1/projects/unknown/presets/native-preset"}, {"PUT", "/control/v1/projects/fixture-project/presets"},
+	} {
+		w := httptest.NewRecorder()
+		b.ServeHTTP(w, nativeRequest(tc.method, tc.path, `{}`))
+		if w.Code != 404 {
+			t.Fatal("preset authority expansion", tc.method, tc.path, w.Code)
+		}
+	}
+}
+
 func TestNativeStageBridgeRevocationAndClose(t *testing.T) {
 	for _, kind := range []string{"source", "token", "bridge-close", "host-close"} {
 		t.Run(kind, func(t *testing.T) {

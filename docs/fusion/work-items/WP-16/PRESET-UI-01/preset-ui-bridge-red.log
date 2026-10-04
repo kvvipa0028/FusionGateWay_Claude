@@ -1,0 +1,6 @@
+=== RUN   TestNativeStageBridgeSavesVersionedPresetOnly
+    native_ui_test.go:281: Native preset save 404
+--- FAIL: TestNativeStageBridgeSavesVersionedPresetOnly (0.05s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	0.491s
+FAIL

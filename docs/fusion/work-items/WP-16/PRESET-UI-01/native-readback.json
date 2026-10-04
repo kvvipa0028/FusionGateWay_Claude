@@ -1,0 +1,142 @@
+{
+  "head": {
+    "project_id": "native-ui-fixture",
+    "id": "p_ad65061ee225bb228374551a3d0eb3a9",
+    "revision": 2,
+    "name": "Native revised fixture",
+    "layer": {
+      "roles": {
+        "acceptance": {
+          "mode": "inherit"
+        },
+        "design": {
+          "mode": "locked",
+          "route": {
+            "id": "native-b",
+            "revision": 1
+          },
+          "model": "native-fixture-b",
+          "effort": {
+            "mode": "none"
+          }
+        },
+        "implementation": {
+          "mode": "inherit"
+        },
+        "review": {
+          "mode": "inherit"
+        },
+        "testing": {
+          "mode": "inherit"
+        }
+      }
+    },
+    "hash": "3b47644e46185c3742030e96ee81224020a0fcd633027c31d9a425021002e307",
+    "created_at": "2026-10-04T15:28:12.92Z"
+  },
+  "version1": {
+    "project_id": "native-ui-fixture",
+    "id": "p_ad65061ee225bb228374551a3d0eb3a9",
+    "revision": 1,
+    "name": "Native preset fixture",
+    "layer": {
+      "roles": {
+        "acceptance": {
+          "mode": "inherit"
+        },
+        "design": {
+          "mode": "locked",
+          "route": {
+            "id": "native-b",
+            "revision": 1
+          },
+          "model": "native-fixture-b",
+          "effort": {
+            "mode": "none"
+          }
+        },
+        "implementation": {
+          "mode": "inherit"
+        },
+        "review": {
+          "mode": "inherit"
+        },
+        "testing": {
+          "mode": "inherit"
+        }
+      }
+    },
+    "hash": "47bdabf18c8154fdebec27de265c9b9271e6faea3ab732bac95a4f762adefdce",
+    "created_at": "2026-10-04T15:27:39.97Z"
+  },
+  "version2": {
+    "project_id": "native-ui-fixture",
+    "id": "p_ad65061ee225bb228374551a3d0eb3a9",
+    "revision": 2,
+    "name": "Native revised fixture",
+    "layer": {
+      "roles": {
+        "acceptance": {
+          "mode": "inherit"
+        },
+        "design": {
+          "mode": "locked",
+          "route": {
+            "id": "native-b",
+            "revision": 1
+          },
+          "model": "native-fixture-b",
+          "effort": {
+            "mode": "none"
+          }
+        },
+        "implementation": {
+          "mode": "inherit"
+        },
+        "review": {
+          "mode": "inherit"
+        },
+        "testing": {
+          "mode": "inherit"
+        }
+      }
+    },
+    "hash": "3b47644e46185c3742030e96ee81224020a0fcd633027c31d9a425021002e307",
+    "created_at": "2026-10-04T15:28:12.92Z"
+  },
+  "defaults_unchanged": {
+    "scope": "project",
+    "id": "native-ui-fixture",
+    "revision": 1,
+    "configured": true,
+    "layer": {
+      "roles": {
+        "acceptance": {
+          "mode": "inherit"
+        },
+        "design": {
+          "mode": "locked",
+          "route": {
+            "id": "native-b",
+            "revision": 1
+          },
+          "model": "native-fixture-b",
+          "effort": {
+            "mode": "none"
+          }
+        },
+        "implementation": {
+          "mode": "inherit"
+        },
+        "review": {
+          "mode": "inherit"
+        },
+        "testing": {
+          "mode": "inherit"
+        }
+      }
+    },
+    "hash": "b6efef4b883a96b7866f264f70195dacd706ed16f2b8beb6386961d2ad859d41",
+    "created_at": "2026-10-04T15:10:59.504Z"
+  }
+}

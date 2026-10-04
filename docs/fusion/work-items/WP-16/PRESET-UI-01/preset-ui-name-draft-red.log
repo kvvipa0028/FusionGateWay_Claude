@@ -1,0 +1,30 @@
+✖ preset UI: stale loaded revision conflicts; committed but malformed acknowledgement retries identical body/tag/id (1331.064667ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9545.863209
+
+✖ failing tests:
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:232:1
+✖ preset UI: stale loaded revision conflicts; committed but malformed acknowledgement retries identical body/tag/id (1331.064667ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+
+  + 'Initial'
+  - 'Unsaved local name'
+
+      at TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:239:9)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Initial',
+    expected: 'Unsaved local name',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

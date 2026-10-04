@@ -1,0 +1,39 @@
+{
+  "source_files": {
+    "docs/fusion/README.md": "511a8310e021819ad0ccf3d848c401e0a6756ffa5cb2948ecccb3a706ea3cbb6",
+    "docs/fusion/contracts/native-stage-ui.md": "aac2f73aeee3227ea82252c68a74eb34c63df8b0fec69f161076e333b8b78b02",
+    "docs/fusion/contracts/preset-api.md": "72fb0cbdb031ac6807599081c1f33f7eb631cf81a51b41c2dd11b00b1b16421f",
+    "docs/fusion/contracts/preset-ui.md": "4d80d92b3fe104e28d414df5429e832294fa508cf5a9b1a424f0cce2e91b7bf1",
+    "docs/fusion/contracts/stage-editor.md": "0b18c6e132ae13c3b9224dc84657eacc907a848f0978f66f185d001c09d1ed12",
+    "docs/fusion/planning/Fusion_Magpie_Fork_Agent工作包_v1.0.md": "0284af613d61c0889d40cb1b09b7598b354b5b7f63860347baa59df2fd24a887",
+    "docs/fusion/work-items/WP-16/summary.md": "7c856faad3b406aec913acdb9579a0b79e2086de55936c1c9497594de9435b07",
+    "internal/fusion/bootstrap/native_ui.go": "c369a57bb372aebbc849188433f7f8e0bb01ed57b0f5064af7a1e592d40ee23a",
+    "internal/fusion/bootstrap/native_ui_test.go": "2d79c52d98ee6d2678d35294d25948d044e4395a275c6c9df41c2cedc77e3794",
+    "internal/gui/assets/fusion/editor.css": "6cea105e22fe25c7dc1feb2646534489bffb83eabe92c5e2a6980268c438773b",
+    "internal/gui/assets/fusion/editor.mjs": "aba5dc5255ffc2ee6c9999691137002f5e26308a98ca94a4aa33272f8e3eec2b",
+    "internal/gui/assets/fusion/index.html": "fc66d74ef46e9b207093dc50e4fdbb9321b68c84cf8ca936a5c18d1194f8b5e0",
+    "internal/gui/tests/fusion-stage-editor.test.cjs": "4c32a3b9a9a5dd0e13c56eef3dca11f687eb9402b2cd0d5e4c54a9f708e5e336"
+  },
+  "packet_files": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "87871329cdcbd8f3d59ea1a3dadaca31c973b4f3dc77aa69006fe74f9e5a7604",
+    "build-results.json": "c1cbe977deb349fb12bf2bd02beca81eaedaf46a4bbfba3944890905f6add2be",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "desktop.png": "611b727fca861f067e47af077f3a9549f72e8cfe7579389b8c6e79a45b6950f9",
+    "mobile-capture-repeated.png": "a502ca57415d1ee4d6f67fffc2a32bed6f33e8c68b0800170d116dc6b1dd87e5",
+    "mobile.png": "717118e97fae4eda34a084a2f3f4eb7f1040137820b5039c12ffa2a7babaec46",
+    "native-observation.json": "7b1770d49262e3b211121b84eb86a8c98d0d8df7c3730b4f091e336dc0f4aa4d",
+    "native-readback.json": "9ccdc25094a570fd9cfb1f1895e34fa3e6e1724fbe2f163e64924da88cc5d5a4",
+    "preset-ui-bridge-red.log": "ed689c8b9833bc07192156ee6f101fddd66f907ee05cf4bc8563be227ed5bec5",
+    "preset-ui-browser-final.log": "5e5631cbd9b37e2e5ae786f78c5dda5c6c9ec23ae084fa967f8eddb75d8a3dbb",
+    "preset-ui-browser-verified.log": "3aee20627ff58a8403d2837100b995cc6108edf25c818c4d521a090713ff26a4",
+    "preset-ui-first.log": "1fa8f76ea21f5200e2667f4292acec5abe77faa694bbfb7f356e274f11c3cce8",
+    "preset-ui-go-final.log": "28c38103cd87c0d658f83bf89ca7f8c1aa3d4ef96d185ee222cd968b2cb4350a",
+    "preset-ui-mobile-fresh.log": "04c04cb31a58d336b4f184fb57f2d1950f1cca77d52139564280159e86580658",
+    "preset-ui-name-draft-red.log": "b361b3cabf5e116a5ba5a30ff53058288da7b7ccc1179b28c54adaab2274274e",
+    "preset-ui-red.log": "da870fa09499beb404bcb19a03f58c5f471a1ca479ff2241dbb6d11647ab2de3",
+    "summary.md": "39227458cc9468aea082320394bd3ffc65c05625248a10eafa49e615f5c358c3",
+    "test-results.json": "3fc3039e6b9a3289c06d4ed7c8d5b9848a92d19951d1c59f535e59e92d266248"
+  },
+  "scope": "named preset UI component; parent WP16/full goal incomplete"
+}

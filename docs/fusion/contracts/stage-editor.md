@@ -11,7 +11,7 @@
 ## 配置行为
 
 - 显示设计与规划、实施与测试、审查与验收三个区域，展开后为 design、implementation、testing、review、acceptance。收起只隐藏控件；合并完整绑定需提示覆盖并由用户确认。
-- 全局、项目、本次任务草稿分别保存。本次任务 > 项目 > 全局；inherit 使用较低层已保存的完整绑定。预设必须指定正整数版本，载入历史版本不会自动追踪同名预设头版本；当前组件只载入预设，不创建或保存预设。
+- 全局、项目、本次任务草稿分别保存。本次任务 > 项目 > 全局；inherit 使用较低层已保存的完整绑定。预设必须指定正整数版本，载入历史版本不会自动追踪同名预设头版本；后续[命名预设界面](preset-ui.md)已支持创建与保存新版本。
 - locked 选择 route id/revision/model 精确匹配项；失效项保持显示，保存被阻止，不改选第一个模型。换模型后 effort 回到未指定；none、default、explicit 只显示相应登记能力。auto 从空清单开始，由用户逐一批准候选；空清单、重复路线或失效 effort 阻止保存。
 - 展示登记账号、billing_path、锁定等级及尚未准入提示；没有调用 quota API，明确显示额度尚未读取。保存草稿不等于可执行，不会推广 route.admitted 或 billing_known。
 - 全局/项目 PUT 携带 If-Match。每个配置内容与版本号来自同一 defaults 响应。configured=false/revision=0/layer=null 才使用可信配置响应中的来源基础层；已持久化的层使用 defaults 自身内容。412 保留本地选择并提示重新载入，禁止自动覆盖。

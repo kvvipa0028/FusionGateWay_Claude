@@ -44,8 +44,8 @@ async function fixture(t){
   assert.ok(actual===expected,"stage bundle differs from current source");
  }
  browser=await chromium.launch({channel:"chrome",headless:true});
- const newPage=async(beforeLoad=null)=>{
-  const context=await browser.newContext({viewport:{width:1140,height:1000},extraHTTPHeaders:{Authorization:"Bearer "+token}});
+ const newPage=async(beforeLoad=null,viewport={width:1140,height:1000})=>{
+  const context=await browser.newContext({viewport,extraHTTPHeaders:{Authorization:"Bearer "+token}});
   await context.route("**/*",r=>new URL(r.request().url()).origin===origin?r.continue():r.abort());
   const page=await context.newPage();
   const errors=[];page.on("pageerror",e=>errors.push(e.message));
@@ -84,9 +84,11 @@ test("actual private CLI/API: independent roles, fold/reload, explicit overwrite
  assert.equal(await page.getByLabel("测试模型",{exact:true}).inputValue(),key("a"));
  await page.getByRole("button",{name:"保存项目配置",exact:true}).click();await status(page,"已保存版本 2");
  await page.screenshot({path:path.join(repo,".fusion-dev/implementation/stage-editor-desktop.png"),fullPage:true});
- await page.setViewportSize({width:390,height:844});
- assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
- await page.screenshot({path:path.join(repo,".fusion-dev/implementation/stage-editor-mobile.png"),fullPage:true});
+ const mobile=await f.newPage(null,{width:390,height:844});
+ await mobile.page.getByLabel("实施与测试展开").click();await mobile.page.getByLabel("审查与验收展开").click();
+ assert.ok(await mobile.page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+ await mobile.page.screenshot({path:path.join(repo,".fusion-dev/implementation/stage-editor-mobile.png"),fullPage:true});
+ assert.deepEqual(mobile.errors,[]);
  assert.deepEqual(errors,[]);
 });
 test("actual API: stale editor keeps draft; lost acknowledgement retries the identical version/body",async t=>{
@@ -199,5 +201,94 @@ test("actual API: expired route never selects a replacement; global and project 
  assert.equal(await page.getByLabel("设计模型",{exact:true}).inputValue(),key("a"));
  await page.getByRole("button",{name:"保存项目配置",exact:true}).click();await status(page,"已保存版本 2");
  assert.equal((await f.request("/control/v1/projects/synthetic-ui/defaults")).body.layer.roles.design.model,models.a);
+ assert.deepEqual(errors,[]);
+});
+
+test("preset UI: creates five-role preset and revisions without changing defaults or old task source",async t=>{
+ const f=await fixture(t),{page,errors}=await f.newPage();
+ assert.equal(await page.getByRole("button",{name:"保存为新预设",exact:true}).count(),1,"preset creation UI missing");
+ await page.getByLabel("实施与测试展开").click();await choose(page,"实施","a");await choose(page,"测试","b");
+ await page.getByLabel("审查与验收展开").click();await choose(page,"验收","c");
+ await page.getByLabel("预设名称",{exact:true}).fill("Fixture <svg> preset");
+ await page.getByRole("button",{name:"保存为新预设",exact:true}).click();await status(page,"已保存预设版本 1");
+ const list=await f.request("/control/v1/projects/synthetic-ui/presets");assert.equal(list.body.presets.length,1);
+ const id=list.body.presets[0].id,presetPath="/control/v1/projects/synthetic-ui/presets/"+id;
+ assert.match(id,/^p_[0-9a-f]{32}$/);
+ const v1=await f.request(presetPath+"/versions/1");assert.equal(v1.body.layer.roles.testing.model,models.b);assert.equal(v1.body.layer.roles.acceptance.model,models.c);
+ assert.equal((await f.request("/control/v1/projects/synthetic-ui/defaults")).body.revision,0);
+ assert.equal(await page.locator(".presets svg").count(),0);
+ await page.getByLabel("配置范围").selectOption("task");
+ await page.getByRole("button",{name:"载入此版本",exact:true}).click();await status(page,"已载入明确版本");
+ await choose(page,"设计","b");await page.getByLabel("预设名称",{exact:true}).fill("Revised preset");
+ await page.getByRole("button",{name:"保存预设新版本",exact:true}).click();await status(page,"已保存预设版本 2");
+ assert.ok(await page.getByText("本次任务使用预设 "+id+"@1",{exact:true}).isVisible());
+ assert.equal((await f.request(presetPath)).body.revision,2);
+ assert.deepEqual((await f.request(presetPath+"/versions/1")).body,v1.body);
+ assert.equal((await f.request(presetPath+"/versions/2")).body.layer.roles.design.model,models.b);
+ assert.equal((await f.request("/control/v1/projects/synthetic-ui/defaults")).body.revision,0);
+ assert.deepEqual(errors,[]);
+});
+
+test("preset UI: stale loaded revision conflicts; committed but malformed acknowledgement retries identical body/tag/id",async t=>{
+ const f=await fixture(t);const presetPath="/control/v1/projects/synthetic-ui/presets/existing";
+ const binding=id=>({mode:"locked",route:{id:"fixture-"+id,revision:1},model:models[id],effort:{mode:"none"}});
+ assert.equal((await f.request(presetPath,"PUT",{name:"Initial",layer:{roles:{design:binding("a")}}},'"0"')).status,201);
+ const a=await f.newPage(),b=await f.newPage();
+ await a.page.getByLabel("预设名称",{exact:true}).fill("Unsaved local name");
+ await a.page.getByLabel("预设",{exact:true}).selectOption("existing");
+ assert.equal(await a.page.getByLabel("预设名称",{exact:true}).inputValue(),"Unsaved local name");
+ a.page.once("dialog",d=>d.dismiss());await a.page.getByRole("button",{name:"载入此版本",exact:true}).click();
+ assert.equal(await a.page.getByLabel("预设名称",{exact:true}).inputValue(),"Unsaved local name");
+ a.page.once("dialog",d=>d.accept());
+ for(const {page} of [a,b]){
+  await page.getByLabel("预设",{exact:true}).selectOption("existing");
+  await page.getByRole("button",{name:"载入此版本",exact:true}).click();await status(page,"已载入明确版本");
+ }
+ await choose(a.page,"设计","b");await a.page.getByRole("button",{name:"保存预设新版本",exact:true}).click();await status(a.page,"已保存预设版本 2");
+ await choose(b.page,"设计","c");await b.page.getByRole("button",{name:"保存预设新版本",exact:true}).click();await status(b.page,"预设已被其他窗口更新");
+ assert.equal(await b.page.getByLabel("设计模型",{exact:true}).inputValue(),key("c"));assert.equal((await f.request(presetPath)).body.revision,2);
+ const retries=[];
+ await a.context.route(f.origin+presetPath,async r=>{
+  if(r.request().method()!=="PUT")return r.continue();
+  retries.push({url:r.request().url(),tag:r.request().headers()["if-match"],body:r.request().postData()});
+  if(retries.length===1){await r.fetch({maxRedirects:0});return r.fulfill({status:201,headers:{ETag:'"3"',"Content-Type":"application/json"},body:JSON.stringify({preset:{id:"wrong",revision:3,layer:{roles:{}}}})})}
+  return r.continue();
+ });
+ await choose(a.page,"设计","c");await a.page.getByRole("button",{name:"保存预设新版本",exact:true}).click();await status(a.page,"预设保存状态未确认");
+ assert.equal(await a.page.getByLabel("预设名称",{exact:true}).isDisabled(),true);
+ assert.equal(await a.page.getByRole("button",{name:"保存项目配置",exact:true}).isDisabled(),true);
+ await a.page.getByRole("button",{name:"重试同一预设保存",exact:true}).click();await status(a.page,"已保存预设版本 3");
+ assert.equal(retries.length,2);assert.deepEqual(retries[0],retries[1]);assert.equal((await f.request(presetPath)).body.revision,3);
+ assert.equal((await f.request(presetPath)).body.layer.roles.design.model,models.c);assert.deepEqual(a.errors,[]);assert.deepEqual(b.errors,[]);
+});
+
+test("preset UI: creation retry keeps its id/base after head advances and invalid selection/name blocks save",async t=>{
+ const f=await fixture(t),{page,context,errors}=await f.newPage();
+ await page.getByLabel("预设名称",{exact:true}).fill("中".repeat(100));
+ assert.equal(await page.getByRole("button",{name:"保存为新预设",exact:true}).isDisabled(),true);
+ await page.getByLabel("预设名称",{exact:true}).fill("Original creation");
+ await page.getByLabel("设计模式",{exact:true}).selectOption("locked");
+ assert.equal(await page.getByRole("button",{name:"保存为新预设",exact:true}).isDisabled(),true);
+ await page.getByLabel("设计模型",{exact:true}).selectOption(key("a"));
+ await page.getByLabel("设计推理档位",{exact:true}).selectOption("none");
+ assert.equal(await page.getByRole("button",{name:"保存预设新版本",exact:true}).isDisabled(),true);
+ const retries=[];
+ await context.route(f.origin+"/control/v1/projects/synthetic-ui/presets/p_*",async r=>{
+  if(r.request().method()!=="PUT")return r.continue();
+  retries.push({url:r.request().url(),tag:r.request().headers()["if-match"],body:r.request().postData()});
+  if(retries.length===1){await r.fetch({maxRedirects:0});return r.abort("failed")}
+  return r.continue();
+ });
+ await page.getByRole("button",{name:"保存为新预设",exact:true}).click();await status(page,"预设保存状态未确认");
+ assert.equal(await page.getByRole("button",{name:"保存为新预设",exact:true}).isDisabled(),true);
+ const requestPath=new URL(retries[0].url).pathname;
+ const saved=JSON.parse(retries[0].body);
+ assert.equal((await f.request(requestPath,"PUT",{name:"Concurrent newer head",layer:saved.layer},'"1"')).status,201);
+ await page.getByRole("button",{name:"重试同一预设保存",exact:true}).click();await status(page,"已保存预设版本 1");
+ assert.equal(retries.length,2);assert.deepEqual(retries[0],retries[1]);assert.equal((await f.request(requestPath)).body.revision,2);
+ assert.equal((await f.request(requestPath+"/versions/1")).body.name,"Original creation");
+ assert.equal((await f.request("/control/v1/projects/synthetic-ui/presets")).body.presets.length,1);
+ await page.getByRole("button",{name:"保存预设新版本",exact:true}).click();await status(page,"预设已被其他窗口更新");
+ assert.equal((await f.request(requestPath)).body.revision,2);assert.equal((await f.request("/control/v1/projects/synthetic-ui/defaults")).body.revision,0);
  assert.deepEqual(errors,[]);
 });
