@@ -53,6 +53,9 @@ func TestImplementedAPIContractSamples(t *testing.T) {
 		samples = append(samples, v)
 	}
 	_, _, h := presetSetup(t)
+	add("GET", "/control/v1/projects", "", 200, request(h, "GET", "/control/v1/projects", "", "", "fixture-management"), nil)
+	add("GET", "/control/v1/projects", "", 401, request(h, "GET", "/control/v1/projects", "", "", ""), nil)
+	add("POST", "/control/v1/projects", "", 405, request(h, "POST", "/control/v1/projects", "", "", "fixture-management"), nil)
 	pbody := `{"project_id":"fixture-project","goal":"fixture-goal","required_roles":["design"]}`
 	w := request(h, "POST", "/control/v1/tasks/preview", pbody, "", "fixture-management")
 	add("POST", "/control/v1/tasks/preview", pbody, 200, w, nil)

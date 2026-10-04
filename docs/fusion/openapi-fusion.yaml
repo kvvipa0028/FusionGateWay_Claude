@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Fusion task control API
   version: 0.1.0-draft
-  description: 当前已实现 Handler 合同；26 paths、30 operations。独立 fusion-control 草稿 listener 已注册；生产执行 Controller/GUI 尚未接线。pause/continue 使用完整 Task If-Match，暂停中不宣称已停，continue 仅解除可靠暂停，不隐式启动或恢复 Native。全局/项目默认层只允许绑定，历史快照保持冻结。
+  description: 当前已实现 Handler 合同；27 paths、31 operations。独立 fusion-control 草稿 listener 已注册；生产执行 Controller/GUI 尚未接线。pause/continue 使用完整 Task If-Match，暂停中不宣称已停，continue 仅解除可靠暂停，不隐式启动或恢复 Native。全局/项目默认层只允许绑定，历史快照保持冻结。
 x-fusion-status: implemented-handler-contract
 x-fusion-production-registered: false
 x-fusion-draft-control-registered: true
@@ -619,6 +619,31 @@ paths:
           $ref: '#/components/responses/Error405'
         '409':
           $ref: '#/components/responses/Error409'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+  /control/v1/projects:
+    get:
+      operationId: listRegisteredProjects
+      description: 只返回当前可信登记的项目 ID 与配置版本；不采集额度、不授予执行权限、不公开项目目录。
+      responses:
+        '200':
+          description: 按 ID 排序；空登记返回空数组；no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectsReply'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '405':
+          $ref: '#/components/responses/Error405'
         '429':
           $ref: '#/components/responses/Error429'
         '500':
@@ -2200,6 +2225,31 @@ components:
           type: integer
           minimum: 0
           maximum: 1
+    ProjectsReply:
+      type: object
+      additionalProperties: false
+      required:
+      - projects
+      properties:
+        projects:
+          type: array
+          maxItems: 128
+          items:
+            $ref: '#/components/schemas/ProjectReference'
+    ProjectReference:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - configuration_revision
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 256
+        configuration_revision:
+          type: integer
+          minimum: 1
     ProjectConfigurationReply:
       type: object
       additionalProperties: false

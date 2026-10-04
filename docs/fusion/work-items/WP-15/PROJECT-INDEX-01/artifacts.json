@@ -1,0 +1,30 @@
+{
+  "base_commit": "a137bd57756029eb41883086d959119d9cfff072",
+  "source_files_sha256": {
+    "docs/fusion/README.md": "bc81243c21b42f68c9b30b6a2f1f194bf92bab398ea098518dc07bd0ae51e073",
+    "docs/fusion/contracts/openapi-verification.md": "7658a5f555f5f8bc4c7ab3aa8d5413758c27a13145ea29bde600ba5d4a2616aa",
+    "docs/fusion/contracts/project-index-api.md": "4b951622ca3c78b7a0706ca4cd8afb1a284985191d2e9d9dabe7d6d9f16295ed",
+    "docs/fusion/openapi-fusion.yaml": "d9ec2394b598224881a140dbd953ecb608ec6c12067e0f45419000eafb050350",
+    "docs/fusion/work-items/WP-15/summary.md": "ede4c3a9b90b2b9be1c9f5e2ffc235a1287c664f4a922db24afb491190397690",
+    "internal/fusion/api/openapi_samples_test.go": "c6853b073b4a0d4cd58062e9ae6546dca020a46627b33982687922035e9e66a6",
+    "internal/fusion/api/preview.go": "b349857a1463fcb23a5fc44fa5bc15e589c90bc7aa42ff4b525d0291b2de8acd",
+    "internal/fusion/api/projects.go": "7bdddfd730e43e4ea7a2866c474b89a67d2847b9da6df44cf37a9890379d3fc0",
+    "internal/fusion/api/projects_test.go": "92bad97a11f523d1b6e6e629637deb89f0e49660ed49434578fbcae12f329d70",
+    "internal/fusion/bootstrap/projects_test.go": "c3773c51ef7e3ff7b9ac372b4d4672112b1e80788e09731d90b2cb9682fbc005",
+    "scripts/fusion/check-openapi.py": "322ddc8dca2edfae93b099c16fdcd942d98c5460f7b0708e3a5774bff6907bf9"
+  },
+  "packet_files_sha256": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "ffbbac933b90b3b5b9f54802f11934e438da9707288612f19ad47426f6815b6c",
+    "build-results.json": "b40f0bf27dfc90ec0917784fd56f4d21aa05d970725d65fd2b00b03d7d9992a4",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "project-index-api-final.log": "8e8be813cffd9ac1846905cebabfb37b7c61e53885dc600e94ab47ebca4d7e6d",
+    "project-index-bootstrap-final.log": "2e3cc910e150724fac768b514d1b3fc6166a3d5493a06165a5c3b04990c7f58a",
+    "project-index-green.log": "8c905e8ee5fe5241658aa42ec0463b634ca94bc3baba315f4b2e2cd4c568a7cb",
+    "project-index-openapi.json": "a37f74bb0af4483417f95e67994bbf2adc1c2678106206ac302735ad64e55542",
+    "project-index-red.log": "ae3d5d11ad46e62fc67e012357ccfc231161a5b9842401028d391859b2a32bf4",
+    "project-index-samples.json": "695522e907235c0906feaaeeca5d79f1d0ccd2d195e861792327e0aa4f68f646",
+    "summary.md": "a1e0df95940e57c6f66d5afb23a6ef84eb8a0655cd171e65e82666d2d99a8626",
+    "test-results.json": "7fc33330bfff44b06f4627fb1e6c5a598582d9fa0b30d5503bcb683191dc3937"
+  }
+}

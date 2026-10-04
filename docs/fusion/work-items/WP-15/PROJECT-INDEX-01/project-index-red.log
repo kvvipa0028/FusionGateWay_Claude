@@ -1,0 +1,67 @@
+=== RUN   TestProjectIndexIsSortedMinimalAndDoesNotAdmitDrafts
+    projects_test.go:49: project index 404 404 page not found
+        
+--- FAIL: TestProjectIndexIsSortedMinimalAndDoesNotAdmitDrafts (0.04s)
+=== RUN   TestProjectIndexEmptyCapacityAndCurrentDefaults
+=== RUN   TestProjectIndexEmptyCapacityAndCurrentDefaults/empty
+    projects_test.go:82: project index 404 404 page not found
+        
+=== RUN   TestProjectIndexEmptyCapacityAndCurrentDefaults/capacity
+    projects_test.go:97: project index 404 404 page not found
+        
+=== RUN   TestProjectIndexEmptyCapacityAndCurrentDefaults/defaults
+    projects_test.go:112: project index 404 404 page not found
+        
+=== RUN   TestProjectIndexEmptyCapacityAndCurrentDefaults/closed-store
+    projects_test.go:140: partial inventory on storage failure 404
+--- FAIL: TestProjectIndexEmptyCapacityAndCurrentDefaults (0.17s)
+    --- FAIL: TestProjectIndexEmptyCapacityAndCurrentDefaults/empty (0.03s)
+    --- FAIL: TestProjectIndexEmptyCapacityAndCurrentDefaults/capacity (0.07s)
+    --- FAIL: TestProjectIndexEmptyCapacityAndCurrentDefaults/defaults (0.04s)
+    --- FAIL: TestProjectIndexEmptyCapacityAndCurrentDefaults/closed-store (0.03s)
+=== RUN   TestProjectIndexManagementAndReadOnlyBoundary
+=== RUN   TestProjectIndexManagementAndReadOnlyBoundary/missing
+=== RUN   TestProjectIndexManagementAndReadOnlyBoundary/wrong
+=== RUN   TestProjectIndexManagementAndReadOnlyBoundary/stage
+=== RUN   TestProjectIndexManagementAndReadOnlyBoundary/query
+=== RUN   TestProjectIndexManagementAndReadOnlyBoundary/post
+    projects_test.go:162: inventory boundary 404 405
+=== RUN   TestProjectIndexManagementAndReadOnlyBoundary/put
+    projects_test.go:162: inventory boundary 404 405
+=== RUN   TestProjectIndexManagementAndReadOnlyBoundary/head
+    projects_test.go:162: inventory boundary 404 405
+=== RUN   TestProjectIndexManagementAndReadOnlyBoundary/cross-site
+=== RUN   TestProjectIndexManagementAndReadOnlyBoundary/revoked
+--- FAIL: TestProjectIndexManagementAndReadOnlyBoundary (0.30s)
+    --- PASS: TestProjectIndexManagementAndReadOnlyBoundary/missing (0.03s)
+    --- PASS: TestProjectIndexManagementAndReadOnlyBoundary/wrong (0.03s)
+    --- PASS: TestProjectIndexManagementAndReadOnlyBoundary/stage (0.03s)
+    --- PASS: TestProjectIndexManagementAndReadOnlyBoundary/query (0.03s)
+    --- FAIL: TestProjectIndexManagementAndReadOnlyBoundary/post (0.03s)
+    --- FAIL: TestProjectIndexManagementAndReadOnlyBoundary/put (0.03s)
+    --- FAIL: TestProjectIndexManagementAndReadOnlyBoundary/head (0.03s)
+    --- PASS: TestProjectIndexManagementAndReadOnlyBoundary/cross-site (0.05s)
+    --- PASS: TestProjectIndexManagementAndReadOnlyBoundary/revoked (0.04s)
+=== RUN   TestProjectIndexConcurrentRegistration
+    projects_test.go:204: concurrent inventory 404
+    projects_test.go:204: concurrent inventory 404
+    projects_test.go:204: concurrent inventory 404
+    projects_test.go:204: concurrent inventory 404
+    projects_test.go:204: concurrent inventory 404
+    projects_test.go:204: concurrent inventory 404
+    projects_test.go:204: concurrent inventory 404
+    projects_test.go:204: concurrent inventory 404
+    projects_test.go:204: concurrent inventory 404
+    projects_test.go:204: concurrent inventory 404
+    projects_test.go:204: concurrent inventory 404
+    projects_test.go:204: concurrent inventory 404
+    projects_test.go:204: concurrent inventory 404
+    projects_test.go:204: concurrent inventory 404
+    projects_test.go:204: concurrent inventory 404
+    projects_test.go:204: concurrent inventory 404
+    projects_test.go:209: project index 404 404 page not found
+        
+--- FAIL: TestProjectIndexConcurrentRegistration (0.05s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/api	1.230s
+FAIL

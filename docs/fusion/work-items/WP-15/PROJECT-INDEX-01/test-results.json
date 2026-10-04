@@ -1,0 +1,75 @@
+{
+  "project-index-red.log": {
+    "top_level": {
+      "pass": 0,
+      "fail": 4,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 6,
+      "fail": 7,
+      "skip": 0
+    }
+  },
+  "project-index-green.log": {
+    "top_level": {
+      "pass": 4,
+      "fail": 0,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 13,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "project-index-api-final.log": {
+    "top_level": {
+      "pass": 97,
+      "fail": 0,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 47,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "project-index-bootstrap-final.log": {
+    "top_level": {
+      "pass": 19,
+      "fail": 0,
+      "skip": 2
+    },
+    "subtests": {
+      "pass": 75,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "openapi": {
+    "official_openapi_document_schema": "3.1/2022-10-07",
+    "paths": 27,
+    "operations": 31,
+    "handler_samples": 56,
+    "covered_operations": 31,
+    "negative_schema_cases": 9,
+    "negative_project_response_cases": 5,
+    "offline": true,
+    "production_registered": false
+  },
+  "go_version": "go1.26.3 darwin/arm64",
+  "graph": {
+    "nodes": 13900,
+    "edges": 123120
+  },
+  "new_tests": {
+    "api_top_level": 5,
+    "api_subtests": 15,
+    "bootstrap_top_level": 1
+  },
+  "new_real_model_calls": 0,
+  "new_real_quota_queries": 0,
+  "full_fusion_suite_repeated": false,
+  "final_T01_T60": "not_run"
+}

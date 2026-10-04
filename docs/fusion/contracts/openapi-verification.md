@@ -1,6 +1,6 @@
 # 当前 Handler 的 OpenAPI 合同验证
 
-`openapi-fusion.yaml` 描述当前内部 Handler 已实现的 24 个路径、28 个操作。无调用预览、提交/读取、阶段计划预览/修订、预算、事件流、启动/取消/run 读取、配置只读、五角色预设版本、任务预设来源、额度读取/刷新与全局/项目默认层读写/历史及任务 pause/continue/cancel 均纳入合同。独立 [fusion-control 草稿 listener](control-host.md) 已注册，生产执行 Controller/GUI 仍未接线；内部 Handler 校验不能视为真实路线或完整产品部署完成。
+`openapi-fusion.yaml` 描述当前内部 Handler 已实现的 27 个路径、31 个操作。无调用预览、提交/读取、阶段计划预览/修订、预算、事件流、启动/取消/run 读取、配置只读、五角色预设版本、任务预设来源、额度读取/刷新与全局/项目默认层读写/历史及任务 pause/continue/cancel 均纳入合同。独立 [fusion-control 草稿 listener](control-host.md) 已注册，可信 [执行宿主](execution-host.md) 已接通 Controller；真实供应商 Factory 注册与 GUI 仍未完成；内部 Handler 校验不能视为真实路线或完整产品部署完成。
 
 OPENAPI-01 只补合同；后续 DEFAULTS-01 新增了运行期默认层，并同步更新合同。OpenAPI 是人工维护的接口合同；Go DTO、现有行为合同与实际 Handler 返回是字段核对来源。以后新增接口或改变 DTO，要同时更新 YAML、样本采集与 checker 的明确操作清单，禁止只为通过检查删掉已有操作。尚未实现的操作不占用实际合同路径。
 
@@ -50,7 +50,7 @@ python3 scripts/fusion/check-openapi.py \
   --samples .fusion-dev/openapi-check/samples.json
 ```
 
-预期输出：26 paths、30 operations、53 handler samples、30 covered operations、9 negative schema cases；生产注册为 false。测试失败时先保留日志和临时目录，依据具体字段/行为修正合同或实现，不能删除不匹配样本来获得成功。成功后可用 `rmdir` 删除上述空临时目录；若 Go 测试产生缓存子目录，保留或按本人清理策略处理，不宽泛删除其他临时目录。
+预期输出：27 paths、31 operations、56 handler samples、31 covered operations、9 negative schema cases、5 negative project response cases；生产注册为 false。测试失败时先保留日志和临时目录，依据具体字段/行为修正合同或实现，不能删除不匹配样本来获得成功。成功后可用 `rmdir` 删除上述空临时目录；若 Go 测试产生缓存子目录，保留或按本人清理策略处理，不宽泛删除其他临时目录。
 
 原 17 路径/19 操作的历史证据见 [OPENAPI-01/summary.md](../work-items/WP-15/OPENAPI-01/summary.md)。当前默认层扩展及全量 Fusion race、CLI/GUI build、full vet 和固定 Native 合成回归证据见 [DEFAULTS-01/summary.md](../work-items/WP-15/DEFAULTS-01/summary.md)。标准校验与 fixture 样本不能证明产品 listener 或真实账号准入。
 
@@ -61,3 +61,5 @@ python3 scripts/fusion/check-openapi.py \
 最新明确 checkpoint 恢复扩展见 [RESUME-API-01](../work-items/WP-15/RESUME-API-01/summary.md)：新增 resume 202/200/已提交不确定 409 样本和两类越权 schema 反例，Start/Resume 的 409 intent 回复补齐实际 Location/Task 条件头。当前 25 paths/29 operations/52 samples/8 negatives；产品执行注册仍 false。上述 49/28 为之前 CANCEL-API-01 的历史结果。
 
 最新归档生产扩展见 [CHECKPOINT-API-01](../work-items/WP-15/CHECKPOINT-API-01/summary.md)：新增 checkpoint 200 实际Handler样本及Native/session字段schema反例。当前26 paths/30 operations/53 samples/9 negatives；产品执行注册仍false。前文25/29/52/8保留为RESUME-API-01历史结果。
+
+新增 [PROJECT-INDEX-01](../work-items/WP-15/PROJECT-INDEX-01/summary.md) 的只读项目发现列表已纳入最新合同和样本；最小字段、128容量、默认层版本更新、读取后撤销与真实loopback来源撤销由独立测试证明，不授予真实路线准入。

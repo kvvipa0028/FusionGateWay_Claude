@@ -1,0 +1,36 @@
+=== RUN   TestProjectIndexIsSortedMinimalAndDoesNotAdmitDrafts
+--- PASS: TestProjectIndexIsSortedMinimalAndDoesNotAdmitDrafts (0.05s)
+=== RUN   TestProjectIndexEmptyCapacityAndCurrentDefaults
+=== RUN   TestProjectIndexEmptyCapacityAndCurrentDefaults/empty
+=== RUN   TestProjectIndexEmptyCapacityAndCurrentDefaults/capacity
+=== RUN   TestProjectIndexEmptyCapacityAndCurrentDefaults/defaults
+=== RUN   TestProjectIndexEmptyCapacityAndCurrentDefaults/closed-store
+--- PASS: TestProjectIndexEmptyCapacityAndCurrentDefaults (0.21s)
+    --- PASS: TestProjectIndexEmptyCapacityAndCurrentDefaults/empty (0.03s)
+    --- PASS: TestProjectIndexEmptyCapacityAndCurrentDefaults/capacity (0.11s)
+    --- PASS: TestProjectIndexEmptyCapacityAndCurrentDefaults/defaults (0.04s)
+    --- PASS: TestProjectIndexEmptyCapacityAndCurrentDefaults/closed-store (0.03s)
+=== RUN   TestProjectIndexManagementAndReadOnlyBoundary
+=== RUN   TestProjectIndexManagementAndReadOnlyBoundary/missing
+=== RUN   TestProjectIndexManagementAndReadOnlyBoundary/wrong
+=== RUN   TestProjectIndexManagementAndReadOnlyBoundary/stage
+=== RUN   TestProjectIndexManagementAndReadOnlyBoundary/query
+=== RUN   TestProjectIndexManagementAndReadOnlyBoundary/post
+=== RUN   TestProjectIndexManagementAndReadOnlyBoundary/put
+=== RUN   TestProjectIndexManagementAndReadOnlyBoundary/head
+=== RUN   TestProjectIndexManagementAndReadOnlyBoundary/cross-site
+=== RUN   TestProjectIndexManagementAndReadOnlyBoundary/revoked
+--- PASS: TestProjectIndexManagementAndReadOnlyBoundary (0.29s)
+    --- PASS: TestProjectIndexManagementAndReadOnlyBoundary/missing (0.03s)
+    --- PASS: TestProjectIndexManagementAndReadOnlyBoundary/wrong (0.03s)
+    --- PASS: TestProjectIndexManagementAndReadOnlyBoundary/stage (0.03s)
+    --- PASS: TestProjectIndexManagementAndReadOnlyBoundary/query (0.03s)
+    --- PASS: TestProjectIndexManagementAndReadOnlyBoundary/post (0.03s)
+    --- PASS: TestProjectIndexManagementAndReadOnlyBoundary/put (0.03s)
+    --- PASS: TestProjectIndexManagementAndReadOnlyBoundary/head (0.03s)
+    --- PASS: TestProjectIndexManagementAndReadOnlyBoundary/cross-site (0.03s)
+    --- PASS: TestProjectIndexManagementAndReadOnlyBoundary/revoked (0.03s)
+=== RUN   TestProjectIndexConcurrentRegistration
+--- PASS: TestProjectIndexConcurrentRegistration (0.04s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/api	2.253s

@@ -6,6 +6,8 @@
 
 固定 Codex 的 [私有启动通道](contracts/codex-bootstrap-channel.md) 已完成实际 metadata 握手、隔离与停止验证；另有[逐次 Responses HTTP 控制组件](contracts/codex-call-gate.md)、[独占 HTTP 通道](contracts/codex-http-channel.md) 和[类型化阶段客户端](contracts/codex-gateway-client.md)。[受管只读 Adapter](contracts/codex-managed-adapter.md) 已接通真实 Scheduler、来源核验及停止释放；[Controller 接线](work-items/WP-15/CODEX-01/summary.md) 已验证启动前拒绝、幂等、断线、暂停/取消/关闭及实际停止释放。[本机 HTTP 验证](work-items/WP-15/CODEX-HOST-01/summary.md) 已通过固定 Codex 进程的执行、取消与持久结果回读。真实登录、订阅 Forwarder、quota 与产品 Factory 注册仍未完成，不能将组件测试作为真实生成准入。
 
+阶段界面可通过[可信项目列表](contracts/project-index-api.md)发现现有登记，再读取具体配置/defaults/presets；页面与GUI鉴权仍在后续实施范围。
+
 ## 阅读顺序
 
 1. [当前需求摘录](requirements-summary.md)：已知目标与未取得的原始需求文档。

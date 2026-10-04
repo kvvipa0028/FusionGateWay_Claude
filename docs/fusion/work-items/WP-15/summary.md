@@ -53,3 +53,5 @@
 后续 [WP-15-SOURCE-GUARD-01](../WP-15/SOURCE-GUARD-01/summary.md) 完成私有来源记录接入执行/归档边界，固定Grok/Claude Native源漂移拒绝成功并实际停止/释放通过。完整Fusion460PASS22SKIP0FAIL，Native7顶层/17子测试通过；整体产品登记/真实路线/最终Gate仍未完成。
 
 [WP-15-CODEX-HOST-01](CODEX-HOST-01/summary.md) 已补充 Codex authenticated loopback HTTP/Factory 的5个实际 Native 生命周期场景、2类 preintent 拒绝、鉴权和幂等及真实停止后 Store 重开。Grok 同路径5次进程回归通过；完整 Fusion race 514 PASS/30 SKIP/0 FAIL。现有生产代码无需修改，真实账号/Forwarder/quota/生产注册、CLI/GUI、写入/工具/恢复、工程闭环和最终Gate仍未完成；父包继续 in_progress。
+
+[WP-15-PROJECT-INDEX-01](PROJECT-INDEX-01/summary.md) 已完成鉴权只读项目列表，供阶段界面发现已有登记；不公开目录/凭据，不新增登记/执行准入。API97PASS、bootstrap19PASS/2SKIP、构建/vet通过，OpenAPI27路径31操作56样本同步。WP-16页面与GUI鉴权、真实供应商准入及最终Gate仍待完成。

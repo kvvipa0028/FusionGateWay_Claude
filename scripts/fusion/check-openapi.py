@@ -16,6 +16,7 @@ from referencing import Registry, Resource
 from referencing.jsonschema import DRAFT202012
 
 EXPECTED = {
+    "/control/v1/projects": {"get"},
     "/control/v1/tasks/{task_id}/cancel": {"post"},
     "/control/v1/tasks/{task_id}/pause": {"post"},
     "/control/v1/tasks/{task_id}/continue": {"post"},
@@ -151,7 +152,17 @@ def verify(contract, official, samples):
     negative["CheckpointRef"] = {"id":"b"*64,"digest":"c"*64,"native_session_id":"fixture-forbidden"}
     for name, value in negative.items():
         assert not validator({"$ref": "#/components/schemas/" + name}).is_valid(value)
-    return {"official_openapi_document_schema": "3.1/2022-10-07", "paths": len(EXPECTED), "operations": len(operations), "handler_samples": count, "covered_operations": len(covered), "negative_schema_cases": len(negative), "offline": True, "production_registered": False}
+    project_response = validator({"$ref": "#/components/schemas/ProjectsReply"})
+    invalid_inventory = [
+        {"projects": None},
+        {"projects": [{"id": "fixture", "configuration_revision": 0}]},
+        {"projects": [{"id": "fixture", "configuration_revision": 1, "path": "/private"}]},
+        {"projects": [{"id": "fixture", "configuration_revision": 1}], "admitted": True},
+        {"projects": [{"id": "fixture", "configuration_revision": 1}] * 129},
+    ]
+    for value in invalid_inventory:
+        assert not project_response.is_valid(value)
+    return {"official_openapi_document_schema": "3.1/2022-10-07", "paths": len(EXPECTED), "operations": len(operations), "handler_samples": count, "covered_operations": len(covered), "negative_schema_cases": len(negative), "negative_project_response_cases": len(invalid_inventory), "offline": True, "production_registered": False}
 
 
 if __name__ == "__main__":

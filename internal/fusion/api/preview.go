@@ -330,6 +330,8 @@ func (s *Server) Handler() http.Handler {
 			return
 		}
 		switch {
+		case r.URL.Path == "/control/v1/projects":
+			s.projectsControl(w, r)
 		case defaultsPath(r.URL.Path):
 			s.defaultsControl(w, r)
 		case projectSettingsPath(r.URL.Path):
