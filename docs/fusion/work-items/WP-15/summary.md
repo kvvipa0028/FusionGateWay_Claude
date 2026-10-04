@@ -51,3 +51,5 @@
 [WP-15-CONTROL-HOST-01](CONTROL-HOST-01/summary.md) 已完成独立本机 fusion-control 草稿服务：私有随机管理文件、loopback/Host/Origin、源/目录/管理文件变化撤销、持久重启、SSE及Close，并修复run-dev缺data子目录与SIGTERM不转发。实际隔离launcher→CLI→HTTP→SIGTERM退出验证通过。全量Fusion race365 PASS/10 SKIP，CLI参数2 PASS、编译/vet与无tag编译通过。路线未准入，Controller/Native/额度/GUI及工程闭环仍待接线，父包保持in_progress。
 
 后续 [WP-15-SOURCE-GUARD-01](../WP-15/SOURCE-GUARD-01/summary.md) 完成私有来源记录接入执行/归档边界，固定Grok/Claude Native源漂移拒绝成功并实际停止/释放通过。完整Fusion460PASS22SKIP0FAIL，Native7顶层/17子测试通过；整体产品登记/真实路线/最终Gate仍未完成。
+
+[WP-15-CODEX-HOST-01](CODEX-HOST-01/summary.md) 已补充 Codex authenticated loopback HTTP/Factory 的5个实际 Native 生命周期场景、2类 preintent 拒绝、鉴权和幂等及真实停止后 Store 重开。Grok 同路径5次进程回归通过；完整 Fusion race 514 PASS/30 SKIP/0 FAIL。现有生产代码无需修改，真实账号/Forwarder/quota/生产注册、CLI/GUI、写入/工具/恢复、工程闭环和最终Gate仍未完成；父包继续 in_progress。

@@ -1,0 +1,56 @@
+{
+  "codex-host-native-final.log": {
+    "top_level": {
+      "pass": 2,
+      "fail": 0,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 12,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "codex-host-bootstrap-final.log": {
+    "top_level": {
+      "pass": 18,
+      "fail": 0,
+      "skip": 2
+    },
+    "subtests": {
+      "pass": 75,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "codex-host-full-fusion.log": {
+    "top_level": {
+      "pass": 514,
+      "fail": 0,
+      "skip": 30
+    },
+    "subtests": {
+      "pass": 945,
+      "fail": 0,
+      "skip": 10
+    }
+  },
+  "native_processes": {
+    "codex": 5,
+    "grok": 5,
+    "total": 10,
+    "preintent_no_process_cases": 2,
+    "synthetic_sends_and_budget": 15
+  },
+  "vet_exit_code": 0,
+  "go_version": "go1.26.3 darwin/arm64",
+  "graph": {
+    "nodes": 13886,
+    "edges": 122956
+  },
+  "production_source_changed": false,
+  "real_identity": false,
+  "real_model": false,
+  "real_quota": false,
+  "final_T01_T60": "not_run"
+}

@@ -14,4 +14,6 @@ quota catalogue 只接受已登记项目及准确 route/account/provider workspa
 
 本项验证新增5项 Host测试及31个子测试，覆盖路线/额度篡改、来源错配、权限、慢 Resolver 撤销、初始化回收、执行和脱离请求的采集关闭超时/重试。实际固定 Grok Native 由 authenticated loopback HTTP 完成 preview→`POST /agent/v1/tasks`→start→同 key 重读→run GET/取消/关闭；5场景/5次 Native，10次合成 HTTP，实际 wait/StopProof/release 与持久重启回读通过。固定 Grok/Claude 既有20场景/25次 Native另回归通过。
 
-证据见 [EXECUTION-HOST-01](../work-items/WP-15/EXECUTION-HOST-01/summary.md)。此次没有真实账号、模型或额度调用；内部可信 Factory 接线不能替代真实 Factory 注册、产品启动/UI、Codex Native、工程闭环或60类最终 Gate。来源复核仍为有界观测，未建立外部写锁或树的原子快照；见 [workspace-source-guard.md](workspace-source-guard.md)。
+证据见 [EXECUTION-HOST-01](../work-items/WP-15/EXECUTION-HOST-01/summary.md)。此次没有真实账号、模型或额度调用；内部可信 Factory 接线不能替代真实 Factory 注册、产品启动/UI、工程闭环或60类最终 Gate。来源复核仍为有界观测，未建立外部写锁或树的原子快照；见 [workspace-source-guard.md](workspace-source-guard.md)。
+
+后续 [CODEX-HOST-01](../work-items/WP-15/CODEX-HOST-01/summary.md) 已沿同一 authenticated loopback HTTP/Factory 完成固定 Codex 0.160.0 的5个实际进程场景及2类 intent 前拒绝。关闭后真实 Store 重开、准确终态、停止证明与释放、调用预算和源文件保持均通过；未鉴权请求不进入 Resolve，相同 key 不重复执行。Inspect/identity/Forwarder/quota 仍为合成 fixture；生产注册与真实账号准入未完成，CLI execution off 不变。

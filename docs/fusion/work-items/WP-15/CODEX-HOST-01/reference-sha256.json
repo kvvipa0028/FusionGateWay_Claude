@@ -1,0 +1,12 @@
+{
+  "codex": {
+    "path": "/Users/zhaojianzhi/.codex/packages/standalone/releases/0.160.0-aarch64-apple-darwin/bin/codex",
+    "version": "0.160.0",
+    "sha256": "112fae7a5a1223e673c8a1791d32338f37df8b527ff1159bb8adac6c4dbf1b4b"
+  },
+  "grok": {
+    "path": "/Users/zhaojianzhi/.grok/downloads/grok-1.0.48-macos-aarch64",
+    "version": "1.0.48",
+    "sha256": "1ed292eb62206b1a2ec3d17dc69c9c8406a07f5ff414305f953baee5b72a4a05"
+  }
+}

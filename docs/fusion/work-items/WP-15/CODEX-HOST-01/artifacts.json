@@ -1,0 +1,19 @@
+{
+  "base_commit": "ddb93d43dd7c97d821662391b8eeb9a8a185aa04",
+  "source_files_sha256": {
+    "docs/fusion/README.md": "43ca4c75e32129a83de670568ab974286974846c34e9c77a72a7f36a290aea41",
+    "docs/fusion/contracts/execution-host.md": "844ada5a0884069f56d4e8277c5755387cebc9875f52eb8e763ebd5a7e92b653",
+    "docs/fusion/work-items/WP-12/summary.md": "84a9949b5500deeca4c660fe7ac07491e145451257ed7db98d05268d5d492d3b",
+    "docs/fusion/work-items/WP-15/summary.md": "517c08331d70179318f7899574faa9318498ce4edf43b07819d6a5145dc3c968",
+    "internal/fusion/bootstrap/execution_codex_native_test.go": "285c746d9f3413e0a3a6cc7c529f9568cef327437b207985182d1bc0663784db"
+  },
+  "packet_files_sha256": {
+    "codex-host-bootstrap-final.log": "13ebe9a192d6b021057b66516b4b2425f28f10d2ada61e38c44a98ef0ecc037a",
+    "codex-host-full-fusion.log": "4b7a5df1144b12cbe9e2cdd559fd0781e81939cba2ca8f917fbc82369ecc2849",
+    "codex-host-native-final.log": "aab179c41e85ef274b3bd2deb3f4795094a87ed8d0b94960dd1bd62bd6e58ea0",
+    "codex-host-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reference-sha256.json": "83741088dd3e4d5d6262253e40f6634e6433c5839065e0c375d01ee4b2be6ffb",
+    "summary.md": "fb9e7616a7b51be0817bbcb0d6dbc364d0d76b649d4314898fb2d582319a3606",
+    "test-results.json": "212ce9c2c23bd423a5b9731611f526401cd9077d7b5d61469054adb3e9222ff0"
+  }
+}
