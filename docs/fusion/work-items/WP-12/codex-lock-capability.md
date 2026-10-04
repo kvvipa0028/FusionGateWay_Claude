@@ -31,4 +31,4 @@ turn/start 发出前先进入 execution_uncertain；成功收到 inProgress 的�
 
 ## Responses HTTP 组件
 
-[CALLS-01](CALLS-01/summary.md) 已验证单入口、每次 Permit/持久预算、冻结 Binding 和有界完整 SSE 的保守文字投影。当前没有实际 Native model HTTP、真实 Forwarder、私有登录或全部子调用证据；production generation remains unverified。现有 metadata-only CodexChannel 不因此增加网络权限。
+[CALLS-01](CALLS-01/summary.md) 已验证单入口、每次 Permit/持久预算、冻结 Binding 和有界完整 SSE 的保守文字投影。CALLS-01 当时没有实际 Native model HTTP；后续 [CHANNEL-01](CHANNEL-01/summary.md) 补充实际 scoped Native HTTP，真实 Forwarder、私有官方登录及全部子调用仍无完整证据；production generation remains unverified。现有 metadata-only CodexChannel 不因此增加网络权限。

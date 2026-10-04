@@ -18,13 +18,15 @@ import (
 const CodexCLIVersion = "0.160.0"
 const CodexExecutableSHA256 = "112fae7a5a1223e673c8a1791d32338f37df8b527ff1159bb8adac6c4dbf1b4b"
 
-// CodexChannel is trusted, single-use native bootstrap wiring. It grants only
-// private stdio plus read access to the Codex managed-preferences domain. This
-// initial channel has no network, credentials, model grant or generation
-// admission. Driver must respect context cancellation and validate RPC replies;
+// CodexChannel is trusted, single-use native wiring. NewCodexChannel grants
+// private stdio and limited managed-preference reads without network or auth.
+// NewCodexHTTPChannel additionally owns a scoped model endpoint and stage grant;
+// neither constructor supplies real subscription or generation admission.
+// Driver must respect context cancellation and validate RPC replies;
 // success still requires the supervisor's actual Wait and outcome validator.
 type CodexChannel struct {
 	mu                 sync.Mutex
+	models             *modelChannel
 	run                store.StageRun
 	root, cwd, session string
 	driver             func(context.Context, io.ReadWriteCloser) error

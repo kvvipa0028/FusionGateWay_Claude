@@ -314,7 +314,7 @@ func privateJSON(raw []byte, markers ...[]byte) bool {
 	return walk(v)
 }
 func (g *CallGate) request(raw []byte) bool {
-	f, ok := object(raw, "model", "instructions", "input", "tools", "tool_choice", "parallel_tool_calls", "reasoning", "store", "stream", "include", "text", "prompt_cache_key")
+	f, ok := object(raw, "model", "instructions", "input", "tools", "tool_choice", "parallel_tool_calls", "reasoning", "store", "stream", "include", "text", "prompt_cache_key", "client_metadata")
 	if !ok {
 		return false
 	}
@@ -376,6 +376,18 @@ func (g *CallGate) request(raw []byte) bool {
 		s, valid := stringField(x, "verbosity")
 		if !ok || !valid || (s != "low" && s != "medium" && s != "high") {
 			return false
+		}
+	}
+	if v, exists := f["client_metadata"]; exists {
+		meta, ok := object(v, "root_turn_id", "session_id", "thread_id", "turn_id", "x-codex-installation-id", "x-codex-turn-metadata", "x-codex-window-id")
+		if !ok {
+			return false
+		}
+		for k := range meta {
+			s, ok := stringField(meta, k)
+			if !ok || len(s) == 0 || len(s) > 4096 {
+				return false
+			}
 		}
 	}
 	input, ok := array(f["input"])

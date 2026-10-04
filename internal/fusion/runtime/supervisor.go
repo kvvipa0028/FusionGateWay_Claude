@@ -242,6 +242,17 @@ func (s *Supervisor) Start(ctx context.Context, r store.StageRun, in Spec) (*Han
 	}
 	h.emit("started")
 	owned = true
+	if c := channel; c != nil {
+		if e = c.grant.Activate(); e != nil {
+			c.cancel()
+			h.cancelRequested = true
+			_ = s.store.CancelIntent(r.ID, r.Generation, r.Owner)
+			h.emit("authorization_failed")
+			h.cancel <- struct{}{}
+			go h.supervise(ctx)
+			return h, ErrLaunch
+		}
+	}
 	if c := spec.CodexChannel; c != nil {
 		driverCtx, cancel := context.WithCancel(ctx)
 		h.codexCancel = cancel
@@ -258,17 +269,6 @@ func (s *Supervisor) Start(ctx context.Context, r store.StageRun, in Spec) (*Han
 			}
 			h.codexResult <- err
 		}()
-	}
-	if c := channel; c != nil {
-		if e = c.grant.Activate(); e != nil {
-			c.cancel()
-			h.cancelRequested = true
-			_ = s.store.CancelIntent(r.ID, r.Generation, r.Owner)
-			h.emit("authorization_failed")
-			h.cancel <- struct{}{}
-			go h.supervise(ctx)
-			return h, ErrLaunch
-		}
 	}
 	go h.supervise(ctx)
 	return h, nil

@@ -1,0 +1,88 @@
+=== RUN   TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority
+=== RUN   TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/run
+=== RUN   TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/generation
+=== RUN   TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/owner
+=== RUN   TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/role
+=== RUN   TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/task
+=== RUN   TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/plan
+=== RUN   TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/attempt
+=== RUN   TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/target
+=== RUN   TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/root
+=== RUN   TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/cwd
+=== RUN   TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/hash
+=== RUN   TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/args
+=== RUN   TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/input
+=== RUN   TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/fixture
+=== RUN   TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/write
+=== RUN   TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/session
+=== RUN   TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/claude
+=== RUN   TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/grok
+--- PASS: TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority (0.00s)
+    --- PASS: TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/run (0.00s)
+    --- PASS: TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/generation (0.00s)
+    --- PASS: TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/owner (0.00s)
+    --- PASS: TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/role (0.00s)
+    --- PASS: TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/task (0.00s)
+    --- PASS: TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/plan (0.00s)
+    --- PASS: TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/attempt (0.00s)
+    --- PASS: TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/target (0.00s)
+    --- PASS: TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/root (0.00s)
+    --- PASS: TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/cwd (0.00s)
+    --- PASS: TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/hash (0.00s)
+    --- PASS: TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/args (0.00s)
+    --- PASS: TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/input (0.00s)
+    --- PASS: TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/fixture (0.00s)
+    --- PASS: TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/write (0.00s)
+    --- PASS: TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/session (0.00s)
+    --- PASS: TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/claude (0.00s)
+    --- PASS: TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority/grok (0.00s)
+=== RUN   TestCodexChannelRejectsIncompleteAndStaleConstruction
+=== RUN   TestCodexChannelRejectsIncompleteAndStaleConstruction/driver
+=== RUN   TestCodexChannelRejectsIncompleteAndStaleConstruction/current
+=== RUN   TestCodexChannelRejectsIncompleteAndStaleConstruction/stale
+=== RUN   TestCodexChannelRejectsIncompleteAndStaleConstruction/zero
+=== RUN   TestCodexChannelRejectsIncompleteAndStaleConstruction/runtime
+=== RUN   TestCodexChannelRejectsIncompleteAndStaleConstruction/model
+=== RUN   TestCodexChannelRejectsIncompleteAndStaleConstruction/root
+=== RUN   TestCodexChannelRejectsIncompleteAndStaleConstruction/cwd
+=== RUN   TestCodexChannelRejectsIncompleteAndStaleConstruction/session
+=== RUN   TestCodexChannelRejectsIncompleteAndStaleConstruction/role
+=== RUN   TestCodexChannelRejectsIncompleteAndStaleConstruction/root_slash
+--- PASS: TestCodexChannelRejectsIncompleteAndStaleConstruction (0.00s)
+    --- PASS: TestCodexChannelRejectsIncompleteAndStaleConstruction/driver (0.00s)
+    --- PASS: TestCodexChannelRejectsIncompleteAndStaleConstruction/current (0.00s)
+    --- PASS: TestCodexChannelRejectsIncompleteAndStaleConstruction/stale (0.00s)
+    --- PASS: TestCodexChannelRejectsIncompleteAndStaleConstruction/zero (0.00s)
+    --- PASS: TestCodexChannelRejectsIncompleteAndStaleConstruction/runtime (0.00s)
+    --- PASS: TestCodexChannelRejectsIncompleteAndStaleConstruction/model (0.00s)
+    --- PASS: TestCodexChannelRejectsIncompleteAndStaleConstruction/root (0.00s)
+    --- PASS: TestCodexChannelRejectsIncompleteAndStaleConstruction/cwd (0.00s)
+    --- PASS: TestCodexChannelRejectsIncompleteAndStaleConstruction/session (0.00s)
+    --- PASS: TestCodexChannelRejectsIncompleteAndStaleConstruction/role (0.00s)
+    --- PASS: TestCodexChannelRejectsIncompleteAndStaleConstruction/root_slash (0.00s)
+=== RUN   TestCodexHTTPChannelOwnsPortsAndFrozenPreparedAuthority
+--- PASS: TestCodexHTTPChannelOwnsPortsAndFrozenPreparedAuthority (0.00s)
+=== RUN   TestCodexHTTPChannelRejectsMissingTransportAndUnsafeTarget
+=== RUN   TestCodexHTTPChannelRejectsMissingTransportAndUnsafeTarget/handler
+=== RUN   TestCodexHTTPChannelRejectsMissingTransportAndUnsafeTarget/grant
+=== RUN   TestCodexHTTPChannelRejectsMissingTransportAndUnsafeTarget/billing
+=== RUN   TestCodexHTTPChannelRejectsMissingTransportAndUnsafeTarget/lock
+=== RUN   TestCodexHTTPChannelRejectsMissingTransportAndUnsafeTarget/effort
+=== RUN   TestCodexHTTPChannelRejectsMissingTransportAndUnsafeTarget/plugin
+=== RUN   TestCodexHTTPChannelRejectsMissingTransportAndUnsafeTarget/revision
+=== RUN   TestCodexHTTPChannelRejectsMissingTransportAndUnsafeTarget/version
+=== RUN   TestCodexHTTPChannelRejectsMissingTransportAndUnsafeTarget/model
+=== RUN   TestCodexHTTPChannelRejectsMissingTransportAndUnsafeTarget/current
+--- PASS: TestCodexHTTPChannelRejectsMissingTransportAndUnsafeTarget (0.00s)
+    --- PASS: TestCodexHTTPChannelRejectsMissingTransportAndUnsafeTarget/handler (0.00s)
+    --- PASS: TestCodexHTTPChannelRejectsMissingTransportAndUnsafeTarget/grant (0.00s)
+    --- PASS: TestCodexHTTPChannelRejectsMissingTransportAndUnsafeTarget/billing (0.00s)
+    --- PASS: TestCodexHTTPChannelRejectsMissingTransportAndUnsafeTarget/lock (0.00s)
+    --- PASS: TestCodexHTTPChannelRejectsMissingTransportAndUnsafeTarget/effort (0.00s)
+    --- PASS: TestCodexHTTPChannelRejectsMissingTransportAndUnsafeTarget/plugin (0.00s)
+    --- PASS: TestCodexHTTPChannelRejectsMissingTransportAndUnsafeTarget/revision (0.00s)
+    --- PASS: TestCodexHTTPChannelRejectsMissingTransportAndUnsafeTarget/version (0.00s)
+    --- PASS: TestCodexHTTPChannelRejectsMissingTransportAndUnsafeTarget/model (0.00s)
+    --- PASS: TestCodexHTTPChannelRejectsMissingTransportAndUnsafeTarget/current (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime	1.697s

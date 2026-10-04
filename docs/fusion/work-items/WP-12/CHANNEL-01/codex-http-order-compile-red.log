@@ -1,0 +1,4 @@
+# github.com/yetone/magpie/internal/fusion/runtime
+internal/fusion/runtime/codex_http_native_darwin_test.go:31:70: expected ':', found '}'
+FAIL	github.com/yetone/magpie/internal/fusion/runtime [setup failed]
+FAIL

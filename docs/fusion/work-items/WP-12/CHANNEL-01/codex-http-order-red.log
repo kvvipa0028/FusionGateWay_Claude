@@ -1,0 +1,6 @@
+=== RUN   TestManagedPinnedCodexHTTPActivationBeforeDriver
+    codex_http_native_darwin_test.go:98: driver ran before model grant activation cancelled -1
+--- FAIL: TestManagedPinnedCodexHTTPActivationBeforeDriver (0.37s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime	1.012s
+FAIL

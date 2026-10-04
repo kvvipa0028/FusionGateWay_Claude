@@ -29,10 +29,12 @@ macOS 默认 deny 保持。专用通道仅增加：
 
 内核 probe 使用 Apple WebKit [SandboxSPI 声明](https://github.com/apple-oss-distributions/WebKit/blob/main/Source/WTF/wtf/spi/darwin/SandboxSPI.h) 核对的 sandbox_check filter，验证正对照和受限结果，不读取任何 Keychain 项或写系统偏好。这个 private SPI 只在测试中使用；其他 OS/Native pin 必须重新验证，不以字符串检查当作内核证明。
 
-双向 transport 使用 OS pipe，子端在父进程 Start 后立即关闭。driver 仅在 ConfirmStarted 后运行；读写均复核 Store 当前执行、SourceGuard 与 Current。输入累计及已读取输出各有64KiB限额，输入超限即使被 driver 忽略，也不能成功；原有 stderr64KiB/timeout/heartbeat/TERM→KILL/Wait/reap/journal/StopProof/release 保持。metadata 通道的64KiB不是完整生成任务的输出容量证明。
+双向 transport 使用 OS pipe，子端在父进程 Start 后立即关闭。driver 仅在 ConfirmStarted 后运行；带 HTTP 通道时还必须等待 model grant 激活成功，激活失败保留受管 handle 并停止/reap，driver 不运行；读写均复核 Store 当前执行、SourceGuard 与 Current。输入累计及已读取输出各有64KiB限额，输入超限即使被 driver 忽略，也不能成功；原有 stderr64KiB/timeout/heartbeat/TERM→KILL/Wait/reap/journal/StopProof/release 保持。metadata 通道的64KiB不是完整生成任务的输出容量证明。
 
 driver 必须遵守取消并核验协议；driver 返回 nil、实际 exit0、有界 transport 未失败、可信 outcome validator、来源/Current 复核同时满足，才可记录组件成功。取消或当前性撤销关闭管道并取消 driver。Wait 与最后响应竞争时最多等待 driver200ms；超时不判成功，关闭管道并取消，晚到结果不能修改终态。该等待不是强制终止任意不合作的 Go callback；生产 driver 必须另有协作退出与服务生命周期合同。StopProof 只证明已 wait/reap 的 Native 与 kernel 禁止 fork 的进程边界。
 
 真实0.160.0通知使用可选 `emittedAtMs`。StdioPeer 接受通知上的 signed int64；null/类型错误/越界、response/server request 上的该字段、重复/case aliases 和未知字段仍拒绝。字段仅作观察，不参与 generation、响应配对、账单或权限判断。冻结 [定义](https://github.com/openai/codex/blob/rust-v0.160.0/codex-rs/app-server-protocol/src/protocol/common.rs) 为 Option<i64>，None 被省略，本地 Native schema 的属性为 integer/int64。
 
 真实验证只执行 initialize/initialized/account/read(refreshToken=false)，确认私有 home、空账号、requiresOpenaiAuth=true；StartThread 在 generationAdmitted=nil 下本地拒绝，预算0，未发送登录/模型/额度请求。测试 Store 的 synthetic admitted route 不能提升真实注册路线。接下来仍须实现独立登录 home 与 registry、stage grant/全部模型调用控制、生产 Adapter/Factory、原生 thread/turn/续期/resume 与三路线 Gate。
+
+后续 [Codex HTTP 通道](codex-http-channel.md) 以独立构造器添加单个独占端口及阶段授权，不改变 metadata-only 构造器的无网络/无账号语义。

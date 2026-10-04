@@ -141,6 +141,42 @@ func sandbox(spec Spec) (string, []string, error) {
 		if os.Mkdir(home, 0700) != nil {
 			return "", nil, ErrLaunch
 		}
+		if c.models != nil {
+			secret, e := c.models.grant.Secret()
+			if e != nil {
+				return "", nil, ErrLaunch
+			}
+			config := map[string]any{
+				"model_provider": CodexStageProvider, "model": c.run.Target.RequestedModel,
+				"model_reasoning_effort": *c.run.Target.Effort.Value, "model_reasoning_summary": "none",
+				"approval_policy": "never", "sandbox_mode": "read-only", "web_search": "disabled",
+				"cli_auth_credentials_store": "file", "check_for_update_on_startup": false,
+				"analytics": map[string]any{"enabled": false}, "feedback": map[string]any{"enabled": false},
+				"agents":   map[string]any{"enabled": false},
+				"tools":    map[string]any{"update_plan": map[string]any{"enabled": false}, "experimental_request_user_input": map[string]any{"enabled": false}},
+				"features": map[string]any{"goals": false, "shell_tool": false, "view_image": false, "sleep_tool": false, "unified_exec": false, "shell_snapshot": false, "code_mode": false, "multi_agent": false, "multi_agent_v2": false, "apps": false, "tool_search": false, "remote_models": false, "api_key_model_discovery": false, "enable_request_compression": false},
+				"model_providers": map[string]any{CodexStageProvider: map[string]any{
+					"name": "Fusion scoped Codex", "base_url": c.models.endpoint, "env_key": codexStageEnv,
+					"wire_api": "responses", "requires_openai_auth": false, "supports_websockets": false,
+					"request_max_retries": 2, "stream_max_retries": 2, "stream_idle_timeout_ms": 5000,
+				}},
+			}
+			raw, e := toml.Marshal(config)
+			if e != nil {
+				return "", nil, ErrLaunch
+			}
+			file, e := os.OpenFile(filepath.Join(home, "config.toml"), os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0600)
+			if e != nil {
+				return "", nil, ErrLaunch
+			}
+			_, we := file.Write(raw)
+			se := file.Sync()
+			ce := file.Close()
+			if we != nil || se != nil || ce != nil {
+				return "", nil, ErrLaunch
+			}
+			env = append(env, codexStageEnv+"="+secret)
+		}
 		profile += codexPreferencesRules
 		env = append(env, "CODEX_HOME="+home, "CFFIXED_USER_HOME="+filepath.Join(spec.Root, "home"))
 	}

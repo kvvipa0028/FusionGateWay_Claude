@@ -40,3 +40,7 @@ T01/T02/T14/T15/T25/T31/T32/T35/T44/T53/T59 的最终端到端状态继续为 `n
 ## 受控模型 HTTP 组件
 
 [CALLS-01](CALLS-01/summary.md) 增加 authenticated text-only Responses Gate，冻结 target/identity/effort，每次发送和429重试通过持久 Scheduler 预算；完整有界 SSE 与真实上游 ReportedModel 校验后才交付，未知工具/事件、未完成项、漂移和凭据反射均拒绝。仅合成 transport/准入验证；未接入实际 Native HTTP，不开放原生生成或真实订阅路线。合同见 [codex-call-gate.md](../../contracts/codex-call-gate.md)。父 WP-12 与最终 Gate仍未完成。
+
+## 独占 HTTP 通道
+
+[CHANNEL-01](CHANNEL-01/summary.md) 完成固定 Native 的私有 custom stage provider、独占双栈端口、仅阶段 Bearer、grant 激活先于 driver、严格观测字段。实际 Native 验证7个新增场景，包含文字成功、429终止、unsafe-response后重试拒绝、MaxCalls=2三轮预算拒绝、inflight取消、激活顺序及激活失败；真实 wait/StopProof/release。上游与账号为合成 fixture，未导入日常登录，默认 production Client/Factory 准入仍关闭；父工作包和最终 Gate 不升级。

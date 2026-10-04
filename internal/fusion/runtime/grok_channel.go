@@ -40,6 +40,9 @@ func (s Spec) modelChannel() (*modelChannel, error) {
 	if s.CodexChannel != nil && (s.ClaudeChannel != nil || s.GrokChannel != nil || !s.CodexChannel.launchValid(s)) {
 		return nil, ErrLaunch
 	}
+	if s.CodexChannel != nil && s.CodexChannel.models != nil {
+		return s.CodexChannel.models, nil
+	}
 	if s.ClaudeChannel != nil && s.GrokChannel != nil {
 		return nil, ErrLaunch
 	}

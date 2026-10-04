@@ -1,0 +1,7 @@
+# github.com/yetone/magpie/internal/fusion/runtime [github.com/yetone/magpie/internal/fusion/runtime.test]
+internal/fusion/runtime/codex_http_channel_test.go:30:11: undefined: NewCodexHTTPChannel
+internal/fusion/runtime/codex_http_channel_test.go:40:37: ch.models undefined (type *CodexChannel has no field or method models)
+internal/fusion/runtime/codex_http_channel_test.go:78:78: ch.Close undefined (type *CodexChannel has no field or method Close)
+internal/fusion/runtime/codex_http_channel_test.go:121:17: undefined: NewCodexHTTPChannel
+FAIL	github.com/yetone/magpie/internal/fusion/runtime [build failed]
+FAIL

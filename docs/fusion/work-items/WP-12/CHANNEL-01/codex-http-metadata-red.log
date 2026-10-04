@@ -1,0 +1,6 @@
+=== RUN   TestCodexCallGateAcceptsPinnedObservationMetadataOnly
+    call_gate_test.go:630: pinned metadata refused 400
+--- FAIL: TestCodexCallGateAcceptsPinnedObservationMetadataOnly (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/codex	0.617s
+FAIL

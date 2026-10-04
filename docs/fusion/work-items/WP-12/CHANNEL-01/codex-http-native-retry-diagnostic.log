@@ -1,0 +1,20 @@
+=== RUN   TestManagedPinnedCodexHTTPActivationBeforeDriver
+    codex_http_native_darwin_test.go:120: pinned Native; activation before driver; wait/StopProof/release; no real login/model
+--- PASS: TestManagedPinnedCodexHTTPActivationBeforeDriver (0.49s)
+=== RUN   TestManagedPinnedCodexHTTPText
+=== RUN   TestManagedPinnedCodexHTTPText/text
+    codex_http_native_darwin_test.go:316: map[content_encoding: keys:[client_metadata include input instructions model parallel_tool_calls prompt_cache_key reasoning store stream tool_choice tools] metadata_keys:[root_turn_id session_id thread_id turn_id x-codex-installation-id x-codex-turn-metadata x-codex-window-id] method:POST path:/responses reasoning_keys:[effort] tool_names:[] tool_types:[]]
+    codex_http_native_darwin_test.go:329: pinned Native scoped HTTP text; synthetic upstream/account; actual wait/StopProof/release
+=== RUN   TestManagedPinnedCodexHTTPText/retry
+    codex_http_native_darwin_test.go:316: map[content_encoding: keys:[client_metadata include input instructions model parallel_tool_calls prompt_cache_key reasoning store stream tool_choice tools] metadata_keys:[root_turn_id session_id thread_id turn_id x-codex-installation-id x-codex-turn-metadata x-codex-window-id] method:POST path:/responses reasoning_keys:[effort] tool_names:[] tool_types:[]]
+    codex_http_native_darwin_test.go:327: pinned Native HTTP not accepted cancelled 0 requests 1 forwarded 1 budget 1 audit {1 1 1 0 1 false}
+=== RUN   TestManagedPinnedCodexHTTPText/budget
+    codex_http_native_darwin_test.go:316: map[content_encoding: keys:[client_metadata include input instructions model parallel_tool_calls prompt_cache_key reasoning store stream tool_choice tools] metadata_keys:[root_turn_id session_id thread_id turn_id x-codex-installation-id x-codex-turn-metadata x-codex-window-id] method:POST path:/responses reasoning_keys:[effort] tool_names:[] tool_types:[]]
+    codex_http_native_darwin_test.go:327: pinned Native HTTP not accepted failed 0 requests 1 forwarded 1 budget 1 audit {1 1 1 0 1 false}
+--- FAIL: TestManagedPinnedCodexHTTPText (1.33s)
+    --- PASS: TestManagedPinnedCodexHTTPText/text (0.44s)
+    --- FAIL: TestManagedPinnedCodexHTTPText/retry (0.44s)
+    --- FAIL: TestManagedPinnedCodexHTTPText/budget (0.44s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime	2.467s
+FAIL

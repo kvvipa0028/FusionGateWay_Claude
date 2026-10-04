@@ -1,0 +1,6 @@
+=== RUN   TestManagedPinnedCodexHTTPText
+    codex_http_native_darwin_test.go:302: map[content_encoding: keys:[client_metadata include input instructions model parallel_tool_calls prompt_cache_key reasoning store stream tool_choice tools] metadata_keys:[root_turn_id session_id thread_id turn_id x-codex-installation-id x-codex-turn-metadata x-codex-window-id] method:POST path:/responses reasoning_keys:[effort] tool_names:[] tool_types:[]]
+    codex_http_native_darwin_test.go:308: pinned Native scoped HTTP text; synthetic upstream/account; actual wait/StopProof/release
+--- PASS: TestManagedPinnedCodexHTTPText (0.49s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime	2.151s

@@ -1,0 +1,24 @@
+=== RUN   TestManagedPinnedCodexHTTPActivationBeforeDriver
+    codex_http_native_darwin_test.go:120: pinned Native; activation before driver; wait/StopProof/release; no real login/model
+--- PASS: TestManagedPinnedCodexHTTPActivationBeforeDriver (0.49s)
+=== RUN   TestManagedPinnedCodexHTTPText
+=== RUN   TestManagedPinnedCodexHTTPText/text
+    codex_http_native_darwin_test.go:329: map[content_encoding: keys:[client_metadata include input instructions model parallel_tool_calls prompt_cache_key reasoning store stream tool_choice tools] metadata_keys:[root_turn_id session_id thread_id turn_id x-codex-installation-id x-codex-turn-metadata x-codex-window-id] method:POST path:/responses reasoning_keys:[effort] tool_names:[] tool_types:[]]
+    codex_http_native_darwin_test.go:349: pinned Native scoped HTTP text requests 1 forwarded 1 budget 1 turns 1 audit {1 1 1 1 0 false} ; synthetic upstream/account; actual wait/StopProof/release
+=== RUN   TestManagedPinnedCodexHTTPText/rate_limit
+    codex_http_native_darwin_test.go:329: map[content_encoding: keys:[client_metadata include input instructions model parallel_tool_calls prompt_cache_key reasoning store stream tool_choice tools] metadata_keys:[root_turn_id session_id thread_id turn_id x-codex-installation-id x-codex-turn-metadata x-codex-window-id] method:POST path:/responses reasoning_keys:[effort] tool_names:[] tool_types:[]]
+    codex_http_native_darwin_test.go:349: pinned Native scoped HTTP rate_limit requests 1 forwarded 1 budget 1 turns 1 audit {1 1 1 0 1 false} ; synthetic upstream/account; actual wait/StopProof/release
+=== RUN   TestManagedPinnedCodexHTTPText/retry_rejected
+    codex_http_native_darwin_test.go:329: map[content_encoding: keys:[client_metadata include input instructions model parallel_tool_calls prompt_cache_key reasoning store stream tool_choice tools] metadata_keys:[root_turn_id session_id thread_id turn_id x-codex-installation-id x-codex-turn-metadata x-codex-window-id] method:POST path:/responses reasoning_keys:[effort] tool_names:[] tool_types:[]]
+    codex_http_native_darwin_test.go:347: pinned Native HTTP not accepted failed 0 requests 4 forwarded 1 budget 1 audit {4 1 1 0 0 true}
+=== RUN   TestManagedPinnedCodexHTTPText/budget
+    codex_http_native_darwin_test.go:329: map[content_encoding: keys:[client_metadata include input instructions model parallel_tool_calls prompt_cache_key reasoning store stream tool_choice tools] metadata_keys:[root_turn_id session_id thread_id turn_id x-codex-installation-id x-codex-turn-metadata x-codex-window-id] method:POST path:/responses reasoning_keys:[effort] tool_names:[] tool_types:[]]
+    codex_http_native_darwin_test.go:347: pinned Native HTTP not accepted failed 0 requests 5 forwarded 2 budget 2 audit {5 2 2 2 0 true}
+--- FAIL: TestManagedPinnedCodexHTTPText (3.48s)
+    --- PASS: TestManagedPinnedCodexHTTPText/text (0.44s)
+    --- PASS: TestManagedPinnedCodexHTTPText/rate_limit (0.45s)
+    --- FAIL: TestManagedPinnedCodexHTTPText/retry_rejected (1.37s)
+    --- FAIL: TestManagedPinnedCodexHTTPText/budget (1.22s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime	4.620s
+FAIL

@@ -1,0 +1,5 @@
+=== RUN   TestManagedPinnedCodexHTTPActivationBeforeDriver
+    codex_http_native_darwin_test.go:114: pinned Native; activation before driver; wait/StopProof/release; no real login/model
+--- PASS: TestManagedPinnedCodexHTTPActivationBeforeDriver (0.49s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime	2.150s

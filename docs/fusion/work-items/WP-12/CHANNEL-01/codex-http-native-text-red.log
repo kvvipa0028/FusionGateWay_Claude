@@ -1,0 +1,7 @@
+=== RUN   TestManagedPinnedCodexHTTPText
+    codex_http_native_darwin_test.go:302: map[content_encoding: keys:[client_metadata include input instructions model parallel_tool_calls prompt_cache_key reasoning store stream tool_choice tools] metadata_keys:[root_turn_id session_id thread_id turn_id x-codex-installation-id x-codex-turn-metadata x-codex-window-id] method:POST path:/responses reasoning_keys:[effort] tool_names:[get_goal create_goal update_goal] tool_types:[function function function]]
+    codex_http_native_darwin_test.go:306: pinned Native HTTP not accepted cancelled 0 requests 1 forwarded 0 budget 0 audit {1 0 0 0 0 true}
+--- FAIL: TestManagedPinnedCodexHTTPText (0.46s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime	1.111s
+FAIL

@@ -622,3 +622,35 @@ func TestCodexCallGateRejectsTextDeltaAttachedToReasoning(t *testing.T) {
 		t.Fatal("text attached to reasoning escaped", w.Code)
 	}
 }
+func TestCodexCallGateAcceptsPinnedObservationMetadataOnly(t *testing.T) {
+	f := newGateFixture(t)
+	body := strings.Replace(gateBody, `"tools":[]`, `"client_metadata":{"root_turn_id":"fixture-turn","session_id":"fixture-session","thread_id":"fixture-thread","turn_id":"fixture-turn","x-codex-installation-id":"fixture-install","x-codex-turn-metadata":"{\"turn_id\":\"fixture-turn\"}","x-codex-window-id":"fixture-window"},"tools":[]`, 1)
+	w := send(newGate(t, f), f, body, "/responses")
+	if w.Code != 200 || f.calls.Load() != 1 || f.permits.Load() != 1 {
+		t.Fatal("pinned metadata refused", w.Code)
+	}
+	for _, mode := range []string{"unknown", "null", "type", "oversize", "duplicate", "alias"} {
+		t.Run(mode, func(t *testing.T) {
+			f := newGateFixture(t)
+			bad := body
+			switch mode {
+			case "unknown":
+				bad = strings.Replace(bad, `"thread_id":`, `"account":`, 1)
+			case "null":
+				bad = strings.Replace(bad, `"thread_id":"fixture-thread"`, `"thread_id":null`, 1)
+			case "type":
+				bad = strings.Replace(bad, `"thread_id":"fixture-thread"`, `"thread_id":{}`, 1)
+			case "oversize":
+				bad = strings.Replace(bad, "fixture-thread", strings.Repeat("x", 4097), 1)
+			case "duplicate":
+				bad = strings.Replace(bad, `"thread_id":`, `"thread_id":"other","thread_id":`, 1)
+			case "alias":
+				bad = strings.Replace(bad, `"thread_id":`, `"THREAD_ID":`, 1)
+			}
+			w := send(newGate(t, f), f, bad, "/responses")
+			if w.Code < 400 || f.calls.Load() != 0 || f.permits.Load() != 0 {
+				t.Fatal(mode, w.Code)
+			}
+		})
+	}
+}
