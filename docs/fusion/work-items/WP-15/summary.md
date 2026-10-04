@@ -2,6 +2,8 @@
 
 状态：`in_progress`。子工作项 [WP-15-PREVIEW-01](PREVIEW-01/summary.md) 已完成：受鉴权的无调用计划预览、冻结提交和任务读取组件。
 
+[EXECUTION-HOST-01](EXECUTION-HOST-01/summary.md) 完成进程内可信 RuntimeFactory 的本机服务接线：准确声明路线、登记来源/read/write、RequireSource Controller、独立额度源、撤销及按序关闭/超时重试。鉴权 HTTP 驱动固定 Grok Native 5场景/5进程通过；既有 Grok/Claude 20场景/25进程回归通过。完整 Fusion race 465 PASS/23 SKIP/0 FAIL，CLI/GUI/vet通过。草稿 CLI仍关闭执行，真实 Factory/账号准入、产品UI、Codex Native、工程闭环和最终Gate未完成。
+
 [CHECKPOINT-API-01](CHECKPOINT-API-01/summary.md) 已接通owned成功run的可信归档管理入口、固定原Adapter生产端与Scope/管理/关闭前后重查；修复Close标志先到、取消回调后到的竞态。实际Native归档→准确恢复覆盖Read/取消/断线，重复归档无新增调用。完整Fusion race449 PASS/20 SKIP/0 FAIL，OpenAPI26 paths/30 operations/53 samples/9 negatives，CLI/GUI/vet通过。产品bootstrap/Worker/GUI和真实路线准入继续未完成。
 
 [RESUME-API-01](RESUME-API-01/summary.md) 已将明确成功 checkpoint 恢复接入持久幂等身份、Controller 和 Management Handler；普通 Start/Continue 不隐式恢复。新增实际 Grok 恢复/取消/断线，原 Grok 和 Claude 兼容性回归通过。完整 Fusion race 442 PASS/20 SKIP/0 FAIL，OpenAPI 25 paths/29 operations/52 samples/8 negatives，CLI/GUI/vet 通过。真实执行 bootstrap/Worker/GUI、账号与整个 Source 准入仍待完成。

@@ -15,6 +15,7 @@ import (
 	"time"
 
 	"github.com/yetone/magpie/internal/fusion/api"
+	"github.com/yetone/magpie/internal/fusion/control"
 	"github.com/yetone/magpie/internal/fusion/policy"
 	"github.com/yetone/magpie/internal/fusion/store"
 )
@@ -38,6 +39,12 @@ type ControlHost struct {
 	listener       net.Listener
 	stop           chan struct{}
 	closeErr       error
+	closeDone      chan struct{}
+	services       sync.WaitGroup
+	runtimeCancel  context.CancelFunc
+	runtimeContext context.Context
+	controller     *control.Controller
+	runtime        *RuntimeRegistration
 }
 
 func (*ControlHost) String() string   { return "Fusion local control host (redacted)" }
@@ -52,6 +59,10 @@ func (h *ControlHost) Addr() string {
 // OpenControl exposes unadmitted draft configuration only. It does not install
 // a Controller or grant Runtime, quota, workspace or route execution authority.
 func OpenControl(sourcePath, root, addr string) (*ControlHost, error) {
+	return openControl(nil, sourcePath, root, addr, nil)
+}
+
+func openControl(parent context.Context, sourcePath, root, addr string, factory RuntimeFactory) (*ControlHost, error) {
 	host, port, e := net.SplitHostPort(addr)
 	n, pe := strconv.Atoi(port)
 	if e != nil || pe != nil || host != "127.0.0.1" || n < 0 || n > 65535 || strconv.Itoa(n) != port || !filepath.IsAbs(root) || filepath.Clean(root) != root {
@@ -106,9 +117,16 @@ func OpenControl(sourcePath, root, addr string) (*ControlHost, error) {
 			return nil, ErrControlHost
 		}
 	}
-	h := &ControlHost{source: source, root: root, rootIdentity: identity, tasksIdentity: tasksIdentity, tokenIdentity: record.fileIdentity, tokenDigest: sha256.Sum256(record.raw), auth: auth, store: st, listener: listener, stop: make(chan struct{})}
-	handler := s.Handler()
+	h := &ControlHost{source: source, root: root, rootIdentity: identity, tasksIdentity: tasksIdentity, tokenIdentity: record.fileIdentity, tokenDigest: sha256.Sum256(record.raw), auth: auth, store: st, listener: listener, stop: make(chan struct{}), closeDone: make(chan struct{})}
+	// Initialize closeable resources before invoking trusted factory callbacks.
 	h.server = &http.Server{ReadHeaderTimeout: 5 * time.Second, ReadTimeout: 15 * time.Second, IdleTimeout: 30 * time.Second, MaxHeaderBytes: 16 << 10, ErrorLog: log.New(io.Discard, "", 0)}
+	if factory != nil {
+		if e = h.installRuntime(parent, s, factory); e != nil {
+			h.Close()
+			return nil, ErrControlHost
+		}
+	}
+	handler := s.Handler()
 	h.server.Handler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		h.mu.Lock()
 		if h.closed {
@@ -127,15 +145,24 @@ func OpenControl(sourcePath, root, addr string) (*ControlHost, error) {
 			return
 		}
 		if !h.current() {
-			auth.RevokeManagement()
+			h.revoke()
 			http.Error(w, "Service Unavailable", 503)
 			return
 		}
 		handler.ServeHTTP(w, r)
 	})
-	if !h.current() {
+	if !h.current() || h.runtimeContext != nil && h.runtimeContext.Err() != nil {
 		h.Close()
 		return nil, ErrControlHost
+	}
+	if parent != nil {
+		go func() {
+			select {
+			case <-parent.Done():
+				h.beginClose()
+			case <-h.stop:
+			}
+		}()
 	}
 	return h, nil
 }
@@ -186,7 +213,7 @@ func (h *ControlHost) Serve(ctx context.Context) error {
 				return
 			case <-ticker.C:
 				if !h.current() {
-					h.auth.RevokeManagement()
+					h.revoke()
 				}
 			}
 		}
@@ -208,21 +235,56 @@ func (h *ControlHost) Serve(ctx context.Context) error {
 	return result
 }
 func (h *ControlHost) Close() error {
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	return h.CloseContext(ctx)
+}
+
+// CloseContext observes an ordered owned shutdown. A caller timeout does not
+// close the database, attest stopped processes, or prevent a later wait.
+func (h *ControlHost) CloseContext(ctx context.Context) error {
 	if h == nil {
 		return nil
 	}
+	if ctx == nil {
+		return ErrControlHost
+	}
+	h.beginClose()
+	select {
+	case <-h.closeDone:
+		return h.closeErr
+	case <-ctx.Done():
+		return ctx.Err()
+	}
+}
+func (h *ControlHost) revoke() {
+	h.auth.RevokeManagement()
+	if h.runtimeCancel != nil {
+		h.runtimeCancel()
+	}
+}
+func (h *ControlHost) beginClose() {
 	h.once.Do(func() {
 		h.mu.Lock()
 		h.closed = true
 		h.mu.Unlock()
 		close(h.stop)
-		h.auth.RevokeManagement()
+		h.revoke()
 		h.server.Close()
 		h.listener.Close()
-		h.handlers.Wait()
-		if h.store.Close() != nil {
-			h.closeErr = ErrControlHost
-		}
+		go func() {
+			defer close(h.closeDone)
+			h.handlers.Wait()
+			if h.controller != nil && h.controller.Close(context.Background()) != nil {
+				h.closeErr = ErrControlHost
+			}
+			h.services.Wait()
+			if h.runtime != nil && h.runtime.Close != nil && h.runtime.Close(context.Background()) != nil {
+				h.closeErr = ErrControlHost
+			}
+			if h.store.Close() != nil {
+				h.closeErr = ErrControlHost
+			}
+		}()
 	})
-	return h.closeErr
 }

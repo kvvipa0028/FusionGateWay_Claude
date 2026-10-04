@@ -4,6 +4,8 @@
 
 此服务把本机可信项目登记接入已有任务 API，供配置、默认层、预设与已有持久记录管理。**运行模式为 draft-control，execution_enabled=false**：路线始终未准入，未选择模型不能生成执行计划，没有注册 Controller/Native/额度采集器。启动接口在缺 Controller 时拒绝；它不代表已经可以执行真实项目。旧 Magpie model/gateway/GUI 入口继续关闭。
 
+后续增加进程内 [execution-host.md](execution-host.md) 的可信 RuntimeFactory 接线，支持同一项目来源/路线检查、Controller 和额度生命周期。该接口不改变此草稿 CLI 的执行开关；真实 Factory/账号准入与产品入口仍待完成。共用 CloseContext 的等待超时不关闭仍被 owned 工作使用的 Store，可继续等待。
+
 ## 入口与持久状态
 
 只接受数值地址 `127.0.0.1:0–65535`，不接受 localhost、LAN、IPv6、URL、非规范端口或附加参数。端口0由OS分配。请求实际 peer必须127.0.0.1、Host必须精确匹配最终监听地址；Management仅接受正确Bearer，Origin仅接受该服务自身http origin；不提供CORS放行或URL/cookie管理凭据。原API管理middleware继续落实stage/query credential与cross-site拒绝。

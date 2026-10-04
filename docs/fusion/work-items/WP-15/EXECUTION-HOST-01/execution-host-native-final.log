@@ -1,0 +1,19 @@
+=== RUN   TestExecutionHostPinnedNativeHTTP
+=== RUN   TestExecutionHostPinnedNativeHTTP/success
+    execution_native_test.go:239: mode=success calls=2 native_processes=1 durable=succeeded stopped_verified=true released=true real_model=false real_quota=false
+=== RUN   TestExecutionHostPinnedNativeHTTP/cancel
+    execution_native_test.go:239: mode=cancel calls=2 native_processes=1 durable=cancelled stopped_verified=true released=true real_model=false real_quota=false
+=== RUN   TestExecutionHostPinnedNativeHTTP/source-revocation
+    execution_native_test.go:239: mode=source-revocation calls=2 native_processes=1 durable=cancelled stopped_verified=true released=true real_model=false real_quota=false
+=== RUN   TestExecutionHostPinnedNativeHTTP/close
+    execution_native_test.go:239: mode=close calls=2 native_processes=1 durable=cancelled stopped_verified=true released=true real_model=false real_quota=false
+=== RUN   TestExecutionHostPinnedNativeHTTP/parent-cancel
+    execution_native_test.go:239: mode=parent-cancel calls=2 native_processes=1 durable=cancelled stopped_verified=true released=true real_model=false real_quota=false
+--- PASS: TestExecutionHostPinnedNativeHTTP (5.87s)
+    --- PASS: TestExecutionHostPinnedNativeHTTP/success (1.14s)
+    --- PASS: TestExecutionHostPinnedNativeHTTP/cancel (1.07s)
+    --- PASS: TestExecutionHostPinnedNativeHTTP/source-revocation (1.21s)
+    --- PASS: TestExecutionHostPinnedNativeHTTP/close (1.30s)
+    --- PASS: TestExecutionHostPinnedNativeHTTP/parent-cancel (1.07s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	7.139s

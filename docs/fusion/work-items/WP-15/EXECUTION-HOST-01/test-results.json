@@ -1,0 +1,70 @@
+{
+  "base_commit": "db18554bc7b67688d233a3b6fcdca6ce3e31a6ea",
+  "go_version": "1.26.3",
+  "jev": "off",
+  "new_host_tests": 5,
+  "new_host_passed_subtests": 31,
+  "checks": {
+    "execution-host-red.log": {
+      "pass": 0,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 0,
+      "compile_red": true
+    },
+    "execution-host-green.log": {
+      "pass": 16,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 67,
+      "compile_red": false
+    },
+    "execution-host-green-final.log": {
+      "pass": 26,
+      "skip": 1,
+      "fail": 0,
+      "passed_subtests": 89,
+      "compile_red": false
+    },
+    "execution-host-full.log": {
+      "pass": 465,
+      "skip": 23,
+      "fail": 0,
+      "passed_subtests": 694,
+      "compile_red": false
+    },
+    "execution-host-native-final.log": {
+      "pass": 1,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 5,
+      "compile_red": false
+    },
+    "execution-host-native-regression.log": {
+      "pass": 7,
+      "skip": 0,
+      "fail": 0,
+      "passed_subtests": 17,
+      "compile_red": false
+    },
+    "native_host": {
+      "scenarios": 5,
+      "native_processes": 5,
+      "synthetic_http": 10,
+      "real_model": false,
+      "real_quota": false
+    },
+    "native_regression": {
+      "scenarios": 20,
+      "native_processes": 25,
+      "real_model": false,
+      "real_quota": false
+    }
+  },
+  "graph": {
+    "nodes": 13677,
+    "edges": 120292
+  },
+  "product_cli_execution_enabled": false,
+  "real_route_admission_verified": false
+}

@@ -15,3 +15,5 @@ Controller job 保留原 Guard/Cwd，归档前后复核。当前来源改变不�
 检测失效不会撤销已发生的 HTTP 外发或副本文件修改；它拒绝继续接受结果，并保留相应预算、记录及核对要求。每次整个来源复核最多读取100MiB，执行时有实际开销。当前实际平台仅 macOS/arm64，Go1.26.3，Jev off。
 
 证据见 [SOURCE-GUARD-01](../work-items/WP-15/SOURCE-GUARD-01/summary.md)。固定 Grok/Claude Native 与合成上游验证执行中的来源漂移；没有真实账号/模型/额度/计费或完整产品 HTTP 端到端结论。
+
+后续 [execution-host.md](execution-host.md) 增加 `SourceGuard.BoundToSource(path)`，仅比较私有来源路径，不披露路径、不替代 ValidFor。可信宿主使用它拒绝另一项目的有效副本，并强制 RequireSource、当前登记 read/write/route 和退出生命周期。实际 Native经此宿主鉴权 HTTP 的合成验证单独归档，不改变上面旧项的证据范围或真实路线状态。

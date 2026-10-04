@@ -26,6 +26,12 @@ type SourceGuard struct{ seal *sourceSeal }
 func (SourceGuard) String() string   { return "workspace source guard (redacted)" }
 func (SourceGuard) GoString() string { return "SourceGuard(<redacted>)" }
 func (g SourceGuard) Present() bool  { return g.seal != nil }
+
+// BoundToSource compares private provenance without exposing the source path.
+// Current content and copied-directory checks still require ValidFor.
+func (g SourceGuard) BoundToSource(path string) bool {
+	return g.seal != nil && path == g.seal.path
+}
 func (s Snapshot) Guard() (SourceGuard, error) {
 	g := SourceGuard{seal: s.source}
 	if s.source == nil || !g.ValidFor(s.source.copyPath) {

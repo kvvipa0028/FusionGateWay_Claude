@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/bootstrap [github.com/yetone/magpie/internal/fusion/bootstrap.test]
+internal/fusion/bootstrap/execution_test.go:37:29: undefined: RuntimeEnvironment
+internal/fusion/bootstrap/execution_test.go:49:25: undefined: RuntimeEnvironment
+internal/fusion/bootstrap/execution_test.go:49:45: undefined: RuntimeRegistration
+internal/fusion/bootstrap/execution_test.go:51:9: undefined: RuntimeRegistration
+internal/fusion/bootstrap/execution_test.go:59:16: undefined: RuntimeFactory
+internal/fusion/bootstrap/execution_test.go:60:58: undefined: RuntimeEnvironment
+internal/fusion/bootstrap/execution_test.go:60:78: undefined: RuntimeRegistration
+internal/fusion/bootstrap/execution_test.go:84:9: undefined: OpenExecutionControl
+internal/fusion/bootstrap/execution_test.go:121:8: undefined: OpenExecutionControl
+internal/fusion/bootstrap/execution_test.go:121:103: undefined: RuntimeEnvironment
+internal/fusion/bootstrap/execution_test.go:121:103: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap [build failed]
+FAIL

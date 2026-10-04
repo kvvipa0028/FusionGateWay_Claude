@@ -1,0 +1,31 @@
+{
+  "base_commit": "db18554bc7b67688d233a3b6fcdca6ce3e31a6ea",
+  "source_files_sha256": {
+    "docs/fusion/README.md": "eb16e97bbe13e1b9395c7e05937970228245e3b3cc0e6c17bcda9cf0418f3732",
+    "docs/fusion/contracts/control-host.md": "7b9cbbe0095e3cc4f8dc911920d35478c7416decc0d2b73ea5c9b7f448108a17",
+    "docs/fusion/contracts/execution-controller.md": "03cdc92ff09b8257ba3ba7f585e2164a1b05aaa297ed3eb2c693a57adb91a4d6",
+    "docs/fusion/contracts/execution-host.md": "bacede297e7cd7270d499a57e5cf53d52ff2f0c7da1db4617088172479144a45",
+    "docs/fusion/contracts/workspace-source-guard.md": "deed4e013812f47bcf8d003280801cc2dae06e2147056a4d2539cb0551b54446",
+    "docs/fusion/work-items/WP-15/summary.md": "6d1ff2ad87531e46df7573f8286b49f8b753f1a4bc1423bfe73d22d254e584ff",
+    "internal/fusion/bootstrap/execution.go": "3a92e43914e7ea3928747f71f2bc63d67e6854577c5ba3ec47f09571e411f497",
+    "internal/fusion/bootstrap/execution_native_test.go": "cfc9ba5fd252d22e2c9277896a3dd8075df8e6f16b8c2417a20e5f337d706069",
+    "internal/fusion/bootstrap/execution_test.go": "2293c219ead9dd9215664368635e646017d6d4c7fc035041cd3674ccadca5b9a",
+    "internal/fusion/bootstrap/host.go": "84d7621258a71fc49c7fc5dbb1ab107c5de71bbbba52fed51e96fc4d14dc8f3c",
+    "internal/fusion/workspace/source.go": "fb067edd088aca2176710fe50cad68d356e7f7a00ce9fbe992717128395a25b8"
+  },
+  "packet_files_sha256": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "7e58e60c4e3927ab1e28f932fc6bbe27c6c50f80794b184fc5133d0138e743c7",
+    "build-results.json": "4da0875342a6d02a6b7679ac7c1b24e443a4dc37c0cfdaa2ec9cb713ee2dc77d",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cli-readback.json": "506aee178075c9d99fdc153fbafd54a94681a846a2fa4bda39173422cef62936",
+    "execution-host-full.log": "f80795a4f80fae1d3780b2455f8a4928aab43f092317913904f1fbded6e4ef45",
+    "execution-host-green-final.log": "9c2376a70d3277844d05c2ded7099a9d1a317fbca7ec822a309244c3ca990068",
+    "execution-host-green.log": "9a2c49f028be9ce0bdd22560cc7b27279b16a4ec6aaaa51c9e9cd5549a3f6e1c",
+    "execution-host-native-final.log": "1590153e71da28f933072218efb7c903396e2466e7905571ade86e0ef5828361",
+    "execution-host-native-regression.log": "38785ba63eb5d14bb819d5351fdae20f070d59eb7da2d4267869c67eeae467b4",
+    "execution-host-red.log": "b6d7b25fe6196f09905c0b02b4083fe014d1dce02764ead423982458e3271835",
+    "summary.md": "429f40d1d61ac5bb9b7f493a06a87deb405885fe055b67e4f3840474a5c2a792",
+    "test-results.json": "f512b265e4b3cd0bb7073766cbd34afea1654b646e7bfe1ce951ccaac4ad339e"
+  }
+}

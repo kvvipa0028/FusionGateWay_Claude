@@ -2,6 +2,8 @@
 
 已完成源码/文档导入、Go 1.26.3、OAuth 修复和 WP-01–WP-11：基线、开发隔离、离线 fixtures、五角色绑定编译、独立任务存储、入口鉴权。GLM/Claude Code 连接诊断通过；strict 出口离线验证通过；产品 API、Runtime Adapter 和最终 Gate 尚未完成。
 
+本机服务已有 [可信执行接线](contracts/execution-host.md)，可由进程内 Factory 安装来源绑定 Controller 与额度读取；鉴权 HTTP→固定 Native 的合成端到端验证已通过。真实 Factory/账号准入与产品 CLI/GUI 尚待完成，草稿 CLI仍不执行任务。
+
 ## 阅读顺序
 
 1. [当前需求摘录](requirements-summary.md)：已知目标与未取得的原始需求文档。
