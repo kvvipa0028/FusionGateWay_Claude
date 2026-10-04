@@ -1,0 +1,4 @@
+=== RUN   TestControlHostStageUIAssetsAreManagementProtected
+--- PASS: TestControlHostStageUIAssetsAreManagementProtected (0.06s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	2.194s

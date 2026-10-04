@@ -1,0 +1,42 @@
+✖ actual API: edit layer and version come from the same defaults response (549.208084ms)
+✖ actual API: malformed successful save acknowledgement freezes the identical retry (30666.455709ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 39435.211792
+
+✖ failing tests:
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:141:1
+✖ actual API: edit layer and version come from the same defaults response (549.208084ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  201 !== 200
+
+      at TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:146:9)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 201,
+    expected: 200,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:159:1
+✖ actual API: malformed successful save acknowledgement freezes the identical retry (30666.455709ms)
+  locator.waitFor: Timeout 30000ms exceeded.
+  Call log:
+  [2m  - waiting for getByRole('status').filter({ hasText: '保存状态未确认' }) to be visible[22m
+
+      at status (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:66:88)
+      at TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:168:74) {
+    name: 'TimeoutError',
+    log: [ "  - waiting for getByRole('status').filter({ hasText: '保存状态未确认' }) to be visible" ]
+  }

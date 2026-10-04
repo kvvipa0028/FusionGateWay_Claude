@@ -1,0 +1,48 @@
+{
+  "base_commit": "91c799cc2fc88a66686e3233a1d5b91abbc5983e",
+  "source_files_sha256": {
+    "AGENTS.md": "578c4d5cf753cd793ffbdefd999d253111e79293d67bef1df02cd2d2c5df16f4",
+    "docs/fusion/README.md": "92f042b737954b1a0bc8ebb196fe4fd6f8ef46bdaa086cc94c0209e117cbb7a0",
+    "docs/fusion/contracts/stage-editor.md": "40c02b165a400522f4a343d535d9c216322db22fed206412514ab57d31fbc157",
+    "docs/fusion/planning/Fusion_Magpie_Fork_Agent工作包_v1.0.md": "ab38500c4d17191942fe52864e461a612cad3a1939e26d9a199d7578fa280a99",
+    "docs/fusion/planning/implementation_tasks.json": "fa85cc2945fb73fca19fbe8915d4737a9cc5a28426a7f3b7807b1a584ff492ef",
+    "docs/fusion/work-items/WP-16/summary.md": "4968171918cb2db99e71227d7adef05611f05fab900c9eedf94e1936d92966a3",
+    "internal/fusion/bootstrap/host.go": "7270f7412d2c630236465380a0860d33d1e237ec680aa322e4bfa2dde67ae8d3",
+    "internal/fusion/bootstrap/ui_test.go": "6446cd24d32e16bdb4236fb1c53ac4435663c3fe2ca36f894f945c14e8158c76",
+    "internal/gui/assets/fusion/editor.css": "7e7c9a562d54723cfd1b279cdf61e14355528bb62f335b948ab36741bebf4fa0",
+    "internal/gui/assets/fusion/editor.mjs": "b6c300a7573fee8ffd296c4c218a4d3cbb41bb5786e2e479d0d8e725861e9f44",
+    "internal/gui/assets/fusion/embed.go": "1ae39c4cc0ac34a685e802b2d726d19d2b0f6884e85d646fe19135fd4249e3a6",
+    "internal/gui/assets/fusion/index.html": "38c4236fcf15fe138aed8ef1a44bdadab5e4b9c126143f83905d55915f4c5141",
+    "internal/gui/assets/fusion/model.mjs": "af9a6e5421dd74b74733d5bfefc7d6c994d086e3e1d8f9c06dea8a6790bb9d19",
+    "internal/gui/tests/fusion-editor-model.test.cjs": "3af9766229dc5d6af6f1794ab9a09b70bc550213b194310cf1ded2972345bc26",
+    "internal/gui/tests/fusion-stage-editor.test.cjs": "a17df26eeb888aeecaebc8b72545885332f83b5e29ab3d4934ce3a03c810d608"
+  },
+  "packet_files_sha256": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "7acf10133786a79543446eaa0db6f6b68972e9d61efdeedbce80c7764169b57e",
+    "build-results.json": "f7ce911cc07c93a14df77925c6799804fcf3569774c634e267bc6e04e0173125",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stage-editor-assets-final.log": "7b66a55212470c79fd5b0558fa849944c1bfd861995bb6c4b13b06f3b37b35ee",
+    "stage-editor-assets-green.log": "2ce0ed2f099a9ade73b1ff96de7894a7cbc68e5e05f5f6daa3a04d6ff198ba9b",
+    "stage-editor-assets-red.log": "0b96e2b32b6b0d608cc75d1ade5efde7a065bda7f2b79ea45836a6e2b6ce48f7",
+    "stage-editor-bootstrap-final.log": "ec0ba41216f6dd61bbad67525c191a314a85a5e0c4d95757a8d6495bfbd71c02",
+    "stage-editor-browser-final.log": "e645c2e077e20576593c74a491b62aa4816d693ce59534404a899b554c67b5b6",
+    "stage-editor-browser-initial.log": "6138ac1a79aa99cbdc15ec2bb918524fa4e4a4c6f6417590157abcd88b6c049a",
+    "stage-editor-browser-second.log": "c5ca58107e1805c9bff0a3432550406a48c311cd286cc10425b84b9171a97c2b",
+    "stage-editor-browser-verified.log": "5e3ea81a4d62d11505e9b3cffb0f6326d640f6d84851cd11bf85c8348d17e186",
+    "stage-editor-concurrency-red.log": "9fa46fedeac43d35beca248f1380594e71dfa7c5d43714062dc8e74464123d14",
+    "stage-editor-desktop.png": "5c3b0ce14a1ed18982ab3d867a04e751bfb7f6608836e21df0b85fea8f0eebbd",
+    "stage-editor-mobile.png": "4c561023936c6384639998c2d45dc16846bcd17fb7b2f19d03e928dc72a01c25",
+    "stage-editor-model-final.log": "b31adc31a6044acde08cc039ee8939c4aae123cfb5f25ce5fcce4fa9a8d47753",
+    "stage-editor-model-red.log": "aa3b746e486d25c3edab60ca323f8205eb076ece7c36fdc196994ab6e7854a5c",
+    "stage-editor-version-red.log": "58c306318369b9725f6fa916740d5de5cb873630671b2aaa1824057345a56668",
+    "summary.md": "654dd8a2fa1a1f1f78984c5fdb986d48774cbca9cdcbe364d450f9acc04bceb4",
+    "test-results.json": "8043ead71d0662429c42959cd482bbf7759dc0506f5cd1b76dfa294822fcea27"
+  },
+  "archived_log_normalization": "Trailing whitespace only; raw logs retained in .fusion-dev/implementation",
+  "raw_log_sha256": {
+    "stage-editor-browser-final.log": "660cd6f2620413245464c03efb71ccceff6374120ba4550756e75126dd9fce3e",
+    "stage-editor-concurrency-red.log": "42b6717d9303ce4d70c299364d76b6ac3ceccb06054ea85280b058e31c41aa24",
+    "stage-editor-version-red.log": "1c0587a1996d19c512b88754e57a2865ac7ab313752f939ae25542911e0d4fd3"
+  }
+}

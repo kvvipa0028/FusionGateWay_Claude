@@ -1,0 +1,48 @@
+{
+  "component": "WP-16-EDITOR-01",
+  "base_commit": "91c799cc2fc88a66686e3233a1d5b91abbc5983e",
+  "status": "component_verified",
+  "parent_wp_status": "in_progress",
+  "model_tests": {
+    "passed": 10,
+    "failed": 0
+  },
+  "browser_tests": {
+    "passed": 6,
+    "failed": 0,
+    "platform": "system Google Chrome via existing Playwright library; temporary isolated profile",
+    "final_log": "stage-editor-browser-verified.log",
+    "actual_cli_api": true,
+    "native_gui_auth_bridge_verified": false
+  },
+  "targeted_go_race": {
+    "pass": 119,
+    "skip": 2,
+    "fail": 0,
+    "subpass": 148,
+    "subskip": 0,
+    "subfail": 0
+  },
+  "build_checks": {
+    "cli": 0,
+    "gui": 0,
+    "vet": 0
+  },
+  "go": "1.26.3",
+  "graph": {
+    "project": "fusion-development",
+    "nodes": 13904,
+    "edges": 123174,
+    "assets_excluded": true
+  },
+  "credential_environment": "only synthetic temporary fixtures; real key not used for generation",
+  "jev": "off",
+  "final_acceptance": "not_run",
+  "limitations": [
+    "Native GUI authentication bridge",
+    "preset creation/saving",
+    "task submission/start/manual next stage and event workbench",
+    "real provider Factory/identity/quota/admission",
+    "final T01-T60 and whole-branch fresh review"
+  ]
+}

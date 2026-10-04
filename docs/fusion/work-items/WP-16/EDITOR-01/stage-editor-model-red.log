@@ -1,0 +1,190 @@
+✖ expands groups then complete role overrides; explicit inherit masks group (0.522458ms)
+✖ independent testing and acceptance survive five-role serialize/reload (0.475666ms)
+✖ collapsed visual grouping never rewrites role bindings (0.183417ms)
+✖ unknown modes, roles and groups are rejected rather than discarded (0.131541ms)
+✖ expired exact route stays visible in draft, never falls back (0.1165ms)
+✖ all effort modes require declared capability; null is unspecified (0.158459ms)
+✖ automatic candidates are explicit, exact, nonempty and unique (0.129125ms)
+✖ model and route cannot splice account, version or another model (0.119ms)
+✖ route selection starts with unspecified effort, not a guessed default (0.128042ms)
+✖ draft saving validation does not promote unadmitted route (0.139084ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 0
+ℹ fail 10
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 96.052583
+
+✖ failing tests:
+
+test at internal/gui/tests/fusion-editor-model.test.cjs:12:1
+✖ expands groups then complete role overrides; explicit inherit masks group (0.522458ms)
+  Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/assets/fusion/model.mjs' imported from /Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-editor-model.test.cjs
+      at finalizeResolution (node:internal/modules/esm/resolve:241:11)
+      at moduleResolve (node:internal/modules/esm/resolve:846:10)
+      at defaultResolve (node:internal/modules/esm/resolve:973:11)
+      at #cachedDefaultResolve (node:internal/modules/esm/loader:708:20)
+      at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:728:38)
+      at ModuleLoader.resolveSync (node:internal/modules/esm/loader:766:56)
+      at #resolve (node:internal/modules/esm/loader:690:17)
+      at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:610:35)
+      at node:internal/modules/esm/loader:639:32
+      at TracingChannel.tracePromise (node:diagnostics_channel:551:22) {
+    code: 'ERR_MODULE_NOT_FOUND',
+    url: 'file:///Users/zhaojianzhi/Desktop/Fusion%20Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/assets/fusion/model.mjs'
+  }
+
+test at internal/gui/tests/fusion-editor-model.test.cjs:17:1
+✖ independent testing and acceptance survive five-role serialize/reload (0.475666ms)
+  Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/assets/fusion/model.mjs' imported from /Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-editor-model.test.cjs
+      at finalizeResolution (node:internal/modules/esm/resolve:241:11)
+      at moduleResolve (node:internal/modules/esm/resolve:846:10)
+      at defaultResolve (node:internal/modules/esm/resolve:973:11)
+      at #cachedDefaultResolve (node:internal/modules/esm/loader:708:20)
+      at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:728:38)
+      at ModuleLoader.resolveSync (node:internal/modules/esm/loader:766:56)
+      at #resolve (node:internal/modules/esm/loader:690:17)
+      at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:610:35)
+      at node:internal/modules/esm/loader:639:32
+      at TracingChannel.tracePromise (node:diagnostics_channel:551:22) {
+    code: 'ERR_MODULE_NOT_FOUND',
+    url: 'file:///Users/zhaojianzhi/Desktop/Fusion%20Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/assets/fusion/model.mjs'
+  }
+
+test at internal/gui/tests/fusion-editor-model.test.cjs:22:1
+✖ collapsed visual grouping never rewrites role bindings (0.183417ms)
+  Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/assets/fusion/model.mjs' imported from /Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-editor-model.test.cjs
+      at finalizeResolution (node:internal/modules/esm/resolve:241:11)
+      at moduleResolve (node:internal/modules/esm/resolve:846:10)
+      at defaultResolve (node:internal/modules/esm/resolve:973:11)
+      at #cachedDefaultResolve (node:internal/modules/esm/loader:708:20)
+      at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:728:38)
+      at ModuleLoader.resolveSync (node:internal/modules/esm/loader:766:56)
+      at #resolve (node:internal/modules/esm/loader:690:17)
+      at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:610:35)
+      at node:internal/modules/esm/loader:639:32
+      at TracingChannel.tracePromise (node:diagnostics_channel:551:22) {
+    code: 'ERR_MODULE_NOT_FOUND',
+    url: 'file:///Users/zhaojianzhi/Desktop/Fusion%20Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/assets/fusion/model.mjs'
+  }
+
+test at internal/gui/tests/fusion-editor-model.test.cjs:28:1
+✖ unknown modes, roles and groups are rejected rather than discarded (0.131541ms)
+  Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/assets/fusion/model.mjs' imported from /Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-editor-model.test.cjs
+      at finalizeResolution (node:internal/modules/esm/resolve:241:11)
+      at moduleResolve (node:internal/modules/esm/resolve:846:10)
+      at defaultResolve (node:internal/modules/esm/resolve:973:11)
+      at #cachedDefaultResolve (node:internal/modules/esm/loader:708:20)
+      at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:728:38)
+      at ModuleLoader.resolveSync (node:internal/modules/esm/loader:766:56)
+      at #resolve (node:internal/modules/esm/loader:690:17)
+      at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:610:35)
+      at node:internal/modules/esm/loader:639:32
+      at TracingChannel.tracePromise (node:diagnostics_channel:551:22) {
+    code: 'ERR_MODULE_NOT_FOUND',
+    url: 'file:///Users/zhaojianzhi/Desktop/Fusion%20Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/assets/fusion/model.mjs'
+  }
+
+test at internal/gui/tests/fusion-editor-model.test.cjs:32:1
+✖ expired exact route stays visible in draft, never falls back (0.1165ms)
+  Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/assets/fusion/model.mjs' imported from /Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-editor-model.test.cjs
+      at finalizeResolution (node:internal/modules/esm/resolve:241:11)
+      at moduleResolve (node:internal/modules/esm/resolve:846:10)
+      at defaultResolve (node:internal/modules/esm/resolve:973:11)
+      at #cachedDefaultResolve (node:internal/modules/esm/loader:708:20)
+      at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:728:38)
+      at ModuleLoader.resolveSync (node:internal/modules/esm/loader:766:56)
+      at #resolve (node:internal/modules/esm/loader:690:17)
+      at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:610:35)
+      at node:internal/modules/esm/loader:639:32
+      at TracingChannel.tracePromise (node:diagnostics_channel:551:22) {
+    code: 'ERR_MODULE_NOT_FOUND',
+    url: 'file:///Users/zhaojianzhi/Desktop/Fusion%20Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/assets/fusion/model.mjs'
+  }
+
+test at internal/gui/tests/fusion-editor-model.test.cjs:36:1
+✖ all effort modes require declared capability; null is unspecified (0.158459ms)
+  Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/assets/fusion/model.mjs' imported from /Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-editor-model.test.cjs
+      at finalizeResolution (node:internal/modules/esm/resolve:241:11)
+      at moduleResolve (node:internal/modules/esm/resolve:846:10)
+      at defaultResolve (node:internal/modules/esm/resolve:973:11)
+      at #cachedDefaultResolve (node:internal/modules/esm/loader:708:20)
+      at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:728:38)
+      at ModuleLoader.resolveSync (node:internal/modules/esm/loader:766:56)
+      at #resolve (node:internal/modules/esm/loader:690:17)
+      at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:610:35)
+      at node:internal/modules/esm/loader:639:32
+      at TracingChannel.tracePromise (node:diagnostics_channel:551:22) {
+    code: 'ERR_MODULE_NOT_FOUND',
+    url: 'file:///Users/zhaojianzhi/Desktop/Fusion%20Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/assets/fusion/model.mjs'
+  }
+
+test at internal/gui/tests/fusion-editor-model.test.cjs:41:1
+✖ automatic candidates are explicit, exact, nonempty and unique (0.129125ms)
+  Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/assets/fusion/model.mjs' imported from /Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-editor-model.test.cjs
+      at finalizeResolution (node:internal/modules/esm/resolve:241:11)
+      at moduleResolve (node:internal/modules/esm/resolve:846:10)
+      at defaultResolve (node:internal/modules/esm/resolve:973:11)
+      at #cachedDefaultResolve (node:internal/modules/esm/loader:708:20)
+      at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:728:38)
+      at ModuleLoader.resolveSync (node:internal/modules/esm/loader:766:56)
+      at #resolve (node:internal/modules/esm/loader:690:17)
+      at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:610:35)
+      at node:internal/modules/esm/loader:639:32
+      at TracingChannel.tracePromise (node:diagnostics_channel:551:22) {
+    code: 'ERR_MODULE_NOT_FOUND',
+    url: 'file:///Users/zhaojianzhi/Desktop/Fusion%20Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/assets/fusion/model.mjs'
+  }
+
+test at internal/gui/tests/fusion-editor-model.test.cjs:47:1
+✖ model and route cannot splice account, version or another model (0.119ms)
+  Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/assets/fusion/model.mjs' imported from /Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-editor-model.test.cjs
+      at finalizeResolution (node:internal/modules/esm/resolve:241:11)
+      at moduleResolve (node:internal/modules/esm/resolve:846:10)
+      at defaultResolve (node:internal/modules/esm/resolve:973:11)
+      at #cachedDefaultResolve (node:internal/modules/esm/loader:708:20)
+      at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:728:38)
+      at ModuleLoader.resolveSync (node:internal/modules/esm/loader:766:56)
+      at #resolve (node:internal/modules/esm/loader:690:17)
+      at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:610:35)
+      at node:internal/modules/esm/loader:639:32
+      at TracingChannel.tracePromise (node:diagnostics_channel:551:22) {
+    code: 'ERR_MODULE_NOT_FOUND',
+    url: 'file:///Users/zhaojianzhi/Desktop/Fusion%20Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/assets/fusion/model.mjs'
+  }
+
+test at internal/gui/tests/fusion-editor-model.test.cjs:53:1
+✖ route selection starts with unspecified effort, not a guessed default (0.128042ms)
+  Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/assets/fusion/model.mjs' imported from /Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-editor-model.test.cjs
+      at finalizeResolution (node:internal/modules/esm/resolve:241:11)
+      at moduleResolve (node:internal/modules/esm/resolve:846:10)
+      at defaultResolve (node:internal/modules/esm/resolve:973:11)
+      at #cachedDefaultResolve (node:internal/modules/esm/loader:708:20)
+      at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:728:38)
+      at ModuleLoader.resolveSync (node:internal/modules/esm/loader:766:56)
+      at #resolve (node:internal/modules/esm/loader:690:17)
+      at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:610:35)
+      at node:internal/modules/esm/loader:639:32
+      at TracingChannel.tracePromise (node:diagnostics_channel:551:22) {
+    code: 'ERR_MODULE_NOT_FOUND',
+    url: 'file:///Users/zhaojianzhi/Desktop/Fusion%20Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/assets/fusion/model.mjs'
+  }
+
+test at internal/gui/tests/fusion-editor-model.test.cjs:56:1
+✖ draft saving validation does not promote unadmitted route (0.139084ms)
+  Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/assets/fusion/model.mjs' imported from /Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-editor-model.test.cjs
+      at finalizeResolution (node:internal/modules/esm/resolve:241:11)
+      at moduleResolve (node:internal/modules/esm/resolve:846:10)
+      at defaultResolve (node:internal/modules/esm/resolve:973:11)
+      at #cachedDefaultResolve (node:internal/modules/esm/loader:708:20)
+      at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:728:38)
+      at ModuleLoader.resolveSync (node:internal/modules/esm/loader:766:56)
+      at #resolve (node:internal/modules/esm/loader:690:17)
+      at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:610:35)
+      at node:internal/modules/esm/loader:639:32
+      at TracingChannel.tracePromise (node:diagnostics_channel:551:22) {
+    code: 'ERR_MODULE_NOT_FOUND',
+    url: 'file:///Users/zhaojianzhi/Desktop/Fusion%20Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/assets/fusion/model.mjs'
+  }

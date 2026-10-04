@@ -1,0 +1,30 @@
+✖ actual API: edit layer and version come from the same defaults response (772.072833ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9001.499625
+
+✖ failing tests:
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:141:1
+✖ actual API: edit layer and version come from the same defaults response (772.072833ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+
+  + 'inherit'
+  - 'locked'
+
+      at TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:151:9)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'inherit',
+    expected: 'locked',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,6 @@
+=== RUN   TestControlHostStageUIAssetsAreManagementProtected
+    ui_test.go:21: authenticated stage asset /fusion/ 404
+--- FAIL: TestControlHostStageUIAssetsAreManagementProtected (0.05s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	0.696s
+FAIL

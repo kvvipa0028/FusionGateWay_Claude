@@ -1,0 +1,52 @@
+✖ actual private CLI/API: independent roles, fold/reload, explicit overwrite and safe model text (31407.121167ms)
+✖ actual API: stale editor keeps draft; lost acknowledgement retries the identical version/body (30714.152375ms)
+✖ actual API: explicit preset version, auto candidates and single-role preview remains unadmitted (30636.067917ms)
+✔ actual API: edit layer and version come from the same defaults response (1410.738375ms)
+✔ actual API: malformed successful save acknowledgement freezes the identical retry (843.653542ms)
+✔ actual API: expired route never selects a replacement; global and project drafts stay separate (768.723375ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 3
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 104010.037625
+
+✖ failing tests:
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:67:1
+✖ actual private CLI/API: independent roles, fold/reload, explicit overwrite and safe model text (31407.121167ms)
+  locator.waitFor: Timeout 30000ms exceeded.
+  Call log:
+  [2m  - waiting for getByRole('status').filter({ hasText: '已载入当前配置' }) to be visible[22m
+
+      at Object.newPage (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:53:97)
+      at async TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:68:41) {
+    name: 'TimeoutError',
+    log: [ "  - waiting for getByRole('status').filter({ hasText: '已载入当前配置' }) to be visible" ]
+  }
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:92:1
+✖ actual API: stale editor keeps draft; lost acknowledgement retries the identical version/body (30714.152375ms)
+  locator.waitFor: Timeout 30000ms exceeded.
+  Call log:
+  [2m  - waiting for getByRole('status').filter({ hasText: '已载入当前配置' }) to be visible[22m
+
+      at Object.newPage (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:53:97)
+      at async TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:93:29) {
+    name: 'TimeoutError',
+    log: [ "  - waiting for getByRole('status').filter({ hasText: '已载入当前配置' }) to be visible" ]
+  }
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:114:1
+✖ actual API: explicit preset version, auto candidates and single-role preview remains unadmitted (30636.067917ms)
+  locator.waitFor: Timeout 30000ms exceeded.
+  Call log:
+  [2m  - waiting for getByRole('status').filter({ hasText: '已载入当前配置' }) to be visible[22m
+
+      at Object.newPage (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:53:97)
+      at async TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:120:30) {
+    name: 'TimeoutError',
+    log: [ "  - waiting for getByRole('status').filter({ hasText: '已载入当前配置' }) to be visible" ]
+  }

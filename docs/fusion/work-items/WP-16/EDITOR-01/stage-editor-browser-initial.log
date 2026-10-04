@@ -1,0 +1,37 @@
+✖ actual private CLI/API: independent roles, fold/reload, explicit overwrite and safe model text (805.340917ms)
+✖ actual API: stale editor keeps draft; lost acknowledgement retries the identical version/body (67.714458ms)
+✖ actual API: explicit preset version, auto candidates and single-role preview remains unadmitted (56.11525ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 0
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1135.4755
+
+✖ failing tests:
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:60:1
+✖ actual private CLI/API: independent roles, fold/reload, explicit overwrite and safe model text (805.340917ms)
+  Error: fixture exited before startup
+      at ChildProcess.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:34:53)
+      at ChildProcess.wrapper (node:events:639:12)
+      at ChildProcess.emit (node:events:514:20)
+      at ChildProcess._handle.onexit (node:internal/child_process:323:12)
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:85:1
+✖ actual API: stale editor keeps draft; lost acknowledgement retries the identical version/body (67.714458ms)
+  Error: fixture exited before startup
+      at ChildProcess.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:34:53)
+      at ChildProcess.wrapper (node:events:639:12)
+      at ChildProcess.emit (node:events:514:20)
+      at ChildProcess._handle.onexit (node:internal/child_process:323:12)
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:107:1
+✖ actual API: explicit preset version, auto candidates and single-role preview remains unadmitted (56.11525ms)
+  Error: fixture exited before startup
+      at ChildProcess.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:34:53)
+      at ChildProcess.wrapper (node:events:639:12)
+      at ChildProcess.emit (node:events:514:20)
+      at ChildProcess._handle.onexit (node:internal/child_process:323:12)

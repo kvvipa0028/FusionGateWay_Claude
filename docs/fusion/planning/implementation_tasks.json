@@ -372,7 +372,7 @@
       "id": "WP-16",
       "title": "阶段选择 UI 与单阶段工作台",
       "milestone": "M2",
-      "status": "planned",
+      "status": "in_progress",
       "depends_on": [
         "WP-04",
         "WP-06",

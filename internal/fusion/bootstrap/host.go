@@ -18,6 +18,7 @@ import (
 	"github.com/yetone/magpie/internal/fusion/control"
 	"github.com/yetone/magpie/internal/fusion/policy"
 	"github.com/yetone/magpie/internal/fusion/store"
+	fusionassets "github.com/yetone/magpie/internal/gui/assets/fusion"
 )
 
 var ErrControlHost = errors.New("Fusion local control host unavailable")
@@ -126,7 +127,15 @@ func openControl(parent context.Context, sourcePath, root, addr string, factory 
 			return nil, ErrControlHost
 		}
 	}
-	handler := s.Handler()
+	apiHandler := s.Handler()
+	assetsHandler := auth.Management(fusionassets.Handler())
+	handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if strings.HasPrefix(r.URL.Path, "/fusion/") {
+			assetsHandler.ServeHTTP(w, r)
+			return
+		}
+		apiHandler.ServeHTTP(w, r)
+	})
 	h.server.Handler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		h.mu.Lock()
 		if h.closed {

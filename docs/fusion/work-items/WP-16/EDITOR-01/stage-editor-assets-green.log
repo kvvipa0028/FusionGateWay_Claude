@@ -1,0 +1,6 @@
+=== RUN   TestControlHostStageUIAssetsAreManagementProtected
+    ui_test.go:31: query credential 403
+--- FAIL: TestControlHostStageUIAssetsAreManagementProtected (0.06s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	0.749s
+FAIL

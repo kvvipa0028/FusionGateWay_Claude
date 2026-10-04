@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fusion Gateway · 阶段模型配置</title><link rel="stylesheet" href="./editor.css"></head>
+<body>
+<header><span class="brand">Fusion Gateway</span><h1>阶段模型配置</h1><p>按阶段指定模型与推理档位，保存完整的选择。</p></header>
+<main>
+<div class="toolbar">
+<label>项目<select id="project" aria-label="项目"></select></label>
+<label>配置范围<select id="scope" aria-label="配置范围"><option value="project">项目配置</option><option value="global">全局默认</option><option value="task">本次任务</option></select></label>
+<button id="reload">重新载入</button>
+</div>
+<p class="priority">本次任务 ＞ 项目配置 ＞ 全局默认。继承使用较低层的完整选择。</p>
+<div class="presets"><label>预设<select id="preset" aria-label="预设"><option value="">不载入预设</option></select></label><label>明确版本<input id="preset-version" aria-label="预设版本" inputmode="numeric"></label><button id="apply-preset">载入此版本</button><span id="preset-source"></span></div>
+<div id="groups"></div>
+<section id="task" hidden><h2>单阶段任务预览</h2><label>任务目标<textarea id="goal" aria-label="任务目标" rows="3"></textarea></label><label>本次阶段<select id="task-role" aria-label="本次阶段"></select></label><p>预览核对服务端模型绑定，不启动任务。</p></section>
+<footer><button id="save" class="primary" disabled>保存项目配置</button><p id="status" role="status" aria-live="polite">正在读取本机配置…</p></footer>
+<section id="preview" hidden aria-label="计划预览"></section>
+</main>
+<script type="module" src="./editor.mjs"></script>
+</body></html>
