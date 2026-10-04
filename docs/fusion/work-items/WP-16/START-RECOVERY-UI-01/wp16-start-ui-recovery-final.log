@@ -1,0 +1,18 @@
+✔ start recovery: absent preparation clears only after independent advanced Task proof and a second absence read (1377.196334ms)
+✔ start recovery: a delayed prepared record found after Task advancement cannot be discarded as absent (1154.008333ms)
+✔ start recovery: lost preparation persists the original identity across host restart and seals late start (1428.059667ms)
+✔ start recovery: committed lost reply reopens and confirms the original run without another start (1584.018791ms)
+✔ start recovery: substituted acknowledgement keeps exact original identity until terminal journal and independent run agree (1118.932875ms)
+✔ start recovery: lost seal reads exact abandoned history and original Magpie controls fit desktop and mobile (1465.46475ms)
+✔ start recovery: startup finds another project and current defaults cannot replace its frozen model (514.126958ms)
+✔ start recovery: malformed successful preparation cannot dispatch and explicit retry preserves original bytes (1087.541708ms)
+✔ start recovery: malformed or empty reread retains the exact original and blocks new intent (1203.108709ms)
+✔ start recovery: independent run failure cannot acknowledge or clear the original committed request (1218.818625ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 12348.626791

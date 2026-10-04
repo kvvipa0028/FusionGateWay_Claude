@@ -35,10 +35,20 @@ function journalValue(body,scope,original){
  return v;
 }
 const stateName=s=>({ready:'待执行',running:'运行中',paused:'已暂停',pausing:'暂停中',cancelling:'取消中',cancelled:'已取消',needs_review:'需要核对',succeeded:'成功',failed:'失败'})[s]||s;
+function startJournalValue(body,scope,original){
+ if(!body||Array.isArray(body)||Object.keys(body).length!==1||!Object.hasOwn(body,'request'))throw bad();
+ const v=body.request;if(v===null)return null;
+ if(!v||Array.isArray(v)||Object.keys(v).length!==7||!opaque(v.key)||!roles.includes(v.role)||!['prepared','committed','acknowledged','abandoned'].includes(v.state)||(['prepared','abandoned'].includes(v.state)?v.run_id!=='':!opaque(v.run_id)))throw bad();
+ taskValue(v.task,scope,v.etag);planValue(v.plan,v.task.plan_revision);
+ if(v.task.state!=='ready'||!v.task.goal||new TextEncoder().encode(v.task.goal).length>65536||!v.plan.required_roles.includes(v.role))throw bad();
+ if(original&&(v.key!==original.key||v.role!==original.role||v.etag!==original.etag||JSON.stringify(canonical(v.task))!==JSON.stringify(canonical(original.task))||JSON.stringify(canonical(v.plan))!==JSON.stringify(canonical(original.plan))))throw bad();
+ const run=original?.runId||original?.journal?.run_id;if(run&&v.run_id!==run)throw bad();
+ return v;
+}
 function readFailure(e){return e.status===401||e.status===403?'管理授权已失效，请重新连接。':e.status===503?'本机服务不可用或已撤销。':'读取失败，请重新读取。'}
 export function createWorkbench({request,onLock,onNotice,onRestore}){
  let project='',preview=null,attempt=null,expiry=null,epoch=0,listSerial=0,detailSerial=0,listBusy=false,detailBusy=false,next='',items=[],selected='',busy=false,recoveryBlocked=false,taskData=null,controlAttempt=null,controlBusy=false,knownRun=null;
- let eventTask='',eventSerial=0,eventCursor=0,eventRows=[],eventBusy=false;
+ let eventTask='',eventSerial=0,eventCursor=0,eventRows=[],eventBusy=false,startBlocked=false,startSerial=0;
  function clearEvents(id=''){
   eventTask=id;eventSerial++;eventCursor=0;eventRows=[];eventBusy=false;$('event-history').replaceChildren();$('task-events').open=false;$('events-status').textContent=id?'尚未读取任务事件。':'选择任务后读取事件。';
  }
@@ -64,21 +74,21 @@ export function createWorkbench({request,onLock,onNotice,onRestore}){
   }catch(e){if(version===epoch&&serial===eventSerial&&id===eventTask)$('events-status').textContent=readFailure(e)+'原事件和游标已保留，不自动重试。'}
   finally{if(version===epoch&&serial===eventSerial&&id===eventTask){eventBusy=false;controls()}}
  }
- function lock(value){onLock(value||controlBusy||!!controlAttempt)}
+ function lock(value){onLock(value||controlBusy||!!controlAttempt||startBlocked)}
  function executionNotice(message){$('execution-status').textContent=message}
  function controls(){
   $('task-submit').hidden=!preview&&!attempt;
-  $('submit-task').hidden=!!attempt;$('submit-task').disabled=busy||controlBusy||!!controlAttempt||recoveryBlocked||!preview||Date.now()>=preview.expires;
+  $('submit-task').hidden=!!attempt;$('submit-task').disabled=busy||controlBusy||!!controlAttempt||recoveryBlocked||startBlocked||!preview||Date.now()>=preview.expires;
   $('retry-task').hidden=!attempt||attempt.action==='abandon';$('retry-task').disabled=busy;
   $('retry-task').textContent=attempt?.task?'重试任务保存确认':attempt&&!attempt.journal?'重试保存原请求':'重试同一任务提交';
   $('submission-recovery').hidden=!attempt&&!recoveryBlocked;
-  $('refresh-submission').disabled=busy||!project;
+  $('refresh-submission').disabled=busy||controlBusy||!project;
   $('abandon-submission').hidden=!attempt||!!attempt.task||['committed','acknowledged'].includes(attempt.journal?.state);
-  $('abandon-submission').disabled=busy;$('abandon-submission').textContent=attempt?.action==='abandon'?'重试放弃原请求':'放弃未提交请求';
+  $('abandon-submission').disabled=busy||controlBusy;$('abandon-submission').textContent=attempt?.action==='abandon'?'重试放弃原请求':'放弃未提交请求';
   $('refresh-tasks').disabled=!project||listBusy;$('older-tasks').hidden=!next;$('older-tasks').disabled=listBusy;
   $('reload-task').disabled=!selected||detailBusy||controlBusy;
   $('task-events').hidden=!selected;$('read-events').disabled=eventBusy||detailBusy||!taskData||busy||controlBusy;$('reset-events').disabled=$('read-events').disabled;
-  const unavailable=busy||!!attempt||recoveryBlocked||controlBusy||!!controlAttempt||detailBusy||!taskData;
+  const unavailable=busy||!!attempt||recoveryBlocked||startBlocked||controlBusy||!!controlAttempt||detailBusy||!taskData;
   $('execution-controls').hidden=!selected;
   $('execution-role').disabled=unavailable;
   $('start-role').disabled=unavailable||taskData?.task.state!=='ready'||taskData.budget.used_calls>=taskData.budget.max_calls;
@@ -86,7 +96,11 @@ export function createWorkbench({request,onLock,onNotice,onRestore}){
   $('continue-task').disabled=unavailable||taskData?.task.state!=='paused';
   $('cancel-task').disabled=unavailable||!['ready','running','paused','pausing','cancelling','failed','advisory_only'].includes(taskData?.task.state);
   $('retry-execution').hidden=!controlAttempt;$('retry-execution').disabled=controlBusy||busy||detailBusy;
-
+  const original=controlAttempt?.action==='start'?controlAttempt:null;
+  $('retry-execution').textContent=original?.phase==='abandon'?'重试封存原启动请求':original?.phase==='acknowledge'?'重试启动记录确认':original&&!original.journal?'重试保存原启动请求':'重试原运行请求';
+  $('start-recovery').hidden=!original&&!startBlocked;$('refresh-start').disabled=busy||controlBusy||!project;
+  $('abandon-start').hidden=!original||!!original.runId||!!original.journal?.run_id;
+  $('abandon-start').disabled=busy||controlBusy||detailBusy;
  }
  function invalidate(){if(attempt||recoveryBlocked)return;clearTimeout(expiry);expiry=null;preview=null;controls()}
  function renderList(){
@@ -189,13 +203,13 @@ export function createWorkbench({request,onLock,onNotice,onRestore}){
  }
  async function findPendingProject(ids){
   if(!Array.isArray(ids)||!ids.length||ids.length>128||ids.some(id=>!opaque(id))||new Set(ids).size!==ids.length)throw bad();
-  for(const id of ids){const result=await request(submissionPath(id));if(result.status!==200)throw bad();if(journalValue(result.body,id))return id}
+  for(const id of ids){const result=await request(submissionPath(id));if(result.status!==200)throw bad();if(journalValue(result.body,id))return id;const start=await request(pendingStartPath(id));if(start.status!==200)throw bad();if(startJournalValue(start.body,id))return id}
   return ids[0];
  }
  async function setProject(id){
-  if(attempt||recoveryBlocked||controlAttempt||controlBusy)return;
+  if(attempt||recoveryBlocked||controlAttempt||controlBusy||startBlocked)return;
   clearEvents();
-  project=id;taskData=null;knownRun=null;$('run-record').replaceChildren();executionNotice('');epoch++;listSerial++;detailSerial++;items=[];next='';selected='';listBusy=false;detailBusy=false;invalidate();renderList();$('task-detail').replaceChildren();$('task-detail-status').textContent='选择任务读取完整目标、冻结计划和预算。';controls();if(project){refreshList();await readOriginal(true)}
+  project=id;taskData=null;knownRun=null;startSerial++;$('start-record').replaceChildren();$('run-record').replaceChildren();executionNotice('');epoch++;listSerial++;detailSerial++;items=[];next='';selected='';listBusy=false;detailBusy=false;invalidate();renderList();$('task-detail').replaceChildren();$('task-detail-status').textContent='选择任务读取完整目标、冻结计划和预算。';controls();if(project){refreshList();await readOriginal(true);await readStartOriginal(true)}
  }
  function setPreview(value,context){
   if(attempt||recoveryBlocked)throw bad();const frozen=previewValue(value),expires=frozen.expires;
@@ -207,7 +221,7 @@ export function createWorkbench({request,onLock,onNotice,onRestore}){
   if(expires<=Date.now())expire();else expiry=setTimeout(expire,Math.min(expires-Date.now(),2147483647));controls();return expires>Date.now();
  }
  async function submit(){
-  if(busy||recoveryBlocked||controlBusy||controlAttempt)return;
+  if(busy||recoveryBlocked||controlBusy||controlAttempt||startBlocked)return;
   if(attempt?.action==='abandon'){await abandon();return}
   if(!attempt){
    if(!preview||Date.now()>=preview.expires){onNotice('预览已到期，请重新预览；未提交任务。',true);controls();return}
@@ -251,6 +265,71 @@ export function createWorkbench({request,onLock,onNotice,onRestore}){
   finally{if(version===epoch){busy=false;controls()}}
   if(reread)await readOriginal();
  }
+ const pendingStartPath=id=>'/control/v1/projects/'+encodeURIComponent(id)+'/start-request';
+ const startPath=p=>'/control/v1/tasks/'+encodeURIComponent(p.task.id)+'/start-request';
+ const startHeaders=p=>({'If-Match':p.etag,'Idempotency-Key':p.key});
+ function renderStart(){
+  const root=$('start-record');root.replaceChildren();const p=controlAttempt?.action==='start'?controlAttempt:null;if(!p)return;
+  root.append(node('p','原阶段：'+labels[p.role]+'；原请求状态：'+(p.journal?.state||'保存尚未核对')+'。'),node('p',p.task.goal,'task-goal'),node('p','原任务：'+p.task.id+'；原条件：'+p.etag+'；原启动标识：'+p.key,'details'));
+  const b=p.plan.bindings[p.role];for(const t of b.mode==='locked'?[b.target]:b.candidates)root.append(node('p','冻结模型：'+t.resolved_model+'；路线：'+t.route.id+'@'+t.route.revision+'；effort：'+t.effort.requested_mode+(t.effort.value?' / '+t.effort.value:'')+'；账号：'+t.account,'details'));
+  root.append(node('p','原计划 hash：'+p.plan.hash+'；上方当前配置不会改写此原请求。','details'));
+  const run=p.runId||p.journal?.run_id;if(run)root.append(node('p','原运行：'+run+'；运行状态须独立核对，确认记录不证明成功或停止。','details'));
+ }
+ function finishStart(message){controlAttempt=null;startBlocked=false;renderStart();renderRun();executionNotice(message);lock(!!attempt||recoveryBlocked);controls();renderList()}
+ async function originalStartRun(p,record){
+  const reply=await request('/agent/v1/tasks/'+encodeURIComponent(p.task.id)+'/runs/'+encodeURIComponent(record.run_id));
+  const run=runValue(reply,{...p,runId:record.run_id},true,true);
+  return verifiedRun(run,p);
+ }
+ async function absentPreparation(p){
+  if(!['prepare','abandon'].includes(p.phase)||p.startSent||p.journal||p.runId)return false;
+  const current=await request('/agent/v1/tasks/'+encodeURIComponent(p.task.id));taskValue(current.body,p.task.project_id,current.etag);
+  if(current.status!==200||current.body.id!==p.task.id||current.body.goal!==p.task.goal||current.body.generation<p.task.generation||current.body.plan_revision<p.task.plan_revision||(current.body.generation===p.task.generation&&current.body.plan_revision===p.task.plan_revision))return false;
+  // Read absence again after the monotonic Task proof: a delayed prepare may
+  // have committed before the Task advanced. Absence alone cannot release it.
+  try{await request(startPath(p),{headers:startHeaders(p)});return false}catch(e){if(e.status!==404||e.code!=='record_unavailable')throw e}
+  return true;
+ }
+ async function readStartOriginal(restoring=false){
+  if(controlBusy||busy||!project)return;
+  const scope=project,version=epoch,serial=++startSerial,old=controlAttempt?.action==='start'?controlAttempt:null;
+  controlBusy=true;startBlocked=true;lock(true);controls();
+  try{
+   const result=await request(old?startPath(old):pendingStartPath(scope),old?{headers:startHeaders(old)}:{});
+   if(version!==epoch||serial!==startSerial)return;
+   const record=startJournalValue(result.body,scope,old);if(result.status!==200||old&&!record)throw bad();
+   if(!record){startBlocked=false;renderStart();return}
+   const p=old||{task:record.task,plan:record.plan,etag:record.etag,key:record.key,role:record.role,body:JSON.stringify({role:record.role}),action:'start',phase:'start',unknown:true};
+   p.journal=record;controlAttempt=p;startBlocked=false;renderStart();
+   if(record.state==='abandoned'){finishStart('原启动请求已封存，迟到启动将被拒绝。');await loadTask(p.task.id,true);return}
+   if(record.state==='acknowledged'){knownRun=await originalStartRun(p,record);finishStart('原阶段运行已核对，原启动记录已确认；不自动启动。');await loadTask(p.task.id,true);return}
+   if(p.phase==='abandon'&&record.state==='committed')p.phase='start';
+   await loadTask(p.task.id,true);
+   executionNotice((restoring?'已恢复原阶段启动请求。':'已核对原阶段启动请求。')+(record.state==='committed'?'原运行已写入；请重试原运行请求以独立核对并确认记录。':'原请求已保存；可重试同一原启动或封存未启动请求。')+'本次回读不启动阶段。');
+   if(restoring)onNotice('已恢复原阶段启动请求；当前配置不会覆盖原请求，本次仅回读。',false);
+  }catch(e){
+   if(version===epoch&&serial===startSerial){
+    if(old&&e.status===404&&e.code==='record_unavailable'){
+     try{if(await absentPreparation(old)&&version===epoch&&serial===startSerial){finishStart('原准备记录不存在，原任务条件已失效；未发送启动，迟到原请求将被拒绝。');await loadTask(old.task.id,true);return}}catch{}
+    }
+    startBlocked=!old;renderStart();executionNotice('原启动请求核对失败，原身份保留，暂时不能新建运行。'+readFailure(e));
+   }
+  }
+  finally{if(version===epoch&&serial===startSerial){controlBusy=false;lock(!!attempt||recoveryBlocked);controls();renderList()}}
+ }
+ async function abandonStart(){
+  const p=controlAttempt;if(controlBusy||busy||detailBusy||p?.action!=='start'||p.runId||p.journal?.run_id)return;
+  if(p.phase!=='abandon'&&!window.confirm('封存尚未写入运行的原请求，并拒绝迟到启动。已经有运行的请求不能封存。继续？'))return;
+  p.phase='abandon';controlBusy=true;lock(true);controls();let reread=false;
+  try{
+   if(!p.journal){const prepared=await request(startPath(p),{method:'POST',headers:startHeaders(p),body:p.body});const record=startJournalValue(prepared.body,project,p);if(prepared.status!==200||!record)throw bad();p.journal=record;renderStart()}
+   const result=await request(startPath(p)+'/abandon',{method:'POST',headers:startHeaders(p),body:p.body}),record=startJournalValue(result.body,project,p);
+   if(result.status!==200||record?.state!=='abandoned')throw bad();
+   finishStart('原启动请求已封存，迟到启动将被拒绝。');await loadTask(p.task.id,true);
+  }catch(e){if(controlAttempt===p){p.unknown=true;if(e.status===409){p.phase='start';reread=true}executionNotice('封存结果未确认，原启动请求已保留；请核对原请求或重试同一封存。');renderStart()}}
+  finally{controlBusy=false;lock(!!attempt||recoveryBlocked);controls();renderList()}
+  if(reread)await readStartOriginal();
+ }
  function runValue(reply,p,start=false,reading=false){
   const tag=/^"p([1-9][0-9]*)-g(0|[1-9][0-9]*)-([a-z_]+)"$/.exec(reply?.taskEtag||'');
   const b=reply?.body,r=b?.run,binding=p.plan.bindings[r?.role],targets=binding?.mode==='locked'?[binding.target]:binding?.candidates;
@@ -274,37 +353,54 @@ export function createWorkbench({request,onLock,onNotice,onRestore}){
   root.append(node('p','已知阶段执行：'+r.id+' · '+labels[r.role]+' · '+r.state+' · attempt '+r.attempt+' · generation '+r.generation+'。'),node('p','执行模型：'+r.target.resolved_model+'；路线：'+r.target.route.id+'@'+r.target.route.revision+'；effort：'+r.target.effort.requested_mode+(r.target.effort.value?' / '+r.target.effort.value:''),'details'),node('p','阶段结果不等于整项验收；取消不表示文件回滚或预算退款。','details'));
  }
  async function execute(action,retry=false){
-  if(controlBusy||busy||detailBusy||attempt||recoveryBlocked)return;
+  if(controlBusy||busy||detailBusy||attempt||recoveryBlocked||startBlocked)return;
+  if(retry&&controlAttempt?.phase==='abandon'){await abandonStart();return}
   if(!retry){
    if(controlAttempt||!taskData)return;
    const button={start:'start-role',pause:'pause-task',continue:'continue-task',cancel:'cancel-task'}[action];if(!button||$(button).disabled)return;
    if(action==='cancel'&&!window.confirm('取消此任务并停止其当前执行。取消不回滚文件或退还预算，继续？'))return;
    const role=$('execution-role').value;if(action==='start'&&!taskData.plan.required_roles.includes(role))return;
    let key='';if(action==='start'){try{key='run_ui_'+[...crypto.getRandomValues(new Uint8Array(16))].map(n=>n.toString(16).padStart(2,'0')).join('')}catch{executionNotice('无法生成启动标识，未发送请求。');return}}
-   controlAttempt={task:JSON.parse(JSON.stringify(taskData.task)),plan:JSON.parse(JSON.stringify(taskData.plan)),etag:taskData.etag,role,key,action,body:JSON.stringify(action==='start'?{role}:{}),unknown:false};
+   controlAttempt={task:JSON.parse(JSON.stringify(taskData.task)),plan:JSON.parse(JSON.stringify(taskData.plan)),etag:taskData.etag,role,key,action,body:JSON.stringify(action==='start'?{role}:{}),unknown:false,phase:action==='start'?'prepare':''};
   }
-  const p=controlAttempt;if(!p)return;controlBusy=true;lock(true);controls();renderList();executionNotice('正在核对运行请求…');
+  const p=controlAttempt;if(!p)return;controlBusy=true;lock(true);renderStart();controls();renderList();executionNotice('正在核对运行请求…');let reread=false;
   try{
+   if(p.action==='start'){
+    const saved=await request(startPath(p),p.journal?{headers:startHeaders(p)}:{method:'POST',headers:startHeaders(p),body:p.body});
+    const record=startJournalValue(saved.body,p.task.project_id,p);if(saved.status!==200||!record)throw bad();p.journal=record;renderStart();
+    if(record.state==='abandoned'){finishStart('原启动请求已封存，迟到启动将被拒绝。');await loadTask(p.task.id,true);return}
+    if(record.run_id){knownRun=await originalStartRun(p,record)}
+    else{
+     p.phase='start';p.startSent=true;let result;
+     try{result=await request('/control/v1/tasks/'+encodeURIComponent(p.task.id)+'/start',{method:'POST',headers:startHeaders(p),body:p.body})}catch(e){if(e.status===409&&e.reply?.body?.run)result=e.reply;else throw e}
+     p.received=true;const run=runValue(result,p,true);knownRun=await verifiedRun(run,p);
+    }
+    p.runId=knownRun.run.id;p.phase='acknowledge';renderRun();renderStart();
+    if(record.state!=='acknowledged'){
+     const resolved=await request(startPath(p)+'/acknowledge',{method:'POST',headers:startHeaders(p),body:JSON.stringify({role:p.role,run_id:p.runId})});
+     const acknowledged=startJournalValue(resolved.body,p.task.project_id,p);if(resolved.status!==200||acknowledged?.state!=='acknowledged'||acknowledged.run_id!==p.runId)throw bad();
+    }
+    finishStart('启动意图已受理，原启动记录已确认，请核对实际运行状态；不自动启动下一阶段。');await loadTask(p.task.id,true);refreshList();return;
+   }
    let result;
    try{result=await request('/control/v1/tasks/'+encodeURIComponent(p.task.id)+'/'+p.action,{method:'POST',headers:{'If-Match':p.etag,...(p.key?{'Idempotency-Key':p.key}:{})},body:p.body})}catch(e){if(e.status===409&&e.reply?.body?.run)result=e.reply;else throw e}
    if(controlAttempt!==p)return;
    p.received=true;
-   if(p.action==='start'){
-    const run=runValue(result,p,true);knownRun=await verifiedRun(run,p);
-   }else{
-    if(![200,202,409].includes(result.status)||typeof result.body?.changed!=='boolean'||!result.body.task||result.body.task.id!==p.task.id||result.body.task.goal!==p.task.goal||result.body.task.plan_revision<p.task.plan_revision||result.body.task.generation<p.task.generation)throw bad();
-    taskValue(result.body.task,p.task.project_id,result.taskEtag);
-    if(result.body.run){const run=runValue({...result,body:{...result.body,created:false}},p);knownRun=await verifiedRun(run,p)}
-   }
-   controlAttempt=null;renderRun();executionNotice(result.status===409?'原运行意图已记录，执行需要核对；不自动重跑。':p.action==='start'?'启动意图已受理，请核对实际运行状态。':'控制回执已核对，请核对实际任务状态；202 只表示意图已受理。');
+   if(![200,202,409].includes(result.status)||typeof result.body?.changed!=='boolean'||!result.body.task||result.body.task.id!==p.task.id||result.body.task.goal!==p.task.goal||result.body.task.plan_revision<p.task.plan_revision||result.body.task.generation<p.task.generation)throw bad();
+   taskValue(result.body.task,p.task.project_id,result.taskEtag);
+   if(result.body.run){const run=runValue({...result,body:{...result.body,created:false}},p);knownRun=await verifiedRun(run,p)}
+   controlAttempt=null;renderRun();executionNotice(result.status===409?'原运行意图已记录，执行需要核对；不自动重跑。':'控制回执已核对，请核对实际任务状态；202 只表示意图已受理。');
    await loadTask(p.task.id,true);refreshList();
   }catch(e){
    if(controlAttempt!==p)return;
-   if(!p.unknown&&!p.received&&!e.reply?.body?.run&&[400,401,403,404,412,428].includes(e.status)&&e.code&&e.code!=='response_unavailable'){
+   if(!p.unknown&&!p.received&&!p.journal&&!e.reply?.body?.run&&(p.action==='start'?[400,409,412,428]:[400,401,403,404,412,428]).includes(e.status)&&e.code&&e.code!=='response_unavailable'){
     controlAttempt=null;taskData=null;executionNotice(e.status===412?'任务条件已变化，原请求已拒绝；重新读取后再操作。':e.status===401||e.status===403?'运行授权已失效，请重新连接并核对。':'运行请求已拒绝，请重新读取任务核对。');
-   }else{p.unknown=true;executionNotice('运行结果未确认。原运行请求已保留，不能换 key 或条件重新启动；请重试原运行请求或重新读取任务。')}
-  }finally{controlBusy=false;lock(!!attempt||recoveryBlocked);controls();renderList()}
+    if(p.action==='start'&&e.status===409){startBlocked=true;reread=true}
+   }else{p.unknown=true;executionNotice((p.action==='start'&&p.phase==='prepare'?'原启动请求保存结果未确认，尚未发送启动。':p.phase==='acknowledge'?'原启动记录确认未核对。':'运行结果未确认。')+'原运行请求已保留，不能换 key 或条件重新启动；请核对或重试原请求。')}
+  }finally{controlBusy=false;renderStart();lock(!!attempt||recoveryBlocked);controls();renderList()}
+  if(reread)await readStartOriginal();
  }
+ $('refresh-start').onclick=()=>readStartOriginal();$('abandon-start').onclick=abandonStart;
  $('read-events').onclick=()=>readEvents();$('reset-events').onclick=()=>readEvents(true);
  $('start-role').onclick=()=>execute('start');$('pause-task').onclick=()=>execute('pause');$('continue-task').onclick=()=>execute('continue');$('cancel-task').onclick=()=>execute('cancel');$('retry-execution').onclick=()=>execute('',true);
  $('submit-task').onclick=submit;$('retry-task').onclick=submit;$('refresh-submission').onclick=()=>readOriginal();$('abandon-submission').onclick=abandon;$('refresh-tasks').onclick=()=>refreshList();$('older-tasks').onclick=()=>refreshList(true);$('reload-task').onclick=()=>loadTask(selected);

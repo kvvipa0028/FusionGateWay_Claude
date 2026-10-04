@@ -22,10 +22,10 @@
 
 [CONTROL-UI-01](CONTROL-UI-01/summary.md) 已在原任务详情区接入明确角色启动、暂停、继续、整项取消、运行记录回读及未确认原运行请求重试；复用原样式，CSS 未改。浏览器与合成执行、版本/回执边界通过验证，真实供应商执行与实际 Native 运行按钮仍未验证。
 
-工程流程的下一阶段 Gate、运行事件/计划修订工作台、关闭窗口后的原启动身份恢复及实际 Native 恢复窗口仍待实施或验证。页面测试未证明真实 provider 或账号执行；最终验收矩阵保持 not_run，Jev off。
+工程流程的下一阶段 Gate、计划修订工作台及实际 Native 恢复窗口仍待实施或验证；有界运行事件与原启动身份浏览器恢复见后续组件。页面测试未证明真实 provider 或账号执行；最终验收矩阵保持 not_run，Jev off。
 
 [QUOTA-UI-01](QUOTA-UI-01/summary.md)以默认折叠列表接入缓存读取和显式供应商刷新，复用 Magpie UI，CSS 不改。空值/历史/共享池/来源时间、跨项目响应和失效授权已验证；Native query-only 产品启动/未知缓存/退出通过，实际窗口点击因锁屏未验证。
 
 [EVENT-PAGE-01](EVENT-PAGE-01/summary.md)新增有界只读事件分页及精确 Native 通路，在原详情附近用默认折叠区按序回读，CSS 未改。完整浏览器49PASS、API113顶层/81子、Native/Store12顶层/22子PASS；关闭重开、授权/来源撤销和游标边界验证通过。实际 Native 点击、实时推送、真实供应商执行和完整工程闭环仍未完成；父包保持 in_progress，最终60类验收 not_run。
 
-[START-JOURNAL-01](../WP-15/START-JOURNAL-01/summary.md)补齐跨窗口原启动身份恢复所需的Store基础；本页尚未消费，UI/CSS没有改动，关闭窗口后的start恢复仍待接入。
+[START-JOURNAL-01](../WP-15/START-JOURNAL-01/summary.md)及[START-JOURNAL-API-01](../WP-15/START-JOURNAL-API-01/summary.md)提供 Store 原记录与精确 Native 通路；后续[START-RECOVERY-UI-01](START-RECOVERY-UI-01/summary.md)已在原详情区接入持久准备、浏览器/宿主重开回读、独立运行确认和明确封存。复用原 Magpie 样式，全部 CSS 未改；实际 Native 恢复点击仍未验证，父包保持 in_progress。

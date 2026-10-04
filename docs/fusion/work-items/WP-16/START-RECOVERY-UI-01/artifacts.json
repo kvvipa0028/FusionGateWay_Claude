@@ -1,0 +1,39 @@
+{
+  "base": "5727dc8ce57f060f8fbe2ffb28d657cbf3bb7481",
+  "sources": {
+    "docs/fusion/README.md": "4b2e9eb1d5ab009ae13ec37112b2943b73a389fe278deb7f08c698c81842edde",
+    "docs/fusion/contracts/task-execution-ui.md": "f50e90f268ab556bfa35a329a1377c9d59d71adc03b7cdb7f13a24f35ec8e88b",
+    "docs/fusion/contracts/task-start-api.md": "d7246f24b8a23aa6ed891d8299a58a7f2a0a31a8db5071bdb0ed5460e8990e61",
+    "docs/fusion/contracts/task-start-journal.md": "49c0e6c39f597c287cefe9311601aaee4281eaeb8ae63a26416df46f1f34f33f",
+    "docs/fusion/work-items/WP-16/summary.md": "ae6e164849ce14293f37d81733480d235e1e476f44c401ad69015f7ab953f75e",
+    "internal/gui/assets/fusion/index.html": "1337e8e14c5dc5661dad025ae344cc9c451f6bed1f91d74da834cb03cdab1ba6",
+    "internal/gui/assets/fusion/workbench.mjs": "79eaabc1977cc3a200e25bb29e44daaec91c173f2e6e38368168a185d951e1ad",
+    "internal/gui/tests/fusion-stage-editor.test.cjs": "5c3650a36e80d5493ef85652e37ada0b9c0ebb1a45902b33299697236d3e0845",
+    "docs/fusion/contracts/task-start-ui.md": "2e69492bf1a51bee200b9e46df23d6e0a111dcd59f1a7bab8009343de456d6af"
+  },
+  "files": {
+    "start-recovery-desktop.png": "d09ad016a31f2bdd8b5c1f6e270d52b751fa0b2b9afa0ad05fb6eb0159ca3ed8",
+    "test-results.json": "7dcdd4432f32fd19508147f5e15acacae945890270bb23a82cc5d218f1ead3db",
+    "wp16-start-ui-fixture-final.log": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "wp16-start-ui-recovery-final.log": "071735290f7af2a03e8237062166089abd8306bd0f6cf3c68621e98f9ebfde62",
+    "summary.md": "1e4bfe7d28ac9400356c1dbb4a871a5024111c4a89bb851d4dd4b3cdee55f830",
+    "wp16-start-ui-absence-seal-red.log": "1beac79e4f80eff479fa838c5301bea7ec36e030a63f80442d48c17217c5d0cf",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-results.json": "1f0f6c8b175e9e5562ff3892304c223edb12884ea03a75c79b443fe6ba2ffe7b",
+    "wp16-start-ui-absence-red.log": "4293b979f706d0761f5f6b7b8ee14b7eb5c4a5251db4a4ec9b893aeeba25c7d9",
+    "wp16-start-ui-native-final.log": "6a88666dd2cbdc2cf3db755137b9750c6dffeea830433bcf95b39caa4269c251",
+    "wp16-start-ui-browser-verified.log": "5837005488749db587c2e229b00fcd5dba00a8f7d7301daa07b223557048e4fd",
+    "wp16-start-ui-red.log": "0d949a1c76fd0a10a37dca1ff0f0c014eb53cdbba14acc8aecb6fc55d95d7340",
+    "wp16-start-ui-model-final.log": "de22848ff17bf0c094accd26027b4ab43299c70568439e3ea6960efa79ef26a6",
+    "build-gui.log": "470300590e03b0b0048001708f011ca4071cf02ac586dff5bb487ae74297ede2",
+    "wp16-start-ui-gui-final.log": "a209b399b3790dfafe3b635581505d304e6b00f51f3672e501094712815a3259",
+    "start-recovery-mobile.png": "8b1d747a18671bd5e81eec629ceab7a046cfff6bd33864e6c56fd93028e090b6",
+    "wp16-start-ui-browser-complete.log": "caf54c737d762efce05ae403732e9fa638aa55c44a40edef124721d839c1b7d4",
+    "wp16-start-ui-go-final.log": "5ad5dd5a2b79b9c3fa49bf0b2e52192bd8ff1aa5bd28a2401ba19666789f3b24",
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "binary_sha256": {
+    "fusion-gateway-cli": "7cb5d89402dab8fd4b55f67a885bbedce92856801cb9569a044be7c0092169f0",
+    "fusion-gateway-gui": "0201edac89461945af6274e1e96a3649b86f92889a0cb610765bf3a77705feed"
+  }
+}

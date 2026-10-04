@@ -1,6 +1,6 @@
 # 原阶段启动记录 API 与 Native 通路
 
-组件 WP-15-START-JOURNAL-API-01，基于 [Store 持久记录](task-start-journal.md)。Management API 与精确 Native 桥已接入；原 Magpie 详情区的 UI 消费尚未接入，本组件未改 UI/CSS。记录只用于恢复原请求，不授予执行准入、Runtime 接管、停止证明或验收权限。
+组件 WP-15-START-JOURNAL-API-01，基于 [Store 持久记录](task-start-journal.md)。Management API 与精确 Native 桥已接入；后续[原 Magpie 详情区恢复页面](task-start-ui.md)已消费，本 API 组件当时未改 UI/CSS。记录只用于恢复原请求，不授予执行准入、Runtime 接管、停止证明或验收权限。
 
 ## 固定接口
 
@@ -44,4 +44,4 @@ PATH="$HOME/.local/bin:$PATH" python3 scripts/fusion/build-dev.py
 
 测试使用临时私有 HOME/XDG、合成账号/路线/额度与真实 loopback HTTP/Store/Controller。Native 桥重开测试用可信 Store 构造“已持久意图、尚未调用 Runtime”的崩溃记录，重开后 unknown 保持；不作为真实 Native 进程执行证据。最终 354 顶层/418 子测试 PASS，12 顶层 SKIP、0 FAIL；跳过项为 opt-in 的真实 Native/供应商测试及 helper，不计通过。CLI/GUI/vet exit0。OpenAPI 37 路径/43 操作/106 实际 Handler 样本全部覆盖，新增 10 个响应反例；跨字段身份、权限时序与运行证明由行为测试核对，schema 不代替这些验证。
 
-原 Magpie app.css/app.js/index.html、本组件前全部 Fusion UI/CSS、Controller/Runtime/policy 实现及 schema001–008 均未改。UI 未接入本 API，因此原启动身份跨窗口的用户操作流程仍未交付；实际 Native 点击/像素未验证，真实模型与额度调用为零，Jev off。证据见 [START-JOURNAL-API-01](../work-items/WP-15/START-JOURNAL-API-01/summary.md)。父 WP-15/WP-16 与整体目标仍 in_progress，最终 T01–T60 not_run。
+原 Magpie app.css/app.js/index.html、本 API 组件前全部 Fusion UI/CSS、Controller/Runtime/policy 实现及 schema001–008 均未改。本 API 组件的证据见 [START-JOURNAL-API-01](../work-items/WP-15/START-JOURNAL-API-01/summary.md)。后续[恢复页面](task-start-ui.md)已验证浏览器关闭/宿主重开后的原身份读取与明确解决；实际 Native 点击/像素仍未验证，真实模型与额度调用为零，Jev off。父 WP-15/WP-16 与整体目标仍 in_progress，最终 T01–T60 not_run。

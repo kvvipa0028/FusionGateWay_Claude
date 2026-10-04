@@ -1,0 +1,44 @@
+✖ start recovery: lost preparation persists the original identity across host restart and seals late start (4956.492875ms)
+✖ start recovery: committed lost reply reopens and confirms the original run without another start (996.821041ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6141.97675
+
+✖ failing tests:
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:778:1
+✖ start recovery: lost preparation persists the original identity across host restart and seals late start (4956.492875ms)
+  AssertionError [ERR_ASSERTION]: original request must be persisted before dispatch
+
+  0 !== 1
+
+      at TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:786:9)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:801:1
+✖ start recovery: committed lost reply reopens and confirms the original run without another start (996.821041ms)
+  AssertionError [ERR_ASSERTION]: a committed original start must survive lost reply
+      at TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:806:9)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

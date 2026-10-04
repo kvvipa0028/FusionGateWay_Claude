@@ -1,0 +1,143 @@
+{
+  "component": "WP-16-START-RECOVERY-UI-01",
+  "base": "5727dc8ce57f060f8fbe2ffb28d657cbf3bb7481",
+  "parent_status": "in_progress",
+  "goal_status": "active",
+  "final_acceptance": "not_run",
+  "real_model_calls": 0,
+  "real_quota_calls": 0,
+  "native_ui_clicks": "not_run_mac_locked",
+  "jev": "off",
+  "checks": {
+    "wp16-start-ui-red.log": {
+      "tests": 2,
+      "pass": 0,
+      "fail": 2,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "wp16-start-ui-absence-red.log": {
+      "tests": 1,
+      "pass": 0,
+      "fail": 1,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "wp16-start-ui-browser-complete.log": {
+      "tests": 59,
+      "pass": 58,
+      "fail": 1,
+      "cancelled": 0,
+      "skipped": 0,
+      "phase": "historical before explicit seal boundary final extension"
+    },
+    "wp16-start-ui-recovery-final.log": {
+      "tests": 10,
+      "pass": 10,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "phase": "historical before explicit seal boundary final extension"
+    },
+    "wp16-start-ui-browser-verified.log": {
+      "tests": 59,
+      "pass": 59,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "wp16-start-ui-go-final.log": {
+      "PASS": 10,
+      "FAIL": 0,
+      "SKIP": 0,
+      "subpass": 22
+    },
+    "wp16-start-ui-native-final.log": {
+      "PASS": 6,
+      "FAIL": 0,
+      "SKIP": 0,
+      "subpass": 38
+    },
+    "wp16-start-ui-gui-final.log": {
+      "PASS": 1,
+      "FAIL": 0,
+      "SKIP": 0,
+      "subpass": 0
+    },
+    "wp16-start-ui-model-final.log": {
+      "tests": 10,
+      "pass": 10,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "wp16-start-ui-fixture-final.log": {},
+    "wp16-start-ui-absence-seal-red.log": {
+      "tests": 1,
+      "pass": 0,
+      "fail": 1,
+      "cancelled": 0,
+      "skipped": 0
+    }
+  },
+  "log_provenance": {
+    "wp16-start-ui-red.log": {
+      "scratch_raw_sha256": "f4776b3702ad6dac89cf706953dbb4e998b41d69130768ea07d75933cb440161",
+      "packet_sha256": "0d949a1c76fd0a10a37dca1ff0f0c014eb53cdbba14acc8aecb6fc55d95d7340",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp16-start-ui-absence-red.log": {
+      "scratch_raw_sha256": "4293b979f706d0761f5f6b7b8ee14b7eb5c4a5251db4a4ec9b893aeeba25c7d9",
+      "packet_sha256": "4293b979f706d0761f5f6b7b8ee14b7eb5c4a5251db4a4ec9b893aeeba25c7d9",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp16-start-ui-browser-complete.log": {
+      "scratch_raw_sha256": "ba049f6ba8e669052731bf7dfea06058d112a81c669b29af044ff9050b68a452",
+      "packet_sha256": "caf54c737d762efce05ae403732e9fa638aa55c44a40edef124721d839c1b7d4",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp16-start-ui-recovery-final.log": {
+      "scratch_raw_sha256": "071735290f7af2a03e8237062166089abd8306bd0f6cf3c68621e98f9ebfde62",
+      "packet_sha256": "071735290f7af2a03e8237062166089abd8306bd0f6cf3c68621e98f9ebfde62",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp16-start-ui-browser-verified.log": {
+      "scratch_raw_sha256": "5837005488749db587c2e229b00fcd5dba00a8f7d7301daa07b223557048e4fd",
+      "packet_sha256": "5837005488749db587c2e229b00fcd5dba00a8f7d7301daa07b223557048e4fd",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp16-start-ui-go-final.log": {
+      "scratch_raw_sha256": "5ad5dd5a2b79b9c3fa49bf0b2e52192bd8ff1aa5bd28a2401ba19666789f3b24",
+      "packet_sha256": "5ad5dd5a2b79b9c3fa49bf0b2e52192bd8ff1aa5bd28a2401ba19666789f3b24",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp16-start-ui-native-final.log": {
+      "scratch_raw_sha256": "6a88666dd2cbdc2cf3db755137b9750c6dffeea830433bcf95b39caa4269c251",
+      "packet_sha256": "6a88666dd2cbdc2cf3db755137b9750c6dffeea830433bcf95b39caa4269c251",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp16-start-ui-gui-final.log": {
+      "scratch_raw_sha256": "a209b399b3790dfafe3b635581505d304e6b00f51f3672e501094712815a3259",
+      "packet_sha256": "a209b399b3790dfafe3b635581505d304e6b00f51f3672e501094712815a3259",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp16-start-ui-model-final.log": {
+      "scratch_raw_sha256": "de22848ff17bf0c094accd26027b4ab43299c70568439e3ea6960efa79ef26a6",
+      "packet_sha256": "de22848ff17bf0c094accd26027b4ab43299c70568439e3ea6960efa79ef26a6",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp16-start-ui-fixture-final.log": {
+      "scratch_raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "packet_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp16-start-ui-absence-seal-red.log": {
+      "scratch_raw_sha256": "1beac79e4f80eff479fa838c5301bea7ec36e030a63f80442d48c17217c5d0cf",
+      "packet_sha256": "1beac79e4f80eff479fa838c5301bea7ec36e030a63f80442d48c17217c5d0cf",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    }
+  },
+  "ui": "reuse original Magpie classes; no CSS or navigation redesign",
+  "visual": "desktop and 390px browser screenshots inspected; not Native pixels",
+  "final_browser_new_recovery_cases": 10
+}

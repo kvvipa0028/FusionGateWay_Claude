@@ -1,0 +1,19 @@
+✖ start recovery: absent preparation clears only after independent advanced Task proof and a second absence read (2750.21225ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2946.467
+
+✖ failing tests:
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:780:1
+✖ start recovery: absent preparation clears only after independent advanced Task proof and a second absence read (2750.21225ms)
+  page.waitForFunction: Timeout 1500ms exceeded.
+      at TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:790:82) {
+    name: 'TimeoutError',
+    log: []
+  }

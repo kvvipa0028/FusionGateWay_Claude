@@ -1,0 +1,70 @@
+# github.com/yetone/magpie/internal/gui [github.com/yetone/magpie/internal/gui.test]
+internal/gui/trayimage_darwin.go:105:67: warning: implicit conversion from enumeration type 'enum CGImageAlphaInfo' to different enumeration type 'CGBitmapInfo' (aka 'enum CGBitmapInfo') [-Wimplicit-enum-enum-cast]
+=== RUN   TestNativeStageBridgeAcceptsSDKWindowHeaders
+--- PASS: TestNativeStageBridgeAcceptsSDKWindowHeaders (0.08s)
+=== RUN   TestNativeStageBridgeFreezesOwnedWindow
+=== RUN   TestNativeStageBridgeFreezesOwnedWindow/missing-id
+=== RUN   TestNativeStageBridgeFreezesOwnedWindow/other-id
+=== RUN   TestNativeStageBridgeFreezesOwnedWindow/missing-name
+=== RUN   TestNativeStageBridgeFreezesOwnedWindow/other-name
+=== RUN   TestNativeStageBridgeFreezesOwnedWindow/duplicate-id
+=== RUN   TestNativeStageBridgeFreezesOwnedWindow/duplicate-name
+--- PASS: TestNativeStageBridgeFreezesOwnedWindow (0.08s)
+    --- PASS: TestNativeStageBridgeFreezesOwnedWindow/missing-id (0.00s)
+    --- PASS: TestNativeStageBridgeFreezesOwnedWindow/other-id (0.00s)
+    --- PASS: TestNativeStageBridgeFreezesOwnedWindow/missing-name (0.00s)
+    --- PASS: TestNativeStageBridgeFreezesOwnedWindow/other-name (0.00s)
+    --- PASS: TestNativeStageBridgeFreezesOwnedWindow/duplicate-id (0.00s)
+    --- PASS: TestNativeStageBridgeFreezesOwnedWindow/duplicate-name (0.00s)
+=== RUN   TestNativeStageBridgeCloseCancelsAnUnfinishedBody
+--- PASS: TestNativeStageBridgeCloseCancelsAnUnfinishedBody (0.07s)
+=== RUN   TestNativeStageBridgeUsesOwnedAuthenticatedHost
+--- PASS: TestNativeStageBridgeUsesOwnedAuthenticatedHost (0.10s)
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/real-network-peer
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/foreign-host
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/foreign-origin
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/null-origin
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/foreign-referer
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/cross-site
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/authority
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/cookie
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/forwarding
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/query
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/escaped-path
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/absolute-request
+--- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion (0.07s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/real-network-peer (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/foreign-host (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/foreign-origin (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/null-origin (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/foreign-referer (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/cross-site (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/authority (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/cookie (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/forwarding (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/query (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/escaped-path (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/absolute-request (0.00s)
+=== RUN   TestNativeStageBridgeSavesVersionedPresetOnly
+--- PASS: TestNativeStageBridgeSavesVersionedPresetOnly (0.09s)
+=== RUN   TestNativeStageBridgeRevocationAndClose
+=== RUN   TestNativeStageBridgeRevocationAndClose/source
+=== RUN   TestNativeStageBridgeRevocationAndClose/token
+=== RUN   TestNativeStageBridgeRevocationAndClose/bridge-close
+=== RUN   TestNativeStageBridgeRevocationAndClose/host-close
+--- PASS: TestNativeStageBridgeRevocationAndClose (0.30s)
+    --- PASS: TestNativeStageBridgeRevocationAndClose/source (0.07s)
+    --- PASS: TestNativeStageBridgeRevocationAndClose/token (0.07s)
+    --- PASS: TestNativeStageBridgeRevocationAndClose/bridge-close (0.07s)
+    --- PASS: TestNativeStageBridgeRevocationAndClose/host-close (0.07s)
+=== RUN   TestNativeStageBridgeTaskIndexReadOnlyAndSourceBound
+--- PASS: TestNativeStageBridgeTaskIndexReadOnlyAndSourceBound (0.09s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	2.492s
+=== RUN   TestFusionNativeAndGUIIngressDoesNotTrustLoopback
+--- PASS: TestFusionNativeAndGUIIngressDoesNotTrustLoopback (0.00s)
+=== RUN   TestFusionOldWebEntryIsRefusedBeforeListeningOrQueryKey
+--- PASS: TestFusionOldWebEntryIsRefusedBeforeListeningOrQueryKey (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/gui	1.547s

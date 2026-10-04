@@ -59,7 +59,7 @@ async function fixture(t,admitted=false,withSecondProject=false,executionMode=""
   const page=await context.newPage();
   const errors=[];page.on("pageerror",e=>errors.push(e.message));
   if(beforeLoad)await beforeLoad(context);
-  await page.goto(origin+"/fusion/");await page.getByRole("status").filter({hasText:/已载入当前配置|已恢复原任务请求/}).waitFor();
+  await page.goto(origin+"/fusion/");await page.locator("#status").filter({hasText:/已载入当前配置|已恢复原任务请求|已恢复原阶段启动请求/}).waitFor();
   return {page,context,errors};
  };
  return {get origin(){return origin},newPage,async restart(){
@@ -536,12 +536,13 @@ test('execution controls: idle pause continue cancel use the frozen Task conditi
  page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'取消任务',exact:true}).click();await page.locator('#execution-status').filter({hasText:'控制回执已核对'}).waitFor();await page.locator('#task-detail').filter({hasText:'(cancelled)'}).waitFor();assert.ok((await page.locator('#task-detail').innerText()).includes('cancelled'));
  const current=await f.request('/agent/v1/tasks/'+task.id);assert.equal(current.body.generation,3);assert.equal(current.body.state,'cancelled');assert.equal(await page.getByRole('button',{name:'启动所选阶段',exact:true}).isDisabled(),true);assert.deepEqual(errors,[]);
 });
-test('execution controls: a lost start receipt retries the exact original key and role then cancels one run',async t=>{
+test('execution controls: a lost start receipt reconciles the exact original journal then cancels one run',async t=>{
  const f=await fixture(t,true,false,'hold'),{page,context,task,errors}=await savedControlTask(t,f);const posts=[];let originalRun;
  assert.equal(await page.getByRole('button',{name:'启动所选阶段',exact:true}).count(),1);
  await context.route('**/control/v1/tasks/*/start',async route=>{posts.push({body:route.request().postData(),key:route.request().headers()['idempotency-key'],tag:route.request().headers()['if-match']});const response=await route.fetch();const body=await response.json();originalRun=body.run.id;if(posts.length===1)await route.fulfill({status:503,json:{error:{code:'lost_start_reply'}}});else await route.fulfill({response})});
  await page.getByRole('button',{name:'启动所选阶段',exact:true}).click();await page.locator('#execution-status').filter({hasText:'原运行请求已保留'}).waitFor();assert.equal(await page.getByLabel('项目',{exact:true}).isDisabled(),true);
- await page.getByRole('button',{name:'重试原运行请求',exact:true}).click();await page.locator('#run-record').filter({hasText:originalRun}).waitFor();assert.deepEqual(posts[1],posts[0]);assert.equal(posts[0].tag,'"p1-g0-ready"');assert.equal((await f.request('/agent/v1/tasks/'+task.id)).body.generation,1);
+ await page.getByRole('button',{name:'重试原运行请求',exact:true}).click();await page.locator('#execution-status').filter({hasText:'原启动记录已确认'}).waitFor();assert.equal(posts.length,1);assert.equal(posts[0].tag,'"p1-g0-ready"');assert.equal((await f.request('/agent/v1/tasks/'+task.id)).body.generation,1);
+ const original=(await f.request('/control/v1/tasks/'+task.id+'/start-request','GET',null,posts[0].tag,posts[0].key)).body.request;assert.equal(original.state,'acknowledged');assert.equal(original.run_id,originalRun);assert.equal(original.role,JSON.parse(posts[0].body).role);assert.equal(original.etag,posts[0].tag);await page.locator('#run-record').filter({hasText:originalRun}).waitFor();
  page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'取消任务',exact:true}).click();await page.locator('#execution-status').filter({hasText:'控制回执已核对'}).waitFor();await page.getByRole('button',{name:'重新读取任务',exact:true}).click();await page.locator('#task-detail').filter({hasText:'cancelled'}).waitFor();
  assert.equal((await f.request('/agent/v1/tasks/'+task.id+'/runs/'+originalRun)).body.run.state,'cancelled');assert.deepEqual(await page.evaluate(()=>[localStorage.length,sessionStorage.length]),[0,0]);assert.deepEqual(errors,[]);
 });
@@ -552,14 +553,15 @@ test('execution controls: substituted successful run ID keeps the original start
  await page.getByRole('button',{name:'启动所选阶段',exact:true}).click();await page.locator('#execution-status').filter({hasText:'原运行请求已保留'}).waitFor();
  assert.equal(await page.getByRole('button',{name:'重试原运行请求',exact:true}).isVisible(),true);
  assert.ok(!(await page.locator('#run-record').innerText()).includes('substituted-ui-run'));
- await page.getByRole('button',{name:'重试原运行请求',exact:true}).click();await page.locator('#run-record').filter({hasText:actualRun}).waitFor();assert.deepEqual(posts[1],posts[0]);assert.equal((await f.request('/agent/v1/tasks/'+task.id)).body.generation,1);assert.deepEqual(errors,[]);
+ await page.getByRole('button',{name:'重试原运行请求',exact:true}).click();await page.locator('#execution-status').filter({hasText:'原启动记录已确认'}).waitFor();await page.locator('#run-record').filter({hasText:actualRun}).waitFor();assert.equal(posts.length,1);const original=(await f.request('/control/v1/tasks/'+task.id+'/start-request','GET',null,posts[0].tag,posts[0].key)).body.request;assert.equal(original.state,'acknowledged');assert.equal(original.run_id,actualRun);assert.equal(original.role,JSON.parse(posts[0].body).role);assert.equal((await f.request('/agent/v1/tasks/'+task.id)).body.generation,1);assert.deepEqual(errors,[]);
 });
 
 test('execution controls: stale Task condition rejects start and requires a new explicit Task read',async t=>{
- const f=await fixture(t,true),{page,context,task,errors}=await savedControlTask(t,f);let posted=0;
+ const f=await fixture(t,true),{page,context,task,errors}=await savedControlTask(t,f);let posted=0,prepared=0;
  await context.route('**/control/v1/tasks/*/start',async route=>{posted++;await route.continue()});
+ await context.route('**/control/v1/tasks/*/start-request',async route=>{if(route.request().method()==='POST')prepared++;await route.continue()});
  const current=await f.request('/agent/v1/tasks/'+task.id);assert.equal((await f.request('/control/v1/tasks/'+task.id+'/pause','POST',{},current.etag)).status,200);
- await page.getByRole('button',{name:'启动所选阶段',exact:true}).click();await page.locator('#execution-status').filter({hasText:'任务条件已变化'}).waitFor();assert.equal(posted,1);assert.equal(await page.getByRole('button',{name:'启动所选阶段',exact:true}).isDisabled(),true);
+ await page.getByRole('button',{name:'启动所选阶段',exact:true}).click();await page.locator('#execution-status').filter({hasText:'任务条件已变化'}).waitFor();assert.equal(prepared,1);assert.equal(posted,0);assert.equal((await f.request('/control/v1/projects/synthetic-ui/start-request')).body.request,null);assert.equal(await page.getByRole('button',{name:'启动所选阶段',exact:true}).isDisabled(),true);
  await page.getByRole('button',{name:'重新读取任务',exact:true}).click();await page.locator('#task-detail').filter({hasText:'paused'}).waitFor();assert.equal(await page.getByRole('button',{name:'继续派单',exact:true}).isDisabled(),false);assert.equal((await f.request('/agent/v1/tasks/'+task.id)).body.generation,1);assert.deepEqual(errors,[]);
 });
 test('execution controls: lost pause receipt reads the changed Task condition without resending or starting',async t=>{
@@ -773,4 +775,152 @@ test('event history: late reply for another selected task cannot replace current
   await page.getByRole('button',{name:'读取新事件',exact:true}).click();await page.locator('#events-status').filter({hasText:'已读取任务事件'}).waitFor();
   assert.equal(await page.locator('#event-history p').count(),1);assert.deepEqual(errors,[]);
  }finally{release()}
+});
+
+test('start recovery: absent preparation clears only after independent advanced Task proof and a second absence read',async t=>{
+ const f=await fixture(t,true,false,'hold'),{page,context,task,errors}=await savedControlTask(t,f);let starts=0;const prepares=[];
+ await context.route('**/control/v1/tasks/*/start-request',async route=>{if(route.request().method()==='POST'){prepares.push({key:route.request().headers()['idempotency-key'],tag:route.request().headers()['if-match'],body:route.request().postData()});await route.abort('failed')}else await route.continue()});
+ await context.route('**/control/v1/tasks/*/start',async route=>{starts++;await route.continue()});
+ await page.getByRole('button',{name:'启动所选阶段',exact:true}).click();await page.locator('#execution-status').filter({hasText:'原运行请求已保留'}).waitFor();assert.equal(prepares.length,1);assert.equal(starts,0);
+ await page.getByRole('button',{name:'重新核对原启动请求',exact:true}).click();await page.locator('#execution-status').filter({hasText:'核对失败'}).waitFor();await page.waitForFunction(()=>!document.getElementById('refresh-start').disabled);assert.equal(await page.getByLabel('项目',{exact:true}).isDisabled(),true,'absence alone cannot fence a delayed preparation');
+ const current=await f.request('/agent/v1/tasks/'+task.id);assert.equal((await f.request('/control/v1/tasks/'+task.id+'/pause','POST',{},current.etag)).status,200);
+ await context.route('**/agent/v1/tasks/'+task.id,async route=>route.fulfill({status:503,json:{error:{code:'task_unavailable'}}}));
+ await page.getByRole('button',{name:'重新核对原启动请求',exact:true}).click();await page.locator('#execution-status').filter({hasText:'核对失败'}).waitFor();await page.waitForFunction(()=>!document.getElementById('refresh-start').disabled);assert.equal(await page.getByLabel('项目',{exact:true}).isDisabled(),true);
+ await context.unroute('**/agent/v1/tasks/'+task.id);
+ const substituted=await f.request('/agent/v1/tasks/'+task.id);substituted.body.goal='foreign-task-goal';
+ await context.route('**/agent/v1/tasks/'+task.id,async route=>route.fulfill({status:200,headers:{ETag:substituted.etag},json:substituted.body}));
+ await page.getByRole('button',{name:'重新核对原启动请求',exact:true}).click();await page.locator('#execution-status').filter({hasText:'核对失败'}).waitFor();await page.waitForFunction(()=>!document.getElementById('refresh-start').disabled);assert.equal(await page.getByLabel('项目',{exact:true}).isDisabled(),true);
+ await context.unroute('**/agent/v1/tasks/'+task.id);
+ page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'封存未启动请求',exact:true}).click();await page.locator('#execution-status').filter({hasText:'封存结果未确认'}).waitFor();await page.waitForFunction(()=>!document.getElementById('refresh-start').disabled);
+ await page.getByRole('button',{name:'重新核对原启动请求',exact:true}).click();await page.waitForFunction(()=>document.getElementById('start-recovery').hidden,{},{timeout:1500});
+ await page.locator('#task-detail').filter({hasText:'paused'}).waitFor();assert.equal(await page.getByLabel('项目',{exact:true}).isDisabled(),false);assert.equal(prepares.length,2);assert.deepEqual(prepares[1],prepares[0]);assert.equal(starts,0);
+ const original=prepares[0];assert.equal((await f.request('/control/v1/tasks/'+task.id+'/start-request','POST',JSON.parse(original.body),original.tag,original.key)).status,412);assert.equal((await f.request('/control/v1/tasks/'+task.id+'/start','POST',JSON.parse(original.body),original.tag,original.key)).status,412);assert.equal((await f.request('/agent/v1/tasks/'+task.id)).body.generation,1);assert.deepEqual(errors,[]);
+});
+
+test('start recovery: a delayed prepared record found after Task advancement cannot be discarded as absent',async t=>{
+ const f=await fixture(t,true,false,'hold'),{page,context,task,errors}=await savedControlTask(t,f);let reads=0,starts=0;
+ await context.route('**/control/v1/tasks/*/start-request',async route=>{if(route.request().method()==='POST'){await route.fetch();return route.abort('failed')}reads++;if(reads===1)return route.fulfill({status:404,json:{error:{code:'record_unavailable'}}});return route.continue()});
+ await context.route('**/control/v1/tasks/*/start',async route=>{starts++;await route.continue()});
+ await page.getByRole('button',{name:'启动所选阶段',exact:true}).click();await page.locator('#execution-status').filter({hasText:'原运行请求已保留'}).waitFor();
+ const pending=(await f.request('/control/v1/projects/synthetic-ui/start-request')).body.request;assert.equal(pending.state,'prepared');
+ assert.equal((await f.request('/control/v1/tasks/'+task.id+'/pause','POST',{},pending.etag)).status,200);
+ await page.getByRole('button',{name:'重新核对原启动请求',exact:true}).click();await page.locator('#execution-status').filter({hasText:'核对失败'}).waitFor();assert.equal(reads,2,'second read must catch a delayed original preparation');assert.equal(await page.getByLabel('项目',{exact:true}).isDisabled(),true);
+ await page.getByRole('button',{name:'重新核对原启动请求',exact:true}).click();await page.locator('#start-record').filter({hasText:'prepared'}).waitFor();assert.match(await page.locator('#start-record').textContent(),new RegExp(pending.key));
+ page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'封存未启动请求',exact:true}).click();await page.locator('#execution-status').filter({hasText:'原启动请求已封存'}).waitFor();
+ assert.equal(starts,0);assert.equal((await f.request('/control/v1/tasks/'+task.id+'/start','POST',{role:'design'},pending.etag,pending.key)).status,409);assert.equal((await f.request('/agent/v1/tasks/'+task.id)).body.generation,1);assert.deepEqual(errors,[]);
+});
+
+test('start recovery: lost preparation persists the original identity across host restart and seals late start',{timeout:25000},async t=>{
+ const f=await fixture(t,true,false,'hold'),{page,context,task,errors}=await savedControlTask(t,f);let starts=0;const prepares=[];
+ await context.route('**/control/v1/tasks/*/start-request',async route=>{
+  if(route.request().method()!=='POST'){await route.continue();return}
+  prepares.push({body:route.request().postData(),key:route.request().headers()['idempotency-key'],tag:route.request().headers()['if-match']});await route.fetch();await route.abort('failed');
+ });
+ await context.route('**/control/v1/tasks/*/start',async route=>{starts++;await route.continue()});
+ await page.getByRole('button',{name:'启动所选阶段',exact:true}).click();await page.locator('#execution-status').filter({hasText:/未确认|受理/}).waitFor();
+ assert.equal(prepares.length,1,'original request must be persisted before dispatch');assert.equal(starts,0,'unconfirmed preparation must not dispatch');
+ assert.equal((await f.request('/agent/v1/tasks/'+task.id)).body.generation,0);
+ const pending=(await f.request('/control/v1/projects/synthetic-ui/start-request')).body.request;
+ assert.equal(pending.state,'prepared');assert.equal(pending.key,prepares[0].key);
+ assert.deepEqual(errors,[]);await context.close();await f.restart();
+ const sends=[],restored=await f.newPage(async context=>{await context.route('**/control/v1/tasks/**',async route=>{if(route.request().method()==='POST')sends.push(route.request().url());await route.continue()})});
+ await restored.page.locator('#start-recovery').waitFor({state:'visible'});await restored.page.locator('#start-record').filter({hasText:pending.key}).waitFor();
+ assert.equal(sends.length,0,'opening a saved request is read-only');assert.equal(await restored.page.getByLabel('项目',{exact:true}).isDisabled(),true);
+ assert.match(await restored.page.locator('#start-record').textContent(),/fixture-model-a/);assert.match(await restored.page.locator('#start-record').textContent(),/p1-g0-ready/);
+ restored.page.once('dialog',d=>d.accept());await restored.page.getByRole('button',{name:'封存未启动请求',exact:true}).click();await restored.page.locator('#execution-status').filter({hasText:'原启动请求已封存'}).waitFor();
+ assert.equal((await f.request('/control/v1/projects/synthetic-ui/start-request')).body.request,null);
+ assert.equal((await f.request('/control/v1/tasks/'+task.id+'/start','POST',{role:'design'},pending.etag,pending.key)).status,409);
+ assert.equal((await f.request('/agent/v1/tasks/'+task.id)).body.generation,0);assert.deepEqual(restored.errors,[]);
+});
+
+test('start recovery: committed lost reply reopens and confirms the original run without another start',{timeout:25000},async t=>{
+ const f=await fixture(t,true,false,'hold'),{page,context,task,errors}=await savedControlTask(t,f);let starts=0;
+ await context.route('**/control/v1/tasks/*/start',async route=>{starts++;await route.fetch();await route.abort('failed')});
+ await page.getByRole('button',{name:'启动所选阶段',exact:true}).click();await page.locator('#execution-status').filter({hasText:'原运行请求已保留'}).waitFor();
+ const pending=(await f.request('/control/v1/projects/synthetic-ui/start-request')).body.request;
+ assert.ok(pending,'a committed original start must survive lost reply');assert.equal(pending.state,'committed');assert.ok(pending.run_id);assert.equal(starts,1);
+ assert.deepEqual(errors,[]);await context.close();await f.restart();
+ let extraStarts=0;const restored=await f.newPage(async context=>{await context.route('**/control/v1/tasks/*/start',async route=>{extraStarts++;await route.continue()})});
+ await restored.page.locator('#start-record').filter({hasText:pending.run_id}).waitFor();assert.equal(extraStarts,0);
+ await restored.page.getByRole('button',{name:'重试原运行请求',exact:true}).click();await restored.page.locator('#run-record').filter({hasText:pending.run_id}).waitFor();
+ await restored.page.waitForFunction(()=>document.getElementById('start-recovery').hidden);
+ assert.equal(extraStarts,0,'known committed metadata must reconcile through reads');assert.equal((await f.request('/control/v1/projects/synthetic-ui/start-request')).body.request,null);
+ assert.equal((await f.request('/agent/v1/tasks/'+task.id)).body.generation,1);
+ assert.equal((await f.request('/agent/v1/tasks/'+task.id+'/runs/'+pending.run_id)).body.run.state,'cancelled');assert.deepEqual(restored.errors,[]);
+});
+
+test('start recovery: substituted acknowledgement keeps exact original identity until terminal journal and independent run agree',async t=>{
+ const f=await fixture(t,true,false,'hold'),{page,context,task,errors}=await savedControlTask(t,f);let starts=0,acks=0;let actual;
+ await context.route('**/control/v1/tasks/*/start',async route=>{starts++;await route.continue()});
+ await context.route('**/start-request/acknowledge',async route=>{acks++;const response=await route.fetch();actual=await response.json();const changed=structuredClone(actual);changed.request.run_id='forged-start-record-run';await route.fulfill({response,json:changed})});
+ await page.getByRole('button',{name:'启动所选阶段',exact:true}).click();await page.locator('#execution-status').filter({hasText:'确认未核对'}).waitFor();
+ assert.equal(starts,1);assert.equal(acks,1);assert.equal(await page.getByRole('button',{name:'重试启动记录确认',exact:true}).isVisible(),true);
+ assert.ok(!(await page.locator('#start-record').textContent()).includes('forged-start-record-run'));assert.equal(await page.getByLabel('项目',{exact:true}).isDisabled(),true);
+ assert.equal((await f.request('/control/v1/projects/synthetic-ui/start-request')).body.request,null,'server ack was committed but its reply was not proven');
+ await page.getByRole('button',{name:'重新核对原启动请求',exact:true}).click();await page.waitForFunction(()=>document.getElementById('start-recovery').hidden);
+ assert.equal(starts,1);assert.equal(acks,1);assert.ok((await page.locator('#run-record').textContent()).includes(actual.request.run_id));assert.equal((await f.request('/agent/v1/tasks/'+task.id)).body.generation,1);
+ assert.deepEqual(await page.evaluate(()=>[localStorage.length,sessionStorage.length]),[0,0]);assert.deepEqual(errors,[]);
+});
+
+test('start recovery: lost seal reads exact abandoned history and original Magpie controls fit desktop and mobile',async t=>{
+ const f=await fixture(t,true,false,'hold'),{page,context,task,errors}=await savedControlTask(t,f);const originalKey='fixture-ui-seal-original';const tag='"p1-g0-ready"';
+ assert.equal((await f.request('/control/v1/tasks/'+task.id+'/start-request','POST',{role:'design'},tag,originalKey)).status,200);
+ await page.reload();await page.locator('#start-record').filter({hasText:originalKey}).waitFor();await page.waitForFunction(()=>!document.getElementById('abandon-start').disabled);
+ await page.locator('#start-recovery').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(repo,'.fusion-dev/implementation/start-recovery-desktop.png'),fullPage:true});
+ await page.setViewportSize({width:390,height:844});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await page.locator('#start-recovery').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(repo,'.fusion-dev/implementation/start-recovery-mobile.png'),fullPage:true});
+ let seals=0,starts=0;await context.route('**/start-request/abandon',async route=>{seals++;await route.fetch();await route.abort('failed')});await context.route('**/control/v1/tasks/*/start',async route=>{starts++;await route.continue()});
+ page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'封存未启动请求',exact:true}).click();await page.locator('#execution-status').filter({hasText:'封存结果未确认'}).waitFor();
+ assert.equal(await page.getByRole('button',{name:'重试封存原启动请求',exact:true}).isVisible(),true);assert.equal(await page.getByLabel('项目',{exact:true}).isDisabled(),true);
+ await page.getByRole('button',{name:'重新核对原启动请求',exact:true}).click();await page.locator('#execution-status').filter({hasText:'原启动请求已封存'}).waitFor();
+ assert.equal(seals,1);assert.equal(starts,0);assert.equal((await f.request('/control/v1/tasks/'+task.id+'/start','POST',{role:'design'},tag,originalKey)).status,409);assert.equal((await f.request('/agent/v1/tasks/'+task.id)).body.generation,0);assert.deepEqual(errors,[]);
+});
+
+test('start recovery: startup finds another project and current defaults cannot replace its frozen model',async t=>{
+ const f=await fixture(t,true,true,'hold');
+ const preview=await f.request('/control/v1/tasks/preview','POST',{project_id:'synthetic-ui-other',goal:'另一个项目的原启动目标',required_roles:['design']});assert.equal(preview.status,200);
+ const task=await f.request('/agent/v1/tasks','POST',{preview_id:preview.body.preview_id,plan_hash:preview.body.plan.hash},null,'fixture-other-task');assert.equal(task.status,201);
+ assert.equal((await f.request('/control/v1/tasks/'+task.body.id+'/start-request','POST',{role:'design'},'"p1-g0-ready"','fixture-other-original-start')).status,200);
+ const changed=await f.request('/control/v1/defaults/global','PUT',{layer:{roles:{design:{mode:'locked',route:{id:'fixture-b',revision:1},model:models.b,effort:{mode:'none'}}}}},'"0"');assert.equal(changed.status,201);
+ const writes=[],{page,errors}=await f.newPage(async context=>{await context.route('**/control/v1/tasks/**',async route=>{if(route.request().method()==='POST')writes.push(route.request().url());await route.continue()})});
+ await page.locator('#start-record').filter({hasText:'fixture-other-original-start'}).waitFor();assert.equal(await page.getByLabel('项目',{exact:true}).inputValue(),'synthetic-ui-other');assert.equal(writes.length,0);
+ assert.ok((await page.locator('#groups').textContent()).includes(models.b));assert.ok((await page.locator('#start-record').textContent()).includes(models.a));assert.ok(!(await page.locator('#start-record').textContent()).includes(models.b));
+ assert.equal((await f.request('/agent/v1/tasks/'+task.body.id)).body.generation,0);assert.deepEqual(errors,[]);
+});
+
+test('start recovery: malformed successful preparation cannot dispatch and explicit retry preserves original bytes',async t=>{
+ const f=await fixture(t,true,false,'hold'),{page,context,task,errors}=await savedControlTask(t,f);const prepares=[];let starts=0;
+ await context.route('**/control/v1/tasks/*/start-request',async route=>{
+  if(route.request().method()!=='POST'){await route.continue();return}
+  prepares.push({body:route.request().postData(),key:route.request().headers()['idempotency-key'],tag:route.request().headers()['if-match']});const response=await route.fetch();
+  if(prepares.length===1){const changed=await response.json();changed.request.plan.bindings.design.target.resolved_model=models.b;await route.fulfill({response,json:changed})}else await route.fulfill({response});
+ });
+ await context.route('**/control/v1/tasks/*/start',async route=>{starts++;await route.continue()});
+ await page.getByRole('button',{name:'启动所选阶段',exact:true}).click();await page.locator('#execution-status').filter({hasText:'保存结果未确认'}).waitFor();assert.equal(starts,0);assert.equal(prepares.length,1);
+ assert.equal(await page.getByRole('button',{name:'重试保存原启动请求',exact:true}).isVisible(),true);assert.equal(await page.getByLabel('项目',{exact:true}).isDisabled(),true);
+ await page.getByRole('button',{name:'重试保存原启动请求',exact:true}).click();await page.locator('#run-record').filter({hasText:'已知阶段执行'}).waitFor();await page.waitForFunction(()=>document.getElementById('start-recovery').hidden);
+ assert.deepEqual(prepares[1],prepares[0]);assert.equal(prepares[0].tag,'"p1-g0-ready"');assert.equal(starts,1);assert.equal((await f.request('/agent/v1/tasks/'+task.id)).body.generation,1);assert.deepEqual(errors,[]);
+});
+
+test('start recovery: malformed or empty reread retains the exact original and blocks new intent',async t=>{
+ const f=await fixture(t,true,false,'hold'),{page,context,task,errors}=await savedControlTask(t,f);let starts=0;
+ const lostPrepare=async route=>{if(route.request().method()==='POST'){await route.fetch();await route.abort('failed')}else await route.continue()};await context.route('**/control/v1/tasks/*/start-request',lostPrepare);
+ await context.route('**/control/v1/tasks/*/start',async route=>{starts++;await route.continue()});await page.getByRole('button',{name:'启动所选阶段',exact:true}).click();await page.locator('#execution-status').filter({hasText:'保存结果未确认'}).waitFor();
+ const pending=(await f.request('/control/v1/projects/synthetic-ui/start-request')).body.request;
+ for(const change of [()=>null,v=>({...v,role:'review'}),v=>({...v,task:{...v.task,id:'foreign-task',goal:'do-not-render-forged-goal'}})]){
+  const bad=change(structuredClone(pending));const failure=async route=>route.request().method()==='GET'?route.fulfill({status:200,json:{request:bad}}):route.fallback();await context.route('**/control/v1/tasks/*/start-request',failure);
+  await page.getByRole('button',{name:'重新核对原启动请求',exact:true}).click();await page.locator('#execution-status').filter({hasText:'核对失败'}).waitFor();assert.equal(await page.getByLabel('项目',{exact:true}).isDisabled(),true);assert.ok((await page.locator('#start-record').textContent()).includes(pending.key));assert.ok(!(await page.locator('#start-record').textContent()).includes('do-not-render-forged-goal'));
+  await context.unroute('**/control/v1/tasks/*/start-request',failure);
+ }
+ await page.getByRole('button',{name:'重新核对原启动请求',exact:true}).click();await page.locator('#execution-status').filter({hasText:'已核对原阶段启动请求'}).waitFor();assert.equal(starts,0);assert.equal((await f.request('/agent/v1/tasks/'+task.id)).body.generation,0);assert.deepEqual(errors,[]);
+});
+
+test('start recovery: independent run failure cannot acknowledge or clear the original committed request',async t=>{
+ const f=await fixture(t,true,false,'hold'),{page,context,task,errors}=await savedControlTask(t,f);let starts=0,acks=0;
+ await context.route('**/control/v1/tasks/*/start',async route=>{starts++;await route.continue()});await context.route('**/start-request/acknowledge',async route=>{acks++;await route.continue()});
+ const failure=route=>route.fulfill({status:503,json:{error:{code:'independent_run_unavailable'}}});await context.route('**/agent/v1/tasks/*/runs/*',failure);
+ await page.getByRole('button',{name:'启动所选阶段',exact:true}).click();await page.locator('#execution-status').filter({hasText:'原运行请求已保留'}).waitFor();assert.equal(acks,0);
+ await page.getByRole('button',{name:'重试原运行请求',exact:true}).click();await page.waitForFunction(()=>!document.getElementById('retry-execution').disabled);assert.equal(starts,1);assert.equal(acks,0);
+ assert.equal((await f.request('/control/v1/projects/synthetic-ui/start-request')).body.request.state,'committed');assert.equal(await page.getByRole('button',{name:'启动所选阶段',exact:true}).isDisabled(),true);
+ await context.unroute('**/agent/v1/tasks/*/runs/*',failure);await page.getByRole('button',{name:'重试原运行请求',exact:true}).click();await page.waitForFunction(()=>document.getElementById('start-recovery').hidden);
+ assert.equal(starts,1);assert.equal(acks,1);assert.equal((await f.request('/agent/v1/tasks/'+task.id)).body.generation,1);assert.deepEqual(errors,[]);
 });
