@@ -35,4 +35,4 @@ GET /control/v1/projects/{project_id}/tasks/before/{task_id}
 
 非 GET 为 405/Allow:GET；非法路径/query 为 400，未知项目/边界为 404。Management 缺失、错误或撤销为 401，stage/cross-site 等沿原 middleware 拒绝；等待登记/Store 读取后重新检查 ManagementCurrent，请求取消或撤销时不返回任务数据。Store 错误为 500，返回固定错误，不返回部分页。所有响应沿 Handler 的 no-store/nosniff；ControlHost 来源或 token 失效沿原 503。
 
-NativeStageBridge 只向已登记项目开放这两个精确 GET 路径，不开放任务 POST/PUT/启动/取消。实际私有本机 HTTP、Native 桥函数及 OpenAPI 样本已验证，见 [TASK-INDEX-01](../work-items/WP-15/TASK-INDEX-01/summary.md)。本项未改变阶段页面，未增加实际 CUA 窗口证据，未使用真实 key、模型或额度；生产 Factory/账号/额度准入、任务工作台消费者和最终 T01–T60 仍待完成。Jev off。
+NativeStageBridge 只向已登记项目开放这两个精确 GET 路径，另按[任务工作台](task-workbench.md)开放精确冻结提交及详情读取，不开放启动/取消。实际私有本机 HTTP、Native 桥函数及 OpenAPI 样本已验证，见 [TASK-INDEX-01](../work-items/WP-15/TASK-INDEX-01/summary.md)。后续 TASK-UI-01 已加入页面列表消费者，未增加实际 CUA 窗口证据，未使用真实 key、模型或额度；生产 Factory/账号/额度准入、阶段执行控制工作台和最终 T01–T60 仍待完成。Jev off。

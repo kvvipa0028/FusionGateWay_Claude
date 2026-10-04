@@ -1,0 +1,13 @@
+✔ task workbench: frozen submit persists ready task and reload reads actual plan/budget safely (2261.029459ms)
+✔ task workbench: lost successful receipt 503 freezes editing; identical request retry returns one task freezes editing; identical request retry returns one task (1053.185708ms)
+✔ task workbench: lost successful receipt malformed201 freezes editing; identical request retry returns one task freezes editing; identical request retry returns one task (1069.260541ms)
+✔ task workbench: changed configuration rejects old preview; expired preview never submits (985.037042ms)
+✔ task workbench: actual 32+1 pagination and late previous-project response cannot replace current list (999.150667ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6569.597541

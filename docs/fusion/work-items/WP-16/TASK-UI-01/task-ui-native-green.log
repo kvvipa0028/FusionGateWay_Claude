@@ -1,0 +1,4 @@
+=== RUN   TestNativeTaskUISubmitsFrozenPreviewAndReadsOnlyRegisteredTask
+--- PASS: TestNativeTaskUISubmitsFrozenPreviewAndReadsOnlyRegisteredTask (0.08s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	1.757s

@@ -1,0 +1,26 @@
+✔ task workbench: frozen submit persists ready task and reload reads actual plan/budget safely (2395.952916ms)
+✔ task workbench: lost successful receipt freezes editing; identical request retry returns one task (1026.055166ms)
+✖ task workbench: changed configuration rejects old preview; expired preview never submits (31046.388541ms)
+✔ task workbench: actual 32+1 pagination and late previous-project response cannot replace current list (1134.940833ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 3
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 35805.555125
+
+✖ failing tests:
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:365:1
+✖ task workbench: changed configuration rejects old preview; expired preview never submits (31046.388541ms)
+  locator.waitFor: Timeout 30000ms exceeded.
+  Call log:
+  [2m  - waiting for getByRole('status').filter({ hasText: '预览已到期' }) to be visible[22m
+
+      at status (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:71:88)
+      at TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:370:72) {
+    name: 'TimeoutError',
+    log: [ "  - waiting for getByRole('status').filter({ hasText: '预览已到期' }) to be visible" ]
+  }

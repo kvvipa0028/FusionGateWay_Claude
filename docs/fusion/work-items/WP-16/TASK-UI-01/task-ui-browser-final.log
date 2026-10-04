@@ -1,0 +1,23 @@
+✔ successful synthetic server preview renders the actual role-indexed bindings without execution (2076.329708ms)
+✔ actual private CLI/API: independent roles, fold/reload, explicit overwrite and safe model text (2646.361542ms)
+✔ actual API: stale editor keeps draft; lost acknowledgement retries the identical version/body (1175.869209ms)
+✔ actual API: explicit preset version, auto candidates and single-role preview remains unadmitted (1059.118916ms)
+✔ actual API: edit layer and version come from the same defaults response (921.830958ms)
+✔ actual API: malformed successful save acknowledgement freezes the identical retry (934.824ms)
+✔ actual API: expired route never selects a replacement; global and project drafts stay separate (1038.254334ms)
+✔ preset UI: creates five-role preset and revisions without changing defaults or old task source (1123.94275ms)
+✔ preset UI: stale loaded revision conflicts; committed but malformed acknowledgement retries identical body/tag/id (1284.969125ms)
+✔ preset UI: creation retry keeps its id/base after head advances and invalid selection/name blocks save (1000.452708ms)
+✔ task workbench: frozen submit persists ready task and reload reads actual plan/budget safely (2045.350958ms)
+✔ task workbench: lost successful receipt 503 freezes editing; identical request retry returns one task (1034.781292ms)
+✔ task workbench: lost successful receipt malformed201 freezes editing; identical request retry returns one task (1030.166625ms)
+✔ task workbench: changed configuration rejects old preview; expired preview never submits (985.232959ms)
+✔ task workbench: actual 32+1 pagination and late previous-project response cannot replace current list (1186.772958ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 19745.663917

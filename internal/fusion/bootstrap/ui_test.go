@@ -19,7 +19,7 @@ func TestControlHostStageUIAssetsAreManagementProtected(t *testing.T) {
 		t.Fatal(err)
 	}
 	serveExecutionHost(t, h)
-	for _, path := range []string{"/fusion/", "/fusion/index.html", "/fusion/editor.mjs", "/fusion/model.mjs", "/fusion/editor.css", "/fusion/app.css"} {
+	for _, path := range []string{"/fusion/", "/fusion/index.html", "/fusion/editor.mjs", "/fusion/workbench.mjs", "/fusion/model.mjs", "/fusion/editor.css", "/fusion/app.css"} {
 		code, b, headers := hostHTTP(t, h, "GET", path, "", "", "")
 		if code != 200 || len(b) == 0 || headers.Get("Cache-Control") != "no-store" || headers.Get("Content-Security-Policy") == "" {
 			t.Fatal("authenticated stage asset", path, code)
@@ -53,7 +53,7 @@ func TestControlHostStageUIRejectsOtherAuthorities(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	for _, asset := range []string{"/fusion/", "/fusion/editor.mjs", "/fusion/model.mjs", "/fusion/editor.css", "/fusion/app.css"} {
+	for _, asset := range []string{"/fusion/", "/fusion/editor.mjs", "/fusion/workbench.mjs", "/fusion/model.mjs", "/fusion/editor.css", "/fusion/app.css"} {
 		for _, tc := range []struct {
 			name, secret, host, origin, fetchSite string
 			code                                  int
@@ -120,7 +120,7 @@ func TestControlHostStageUIRevokesPrivateSource(t *testing.T) {
 			} else if err = os.Chmod(filepath.Join(h.root, "management.token"), 0644); err != nil {
 				t.Fatal(err)
 			}
-			for _, asset := range []string{"/fusion/", "/fusion/editor.mjs", "/fusion/model.mjs", "/fusion/editor.css", "/fusion/app.css"} {
+			for _, asset := range []string{"/fusion/", "/fusion/editor.mjs", "/fusion/workbench.mjs", "/fusion/model.mjs", "/fusion/editor.css", "/fusion/app.css"} {
 				if code, _, _ := hostHTTP(t, h, "GET", asset, "", "", ""); code != 503 {
 					t.Fatal("stale asset source", code)
 				}

@@ -1,0 +1,41 @@
+{
+  "source_files": {
+    "docs/fusion/README.md": "33328d23b9b482b4a6607b21797f845cb2f43b5a922a1e76258edfcab972e006",
+    "docs/fusion/contracts/native-stage-ui.md": "1d19e66b1a878df12802f39723d68fd932f71012afca3081dd524964a5f5b6b0",
+    "docs/fusion/contracts/stage-editor.md": "c1cd310cda6a85160484421129aa013e56ee269d72f69dd5fa56aaecb277db09",
+    "docs/fusion/contracts/task-index-api.md": "c02fc7a8ad6a7b24f9cbdc1e2d20943a96baf6d79a1de9a8efa6c9321effbec1",
+    "docs/fusion/contracts/task-workbench.md": "3707420c7d78be27f793dd3fec0c23c3abee71f6614d6daa49bbaf169b9f8ad2",
+    "docs/fusion/planning/Fusion_Magpie_Fork_Agent工作包_v1.0.md": "4ac66a91bfcd30912f77173cc29b2bbc92c47d340294413124e72853c02d28d4",
+    "docs/fusion/work-items/WP-16/summary.md": "43c0525c7bdc5636cd264908a8508720f767bfe99576d98584ae6061cbd1e20c",
+    "internal/fusion/bootstrap/native_ui.go": "ecb54bebd156e8f7238866c983fec27615a19e0cfa4358c115050cb7d4ed4a88",
+    "internal/fusion/bootstrap/task_ui_test.go": "2bf7eee2d1c79ad4e0b4ca30ef116cc84b9c44f316149f13f4dcecac6b486010",
+    "internal/fusion/bootstrap/ui_test.go": "a025b1d7a3cac8b335edb625e09b2d81d11ffe9dcf50bca4d1fad7ff9a061ff7",
+    "internal/gui/assets/fusion/editor.css": "0fbe8a73e18b9db2818e289c2bdca9c196e687d06a8fd7323d634c2d2124a9ee",
+    "internal/gui/assets/fusion/editor.mjs": "ec3936ae2834fb0ce00062724d0aea669da3964a1e99ee6dba95f1ac382f4f30",
+    "internal/gui/assets/fusion/embed.go": "391a0cf404e1ae4441bc633fbf99e40751a90906f31dffa7b2ae63b1d0058b7b",
+    "internal/gui/assets/fusion/index.html": "72e0f8c6e60dfa32cb4ba05638496fecc7fffe6b13c94972eaa922e4a1006473",
+    "internal/gui/assets/fusion/workbench.mjs": "7399f9d0be76bb111de6d3246a97cecbb702672f9ff670b1c2110280bc3bc607",
+    "internal/gui/tests/fusion-stage-editor.test.cjs": "103bb342330e15c912955c141d9724f793496eed28651011df32c34ee53dd02d"
+  },
+  "packet_files": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "dd2ab1bacb502cf5c8e1a197cbbd74639191b620f4c858df9c821801b8a77b32",
+    "build-results.json": "7e86b84ef5461c673de2845b777f56490a10733a26e7767e5fd3d4982a4ecb6d",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "desktop.png": "400251cd8594b3e51d591f33085beb273617598a021e657795b6155f7da2ca65",
+    "mobile.png": "2fd7e883811df0137adda9bd57e67f746190e7945095a36cb1c603b53960e62d",
+    "summary.md": "3727f31c4b54c30b6858f9a8f85e4ac18bef88f16e28788e7798bacacc7ccac1",
+    "task-ui-browser-final.log": "388ca0f79878d58f30c9b6f4315a9364b2865985be09b47a10aa55d12542dcaa",
+    "task-ui-browser-first.log": "41c0d92fa182f82923dc35cfe68f55b70846db77b0696c8536900a3efbeb5e28",
+    "task-ui-browser-red.log": "6e6c1a7a3e5b265801e0d78de95ef0d22aa02d3ee9f696288f570b1ee8e1e47e",
+    "task-ui-browser-second.log": "f40f0e5e0085c1458fa68ba790da34ea0edd48624ebc8911485179936708aa99",
+    "task-ui-browser-third.log": "8e96f5bb7933d007a317a782d9b0cc8f893392de621251252a2aceae736f26c7",
+    "task-ui-browser-verified.log": "6748e24e6c2a1d0f16b9d9d89c8c54fe1fd9e0e9da1733dc3bc41cb9055f6ac5",
+    "task-ui-fixture-build-verified.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "task-ui-host-api-final.log": "1fb5aaa3899b0f7cb0bd94b0d68c2e0d07b10e5ca8ab6dd38ddcb707f4c167f9",
+    "task-ui-model-final.log": "d36c0c3dd54f0241b04326e5e53cdc508a693d8fd728a3a2af7af825f1291c0b",
+    "task-ui-native-green.log": "f8f17b741c56f1827e1282526baa050d1f2654f302958aeeb6342d083d056b40",
+    "task-ui-native-red.log": "94938e8a1d8b48925470480482ccaaa56d8a34770204f59438b768c28c257832",
+    "test-results.json": "d1bbeae8f8ddcac27a46558b761fa988da999a3d094ed809ac815af186006533"
+  }
+}

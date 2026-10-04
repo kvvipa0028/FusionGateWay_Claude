@@ -1,0 +1,22 @@
+✖ task workbench: frozen submit persists ready task and reload reads actual plan/budget safely (3509.460375ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3750.542875
+
+✖ failing tests:
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:337:1
+✖ task workbench: frozen submit persists ready task and reload reads actual plan/budget safely (3509.460375ms)
+  locator.waitFor: Timeout 2000ms exceeded.
+  Call log:
+  [2m  - waiting for getByRole('button', { name: '冻结提交任务', exact: true }) to be visible[22m
+
+      at TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:340:60) {
+    name: 'TimeoutError',
+    log: [ "  - waiting for getByRole('button', { name: '冻结提交任务', exact: true }) to be visible" ]
+  }

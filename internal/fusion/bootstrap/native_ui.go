@@ -5,6 +5,7 @@ package bootstrap
 import (
 	"context"
 	"crypto/sha256"
+	"errors"
 	"io"
 	"net"
 	"net/http"
@@ -14,6 +15,8 @@ import (
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/yetone/magpie/internal/fusion/store"
 )
 
 // NativeStageBridge belongs only to a Wails virtual asset callback. It must
@@ -116,9 +119,15 @@ func nativeStageRequest(r *http.Request) bool {
 func (b *NativeStageBridge) allowed(method, path string) bool {
 	if method == "GET" || method == "HEAD" {
 		switch path {
-		case "/fusion/", "/fusion/index.html", "/fusion/editor.mjs", "/fusion/model.mjs", "/fusion/editor.css", "/fusion/app.css":
+		case "/fusion/", "/fusion/index.html", "/fusion/editor.mjs", "/fusion/model.mjs", "/fusion/workbench.mjs", "/fusion/editor.css", "/fusion/app.css":
 			return true
 		}
+	}
+	if path == "/agent/v1/tasks" {
+		return method == "POST"
+	}
+	if nativeTaskReadID(path) != "" {
+		return method == "GET"
 	}
 	if path == "/control/v1/projects" {
 		return method == "GET"
@@ -154,6 +163,22 @@ func (b *NativeStageBridge) allowed(method, path string) bool {
 		return method == "GET"
 	}
 	return false
+}
+
+func nativeTaskReadID(path string) string {
+	if strings.HasPrefix(path, "/agent/v1/tasks/") {
+		id := strings.TrimPrefix(path, "/agent/v1/tasks/")
+		if opaque(id) {
+			return id
+		}
+	}
+	if strings.HasPrefix(path, "/control/v1/tasks/") {
+		parts := strings.Split(strings.TrimPrefix(path, "/control/v1/tasks/"), "/")
+		if len(parts) == 2 && opaque(parts[0]) && (parts[1] == "plan" || parts[1] == "budget") {
+			return parts[0]
+		}
+	}
+	return ""
 }
 
 func (b *NativeStageBridge) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -197,6 +222,19 @@ func (b *NativeStageBridge) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	defer cancel()
 	stop := context.AfterFunc(b.ctx, cancel)
 	defer stop()
+	// This lookup occurs only after the exact Native window and current owned
+	// host were authenticated. A task in an unregistered project stays private.
+	if id := nativeTaskReadID(r.URL.Path); id != "" {
+		task, err := b.host.store.Task(id)
+		if ctx.Err() != nil || err != nil && !errors.Is(err, store.ErrNotFound) {
+			http.Error(w, "Service Unavailable", 503)
+			return
+		}
+		if _, registered := b.host.source.projects[task.ProjectID]; err != nil || !registered {
+			http.NotFound(w, r)
+			return
+		}
+	}
 	if r.Body != nil {
 		closeBody := context.AfterFunc(ctx, func() { r.Body.Close() })
 		defer closeBody()
@@ -227,6 +265,11 @@ func (b *NativeStageBridge) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	for _, key := range []string{"Content-Type", "If-Match"} {
 		for _, value := range r.Header.Values(key) {
 			request.Header.Add(key, value)
+		}
+	}
+	if r.Method == "POST" && r.URL.Path == "/agent/v1/tasks" {
+		for _, value := range r.Header.Values("Idempotency-Key") {
+			request.Header.Add("Idempotency-Key", value)
 		}
 	}
 	response, e := b.client.Do(request)

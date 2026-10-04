@@ -44,3 +44,15 @@
   .fusion-stage .group-tools { flex-wrap: wrap; }
   .fusion-stage footer { align-items: stretch; flex-direction: column; gap: 8px; }
 }
+
+.fusion-stage .task-submit { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 12px 4px; }
+.fusion-stage .task-record-panel, .fusion-stage #task-workbench { margin-top: 12px; }
+.fusion-stage #task-workbench h2, .fusion-stage .task-record-panel h2 { font-size: 13px; font-weight: 600; }
+.fusion-stage .task-record { padding: 10px 12px; overflow-wrap: anywhere; }
+.fusion-stage .task-record:empty { display: none; }
+.fusion-stage .task-record p + p { margin-top: 6px; }
+.fusion-stage .task-record h3 { font-size: 12px; font-weight: 600; margin: 12px 0 6px; }
+.fusion-stage .task-goal { white-space: pre-wrap; user-select: text; }
+.fusion-stage #task-workbench .row { flex-wrap: wrap; }
+.fusion-stage #task-workbench .who { min-width: 120px; }
+.fusion-stage .row .name, .fusion-stage .task-goal, .fusion-stage .task-model { color: var(--fg); }

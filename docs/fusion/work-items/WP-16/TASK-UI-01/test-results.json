@@ -1,0 +1,56 @@
+{
+  "baseline": "1c633b9230181dd7996ef68a53b4ec6a06c12b30",
+  "go_version": "1.26.3",
+  "browser": {
+    "pass": 15,
+    "fail": 0,
+    "source": "task-ui-browser-verified.log"
+  },
+  "model": {
+    "pass": 10,
+    "fail": 0
+  },
+  "host_api_race": {
+    "top_level": {
+      "pass": 134,
+      "fail": 0,
+      "skip": 3
+    },
+    "subtests": {
+      "pass": 198,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "native_visual": "not rerun; bridge function/owned HTTP verification only",
+  "graph": {
+    "nodes": 13962,
+    "edges": 123933,
+    "assets_excluded": true
+  },
+  "original_log_sha256": {
+    "task-ui-native-red.log": "94938e8a1d8b48925470480482ccaaa56d8a34770204f59438b768c28c257832",
+    "task-ui-native-green.log": "f8f17b741c56f1827e1282526baa050d1f2654f302958aeeb6342d083d056b40",
+    "task-ui-browser-red.log": "0ca563bae25d6fae5d2132c4d5f48b6166d80cfb38a8147e8800db40016aa12b",
+    "task-ui-browser-first.log": "e5d790383fc10ddd9f62efc7d86cd14c185c51370c5e90a5f65ca684dbec3908",
+    "task-ui-browser-second.log": "4a5e22f85187954fdc872993f27a6e01115954dda9b44d5ed876ae311d47f46b",
+    "task-ui-browser-third.log": "8e96f5bb7933d007a317a782d9b0cc8f893392de621251252a2aceae736f26c7",
+    "task-ui-browser-final.log": "388ca0f79878d58f30c9b6f4315a9364b2865985be09b47a10aa55d12542dcaa",
+    "task-ui-browser-verified.log": "6748e24e6c2a1d0f16b9d9d89c8c54fe1fd9e0e9da1733dc3bc41cb9055f6ac5",
+    "task-ui-host-api-final.log": "1fb5aaa3899b0f7cb0bd94b0d68c2e0d07b10e5ca8ab6dd38ddcb707f4c167f9",
+    "task-ui-model-final.log": "d36c0c3dd54f0241b04326e5e53cdc508a693d8fd728a3a2af7af825f1291c0b",
+    "task-ui-fixture-build-verified.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "dd2ab1bacb502cf5c8e1a197cbbd74639191b620f4c858df9c821801b8a77b32",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "log_transform": "remove trailing whitespace only",
+  "jev": "off",
+  "runtime_calls_in_native_submit_read_test": 0,
+  "remaining": [
+    "real route/account/RuntimeFactory admission",
+    "stage execution/manual controls/events/quota/plan revision UI",
+    "durable pending submission and expired/restarted preview HTTP receipt recovery",
+    "engineering workflow and final T01-T60"
+  ]
+}

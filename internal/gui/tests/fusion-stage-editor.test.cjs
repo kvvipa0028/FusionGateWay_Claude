@@ -10,13 +10,14 @@ const repo=path.resolve(__dirname,"../../..");
 const binary=path.join(repo,".fusion-dev/fusion-gateway-cli");
 const models={a:"fixture-model-a",b:"fixture-model-b",c:"<svg>"};
 const key=id=>JSON.stringify(["fixture-"+id,1,models[id]]);
-async function fixture(t,admitted=false){
+async function fixture(t,admitted=false,withSecondProject=false){
  const root=await fs.realpath(await fs.mkdtemp(path.join(os.tmpdir(),"fusion-stage-ui-")));
  await fs.chmod(root,0o700);
  for(const name of ["workspace","private","private/config"])await fs.mkdir(path.join(root,name),{mode:0o700});
  const doc={schema_version:1,revision:1,global:{roles:{design:{mode:"locked",route:{id:"fixture-a",revision:1},model:models.a,effort:{mode:"none"}}}},
  routes:Object.entries(models).filter(([id])=>!admitted||id!=="c").map(([id,model])=>({id:"fixture-"+id,revision:1,native_route:"glm-cn-claude",model,account:"fixture-account-"+id,workspace:"fixture-workspace",credential_identity:"fixture-identity-"+id,runtime_version:"fixture-runtime",no_effort:true})),
  projects:[{id:"synthetic-ui",name:"界面验证项目",path:path.join(root,"workspace"),read:true,write:false,routes:Object.keys(models).filter(id=>!admitted||id!=="c").map(id=>({id:"fixture-"+id,revision:1})),layer:{}}]};
+ if(withSecondProject){await fs.mkdir(path.join(root,"workspace-other"),{mode:0o700});doc.projects.push({...doc.projects[0],id:"synthetic-ui-other",name:"另一个界面验证项目",path:path.join(root,"workspace-other")})}
  const source=path.join(root,"private/config/projects.json");await fs.writeFile(source,JSON.stringify(doc),{mode:0o600});
  const go=execFileSync("which",["go"],{encoding:"utf8"}).trim();
  const control=path.join(root,"state/data/fusion-gateway/control");
@@ -41,7 +42,7 @@ async function fixture(t,admitted=false){
  if(admitted){assert.equal(announcement.synthetic_fixture,true);assert.equal(announcement.execution_supported,false)}else assert.equal(announcement.execution_enabled,false);
  assert.equal(announcement.jev,"off");
  token=(await fs.readFile(path.join(root,"state/data/fusion-gateway/control/management.token"),"utf8")).trim();
- for(const name of ["index.html","editor.mjs","model.mjs","editor.css","app.css"]){
+ for(const name of ["index.html","editor.mjs","model.mjs","workbench.mjs","editor.css","app.css"]){
   const response=await fetch(origin+"/fusion/"+name,{headers:{Authorization:"Bearer "+token},redirect:"error"});
   assert.equal(response.status,200);
   const actual=await response.text(),expected=await fs.readFile(path.join(repo,"internal/gui/assets",name==="app.css"?name:path.join("fusion",name)),"utf8");
@@ -57,8 +58,8 @@ async function fixture(t,admitted=false){
   await page.goto(origin+"/fusion/");await page.getByRole("status").filter({hasText:"已载入当前配置"}).waitFor();
   return {page,context,errors};
  };
- return {origin,newPage,async request(url,method="GET",body=null,tag=null){
-  const response=await fetch(origin+url,{method,redirect:"error",headers:{Authorization:"Bearer "+token,"Content-Type":"application/json",...(tag?{"If-Match":tag}:{})},...(body?{body:JSON.stringify(body)}:{})});
+ return {origin,newPage,async request(url,method="GET",body=null,tag=null,key=null){
+  const response=await fetch(origin+url,{method,redirect:"error",headers:{Authorization:"Bearer "+token,"Content-Type":"application/json",...(tag?{"If-Match":tag}:{}),...(key?{"Idempotency-Key":key}:{})},...(body?{body:JSON.stringify(body)}:{})});
   return {status:response.status,body:await response.json(),etag:response.headers.get("ETag")};
  }};
 }
@@ -328,4 +329,74 @@ test("preset UI: creation retry keeps its id/base after head advances and invali
  await page.getByRole("button",{name:"保存预设新版本",exact:true}).click();await status(page,"预设已被其他窗口更新");
  assert.equal((await f.request(requestPath)).body.revision,2);assert.equal((await f.request("/control/v1/projects/synthetic-ui/defaults")).body.revision,0);
  assert.deepEqual(errors,[]);
+});
+async function taskPreview(page,goal){
+ await page.getByLabel('配置范围').selectOption('task');await page.getByLabel('任务目标').fill(goal);
+ await page.getByRole('button',{name:'预览单阶段任务',exact:true}).click();await page.getByRole('status').filter({hasText:'已核对冻结阶段计划'}).waitFor({timeout:5000});
+}
+test('task workbench: frozen submit persists ready task and reload reads actual plan/budget safely',async t=>{
+ const f=await fixture(t,true),{page,context,errors}=await f.newPage();
+ const goal='<img src=x onerror=alert(1)> 只提交设计任务';await taskPreview(page,goal);
+ await page.getByRole('button',{name:'冻结提交任务',exact:true}).waitFor({timeout:2000});
+ await page.getByRole('button',{name:'冻结提交任务',exact:true}).click();await status(page,'任务已保存');
+ const index=await f.request('/control/v1/projects/synthetic-ui/tasks');assert.equal(index.body.tasks.length,1);
+ const saved=index.body.tasks[0];assert.equal(saved.state,'ready');assert.equal(saved.generation,0);
+ await page.getByRole('button',{name:'查看任务 '+saved.id,exact:true}).waitFor();
+ await page.getByRole('button',{name:'查看任务 '+saved.id,exact:true}).click();await status(page,'已读取任务详情');
+ assert.equal(await page.locator('#task-detail img').count(),0);assert.ok((await page.locator('#task-detail').innerText()).includes(goal));
+ assert.ok((await page.locator('#task-detail').innerText()).includes('fixture-model-a'));assert.ok((await page.locator('#task-detail').innerText()).includes('调用预算：0 / 50'));
+ await page.reload();await status(page,'已载入当前配置');await page.getByRole('button',{name:'查看任务 '+saved.id,exact:true}).click();await status(page,'已读取任务详情');
+ await page.locator('#task-detail').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(repo,'.fusion-dev/implementation/task-ui-desktop.png'),fullPage:true});
+ await context.route('**/control/v1/tasks/*/plan',async route=>{const actual=await route.fetch(),body=await actual.json();body.revision++;await route.fulfill({response:actual,json:body})});
+ await page.getByRole('button',{name:'重新读取任务',exact:true}).click();await status(page,'读取失败');assert.equal(await page.locator('#task-detail').innerText(),'');
+ await context.unroute('**/control/v1/tasks/*/plan');await page.getByRole('button',{name:'重新读取任务',exact:true}).click();await status(page,'已读取任务详情');
+ const mobile=await f.newPage(null,{width:390,height:844});await mobile.page.getByRole('button',{name:'查看任务 '+saved.id,exact:true}).click();await status(mobile.page,'已读取任务详情');assert.ok(await mobile.page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+ await mobile.page.locator('#task-detail').scrollIntoViewIfNeeded();await mobile.page.screenshot({path:path.join(repo,'.fusion-dev/implementation/task-ui-mobile.png'),fullPage:true});assert.deepEqual(mobile.errors,[]);
+ assert.deepEqual(errors,[]);
+});
+for(const receiptMode of ['503','malformed201'])test('task workbench: lost successful receipt '+receiptMode+' freezes editing; identical request retry returns one task',async t=>{
+ const f=await fixture(t,true),{page,context,errors}=await f.newPage();const attempts=[];
+ await context.route('**/agent/v1/tasks',async route=>{
+  attempts.push({body:route.request().postData(),key:route.request().headers()['idempotency-key']});
+  if(attempts.length===2){await route.fulfill({status:409,json:{error:{code:'preview_expired_or_changed'}}});return}
+  const response=await route.fetch();if(attempts.length===1)await route.fulfill(receiptMode==='503'?{status:503,json:{error:{code:'transport_unconfirmed'}}}:{status:201,json:{id:'incomplete'}});else await route.fulfill({response});
+ });
+ await taskPreview(page,'冻结提交的回执丢失');await page.getByRole('button',{name:'冻结提交任务',exact:true}).click();await status(page,'提交结果未确认');
+ assert.equal(await page.getByLabel('任务目标').isDisabled(),true);assert.equal(await page.getByLabel('项目',{exact:true}).isDisabled(),true);assert.equal(await page.getByRole('button',{name:'预览单阶段任务',exact:true}).isDisabled(),true);
+ await page.getByRole('button',{name:'刷新任务列表',exact:true}).click();await status(page,'已读取 1 个任务');
+ await page.getByRole('button',{name:'重试同一任务提交',exact:true}).click();await status(page,'提交结果未确认');assert.equal(await page.getByLabel('任务目标').isDisabled(),true);
+ await page.getByRole('button',{name:'重试同一任务提交',exact:true}).click();await status(page,'任务已保存');
+ assert.equal(attempts.length,3);assert.deepEqual(attempts[0],attempts[1]);assert.deepEqual(attempts[0],attempts[2]);assert.ok(attempts[0].key);
+ const tasks=await f.request('/control/v1/projects/synthetic-ui/tasks');assert.equal(tasks.body.tasks.length,1);assert.equal(tasks.body.tasks[0].state,'ready');
+ assert.equal(await page.getByLabel('任务目标').isDisabled(),false);assert.deepEqual(errors,[]);
+});
+test('task workbench: changed configuration rejects old preview; expired preview never submits',async t=>{
+ const f=await fixture(t,true),{page}=await f.newPage();await taskPreview(page,'不可替换旧预览');
+ const updated=await f.request('/control/v1/projects/synthetic-ui/defaults','PUT',{layer:{}},'"0"');assert.equal(updated.status,201);
+ await page.getByRole('button',{name:'冻结提交任务',exact:true}).click();await status(page,'预览已失效');assert.equal(await page.getByLabel('任务目标').isDisabled(),false);
+ await page.clock.install();await taskPreview(page,'重新预览');let submissions=0;page.on('request',r=>{if(new URL(r.url()).pathname==='/agent/v1/tasks')submissions++});
+ await page.clock.fastForward(301000);await status(page,'预览已到期');assert.equal(await page.getByRole('button',{name:'冻结提交任务',exact:true}).isDisabled(),true);assert.equal(submissions,0);
+ const tasks=await f.request('/control/v1/projects/synthetic-ui/tasks');assert.deepEqual(tasks.body.tasks,[]);
+});
+test('task workbench: actual 32+1 pagination and late previous-project response cannot replace current list',async t=>{
+ const f=await fixture(t,true,true);
+ for(let i=0;i<33;i++){
+  const p=await f.request('/control/v1/tasks/preview','POST',{project_id:'synthetic-ui',goal:'任务索引 '+i,required_roles:['design']});assert.equal(p.status,200);
+  const s=await f.request('/agent/v1/tasks','POST',{preview_id:p.body.preview_id,plan_hash:p.body.plan.hash},null,'browser-index-'+i);assert.equal(s.status,201);
+ }
+ const {page,context,errors}=await f.newPage();await status(page,'已读取 32 个任务');assert.equal(await page.locator('#task-list button[data-task-id]').count(),32);
+ await page.getByRole('button',{name:'读取更早任务',exact:true}).click();await status(page,'已读取 33 个任务');assert.equal(await page.locator('#task-list button[data-task-id]').count(),33);
+ const buttons=page.locator('#task-list button[data-task-id]'),oldID=await buttons.nth(0).getAttribute('data-task-id'),newID=await buttons.nth(1).getAttribute('data-task-id');
+ let releaseDetail;const detailGate=new Promise(resolve=>releaseDetail=resolve);let detailStarted;const detailReady=new Promise(resolve=>detailStarted=resolve);
+ await context.route('**/control/v1/tasks/'+oldID+'/plan',async route=>{detailStarted();await detailGate;await route.continue()});
+ await page.getByRole('button',{name:'查看任务 '+oldID,exact:true}).click();await detailReady;
+ await page.getByRole('button',{name:'查看任务 '+newID,exact:true}).click();await status(page,'已读取任务详情');assert.ok((await page.locator('#task-detail').innerText()).includes('任务索引 31'));
+ const lateDetail=page.waitForResponse(r=>r.url().endsWith('/agent/v1/tasks/'+oldID));releaseDetail();await(await lateDetail).finished();await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));assert.ok((await page.locator('#task-detail').innerText()).includes('任务索引 31'));
+ await context.unroute('**/control/v1/tasks/'+oldID+'/plan');
+ let release;const gate=new Promise(resolve=>release=resolve);let started;const ready=new Promise(resolve=>started=resolve);
+ await context.route('**/control/v1/projects/synthetic-ui/tasks',async route=>{started();await gate;await route.continue()});
+ await page.getByRole('button',{name:'刷新任务列表',exact:true}).click();await ready;
+ await page.getByLabel('项目',{exact:true}).selectOption('synthetic-ui-other');await status(page,'暂无已保存任务');
+ const reply=page.waitForResponse(r=>r.url().endsWith('/control/v1/projects/synthetic-ui/tasks'));release();await(await reply).finished();await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+ assert.equal(await page.locator('#task-list button[data-task-id]').count(),0);assert.equal(await page.getByLabel('项目',{exact:true}).inputValue(),'synthetic-ui-other');assert.deepEqual(errors,[]);
 });
