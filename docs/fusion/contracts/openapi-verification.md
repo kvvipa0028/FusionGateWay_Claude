@@ -1,6 +1,6 @@
 # 当前 Handler 的 OpenAPI 合同验证
 
-`openapi-fusion.yaml` 描述当前内部 Handler 已实现的 27 个路径、31 个操作。无调用预览、提交/读取、阶段计划预览/修订、预算、事件流、启动/取消/run 读取、配置只读、五角色预设版本、任务预设来源、额度读取/刷新与全局/项目默认层读写/历史及任务 pause/continue/cancel 均纳入合同。独立 [fusion-control 草稿 listener](control-host.md) 已注册，可信 [执行宿主](execution-host.md) 已接通 Controller；真实供应商 Factory 注册与 GUI 仍未完成；内部 Handler 校验不能视为真实路线或完整产品部署完成。
+`openapi-fusion.yaml` 描述当前内部 Handler 已实现的 29 个路径、33 个操作。无调用预览、提交/读取、阶段计划预览/修订、预算、事件流、启动/取消/run 读取、配置只读、五角色预设版本、任务预设来源、额度读取/刷新与全局/项目默认层读写/历史及任务 pause/continue/cancel 均纳入合同。独立 [fusion-control 草稿 listener](control-host.md) 已注册，可信 [执行宿主](execution-host.md) 已接通 Controller；真实供应商 Factory 注册与任务工作台仍未完成，阶段配置 GUI 已接通；内部 Handler 校验不能视为真实路线或完整产品部署完成。
 
 OPENAPI-01 只补合同；后续 DEFAULTS-01 新增了运行期默认层，并同步更新合同。OpenAPI 是人工维护的接口合同；Go DTO、现有行为合同与实际 Handler 返回是字段核对来源。以后新增接口或改变 DTO，要同时更新 YAML、样本采集与 checker 的明确操作清单，禁止只为通过检查删掉已有操作。尚未实现的操作不占用实际合同路径。
 
@@ -63,3 +63,5 @@ python3 scripts/fusion/check-openapi.py \
 最新归档生产扩展见 [CHECKPOINT-API-01](../work-items/WP-15/CHECKPOINT-API-01/summary.md)：新增 checkpoint 200 实际Handler样本及Native/session字段schema反例。当前26 paths/30 operations/53 samples/9 negatives；产品执行注册仍false。前文25/29/52/8保留为RESUME-API-01历史结果。
 
 新增 [PROJECT-INDEX-01](../work-items/WP-15/PROJECT-INDEX-01/summary.md) 的只读项目发现列表已纳入最新合同和样本；最小字段、128容量、默认层版本更新、读取后撤销与真实loopback来源撤销由独立测试证明，不授予真实路线准入。
+
+最新 [TASK-INDEX-01](../work-items/WP-15/TASK-INDEX-01/summary.md) 纳入两个只读任务分页路径和 7 份实际 Handler 样本。当前 29 paths/33 operations/63 samples，保留 9 项输入与 5 项项目响应反例，另增加 7 项任务页响应反例。前文各旧数量是对应历史组件结果；可信 Native GET 通路已验证，工作台消费者及真实 Factory 准入仍待完成。

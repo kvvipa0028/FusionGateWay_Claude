@@ -1,0 +1,50 @@
+=== RUN   TestTaskIndexEmptyRegisteredProject
+--- PASS: TestTaskIndexEmptyRegisteredProject (0.04s)
+=== RUN   TestTaskIndexProjectionPagingAndCurrentCondition
+--- PASS: TestTaskIndexProjectionPagingAndCurrentCondition (0.13s)
+=== RUN   TestTaskIndexResourceSegmentsAndShortGoals
+--- PASS: TestTaskIndexResourceSegmentsAndShortGoals (0.04s)
+=== RUN   TestTaskIndexManagementPathAndReadOnlyBoundary
+=== RUN   TestTaskIndexManagementPathAndReadOnlyBoundary/missing
+=== RUN   TestTaskIndexManagementPathAndReadOnlyBoundary/wrong
+=== RUN   TestTaskIndexManagementPathAndReadOnlyBoundary/stage
+=== RUN   TestTaskIndexManagementPathAndReadOnlyBoundary/post
+=== RUN   TestTaskIndexManagementPathAndReadOnlyBoundary/put
+=== RUN   TestTaskIndexManagementPathAndReadOnlyBoundary/head
+=== RUN   TestTaskIndexManagementPathAndReadOnlyBoundary/unknown
+=== RUN   TestTaskIndexManagementPathAndReadOnlyBoundary/query
+=== RUN   TestTaskIndexManagementPathAndReadOnlyBoundary/empty-anchor
+=== RUN   TestTaskIndexManagementPathAndReadOnlyBoundary/extra
+=== RUN   TestTaskIndexManagementPathAndReadOnlyBoundary/trailing
+=== RUN   TestTaskIndexManagementPathAndReadOnlyBoundary/unknown-child
+=== RUN   TestTaskIndexManagementPathAndReadOnlyBoundary/cross-site
+=== RUN   TestTaskIndexManagementPathAndReadOnlyBoundary/closed-store
+--- PASS: TestTaskIndexManagementPathAndReadOnlyBoundary (0.46s)
+    --- PASS: TestTaskIndexManagementPathAndReadOnlyBoundary/missing (0.03s)
+    --- PASS: TestTaskIndexManagementPathAndReadOnlyBoundary/wrong (0.03s)
+    --- PASS: TestTaskIndexManagementPathAndReadOnlyBoundary/stage (0.03s)
+    --- PASS: TestTaskIndexManagementPathAndReadOnlyBoundary/post (0.03s)
+    --- PASS: TestTaskIndexManagementPathAndReadOnlyBoundary/put (0.03s)
+    --- PASS: TestTaskIndexManagementPathAndReadOnlyBoundary/head (0.03s)
+    --- PASS: TestTaskIndexManagementPathAndReadOnlyBoundary/unknown (0.03s)
+    --- PASS: TestTaskIndexManagementPathAndReadOnlyBoundary/query (0.03s)
+    --- PASS: TestTaskIndexManagementPathAndReadOnlyBoundary/empty-anchor (0.03s)
+    --- PASS: TestTaskIndexManagementPathAndReadOnlyBoundary/extra (0.04s)
+    --- PASS: TestTaskIndexManagementPathAndReadOnlyBoundary/trailing (0.03s)
+    --- PASS: TestTaskIndexManagementPathAndReadOnlyBoundary/unknown-child (0.03s)
+    --- PASS: TestTaskIndexManagementPathAndReadOnlyBoundary/cross-site (0.03s)
+    --- PASS: TestTaskIndexManagementPathAndReadOnlyBoundary/closed-store (0.03s)
+=== RUN   TestTaskIndexRechecksAuthorityAfterBlockedRead
+=== RUN   TestTaskIndexRechecksAuthorityAfterBlockedRead/revoke
+=== RUN   TestTaskIndexRechecksAuthorityAfterBlockedRead/cancel
+--- PASS: TestTaskIndexRechecksAuthorityAfterBlockedRead (0.06s)
+    --- PASS: TestTaskIndexRechecksAuthorityAfterBlockedRead/revoke (0.03s)
+    --- PASS: TestTaskIndexRechecksAuthorityAfterBlockedRead/cancel (0.03s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/api	2.317s
+=== RUN   TestProjectTasksPagesRemainProjectBoundAndDurable
+--- PASS: TestProjectTasksPagesRemainProjectBoundAndDurable (0.27s)
+=== RUN   TestProjectTasksRejectsForeignCursorAndStorageFailure
+--- PASS: TestProjectTasksRejectsForeignCursorAndStorageFailure (0.04s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/store	1.530s

@@ -1,0 +1,6 @@
+=== RUN   TestNativeStageBridgeTaskIndexReadOnlyAndSourceBound
+    task_index_test.go:31: native list bridge 404
+--- FAIL: TestNativeStageBridgeTaskIndexReadOnlyAndSourceBound (0.06s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	0.675s
+FAIL

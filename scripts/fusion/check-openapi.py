@@ -17,6 +17,8 @@ from referencing.jsonschema import DRAFT202012
 
 EXPECTED = {
     "/control/v1/projects": {"get"},
+    "/control/v1/projects/{project_id}/tasks": {"get"},
+    "/control/v1/projects/{project_id}/tasks/before/{task_id}": {"get"},
     "/control/v1/tasks/{task_id}/cancel": {"post"},
     "/control/v1/tasks/{task_id}/pause": {"post"},
     "/control/v1/tasks/{task_id}/continue": {"post"},
@@ -162,7 +164,20 @@ def verify(contract, official, samples):
     ]
     for value in invalid_inventory:
         assert not project_response.is_valid(value)
-    return {"official_openapi_document_schema": "3.1/2022-10-07", "paths": len(EXPECTED), "operations": len(operations), "handler_samples": count, "covered_operations": len(covered), "negative_schema_cases": len(negative), "negative_project_response_cases": len(invalid_inventory), "offline": True, "production_registered": False}
+    task_response = validator({"$ref": "#/components/schemas/TaskListReply"})
+    entry = {"id": "fixture", "project_id": "fixture", "goal": "fixture", "state": "ready", "plan_revision": 1, "generation": 0, "goal_truncated": False, "etag": '"p1-g0-ready"'}
+    invalid_tasks = [
+        {"tasks": None, "next_before": ""},
+        {"tasks": [entry] * 33, "next_before": "fixture"},
+        {"tasks": [dict(entry, goal="中" * 513)], "next_before": ""},
+        {"tasks": [dict(entry, native_session_id="private")], "next_before": ""},
+        {"tasks": [dict(entry, etag='W/"p1-g0-ready"')], "next_before": ""},
+        {"tasks": [dict(entry, goal_truncated="true")], "next_before": ""},
+        {"tasks": [], "next_before": "", "path": "/private"},
+    ]
+    for value in invalid_tasks:
+        assert not task_response.is_valid(value)
+    return {"official_openapi_document_schema": "3.1/2022-10-07", "paths": len(EXPECTED), "operations": len(operations), "handler_samples": count, "covered_operations": len(covered), "negative_schema_cases": len(negative), "negative_project_response_cases": len(invalid_inventory), "negative_task_response_cases": len(invalid_tasks), "offline": True, "production_registered": False}
 
 
 if __name__ == "__main__":

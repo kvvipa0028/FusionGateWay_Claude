@@ -1,0 +1,9 @@
+# github.com/yetone/magpie/internal/fusion/store [github.com/yetone/magpie/internal/fusion/store.test]
+internal/fusion/store/task_index_test.go:21:17: s.ProjectTasks undefined (type *Store has no field or method ProjectTasks)
+internal/fusion/store/task_index_test.go:36:17: s.ProjectTasks undefined (type *Store has no field or method ProjectTasks)
+internal/fusion/store/task_index_test.go:41:16: s.ProjectTasks undefined (type *Store has no field or method ProjectTasks)
+internal/fusion/store/task_index_test.go:52:17: s.ProjectTasks undefined (type *Store has no field or method ProjectTasks)
+internal/fusion/store/task_index_test.go:56:16: s.ProjectTasks undefined (type *Store has no field or method ProjectTasks)
+internal/fusion/store/task_index_test.go:58:16: s.ProjectTasks undefined (type *Store has no field or method ProjectTasks)
+FAIL	github.com/yetone/magpie/internal/fusion/store [build failed]
+FAIL

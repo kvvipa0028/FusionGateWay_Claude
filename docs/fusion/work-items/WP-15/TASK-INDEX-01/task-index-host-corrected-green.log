@@ -1,0 +1,4 @@
+=== RUN   TestControlHostTaskIndexListsSubmittedTasksWithoutDispatch
+--- PASS: TestControlHostTaskIndexListsSubmittedTasksWithoutDispatch (0.24s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	1.912s

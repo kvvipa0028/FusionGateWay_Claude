@@ -1,0 +1,5 @@
+# github.com/yetone/magpie/internal/fusion/api
+internal/fusion/api/task_index.go:51:21: undefined: errControlForbidden
+internal/fusion/api/task_index.go:62:21: undefined: errControlForbidden
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap [build failed]
+FAIL

@@ -1,0 +1,11 @@
+# github.com/yetone/magpie/internal/fusion/api [github.com/yetone/magpie/internal/fusion/api.test]
+internal/fusion/api/task_index.go:51:21: undefined: errControlForbidden
+internal/fusion/api/task_index.go:62:21: undefined: errControlForbidden
+FAIL	github.com/yetone/magpie/internal/fusion/api [build failed]
+=== RUN   TestProjectTasksPagesRemainProjectBoundAndDurable
+--- PASS: TestProjectTasksPagesRemainProjectBoundAndDurable (0.27s)
+=== RUN   TestProjectTasksRejectsForeignCursorAndStorageFailure
+--- PASS: TestProjectTasksRejectsForeignCursorAndStorageFailure (0.03s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/store	1.950s
+FAIL

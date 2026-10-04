@@ -8,4 +8,6 @@
 
 [PRESET-UI-01](PRESET-UI-01/summary.md) 已完成命名预设创建、版本保存、明确载入、冲突保留和原请求重试；通过浏览器、Native 窗口及独立 Store 回读验证。
 
+[TASK-INDEX-01](../WP-15/TASK-INDEX-01/summary.md) 补齐工作台所需的只读任务分页发现和受限 Native GET 通路，真实 HTTP 提交/列表/来源撤销及 Store 分页验证通过；尚未加入页面消费者。
+
 任务提交与单阶段执行、下一阶段手动触发、运行事件/额度/取消暂停/计划修订工作台仍待实施。页面测试未证明真实 provider 或账号执行；最终验收矩阵保持 not_run，Jev off。

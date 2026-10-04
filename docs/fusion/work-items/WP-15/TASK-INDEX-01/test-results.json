@@ -1,0 +1,208 @@
+{
+  "task-index-api-red.log": {
+    "top_level": {
+      "pass": 0,
+      "fail": 1,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 0,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "task-index-store-red.log": {
+    "top_level": {
+      "pass": 0,
+      "fail": 0,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 0,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "task-index-first-green.log": {
+    "top_level": {
+      "pass": 2,
+      "fail": 0,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 0,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "task-index-bridge-red.log": {
+    "top_level": {
+      "pass": 0,
+      "fail": 0,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 0,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "task-index-bridge-behavior-red.log": {
+    "top_level": {
+      "pass": 0,
+      "fail": 1,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 0,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "task-index-target-green.log": {
+    "top_level": {
+      "pass": 7,
+      "fail": 0,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 16,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "task-index-openapi-capture.log": {
+    "top_level": {
+      "pass": 1,
+      "fail": 0,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 0,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "task-index-openapi-red.log": {
+    "top_level": {
+      "pass": 0,
+      "fail": 0,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 0,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "task-index-final-race.log": {
+    "top_level": {
+      "pass": 102,
+      "fail": 0,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 63,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "task-index-store-host-final-race.log": {
+    "top_level": {
+      "pass": 114,
+      "fail": 1,
+      "skip": 3
+    },
+    "subtests": {
+      "pass": 145,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "task-index-host-corrected-green.log": {
+    "top_level": {
+      "pass": 1,
+      "fail": 0,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 0,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "task-index-bootstrap-final-race.log": {
+    "top_level": {
+      "pass": 31,
+      "fail": 0,
+      "skip": 2
+    },
+    "subtests": {
+      "pass": 123,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "final_package_results": {
+    "api": {
+      "pass": 102,
+      "sub_pass": 63,
+      "fail": 0,
+      "skip": 0,
+      "log": "task-index-final-race.log",
+      "command_exit": 1,
+      "note": "API package exit0; other packages did not run due to API-only export flag. No repeat of unchanged passing API."
+    },
+    "store": {
+      "pass": 84,
+      "sub_pass": 22,
+      "fail": 0,
+      "skip": 1,
+      "log": "task-index-store-host-final-race.log",
+      "note": "Store package exit0; bootstrap fixture initially reused a committed preview with a new key and correctly received409."
+    },
+    "bootstrap": {
+      "pass": 31,
+      "sub_pass": 123,
+      "fail": 0,
+      "skip": 2,
+      "log": "task-index-bootstrap-final-race.log",
+      "command_exit": 0
+    }
+  },
+  "go_version": "go1.26.3 darwin/arm64",
+  "graph": {
+    "nodes": 13955,
+    "edges": 123836
+  },
+  "new_tests": {
+    "api_top_level": 5,
+    "api_subtests": 16,
+    "store_top_level": 3,
+    "bootstrap_top_level": 2
+  },
+  "new_real_model_calls": 0,
+  "new_real_quota_queries": 0,
+  "new_CUA_window_verification": false,
+  "full_fusion_suite_repeated": false,
+  "final_T01_T60": "not_run",
+  "whole_goal": "in_progress",
+  "openapi": {
+    "official_openapi_document_schema": "3.1/2022-10-07",
+    "paths": 29,
+    "operations": 33,
+    "handler_samples": 63,
+    "covered_operations": 33,
+    "negative_schema_cases": 9,
+    "negative_project_response_cases": 5,
+    "negative_task_response_cases": 7,
+    "offline": true,
+    "production_registered": false
+  },
+  "log_normalization": {
+    "task-index-final-race.log": {
+      "original_sha256": "da443c7c81f0cd15269697029340e51cea9affd8fa4a4f2cdcac338b7cc9ec8a",
+      "transformation": "strip trailing whitespace, expand only leading indentation tabs to spaces, retain lines, ensure final newline"
+    }
+  }
+}

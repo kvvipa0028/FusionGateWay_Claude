@@ -138,11 +138,14 @@ func (b *NativeStageBridge) allowed(method, path string) bool {
 	}
 	if len(parts) == 2 {
 		switch parts[1] {
-		case "configuration", "presets":
+		case "configuration", "presets", "tasks":
 			return method == "GET"
 		case "defaults":
 			return method == "GET" || method == "PUT"
 		}
+	}
+	if len(parts) == 4 && parts[1] == "tasks" && parts[2] == "before" && opaque(parts[3]) {
+		return method == "GET"
 	}
 	if len(parts) == 3 && parts[1] == "presets" && parts[2] != "" {
 		return method == "GET" || method == "PUT"

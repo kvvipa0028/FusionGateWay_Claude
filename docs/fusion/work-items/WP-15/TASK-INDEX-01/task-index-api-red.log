@@ -1,0 +1,6 @@
+=== RUN   TestTaskIndexEmptyRegisteredProject
+    task_index_test.go:12: missing workbench task index 404
+--- FAIL: TestTaskIndexEmptyRegisteredProject (0.04s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/api	0.816s
+FAIL

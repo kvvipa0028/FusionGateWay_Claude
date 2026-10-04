@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Fusion task control API
   version: 0.1.0-draft
-  description: 当前已实现 Handler 合同；27 paths、31 operations。独立 fusion-control 草稿 listener 已注册；生产执行 Controller/GUI 尚未接线。pause/continue 使用完整 Task If-Match，暂停中不宣称已停，continue 仅解除可靠暂停，不隐式启动或恢复 Native。全局/项目默认层只允许绑定，历史快照保持冻结。
+  description: 当前已实现 Handler 合同；29 paths、33 operations。独立 fusion-control 草稿 listener 已注册；可信执行宿主与 Native 阶段配置页面已接线，真实供应商 Factory/准入及任务工作台尚未完成。pause/continue 使用完整 Task If-Match，暂停中不宣称已停，continue 仅解除可靠暂停，不隐式启动或恢复 Native。全局/项目默认层只允许绑定，历史快照保持冻结。
 x-fusion-status: implemented-handler-contract
 x-fusion-production-registered: false
 x-fusion-draft-control-registered: true
@@ -2092,6 +2092,84 @@ paths:
           $ref: '#/components/responses/Error500'
         '503':
           $ref: '#/components/responses/Error503'
+  /control/v1/projects/{project_id}/tasks:
+    get:
+      operationId: listProjectTasks
+      description: 只读任务索引，按创建顺序倒序，固定每页32项；before为同项目既有任务ID。目标仅返回最多512 Unicode code points摘要，goal_truncated明确标注，完整内容仍由Task
+        GET读取。etag来自同一行Task状态，不是列表资源ETag。分页是当前视图，新增任务须刷新首屏；不启动任务或授予准入。
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+          x-fusion-max-utf8-bytes: 256
+      responses:
+        '200':
+          description: 有限任务页；无后续页时next_before为空字符串。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskListReply'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+  /control/v1/projects/{project_id}/tasks/before/{task_id}:
+    get:
+      operationId: listOlderProjectTasks
+      description: 只读任务索引，按创建顺序倒序，固定每页32项；before为同项目既有任务ID。目标仅返回最多512 Unicode code points摘要，goal_truncated明确标注，完整内容仍由Task
+        GET读取。etag来自同一行Task状态，不是列表资源ETag。分页是当前视图，新增任务须刷新首屏；不启动任务或授予准入。
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+          x-fusion-max-utf8-bytes: 256
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+          x-fusion-max-utf8-bytes: 256
+      responses:
+        '200':
+          description: 有限任务页；无后续页时next_before为空字符串。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskListReply'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
 components:
   securitySchemes:
     ManagementBearer:
@@ -2392,6 +2470,59 @@ components:
       - testing
       - review
       - acceptance
+    TaskListEntry:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - project_id
+      - goal
+      - state
+      - plan_revision
+      - generation
+      - goal_truncated
+      - etag
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 256
+        project_id:
+          type: string
+          minLength: 1
+          maxLength: 256
+        goal:
+          type: string
+          minLength: 1
+          maxLength: 512
+        state:
+          type: string
+        plan_revision:
+          type: integer
+          minimum: 1
+        generation:
+          type: integer
+          minimum: 0
+        goal_truncated:
+          type: boolean
+        etag:
+          type: string
+          pattern: ^"p[1-9][0-9]*-g[0-9]+-[a-z_]+"$
+    TaskListReply:
+      type: object
+      additionalProperties: false
+      required:
+      - tasks
+      - next_before
+      properties:
+        tasks:
+          type: array
+          maxItems: 32
+          items:
+            $ref: '#/components/schemas/TaskListEntry'
+        next_before:
+          type: string
+          maxLength: 256
     Task:
       type: object
       additionalProperties: false

@@ -1,0 +1,12 @@
+{
+  "official_openapi_document_schema": "3.1/2022-10-07",
+  "paths": 29,
+  "operations": 33,
+  "handler_samples": 63,
+  "covered_operations": 33,
+  "negative_schema_cases": 9,
+  "negative_project_response_cases": 5,
+  "negative_task_response_cases": 7,
+  "offline": true,
+  "production_registered": false
+}

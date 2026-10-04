@@ -4,12 +4,15 @@ import (
 	"bufio"
 	"encoding/json"
 	"flag"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
+
+	"github.com/yetone/magpie/internal/fusion/store"
 )
 
 var contractOutput = flag.String("fusion-api-contract-out", "", "optional absolute JSON output for offline OpenAPI contract verification")
@@ -52,7 +55,11 @@ func TestImplementedAPIContractSamples(t *testing.T) {
 		}
 		samples = append(samples, v)
 	}
-	_, _, h := presetSetup(t)
+	_, indexStore, h := presetSetup(t)
+	indexPath := "/control/v1/projects/fixture-project/tasks"
+	add("GET", indexPath, "", 200, request(h, "GET", indexPath, "", "", "fixture-management"), nil)
+	add("POST", indexPath, "", 405, request(h, "POST", indexPath, "", "", "fixture-management"), nil)
+	add("GET", indexPath+"/before/missing", "", 404, request(h, "GET", indexPath+"/before/missing", "", "", "fixture-management"), nil)
 	add("GET", "/control/v1/projects", "", 200, request(h, "GET", "/control/v1/projects", "", "", "fixture-management"), nil)
 	add("GET", "/control/v1/projects", "", 401, request(h, "GET", "/control/v1/projects", "", "", ""), nil)
 	add("POST", "/control/v1/projects", "", 405, request(h, "POST", "/control/v1/projects", "", "", "fixture-management"), nil)
@@ -68,6 +75,20 @@ func TestImplementedAPIContractSamples(t *testing.T) {
 		ID string `json:"id"`
 	}
 	json.Unmarshal(w.Body.Bytes(), &task)
+	add("GET", indexPath, "", 200, request(h, "GET", indexPath, "", "", "fixture-management"), nil)
+	add("GET", indexPath+"/before/"+task.ID, "", 200, request(h, "GET", indexPath+"/before/"+task.ID, "", "", "fixture-management"), nil)
+	for i := 0; i < 34; i++ {
+		if _, err := indexStore.Create(fmt.Sprintf("index-sample-%d", i), store.CreateRequest{ProjectID: "fixture-project", Goal: strings.Repeat("中😀", 300), Plan: p.Plan}); err != nil {
+			t.Fatal(err)
+		}
+	}
+	w = request(h, "GET", indexPath, "", "", "fixture-management")
+	add("GET", indexPath, "", 200, w, nil)
+	var index TaskListReply
+	if json.Unmarshal(w.Body.Bytes(), &index) != nil || index.NextBefore == "" {
+		t.Fatal("bounded task capture missing cursor")
+	}
+	add("GET", indexPath+"/before/"+index.NextBefore, "", 200, request(h, "GET", indexPath+"/before/"+index.NextBefore, "", "", "fixture-management"), nil)
 	for _, path := range []string{"/agent/v1/tasks/" + task.ID, "/control/v1/tasks/" + task.ID + "/budget", "/control/v1/tasks/" + task.ID + "/plan", "/control/v1/tasks/" + task.ID + "/preset", "/control/v1/projects/fixture-project/configuration"} {
 		add("GET", path, "", 200, request(h, "GET", path, "", "", "fixture-management"), nil)
 	}

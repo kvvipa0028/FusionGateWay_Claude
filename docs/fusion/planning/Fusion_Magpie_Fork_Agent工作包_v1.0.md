@@ -476,7 +476,7 @@
 
 **阶段：**M2　**负责人角色：**前端 Agent　**状态：**in_progress
 
-已完成组件：[EDITOR-01](../work-items/WP-16/EDITOR-01/summary.md)、[NATIVE-UI-01](../work-items/WP-16/NATIVE-UI-01/summary.md)、[PRESET-UI-01](../work-items/WP-16/PRESET-UI-01/summary.md)。阶段编辑、默认配置保存、单阶段预览和命名预设已有浏览器及基本 Native 操作验证；任务提交/启动及工作台尚未完成。
+已完成组件：[EDITOR-01](../work-items/WP-16/EDITOR-01/summary.md)、[NATIVE-UI-01](../work-items/WP-16/NATIVE-UI-01/summary.md)、[PRESET-UI-01](../work-items/WP-16/PRESET-UI-01/summary.md)。阶段编辑、默认配置保存、单阶段预览和命名预设已有浏览器及基本 Native 操作验证；任务提交/启动及工作台尚未完成。[TASK-INDEX-01](../work-items/WP-15/TASK-INDEX-01/summary.md) 已补齐只读任务分页和受限 Native GET 通路，页面消费者待实施。
 
 **输入/前置：**WP-04, WP-06, WP-15。同时读取这些前置包的合同、测试日志、阻断项与当前仓库 HEAD。
 
