@@ -1,0 +1,14 @@
+=== RUN   TestSubmissionJournalPreparePersistsOriginalRequestBeforeTask
+--- PASS: TestSubmissionJournalPreparePersistsOriginalRequestBeforeTask (0.07s)
+=== RUN   TestSubmissionJournalAbandonSealsLateOriginalCommit
+    submission_journal_test.go:65: late original request committed after abandon <nil>
+--- FAIL: TestSubmissionJournalAbandonSealsLateOriginalCommit (0.05s)
+=== RUN   TestSubmissionJournalCommitAndAcknowledgeAreExactAndAtomic
+    submission_journal_test.go:94: task and journal committed separately <nil>
+--- FAIL: TestSubmissionJournalCommitAndAcknowledgeAreExactAndAtomic (0.05s)
+=== RUN   TestSubmissionJournalAbandonCreationRaceHasOneDurableWinner
+    submission_journal_test.go:144: committed request also abandoned <nil>
+--- FAIL: TestSubmissionJournalAbandonCreationRaceHasOneDurableWinner (0.05s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/store	0.867s
+FAIL

@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/store [github.com/yetone/magpie/internal/fusion/store.test]
+internal/fusion/store/submission_journal_test.go:11:49: undefined: SubmissionDraft
+internal/fusion/store/submission_journal_test.go:12:9: undefined: SubmissionDraft
+internal/fusion/store/submission_journal_test.go:14:24: undefined: SubmissionDraft
+internal/fusion/store/submission_journal_test.go:14:41: undefined: SubmissionIdentity
+internal/fusion/store/submission_journal_test.go:15:9: undefined: SubmissionIdentity
+internal/fusion/store/submission_journal_test.go:20:16: s.PrepareSubmission undefined (type *Store has no field or method PrepareSubmission)
+internal/fusion/store/submission_journal_test.go:38:14: s.PendingSubmission undefined (type *Store has no field or method PendingSubmission)
+internal/fusion/store/submission_journal_test.go:42:17: s.PrepareSubmission undefined (type *Store has no field or method PrepareSubmission)
+internal/fusion/store/submission_journal_test.go:47:14: s.PrepareSubmission undefined (type *Store has no field or method PrepareSubmission)
+internal/fusion/store/submission_journal_test.go:54:15: s.PrepareSubmission undefined (type *Store has no field or method PrepareSubmission)
+internal/fusion/store/submission_journal_test.go:54:15: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/store [build failed]
+FAIL

@@ -58,5 +58,9 @@ func saveSubmission(tx *sql.Tx, submission *creationSubmission, key, payloadHash
 		return nil
 	}
 	_, e := tx.Exec("INSERT INTO task_submissions VALUES(?,?,?,?,?,?)", submission.previewID, key, in.ProjectID, in.Plan.Hash, payloadHash, taskID)
+	if e != nil {
+		return e
+	}
+	_, e = tx.Exec("UPDATE submission_journals SET state='committed',task_id=? WHERE preview_id=? AND state='prepared'", taskID, submission.previewID)
 	return e
 }

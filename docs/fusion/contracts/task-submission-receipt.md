@@ -14,11 +14,11 @@ schema 6 的 `task_submissions` 将 preview_id 唯一绑定到原 key、project_
 
 ## 迁移与恢复边界
 
-006 自动迁移现有 schema 1–5，保留旧文件 checksum、Task、历史计划、预算及已用计数、预设、默认层、事件和旧 payload hash。旧任务没有原 preview_id，迁移不伪造 HTTP 关联。006/checksum 写入失败整步回滚，可修复阻塞后重试；checksum drift 和版本 7 及以后拒绝打开。旧二进制不支持 schema 6；回滚须在宿主停止后恢复对应一致性备份，不能改版本号降级。
+006 自动迁移现有 schema 1–5，保留旧文件 checksum、Task、历史计划、预算及已用计数、预设、默认层、事件和旧 payload hash。旧任务没有原 preview_id，迁移不伪造 HTTP 关联。006/checksum 写入失败整步回滚，可修复阻塞后重试；历史 SUBMISSION-RECEIPT-01 使用 schema 6。当前 [SUBMISSION-JOURNAL-01](task-submission-journal.md) 新增 schema 7 的私有记录，checksum drift 和版本 8 及以后拒绝打开；旧 schema≤6 二进制不支持 7。回滚须在宿主停止后恢复对应一致性备份，不能改版本号降级。
 
 本项已验证预览真实到期清理、新 Server、Store Close/Open 和 owned loopback 宿主重启，以及真实 HTTP→Native 桥原请求回读、未登记项目/Source 撤销拒绝。没有声称新增 SIGKILL/硬件断电测试或实际 Native 窗口视觉验证。
 
-窗口未确认请求仍只保留在当前窗口内。若窗口关闭后丢失原 body/key，本项不能替客户端恢复它；该工作及运行控制仍待完成。仍持有原请求的窗口可在宿主重启后用原请求重试，当前有效的私有宿主认证须重新建立；不复用已撤销的旧 token。
+窗口未确认请求仍只保留在当前窗口内。若窗口关闭后丢失原 body/key，本项不能替客户端恢复它；[私有提交记录](task-submission-journal.md)已完成存储基础，其 API/UI 消费及运行控制仍待完成。仍持有原请求的窗口可在宿主重启后用原请求重试，当前有效的私有宿主认证须重新建立；不复用已撤销的旧 token。
 
 ## 复现
 

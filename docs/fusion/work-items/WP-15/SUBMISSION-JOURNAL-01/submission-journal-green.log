@@ -1,0 +1,10 @@
+=== RUN   TestSubmissionJournalPreparePersistsOriginalRequestBeforeTask
+--- PASS: TestSubmissionJournalPreparePersistsOriginalRequestBeforeTask (0.07s)
+=== RUN   TestSubmissionJournalAbandonSealsLateOriginalCommit
+--- PASS: TestSubmissionJournalAbandonSealsLateOriginalCommit (0.05s)
+=== RUN   TestSubmissionJournalCommitAndAcknowledgeAreExactAndAtomic
+--- PASS: TestSubmissionJournalCommitAndAcknowledgeAreExactAndAtomic (0.06s)
+=== RUN   TestSubmissionJournalAbandonCreationRaceHasOneDurableWinner
+--- PASS: TestSubmissionJournalAbandonCreationRaceHasOneDurableWinner (0.39s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/store	2.216s

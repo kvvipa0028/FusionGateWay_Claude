@@ -1,0 +1,39 @@
+{
+  "source_files": {
+    "docs/fusion/README.md": "698a055397658e7388bb3254ac7790b9f8012fcdef0376c50550a8c675726adb",
+    "docs/fusion/contracts/state-transition-contract.md": "9842f4b74d249249431ebbff6dd66ac0fd45603732e8b62825f601804cb117d8",
+    "docs/fusion/contracts/task-submission-journal.md": "c571331d050ae28425cb19601be19306bd5ae905a13973515e997c9b3c41df1d",
+    "docs/fusion/contracts/task-submission-receipt.md": "138ef2cb4971ba5fdb113ebdbd2352ca984180099c235006d39f5b1b4e244fe3",
+    "docs/fusion/planning/Fusion_Magpie_Fork_Agent工作包_v1.0.md": "34827ec71cd73bb324a449b40b721c8df78cd159e7653a1bcd96491c19598a0d",
+    "docs/fusion/work-items/WP-15/summary.md": "5a5871526b73523238be7cb965e2ff4c5057425131aadb6e6571b82b3984e4ca",
+    "docs/fusion/work-items/WP-16/summary.md": "8c1219a6bc111f103100dffeda5fea3872ef6abbb9bab47bd0eb86b9b0473ca6",
+    "internal/fusion/store/defaults_migration_test.go": "04b621fa27a028fa1044123c6d3c4f3178c37ccd0dc9c95d123b1b92933e9402",
+    "internal/fusion/store/migrations/007.sql": "7ca7654c8b7e0734dc921adc9501a7e30716de378266e44cc113b772c04bb3ca",
+    "internal/fusion/store/preset_migration_test.go": "87a48c55c2f991335572d0fbe71173089ad18ea519e08f05bd9f05736d3425c4",
+    "internal/fusion/store/scheduling_test.go": "522abf4c8c7f0f432152e67684f972daa9ab4951a27ed9897120a18e56c8e219",
+    "internal/fusion/store/start_once_test.go": "64b2159c3d39671dcf996abe4757e5321c0d354b6c0be2760833619f8ca8e18e",
+    "internal/fusion/store/store.go": "4de81456b91db3575d218044abfe3cf72473f5aa53a2d2003ba75be9d6297cab",
+    "internal/fusion/store/submission_journal.go": "0a0192dbe7ee1a49c471c208d449731329e9fce21b2aff3edcb1aedea6e5c333",
+    "internal/fusion/store/submission_journal_migration_test.go": "e8c735cda5e56aed81dea3839174f773a6f80dbe3cf5f7134a991f0a3c304de2",
+    "internal/fusion/store/submission_journal_test.go": "500f4ca0368f3569b5eb3b6a9925aaaa26437573c1dd2b10da114be51feeabf3",
+    "internal/fusion/store/submission_migration_test.go": "ac6f5e1e09e84ba9380af131bab5955575258cd9757f168f13269b53f1e65a28",
+    "internal/fusion/store/submission_receipt.go": "325c70a5547e38c54761490be376ff39137c25077db097e8a2b340fcd0f2e890"
+  },
+  "packet_files": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "4d422acdf7a64d3701d504a7bff73b1494399c0bd90ae153352107e127216ab0",
+    "build-results.json": "1510e87610d3fc96d265956e93ba8181d9366352a1d9190fd83382e7f0f067e9",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "graph.json": "b46a672d14708e5e1e658b25c0c9abf6fbbb524e3115edbb4149b3c9a29b7fb5",
+    "log-provenance.json": "635f14d426bacd8c9f579b4cae911e7fe20dc92d3f5c1b05a0a4fbb595fc1b3d",
+    "submission-journal-behavior-red.log": "916f781484005c6d97627250644b2a46d4083d5590eb2b3ce1a556e0443c16cc",
+    "submission-journal-corruption-red.log": "64fe0764fbe0b38de1948b6569d1501bca39504c8b34e36db137e0ee98011d0c",
+    "submission-journal-corruption-verified-red.log": "2fbaae24cfdbf90c0556e31d93ebb051d5315c55055038cc0dfe43dc466f90d8",
+    "submission-journal-final.log": "41fdf732ecf3ffde483acbbe452feb9c51ed59c38ae2f47f903d479de81a2279",
+    "submission-journal-green.log": "ffc47322b6bcf3c459ec16990f75db26aed923c8e2fbd2e2dd60388740ae6ead",
+    "submission-journal-interface-red.log": "b354f95b5338c82a7dea727c1c4850606e1023137f52c1985d5a956396326f66",
+    "submission-journal-verified-final.log": "fdab34327e71492a0ce3d5fba85a95fffbe50d69ef1382982022c0f1deedbc08",
+    "summary.md": "5677b47b699d41e74f35c81e72e1b5f75c8f6ac4305b9ebc174ecdf51b74ad70",
+    "validation.json": "f6c78f26c6f1ed6476466256f2e8368d1c25f694c8fef1ff3a0cf34e18a1f898"
+  }
+}

@@ -1,0 +1,6 @@
+=== RUN   TestSubmissionJournalCorruptFrozenRequestCannotCommit
+    submission_journal_test.go:397: constraint failed: invalid submission journal transition (1811)
+--- FAIL: TestSubmissionJournalCorruptFrozenRequestCannotCommit (0.06s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/store	0.680s
+FAIL

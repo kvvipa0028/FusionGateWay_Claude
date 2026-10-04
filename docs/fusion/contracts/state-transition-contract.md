@@ -78,3 +78,8 @@ CancelTask 使用同一完整 TaskVersion 原子条件；空闲且全任务历�
 ## WP-15 schema 6 提交身份
 
 新增 task_submissions 保存原预览/提交 key/项目/原计划 hash/原 payload hash/任务的不可变关联；001–005 文件与旧 payload hash 不变。新回执与任务创建事务原子提交。旧任务迁移不猜造预览身份，仍保留旧完整 payload 幂等回读；后续真实进程内预览可附加到已提交的相同项目/key/payload。当前版本为 6，未来版本拒绝测试使用 7，历史 schema 1–5 fixture 与数据断言保留。回滚到 schema 5 或更早需恢复对应一致性备份，不能通过改 user_version 降级。详情及未完成窗口恢复边界见 [task-submission-receipt.md](task-submission-receipt.md)。
+
+
+## WP-15 schema 7 私有提交记录
+
+prepared→committed/abandoned、committed→acknowledged 是独立窗口提交记录的生命周期，不是 Task/StageRun 状态。创建/封存同事务互斥，已确认记录不回退；journal 创建/解决不启动 Runtime、不改 Task 事件或预算。001–006 与原幂等/HTTP 合同保留，007 失败回滚、checksum 漂移及未来版本 8 拒绝已有验证。API/Native/UI 消费仍未接入，窗口恢复不算交付，见 [task-submission-journal.md](task-submission-journal.md)。

@@ -50,8 +50,8 @@ func TestSubmissionMigrationSixPreservesLegacyDataWithoutInventingPreview(t *tes
 	}
 	defer s.Close()
 	var version, count int
-	if e = s.db.QueryRow("PRAGMA user_version").Scan(&version); e != nil || version != 6 {
-		t.Fatal("schema6 missing", e)
+	if e = s.db.QueryRow("PRAGMA user_version").Scan(&version); e != nil || version != 7 {
+		t.Fatal("current schema missing", e)
 	}
 	if e = s.db.QueryRow("SELECT COUNT(*) FROM task_submissions").Scan(&count); e != nil || count != 0 {
 		t.Fatal("migration invented HTTP receipt", e)
