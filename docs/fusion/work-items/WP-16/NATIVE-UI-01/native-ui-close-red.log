@@ -1,0 +1,6 @@
+=== RUN   TestNativeStageBridgeCloseCancelsAnUnfinishedBody
+    native_ui_test.go:72: bridge close blocked on Native request body
+--- FAIL: TestNativeStageBridgeCloseCancelsAnUnfinishedBody (1.06s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	1.670s
+FAIL

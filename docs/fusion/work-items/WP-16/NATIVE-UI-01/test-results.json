@@ -1,0 +1,93 @@
+{
+  "baseline": "e6353eb76151b0938eb72cdbbe65868ced358702",
+  "component_status": "in_progress",
+  "implementation_checks": [
+    {
+      "log": "native-ui-bridge-red.log",
+      "original_sha256": "8c06bdfba484caf1db3a9c4f37f610f3c9825cedf78be0101d7e2cf62b35ae5d",
+      "pass": 0,
+      "subtest_pass": 0,
+      "fail": 0,
+      "skip": 0
+    },
+    {
+      "log": "native-ui-bridge-green.log",
+      "original_sha256": "f21eff2654e6fa11de7d3d9c1cbf67a624c6505bb8e283a4938caaee0a73110d",
+      "pass": 2,
+      "subtest_pass": 16,
+      "fail": 1,
+      "skip": 0
+    },
+    {
+      "log": "native-ui-bridge-final.log",
+      "original_sha256": "605dc244ea27abee7f515b74abbfea1e070020d77c5a966716effa55f55848cd",
+      "pass": 3,
+      "subtest_pass": 16,
+      "fail": 0,
+      "skip": 0
+    },
+    {
+      "log": "native-ui-close-red.log",
+      "original_sha256": "7477d50cd1a0370490b47e20578b330bd480ca0e8d904f6a167e588d59013281",
+      "pass": 0,
+      "subtest_pass": 0,
+      "fail": 1,
+      "skip": 0
+    },
+    {
+      "log": "native-ui-close-green.log",
+      "original_sha256": "c308537d326d33e3833698aa24e617c13c9ef423318a60d00debe683adcde261",
+      "pass": 3,
+      "subtest_pass": 15,
+      "fail": 1,
+      "skip": 0
+    },
+    {
+      "log": "native-ui-navigation-red.log",
+      "original_sha256": "2c6846675fc3fe27629818c2f5d76920b3a55dc54c18eac686588c3ae2f53dd6",
+      "pass": 0,
+      "subtest_pass": 0,
+      "fail": 1,
+      "skip": 0
+    },
+    {
+      "log": "native-ui-navigation-green.log",
+      "original_sha256": "3295acc9ded51cc861173fa6f7aa2694ec4cd0ba85787b9690049bd058a093f9",
+      "pass": 1,
+      "subtest_pass": 0,
+      "fail": 0,
+      "skip": 0
+    },
+    {
+      "log": "native-ui-bootstrap-final.log",
+      "original_sha256": "2aa10b2f511d4a97fc24d637c1f39cea5bb3361145a38a4715ebb664b90a56bd",
+      "pass": 28,
+      "subtest_pass": 101,
+      "fail": 0,
+      "skip": 0
+    },
+    {
+      "log": "native-ui-unsupported.log",
+      "original_sha256": "35f75a3ad47a1b49ff322c36ad1b0d46a7360111731129c52e5850ce7b759282",
+      "pass": 1,
+      "subtest_pass": 0,
+      "fail": 0,
+      "skip": 0
+    }
+  ],
+  "graph": {
+    "nodes": 13926,
+    "edges": 123465
+  },
+  "native_window": {
+    "status": "not_verified",
+    "inventory_running": true,
+    "process_startup_mode": "native-stage-editor",
+    "execution_enabled": false,
+    "jev": "off",
+    "blocking_error": "ScreenCaptureKit -3811; getApp failed repeatedly including reset",
+    "actual_save_reload_window_exit": "not_run"
+  },
+  "credential_scope": "synthetic fixtures only; no provider credential used",
+  "bootstrap_command_filter": "TestNativeStageBridge|TestControlHost|TestProject|TestRunFusion|TestFusionControl"
+}

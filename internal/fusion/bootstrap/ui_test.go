@@ -111,6 +111,9 @@ func TestControlHostStageUIRevokesPrivateSource(t *testing.T) {
 				t.Fatal(err)
 			}
 			serveExecutionHost(t, h)
+			if code, _, _ := hostHTTP(t, h, "GET", "/fusion/", "", "", ""); code != 200 {
+				t.Fatal("stage host was not ready", code)
+			}
 			if kind == "source" {
 				d.Revision++
 				writeSource(t, path, d)

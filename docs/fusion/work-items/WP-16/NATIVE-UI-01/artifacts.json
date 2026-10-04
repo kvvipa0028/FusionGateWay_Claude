@@ -1,0 +1,35 @@
+{
+  "source_files": {
+    "docs/fusion/README.md": "879d818a1780a2a220a91159b0fd3c555c6b45c95c2bd8db5197edf417c5c46d",
+    "docs/fusion/contracts/native-stage-ui.md": "95b6bca2127e307a5308726b4d0114483ef8e58d182d905be9badbe113259e21",
+    "docs/fusion/contracts/stage-editor.md": "e9f2f94ae208d49d250f15fd077a748c797f4176388b316bbf7b20b44862203a",
+    "docs/fusion/work-items/WP-16/summary.md": "010ea1b65d60303bbdb9e8087109fbdfa4ccd1cdefc335e15bc98087bb1db36c",
+    "fusion_control_cli.go": "689a169993d08ba2c3b144810f7fbe9292da7cf01e0758eea08675465d3cfa90",
+    "fusion_gui_cli.go": "a861a3762f3419ba5768683c21abd68af4990ef8a2e4801cb4725191e5a421ce",
+    "fusion_gui_unsupported.go": "0d09f601106942e563ba4f11a32141b9c822d92e70e62e1f0404481b43c3efac",
+    "fusion_gui_unsupported_test.go": "e30e1ccf67e09f5ec698294310bdd9643378eace21894fa17b79b62fc616d572",
+    "internal/fusion/bootstrap/native_ui.go": "1509b9453beddc6d1db8cc11e354caaaff42bfda033fa2c4811dced292ca1aca",
+    "internal/fusion/bootstrap/native_ui_test.go": "26e116537381f6218d39bc5a239b298266673e8647dd89c7646bd12a226fffe8",
+    "internal/fusion/bootstrap/ui_test.go": "de8766bae3b8b9ff1798d630aa186140c75fd2282fdd885d8826318e431b395a",
+    "internal/gui/fusion_native_darwin.go": "feb14575c63d5acc312cc39edc61b015760e11714edde5bf20b42db039fd51a7",
+    "internal/gui/fusion_native_darwin_test.go": "23c031a7c7cef079ff86d46dfca691b5408fc7e0e98cde2f78850f0c14dcb894"
+  },
+  "packet_files": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "ae10f8f0e533fa5cdf7f9771f883a045ff71fb81c7e4c9cc46ad553a69590d64",
+    "build-results.json": "e30259f832bcc6d742bb1c2117d1e8e8ac9c579dfff57a5a25e0580e6a76dd45",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-ui-bootstrap-final.log": "2aa10b2f511d4a97fc24d637c1f39cea5bb3361145a38a4715ebb664b90a56bd",
+    "native-ui-bridge-final.log": "605dc244ea27abee7f515b74abbfea1e070020d77c5a966716effa55f55848cd",
+    "native-ui-bridge-green.log": "f21eff2654e6fa11de7d3d9c1cbf67a624c6505bb8e283a4938caaee0a73110d",
+    "native-ui-bridge-red.log": "8c06bdfba484caf1db3a9c4f37f610f3c9825cedf78be0101d7e2cf62b35ae5d",
+    "native-ui-close-green.log": "c308537d326d33e3833698aa24e617c13c9ef423318a60d00debe683adcde261",
+    "native-ui-close-red.log": "7477d50cd1a0370490b47e20578b330bd480ca0e8d904f6a167e588d59013281",
+    "native-ui-navigation-green.log": "3295acc9ded51cc861173fa6f7aa2694ec4cd0ba85787b9690049bd058a093f9",
+    "native-ui-navigation-red.log": "2c6846675fc3fe27629818c2f5d76920b3a55dc54c18eac686588c3ae2f53dd6",
+    "native-ui-unsupported.log": "35f75a3ad47a1b49ff322c36ad1b0d46a7360111731129c52e5850ce7b759282",
+    "summary.md": "079b52b5cc547c4e74c604119afe12c5d388aee8dac6c4181ed5a008bc8f5692",
+    "test-results.json": "098b39d6a59b4812041da3b030145da44e82da0ec7b6adf01e01c1f94558ad21"
+  },
+  "status": "implementation verified; Native window acceptance pending"
+}

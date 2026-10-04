@@ -6,7 +6,7 @@
 
 现有私有 loopback ControlHost 提供 `/fusion/` 和 `/fusion/index.html`、`editor.mjs`、`model.mjs`、`editor.css`。每项资源经过同一个 Management middleware，以及 Host、Origin、Sec-Fetch-Site、可信私有来源和 token 文件核验。Stage Bearer 不能访问；无管理授权返回 401。来源或私有凭据权限改变后返回 503。只允许 GET/HEAD；未知资源 404、一般查询参数 400、含凭据的查询参数由既有 middleware 返回 403。响应 no-store、nosniff、no-referrer，并限定 CSP 的脚本、样式和连接来源。
 
-页面不接收 key/token 输入，不使用 URL/cookie/localStorage 保存授权。JavaScript fetch 使用同源、credentials=omit、redirect=error。测试中由隔离浏览器 context 注入临时 Management Authorization header；产品 Native GUI 的受信鉴权桥尚未实现。因此普通浏览器直接打开地址会得到 401，不能通过把 token 放进地址栏来操作。
+页面不接收 key/token 输入，不使用 URL/cookie/localStorage 保存授权。JavaScript fetch 使用同源、credentials=omit、redirect=error。测试中由隔离浏览器 context 注入临时 Management Authorization header；产品 Native GUI 已有[受限鉴权桥](native-stage-ui.md)，实际窗口操作仍待验收。因此普通浏览器直接打开地址会得到 401，不能通过把 token 放进地址栏来操作。
 
 ## 配置行为
 
@@ -37,6 +37,6 @@ PATH="$HOME/.local/bin:$PATH" python3 docs/fusion/work-items/WP-13/CALLS-01/run-
 
 ## 操作流程与当前边界
 
-可信 GUI 鉴权桥完成后：选择登记项目和配置范围 → 展开需要独立设置的角色 → 指定模型及 effort，或批准 auto 候选 → 保存并核对版本。合并前核对覆盖提示；有冲突时保留草稿，重新载入当前配置后再编辑。切换项目或重新载入需确认丢弃未保存内容。本次任务填写目标、选择一个阶段，点击预览；预览与执行是两个步骤，当前页面只具备预览。
+Native 窗口操作验收通过后：选择登记项目和配置范围 → 展开需要独立设置的角色 → 指定模型及 effort，或批准 auto 候选 → 保存并核对版本。合并前核对覆盖提示；有冲突时保留草稿，重新载入当前配置后再编辑。切换项目或重新载入需确认丢弃未保存内容。本次任务填写目标、选择一个阶段，点击预览；预览与执行是两个步骤，当前页面只具备预览。
 
 当前隔离验证可以按照上述测试命令复现交互；不可声称用户已经能在 Native GUI 运行真实任务。任务列表、提交/启动、下一阶段手动触发、取消/暂停、事件/日志、额度读取、运行计划修订以及真实账号/Factory 准入仍待后续组件。最终 T01–T60 状态保持 not_run。

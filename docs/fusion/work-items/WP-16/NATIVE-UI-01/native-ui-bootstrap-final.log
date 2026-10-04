@@ -1,0 +1,266 @@
+# github.com/yetone/magpie/internal/gui
+internal/gui/trayimage_darwin.go:105:67: warning: implicit conversion from enumeration type 'enum CGImageAlphaInfo' to different enumeration type 'CGBitmapInfo' (aka 'enum CGBitmapInfo') [-Wimplicit-enum-enum-cast]
+=== RUN   TestProjectSourceDerivesOnlyUnadmittedMetadata
+--- PASS: TestProjectSourceDerivesOnlyUnadmittedMetadata (0.00s)
+=== RUN   TestProjectSourceRejectsAuthorityAndAmbiguousJSON
+--- PASS: TestProjectSourceRejectsAuthorityAndAmbiguousJSON (0.01s)
+=== RUN   TestProjectSourceRejectsInvalidScopeReferencesAndBudget
+=== RUN   TestProjectSourceRejectsInvalidScopeReferencesAndBudget/duplicate-project
+=== RUN   TestProjectSourceRejectsInvalidScopeReferencesAndBudget/duplicate-route
+=== RUN   TestProjectSourceRejectsInvalidScopeReferencesAndBudget/unknown-native
+=== RUN   TestProjectSourceRejectsInvalidScopeReferencesAndBudget/unknown-ref
+=== RUN   TestProjectSourceRejectsInvalidScopeReferencesAndBudget/model-mismatch
+=== RUN   TestProjectSourceRejectsInvalidScopeReferencesAndBudget/no-read
+=== RUN   TestProjectSourceRejectsInvalidScopeReferencesAndBudget/write-no-read
+=== RUN   TestProjectSourceRejectsInvalidScopeReferencesAndBudget/budget
+=== RUN   TestProjectSourceRejectsInvalidScopeReferencesAndBudget/budget-zero
+=== RUN   TestProjectSourceRejectsInvalidScopeReferencesAndBudget/route-limit
+=== RUN   TestProjectSourceRejectsInvalidScopeReferencesAndBudget/placeholder-model
+=== RUN   TestProjectSourceRejectsInvalidScopeReferencesAndBudget/same-folder
+=== RUN   TestProjectSourceRejectsInvalidScopeReferencesAndBudget/overlap
+=== RUN   TestProjectSourceRejectsInvalidScopeReferencesAndBudget/source-overlap
+=== RUN   TestProjectSourceRejectsInvalidScopeReferencesAndBudget/blank-name
+=== RUN   TestProjectSourceRejectsInvalidScopeReferencesAndBudget/invalid-layer
+--- PASS: TestProjectSourceRejectsInvalidScopeReferencesAndBudget (0.03s)
+    --- PASS: TestProjectSourceRejectsInvalidScopeReferencesAndBudget/duplicate-project (0.00s)
+    --- PASS: TestProjectSourceRejectsInvalidScopeReferencesAndBudget/duplicate-route (0.00s)
+    --- PASS: TestProjectSourceRejectsInvalidScopeReferencesAndBudget/unknown-native (0.00s)
+    --- PASS: TestProjectSourceRejectsInvalidScopeReferencesAndBudget/unknown-ref (0.00s)
+    --- PASS: TestProjectSourceRejectsInvalidScopeReferencesAndBudget/model-mismatch (0.00s)
+    --- PASS: TestProjectSourceRejectsInvalidScopeReferencesAndBudget/no-read (0.00s)
+    --- PASS: TestProjectSourceRejectsInvalidScopeReferencesAndBudget/write-no-read (0.00s)
+    --- PASS: TestProjectSourceRejectsInvalidScopeReferencesAndBudget/budget (0.00s)
+    --- PASS: TestProjectSourceRejectsInvalidScopeReferencesAndBudget/budget-zero (0.00s)
+    --- PASS: TestProjectSourceRejectsInvalidScopeReferencesAndBudget/route-limit (0.01s)
+    --- PASS: TestProjectSourceRejectsInvalidScopeReferencesAndBudget/placeholder-model (0.00s)
+    --- PASS: TestProjectSourceRejectsInvalidScopeReferencesAndBudget/same-folder (0.00s)
+    --- PASS: TestProjectSourceRejectsInvalidScopeReferencesAndBudget/overlap (0.00s)
+    --- PASS: TestProjectSourceRejectsInvalidScopeReferencesAndBudget/source-overlap (0.00s)
+    --- PASS: TestProjectSourceRejectsInvalidScopeReferencesAndBudget/blank-name (0.00s)
+    --- PASS: TestProjectSourceRejectsInvalidScopeReferencesAndBudget/invalid-layer (0.00s)
+=== RUN   TestProjectSourcePrivateFileNoLinksNoGitNoBlockingSpecialFiles
+=== RUN   TestProjectSourcePrivateFileNoLinksNoGitNoBlockingSpecialFiles/public-file
+=== RUN   TestProjectSourcePrivateFileNoLinksNoGitNoBlockingSpecialFiles/public-parent
+=== RUN   TestProjectSourcePrivateFileNoLinksNoGitNoBlockingSpecialFiles/linked-file
+=== RUN   TestProjectSourcePrivateFileNoLinksNoGitNoBlockingSpecialFiles/linked-parent
+=== RUN   TestProjectSourcePrivateFileNoLinksNoGitNoBlockingSpecialFiles/hardlink
+=== RUN   TestProjectSourcePrivateFileNoLinksNoGitNoBlockingSpecialFiles/git-ancestor
+=== RUN   TestProjectSourcePrivateFileNoLinksNoGitNoBlockingSpecialFiles/too-big
+=== RUN   TestProjectSourcePrivateFileNoLinksNoGitNoBlockingSpecialFiles/wrong-name
+=== RUN   TestProjectSourcePrivateFileNoLinksNoGitNoBlockingSpecialFiles/fifo
+--- PASS: TestProjectSourcePrivateFileNoLinksNoGitNoBlockingSpecialFiles (0.01s)
+    --- PASS: TestProjectSourcePrivateFileNoLinksNoGitNoBlockingSpecialFiles/public-file (0.00s)
+    --- PASS: TestProjectSourcePrivateFileNoLinksNoGitNoBlockingSpecialFiles/public-parent (0.00s)
+    --- PASS: TestProjectSourcePrivateFileNoLinksNoGitNoBlockingSpecialFiles/linked-file (0.00s)
+    --- PASS: TestProjectSourcePrivateFileNoLinksNoGitNoBlockingSpecialFiles/linked-parent (0.00s)
+    --- PASS: TestProjectSourcePrivateFileNoLinksNoGitNoBlockingSpecialFiles/hardlink (0.00s)
+    --- PASS: TestProjectSourcePrivateFileNoLinksNoGitNoBlockingSpecialFiles/git-ancestor (0.00s)
+    --- PASS: TestProjectSourcePrivateFileNoLinksNoGitNoBlockingSpecialFiles/too-big (0.00s)
+    --- PASS: TestProjectSourcePrivateFileNoLinksNoGitNoBlockingSpecialFiles/wrong-name (0.00s)
+    --- PASS: TestProjectSourcePrivateFileNoLinksNoGitNoBlockingSpecialFiles/fifo (0.00s)
+=== RUN   TestProjectSourceCurrentFencesRotationAndFolderReplacement
+=== RUN   TestProjectSourceCurrentFencesRotationAndFolderReplacement/source-rotation
+=== RUN   TestProjectSourceCurrentFencesRotationAndFolderReplacement/source-content
+=== RUN   TestProjectSourceCurrentFencesRotationAndFolderReplacement/folder-rotation
+=== RUN   TestProjectSourceCurrentFencesRotationAndFolderReplacement/folder-symlink
+=== RUN   TestProjectSourceCurrentFencesRotationAndFolderReplacement/folder-public-write
+--- PASS: TestProjectSourceCurrentFencesRotationAndFolderReplacement (0.01s)
+    --- PASS: TestProjectSourceCurrentFencesRotationAndFolderReplacement/source-rotation (0.00s)
+    --- PASS: TestProjectSourceCurrentFencesRotationAndFolderReplacement/source-content (0.00s)
+    --- PASS: TestProjectSourceCurrentFencesRotationAndFolderReplacement/folder-rotation (0.00s)
+    --- PASS: TestProjectSourceCurrentFencesRotationAndFolderReplacement/folder-symlink (0.00s)
+    --- PASS: TestProjectSourceCurrentFencesRotationAndFolderReplacement/folder-public-write (0.00s)
+=== RUN   TestProjectSourceCopiesAndRedactsPrivateRegistration
+--- PASS: TestProjectSourceCopiesAndRedactsPrivateRegistration (0.00s)
+=== RUN   TestProjectSourceEmptyModelSelectionAndBoundedLists
+--- PASS: TestProjectSourceEmptyModelSelectionAndBoundedLists (0.00s)
+=== RUN   TestProjectSourceRegistersDraftWithExistingAuthenticatedAPI
+--- PASS: TestProjectSourceRegistersDraftWithExistingAuthenticatedAPI (0.04s)
+=== RUN   TestControlHostAuthenticatedLoopbackAndRestart
+--- PASS: TestControlHostAuthenticatedLoopbackAndRestart (0.06s)
+=== RUN   TestControlHostPrivateLocationAndSourceRefusal
+=== RUN   TestControlHostPrivateLocationAndSourceRefusal/invalid-source
+=== RUN   TestControlHostPrivateLocationAndSourceRefusal/lan
+=== RUN   TestControlHostPrivateLocationAndSourceRefusal/hostname
+=== RUN   TestControlHostPrivateLocationAndSourceRefusal/port-overflow
+=== RUN   TestControlHostPrivateLocationAndSourceRefusal/project-root
+=== RUN   TestControlHostPrivateLocationAndSourceRefusal/public-root
+=== RUN   TestControlHostPrivateLocationAndSourceRefusal/linked-root
+=== RUN   TestControlHostPrivateLocationAndSourceRefusal/public-token
+=== RUN   TestControlHostPrivateLocationAndSourceRefusal/stage-token
+--- PASS: TestControlHostPrivateLocationAndSourceRefusal (0.01s)
+    --- PASS: TestControlHostPrivateLocationAndSourceRefusal/invalid-source (0.00s)
+    --- PASS: TestControlHostPrivateLocationAndSourceRefusal/lan (0.00s)
+    --- PASS: TestControlHostPrivateLocationAndSourceRefusal/hostname (0.00s)
+    --- PASS: TestControlHostPrivateLocationAndSourceRefusal/port-overflow (0.00s)
+    --- PASS: TestControlHostPrivateLocationAndSourceRefusal/project-root (0.00s)
+    --- PASS: TestControlHostPrivateLocationAndSourceRefusal/public-root (0.00s)
+    --- PASS: TestControlHostPrivateLocationAndSourceRefusal/linked-root (0.00s)
+    --- PASS: TestControlHostPrivateLocationAndSourceRefusal/public-token (0.00s)
+    --- PASS: TestControlHostPrivateLocationAndSourceRefusal/stage-token (0.00s)
+=== RUN   TestControlHostRevokesSourceAndTokenRotation
+=== RUN   TestControlHostRevokesSourceAndTokenRotation/source
+=== RUN   TestControlHostRevokesSourceAndTokenRotation/folder
+=== RUN   TestControlHostRevokesSourceAndTokenRotation/tasks
+=== RUN   TestControlHostRevokesSourceAndTokenRotation/token
+=== RUN   TestControlHostRevokesSourceAndTokenRotation/token-permissions
+--- PASS: TestControlHostRevokesSourceAndTokenRotation (0.26s)
+    --- PASS: TestControlHostRevokesSourceAndTokenRotation/source (0.06s)
+    --- PASS: TestControlHostRevokesSourceAndTokenRotation/folder (0.05s)
+    --- PASS: TestControlHostRevokesSourceAndTokenRotation/tasks (0.05s)
+    --- PASS: TestControlHostRevokesSourceAndTokenRotation/token (0.05s)
+    --- PASS: TestControlHostRevokesSourceAndTokenRotation/token-permissions (0.05s)
+=== RUN   TestControlHostWatcherRevokesExistingSSE
+--- PASS: TestControlHostWatcherRevokesExistingSSE (1.05s)
+=== RUN   TestControlHostExclusiveOwnershipAndClosedServe
+--- PASS: TestControlHostExclusiveOwnershipAndClosedServe (0.06s)
+=== RUN   TestNativeStageBridgeCloseCancelsAnUnfinishedBody
+--- PASS: TestNativeStageBridgeCloseCancelsAnUnfinishedBody (0.05s)
+=== RUN   TestNativeStageBridgeUsesOwnedAuthenticatedHost
+--- PASS: TestNativeStageBridgeUsesOwnedAuthenticatedHost (0.06s)
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/real-network-peer
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/foreign-host
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/foreign-origin
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/null-origin
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/foreign-referer
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/cross-site
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/authority
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/cookie
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/forwarding
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/query
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/escaped-path
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/absolute-request
+--- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion (0.05s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/real-network-peer (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/foreign-host (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/foreign-origin (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/null-origin (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/foreign-referer (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/cross-site (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/authority (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/cookie (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/forwarding (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/query (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/escaped-path (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/absolute-request (0.00s)
+=== RUN   TestNativeStageBridgeRevocationAndClose
+=== RUN   TestNativeStageBridgeRevocationAndClose/source
+=== RUN   TestNativeStageBridgeRevocationAndClose/token
+=== RUN   TestNativeStageBridgeRevocationAndClose/bridge-close
+=== RUN   TestNativeStageBridgeRevocationAndClose/host-close
+--- PASS: TestNativeStageBridgeRevocationAndClose (0.19s)
+    --- PASS: TestNativeStageBridgeRevocationAndClose/source (0.05s)
+    --- PASS: TestNativeStageBridgeRevocationAndClose/token (0.05s)
+    --- PASS: TestNativeStageBridgeRevocationAndClose/bridge-close (0.05s)
+    --- PASS: TestNativeStageBridgeRevocationAndClose/host-close (0.05s)
+=== RUN   TestControlHostProjectIndexUsesTrustedSourceAndRevocation
+--- PASS: TestControlHostProjectIndexUsesTrustedSourceAndRevocation (0.05s)
+=== RUN   TestControlHostStageUIAssetsAreManagementProtected
+--- PASS: TestControlHostStageUIAssetsAreManagementProtected (0.05s)
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion//missing
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion//wrong
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion//stage
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion//host
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion//origin
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion//fetch-site
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/missing
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/wrong
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/stage
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/host
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/origin
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/fetch-site
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/missing
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/wrong
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/stage
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/host
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/origin
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/fetch-site
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/missing
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/wrong
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/stage
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/host
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/origin
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/fetch-site
+--- PASS: TestControlHostStageUIRejectsOtherAuthorities (0.06s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion//missing (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion//wrong (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion//stage (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion//host (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion//origin (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion//fetch-site (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/missing (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/wrong (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/stage (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/host (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/origin (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/fetch-site (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/missing (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/wrong (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/stage (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/host (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/origin (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/fetch-site (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/missing (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/wrong (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/stage (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/host (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/origin (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/fetch-site (0.00s)
+=== RUN   TestControlHostStageUIRevokesPrivateSource
+=== RUN   TestControlHostStageUIRevokesPrivateSource/source
+=== RUN   TestControlHostStageUIRevokesPrivateSource/token-permissions
+--- PASS: TestControlHostStageUIRevokesPrivateSource (0.10s)
+    --- PASS: TestControlHostStageUIRevokesPrivateSource/source (0.05s)
+    --- PASS: TestControlHostStageUIRevokesPrivateSource/token-permissions (0.05s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	3.989s
+=== RUN   TestProjectIndexIsSortedMinimalAndDoesNotAdmitDrafts
+--- PASS: TestProjectIndexIsSortedMinimalAndDoesNotAdmitDrafts (0.04s)
+=== RUN   TestProjectIndexEmptyCapacityAndCurrentDefaults
+=== RUN   TestProjectIndexEmptyCapacityAndCurrentDefaults/empty
+=== RUN   TestProjectIndexEmptyCapacityAndCurrentDefaults/capacity
+=== RUN   TestProjectIndexEmptyCapacityAndCurrentDefaults/defaults
+=== RUN   TestProjectIndexEmptyCapacityAndCurrentDefaults/closed-store
+--- PASS: TestProjectIndexEmptyCapacityAndCurrentDefaults (0.26s)
+    --- PASS: TestProjectIndexEmptyCapacityAndCurrentDefaults/empty (0.04s)
+    --- PASS: TestProjectIndexEmptyCapacityAndCurrentDefaults/capacity (0.13s)
+    --- PASS: TestProjectIndexEmptyCapacityAndCurrentDefaults/defaults (0.05s)
+    --- PASS: TestProjectIndexEmptyCapacityAndCurrentDefaults/closed-store (0.04s)
+=== RUN   TestProjectIndexManagementAndReadOnlyBoundary
+=== RUN   TestProjectIndexManagementAndReadOnlyBoundary/missing
+=== RUN   TestProjectIndexManagementAndReadOnlyBoundary/wrong
+=== RUN   TestProjectIndexManagementAndReadOnlyBoundary/stage
+=== RUN   TestProjectIndexManagementAndReadOnlyBoundary/query
+=== RUN   TestProjectIndexManagementAndReadOnlyBoundary/post
+=== RUN   TestProjectIndexManagementAndReadOnlyBoundary/put
+=== RUN   TestProjectIndexManagementAndReadOnlyBoundary/head
+=== RUN   TestProjectIndexManagementAndReadOnlyBoundary/cross-site
+=== RUN   TestProjectIndexManagementAndReadOnlyBoundary/revoked
+--- PASS: TestProjectIndexManagementAndReadOnlyBoundary (0.37s)
+    --- PASS: TestProjectIndexManagementAndReadOnlyBoundary/missing (0.04s)
+    --- PASS: TestProjectIndexManagementAndReadOnlyBoundary/wrong (0.04s)
+    --- PASS: TestProjectIndexManagementAndReadOnlyBoundary/stage (0.06s)
+    --- PASS: TestProjectIndexManagementAndReadOnlyBoundary/query (0.04s)
+    --- PASS: TestProjectIndexManagementAndReadOnlyBoundary/post (0.04s)
+    --- PASS: TestProjectIndexManagementAndReadOnlyBoundary/put (0.04s)
+    --- PASS: TestProjectIndexManagementAndReadOnlyBoundary/head (0.04s)
+    --- PASS: TestProjectIndexManagementAndReadOnlyBoundary/cross-site (0.04s)
+    --- PASS: TestProjectIndexManagementAndReadOnlyBoundary/revoked (0.04s)
+=== RUN   TestProjectIndexConcurrentRegistration
+--- PASS: TestProjectIndexConcurrentRegistration (0.05s)
+=== RUN   TestProjectIndexRechecksAuthorityAfterBlockedRead
+=== RUN   TestProjectIndexRechecksAuthorityAfterBlockedRead/revoke
+=== RUN   TestProjectIndexRechecksAuthorityAfterBlockedRead/cancel
+--- PASS: TestProjectIndexRechecksAuthorityAfterBlockedRead (0.08s)
+    --- PASS: TestProjectIndexRechecksAuthorityAfterBlockedRead/revoke (0.04s)
+    --- PASS: TestProjectIndexRechecksAuthorityAfterBlockedRead/cancel (0.04s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/api	2.423s
+=== RUN   TestFusionControlCommandRejectsArguments
+--- PASS: TestFusionControlCommandRejectsArguments (0.00s)
+=== RUN   TestFusionControlCommandKeepsOtherCommands
+--- PASS: TestFusionControlCommandKeepsOtherCommands (0.00s)
+PASS
+ok  	github.com/yetone/magpie	1.584s

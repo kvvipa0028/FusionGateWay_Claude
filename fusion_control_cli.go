@@ -16,11 +16,14 @@ import (
 )
 
 func fusionControlCommand(args []string) (bool, error) {
-	if len(args) == 0 || args[0] != "fusion-control" {
+	if len(args) == 0 || args[0] != "fusion-control" && args[0] != "fusion-ui" {
 		return false, nil
 	}
 	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer cancel()
+	if args[0] == "fusion-ui" {
+		return true, runFusionGUI(ctx, args[1:], os.Stdout)
+	}
 	return true, runFusionControl(ctx, args[1:], os.Stdout)
 }
 func runFusionControl(ctx context.Context, args []string, out io.Writer) error {

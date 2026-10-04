@@ -1,0 +1,4 @@
+=== RUN   TestFusionUIUnsupportedBuildFailsClosed
+--- PASS: TestFusionUIUnsupportedBuildFailsClosed (0.00s)
+PASS
+ok  	github.com/yetone/magpie	1.774s

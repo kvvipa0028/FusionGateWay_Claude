@@ -1,0 +1,7 @@
+# github.com/yetone/magpie/internal/fusion/bootstrap [github.com/yetone/magpie/internal/fusion/bootstrap.test]
+internal/fusion/bootstrap/native_ui_test.go:30:15: undefined: NewNativeStageBridge
+internal/fusion/bootstrap/native_ui_test.go:80:15: undefined: NewNativeStageBridge
+internal/fusion/bootstrap/native_ui_test.go:139:17: undefined: NewNativeStageBridge
+internal/fusion/bootstrap/native_ui_test.go:167:13: undefined: NewNativeStageBridge
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap [build failed]
+FAIL
