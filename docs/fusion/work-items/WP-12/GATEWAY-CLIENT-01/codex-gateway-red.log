@@ -1,0 +1,6 @@
+# github.com/yetone/magpie/internal/fusion/runtime/codex [github.com/yetone/magpie/internal/fusion/runtime/codex.test]
+internal/fusion/runtime/codex/gateway_client_test.go:21:25: undefined: StageProvider
+internal/fusion/runtime/codex/gateway_client_test.go:23:10: undefined: NewGateway
+internal/fusion/runtime/codex/gateway_client_test.go:37:32: undefined: StageProvider
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/codex [build failed]
+FAIL

@@ -1,0 +1,27 @@
+{
+  "native_schema_reference": {
+    "executable_sha256": "112fae7a5a1223e673c8a1791d32338f37df8b527ff1159bb8adac6c4dbf1b4b",
+    "source": "prior native generated nonexperimental schema; account workspaceRouting comes from actual Native and frozen public source",
+    "schema_files_sha256": {
+      "v2/ThreadStartedNotification.json": "db5cd48a1d33b787585e131f04f720300a929dc1dd2f978124e739ebaafffc8b",
+      "v2/ThreadStatusChangedNotification.json": "26f3c60c1b73f7fa2d31c74429cdc36f8746c76c33e3d314b3fb61d3661f05f6",
+      "v2/TurnStartedNotification.json": "2e9a109ee549c1e266223304c9e0580075cda03feb65473363b124f18e9a3769",
+      "v2/TurnCompletedNotification.json": "016870158603b0f84bd9f8f65f927161c9fd5128e5ec632087616462dc44e085",
+      "v2/ItemStartedNotification.json": "7574788d2a352747f50d44be3ef649011cb8de8069da4c655faff14d0aee32c4",
+      "v2/ItemCompletedNotification.json": "d04b9153de38cd8302a2a418a44a65e8265d4c7586d46ea2cc801b594c6acf5b",
+      "v2/AgentMessageDeltaNotification.json": "996e6c0ea65e57bed5a00f410b94381fe5ebf804333e5d00c2b6e6d47e5c55f6",
+      "v2/ThreadTokenUsageUpdatedNotification.json": "aba4f6c7e4a19b2b842c08ee793b57000c07dafd57b922ad0d8e7c76609108c2",
+      "v2/ErrorNotification.json": "ae1f4d6e0bb794211f28dc67b11885a1a0e0f8a198c6114b2ed27372f60a227c",
+      "v2/WarningNotification.json": "f83c400591b923400ca0beaaaab1341c712d5ac0dee4ce6868a8e590f46490f9",
+      "v2/AccountRateLimitsUpdatedNotification.json": "37326ef0364007be0c8f92bf5cd228941b513f87266edd566d694409b5aa5b8b",
+      "v2/RemoteControlStatusChangedNotification.json": "56aa1d58294238557cd8b16199909c2c157a7542b9259ef2deddf40fe4c02c91",
+      "v2/GetAccountResponse.json": "c3092dd8e52c2933c5ba5f0bf92377174f65bed627ff4ef5d7c04a189dd34fd1"
+    }
+  },
+  "public_reference_only": {
+    "app-server-protocol/src/protocol/v2/account.rs": {
+      "url": "https://github.com/openai/codex/blob/rust-v0.160.0/codex-rs/app-server-protocol/src/protocol/v2/account.rs",
+      "sha256": "f52c03c9f98f8fd496824616ec1669954f35470cbd2ff15101ce4b7e6a57b2ad"
+    }
+  }
+}

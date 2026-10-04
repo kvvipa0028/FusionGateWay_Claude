@@ -1,0 +1,10 @@
+=== RUN   TestManagedPinnedCodexGatewayClient
+=== RUN   TestManagedPinnedCodexGatewayClient/text
+    codex_http_native_darwin_test.go:545: Native local account keys [account requiresOpenaiAuth workspaceRouting]
+    codex_http_native_darwin_test.go:429: map[]
+    codex_http_native_darwin_test.go:455: pinned Native HTTP not accepted cancelled 0 requests 0 forwarded 0 budget 0 audit {0 0 0 0 0 false}
+--- FAIL: TestManagedPinnedCodexGatewayClient (0.43s)
+    --- FAIL: TestManagedPinnedCodexGatewayClient/text (0.43s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime	1.485s
+FAIL

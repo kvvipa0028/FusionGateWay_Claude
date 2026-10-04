@@ -1,0 +1,6 @@
+=== RUN   TestGatewayLostThreadAckCannotBeReplayed
+    gateway_client_test.go:226: unacknowledged thread start replayed
+--- FAIL: TestGatewayLostThreadAckCannotBeReplayed (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/codex	0.621s
+FAIL

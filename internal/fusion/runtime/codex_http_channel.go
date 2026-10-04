@@ -7,11 +7,12 @@ import (
 	"regexp"
 
 	"github.com/yetone/magpie/internal/fusion/policy"
+	"github.com/yetone/magpie/internal/fusion/runtime/codex"
 	"github.com/yetone/magpie/internal/fusion/stageplan"
 	"github.com/yetone/magpie/internal/fusion/store"
 )
 
-const CodexStageProvider = "fusion_codex_stage"
+const CodexStageProvider = codex.StageProvider
 const codexStageEnv = "FUSION_CODEX_STAGE_SECRET"
 
 var codexModelID = regexp.MustCompile(`^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$`)

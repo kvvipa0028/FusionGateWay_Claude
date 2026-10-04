@@ -1,0 +1,106 @@
+=== RUN   TestManagedPinnedCodexHTTPActivationBeforeDriver
+    codex_http_native_darwin_test.go:120: pinned Native; activation before driver; wait/StopProof/release; no real login/model
+--- PASS: TestManagedPinnedCodexHTTPActivationBeforeDriver (0.54s)
+=== RUN   TestManagedPinnedCodexHTTPText
+=== RUN   TestManagedPinnedCodexHTTPText/text
+    codex_http_native_darwin_test.go:429: map[content_encoding: keys:[client_metadata include input instructions model parallel_tool_calls prompt_cache_key reasoning store stream tool_choice tools] metadata_keys:[root_turn_id session_id thread_id turn_id x-codex-installation-id x-codex-turn-metadata x-codex-window-id] method:POST path:/responses reasoning_keys:[effort] tool_names:[] tool_types:[]]
+    codex_http_native_darwin_test.go:457: pinned Native scoped HTTP text requests 1 forwarded 1 budget 1 turns 1 audit {1 1 1 1 0 false} ; synthetic upstream/account; actual wait/StopProof/release
+=== RUN   TestManagedPinnedCodexHTTPText/rate_limit
+    codex_http_native_darwin_test.go:429: map[content_encoding: keys:[client_metadata include input instructions model parallel_tool_calls prompt_cache_key reasoning store stream tool_choice tools] metadata_keys:[root_turn_id session_id thread_id turn_id x-codex-installation-id x-codex-turn-metadata x-codex-window-id] method:POST path:/responses reasoning_keys:[effort] tool_names:[] tool_types:[]]
+    codex_http_native_darwin_test.go:457: pinned Native scoped HTTP rate_limit requests 1 forwarded 1 budget 1 turns 1 audit {1 1 1 0 1 false} ; synthetic upstream/account; actual wait/StopProof/release
+=== RUN   TestManagedPinnedCodexHTTPText/retry_rejected
+    codex_http_native_darwin_test.go:429: map[content_encoding: keys:[client_metadata include input instructions model parallel_tool_calls prompt_cache_key reasoning store stream tool_choice tools] metadata_keys:[root_turn_id session_id thread_id turn_id x-codex-installation-id x-codex-turn-metadata x-codex-window-id] method:POST path:/responses reasoning_keys:[effort] tool_names:[] tool_types:[]]
+    codex_http_native_darwin_test.go:457: pinned Native scoped HTTP retry_rejected requests 4 forwarded 1 budget 1 turns 1 audit {4 1 1 0 0 true} ; synthetic upstream/account; actual wait/StopProof/release
+=== RUN   TestManagedPinnedCodexHTTPText/budget
+    codex_http_native_darwin_test.go:429: map[content_encoding: keys:[client_metadata include input instructions model parallel_tool_calls prompt_cache_key reasoning store stream tool_choice tools] metadata_keys:[root_turn_id session_id thread_id turn_id x-codex-installation-id x-codex-turn-metadata x-codex-window-id] method:POST path:/responses reasoning_keys:[effort] tool_names:[] tool_types:[]]
+    codex_http_native_darwin_test.go:457: pinned Native scoped HTTP budget requests 5 forwarded 2 budget 2 turns 3 audit {5 2 2 2 0 true} ; synthetic upstream/account; actual wait/StopProof/release
+=== RUN   TestManagedPinnedCodexHTTPText/cancel
+    codex_http_native_darwin_test.go:429: map[content_encoding: keys:[client_metadata include input instructions model parallel_tool_calls prompt_cache_key reasoning store stream tool_choice tools] metadata_keys:[root_turn_id session_id thread_id turn_id x-codex-installation-id x-codex-turn-metadata x-codex-window-id] method:POST path:/responses reasoning_keys:[effort] tool_names:[] tool_types:[]]
+    codex_http_native_darwin_test.go:457: pinned Native scoped HTTP cancel requests 1 forwarded 1 budget 1 turns 0 audit {1 1 1 0 0 true} ; synthetic upstream/account; actual wait/StopProof/release
+--- PASS: TestManagedPinnedCodexHTTPText (4.65s)
+    --- PASS: TestManagedPinnedCodexHTTPText/text (0.58s)
+    --- PASS: TestManagedPinnedCodexHTTPText/rate_limit (0.63s)
+    --- PASS: TestManagedPinnedCodexHTTPText/retry_rejected (1.54s)
+    --- PASS: TestManagedPinnedCodexHTTPText/budget (1.36s)
+    --- PASS: TestManagedPinnedCodexHTTPText/cancel (0.54s)
+=== RUN   TestManagedPinnedCodexHTTPActivationFailureStopsWithoutDriver
+    codex_http_native_darwin_test.go:521: actual pinned Native stopped/reaped after activation refusal; driver0 HTTP0; reservation released
+--- PASS: TestManagedPinnedCodexHTTPActivationFailureStopsWithoutDriver (0.43s)
+=== RUN   TestManagedPinnedCodexGatewayClient
+=== RUN   TestManagedPinnedCodexGatewayClient/text
+    codex_http_native_darwin_test.go:545: Native local account keys [account requiresOpenaiAuth workspaceRouting]
+    codex_http_native_darwin_test.go:252: typed Native observed methods [remoteControl/status/changed thread/started warning thread/status/changed turn/started item/started item/completed item/started item/completed thread/tokenUsage/updated account/rateLimits/updated thread/status/changed turn/completed]
+    codex_http_native_darwin_test.go:429: map[content_encoding: keys:[client_metadata include input instructions model parallel_tool_calls prompt_cache_key reasoning store stream tool_choice tools] metadata_keys:[root_turn_id session_id thread_id turn_id x-codex-installation-id x-codex-turn-metadata x-codex-window-id] method:POST path:/responses reasoning_keys:[effort] tool_names:[] tool_types:[]]
+    codex_http_native_darwin_test.go:457: pinned Native scoped HTTP text requests 1 forwarded 1 budget 1 turns 1 audit {1 1 1 1 0 false} ; synthetic upstream/account; actual wait/StopProof/release
+=== RUN   TestManagedPinnedCodexGatewayClient/rate_limit
+    codex_http_native_darwin_test.go:545: Native local account keys [account requiresOpenaiAuth workspaceRouting]
+    codex_http_native_darwin_test.go:252: typed Native observed methods [remoteControl/status/changed thread/started warning thread/status/changed turn/started item/started item/completed thread/status/changed error turn/completed]
+    codex_http_native_darwin_test.go:429: map[content_encoding: keys:[client_metadata include input instructions model parallel_tool_calls prompt_cache_key reasoning store stream tool_choice tools] metadata_keys:[root_turn_id session_id thread_id turn_id x-codex-installation-id x-codex-turn-metadata x-codex-window-id] method:POST path:/responses reasoning_keys:[effort] tool_names:[] tool_types:[]]
+    codex_http_native_darwin_test.go:457: pinned Native scoped HTTP rate_limit requests 1 forwarded 1 budget 1 turns 1 audit {1 1 1 0 1 false} ; synthetic upstream/account; actual wait/StopProof/release
+=== RUN   TestManagedPinnedCodexGatewayClient/retry_rejected
+    codex_http_native_darwin_test.go:545: Native local account keys [account requiresOpenaiAuth workspaceRouting]
+    codex_http_native_darwin_test.go:252: typed Native observed methods [remoteControl/status/changed thread/started warning thread/status/changed turn/started item/started item/completed error error thread/status/changed error turn/completed]
+    codex_http_native_darwin_test.go:429: map[content_encoding: keys:[client_metadata include input instructions model parallel_tool_calls prompt_cache_key reasoning store stream tool_choice tools] metadata_keys:[root_turn_id session_id thread_id turn_id x-codex-installation-id x-codex-turn-metadata x-codex-window-id] method:POST path:/responses reasoning_keys:[effort] tool_names:[] tool_types:[]]
+    codex_http_native_darwin_test.go:457: pinned Native scoped HTTP retry_rejected requests 4 forwarded 1 budget 1 turns 1 audit {4 1 1 0 0 true} ; synthetic upstream/account; actual wait/StopProof/release
+=== RUN   TestManagedPinnedCodexGatewayClient/cancel
+    codex_http_native_darwin_test.go:545: Native local account keys [account requiresOpenaiAuth workspaceRouting]
+    codex_http_native_darwin_test.go:252: typed Native observed methods [remoteControl/status/changed thread/started warning thread/status/changed turn/started item/started item/completed]
+    codex_http_native_darwin_test.go:429: map[content_encoding: keys:[client_metadata include input instructions model parallel_tool_calls prompt_cache_key reasoning store stream tool_choice tools] metadata_keys:[root_turn_id session_id thread_id turn_id x-codex-installation-id x-codex-turn-metadata x-codex-window-id] method:POST path:/responses reasoning_keys:[effort] tool_names:[] tool_types:[]]
+    codex_http_native_darwin_test.go:457: pinned Native scoped HTTP cancel requests 1 forwarded 1 budget 1 turns 0 audit {1 1 1 0 0 true} ; synthetic upstream/account; actual wait/StopProof/release
+=== RUN   TestManagedPinnedCodexGatewayClient/interrupt
+    codex_http_native_darwin_test.go:545: Native local account keys [account requiresOpenaiAuth workspaceRouting]
+    codex_http_native_darwin_test.go:252: typed Native observed methods [remoteControl/status/changed thread/started warning thread/status/changed turn/started item/started item/completed thread/status/changed turn/completed]
+    codex_http_native_darwin_test.go:429: map[content_encoding: keys:[client_metadata include input instructions model parallel_tool_calls prompt_cache_key reasoning store stream tool_choice tools] metadata_keys:[root_turn_id session_id thread_id turn_id x-codex-installation-id x-codex-turn-metadata x-codex-window-id] method:POST path:/responses reasoning_keys:[effort] tool_names:[] tool_types:[]]
+    codex_http_native_darwin_test.go:457: pinned Native scoped HTTP interrupt requests 1 forwarded 1 budget 1 turns 1 audit {1 1 1 0 0 true} ; synthetic upstream/account; actual wait/StopProof/release
+--- PASS: TestManagedPinnedCodexGatewayClient (3.79s)
+    --- PASS: TestManagedPinnedCodexGatewayClient/text (0.57s)
+    --- PASS: TestManagedPinnedCodexGatewayClient/rate_limit (0.65s)
+    --- PASS: TestManagedPinnedCodexGatewayClient/retry_rejected (1.40s)
+    --- PASS: TestManagedPinnedCodexGatewayClient/cancel (0.64s)
+    --- PASS: TestManagedPinnedCodexGatewayClient/interrupt (0.54s)
+=== RUN   TestManagedPinnedCodexBootstrap
+=== RUN   TestManagedPinnedCodexBootstrap/success
+    codex_native_darwin_test.go:254: pinned Native metadata only; real wait/StopProof/release; login=0 model=0 quota=0
+=== RUN   TestManagedPinnedCodexBootstrap/driver_failure
+    codex_native_darwin_test.go:254: pinned Native metadata only; real wait/StopProof/release; login=0 model=0 quota=0
+=== RUN   TestManagedPinnedCodexBootstrap/semantic_failure
+    codex_native_darwin_test.go:254: pinned Native metadata only; real wait/StopProof/release; login=0 model=0 quota=0
+=== RUN   TestManagedPinnedCodexBootstrap/validator_source_drift
+    codex_native_darwin_test.go:254: pinned Native metadata only; real wait/StopProof/release; login=0 model=0 quota=0
+=== RUN   TestManagedPinnedCodexBootstrap/validator_identity_drift
+    codex_native_darwin_test.go:254: pinned Native metadata only; real wait/StopProof/release; login=0 model=0 quota=0
+=== RUN   TestManagedPinnedCodexBootstrap/cancel
+    codex_native_darwin_test.go:254: pinned Native metadata only; real wait/StopProof/release; login=0 model=0 quota=0
+=== RUN   TestManagedPinnedCodexBootstrap/parent_cancel
+    codex_native_darwin_test.go:254: pinned Native metadata only; real wait/StopProof/release; login=0 model=0 quota=0
+=== RUN   TestManagedPinnedCodexBootstrap/timeout
+    codex_native_darwin_test.go:254: pinned Native metadata only; real wait/StopProof/release; login=0 model=0 quota=0
+=== RUN   TestManagedPinnedCodexBootstrap/source_drift
+    codex_native_darwin_test.go:254: pinned Native metadata only; real wait/StopProof/release; login=0 model=0 quota=0
+=== RUN   TestManagedPinnedCodexBootstrap/identity_drift
+    codex_native_darwin_test.go:254: pinned Native metadata only; real wait/StopProof/release; login=0 model=0 quota=0
+=== RUN   TestManagedPinnedCodexBootstrap/transport_overflow
+    codex_native_darwin_test.go:254: pinned Native metadata only; real wait/StopProof/release; login=0 model=0 quota=0
+=== RUN   TestManagedPinnedCodexBootstrap/ignored_overflow
+    codex_native_darwin_test.go:254: pinned Native metadata only; real wait/StopProof/release; login=0 model=0 quota=0
+=== RUN   TestManagedPinnedCodexBootstrap/prelaunch_stale
+=== RUN   TestManagedPinnedCodexBootstrap/prelaunch_args
+=== RUN   TestManagedPinnedCodexBootstrap/prelaunch_target
+--- PASS: TestManagedPinnedCodexBootstrap (10.66s)
+    --- PASS: TestManagedPinnedCodexBootstrap/success (0.54s)
+    --- PASS: TestManagedPinnedCodexBootstrap/driver_failure (0.48s)
+    --- PASS: TestManagedPinnedCodexBootstrap/semantic_failure (0.48s)
+    --- PASS: TestManagedPinnedCodexBootstrap/validator_source_drift (0.47s)
+    --- PASS: TestManagedPinnedCodexBootstrap/validator_identity_drift (0.46s)
+    --- PASS: TestManagedPinnedCodexBootstrap/cancel (0.47s)
+    --- PASS: TestManagedPinnedCodexBootstrap/parent_cancel (0.43s)
+    --- PASS: TestManagedPinnedCodexBootstrap/timeout (1.37s)
+    --- PASS: TestManagedPinnedCodexBootstrap/source_drift (2.39s)
+    --- PASS: TestManagedPinnedCodexBootstrap/identity_drift (2.44s)
+    --- PASS: TestManagedPinnedCodexBootstrap/transport_overflow (0.44s)
+    --- PASS: TestManagedPinnedCodexBootstrap/ignored_overflow (0.43s)
+    --- PASS: TestManagedPinnedCodexBootstrap/prelaunch_stale (0.04s)
+    --- PASS: TestManagedPinnedCodexBootstrap/prelaunch_args (0.04s)
+    --- PASS: TestManagedPinnedCodexBootstrap/prelaunch_target (0.04s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime	21.695s

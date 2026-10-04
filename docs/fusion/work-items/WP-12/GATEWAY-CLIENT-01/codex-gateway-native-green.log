@@ -1,0 +1,24 @@
+=== RUN   TestManagedPinnedCodexGatewayClient
+=== RUN   TestManagedPinnedCodexGatewayClient/text
+    codex_http_native_darwin_test.go:242: typed Native observed methods [remoteControl/status/changed thread/started warning thread/status/changed turn/started item/started item/completed item/started item/completed thread/tokenUsage/updated account/rateLimits/updated thread/status/changed turn/completed]
+    codex_http_native_darwin_test.go:416: map[content_encoding: keys:[client_metadata include input instructions model parallel_tool_calls prompt_cache_key reasoning store stream tool_choice tools] metadata_keys:[root_turn_id session_id thread_id turn_id x-codex-installation-id x-codex-turn-metadata x-codex-window-id] method:POST path:/responses reasoning_keys:[effort] tool_names:[] tool_types:[]]
+    codex_http_native_darwin_test.go:444: pinned Native scoped HTTP text requests 1 forwarded 1 budget 1 turns 1 audit {1 1 1 1 0 false} ; synthetic upstream/account; actual wait/StopProof/release
+=== RUN   TestManagedPinnedCodexGatewayClient/rate_limit
+    codex_http_native_darwin_test.go:242: typed Native observed methods [remoteControl/status/changed thread/started warning thread/status/changed turn/started item/started item/completed thread/status/changed error turn/completed]
+    codex_http_native_darwin_test.go:416: map[content_encoding: keys:[client_metadata include input instructions model parallel_tool_calls prompt_cache_key reasoning store stream tool_choice tools] metadata_keys:[root_turn_id session_id thread_id turn_id x-codex-installation-id x-codex-turn-metadata x-codex-window-id] method:POST path:/responses reasoning_keys:[effort] tool_names:[] tool_types:[]]
+    codex_http_native_darwin_test.go:444: pinned Native scoped HTTP rate_limit requests 1 forwarded 1 budget 1 turns 1 audit {1 1 1 0 1 false} ; synthetic upstream/account; actual wait/StopProof/release
+=== RUN   TestManagedPinnedCodexGatewayClient/retry_rejected
+    codex_http_native_darwin_test.go:242: typed Native observed methods [remoteControl/status/changed thread/started warning thread/status/changed turn/started item/started item/completed error error thread/status/changed error turn/completed]
+    codex_http_native_darwin_test.go:416: map[content_encoding: keys:[client_metadata include input instructions model parallel_tool_calls prompt_cache_key reasoning store stream tool_choice tools] metadata_keys:[root_turn_id session_id thread_id turn_id x-codex-installation-id x-codex-turn-metadata x-codex-window-id] method:POST path:/responses reasoning_keys:[effort] tool_names:[] tool_types:[]]
+    codex_http_native_darwin_test.go:444: pinned Native scoped HTTP retry_rejected requests 4 forwarded 1 budget 1 turns 1 audit {4 1 1 0 0 true} ; synthetic upstream/account; actual wait/StopProof/release
+=== RUN   TestManagedPinnedCodexGatewayClient/cancel
+    codex_http_native_darwin_test.go:242: typed Native observed methods [remoteControl/status/changed thread/started warning thread/status/changed turn/started item/started item/completed]
+    codex_http_native_darwin_test.go:416: map[content_encoding: keys:[client_metadata include input instructions model parallel_tool_calls prompt_cache_key reasoning store stream tool_choice tools] metadata_keys:[root_turn_id session_id thread_id turn_id x-codex-installation-id x-codex-turn-metadata x-codex-window-id] method:POST path:/responses reasoning_keys:[effort] tool_names:[] tool_types:[]]
+    codex_http_native_darwin_test.go:444: pinned Native scoped HTTP cancel requests 1 forwarded 1 budget 1 turns 0 audit {1 1 1 0 0 true} ; synthetic upstream/account; actual wait/StopProof/release
+--- PASS: TestManagedPinnedCodexGatewayClient (2.67s)
+    --- PASS: TestManagedPinnedCodexGatewayClient/text (0.48s)
+    --- PASS: TestManagedPinnedCodexGatewayClient/rate_limit (0.44s)
+    --- PASS: TestManagedPinnedCodexGatewayClient/retry_rejected (1.30s)
+    --- PASS: TestManagedPinnedCodexGatewayClient/cancel (0.44s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime	4.172s

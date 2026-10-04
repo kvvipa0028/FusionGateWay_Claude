@@ -1,0 +1,28 @@
+=== RUN   TestManagedPinnedCodexGatewayClient
+=== RUN   TestManagedPinnedCodexGatewayClient/text
+    codex_http_native_darwin_test.go:263: typed event refusal remoteControl/status/changed pinned codex protocol mismatch
+    codex_http_native_darwin_test.go:242: typed Native observed methods [remoteControl/status/changed]
+    codex_http_native_darwin_test.go:408: map[]
+    codex_http_native_darwin_test.go:437: pinned Native HTTP not accepted cancelled 0 requests 0 forwarded 0 budget 0 audit {0 0 0 0 0 false}
+=== RUN   TestManagedPinnedCodexGatewayClient/rate_limit
+    codex_http_native_darwin_test.go:263: typed event refusal remoteControl/status/changed pinned codex protocol mismatch
+    codex_http_native_darwin_test.go:242: typed Native observed methods [remoteControl/status/changed]
+    codex_http_native_darwin_test.go:408: map[]
+    codex_http_native_darwin_test.go:437: pinned Native HTTP not accepted cancelled 0 requests 0 forwarded 0 budget 0 audit {0 0 0 0 0 false}
+=== RUN   TestManagedPinnedCodexGatewayClient/retry_rejected
+    codex_http_native_darwin_test.go:263: typed event refusal remoteControl/status/changed pinned codex protocol mismatch
+    codex_http_native_darwin_test.go:242: typed Native observed methods [remoteControl/status/changed]
+    codex_http_native_darwin_test.go:408: map[]
+    codex_http_native_darwin_test.go:437: pinned Native HTTP not accepted cancelled 0 requests 0 forwarded 0 budget 0 audit {0 0 0 0 0 false}
+=== RUN   TestManagedPinnedCodexGatewayClient/cancel
+    codex_http_native_darwin_test.go:263: typed event refusal remoteControl/status/changed pinned codex protocol mismatch
+    codex_http_native_darwin_test.go:242: typed Native observed methods [remoteControl/status/changed]
+    codex_http_native_darwin_test.go:391: native did not reach inflight HTTP
+--- FAIL: TestManagedPinnedCodexGatewayClient (19.33s)
+    --- FAIL: TestManagedPinnedCodexGatewayClient/text (0.44s)
+    --- FAIL: TestManagedPinnedCodexGatewayClient/rate_limit (0.42s)
+    --- FAIL: TestManagedPinnedCodexGatewayClient/retry_rejected (0.41s)
+    --- FAIL: TestManagedPinnedCodexGatewayClient/cancel (18.06s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime	19.978s
+FAIL

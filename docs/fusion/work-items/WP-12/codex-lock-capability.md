@@ -32,3 +32,7 @@ turn/start 发出前先进入 execution_uncertain；成功收到 inProgress 的�
 ## Responses HTTP 组件
 
 [CALLS-01](CALLS-01/summary.md) 已验证单入口、每次 Permit/持久预算、冻结 Binding 和有界完整 SSE 的保守文字投影。CALLS-01 当时没有实际 Native model HTTP；后续 [CHANNEL-01](CHANNEL-01/summary.md) 补充实际 scoped Native HTTP，真实 Forwarder、私有官方登录及全部子调用仍无完整证据；production generation remains unverified。现有 metadata-only CodexChannel 不因此增加网络权限。
+
+## 本地阶段协议客户端
+
+[GATEWAY-CLIENT-01](GATEWAY-CLIENT-01/summary.md) 将实际私有stage provider接入类型化Client；默认openai/auth guard保持。Gateway只支持readonly/tool-free单thread/turn，严格处理固定Native通知与interrupt；恢复、write/tools与正式Adapter仍待独立证明。阶段账号空值和workspaceRouting=null不是官方订阅identity或quota准入。

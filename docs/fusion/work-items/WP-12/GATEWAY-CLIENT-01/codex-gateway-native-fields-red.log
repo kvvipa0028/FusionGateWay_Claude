@@ -1,0 +1,11 @@
+=== RUN   TestManagedPinnedCodexGatewayClient
+=== RUN   TestManagedPinnedCodexGatewayClient/text
+    codex_http_native_darwin_test.go:274: typed event refusal remoteControl/status/changed pinned codex protocol mismatch map[environmentId:JSON bytes=4 installationId:string bytes=36 serverName:string bytes=0 status:string bytes=8]
+    codex_http_native_darwin_test.go:242: typed Native observed methods [remoteControl/status/changed]
+    codex_http_native_darwin_test.go:419: map[]
+    codex_http_native_darwin_test.go:448: pinned Native HTTP not accepted cancelled 0 requests 0 forwarded 0 budget 0 audit {0 0 0 0 0 false}
+--- FAIL: TestManagedPinnedCodexGatewayClient (0.43s)
+    --- FAIL: TestManagedPinnedCodexGatewayClient/text (0.43s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime	1.085s
+FAIL

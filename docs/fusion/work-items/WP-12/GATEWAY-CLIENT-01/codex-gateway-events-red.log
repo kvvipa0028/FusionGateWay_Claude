@@ -1,0 +1,77 @@
+=== RUN   TestGatewayClientPinsLocalProviderWithoutClaimingNativeLogin
+--- PASS: TestGatewayClientPinsLocalProviderWithoutClaimingNativeLogin (0.00s)
+=== RUN   TestGatewayClientRejectsNativeAccountSubstitution
+=== RUN   TestGatewayClientRejectsNativeAccountSubstitution/{"requiresOpenaiAuth":false}
+=== RUN   TestGatewayClientRejectsNativeAccountSubstitution/{"account":null}
+=== RUN   TestGatewayClientRejectsNativeAccountSubstitution/{"account":null,"requiresOpenaiAuth":true}
+=== RUN   TestGatewayClientRejectsNativeAccountSubstitution/{"account":{},"requiresOpenaiAuth":false}
+=== RUN   TestGatewayClientRejectsNativeAccountSubstitution/{"account":{"type":"chatgpt","planType":"plus"},"requiresOpenaiAuth":false}
+=== RUN   TestGatewayClientRejectsNativeAccountSubstitution/{"account":null,"requiresOpenaiAuth":null}
+--- PASS: TestGatewayClientRejectsNativeAccountSubstitution (0.00s)
+    --- PASS: TestGatewayClientRejectsNativeAccountSubstitution/{"requiresOpenaiAuth":false} (0.00s)
+    --- PASS: TestGatewayClientRejectsNativeAccountSubstitution/{"account":null} (0.00s)
+    --- PASS: TestGatewayClientRejectsNativeAccountSubstitution/{"account":null,"requiresOpenaiAuth":true} (0.00s)
+    --- PASS: TestGatewayClientRejectsNativeAccountSubstitution/{"account":{},"requiresOpenaiAuth":false} (0.00s)
+    --- PASS: TestGatewayClientRejectsNativeAccountSubstitution/{"account":{"type":"chatgpt","planType":"plus"},"requiresOpenaiAuth":false} (0.00s)
+    --- PASS: TestGatewayClientRejectsNativeAccountSubstitution/{"account":null,"requiresOpenaiAuth":null} (0.00s)
+=== RUN   TestGatewayClientAdmissionIsRecheckedAfterCallback
+--- PASS: TestGatewayClientAdmissionIsRecheckedAfterCallback (0.00s)
+=== RUN   TestGatewayClientNeverEnablesToolsOrWorkspaceWrites
+=== RUN   TestGatewayClientNeverEnablesToolsOrWorkspaceWrites/design
+=== RUN   TestGatewayClientNeverEnablesToolsOrWorkspaceWrites/implementation
+=== RUN   TestGatewayClientNeverEnablesToolsOrWorkspaceWrites/testing
+=== RUN   TestGatewayClientNeverEnablesToolsOrWorkspaceWrites/review
+=== RUN   TestGatewayClientNeverEnablesToolsOrWorkspaceWrites/acceptance
+--- PASS: TestGatewayClientNeverEnablesToolsOrWorkspaceWrites (0.00s)
+    --- PASS: TestGatewayClientNeverEnablesToolsOrWorkspaceWrites/design (0.00s)
+    --- PASS: TestGatewayClientNeverEnablesToolsOrWorkspaceWrites/implementation (0.00s)
+    --- PASS: TestGatewayClientNeverEnablesToolsOrWorkspaceWrites/testing (0.00s)
+    --- PASS: TestGatewayClientNeverEnablesToolsOrWorkspaceWrites/review (0.00s)
+    --- PASS: TestGatewayClientNeverEnablesToolsOrWorkspaceWrites/acceptance (0.00s)
+=== RUN   TestGatewayClientUnverifiedAdmissionSendsNoThread
+--- PASS: TestGatewayClientUnverifiedAdmissionSendsNoThread (0.00s)
+=== RUN   TestGatewayEventsFollowPinnedTextLifecycle
+    gateway_client_test.go:150: observation changed terminal state execution_uncertain pinned codex protocol mismatch {"method":"remoteControl/status/changed","params":{"installationId":"fixture","serverName":"","status":"disabled","environmentId":null}}
+--- FAIL: TestGatewayEventsFollowPinnedTextLifecycle (0.00s)
+=== RUN   TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames
+=== RUN   TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames/alias
+=== RUN   TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames/unseen_delta
+=== RUN   TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames/tool
+=== RUN   TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames/bad_completed_error
+=== RUN   TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames/extra_field
+=== RUN   TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames/stale_thread
+=== RUN   TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames/summary
+=== RUN   TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames/unknown_terminal_item
+    gateway_client_test.go:185: unsafe event accepted succeeded <nil>
+=== RUN   TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames/timestamp_null
+=== RUN   TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames/stale_turn
+=== RUN   TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames/awaiting_approval
+=== RUN   TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames/missing_items
+=== RUN   TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames/remote_connected
+=== RUN   TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames/unknown
+=== RUN   TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames/compact
+=== RUN   TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames/missing_turn
+--- FAIL: TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames (0.02s)
+    --- PASS: TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames/alias (0.00s)
+    --- PASS: TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames/unseen_delta (0.00s)
+    --- PASS: TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames/tool (0.00s)
+    --- PASS: TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames/bad_completed_error (0.00s)
+    --- PASS: TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames/extra_field (0.00s)
+    --- PASS: TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames/stale_thread (0.00s)
+    --- PASS: TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames/summary (0.00s)
+    --- FAIL: TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames/unknown_terminal_item (0.00s)
+    --- PASS: TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames/timestamp_null (0.00s)
+    --- PASS: TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames/stale_turn (0.00s)
+    --- PASS: TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames/awaiting_approval (0.00s)
+    --- PASS: TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames/missing_items (0.00s)
+    --- PASS: TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames/remote_connected (0.00s)
+    --- PASS: TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames/unknown (0.00s)
+    --- PASS: TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames/compact (0.00s)
+    --- PASS: TestGatewayEventsRejectUnknownToolsStaleAndContradictoryFrames/missing_turn (0.00s)
+=== RUN   TestGatewayEventsNeverCompleteUnfinishedItem
+--- PASS: TestGatewayEventsNeverCompleteUnfinishedItem (0.00s)
+=== RUN   TestGatewayEventsFatalErrorCannotBecomeSuccess
+--- PASS: TestGatewayEventsFatalErrorCannotBecomeSuccess (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/codex	0.671s
+FAIL

@@ -1,0 +1,7 @@
+=== RUN   TestManagedPinnedCodexGatewayObservation
+    codex_http_native_darwin_test.go:242: typed Native observed methods [remoteControl/status/changed thread/started warning thread/status/changed turn/started item/started item/completed item/started item/completed thread/tokenUsage/updated account/rateLimits/updated thread/status/changed turn/completed]
+    codex_http_native_darwin_test.go:408: map[content_encoding: keys:[client_metadata include input instructions model parallel_tool_calls prompt_cache_key reasoning store stream tool_choice tools] metadata_keys:[root_turn_id session_id thread_id turn_id x-codex-installation-id x-codex-turn-metadata x-codex-window-id] method:POST path:/responses reasoning_keys:[effort] tool_names:[] tool_types:[]]
+    codex_http_native_darwin_test.go:439: pinned Native scoped HTTP characterize requests 1 forwarded 1 budget 1 turns 1 audit {1 1 1 1 0 false} ; synthetic upstream/account; actual wait/StopProof/release
+--- PASS: TestManagedPinnedCodexGatewayObservation (0.48s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime	2.149s

@@ -1,0 +1,6 @@
+=== RUN   TestGatewayLateReplyAfterCancellationCannotInitialize
+    gateway_client_test.go:300: cancelled reply accepted <nil>
+--- FAIL: TestGatewayLateReplyAfterCancellationCannotInitialize (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/codex	0.626s
+FAIL

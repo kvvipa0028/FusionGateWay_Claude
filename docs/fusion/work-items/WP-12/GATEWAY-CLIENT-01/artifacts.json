@@ -1,0 +1,43 @@
+{
+  "base_commit": "b36e847a44146a8e2a14856417f732ef477309f9",
+  "source_files_sha256": {
+    "docs/fusion/README.md": "29fa97a5cfc59da974acbacada15560fc00cf1120ee7cee632f15ae6deb91488",
+    "docs/fusion/contracts/codex-gateway-client.md": "27ac18777ef64046751064587e3ee443cbbdb830739920849bf518f9f6154f1a",
+    "docs/fusion/contracts/codex-http-channel.md": "d8ecba64b1cfe14f0e5da35e4fc1beae2efa44544e3e9664cedd87cfecb3e02e",
+    "docs/fusion/work-items/WP-12/codex-lock-capability.md": "337fcc01bff7d75f80a506aeece36c793945df0076e3967fb0f0731f5f69b475",
+    "docs/fusion/work-items/WP-12/summary.md": "a6f30d1206cc88a9bb7db406d15586c24c16333a71bbc5125632f2246ce79d47",
+    "internal/fusion/runtime/codex/client.go": "ab5bb87223bd6a411004241e0bf22d78fd5daf016446880ba0c0b6a9c79e8969",
+    "internal/fusion/runtime/codex/gateway_client.go": "48bb221ffe874635b0c857aa6551bdb74731196c529801456415cf6d18e18e58",
+    "internal/fusion/runtime/codex/gateway_client_test.go": "4837047b4a7e6dc63d38fed8c204db1a1b300896a504ba46a2854ad6926efea3",
+    "internal/fusion/runtime/codex/gateway_events.go": "c206a55219237542da6b96893fc7dcc475d36f2734f4214b65b13c648bf5ba41",
+    "internal/fusion/runtime/codex_http_channel.go": "ed720f05826e221a5c9e2f648b3e37b8e0a97226d3a3f079b9b0dce95067f227",
+    "internal/fusion/runtime/codex_http_native_darwin_test.go": "59bf5a41382533e137390add80356e285e6e2112afb0ea41e490f0785fcc496b"
+  },
+  "packet_files_sha256": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "9383c6de53e0f61c9bc1acca1fcbe597527ac8d7979270683ad291657cd7ab40",
+    "build-results.json": "4ca0e68947b4cec97f3c0be29fc9d340738336af2fe078fdd15548dff1fa4bd3",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "codex-gateway-account-fields-red.log": "65420fe272dfe9b270ddf7e3591292e04b5d1b50fbf73ac290ced0088cc4a040",
+    "codex-gateway-cancel-red.log": "2af4a537f29d1d683ddc905c10b11fbe1adebc21b74de4ddb480110a8f2e6186",
+    "codex-gateway-events-red.log": "884c5aa9905c3efb68deb788c2f73ad66245e20d3308671e6717450e9bfd04f3",
+    "codex-gateway-final-account-shape-red.log": "6da39bfaabc5c6b1c18daa7f4f120a3f05533efd71076151f585f39651662af6",
+    "codex-gateway-full-fusion.log": "95c4ae144c8ca4776f150fc74ac2b31892c77afcd3e33c7cecd6da682f4c1714",
+    "codex-gateway-green-initial.log": "295b9caf34830852acc83557ed6c98b2d4f5fb4d9eefdc8547c674156de32aef",
+    "codex-gateway-host-final.log": "271085372e08b64b07399b652350c5cd4015059ecb2d6fc281e38bce455952e0",
+    "codex-gateway-host-green.log": "692fb43b226946c6cd81a46b204f564f6ff909f3a46ae1f64adf2666618c85f7",
+    "codex-gateway-native-fields-red.log": "6c50160f7b52bbb40e04e806099ec8423e185be82fcbd2ca9affcf80785fa7a7",
+    "codex-gateway-native-final.log": "49851b4a799f93271030cbdaf2505948a99b728192ede0ef713aae7cadbd4fce",
+    "codex-gateway-native-green-initial.log": "f2b99d55071f82a5dafae7e602dcc8e688e2705b95dbb32939fcc8aafe25dccc",
+    "codex-gateway-native-green.log": "dc447527516ef995669414b90e24ada364721a64a4dc37b2942b81ef31610634",
+    "codex-gateway-native-interrupt.log": "fbcad8ada1f0c496cf06aa590db2109e4e4809db4ea1518a54f45a86ca9031d5",
+    "codex-gateway-native-red.log": "ed42a34c1ea4c110a01380a5bb4966a6d7734d93814f19a69da9227de1f6ac54",
+    "codex-gateway-observation.log": "5f5164439144816b899c761ea46ad3f73b5d2bdc1465ed0e9867aae457e3b2c8",
+    "codex-gateway-red.log": "a04088df0fd67613f12f77a0818e59baa7799f1e576375397df3a881518449a0",
+    "codex-gateway-thread-replay-red.log": "a69d33d4923baa2d9c262da397469be09921a9ff7dec1a54d1b5f97ca028060f",
+    "codex-gateway-workspace-red.log": "0e5734804f0523cf06fdb2b444d24b2161c7bce23899128b5cb1f37b9c07cb19",
+    "reference-sha256.json": "74cd236872ff7350bf3ce4f14eebb756e39031def68f1bb771898daed357eae9",
+    "summary.md": "f7c8b07998bdfe464be17b78c933e2172797d51098b29ef4b55a136cf2e8ad08",
+    "test-results.json": "1edda7deefd24d0b2c76e0dbeb6cd1a33621eab33db40c5461948e0b58707d3e"
+  }
+}

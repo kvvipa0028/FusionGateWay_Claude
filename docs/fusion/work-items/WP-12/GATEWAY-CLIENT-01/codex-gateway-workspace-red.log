@@ -1,0 +1,14 @@
+=== RUN   TestGatewayLocalAccountDoesNotAdoptWorkspaceRouting
+=== RUN   TestGatewayLocalAccountDoesNotAdoptWorkspaceRouting/null
+    gateway_client_test.go:312: workspace routing shape accepted incorrectly codex generation/all-calls capability unverified
+=== RUN   TestGatewayLocalAccountDoesNotAdoptWorkspaceRouting/{"workspaceId":"other"}
+=== RUN   TestGatewayLocalAccountDoesNotAdoptWorkspaceRouting/false
+=== RUN   TestGatewayLocalAccountDoesNotAdoptWorkspaceRouting/"fixture"
+--- FAIL: TestGatewayLocalAccountDoesNotAdoptWorkspaceRouting (0.00s)
+    --- FAIL: TestGatewayLocalAccountDoesNotAdoptWorkspaceRouting/null (0.00s)
+    --- PASS: TestGatewayLocalAccountDoesNotAdoptWorkspaceRouting/{"workspaceId":"other"} (0.00s)
+    --- PASS: TestGatewayLocalAccountDoesNotAdoptWorkspaceRouting/false (0.00s)
+    --- PASS: TestGatewayLocalAccountDoesNotAdoptWorkspaceRouting/"fixture" (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/codex	0.607s
+FAIL

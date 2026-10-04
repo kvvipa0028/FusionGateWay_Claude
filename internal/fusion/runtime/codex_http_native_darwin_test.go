@@ -125,10 +125,10 @@ func TestManagedPinnedCodexHTTPActivationBeforeDriver(t *testing.T) {
 // metadata. This characterizes actual HTTP shape and complete Native turn.
 func TestManagedPinnedCodexHTTPText(t *testing.T) {
 	for _, mode := range []string{"text", "rate_limit", "retry_rejected", "budget", "cancel"} {
-		t.Run(mode, func(t *testing.T) { codexManagedHTTPText(t, mode) })
+		t.Run(mode, func(t *testing.T) { codexManagedHTTPText(t, mode, false) })
 	}
 }
-func codexManagedHTTPText(t *testing.T, mode string) {
+func codexManagedHTTPText(t *testing.T, mode string, gateway bool) {
 	if *codexNativeCLI == "" {
 		t.Skip("explicit pinned Native stage HTTP test")
 	}
@@ -157,7 +157,7 @@ func codexManagedHTTPText(t *testing.T, mode string) {
 		return s.ReserveCall(c.RunID, c.Generation)
 	}, Forwarder: codexHTTPFakeForward(func(ctx context.Context, _ stageplan.ExecutionTarget, _ []byte) (codex.ForwardResponse, error) {
 		forwarded.Add(1)
-		if mode == "cancel" {
+		if mode == "cancel" || mode == "interrupt" {
 			close(entered)
 			<-ctx.Done()
 			close(exited)
@@ -220,6 +220,86 @@ func codexManagedHTTPText(t *testing.T, mode string) {
 			return e
 		}
 		defer peer.Close()
+		if gateway {
+			client, e := codex.NewGateway(codexGatewayShapePeer{Peer: peer, t: t}, binding, func(scope codex.Scope) bool { return scope == binding.Scope }, func() codex.Identity { return identity }, func() bool { return true })
+			if e != nil {
+				return e
+			}
+			if e = client.Initialize(ctx); e != nil {
+				return e
+			}
+			if e = client.ReadAccount(ctx); e != nil {
+				return e
+			}
+			if _, e = client.StartThread(ctx); e != nil {
+				t.Log("typed thread refusal", e)
+				return e
+			}
+			if _, e = client.StartTurn(ctx, "Reply with fixture. Do not use tools."); e != nil {
+				return e
+			}
+			if mode == "interrupt" {
+				select {
+				case <-entered:
+				case <-ctx.Done():
+					return ctx.Err()
+				}
+				if e := client.Interrupt(ctx); e != nil {
+					return e
+				}
+			}
+			var methods []string
+			defer func() { t.Log("typed Native observed methods", methods) }()
+			for {
+				select {
+				case <-ctx.Done():
+					return ctx.Err()
+				case raw, ok := <-peer.Notifications():
+					if !ok {
+						return codex.ErrNative
+					}
+					var envelope struct {
+						Method string `json:"method"`
+					}
+					if json.Unmarshal(raw, &envelope) != nil {
+						return codex.ErrProtocol
+					}
+					methods = append(methods, envelope.Method)
+					state, e := client.Event(binding.Scope, raw)
+					if e != nil {
+						var shape struct{ Params map[string]json.RawMessage }
+						json.Unmarshal(raw, &shape)
+						projection := map[string]any{}
+						for k, v := range shape.Params {
+							var str string
+							if json.Unmarshal(v, &str) == nil && !bytes.Equal(v, []byte("null")) {
+								projection[k] = fmt.Sprintf("string bytes=%d", len(str))
+							} else {
+								projection[k] = fmt.Sprintf("JSON bytes=%d", len(v))
+							}
+						}
+						t.Log("typed event refusal", envelope.Method, e, projection)
+						return e
+					}
+					switch state {
+					case "succeeded", "failed", "interrupted":
+						expected := "succeeded"
+						if mode == "rate_limit" || mode == "retry_rejected" {
+							expected = "failed"
+						}
+						if mode == "interrupt" {
+							expected = "interrupted"
+						}
+						if state != expected {
+							return codex.ErrNative
+						}
+						completedTurns.Add(1)
+						terminal.Store(true)
+						return nil
+					}
+				}
+			}
+		}
 		call := func(id uint64, method string, params any) (json.RawMessage, error) {
 			raw, _ := json.Marshal(params)
 			return peer.Call(ctx, id, method, raw)
@@ -350,7 +430,7 @@ func codexManagedHTTPText(t *testing.T, mode string) {
 	shapeMu.Unlock()
 	b, e := s.Budget(r.TaskID)
 	wantState, wantRequests, wantForwarded := "succeeded", int64(1), int64(1)
-	if mode == "rate_limit" {
+	if mode == "rate_limit" || mode == "interrupt" {
 		wantState = "failed"
 	}
 	if mode == "retry_rejected" {
@@ -439,4 +519,30 @@ func TestManagedPinnedCodexHTTPActivationFailureStopsWithoutDriver(t *testing.T)
 		t.Fatal("failed grant survived stop")
 	}
 	t.Log("actual pinned Native stopped/reaped after activation refusal; driver0 HTTP0; reservation released")
+}
+
+func TestManagedPinnedCodexGatewayClient(t *testing.T) {
+	for _, mode := range []string{"text", "rate_limit", "retry_rejected", "cancel", "interrupt"} {
+		t.Run(mode, func(t *testing.T) { codexManagedHTTPText(t, mode, true) })
+	}
+}
+
+type codexGatewayShapePeer struct {
+	codex.Peer
+	t *testing.T
+}
+
+func (p codexGatewayShapePeer) Call(ctx context.Context, id uint64, method string, raw json.RawMessage) (json.RawMessage, error) {
+	out, e := p.Peer.Call(ctx, id, method, raw)
+	if method == "account/read" && e == nil {
+		var fields map[string]json.RawMessage
+		json.Unmarshal(out, &fields)
+		keys := []string{}
+		for k := range fields {
+			keys = append(keys, k)
+		}
+		sort.Strings(keys)
+		p.t.Log("Native local account keys", keys)
+	}
+	return out, e
 }

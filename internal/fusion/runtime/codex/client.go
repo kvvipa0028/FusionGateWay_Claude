@@ -58,6 +58,9 @@ type Client struct {
 	currentIdentity              func() Identity
 	generationAdmitted           func() bool
 	initialized, accountVerified bool
+	gateway                      bool
+	gatewayStarted, gatewayFatal bool
+	gatewayItems                 map[string]gatewayItem
 	nextID                       uint64
 	threadID, turnID, state      string
 }
@@ -95,6 +98,9 @@ func (c *Client) generation() error {
 	if !c.accountVerified || c.generationAdmitted == nil || !c.generationAdmitted() || c.binding.Target.LockEnforcement != stageplan.ControlledCalls {
 		return ErrUnverified
 	}
+	if c.gateway {
+		return c.check()
+	}
 	return nil
 }
 func (c *Client) call(ctx context.Context, method string, params any, out any) error {
@@ -115,6 +121,9 @@ func (c *Client) call(ctx context.Context, method string, params any, out any) e
 	}
 	if e = c.check(); e != nil {
 		return e
+	}
+	if c.gateway && ctx.Err() != nil {
+		return ctx.Err()
 	}
 	return decode(response, out)
 }
@@ -149,6 +158,9 @@ func (c *Client) ReadAccount(ctx context.Context) error {
 	if !c.initialized {
 		return ErrProtocol
 	}
+	if c.gateway {
+		return c.readGatewayAccount(ctx)
+	}
 	var out struct {
 		Account *struct {
 			Type     string  `json:"type"`
@@ -172,6 +184,9 @@ func (c *Client) ReadAccount(ctx context.Context) error {
 }
 func (c *Client) threadParams(id string) map[string]any {
 	p := map[string]any{"model": c.binding.Target.ResolvedModel, "modelProvider": "openai", "cwd": c.binding.Cwd, "approvalPolicy": "never", "sandbox": "read-only", "config": map[string]any{"model_reasoning_effort": *c.binding.Target.Effort.Value, "model_reasoning_summary": "none"}}
+	if c.gateway {
+		p["modelProvider"] = StageProvider
+	}
 	if c.writing() {
 		p["sandbox"] = "workspace-write"
 		p["config"].(map[string]any)["sandbox_workspace_write"] = map[string]any{"network_access": false, "exclude_slash_tmp": true, "exclude_tmpdir_env_var": true}
@@ -212,14 +227,24 @@ func (c *Client) thread(ctx context.Context, id string) (string, error) {
 			ExcludeTmpdirEnvVar bool     `json:"excludeTmpdirEnvVar"`
 		} `json:"sandbox"`
 	}
+	if c.gateway {
+		c.state = "execution_uncertain"
+	}
 	if e := c.call(ctx, method, c.threadParams(id), &out); e != nil {
 		return "", e
+	}
+	provider := "openai"
+	if c.gateway {
+		provider = StageProvider
+		if e := c.generation(); e != nil {
+			return "", e
+		}
 	}
 	expectedSandbox := "readOnly"
 	if c.writing() {
 		expectedSandbox = "workspaceWrite"
 	}
-	if out.Thread.ID == "" || out.Thread.CLIVersion != CLIVersion || id != "" && out.Thread.ID != id || out.Model != c.binding.Target.ResolvedModel || out.ModelProvider != "openai" || out.ReasoningEffort == nil || *out.ReasoningEffort != *c.binding.Target.Effort.Value || out.Cwd != c.binding.Cwd || out.ApprovalPolicy != "never" || out.Sandbox.Type != expectedSandbox || out.Sandbox.NetworkAccess == nil || *out.Sandbox.NetworkAccess {
+	if out.Thread.ID == "" || out.Thread.CLIVersion != CLIVersion || id != "" && out.Thread.ID != id || out.Model != c.binding.Target.ResolvedModel || out.ModelProvider != provider || out.ReasoningEffort == nil || *out.ReasoningEffort != *c.binding.Target.Effort.Value || out.Cwd != c.binding.Cwd || out.ApprovalPolicy != "never" || out.Sandbox.Type != expectedSandbox || out.Sandbox.NetworkAccess == nil || *out.Sandbox.NetworkAccess {
 		return "", ErrProtocol
 	}
 	if c.writing() && (len(out.Sandbox.WritableRoots) != 1 || out.Sandbox.WritableRoots[0] != c.binding.Cwd || !out.Sandbox.ExcludeSlashTmp || !out.Sandbox.ExcludeTmpdirEnvVar) {
@@ -233,7 +258,7 @@ func (c *Client) thread(ctx context.Context, id string) (string, error) {
 func (c *Client) StartThread(ctx context.Context) (string, error) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
-	if c.threadID != "" {
+	if c.threadID != "" || c.gateway && c.state != "initialized" {
 		return "", ErrProtocol
 	}
 	return c.thread(ctx, "")
@@ -241,6 +266,9 @@ func (c *Client) StartThread(ctx context.Context) (string, error) {
 func (c *Client) Resume(ctx context.Context, id string) error {
 	c.mu.Lock()
 	defer c.mu.Unlock()
+	if c.gateway {
+		return ErrUnverified
+	}
 	if id == "" || id != c.threadID || c.state == "running" || c.state == "cancelling" || c.state == "execution_uncertain" {
 		return ErrProtocol
 	}
@@ -267,6 +295,11 @@ func (c *Client) StartTurn(ctx context.Context, prompt string) (string, error) {
 	if e := c.call(ctx, "turn/start", params, &out); e != nil {
 		return "", e
 	}
+	if c.gateway {
+		if e := c.generation(); e != nil {
+			return "", e
+		}
+	}
 	if out.Turn.ID == "" || out.Turn.Status != "inProgress" {
 		return "", ErrProtocol
 	}
@@ -276,7 +309,7 @@ func (c *Client) StartTurn(ctx context.Context, prompt string) (string, error) {
 }
 
 func (c *Client) writing() bool {
-	return c.binding.Scope.Role == stageplan.Implementation || c.binding.Scope.Role == stageplan.Testing
+	return !c.gateway && (c.binding.Scope.Role == stageplan.Implementation || c.binding.Scope.Role == stageplan.Testing)
 }
 func (c *Client) sandboxPolicy() map[string]any {
 	if c.writing() {
@@ -309,6 +342,10 @@ func (c *Client) Event(scope Scope, raw []byte) (string, error) {
 	}
 	if scope != c.binding.Scope {
 		return c.state, ErrIdentity
+	}
+	if c.gateway {
+		err := c.gatewayEvent(raw)
+		return c.state, err
 	}
 	if c.state != "running" && c.state != "cancelling" {
 		return c.state, ErrProtocol
@@ -395,6 +432,9 @@ func advertisesVersion(agent string) bool {
 // helpers and external integrations require separate all-calls proof. This
 // observation filter does not replace OS tool confinement or route admission.
 func (c *Client) allowedItem(kind string) bool {
+	if c.gateway {
+		return kind == "userMessage" || kind == "agentMessage" || kind == "reasoning"
+	}
 	switch kind {
 	case "userMessage", "agentMessage", "plan", "reasoning", "commandExecution", "imageView", "sleep":
 		return true

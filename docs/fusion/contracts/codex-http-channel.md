@@ -14,7 +14,7 @@
 
 使用独立本地 provider `fusion_codex_stage`，base_url 指向独占端口，wire_api=responses、env_key 指向阶段变量，requires_openai_auth=false、supports_websockets=false。目标 BillingPath 仍是订阅路线；本地 custom provider 仅表示受控传输。Native account/read 实际返回 account=null、requiresOpenaiAuth=false，不能冒充已登录 ChatGPT。真实订阅身份需由 Controller/registry/Forwarder 另外核验。
 
-固定 [merge_configured_model_providers](https://github.com/openai/codex/blob/rust-v0.160.0/codex-rs/model-provider-info/src/lib.rs) 不允许普通自定义配置覆盖内置 openai；没有用 fakeJWT、chatgptAuthTokens、内置覆盖或普通 API 计费兜底。现有 production Client 的默认 openai/auth/generation admission 不因此放宽；本项原生 characterization 使用 test-only raw Peer。
+固定 [merge_configured_model_providers](https://github.com/openai/codex/blob/rust-v0.160.0/codex-rs/model-provider-info/src/lib.rs) 不允许普通自定义配置覆盖内置 openai；没有用 fakeJWT、chatgptAuthTokens、内置覆盖或普通 API 计费兜底。现有 production Client 的默认 openai/auth/generation admission 不因此放宽；本项原生 characterization 使用 test-only raw Peer；后续[类型化阶段客户端](codex-gateway-client.md)已核验实际通知与原生终态。
 
 冻结 model/effort、summary=none、read-only、approval=never、web_search=disabled；关闭 analytics/feedback、agents、update_plan/request_user_input、goals、shell、view_image、sleep、unified_exec、shell_snapshot、code_mode、多 Agent、apps/tool_search、remote_models/discovery及压缩。未关闭 Guardian、MDM 或 host-managed requirements。request_max_retries=2、stream_max_retries=2、stream_idle_timeout_ms=5000。
 
@@ -26,4 +26,4 @@ Supervisor ConfirmStarted 后先激活 PendingModelGrant，成功后才启动 st
 
 实际测试结果（账号/上游/额度均为合成 fixture）：文字1HTTP/1发送/1预算；429为1/1/1并终止；不支持503产生静态502、Native4HTTP但仅1发送/1预算，后续拒绝；三个独立 ephemeral Native turns在 MaxCalls=2时共5HTTP/2发送/2预算，第三轮及其重试均拒绝；inflight取消1/1/1，HTTP context与Native都结束、已消费预算不退。所有场景核验 Native 实际终态或取消、wait/StopProof/release，不将合成 route flags 作为真实准入。
 
-仍须完成 typed gateway Client/生产 Adapter、真实官方私有身份与凭据登记、订阅单次 Forwarder/额度/计费、全部子调用、原生工具与恢复、产品阶段闭环及最终验收。64KiB stdio预算仍沿用原组件边界，不能宣称任意长生成任务容量已验证；真实 Native SHA固定不代表完整 publisher/install trust。
+typed Gateway Client已完成受限协议接入；仍须完成生产 Adapter、真实官方私有身份与凭据登记、订阅单次 Forwarder/额度/计费、全部子调用、原生工具与恢复、产品阶段闭环及最终验收。64KiB stdio预算仍沿用原组件边界，不能宣称任意长生成任务容量已验证；真实 Native SHA固定不代表完整 publisher/install trust。

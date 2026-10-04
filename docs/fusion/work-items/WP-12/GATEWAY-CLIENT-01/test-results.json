@@ -1,0 +1,218 @@
+{
+  "codex-gateway-red.log": {
+    "top_level": {
+      "pass": 0,
+      "fail": 0,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 0,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "codex-gateway-green-initial.log": {
+    "top_level": {
+      "pass": 5,
+      "fail": 0,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 11,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "codex-gateway-native-red.log": {
+    "top_level": {
+      "pass": 0,
+      "fail": 1,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 0,
+      "fail": 4,
+      "skip": 0
+    }
+  },
+  "codex-gateway-observation.log": {
+    "top_level": {
+      "pass": 1,
+      "fail": 0,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 0,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "codex-gateway-native-green-initial.log": {
+    "top_level": {
+      "pass": 0,
+      "fail": 1,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 0,
+      "fail": 4,
+      "skip": 0
+    }
+  },
+  "codex-gateway-native-fields-red.log": {
+    "top_level": {
+      "pass": 0,
+      "fail": 1,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 0,
+      "fail": 1,
+      "skip": 0
+    }
+  },
+  "codex-gateway-events-red.log": {
+    "top_level": {
+      "pass": 7,
+      "fail": 2,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 26,
+      "fail": 1,
+      "skip": 0
+    }
+  },
+  "codex-gateway-thread-replay-red.log": {
+    "top_level": {
+      "pass": 0,
+      "fail": 1,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 0,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "codex-gateway-host-green.log": {
+    "top_level": {
+      "pass": 52,
+      "fail": 0,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 160,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "codex-gateway-native-green.log": {
+    "top_level": {
+      "pass": 1,
+      "fail": 0,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 4,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "codex-gateway-native-interrupt.log": {
+    "top_level": {
+      "pass": 1,
+      "fail": 0,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 1,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "codex-gateway-cancel-red.log": {
+    "top_level": {
+      "pass": 0,
+      "fail": 1,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 0,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "codex-gateway-final-account-shape-red.log": {
+    "top_level": {
+      "pass": 4,
+      "fail": 1,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 20,
+      "fail": 5,
+      "skip": 0
+    }
+  },
+  "codex-gateway-account-fields-red.log": {
+    "top_level": {
+      "pass": 0,
+      "fail": 1,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 0,
+      "fail": 1,
+      "skip": 0
+    }
+  },
+  "codex-gateway-workspace-red.log": {
+    "top_level": {
+      "pass": 0,
+      "fail": 1,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 3,
+      "fail": 1,
+      "skip": 0
+    }
+  },
+  "codex-gateway-host-final.log": {
+    "top_level": {
+      "pass": 56,
+      "fail": 0,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 176,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "codex-gateway-native-final.log": {
+    "top_level": {
+      "pass": 5,
+      "fail": 0,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 25,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "codex-gateway-full-fusion.log": {
+    "top_level": {
+      "pass": 506,
+      "fail": 0,
+      "skip": 26
+    },
+    "subtests": {
+      "pass": 894,
+      "fail": 0,
+      "skip": 10
+    }
+  }
+}
