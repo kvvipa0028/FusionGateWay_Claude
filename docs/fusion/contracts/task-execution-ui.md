@@ -1,5 +1,7 @@
 # 任务详情运行控制
 
+后续 [START-JOURNAL-API-01](task-start-api.md)已提供受鉴权的原启动记录与精确 Native 通路；本页面尚未消费，跨窗口恢复 UI 与实际 Native 操作仍待验证。
+
 组件 WP-16-CONTROL-UI-01。沿用 Magpie 原 `.profiles`、`.text`、`.field` 等控件和已存在的换行布局；只在原任务详情区增加阶段选择、启动、暂停、继续、整项取消、原运行请求重试以及安全运行记录。原 Magpie app.css/app.js/index.html 与本组件前的 Fusion CSS 均未修改，不增加框架、配色或导航重设计。
 
 ## 操作流程

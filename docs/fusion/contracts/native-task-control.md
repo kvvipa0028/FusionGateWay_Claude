@@ -1,5 +1,7 @@
 # Native 工作台运行控制桥
 
+后续 [原阶段启动记录 API](task-start-api.md)新增精确 pending/准备/回读/确认/封存元数据通路，保留原 Task 条件与 key；不扩展 Runtime 准入或通用代理。UI 消费仍待接入。
+
 组件 WP-16-CONTROL-BRIDGE-01。只扩展已绑定窗口的 NativeStageBridge；当前 UI/CSS、API DTO、Store/schema、Controller/Runtime/准入均未改变。后续[运行控制页面](task-execution-ui.md)已接入其中的阶段启动、Task 暂停/继续/取消及 run 读取，继续沿用 Magpie 原有任务详情区和按钮。以下验证结果为桥接组件当时的证据。
 
 ## 固定路径

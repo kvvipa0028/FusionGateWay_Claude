@@ -1,0 +1,12 @@
+=== RUN   TestNativeStartJournalOriginalPreparedAndUnknownSurviveHostRestart
+    native_start_journal_test.go:52: Native start record 404
+--- FAIL: TestNativeStartJournalOriginalPreparedAndUnknownSurviveHostRestart (0.10s)
+=== RUN   TestNativeStartJournalOnlyExactWindowProjectMethodsAndHeaders
+    native_start_journal_test.go:123: Native start record 404
+--- FAIL: TestNativeStartJournalOnlyExactWindowProjectMethodsAndHeaders (0.07s)
+=== RUN   TestNativeStartJournalLateSourceLossSuppressesPreparedReceipt
+    native_start_journal_test.go:186: late source disclosed original 404
+--- FAIL: TestNativeStartJournalLateSourceLossSuppressesPreparedReceipt (0.07s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	0.896s
+FAIL

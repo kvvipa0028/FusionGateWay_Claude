@@ -1,0 +1,66 @@
+=== RUN   TestStartJournalAPIPrepareReplayAndSealWithoutController
+--- PASS: TestStartJournalAPIPrepareReplayAndSealWithoutController (0.09s)
+=== RUN   TestStartJournalAPIExactCommittedRunAndAck
+--- PASS: TestStartJournalAPIExactCommittedRunAndAck (0.10s)
+=== RUN   TestStartJournalAPIRejectsIdentityAndUntrustedInputs
+=== RUN   TestStartJournalAPIRejectsIdentityAndUntrustedInputs/POST/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-requestanother-key"p1-g0-ready"
+=== RUN   TestStartJournalAPIRejectsIdentityAndUntrustedInputs/POST/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-requestfixture-original-key"p1-g0-ready"
+=== RUN   TestStartJournalAPIRejectsIdentityAndUntrustedInputs/POST/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-requestfixture-original-key"p1-g1-ready"
+=== RUN   TestStartJournalAPIRejectsIdentityAndUntrustedInputs/GET/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-requestfixture-original-key"p1-g1-ready"
+=== RUN   TestStartJournalAPIRejectsIdentityAndUntrustedInputs/GET/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-requestfixture-original-key"p1-g0-paused"
+=== RUN   TestStartJournalAPIRejectsIdentityAndUntrustedInputs/GET/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-requestmissing-key"p1-g0-ready"
+=== RUN   TestStartJournalAPIRejectsIdentityAndUntrustedInputs/GET/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-requestfixture-original-key
+=== RUN   TestStartJournalAPIRejectsIdentityAndUntrustedInputs/POST/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-requestfixture-original-key
+=== RUN   TestStartJournalAPIRejectsIdentityAndUntrustedInputs/GET/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-request"p1-g0-ready"
+=== RUN   TestStartJournalAPIRejectsIdentityAndUntrustedInputs/POST/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-request"p1-g0-ready"
+=== RUN   TestStartJournalAPIRejectsIdentityAndUntrustedInputs/POST/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-requestfixture-original-keyW/"p1-g0-ready"
+=== RUN   TestStartJournalAPIRejectsIdentityAndUntrustedInputs/POST/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-request/abandonfixture-original-key"p1-g0-ready"
+=== RUN   TestStartJournalAPIRejectsIdentityAndUntrustedInputs/POST/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-request/acknowledgefixture-original-key"p1-g0-ready"
+=== RUN   TestStartJournalAPIRejectsIdentityAndUntrustedInputs/GET/control/v1/projects/unregistered/start-request
+=== RUN   TestStartJournalAPIRejectsIdentityAndUntrustedInputs/GET/control/v1/tasks/missing/start-requestfixture-original-key"p1-g0-ready"
+=== RUN   TestStartJournalAPIRejectsIdentityAndUntrustedInputs/POST/control/v1/projects/fixture-project/start-request
+=== RUN   TestStartJournalAPIRejectsIdentityAndUntrustedInputs/PUT/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-requestfixture-original-key"p1-g0-ready"
+=== RUN   TestStartJournalAPIRejectsIdentityAndUntrustedInputs/GET/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-request/abandonfixture-original-key"p1-g0-ready"
+=== RUN   TestStartJournalAPIRejectsIdentityAndUntrustedInputs/POST/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-request/unknownfixture-original-key"p1-g0-ready"
+=== RUN   TestStartJournalAPIRejectsIdentityAndUntrustedInputs/GET/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-request/abandon/extrafixture-original-key"p1-g0-ready"
+=== RUN   TestStartJournalAPIRejectsIdentityAndUntrustedInputs/GET/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-request?after=0fixture-original-key"p1-g0-ready"
+--- PASS: TestStartJournalAPIRejectsIdentityAndUntrustedInputs (0.07s)
+    --- PASS: TestStartJournalAPIRejectsIdentityAndUntrustedInputs/POST/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-requestanother-key"p1-g0-ready" (0.00s)
+    --- PASS: TestStartJournalAPIRejectsIdentityAndUntrustedInputs/POST/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-requestfixture-original-key"p1-g0-ready" (0.00s)
+    --- PASS: TestStartJournalAPIRejectsIdentityAndUntrustedInputs/POST/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-requestfixture-original-key"p1-g1-ready" (0.00s)
+    --- PASS: TestStartJournalAPIRejectsIdentityAndUntrustedInputs/GET/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-requestfixture-original-key"p1-g1-ready" (0.00s)
+    --- PASS: TestStartJournalAPIRejectsIdentityAndUntrustedInputs/GET/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-requestfixture-original-key"p1-g0-paused" (0.00s)
+    --- PASS: TestStartJournalAPIRejectsIdentityAndUntrustedInputs/GET/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-requestmissing-key"p1-g0-ready" (0.00s)
+    --- PASS: TestStartJournalAPIRejectsIdentityAndUntrustedInputs/GET/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-requestfixture-original-key (0.00s)
+    --- PASS: TestStartJournalAPIRejectsIdentityAndUntrustedInputs/POST/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-requestfixture-original-key (0.00s)
+    --- PASS: TestStartJournalAPIRejectsIdentityAndUntrustedInputs/GET/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-request"p1-g0-ready" (0.00s)
+    --- PASS: TestStartJournalAPIRejectsIdentityAndUntrustedInputs/POST/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-request"p1-g0-ready" (0.00s)
+    --- PASS: TestStartJournalAPIRejectsIdentityAndUntrustedInputs/POST/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-requestfixture-original-keyW/"p1-g0-ready" (0.00s)
+    --- PASS: TestStartJournalAPIRejectsIdentityAndUntrustedInputs/POST/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-request/abandonfixture-original-key"p1-g0-ready" (0.00s)
+    --- PASS: TestStartJournalAPIRejectsIdentityAndUntrustedInputs/POST/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-request/acknowledgefixture-original-key"p1-g0-ready" (0.00s)
+    --- PASS: TestStartJournalAPIRejectsIdentityAndUntrustedInputs/GET/control/v1/projects/unregistered/start-request (0.00s)
+    --- PASS: TestStartJournalAPIRejectsIdentityAndUntrustedInputs/GET/control/v1/tasks/missing/start-requestfixture-original-key"p1-g0-ready" (0.00s)
+    --- PASS: TestStartJournalAPIRejectsIdentityAndUntrustedInputs/POST/control/v1/projects/fixture-project/start-request (0.00s)
+    --- PASS: TestStartJournalAPIRejectsIdentityAndUntrustedInputs/PUT/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-requestfixture-original-key"p1-g0-ready" (0.00s)
+    --- PASS: TestStartJournalAPIRejectsIdentityAndUntrustedInputs/GET/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-request/abandonfixture-original-key"p1-g0-ready" (0.00s)
+    --- PASS: TestStartJournalAPIRejectsIdentityAndUntrustedInputs/POST/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-request/unknownfixture-original-key"p1-g0-ready" (0.00s)
+    --- PASS: TestStartJournalAPIRejectsIdentityAndUntrustedInputs/GET/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-request/abandon/extrafixture-original-key"p1-g0-ready" (0.00s)
+    --- PASS: TestStartJournalAPIRejectsIdentityAndUntrustedInputs/GET/control/v1/tasks/task-3996bcada53818de52ba586931a17d24/start-request?after=0fixture-original-key"p1-g0-ready" (0.00s)
+=== RUN   TestStartJournalAPINewPrepareRequiresCurrentReadyTask
+=== RUN   TestStartJournalAPINewPrepareRequiresCurrentReadyTask/"p2-g0-ready"
+=== RUN   TestStartJournalAPINewPrepareRequiresCurrentReadyTask/"p1-g1-ready"
+=== RUN   TestStartJournalAPINewPrepareRequiresCurrentReadyTask/"p1-g0-paused"
+--- PASS: TestStartJournalAPINewPrepareRequiresCurrentReadyTask (0.17s)
+    --- PASS: TestStartJournalAPINewPrepareRequiresCurrentReadyTask/"p2-g0-ready" (0.06s)
+    --- PASS: TestStartJournalAPINewPrepareRequiresCurrentReadyTask/"p1-g1-ready" (0.06s)
+    --- PASS: TestStartJournalAPINewPrepareRequiresCurrentReadyTask/"p1-g0-paused" (0.06s)
+=== RUN   TestStartJournalAPIRechecksManagementAfterWaiting
+--- PASS: TestStartJournalAPIRechecksManagementAfterWaiting (0.06s)
+=== RUN   TestStartJournalAPIHonorsCancelledContext
+    start_journal_test.go:280: cancelled prepare accepted 400
+--- FAIL: TestStartJournalAPIHonorsCancelledContext (0.06s)
+=== RUN   TestStartJournalAPIScopesCurrentRegisteredTaskAndSinglePendingProject
+--- PASS: TestStartJournalAPIScopesCurrentRegisteredTaskAndSinglePendingProject (0.06s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/api	1.242s
+FAIL

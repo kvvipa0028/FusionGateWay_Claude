@@ -177,6 +177,20 @@ func (s *Store) PrepareStart(key string, in StartIdentity) (StartJournalReceipt,
 	return result, e
 }
 
+// ReadStartJournal returns validated original metadata for trusted consumers.
+// The key selects history; callers must enforce project and original conditions.
+func (s *Store) ReadStartJournal(key string) (StartJournal, error) {
+	if !opaque(key) {
+		return StartJournal{}, ErrInvalid
+	}
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	if s.db == nil {
+		return StartJournal{}, ErrClosed
+	}
+	return loadStartJournal(s.db, key)
+}
+
 func (s *Store) LookupStartJournal(key string, in StartIdentity) (StartJournal, error) {
 	if !opaque(key) || !validStartIdentity(in) || in.Restore != nil {
 		return StartJournal{}, ErrInvalid

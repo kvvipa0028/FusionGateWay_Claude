@@ -16,6 +16,10 @@ from referencing import Registry, Resource
 from referencing.jsonschema import DRAFT202012
 
 EXPECTED = {
+    "/control/v1/projects/{project_id}/start-request": {"get"},
+    "/control/v1/tasks/{task_id}/start-request": {"get", "post"},
+    "/control/v1/tasks/{task_id}/start-request/acknowledge": {"post"},
+    "/control/v1/tasks/{task_id}/start-request/abandon": {"post"},
     "/control/v1/projects/{project_id}/submission": {"get", "post"},
     "/control/v1/projects/{project_id}/submission/acknowledge": {"post"},
     "/control/v1/projects/{project_id}/submission/abandon": {"post"},
@@ -153,6 +157,7 @@ def verify(contract, official, samples):
         "DefaultLayerInput": {"layer": {}, "account": "fixture-forbidden"},
         "PreviewRequest": {"project_id": "fixture", "goal": "fixture", "required_roles": ["design"], "token": "fixture-forbidden"},
     }
+    negative["AcknowledgeStartRequest"] = {"role":"design", "run_id":"fixture-run", "stopped_verified":True}
     negative["ResumeRoleRequest"] = {"role":"design", "restore":{"origin_run_id":"fixture", "checkpoint_id":"b"*64, "checkpoint_digest":"c"*64}, "native_session_id":"fixture-forbidden"}
     negative["RestoreIdentity"] = {"origin_run_id":"fixture", "checkpoint_id":"b"*64, "checkpoint_digest":"c"*64, "argv":[]}
     negative["CheckpointRef"] = {"id":"b"*64,"digest":"c"*64,"native_session_id":"fixture-forbidden"}
@@ -198,7 +203,22 @@ def verify(contract, official, samples):
     ]
     for value in invalid_submissions:
         assert not submission_response.is_valid(value)
-    return {"official_openapi_document_schema": "3.1/2022-10-07", "paths": len(EXPECTED), "operations": len(operations), "handler_samples": count, "covered_operations": len(covered), "negative_schema_cases": len(negative), "negative_project_response_cases": len(invalid_inventory), "negative_task_response_cases": len(invalid_tasks), "negative_submission_response_cases": len(invalid_submissions), "negative_event_page_cases":len(invalid_pages), "offline": True, "production_registered": False}
+    start_response = validator({"$ref": "#/components/schemas/StartRequestReply"})
+    valid_start = next(s["body"]["request"] for s in json.loads(samples.read_text()) if s["path"].endswith("/start-request") and s["status"] == 200 and s["body"]["request"] is not None)
+    changed_task = dict(valid_start["task"], state="running")
+    invalid_starts = [
+        {}, {"request": []}, {"request": dict(valid_start, token="forbidden")},
+        {"request": dict(valid_start, state="running")},
+        {"request": dict(valid_start, state="prepared", run_id="unproved-run")},
+        {"request": dict(valid_start, state="committed", run_id="")},
+        {"request": dict(valid_start, key="")},
+        {"request": dict(valid_start, task=changed_task)},
+        {"request": dict(valid_start, etag='"p1-g1-running"')},
+    ]
+    for value in invalid_starts:
+        assert not start_response.is_valid(value)
+    assert not validator({"$ref": "#/components/schemas/StartRequestRecordReply"}).is_valid({"request": None})
+    return {"official_openapi_document_schema": "3.1/2022-10-07", "paths": len(EXPECTED), "operations": len(operations), "handler_samples": count, "covered_operations": len(covered), "negative_schema_cases": len(negative), "negative_project_response_cases": len(invalid_inventory), "negative_task_response_cases": len(invalid_tasks), "negative_submission_response_cases": len(invalid_submissions), "negative_event_page_cases":len(invalid_pages), "negative_start_response_cases":len(invalid_starts)+1, "offline": True, "production_registered": False}
 
 
 if __name__ == "__main__":

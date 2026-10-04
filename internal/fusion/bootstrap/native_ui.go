@@ -126,6 +126,9 @@ func (b *NativeStageBridge) allowed(method, path string) bool {
 	if path == "/agent/v1/tasks" {
 		return method == "POST"
 	}
+	if nativeStartRequestID(path) != "" {
+		return method == "POST" || method == "GET" && strings.HasSuffix(path, "/start-request")
+	}
 	if nativeTaskReadID(path) != "" {
 		return method == "GET"
 	}
@@ -155,7 +158,7 @@ func (b *NativeStageBridge) allowed(method, path string) bool {
 		switch parts[1] {
 		case "submission":
 			return method == "GET" || method == "POST"
-		case "configuration", "presets", "tasks", "quota":
+		case "configuration", "presets", "tasks", "quota", "start-request":
 			return method == "GET"
 		case "defaults":
 			return method == "GET" || method == "PUT"
@@ -185,6 +188,18 @@ func (b *NativeStageBridge) allowed(method, path string) bool {
 		return method == "GET"
 	}
 	return false
+}
+
+// Only original-start metadata endpoints, never a generic control proxy.
+func nativeStartRequestID(path string) string {
+	if !strings.HasPrefix(path, "/control/v1/tasks/") {
+		return ""
+	}
+	parts := strings.Split(strings.TrimPrefix(path, "/control/v1/tasks/"), "/")
+	if len(parts) >= 2 && opaque(parts[0]) && parts[1] == "start-request" && (len(parts) == 2 || len(parts) == 3 && (parts[2] == "acknowledge" || parts[2] == "abandon")) {
+		return parts[0]
+	}
+	return ""
 }
 
 func nativeTaskReadID(path string) string {
@@ -289,6 +304,9 @@ func (b *NativeStageBridge) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if id == "" {
 		id = nativeTaskOperationID(r.URL.Path)
 	}
+	if id == "" {
+		id = nativeStartRequestID(r.URL.Path)
+	}
 	if id != "" {
 		task, err := b.host.store.Task(id)
 		if ctx.Err() != nil || err != nil && !errors.Is(err, store.ErrNotFound) {
@@ -332,7 +350,7 @@ func (b *NativeStageBridge) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			request.Header.Add(key, value)
 		}
 	}
-	if r.Method == "POST" && (r.URL.Path == "/agent/v1/tasks" || nativeSubmissionPath(r.URL.Path) || nativeTaskOperationID(r.URL.Path) != "" && strings.HasSuffix(r.URL.Path, "/start")) {
+	if nativeStartRequestID(r.URL.Path) != "" || r.Method == "POST" && (r.URL.Path == "/agent/v1/tasks" || nativeSubmissionPath(r.URL.Path) || nativeTaskOperationID(r.URL.Path) != "" && strings.HasSuffix(r.URL.Path, "/start")) {
 		for _, value := range r.Header.Values("Idempotency-Key") {
 			request.Header.Add("Idempotency-Key", value)
 		}

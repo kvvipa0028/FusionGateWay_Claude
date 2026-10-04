@@ -1,6 +1,6 @@
 # 原阶段启动请求的持久记录
 
-组件 WP-15-START-JOURNAL-01。完成 Store 基础，供后续关闭窗口后的启动请求恢复使用；HTTP/Native/UI 消费尚未接入。原 Magpie UI、CSS 和现有 HTTP 合同未改。记录原请求身份，不授予 Native 启动、恢复、停止或验收权限。
+组件 WP-15-START-JOURNAL-01。完成 Store 基础；后续 [API/Native 通路](task-start-api.md)已接入，UI 消费尚未接入。Store 基础组件当时未改原 Magpie UI、CSS 或 HTTP 合同。记录原请求身份，不授予 Native 启动、恢复、停止或验收权限。
 
 ## 原请求与可信来源
 
@@ -48,4 +48,6 @@ PATH="$HOME/.local/bin:$PATH" python3 scripts/fusion/build-dev.py
 
 需要 Go1.26.3、Xcode SDK、Python3 和已准备的离线依赖缓存。runner 使用临时 HOME/XDG 与环境白名单，fixture 为私有合成数据，未读取日常账号。最终日志/具体 PASS/SKIP 数量与构建 hash 见 [START-JOURNAL-01](../work-items/WP-15/START-JOURNAL-01/summary.md)。明确 opt-in 的真实 Native/账号测试与 helper skip 单独列出，不能视为已通过。
 
-下一步由受 Management/可信项目来源保护的 API 准备/回读/解决原记录，再经精确 Native 桥接入原详情区：先持久准备成功才发送原 start；重新打开窗口仅回读，不自动启动；原 body/key/Task If-Match 继续保持。独立 run 证明与原请求确认未完成时保留身份并禁用新请求，不能用当前配置重编译或新 key 追求成功。该消费链和实际 Native 窗口操作尚未完成，WP-15/WP-16 及整体目标保持 in_progress，Jev off，最终 T01–T60 not_run。
+受 Management/可信项目来源保护的 [API 与精确 Native 桥](task-start-api.md)已完成准备/回读/解决原记录，下一步接入原详情区：先持久准备成功才发送原 start；重新打开窗口仅回读，不自动启动；原 body/key/Task If-Match 继续保持。独立 run 证明与原请求确认未完成时保留身份并禁用新请求，不能用当前配置重编译或新 key 追求成功。UI 消费链和实际 Native 窗口操作尚未完成，WP-15/WP-16 及整体目标保持 in_progress，Jev off，最终 T01–T60 not_run。
+
+后续 `ReadStartJournal(key)` 为可信消费者返回完整校验的原记录；调用方仍须核对当前项目登记、原 Task 和条件，key 不替代鉴权。

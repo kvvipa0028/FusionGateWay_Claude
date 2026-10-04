@@ -56,6 +56,45 @@ func TestImplementedAPIContractSamples(t *testing.T) {
 		}
 		samples = append(samples, v)
 	}
+
+	_, _, startHandler, startTask := startJournalTask(t)
+	startJournalSamplePath := "/control/v1/tasks/" + startTask.ID + "/start-request"
+	startHeaders := map[string]string{"If-Match": `"p1-g0-ready"`, "Idempotency-Key": "fixture-contract-start"}
+	captureStart := func(method, path, body string, status int) {
+		add(method, path, body, status, startJournalCall(startHandler, method, path, body, startHeaders["Idempotency-Key"], startHeaders["If-Match"]), startHeaders)
+	}
+	add("GET", pendingStartPath, "", 200, startJournalCall(startHandler, "GET", pendingStartPath, "", "", ""), nil)
+	captureStart("POST", startJournalSamplePath, `{"role":"design"}`, 200)
+	captureStart("GET", startJournalSamplePath, "", 200)
+	captureStart("POST", startJournalSamplePath+"/abandon", `{"role":"design"}`, 200)
+	captureStart("GET", startJournalSamplePath, "", 200)
+	add("GET", pendingStartPath, "", 200, startJournalCall(startHandler, "GET", pendingStartPath, "", "", ""), nil)
+	add("GET", startJournalSamplePath, "", 428, startJournalCall(startHandler, "GET", startJournalSamplePath, "", startHeaders["Idempotency-Key"], ""), nil)
+	add("GET", startJournalSamplePath, "", 412, startJournalCall(startHandler, "GET", startJournalSamplePath, "", startHeaders["Idempotency-Key"], `"p1-g1-ready"`), nil)
+	add("GET", startJournalSamplePath, "", 404, startJournalCall(startHandler, "GET", startJournalSamplePath, "", "absent-key", startHeaders["If-Match"]), nil)
+	add("GET", pendingStartPath, "", 401, executionRequest(startHandler, "GET", pendingStartPath, "", "", "", ""), nil)
+	add("GET", pendingStartPath, "", 403, executionRequest(startHandler, "GET", pendingStartPath, "", "", "", "fgs_fixture"), nil)
+	captureStart("POST", startJournalSamplePath, `{"role":"design","target":{}}`, 400)
+	captureStart("PUT", startJournalSamplePath, `{}`, 405)
+	startJournalExecution := setupExecution(t, "")
+	committedPath := "/control/v1/tasks/" + startJournalExecution.task.ID + "/start-request"
+	committedHeaders := map[string]string{"If-Match": `"p1-g0-ready"`, "Idempotency-Key": "fixture-contract-start-committed"}
+	captureCommitted := func(method, path, body string, status int) {
+		add(method, path, body, status, startJournalCall(startJournalExecution.h, method, path, body, committedHeaders["Idempotency-Key"], committedHeaders["If-Match"]), committedHeaders)
+	}
+	captureCommitted("POST", committedPath, `{"role":"design"}`, 200)
+	startReceipt := startJournalCall(startJournalExecution.h, "POST", startJournalExecution.startPath(), `{"role":"design"}`, committedHeaders["Idempotency-Key"], committedHeaders["If-Match"])
+	add("POST", startJournalExecution.startPath(), `{"role":"design"}`, 202, startReceipt, committedHeaders)
+	var committedRun ExecutionReply
+	if json.Unmarshal(startReceipt.Body.Bytes(), &committedRun) != nil {
+		t.Fatal("start sample")
+	}
+	captureCommitted("GET", committedPath, "", 200)
+	add("GET", pendingStartPath, "", 200, startJournalCall(startJournalExecution.h, "GET", pendingStartPath, "", "", ""), nil)
+	captureCommitted("POST", committedPath+"/abandon", `{"role":"design"}`, 409)
+	captureCommitted("POST", committedPath+"/acknowledge", `{"role":"design","run_id":"wrong-run"}`, 409)
+	captureCommitted("POST", committedPath+"/acknowledge", `{"role":"design","run_id":"`+committedRun.Run.ID+`"}`, 200)
+	captureCommitted("GET", committedPath, "", 200)
 	_, _, journalHandler := setup(t)
 	add("GET", journalPath, "", 200, request(journalHandler, "GET", journalPath, "", "", "fixture-management"), nil)
 	journalPreview := preview(t, journalHandler)

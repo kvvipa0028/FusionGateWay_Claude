@@ -1,0 +1,17 @@
+=== RUN   TestStartJournalAPIRechecksManagementAfterWaiting
+=== RUN   TestStartJournalAPIRechecksManagementAfterWaiting/read-revoke
+    start_journal_test.go:295: revoked consumer disclosed original 200
+=== RUN   TestStartJournalAPIRechecksManagementAfterWaiting/read-cancel
+    start_journal_test.go:295: revoked consumer disclosed original 200
+=== RUN   TestStartJournalAPIRechecksManagementAfterWaiting/abandon-revoke
+    start_journal_test.go:295: revoked consumer disclosed original 200
+=== RUN   TestStartJournalAPIRechecksManagementAfterWaiting/abandon-cancel
+    start_journal_test.go:295: revoked consumer disclosed original 200
+--- FAIL: TestStartJournalAPIRechecksManagementAfterWaiting (0.26s)
+    --- FAIL: TestStartJournalAPIRechecksManagementAfterWaiting/read-revoke (0.08s)
+    --- FAIL: TestStartJournalAPIRechecksManagementAfterWaiting/read-cancel (0.06s)
+    --- FAIL: TestStartJournalAPIRechecksManagementAfterWaiting/abandon-revoke (0.06s)
+    --- FAIL: TestStartJournalAPIRechecksManagementAfterWaiting/abandon-cancel (0.06s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/api	1.313s
+FAIL

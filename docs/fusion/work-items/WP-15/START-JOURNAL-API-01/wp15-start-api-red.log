@@ -1,0 +1,32 @@
+=== RUN   TestStartJournalAPIPrepareReplayAndSealWithoutController
+    start_journal_test.go:50: start journal response 404 404 page not found
+
+--- FAIL: TestStartJournalAPIPrepareReplayAndSealWithoutController (0.07s)
+=== RUN   TestStartJournalAPIExactCommittedRunAndAck
+    start_journal_test.go:77: start journal response 404 404 page not found
+
+--- FAIL: TestStartJournalAPIExactCommittedRunAndAck (0.06s)
+=== RUN   TestStartJournalAPIRejectsIdentityAndUntrustedInputs
+    start_journal_test.go:99: start journal response 404 404 page not found
+
+--- FAIL: TestStartJournalAPIRejectsIdentityAndUntrustedInputs (0.06s)
+=== RUN   TestStartJournalAPINewPrepareRequiresCurrentReadyTask
+=== RUN   TestStartJournalAPINewPrepareRequiresCurrentReadyTask/"p2-g0-ready"
+    start_journal_test.go:131: 404
+=== RUN   TestStartJournalAPINewPrepareRequiresCurrentReadyTask/"p1-g1-ready"
+    start_journal_test.go:131: 404
+=== RUN   TestStartJournalAPINewPrepareRequiresCurrentReadyTask/"p1-g0-paused"
+    start_journal_test.go:131: 404
+--- FAIL: TestStartJournalAPINewPrepareRequiresCurrentReadyTask (0.17s)
+    --- FAIL: TestStartJournalAPINewPrepareRequiresCurrentReadyTask/"p2-g0-ready" (0.06s)
+    --- FAIL: TestStartJournalAPINewPrepareRequiresCurrentReadyTask/"p1-g1-ready" (0.06s)
+    --- FAIL: TestStartJournalAPINewPrepareRequiresCurrentReadyTask/"p1-g0-paused" (0.06s)
+=== RUN   TestStartJournalAPIRechecksManagementAfterWaiting
+    start_journal_test.go:137: start journal response 404 404 page not found
+
+--- FAIL: TestStartJournalAPIRechecksManagementAfterWaiting (0.06s)
+=== RUN   TestStartJournalAPIHonorsCancelledContext
+--- PASS: TestStartJournalAPIHonorsCancelledContext (0.06s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/api	1.120s
+FAIL

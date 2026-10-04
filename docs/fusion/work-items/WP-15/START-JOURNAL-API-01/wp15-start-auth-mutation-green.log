@@ -1,0 +1,12 @@
+=== RUN   TestStartJournalAPIRechecksManagementAfterWaiting
+=== RUN   TestStartJournalAPIRechecksManagementAfterWaiting/read-revoke
+=== RUN   TestStartJournalAPIRechecksManagementAfterWaiting/read-cancel
+=== RUN   TestStartJournalAPIRechecksManagementAfterWaiting/abandon-revoke
+=== RUN   TestStartJournalAPIRechecksManagementAfterWaiting/abandon-cancel
+--- PASS: TestStartJournalAPIRechecksManagementAfterWaiting (0.26s)
+    --- PASS: TestStartJournalAPIRechecksManagementAfterWaiting/read-revoke (0.08s)
+    --- PASS: TestStartJournalAPIRechecksManagementAfterWaiting/read-cancel (0.06s)
+    --- PASS: TestStartJournalAPIRechecksManagementAfterWaiting/abandon-revoke (0.06s)
+    --- PASS: TestStartJournalAPIRechecksManagementAfterWaiting/abandon-cancel (0.06s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/api	1.553s

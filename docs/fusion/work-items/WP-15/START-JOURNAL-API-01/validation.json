@@ -1,0 +1,12 @@
+{
+  "source_files": 15,
+  "packet_files_before_validation": 20,
+  "local_links": 96,
+  "original_magpie_assets": "byte_equal",
+  "fusion_ui_and_css": "byte_equal_base",
+  "controller_runtime_policy_and_migrations": "byte_equal_base",
+  "secret_byte_exclusion": "pass",
+  "json_utf8_and_logs": "pass",
+  "exact_build_hashes": "pass",
+  "changes_scoped": "pass"
+}

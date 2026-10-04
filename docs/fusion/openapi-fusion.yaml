@@ -2,13 +2,285 @@ openapi: 3.1.0
 info:
   title: Fusion task control API
   version: 0.1.0-draft
-  description: 当前已实现 Handler 合同；33 paths、38 operations。独立 fusion-control 草稿 listener 已注册；可信执行宿主与 Native 阶段配置页面已接线，真实供应商 Factory/准入及任务工作台尚未完成。pause/continue 使用完整 Task If-Match，暂停中不宣称已停，continue 仅解除可靠暂停，不隐式启动或恢复 Native。全局/项目默认层只允许绑定，历史快照保持冻结。
+  description: 当前已实现 Handler 合同；37 paths、43 operations。独立 fusion-control 草稿 listener 已注册；可信执行宿主与 Native 阶段配置页面已接线，真实供应商 Factory/准入与工程闭环尚未完成。原阶段启动记录 API 保持原 ready Task 条件；读取或确认元数据不证明执行成功。pause/continue 使用完整 Task If-Match，暂停中不宣称已停，continue 仅解除可靠暂停，不隐式启动或恢复 Native。全局/项目默认层只允许绑定，历史快照保持冻结。
 x-fusion-status: implemented-handler-contract
 x-fusion-production-registered: false
 x-fusion-draft-control-registered: true
 security:
 - ManagementBearer: []
 paths:
+  /control/v1/projects/{project_id}/start-request:
+    get:
+      operationId: readPendingStartRequest
+      description: 读取登记项目未解决的原阶段启动记录；空记录返回 request=null。
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      responses:
+        '200':
+          description: 原始冻结记录；确认仅匹配原 run，封存仅适用于尚未写入运行的请求。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StartRequestReply'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '412':
+          $ref: '#/components/responses/Error412'
+        '428':
+          $ref: '#/components/responses/Error428'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+  /control/v1/tasks/{task_id}/start-request:
+    get:
+      operationId: readOriginalStartRequest
+      description: 仅原请求元数据；保留原 ready Task/Plan/key/role，不授予执行或停止权限。
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      - name: If-Match
+        in: header
+        required: true
+        description: 原启动请求的完整 ready Task 条件；任务变化不改用当前条件。
+        schema:
+          type: string
+          pattern: '^"p[1-9][0-9]*-g(0|[1-9][0-9]*)-ready"$'
+      - name: Idempotency-Key
+        in: header
+        required: true
+        description: 原请求唯一 key；GET 同样传递，不是凭据。
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      responses:
+        '200':
+          description: 原始冻结记录；确认仅匹配原 run，封存仅适用于尚未写入运行的请求。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StartRequestRecordReply'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '412':
+          $ref: '#/components/responses/Error412'
+        '428':
+          $ref: '#/components/responses/Error428'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+    post:
+      operationId: prepareOriginalStartRequest
+      description: 仅原请求元数据；保留原 ready Task/Plan/key/role，不授予执行或停止权限。
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      - name: If-Match
+        in: header
+        required: true
+        description: 原启动请求的完整 ready Task 条件；任务变化不改用当前条件。
+        schema:
+          type: string
+          pattern: '^"p[1-9][0-9]*-g(0|[1-9][0-9]*)-ready"$'
+      - name: Idempotency-Key
+        in: header
+        required: true
+        description: 原请求唯一 key；GET 同样传递，不是凭据。
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartRoleRequest'
+      responses:
+        '200':
+          description: 原始冻结记录；确认仅匹配原 run，封存仅适用于尚未写入运行的请求。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StartRequestRecordReply'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '412':
+          $ref: '#/components/responses/Error412'
+        '428':
+          $ref: '#/components/responses/Error428'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+  /control/v1/tasks/{task_id}/start-request/acknowledge:
+    post:
+      operationId: acknowledgeStartRequest
+      description: 仅原请求元数据；保留原 ready Task/Plan/key/role，不授予执行或停止权限。
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      - name: If-Match
+        in: header
+        required: true
+        description: 原启动请求的完整 ready Task 条件；任务变化不改用当前条件。
+        schema:
+          type: string
+          pattern: '^"p[1-9][0-9]*-g(0|[1-9][0-9]*)-ready"$'
+      - name: Idempotency-Key
+        in: header
+        required: true
+        description: 原请求唯一 key；GET 同样传递，不是凭据。
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AcknowledgeStartRequest'
+      responses:
+        '200':
+          description: 原始冻结记录；确认仅匹配原 run，封存仅适用于尚未写入运行的请求。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StartRequestRecordReply'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '412':
+          $ref: '#/components/responses/Error412'
+        '428':
+          $ref: '#/components/responses/Error428'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+  /control/v1/tasks/{task_id}/start-request/abandon:
+    post:
+      operationId: abandonStartRequest
+      description: 仅原请求元数据；保留原 ready Task/Plan/key/role，不授予执行或停止权限。
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      - name: If-Match
+        in: header
+        required: true
+        description: 原启动请求的完整 ready Task 条件；任务变化不改用当前条件。
+        schema:
+          type: string
+          pattern: '^"p[1-9][0-9]*-g(0|[1-9][0-9]*)-ready"$'
+      - name: Idempotency-Key
+        in: header
+        required: true
+        description: 原请求唯一 key；GET 同样传递，不是凭据。
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartRoleRequest'
+      responses:
+        '200':
+          description: 原始冻结记录；确认仅匹配原 run，封存仅适用于尚未写入运行的请求。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StartRequestRecordReply'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '412':
+          $ref: '#/components/responses/Error412'
+        '428':
+          $ref: '#/components/responses/Error428'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
   /agent/v1/tasks/{task_id}:
     get:
       operationId: readTask
@@ -3161,6 +3433,74 @@ components:
       properties:
         task:
           $ref: ./contracts/stage-plan.schema.json#/$defs/layer
+    StartRequestView:
+      type: object
+      additionalProperties: false
+      required: [key, task, plan, role, etag, state, run_id]
+      properties:
+        key:
+          type: string
+          minLength: 1
+          maxLength: 256
+        task:
+          description: 原请求冻结的 ready Task，不是当前 Task。
+          allOf:
+          - $ref: '#/components/schemas/Task'
+          - properties:
+              state:
+                const: ready
+        plan:
+          $ref: '#/components/schemas/Snapshot'
+        role:
+          $ref: '#/components/schemas/Role'
+        etag:
+          type: string
+          pattern: '^"p[1-9][0-9]*-g(0|[1-9][0-9]*)-ready"$'
+        state:
+          enum: [prepared, committed, acknowledged, abandoned]
+        run_id:
+          type: string
+          maxLength: 256
+      allOf:
+      - if:
+          properties:
+            state:
+              enum: [prepared, abandoned]
+        then:
+          properties:
+            run_id:
+              const: ''
+        else:
+          properties:
+            run_id:
+              minLength: 1
+    StartRequestReply:
+      type: object
+      additionalProperties: false
+      required: [request]
+      properties:
+        request:
+          oneOf:
+          - $ref: '#/components/schemas/StartRequestView'
+          - type: 'null'
+    StartRequestRecordReply:
+      type: object
+      additionalProperties: false
+      required: [request]
+      properties:
+        request:
+          $ref: '#/components/schemas/StartRequestView'
+    AcknowledgeStartRequest:
+      type: object
+      additionalProperties: false
+      required: [role, run_id]
+      properties:
+        role:
+          $ref: '#/components/schemas/Role'
+        run_id:
+          type: string
+          minLength: 1
+          maxLength: 256
     StartRoleRequest:
       type: object
       additionalProperties: false

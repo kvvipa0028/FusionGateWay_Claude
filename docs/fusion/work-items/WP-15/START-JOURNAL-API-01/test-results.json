@@ -1,0 +1,110 @@
+{
+  "wp15-start-api-final.log": {
+    "PASS": 120,
+    "FAIL": 0,
+    "SKIP": 0,
+    "subpass": 109,
+    "skips": [],
+    "packages": [
+      "ok  \tgithub.com/yetone/magpie/internal/fusion/api\t13.416s"
+    ]
+  },
+  "wp15-start-regression-final.log": {
+    "PASS": 234,
+    "FAIL": 0,
+    "SKIP": 12,
+    "subpass": 309,
+    "skips": [
+      "--- SKIP: TestExecutionHostPinnedCodexHTTP (0.00s)",
+      "--- SKIP: TestExecutionHostPinnedNativeHTTP (0.00s)",
+      "--- SKIP: TestTaskUIFixtureProcess (0.00s)",
+      "--- SKIP: TestStoreCrashHelper (0.00s)",
+      "--- SKIP: TestControllerPinnedCodexNativeLifecycle (0.00s)",
+      "--- SKIP: TestControllerPinnedNativeRunsOnceAndReleasesActualStopProof (0.00s)",
+      "--- SKIP: TestControllerPinnedNativeSourceGuardLifecycle (0.00s)",
+      "--- SKIP: TestControllerPinnedNativePauseStopsInFlightAndRequiresReview (0.00s)",
+      "--- SKIP: TestControllerPinnedNativeTaskCancelStopsInFlightAndCloses (0.00s)",
+      "--- SKIP: TestControllerPinnedGrokNativeLifecycle (0.00s)",
+      "--- SKIP: TestControllerPinnedGrokSourceNativeLifecycle (0.00s)",
+      "--- SKIP: TestControllerPinnedGrokCheckpointRestore (0.00s)"
+    ],
+    "packages": [
+      "ok  \tgithub.com/yetone/magpie/internal/fusion/bootstrap\t11.699s",
+      "ok  \tgithub.com/yetone/magpie/internal/fusion/store\t14.714s",
+      "ok  \tgithub.com/yetone/magpie/internal/fusion/control\t8.351s",
+      "ok  \tgithub.com/yetone/magpie/internal/fusion/policy\t7.562s"
+    ]
+  },
+  "component": "WP-15-START-JOURNAL-API-01",
+  "base": "cf2a8cc3213cc7787badfb797b3af1b782ae735c",
+  "parent_status": "in_progress",
+  "goal_status": "active",
+  "final_acceptance": "not_run",
+  "real_model_calls": 0,
+  "real_quota_calls": 0,
+  "native_ui_clicks": "not_run",
+  "ui_consumer": "pending",
+  "jev": "off",
+  "graph": {
+    "nodes": 14146,
+    "edges": 126546
+  },
+  "log_provenance": {
+    "wp15-start-api-red.log": {
+      "scratch_raw_sha256": "eb8cb60534abd8bbffa8cab5511b830f41ac0c85cb60a5776e92a102daab94cd",
+      "packet_sha256": "08aed742b9c8f8000665a199a9f85906db2b64bfc27b6d01569f5d64d75d4958",
+      "normalization": "trailing whitespace and terminal blank lines only"
+    },
+    "wp15-start-api-green.log": {
+      "scratch_raw_sha256": "17816cd1310452bf0587defcaca4461f7526675556a8659a3dce70d6ba41768d",
+      "packet_sha256": "17816cd1310452bf0587defcaca4461f7526675556a8659a3dce70d6ba41768d",
+      "normalization": "trailing whitespace and terminal blank lines only"
+    },
+    "wp15-start-api-green-final.log": {
+      "scratch_raw_sha256": "3cc04489763fcb2c8f589f084acc3e15c8eb1b682b3e5647aeac07bdd8b6e47b",
+      "packet_sha256": "3cc04489763fcb2c8f589f084acc3e15c8eb1b682b3e5647aeac07bdd8b6e47b",
+      "normalization": "trailing whitespace and terminal blank lines only"
+    },
+    "wp15-start-api-new-final.log": {
+      "scratch_raw_sha256": "7a2c5335cdf0c3aa2381c831bf7ce968481440812ee4bb6d105af190cc7cfd50",
+      "packet_sha256": "7a2c5335cdf0c3aa2381c831bf7ce968481440812ee4bb6d105af190cc7cfd50",
+      "normalization": "trailing whitespace and terminal blank lines only"
+    },
+    "wp15-start-native-red.log": {
+      "scratch_raw_sha256": "0763e014738628612e04a213af6042b6f076027fb95f63510e11723c87cade0b",
+      "packet_sha256": "0763e014738628612e04a213af6042b6f076027fb95f63510e11723c87cade0b",
+      "normalization": "trailing whitespace and terminal blank lines only"
+    },
+    "wp15-start-native-green.log": {
+      "scratch_raw_sha256": "5899d309f5bb1210b5f6c843731252e0bcac9063c8518d587ab01402a052042f",
+      "packet_sha256": "5899d309f5bb1210b5f6c843731252e0bcac9063c8518d587ab01402a052042f",
+      "normalization": "trailing whitespace and terminal blank lines only"
+    },
+    "wp15-start-api-final.log": {
+      "scratch_raw_sha256": "29d1b64cd4f6250285a329396deab859ed1dc2b9465d11c8f955050b1a3568d6",
+      "packet_sha256": "29d1b64cd4f6250285a329396deab859ed1dc2b9465d11c8f955050b1a3568d6",
+      "normalization": "trailing whitespace and terminal blank lines only"
+    },
+    "wp15-start-regression-final.log": {
+      "scratch_raw_sha256": "c09459bbda8bb7e60f91a7cdf4eb58ddc3813c9c63eb01b7e81a30d53d08ac64",
+      "packet_sha256": "c09459bbda8bb7e60f91a7cdf4eb58ddc3813c9c63eb01b7e81a30d53d08ac64",
+      "normalization": "trailing whitespace and terminal blank lines only"
+    },
+    "wp15-start-auth-mutation-red.log": {
+      "scratch_raw_sha256": "04e4fd05157316d6bc12ebb9126cf29124224f20a124efd16555cb63c242d5b6",
+      "packet_sha256": "04e4fd05157316d6bc12ebb9126cf29124224f20a124efd16555cb63c242d5b6",
+      "normalization": "trailing whitespace and terminal blank lines only"
+    },
+    "wp15-start-auth-mutation-green.log": {
+      "scratch_raw_sha256": "51bbff342d4ad719614bbf32dd4564456bb6c427e41f45f8247c3632d6b96ebd",
+      "packet_sha256": "51bbff342d4ad719614bbf32dd4564456bb6c427e41f45f8247c3632d6b96ebd",
+      "normalization": "trailing whitespace and terminal blank lines only"
+    }
+  },
+  "authority_mutation_test": {
+    "guards_removed_only_temporarily": 4,
+    "read_write_revoke_cancel_cases_detected": 4,
+    "production_restored": "byte_equal",
+    "final_targeted_pass": true
+  }
+}

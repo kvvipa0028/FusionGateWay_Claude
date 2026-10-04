@@ -1,0 +1,41 @@
+{
+  "base": "cf2a8cc3213cc7787badfb797b3af1b782ae735c",
+  "source_sha256": {
+    "internal/fusion/api/start_journal.go": "c311fbf6969457143bb9a155b30fc73c12fb15ee5f2e5d59d6586ce7dccf086c",
+    "internal/fusion/api/start_journal_test.go": "23c4b11a270d2fb477db1b9451bf54894aa6d4a37a197d11aebc61138ea63687",
+    "internal/fusion/api/preview.go": "8922c7d37a4bd4377be34e4bda2c4b59b68c5d83c773b64447b64dbea890d830",
+    "internal/fusion/api/openapi_samples_test.go": "d7cb8b1ff13af24fc5cb53c3cbd39872e71c4c5a37e9762a4b7e6dea8d3b9308",
+    "internal/fusion/bootstrap/native_ui.go": "c907e76bc70707a4f5471d94f565c2835da8d9080744673aa74eed75368ad1b6",
+    "internal/fusion/bootstrap/native_start_journal_test.go": "01770dc1c64b60842d6b8945d62091e445d8cd2bdc9bf3034966a0a97b98ad9b",
+    "internal/fusion/store/start_journal.go": "d1c1a34b6247a45896b33e087e4c9cc75f702ef1e2e907b9af164fcfabc14df8",
+    "scripts/fusion/check-openapi.py": "18f83075b70e641ce3e3536f98c7bfbd11870d670a0006c4e43db888ad4b6b40",
+    "docs/fusion/openapi-fusion.yaml": "3321204fa691e6213c9901e7ffa275e8ca3f3788c0ac22c227de507dccb582cb",
+    "docs/fusion/contracts/task-start-api.md": "e6585cb16dfd0572f6c123bcdb1753af7c22dad5b156e414b051dd80ab8b14b0",
+    "docs/fusion/contracts/task-start-journal.md": "dbd52cd5dec69471d7b0763af7fc6bc480a9d51ea495b4037da6d3426c37156c",
+    "docs/fusion/contracts/native-task-control.md": "9d18150338d3936a23f970b87129fb2f10ae4200e995da84655416199d436c54",
+    "docs/fusion/contracts/task-execution-ui.md": "166c8866a616397e332d69658e7688b4c4e257cfe691656295cf994b28d5e7b5",
+    "docs/fusion/contracts/openapi-verification.md": "daf856a5cb1e214c9ce0e2bc06cf49983f6d7ed48a40dcd5f92a21ccadbcc664",
+    "docs/fusion/README.md": "f431cf03fccdc8f9c3bf7a1192820f4b466c1996e3bc40cd2fc8f2c78b3afe93"
+  },
+  "packet_sha256": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "965462f8a7b04757a2999e8abea65c2ced8a7cc4545ac71b9312c8fe9e25c6ac",
+    "build-results.json": "c01eaf51ceb3464a9214ab347cb68d701860cefa722ff16a6e0d26c81ba7b6d4",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "handler-samples.json": "0a0a1e2d65751b0726918503f80a5730d9c4d1975bf81d4a88740f3a42e02397",
+    "openapi-results.json": "c42ccec18ab30ec9815dd5b9e5fbe088909be429c0cde2c921e81bf0fdeb1484",
+    "summary.md": "066530484ca8a72cd0c27bf0cc015e37e457bd152cfbe98c16d17dd29b559dd1",
+    "test-results.json": "7ebc03ed11f1752be2f5aa5bcf9f8c7d9d83c8ef3a31aab4e410ffa298e7ef8d",
+    "validation.json": "266074c2c9afa35c154249ca66741c2e610830c7f34a8d97afc206bd350bb5c1",
+    "wp15-start-api-final.log": "29d1b64cd4f6250285a329396deab859ed1dc2b9465d11c8f955050b1a3568d6",
+    "wp15-start-api-green-final.log": "3cc04489763fcb2c8f589f084acc3e15c8eb1b682b3e5647aeac07bdd8b6e47b",
+    "wp15-start-api-green.log": "17816cd1310452bf0587defcaca4461f7526675556a8659a3dce70d6ba41768d",
+    "wp15-start-api-new-final.log": "7a2c5335cdf0c3aa2381c831bf7ce968481440812ee4bb6d105af190cc7cfd50",
+    "wp15-start-api-red.log": "08aed742b9c8f8000665a199a9f85906db2b64bfc27b6d01569f5d64d75d4958",
+    "wp15-start-auth-mutation-green.log": "51bbff342d4ad719614bbf32dd4564456bb6c427e41f45f8247c3632d6b96ebd",
+    "wp15-start-auth-mutation-red.log": "04e4fd05157316d6bc12ebb9126cf29124224f20a124efd16555cb63c242d5b6",
+    "wp15-start-native-green.log": "5899d309f5bb1210b5f6c843731252e0bcac9063c8518d587ab01402a052042f",
+    "wp15-start-native-red.log": "0763e014738628612e04a213af6042b6f076027fb95f63510e11723c87cade0b",
+    "wp15-start-regression-final.log": "c09459bbda8bb7e60f91a7cdf4eb58ddc3813c9c63eb01b7e81a30d53d08ac64"
+  }
+}
