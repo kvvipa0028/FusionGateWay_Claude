@@ -1,0 +1,38 @@
+=== RUN   TestSubmissionJournalAPIOriginalLifecycleAndRestart
+--- PASS: TestSubmissionJournalAPIOriginalLifecycleAndRestart (0.08s)
+=== RUN   TestSubmissionJournalAPIRejectsWrongIdentityAndUntrustedDraft
+--- PASS: TestSubmissionJournalAPIRejectsWrongIdentityAndUntrustedDraft (0.05s)
+=== RUN   TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare
+=== RUN   TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/expired
+=== RUN   TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/configuration
+=== RUN   TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/revision
+=== RUN   TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/foreign
+=== RUN   TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/missing
+--- PASS: TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare (0.23s)
+    --- PASS: TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/expired (0.05s)
+    --- PASS: TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/configuration (0.05s)
+    --- PASS: TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/revision (0.04s)
+    --- PASS: TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/foreign (0.04s)
+    --- PASS: TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/missing (0.05s)
+=== RUN   TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose
+=== RUN   TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/revoke/prepare
+=== RUN   TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/revoke/abandon
+=== RUN   TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/revoke/acknowledge
+=== RUN   TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/cancel/prepare
+=== RUN   TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/cancel/abandon
+=== RUN   TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/cancel/acknowledge
+--- PASS: TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose (0.29s)
+    --- PASS: TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/revoke/prepare (0.04s)
+    --- PASS: TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/revoke/abandon (0.05s)
+    --- PASS: TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/revoke/acknowledge (0.05s)
+    --- PASS: TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/cancel/prepare (0.04s)
+    --- PASS: TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/cancel/abandon (0.05s)
+    --- PASS: TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/cancel/acknowledge (0.05s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/api	2.305s
+=== RUN   TestSubmissionJournalOwnedHostNativeRecoveryAndSealing
+    submission_journal_test.go:86: Native journal 404
+--- FAIL: TestSubmissionJournalOwnedHostNativeRecoveryAndSealing (0.08s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	0.858s
+FAIL

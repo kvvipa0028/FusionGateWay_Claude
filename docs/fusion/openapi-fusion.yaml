@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Fusion task control API
   version: 0.1.0-draft
-  description: 当前已实现 Handler 合同；29 paths、33 operations。独立 fusion-control 草稿 listener 已注册；可信执行宿主与 Native 阶段配置页面已接线，真实供应商 Factory/准入及任务工作台尚未完成。pause/continue 使用完整 Task If-Match，暂停中不宣称已停，continue 仅解除可靠暂停，不隐式启动或恢复 Native。全局/项目默认层只允许绑定，历史快照保持冻结。
+  description: 当前已实现 Handler 合同；32 paths、37 operations。独立 fusion-control 草稿 listener 已注册；可信执行宿主与 Native 阶段配置页面已接线，真实供应商 Factory/准入及任务工作台尚未完成。pause/continue 使用完整 Task If-Match，暂停中不宣称已停，continue 仅解除可靠暂停，不隐式启动或恢复 Native。全局/项目默认层只允许绑定，历史快照保持冻结。
 x-fusion-status: implemented-handler-contract
 x-fusion-production-registered: false
 x-fusion-draft-control-registered: true
@@ -2170,6 +2170,190 @@ paths:
           $ref: '#/components/responses/Error500'
         '503':
           $ref: '#/components/responses/Error503'
+  /control/v1/projects/{project_id}/submission:
+    get:
+      operationId: readPendingSubmission
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+          pattern: ^[^\s/\\\u0000-\u001f\u007f-\u009f]+$
+      responses:
+        '200':
+          description: 原始 UI 提交记录；GET 无未解决记录时 submission 为 null。确认只证明任务已保存。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmissionReply'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+    post:
+      operationId: prepareSubmission
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+          pattern: ^[^\s/\\\u0000-\u001f\u007f-\u009f]+$
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+          pattern: ^[^\s/\\\u0000-\u001f\u007f-\u009f]+$
+        description: 原始请求身份，不是认证凭据；准备/核对/解决保持同一 key。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmitRequest'
+      responses:
+        '200':
+          description: 原始 UI 提交记录；GET 无未解决记录时 submission 为 null。确认只证明任务已保存。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmissionReply'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+  /control/v1/projects/{project_id}/submission/acknowledge:
+    post:
+      operationId: acknowledgeSubmission
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+          pattern: ^[^\s/\\\u0000-\u001f\u007f-\u009f]+$
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+          pattern: ^[^\s/\\\u0000-\u001f\u007f-\u009f]+$
+        description: 原始请求身份，不是认证凭据；准备/核对/解决保持同一 key。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmitRequest'
+      responses:
+        '200':
+          description: 原始 UI 提交记录；GET 无未解决记录时 submission 为 null。确认只证明任务已保存。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmissionReply'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+  /control/v1/projects/{project_id}/submission/abandon:
+    post:
+      operationId: abandonSubmission
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+          pattern: ^[^\s/\\\u0000-\u001f\u007f-\u009f]+$
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+          pattern: ^[^\s/\\\u0000-\u001f\u007f-\u009f]+$
+        description: 原始请求身份，不是认证凭据；准备/核对/解决保持同一 key。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmitRequest'
+      responses:
+        '200':
+          description: 原始 UI 提交记录；GET 无未解决记录时 submission 为 null。确认只证明任务已保存。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmissionReply'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
 components:
   securitySchemes:
     ManagementBearer:
@@ -2843,6 +3027,72 @@ components:
         hash:
           type: string
           pattern: ^[a-f0-9]{64}$
+    SubmissionView:
+      type: object
+      additionalProperties: false
+      required:
+      - project_id
+      - goal
+      - key
+      - state
+      - task_id
+      - preview
+      properties:
+        project_id:
+          type: string
+          minLength: 1
+          maxLength: 256
+          pattern: ^[^\s/\\\u0000-\u001f\u007f-\u009f]+$
+        goal:
+          type: string
+          minLength: 1
+          maxLength: 65536
+          x-fusion-max-utf8-bytes: 65536
+        key:
+          type: string
+          minLength: 1
+          maxLength: 256
+          pattern: ^[^\s/\\\u0000-\u001f\u007f-\u009f]+$
+        state:
+          type: string
+          enum:
+          - prepared
+          - committed
+          - acknowledged
+          - abandoned
+        task_id:
+          type: string
+          maxLength: 256
+        preview:
+          $ref: '#/components/schemas/Preview'
+      oneOf:
+      - properties:
+          state:
+            enum:
+            - prepared
+            - abandoned
+          task_id:
+            const: ''
+      - properties:
+          state:
+            enum:
+            - committed
+            - acknowledged
+          task_id:
+            type: string
+            minLength: 1
+            maxLength: 256
+            pattern: ^[^\s/\\\u0000-\u001f\u007f-\u009f]+$
+    SubmissionReply:
+      type: object
+      additionalProperties: false
+      required:
+      - submission
+      properties:
+        submission:
+          oneOf:
+          - $ref: '#/components/schemas/SubmissionView'
+          - type: 'null'
     SubmitRequest:
       type: object
       additionalProperties: false

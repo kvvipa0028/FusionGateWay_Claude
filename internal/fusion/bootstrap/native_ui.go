@@ -147,11 +147,16 @@ func (b *NativeStageBridge) allowed(method, path string) bool {
 	}
 	if len(parts) == 2 {
 		switch parts[1] {
+		case "submission":
+			return method == "GET" || method == "POST"
 		case "configuration", "presets", "tasks":
 			return method == "GET"
 		case "defaults":
 			return method == "GET" || method == "PUT"
 		}
+	}
+	if len(parts) == 3 && parts[1] == "submission" && (parts[2] == "acknowledge" || parts[2] == "abandon") {
+		return method == "POST"
 	}
 	if len(parts) == 4 && parts[1] == "tasks" && parts[2] == "before" && opaque(parts[3]) {
 		return method == "GET"
@@ -267,7 +272,7 @@ func (b *NativeStageBridge) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			request.Header.Add(key, value)
 		}
 	}
-	if r.Method == "POST" && r.URL.Path == "/agent/v1/tasks" {
+	if r.Method == "POST" && (r.URL.Path == "/agent/v1/tasks" || nativeSubmissionPath(r.URL.Path)) {
 		for _, value := range r.Header.Values("Idempotency-Key") {
 			request.Header.Add("Idempotency-Key", value)
 		}
@@ -283,6 +288,12 @@ func (b *NativeStageBridge) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Service Unavailable", 503)
 		return
 	}
+	// Source/token/window shutdown can invalidate the owned host after its HTTP
+	// handler has already read a draft. Do not emit that buffered response.
+	if ctx.Err() != nil || !b.host.current() {
+		http.Error(w, "Service Unavailable", 503)
+		return
+	}
 	for _, key := range []string{"Content-Type", "Cache-Control", "ETag", "X-Content-Type-Options", "Referrer-Policy", "Content-Security-Policy", "Allow"} {
 		if value := response.Header.Get(key); value != "" {
 			w.Header().Set(key, value)
@@ -292,4 +303,13 @@ func (b *NativeStageBridge) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "HEAD" {
 		w.Write(result)
 	}
+}
+
+// Called only after allowed has checked the registered project and method.
+func nativeSubmissionPath(path string) bool {
+	if !strings.HasPrefix(path, "/control/v1/projects/") {
+		return false
+	}
+	parts := strings.Split(strings.TrimPrefix(path, "/control/v1/projects/"), "/")
+	return (len(parts) == 2 || len(parts) == 3 && (parts[2] == "acknowledge" || parts[2] == "abandon")) && parts[1] == "submission"
 }

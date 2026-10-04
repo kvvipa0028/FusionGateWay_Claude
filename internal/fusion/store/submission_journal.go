@@ -144,6 +144,27 @@ func (s *Store) PendingSubmission(projectID string) (SubmissionJournal, error) {
 	return submissionJournalIn(s.db, previewID)
 }
 
+// LookupSubmissionJournal reads immutable original identity, including terminal
+// history, so a lost prepare acknowledgement can be repeated after restart.
+func (s *Store) LookupSubmissionJournal(in SubmissionIdentity) (SubmissionJournal, error) {
+	if !opaque(in.ProjectID) || !opaque(in.PreviewID) || !opaque(in.Key) || in.PlanHash == "" {
+		return SubmissionJournal{}, ErrInvalid
+	}
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	if s.db == nil {
+		return SubmissionJournal{}, ErrClosed
+	}
+	value, e := submissionJournalIn(s.db, in.PreviewID)
+	if e != nil {
+		return SubmissionJournal{}, e
+	}
+	if value.Draft.Request.ProjectID != in.ProjectID || value.Draft.Key != in.Key || value.Draft.Request.Plan.Hash != in.PlanHash {
+		return SubmissionJournal{}, ErrConflict
+	}
+	return value, nil
+}
+
 // ResolveSubmission either acknowledges a proved task or atomically seals an
 // uncommitted original preview. A lost acknowledgement can repeat the identity.
 func (s *Store) ResolveSubmission(in SubmissionIdentity, action string) (SubmissionJournal, error) {

@@ -333,6 +333,8 @@ func (s *Server) Handler() http.Handler {
 		switch {
 		case r.URL.Path == "/control/v1/projects":
 			s.projectsControl(w, r)
+		case submissionPath(r.URL.Path):
+			s.submissionControl(w, r)
 		case taskIndexPath(r.URL.Path):
 			s.taskIndex(w, r)
 		case defaultsPath(r.URL.Path):

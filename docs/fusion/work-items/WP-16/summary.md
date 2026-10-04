@@ -20,4 +20,4 @@
 服务端 [SUBMISSION-RECEIPT-01](../WP-15/SUBMISSION-RECEIPT-01/summary.md) 已实现原请求在预览清理/宿主重启后的持久核对；界面仍复用原 Magpie，未改样式或控件。本窗口持有原 body/key 时可重试；关闭窗口后的原请求恢复仍未完成，不将服务端回执持久化等同于完整工作台恢复。
 
 
-[SUBMISSION-JOURNAL-01](../WP-15/SUBMISSION-JOURNAL-01/summary.md) 提供窗口恢复所需的私有存储与封存/确认事务，尚未接 API/Native/本页面。UI 仍复用原 Magpie，关闭窗口后的原请求恢复继续未完成。
+[SUBMISSION-JOURNAL-01](../WP-15/SUBMISSION-JOURNAL-01/summary.md) 提供窗口恢复所需的私有存储与封存/确认事务，[SUBMISSION-API-01](../WP-15/SUBMISSION-API-01/summary.md) 已接恢复 API/Native，尚未接本页面。UI 仍复用原 Magpie，关闭窗口后的原请求恢复继续未完成。

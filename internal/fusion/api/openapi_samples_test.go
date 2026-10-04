@@ -56,6 +56,27 @@ func TestImplementedAPIContractSamples(t *testing.T) {
 		}
 		samples = append(samples, v)
 	}
+	_, _, journalHandler := setup(t)
+	add("GET", journalPath, "", 200, request(journalHandler, "GET", journalPath, "", "", "fixture-management"), nil)
+	journalPreview := preview(t, journalHandler)
+	journalRequest := journalBody(journalPreview)
+	journalHeaders := map[string]string{"Idempotency-Key": "fixture-contract-journal"}
+	add("POST", journalPath, journalRequest, 200, journalCall(journalHandler, "POST", journalPath, journalPreview, journalHeaders["Idempotency-Key"]), journalHeaders)
+	add("GET", journalPath, "", 200, request(journalHandler, "GET", journalPath, "", "", "fixture-management"), nil)
+	add("POST", journalPath+"/acknowledge", journalRequest, 409, journalCall(journalHandler, "POST", journalPath+"/acknowledge", journalPreview, journalHeaders["Idempotency-Key"]), journalHeaders)
+	add("POST", journalPath+"/abandon", journalRequest, 200, journalCall(journalHandler, "POST", journalPath+"/abandon", journalPreview, journalHeaders["Idempotency-Key"]), journalHeaders)
+	add("POST", journalPath, journalRequest, 200, journalCall(journalHandler, "POST", journalPath, journalPreview, journalHeaders["Idempotency-Key"]), journalHeaders)
+	add("GET", journalPath, "", 200, request(journalHandler, "GET", journalPath, "", "", "fixture-management"), nil)
+	journalPreview = preview(t, journalHandler)
+	journalRequest = journalBody(journalPreview)
+	journalHeaders = map[string]string{"Idempotency-Key": "fixture-contract-journal-commit"}
+	add("POST", journalPath, journalRequest, 200, journalCall(journalHandler, "POST", journalPath, journalPreview, journalHeaders["Idempotency-Key"]), journalHeaders)
+	add("POST", "/agent/v1/tasks", journalRequest, 201, submit(t, journalHandler, journalPreview, journalHeaders["Idempotency-Key"]), journalHeaders)
+	add("GET", journalPath, "", 200, request(journalHandler, "GET", journalPath, "", "", "fixture-management"), nil)
+	add("POST", journalPath+"/acknowledge", journalRequest, 200, journalCall(journalHandler, "POST", journalPath+"/acknowledge", journalPreview, journalHeaders["Idempotency-Key"]), journalHeaders)
+	add("GET", journalPath, "", 200, request(journalHandler, "GET", journalPath, "", "", "fixture-management"), nil)
+	add("GET", journalPath, "", 401, request(journalHandler, "GET", journalPath, "", "", ""), nil)
+	add("PUT", journalPath, "", 405, request(journalHandler, "PUT", journalPath, "", "", "fixture-management"), nil)
 	_, indexStore, h := presetSetup(t)
 	indexPath := "/control/v1/projects/fixture-project/tasks"
 	add("GET", indexPath, "", 200, request(h, "GET", indexPath, "", "", "fixture-management"), nil)

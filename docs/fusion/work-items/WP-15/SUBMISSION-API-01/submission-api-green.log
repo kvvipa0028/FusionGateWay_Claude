@@ -1,0 +1,41 @@
+=== RUN   TestSubmissionJournalAPIOriginalLifecycleAndRestart
+    submission_journal_test.go:55: trusted original preview not frozen
+--- FAIL: TestSubmissionJournalAPIOriginalLifecycleAndRestart (0.06s)
+=== RUN   TestSubmissionJournalAPIRejectsWrongIdentityAndUntrustedDraft
+    submission_journal_test.go:191: path/method accepted 400 403
+--- FAIL: TestSubmissionJournalAPIRejectsWrongIdentityAndUntrustedDraft (0.05s)
+=== RUN   TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare
+=== RUN   TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/expired
+=== RUN   TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/configuration
+=== RUN   TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/revision
+=== RUN   TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/foreign
+=== RUN   TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/missing
+--- PASS: TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare (0.22s)
+    --- PASS: TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/expired (0.05s)
+    --- PASS: TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/configuration (0.05s)
+    --- PASS: TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/revision (0.05s)
+    --- PASS: TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/foreign (0.04s)
+    --- PASS: TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/missing (0.04s)
+=== RUN   TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose
+=== RUN   TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/revoke/prepare
+    submission_journal_test.go:255: body not read
+=== RUN   TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/revoke/abandon
+    submission_journal_test.go:255: body not read
+=== RUN   TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/revoke/acknowledge
+    submission_journal_test.go:255: body not read
+=== RUN   TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/cancel/prepare
+    submission_journal_test.go:255: body not read
+=== RUN   TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/cancel/abandon
+    submission_journal_test.go:255: body not read
+=== RUN   TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/cancel/acknowledge
+    submission_journal_test.go:255: body not read
+--- FAIL: TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose (6.45s)
+    --- FAIL: TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/revoke/prepare (1.05s)
+    --- FAIL: TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/revoke/abandon (1.07s)
+    --- FAIL: TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/revoke/acknowledge (1.08s)
+    --- FAIL: TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/cancel/prepare (1.08s)
+    --- FAIL: TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/cancel/abandon (1.08s)
+    --- FAIL: TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/cancel/acknowledge (1.09s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/api	7.267s
+FAIL

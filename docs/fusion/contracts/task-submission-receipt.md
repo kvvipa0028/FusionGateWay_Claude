@@ -18,7 +18,7 @@ schema 6 的 `task_submissions` 将 preview_id 唯一绑定到原 key、project_
 
 本项已验证预览真实到期清理、新 Server、Store Close/Open 和 owned loopback 宿主重启，以及真实 HTTP→Native 桥原请求回读、未登记项目/Source 撤销拒绝。没有声称新增 SIGKILL/硬件断电测试或实际 Native 窗口视觉验证。
 
-窗口未确认请求仍只保留在当前窗口内。若窗口关闭后丢失原 body/key，本项不能替客户端恢复它；[私有提交记录](task-submission-journal.md)已完成存储基础，其 API/UI 消费及运行控制仍待完成。仍持有原请求的窗口可在宿主重启后用原请求重试，当前有效的私有宿主认证须重新建立；不复用已撤销的旧 token。
+窗口未确认请求仍只保留在当前窗口内。若窗口关闭后丢失原 body/key，本项不能替客户端恢复它；[私有提交记录](task-submission-journal.md)已完成存储基础，[恢复 API/Native 通路](task-submission-api.md) 已接入，其 UI 消费及运行控制仍待完成。仍持有原请求的窗口可在宿主重启后用原请求重试，当前有效的私有宿主认证须重新建立；不复用已撤销的旧 token。
 
 ## 复现
 

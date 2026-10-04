@@ -1,0 +1,147 @@
+{
+  "base_commit": "814398a4fb136eaab5d3c681b5d93241e315a9fd",
+  "source_files": [
+    {
+      "path": "docs/fusion/README.md",
+      "sha256": "107a27580d8e4e42bf04cad36c637db18d81ce8a8fd713ea0d263902972a65b4"
+    },
+    {
+      "path": "docs/fusion/contracts/native-stage-ui.md",
+      "sha256": "71a807c4a865adba0c471ce1080aaa05d463a5a920c3d5961277e52e5a49fc92"
+    },
+    {
+      "path": "docs/fusion/contracts/state-transition-contract.md",
+      "sha256": "8cc7075efa7e8de4c6ec9fd9c5c519e3cb41aa37c78fd2ac85398c7693e19857"
+    },
+    {
+      "path": "docs/fusion/contracts/task-submission-api.md",
+      "sha256": "f3fbd9031db3aa6c37408142f8ffaa4747ff72be4bb626b5d33e450c0f9eca7b"
+    },
+    {
+      "path": "docs/fusion/contracts/task-submission-journal.md",
+      "sha256": "47b1c738d3dcd0f7a89705e63a0a235853c1933e769088de8d93d5d591e545a3"
+    },
+    {
+      "path": "docs/fusion/contracts/task-submission-receipt.md",
+      "sha256": "5c8eed40780788a610c023793a4116c29339bc6ba691015ba29d24346cf994aa"
+    },
+    {
+      "path": "docs/fusion/openapi-fusion.yaml",
+      "sha256": "9f5267ebc45a424cde9ee71dc508e2412b5d401266be2b2f2463561225bf0010"
+    },
+    {
+      "path": "docs/fusion/planning/Fusion_Magpie_Fork_Agent工作包_v1.0.md",
+      "sha256": "3ccc6254ddb419e699b9dc1962dc36603a6d33aa68f114a06016af90cbf81fc8"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/summary.md",
+      "sha256": "e64ba73687b0916fabad6b1051739ba674a727327a9f74f2d8efc4c205bc7209"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/summary.md",
+      "sha256": "0eae526882fe88697a4518a07862d3f980c766363c910e4e7a91b44b193b09a2"
+    },
+    {
+      "path": "internal/fusion/api/openapi_samples_test.go",
+      "sha256": "7df0a78083465b1405a86b603680f51b22964d2dd4453e1b4d756130f4c5001b"
+    },
+    {
+      "path": "internal/fusion/api/preview.go",
+      "sha256": "c708e97015de4b4561a99a8522f0cacdba08ccf18085e3e76620218245821402"
+    },
+    {
+      "path": "internal/fusion/api/submission_journal.go",
+      "sha256": "a2777ecf002b6912ff8462fd5ec7106c60fa13fb081d86031523a3e6100a7c43"
+    },
+    {
+      "path": "internal/fusion/api/submission_journal_test.go",
+      "sha256": "5f99596d1bd7f866f435695eb93ab77045bf2b7e24de79cb3590b6b06f581091"
+    },
+    {
+      "path": "internal/fusion/bootstrap/native_ui.go",
+      "sha256": "5758ddc9dca1ece75ed00693752b4fbf3c2059859d8824ffc1e5ceb975b81318"
+    },
+    {
+      "path": "internal/fusion/bootstrap/submission_journal_test.go",
+      "sha256": "e41c7ac3643141c2b7ff9666a4a7abf6258c07b55d82b386b3da2b6b6ed2e49f"
+    },
+    {
+      "path": "internal/fusion/store/submission_journal.go",
+      "sha256": "006070f6d13625b64e3c390ebcf93d6624a6f2c79873ca8badbf89d137767e59"
+    },
+    {
+      "path": "internal/fusion/store/submission_journal_lookup_test.go",
+      "sha256": "a366a42f7fc1c6a7c5c35d1bfc8095a4e73677132db304082eae6ae0ecab6b71"
+    },
+    {
+      "path": "scripts/fusion/check-openapi.py",
+      "sha256": "642f52fc15006252a5e0e628a8e85f2629fd3830bed3ee23ec2cbc742ffd450f"
+    }
+  ],
+  "packet_files": [
+    {
+      "path": "docs/fusion/work-items/WP-15/SUBMISSION-API-01/build-results.json",
+      "sha256": "2dd761b4b4a74f31cc143f17eb072fd71b2475f003e8f8ca55fb5e35a1d72680"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/SUBMISSION-API-01/graph.json",
+      "sha256": "3d64362a66b543ce61cacc01ff2bbf518dec9ba0d57d63a24c9907db0e37bb8e"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/SUBMISSION-API-01/log-provenance.json",
+      "sha256": "6b3dcf9a00df5515ddb621b6af3c0e7996254518617d9d886ecd27446cb8280a"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/SUBMISSION-API-01/submission-api-bootstrap-final.log",
+      "sha256": "e5e37035269dce306dd4a68eeff57b006eb08efe9fc75e92f5422fa85cbfc4d5"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/SUBMISSION-API-01/submission-api-bridge-green.log",
+      "sha256": "eeab699ba39ee3a13117a37f6854a1e7cdb19f2a6314dcfd14bb8bc2899087a9"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/SUBMISSION-API-01/submission-api-bridge-red.log",
+      "sha256": "af872af1eb16b52e31c31c80d804612b4f832006dd35bbacf76848bf86c693ce"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/SUBMISSION-API-01/submission-api-capture.log",
+      "sha256": "a49b90691396c9e966a73c7fa2ce54cf03f9527d3835a897696db2fb97297147"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/SUBMISSION-API-01/submission-api-debug.log",
+      "sha256": "fa0e29a82c49f97a7701c5e56b577ec362fbd7a4c1d3b256f6d75243245300af"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/SUBMISSION-API-01/submission-api-final.log",
+      "sha256": "1b42224f655b102014721d3c7b9cdf743e781486278924e082be7aad9946c0bf"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/SUBMISSION-API-01/submission-api-green.log",
+      "sha256": "b6443334fefc34a0ded57bb329bab90cbd2b1060cc3a656d8d27d90ee8d48736"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/SUBMISSION-API-01/submission-api-openapi.json",
+      "sha256": "32c13db82fb76ef81636c831a0ca9893f2fb78a18b7f965b093e02407198c2cf"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/SUBMISSION-API-01/submission-api-red.log",
+      "sha256": "9914c18c9121f1cd9f7856deae57634aa4a1cb25e35090a9542dda29ecbef902"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/SUBMISSION-API-01/submission-api-samples.json",
+      "sha256": "879e8bde5621007fe3250fce4735678ff5b664550840ccab5c78b044ac22e79e"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/SUBMISSION-API-01/submission-api-source-red.log",
+      "sha256": "db1d73e77c07131baa4a5c3a13dc48199b9f60a05ee3471418882cd1f1798952"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/SUBMISSION-API-01/summary.md",
+      "sha256": "2ce5180aa889600787f06340f4b239fb00d4b522dd1c02d32aa047b37f12a5bb"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/SUBMISSION-API-01/validation.json",
+      "sha256": "835a1a90594db3779b66126c20e29f20d577f2f4ba09ae1ddb3ce2cb598812b7"
+    }
+  ]
+}

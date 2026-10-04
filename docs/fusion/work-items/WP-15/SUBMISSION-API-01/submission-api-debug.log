@@ -1,0 +1,6 @@
+=== RUN   TestSubmissionJournalAPIOriginalLifecycleAndRestart
+    submission_journal_test.go:55: trusted original preview not frozen: view=&{ProjectID:fixture-project Goal:fixture-goal Key:fixture-journal-key State:prepared TaskID: Preview:{ID:preview-fbba49250cac021b96c400d7b0965a35e36b3443665252e638850d53fcdbab23 ConfigurationRevision:1 ExpiresAt:2026-10-04 18:48:36.063781 +0000 UTC Plan:{SchemaVersion:1 Revision:1 RequiredRoles:[design] Bindings:map[design:{Mode:locked Source:global Target:0xecc0558e9a0 Candidates:[] RequiredCapabilities:[] AcceptPrimaryOnly:false}] Hash:6af3e9210b13a2b6498459870c5afe86273261d94a870832bc37de74eea1d182} Budget:{MaxCalls:50 MaxReworks:1} Preset:<nil>}} preview={ID:preview-fbba49250cac021b96c400d7b0965a35e36b3443665252e638850d53fcdbab23 ConfigurationRevision:1 ExpiresAt:2026-10-05 02:48:36.063781 +0800 CST Plan:{SchemaVersion:1 Revision:1 RequiredRoles:[design] Bindings:map[design:{Mode:locked Source:global Target:0xecc0558e460 Candidates:[] RequiredCapabilities:[] AcceptPrimaryOnly:false}] Hash:6af3e9210b13a2b6498459870c5afe86273261d94a870832bc37de74eea1d182} Budget:{MaxCalls:50 MaxReworks:1} Preset:<nil>}
+--- FAIL: TestSubmissionJournalAPIOriginalLifecycleAndRestart (0.01s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/api	0.612s
+FAIL

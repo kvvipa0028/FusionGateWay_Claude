@@ -16,6 +16,9 @@ from referencing import Registry, Resource
 from referencing.jsonschema import DRAFT202012
 
 EXPECTED = {
+    "/control/v1/projects/{project_id}/submission": {"get", "post"},
+    "/control/v1/projects/{project_id}/submission/acknowledge": {"post"},
+    "/control/v1/projects/{project_id}/submission/abandon": {"post"},
     "/control/v1/projects": {"get"},
     "/control/v1/projects/{project_id}/tasks": {"get"},
     "/control/v1/projects/{project_id}/tasks/before/{task_id}": {"get"},
@@ -177,7 +180,18 @@ def verify(contract, official, samples):
     ]
     for value in invalid_tasks:
         assert not task_response.is_valid(value)
-    return {"official_openapi_document_schema": "3.1/2022-10-07", "paths": len(EXPECTED), "operations": len(operations), "handler_samples": count, "covered_operations": len(covered), "negative_schema_cases": len(negative), "negative_project_response_cases": len(invalid_inventory), "negative_task_response_cases": len(invalid_tasks), "offline": True, "production_registered": False}
+    submission_response = validator({"$ref": "#/components/schemas/SubmissionReply"})
+    valid_submission = next(s["body"]["submission"] for s in json.loads(samples.read_text()) if s["path"].endswith("/submission") and s["status"] == 200 and s["body"]["submission"] is not None)
+    invalid_submissions = [
+        {}, {"submission": []}, {"submission": dict(valid_submission, token="forbidden")},
+        {"submission": dict(valid_submission, state="running")},
+        {"submission": dict(valid_submission, state="prepared", task_id="task-unproved")},
+        {"submission": dict(valid_submission, state="committed", task_id="")},
+        {"submission": dict(valid_submission, key="")},
+    ]
+    for value in invalid_submissions:
+        assert not submission_response.is_valid(value)
+    return {"official_openapi_document_schema": "3.1/2022-10-07", "paths": len(EXPECTED), "operations": len(operations), "handler_samples": count, "covered_operations": len(covered), "negative_schema_cases": len(negative), "negative_project_response_cases": len(invalid_inventory), "negative_task_response_cases": len(invalid_tasks), "negative_submission_response_cases": len(invalid_submissions), "offline": True, "production_registered": False}
 
 
 if __name__ == "__main__":

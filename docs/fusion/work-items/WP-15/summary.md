@@ -2,7 +2,7 @@
 
 状态：`in_progress`。子工作项 [WP-15-PREVIEW-01](PREVIEW-01/summary.md) 已完成：受鉴权的无调用计划预览、冻结提交和任务读取组件。
 
-[SUBMISSION-JOURNAL-01](SUBMISSION-JOURNAL-01/summary.md) 已完成 schema 7 的私有原请求存储及 prepared/committed/acknowledged/abandoned 生命周期，创建与封存原子互斥，损坏冻结记录拒绝继续，历史回执/数据保留。恢复 API/Native/UI 消费仍未接入，不能声称已能关闭窗口恢复；父包继续 in_progress。
+[SUBMISSION-JOURNAL-01](SUBMISSION-JOURNAL-01/summary.md) 已完成 schema 7 的私有原请求存储及 prepared/committed/acknowledged/abandoned 生命周期，创建与封存原子互斥，损坏冻结记录拒绝继续，历史回执/数据保留。[SUBMISSION-API-01](SUBMISSION-API-01/summary.md) 已接恢复 API 与 Native 通路，UI 消费仍未接入，不能声称已能关闭窗口恢复；父包继续 in_progress。
 
 [SUBMISSION-RECEIPT-01](SUBMISSION-RECEIPT-01/summary.md) 已补齐 schema 6 持久提交身份，原 preview_id/plan_hash/key 在预览清理、Server 重建及 Store/宿主重启后仍能读回同一任务的当前状态。回执与任务/计划/预算/幂等记录/事件同事务，真实本机 HTTP/Native 桥重启及来源撤销已验证；不执行 Runtime、不重置计数，未登记项目拒绝恢复。未提交预览重启后仍失效，旧任务不猜造 preview 身份。窗口原请求持久保存及阶段运行 UI、真实供应商准入仍未完成，父包保持 in_progress。
 

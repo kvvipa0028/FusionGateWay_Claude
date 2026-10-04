@@ -82,4 +82,4 @@ CancelTask 使用同一完整 TaskVersion 原子条件；空闲且全任务历�
 
 ## WP-15 schema 7 私有提交记录
 
-prepared→committed/abandoned、committed→acknowledged 是独立窗口提交记录的生命周期，不是 Task/StageRun 状态。创建/封存同事务互斥，已确认记录不回退；journal 创建/解决不启动 Runtime、不改 Task 事件或预算。001–006 与原幂等/HTTP 合同保留，007 失败回滚、checksum 漂移及未来版本 8 拒绝已有验证。API/Native/UI 消费仍未接入，窗口恢复不算交付，见 [task-submission-journal.md](task-submission-journal.md)。
+prepared→committed/abandoned、committed→acknowledged 是独立窗口提交记录的生命周期，不是 Task/StageRun 状态。创建/封存同事务互斥，已确认记录不回退；journal 创建/解决不启动 Runtime、不改 Task 事件或预算。001–006 与原幂等/HTTP 合同保留，007 失败回滚、checksum 漂移及未来版本 8 拒绝已有验证。[恢复 API/Native 通路](task-submission-api.md) 已接入，UI 消费仍未接入，窗口恢复不算交付，见 [task-submission-journal.md](task-submission-journal.md)。

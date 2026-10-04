@@ -1,0 +1,56 @@
+[
+  {
+    "file": "submission-api-red.log",
+    "source_sha256": "9914c18c9121f1cd9f7856deae57634aa4a1cb25e35090a9542dda29ecbef902",
+    "saved_sha256": "9914c18c9121f1cd9f7856deae57634aa4a1cb25e35090a9542dda29ecbef902",
+    "transform": "per-line trailing whitespace removed; final newline"
+  },
+  {
+    "file": "submission-api-green.log",
+    "source_sha256": "b6443334fefc34a0ded57bb329bab90cbd2b1060cc3a656d8d27d90ee8d48736",
+    "saved_sha256": "b6443334fefc34a0ded57bb329bab90cbd2b1060cc3a656d8d27d90ee8d48736",
+    "transform": "per-line trailing whitespace removed; final newline"
+  },
+  {
+    "file": "submission-api-debug.log",
+    "source_sha256": "fa0e29a82c49f97a7701c5e56b577ec362fbd7a4c1d3b256f6d75243245300af",
+    "saved_sha256": "fa0e29a82c49f97a7701c5e56b577ec362fbd7a4c1d3b256f6d75243245300af",
+    "transform": "per-line trailing whitespace removed; final newline"
+  },
+  {
+    "file": "submission-api-bridge-red.log",
+    "source_sha256": "af872af1eb16b52e31c31c80d804612b4f832006dd35bbacf76848bf86c693ce",
+    "saved_sha256": "af872af1eb16b52e31c31c80d804612b4f832006dd35bbacf76848bf86c693ce",
+    "transform": "per-line trailing whitespace removed; final newline"
+  },
+  {
+    "file": "submission-api-bridge-green.log",
+    "source_sha256": "eeab699ba39ee3a13117a37f6854a1e7cdb19f2a6314dcfd14bb8bc2899087a9",
+    "saved_sha256": "eeab699ba39ee3a13117a37f6854a1e7cdb19f2a6314dcfd14bb8bc2899087a9",
+    "transform": "per-line trailing whitespace removed; final newline"
+  },
+  {
+    "file": "submission-api-final.log",
+    "source_sha256": "1b42224f655b102014721d3c7b9cdf743e781486278924e082be7aad9946c0bf",
+    "saved_sha256": "1b42224f655b102014721d3c7b9cdf743e781486278924e082be7aad9946c0bf",
+    "transform": "per-line trailing whitespace removed; final newline"
+  },
+  {
+    "file": "submission-api-source-red.log",
+    "source_sha256": "db1d73e77c07131baa4a5c3a13dc48199b9f60a05ee3471418882cd1f1798952",
+    "saved_sha256": "db1d73e77c07131baa4a5c3a13dc48199b9f60a05ee3471418882cd1f1798952",
+    "transform": "per-line trailing whitespace removed; final newline"
+  },
+  {
+    "file": "submission-api-bootstrap-final.log",
+    "source_sha256": "e5e37035269dce306dd4a68eeff57b006eb08efe9fc75e92f5422fa85cbfc4d5",
+    "saved_sha256": "e5e37035269dce306dd4a68eeff57b006eb08efe9fc75e92f5422fa85cbfc4d5",
+    "transform": "per-line trailing whitespace removed; final newline"
+  },
+  {
+    "file": "submission-api-capture.log",
+    "source_sha256": "a49b90691396c9e966a73c7fa2ce54cf03f9527d3835a897696db2fb97297147",
+    "saved_sha256": "a49b90691396c9e966a73c7fa2ce54cf03f9527d3835a897696db2fb97297147",
+    "transform": "per-line trailing whitespace removed; final newline"
+  }
+]

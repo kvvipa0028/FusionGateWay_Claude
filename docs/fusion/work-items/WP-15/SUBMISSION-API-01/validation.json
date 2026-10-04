@@ -1,0 +1,11 @@
+{
+  "source_files": 19,
+  "json_checked": 5,
+  "local_links_checked": 146,
+  "gofmt": "pass",
+  "python_syntax": "pass",
+  "diff": "pass",
+  "private_key_byte_exclusion": "pass; no credential or its hash emitted",
+  "UI_assets": "unchanged; original Magpie app.css/app.js/index.html byte-equal to locked source",
+  "build_log_and_binary_hashes": "pass"
+}

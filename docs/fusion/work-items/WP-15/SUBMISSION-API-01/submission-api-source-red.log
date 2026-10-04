@@ -1,0 +1,6 @@
+=== RUN   TestSubmissionJournalNativeDoesNotDiscloseAfterSourceChangedDuringResponse
+    submission_journal_test.go:64: late source revocation disclosed response 200
+--- FAIL: TestSubmissionJournalNativeDoesNotDiscloseAfterSourceChangedDuringResponse (0.08s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	0.754s
+FAIL

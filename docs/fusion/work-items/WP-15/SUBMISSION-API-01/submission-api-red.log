@@ -1,0 +1,46 @@
+=== RUN   TestSubmissionJournalAPIOriginalLifecycleAndRestart
+    submission_journal_test.go:44: submission journal response 404
+--- FAIL: TestSubmissionJournalAPIOriginalLifecycleAndRestart (0.06s)
+=== RUN   TestSubmissionJournalAPIRejectsWrongIdentityAndUntrustedDraft
+    submission_journal_test.go:86: submission journal response 404
+--- FAIL: TestSubmissionJournalAPIRejectsWrongIdentityAndUntrustedDraft (0.05s)
+=== RUN   TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare
+=== RUN   TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/expired
+    submission_journal_test.go:117: ineligible prepare 404
+=== RUN   TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/configuration
+    submission_journal_test.go:117: ineligible prepare 404
+=== RUN   TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/revision
+    submission_journal_test.go:117: ineligible prepare 404
+=== RUN   TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/foreign
+    submission_journal_test.go:117: ineligible prepare 404
+=== RUN   TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/missing
+    submission_journal_test.go:117: ineligible prepare 404
+--- FAIL: TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare (0.22s)
+    --- FAIL: TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/expired (0.04s)
+    --- FAIL: TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/configuration (0.04s)
+    --- FAIL: TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/revision (0.04s)
+    --- FAIL: TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/foreign (0.04s)
+    --- FAIL: TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/missing (0.04s)
+=== RUN   TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose
+=== RUN   TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/revoke/prepare
+    submission_journal_test.go:133: body not read
+=== RUN   TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/revoke/abandon
+    submission_journal_test.go:126: submission journal response 404
+=== RUN   TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/revoke/acknowledge
+    submission_journal_test.go:126: submission journal response 404
+=== RUN   TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/cancel/prepare
+    submission_journal_test.go:133: body not read
+=== RUN   TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/cancel/abandon
+    submission_journal_test.go:126: submission journal response 404
+=== RUN   TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/cancel/acknowledge
+    submission_journal_test.go:126: submission journal response 404
+--- FAIL: TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose (2.34s)
+    --- FAIL: TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/revoke/prepare (1.05s)
+    --- FAIL: TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/revoke/abandon (0.07s)
+    --- FAIL: TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/revoke/acknowledge (0.05s)
+    --- FAIL: TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/cancel/prepare (1.05s)
+    --- FAIL: TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/cancel/abandon (0.07s)
+    --- FAIL: TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/cancel/acknowledge (0.05s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/api	3.325s
+FAIL

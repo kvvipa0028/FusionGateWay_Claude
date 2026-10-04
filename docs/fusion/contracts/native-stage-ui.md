@@ -8,7 +8,9 @@
 
 NativeStageBridge 仅用于 Wails 的进程内虚拟资源回调，禁止挂到网络 listener。校验 SDK RemoteAddr 标记、localhost Host、相对 URL、wails Origin/Referer 和 fetch-site；拒绝外部来源、null Origin、查询参数、转义路径、调用方 Authorization/cookie/转发及其它 x-* header。Wails 自动注入的 x-wails-window-id/name 只接受启动时冻结的本窗口 ID 与固定名称；缺失、重复或其它窗口值拒绝，绑定前保持关闭，不能重新绑定。这两个 header 不向 HTTP 上游转送。
 
-允许阶段页面和原 Magpie 共用样式 `/fusion/app.css` GET/HEAD、项目列表/配置/预设 GET、global/project defaults GET/PUT、精确历史预设 GET、单个预设 GET/PUT 和 tasks/preview POST。另开放 [任务索引](task-index-api.md) 的已登记项目 tasks GET 与 tasks/before/{task_id} GET，已由工作台读取。新增 POST `/agent/v1/tasks` 冻结提交，GET `/agent/v1/tasks/{id}` 及 `/control/v1/tasks/{id}/plan`、`budget` 读取详情。任务读取先验证本窗口及当前私有宿主，再从 Store 核对 Task 所属项目已登记；未知或未登记项目任务为 404，不透传内容。阶段执行/取消、legacy API、通用 Wails runtime/binding handlers 不在允许范围内。桥只向自己拥有的数字 loopback 地址发送请求，不使用环境代理，不跟随重定向；只转送 Content-Type/If-Match，且仅冻结提交路径转送 Idempotency-Key；凭据由 Go 注入。响应只透传有限元数据，剔除 Location/cookie/auth。成功创建 defaults 的 201 仍保留正常回执。
+允许阶段页面和原 Magpie 共用样式 `/fusion/app.css` GET/HEAD、项目列表/配置/预设 GET、global/project defaults GET/PUT、精确历史预设 GET、单个预设 GET/PUT 和 tasks/preview POST。另开放 [任务索引](task-index-api.md) 的已登记项目 tasks GET 与 tasks/before/{task_id} GET，已由工作台读取。新增 POST `/agent/v1/tasks` 冻结提交，GET `/agent/v1/tasks/{id}` 及 `/control/v1/tasks/{id}/plan`、`budget` 读取详情。任务读取先验证本窗口及当前私有宿主，再从 Store 核对 Task 所属项目已登记；未知或未登记项目任务为 404，不透传内容。阶段执行/取消、legacy API、通用 Wails runtime/binding handlers 不在允许范围内。桥只向自己拥有的数字 loopback 地址发送请求，不使用环境代理，不跟随重定向；只转送 Content-Type/If-Match，且仅冻结提交及已登记项目 submission 准备/确认/放弃路径转送 Idempotency-Key；凭据由 Go 注入。响应只透传有限元数据，剔除 Location/cookie/auth。成功创建 defaults 的 201 仍保留正常回执。
+
+[私有提交恢复通路](task-submission-api.md) 增加精确 submission GET/POST、submission/acknowledge POST 和 submission/abandon POST，仅限已登记项目。GET 不开放解决操作，未知后缀/额外段及未登记项目不透传。HTTP 响应完全读取后再核对当前 Source/token 和取消状态；读取期间来源撤销返回 503，不发出已缓冲目标/key/任务。该末端核对适用于现有允许通路。实际 owned 宿主关闭重开和 Native 桥恢复已通过测试；页面消费者和实际窗口恢复操作仍未接入。
 
 每请求最多 128 KiB、响应最多 2 MiB、整体期限 8 秒。期限和关闭取消在读取请求体前安装；未完成请求体不能阻挡 Close。关闭时停止新请求、清空凭据引用、取消并等待活动请求，然后关闭连接和 ControlHost。
 
