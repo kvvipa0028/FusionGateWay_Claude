@@ -1,0 +1,4 @@
+# github.com/yetone/magpie/internal/fusion/control [github.com/yetone/magpie/internal/fusion/control.test]
+internal/fusion/control/launch_validation_test.go:51:19: f.launch.Backend.ValidateLaunch undefined (type Backend has no field or method ValidateLaunch)
+FAIL	github.com/yetone/magpie/internal/fusion/control [build failed]
+FAIL

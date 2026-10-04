@@ -52,3 +52,5 @@ T01/T02/T14/T15/T25/T31/T32/T35/T44/T53/T59 的最终端到端状态继续为 `n
 ## 受管只读 Adapter
 
 [ADAPTER-01](ADAPTER-01/summary.md) 已将类型化 Client、独占 HTTP 通道接到真实 Store/Scheduler/Manager/Supervisor，强制来源证明和私有目录、冻结 prompt/Target、逐次 Permit/预算、原生终态文字、实际停止证明及 reservation 释放。13 个实际固定 Native 生命周期场景和 6 类启动前身份拒绝通过。真实官方账号/Forwarder/quota、产品 Controller/Factory 注册、工具/写入/恢复及最终 Gate 仍未完成；父 WP-12 继续 in_progress。
+
+后续 [WP-15-CODEX-01](../WP-15/CODEX-01/summary.md) 已验证 BindAdapter/Controller 的实际 Codex 生命周期，并将 ValidateLaunch 接到 intent 前检查；相同静态 Target 合同用于 NewGateway 与 Adapter preflight。13 次 Adapter 原生回归通过，真实账号/Forwarder/quota、产品 HTTP/Factory、写/工具/恢复与最终 Gate 仍待完成，父包状态保持。

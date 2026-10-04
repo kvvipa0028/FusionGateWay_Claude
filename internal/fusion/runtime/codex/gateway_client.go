@@ -16,9 +16,8 @@ const StageProvider = "fusion_codex_stage"
 // Only readonly, tool-free generation is currently characterized; restoring a
 // thread needs a separate checkpoint/identity proof and is refused here.
 func NewGateway(p Peer, b Binding, scope func(Scope) bool, identity func() Identity, admitted func() bool) (*Client, error) {
-	t := b.Target
-	if t.BillingPath != "subscription" || t.Route.ID == "" || t.Route.Revision < 1 || t.PluginVersion != nil || t.LockEnforcement != stageplan.ControlledCalls || !gateID.MatchString(t.RequestedModel) || t.Effort.Value == nil || !gateID.MatchString(*t.Effort.Value) || (t.Effort.RequestedMode != stageplan.EffortExplicit && t.Effort.RequestedMode != stageplan.EffortDefault) {
-		return nil, ErrUnverified
+	if e := ValidateGatewayTarget(b.Target); e != nil {
+		return nil, e
 	}
 	c, e := New(p, b, scope, identity, admitted)
 	if e != nil {
@@ -26,6 +25,15 @@ func NewGateway(p Peer, b Binding, scope func(Scope) bool, identity func() Ident
 	}
 	c.gateway = true
 	return c, nil
+}
+
+// ValidateGatewayTarget is a static compatibility check, never admission. It
+// lets a trusted adapter reject incompatible routes before durable launch.
+func ValidateGatewayTarget(t stageplan.ExecutionTarget) error {
+	if t.RuntimeVersion != CLIVersion || t.Account == "" || t.Workspace == "" || t.CredentialIdentity == "" || t.ResolvedModel != t.RequestedModel || t.BillingPath != "subscription" || t.Route.ID == "" || t.Route.Revision < 1 || t.PluginVersion != nil || t.LockEnforcement != stageplan.ControlledCalls || !gateID.MatchString(t.RequestedModel) || t.Effort.Value == nil || !gateID.MatchString(*t.Effort.Value) || (t.Effort.RequestedMode != stageplan.EffortExplicit && t.Effort.RequestedMode != stageplan.EffortDefault) {
+		return ErrUnverified
+	}
+	return nil
 }
 func (c *Client) readGatewayAccount(ctx context.Context) error {
 	var out map[string]json.RawMessage

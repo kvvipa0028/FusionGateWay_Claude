@@ -8,7 +8,9 @@
 
 Start 先读取持久启动映射，已有请求直接返回 Created=false，不再解析 Runtime、探测能力或调用准入服务。新请求核对任务当前状态、版本和 generation，locked 直接采用 exact frozen Target；auto 需要可信 SelectAuto，选择结果必须与原冻结 candidates 中一项完全相同。传入选择器/Resolver 的 Target、候选及实际 launch input 使用独立副本，不能改写冻结授权。
 
-Resolver 返回的 Backend/Spec 只来自服务器配置。控制器在写 intent 前拒绝 caller argv/executable/env/session/validator/channel（包含 ClaudeChannel 和 GrokChannel）、非法路径/UTF-8/input/time limit 和只读角色写权限。泛用 controller 时限最多十分钟，GLM Adapter 仍独立限制四分钟，服务端 resolver 必须使用该路线支持的范围。当前仅接受 Probe/Start/Events/Cancel 且无任意 network/child_processes 的能力；可信 Claude/Grok channel 的局部通信由 Adapter/Supervisor 控制，不据此开放泛用网络。
+Resolver 返回的 Backend/Spec 只来自服务器配置。控制器在写 intent 前拒绝 caller argv/executable/env/session/validator/channel（包含 ClaudeChannel、GrokChannel 和 CodexChannel）、非法路径/UTF-8/input/time limit 和只读角色写权限。泛用 controller 时限最多十分钟，具体 Adapter 仍独立限制范围，服务端 resolver 必须使用该路线支持的范围。当前仅接受 Probe/Start/Events/Cancel 且无任意 network/child_processes 的能力；可信 Claude/Grok/Codex channel 的局部通信由 Adapter/Supervisor 控制，不据此开放泛用网络。
+
+Backend 可提供可信 `ValidateLaunch(ctx, role, target, spec)`；BindAdapter 自动保留实现该方法的 Adapter。新请求在 probe 和 intent 前调用它，传入独立 Target/prompt 副本。它用于拒绝 Adapter 已知的输入/路线约束，不能提供 RPC/grant、替代 Inspection/CheckPrepared/Permit 或证明实际停止。检查后仍重核管理/来源，Adapter.Start 在 intent 后重复约束检查。已有不提供此方法的 Backend 保留原行为；自定义 Factory 不得把该 callback 作为可由请求体指定的授权。已提交 key 重读继续直接读取原 receipt，不重做 preflight 或启动。
 
 调用 Scheduler.PrepareOnce 将 intent/预留/请求映射一次提交；只有 Created=true 继续。CheckPrepared 在启动前重查实时准入。执行 lifetime 从控制器父 Context 派生，提交之后 HTTP 请求 Context 失效不会取消它；明确 Cancel、Close、应用退出和 Runtime deadline 可取消。取消必须匹配 task/run/generation，并由当前控制器持有 job；重启 unknown 和非本控制器的运行记录不自动接管。终态取消幂等，只读取终态。
 
@@ -31,3 +33,5 @@ WP-15-CANCEL-API-01 新增 CancelTask/CancelTaskAuthorized：全 TaskVersion Sto
 [CHECKPOINT-API-01](../work-items/WP-15/CHECKPOINT-API-01/summary.md) 新增可信归档入口：保留启动时生产callback及释放时私有终态，只有成功owned Wait/proof/release允许归档；前后Task/管理/关闭状态重查。归档计入原work slots/WaitGroup，Close取消并等待；补齐关闭标志先到、取消回调后到的RED→GREEN竞态。实际Native取得稳定reference再恢复原UUID通过，包括批准Read，未新增真实准入声明。
 
 [WP-15-SOURCE-GUARD-01](../work-items/WP-15/SOURCE-GUARD-01/summary.md) 已将私有SourceGuard接入Controller派单/归档、Grok/GLM Current和Supervisor启动/heartbeat/结果检查，见[合同](workspace-source-guard.md)。RequireSource=true拒绝无来源新执行；旧诊断兼容不提升来源证据。实际固定Native源漂移拒绝成功并核验wait/proof/release；产品项目登记与真实准入仍未完成。
+
+[WP-15-CODEX-01](../work-items/WP-15/CODEX-01/summary.md) 验证 BindAdapter → Codex 只读 Adapter 的实际 11 个原生生命周期场景：成功、429/unsafe503 失败、HTTP 断线、Pause、TaskCancel、Stage Cancel、Close、来源/身份漂移和 grant 激活失败。准确 receipt 不重放，已知错误 Handle 仍实际 wait/proof/release；暂停进入 needs_review，取消不暴露成功文字。新增 Adapter preflight 关闭可提前发现的错误在 intent 后占用预留的缺口，真实 Host RED→GREEN 记录保留。真实 subscription Factory/账号/Forwarder/quota、产品 HTTP 接线、写/工具/恢复与最终工程 Gate 继续未完成。

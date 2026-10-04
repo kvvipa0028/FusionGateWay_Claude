@@ -1,0 +1,34 @@
+{
+  "base_commit": "4e98ed6d813791fe5dc8c04903f003f031168ce0",
+  "source_files_sha256": {
+    "docs/fusion/README.md": "999fe5e85f9b441ca4669d672a8db915858cfa5596d4303e0fdb270a56f019c9",
+    "docs/fusion/contracts/codex-managed-adapter.md": "04a60dd3276866085f1165755ac057738b5ca907ad1013f424b3feb68ed1a1fb",
+    "docs/fusion/contracts/execution-controller.md": "bce773b5005f7ba22fc42c9a4ca4df68802ca960dee92b3b455d778827ffa41b",
+    "docs/fusion/work-items/WP-12/summary.md": "00473f6e7e408944fdbf7c8399d047360ecca0e7690a93bebb272d2ddac4143f",
+    "docs/fusion/work-items/WP-15/summary.md": "df287145135dfaff8c960fbdd19495d374af32af4bea2c40a411430974ce6244",
+    "internal/fusion/control/codex_native_test.go": "3331913f20d9a361b5282002e51a114f4e0ccbc29004fe21de19d23658221013",
+    "internal/fusion/control/controller.go": "f3c611df47f961a69c8c76523ad0d39dd876895e20cd737b2a8517c7e7214dea",
+    "internal/fusion/control/launch_validation_test.go": "0209a89b53563a8ab43992258073004ee0af82d0086166e924d46653139e30c5",
+    "internal/fusion/runtime/codex/gateway_client.go": "2f9235fa7e57e2325ee5af71446f1e921601971ecc861f29c73da11207cb8649",
+    "internal/fusion/runtime/codexadapter/adapter.go": "5929cbef915c55e972165effda2f80e549a440087a6d4a53257a13774ee64976",
+    "internal/fusion/runtime/codexadapter/adapter_test.go": "01be8263bf23553cd1e4a22b0edb246f80aa350a5c7247ca12354fd3f585255d"
+  },
+  "packet_files_sha256": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "fa14ea4eae2132c92e000c5d23931f483294ba012588d2120dd291ff0c1d123c",
+    "build-results.json": "cf5cfffe71c1090be54f7c1bccf0d554307ab5e1d73622b3fbe298b71a841897",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "codex-controller-adapter-native.log": "6351ce9b5f8c36d7a6986d2d6e60c5658785a1ef6f58af931d2c868c80fb87a4",
+    "codex-controller-adapter-red.log": "600775f8872e63ea17fe80046fe049d27776be09a415e8227984665a527afcc9",
+    "codex-controller-compile-red.log": "4b0ddfe6ae5fd1949bc4a9541ed08e3b305b655853168ce18b2d070a9ce20c9a",
+    "codex-controller-full-fusion.log": "1cde646e0914811e38b4c97a6f208a43ec345b1e19d07689285963682886aef5",
+    "codex-controller-host-final.log": "ee5fee639238e35b88dedee93c012c9da1ae1c5b4f733c6bc88a035874c0d87f",
+    "codex-controller-native-final.log": "752c443b963d0498bc8cdb8d84f6f63076dc769674ef74ef5c48b5863f1b00d9",
+    "codex-controller-native-initial.log": "f47e227896ea0d757a87915905c8752390173dcd08ec141e754fcf779dc098d3",
+    "codex-controller-preflight-green.log": "3082db2d58640328a905c26ef83641e15667922a97353488efc7a4f164290bdd",
+    "codex-controller-preintent-red.log": "47f494b427a31b4b905e3d84e92c5515f1c6b0893a9a04f8b5fd1fcfb3e69a25",
+    "reference-sha256.json": "793aca9a4992dab598fe8bb8759a753c95b281d271214986e2eb2f387e00e080",
+    "summary.md": "a52bf8df6168d460802c49cf052edf4e0839ba9cad38779a9e170c5e5a48a06d",
+    "test-results.json": "f239dbca37e1e2535a749ba0b33627650489af8a94b12474ef1337c845dc7d42"
+  }
+}

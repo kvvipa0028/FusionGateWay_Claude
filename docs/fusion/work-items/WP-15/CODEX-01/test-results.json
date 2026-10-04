@@ -1,0 +1,110 @@
+{
+  "codex-controller-compile-red.log": {
+    "top_level": {
+      "pass": 0,
+      "fail": 0,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 0,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "codex-controller-preintent-red.log": {
+    "top_level": {
+      "pass": 0,
+      "fail": 2,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 1,
+      "fail": 5,
+      "skip": 0
+    }
+  },
+  "codex-controller-adapter-red.log": {
+    "top_level": {
+      "pass": 0,
+      "fail": 0,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 0,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "codex-controller-preflight-green.log": {
+    "top_level": {
+      "pass": 97,
+      "fail": 0,
+      "skip": 9
+    },
+    "subtests": {
+      "pass": 272,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "codex-controller-native-initial.log": {
+    "top_level": {
+      "pass": 1,
+      "fail": 0,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 11,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "codex-controller-host-final.log": {
+    "top_level": {
+      "pass": 98,
+      "fail": 0,
+      "skip": 10
+    },
+    "subtests": {
+      "pass": 276,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "codex-controller-native-final.log": {
+    "top_level": {
+      "pass": 8,
+      "fail": 0,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 28,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "codex-controller-adapter-native.log": {
+    "top_level": {
+      "pass": 2,
+      "fail": 0,
+      "skip": 0
+    },
+    "subtests": {
+      "pass": 19,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "codex-controller-full-fusion.log": {
+    "top_level": {
+      "pass": 514,
+      "fail": 0,
+      "skip": 29
+    },
+    "subtests": {
+      "pass": 945,
+      "fail": 0,
+      "skip": 10
+    }
+  }
+}

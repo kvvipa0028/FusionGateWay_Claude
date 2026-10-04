@@ -110,29 +110,75 @@ func same(a, b any) bool {
 	return e == nil && f == nil && bytes.Equal(x, y)
 }
 
-// Start accepts private provenance/paths, prompt and timeout only. This version
-// is readonly and tool-free for every role; roles do not grant write authority.
-func (a *Adapter) Start(ctx context.Context, inputRun store.StageRun, in managed.Spec) (*managed.Handle, error) {
-	if a == nil || ctx.Err() != nil || !in.Source.Present() || !in.SourceCurrent() || in.Executable != "" || in.ExecutableHash != "" || len(in.Args) != 0 || len(in.FixtureEnvironment) != 0 || in.NativeSessionID != "" || in.ClaudeChannel != nil || in.GrokChannel != nil || in.CodexChannel != nil || in.ValidateOutcome != nil || in.Timeout <= 0 || in.Timeout > 4*time.Minute || len(in.Input) == 0 || len(in.Input) > 64<<10 || !utf8.Valid(in.Input) || bytes.IndexByte(in.Input, 0) >= 0 {
-		return nil, codex.ErrUnverified
+func validateSpec(ctx context.Context, in managed.Spec) error {
+	if ctx.Err() != nil || !in.Source.Present() || !in.SourceCurrent() || in.Executable != "" || in.ExecutableHash != "" || len(in.Args) != 0 || len(in.FixtureEnvironment) != 0 || in.NativeSessionID != "" || in.ClaudeChannel != nil || in.GrokChannel != nil || in.CodexChannel != nil || in.ValidateOutcome != nil || in.Timeout <= 0 || in.Timeout > 4*time.Minute || len(in.Input) == 0 || len(in.Input) > 64<<10 || !utf8.Valid(in.Input) || bytes.IndexByte(in.Input, 0) >= 0 {
+		return codex.ErrUnverified
 	}
 	if in.Writable {
-		return nil, managed.ErrUnsupported
+		return managed.ErrUnsupported
 	}
 	if workspace.PrivateState(in.Root) != nil || workspace.PrivateState(in.Workspace) != nil || in.Root == in.Workspace || strings.HasPrefix(in.Root, in.Workspace+"/") || strings.HasPrefix(in.Workspace, in.Root+"/") {
+		return codex.ErrUnverified
+	}
+	encoded, e := json.Marshal(string(in.Input))
+	if e != nil || len(encoded) > 32<<10 {
+		return codex.ErrUnverified
+	}
+	return nil
+}
+
+// ValidateLaunch performs no RPC, grant creation, budget spend or startup. It
+// supplies adapter-specific preflight to Controller before intent. Current
+// route/permission/quota inspection and post-intent checks remain mandatory.
+func (a *Adapter) ValidateLaunch(ctx context.Context, role stageplan.Role, target stageplan.ExecutionTarget, in managed.Spec) error {
+	if a == nil {
+		return codex.ErrUnverified
+	}
+	target = cloneTarget(target)
+	in.Input = append([]byte(nil), in.Input...)
+	if e := validateSpec(ctx, in); e != nil {
+		return e
+	}
+	if e := codex.ValidateGatewayTarget(target); e != nil {
+		return e
+	}
+	known := false
+	for _, r := range stageplan.AllRoles() {
+		known = known || role == r
+	}
+	if !known {
+		return codex.ErrUnverified
+	}
+	id := a.config.Identity(cloneTarget(target))
+	if id.Generation < 1 || id.Account != target.Account || id.Workspace != target.Workspace || id.CredentialIdentity != target.CredentialIdentity {
+		return codex.ErrIdentity
+	}
+	if e := validateSpec(ctx, in); e != nil {
+		return e
+	}
+	if a.config.Identity(cloneTarget(target)) != id {
+		return codex.ErrIdentity
+	}
+	return validateSpec(ctx, in)
+}
+
+// Start repeats preflight after durable intent, then checks the reservation.
+// This version is readonly/tool-free; roles do not grant write authority.
+func (a *Adapter) Start(ctx context.Context, inputRun store.StageRun, in managed.Spec) (*managed.Handle, error) {
+	if a == nil {
 		return nil, codex.ErrUnverified
+	}
+	// Freeze caller slices/pointers before any trusted callback can run.
+	in.Input = append([]byte(nil), in.Input...)
+	inputRun.Target = cloneTarget(inputRun.Target)
+	if e := a.ValidateLaunch(ctx, inputRun.Role, inputRun.Target, in); e != nil {
+		return nil, e
 	}
 	rootInfo, e := os.Lstat(in.Root)
 	if e != nil {
 		return nil, codex.ErrIdentity
 	}
-	// Freeze caller slices/pointers before any trusted callback can run.
-	prompt := string(append([]byte(nil), in.Input...))
-	encoded, e := json.Marshal(prompt)
-	if e != nil || len(encoded) > 32<<10 {
-		return nil, codex.ErrUnverified
-	}
-	inputRun.Target = cloneTarget(inputRun.Target)
+	prompt := string(in.Input)
 	if e := a.config.Scheduler.CheckPrepared(ctx, inputRun); e != nil {
 		return nil, e
 	}

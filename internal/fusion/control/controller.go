@@ -39,6 +39,9 @@ type Backend struct {
 	Probe   func(context.Context) (managed.Capabilities, error)
 	Start   func(context.Context, store.StageRun, managed.Spec) (Execution, error)
 	Release func(policy.StopProof) error
+	// ValidateLaunch rejects adapter-specific constraints before intent. It is
+	// trusted wiring, not admission or a replacement for post-intent checks.
+	ValidateLaunch func(context.Context, stageplan.Role, stageplan.ExecutionTarget, managed.Spec) error
 	// CheckRestore must verify the sealed checkpoint/current source before
 	// intent. Restore must repeat those checks for the fresh prepared run.
 	CheckRestore func(context.Context, store.StageRun, stageplan.ExecutionTarget, managed.Spec, store.RestoreIdentity) error
@@ -56,13 +59,19 @@ func BindAdapter(a ReleasingAdapter) Backend {
 	if a == nil {
 		return Backend{}
 	}
-	return Backend{Probe: a.Probe, Release: a.Release, Start: func(ctx context.Context, r store.StageRun, spec managed.Spec) (Execution, error) {
+	b := Backend{Probe: a.Probe, Release: a.Release, Start: func(ctx context.Context, r store.StageRun, spec managed.Spec) (Execution, error) {
 		h, e := a.Start(ctx, r, spec)
 		if h == nil {
 			return nil, e
 		}
 		return h, e
 	}}
+	if v, ok := a.(interface {
+		ValidateLaunch(context.Context, stageplan.Role, stageplan.ExecutionTarget, managed.Spec) error
+	}); ok {
+		b.ValidateLaunch = v.ValidateLaunch
+	}
+	return b
 }
 
 type Launch struct {
@@ -225,6 +234,13 @@ func (c *Controller) start(request context.Context, key string, in store.StartId
 		return c.retryOrError(key, in, ErrUnsupported)
 	}
 	launch.Spec.Input = append([]byte(nil), launch.Spec.Input...)
+	if validate := launch.Backend.ValidateLaunch; validate != nil {
+		spec := launch.Spec
+		spec.Input = append([]byte(nil), spec.Input...)
+		if e := validate(request, in.Role, clone(target), spec); e != nil {
+			return c.retryOrError(key, in, ErrUnsupported)
+		}
+	}
 	if in.Restore != nil {
 		spec := launch.Spec
 		spec.Input = append([]byte(nil), spec.Input...)

@@ -1,0 +1,37 @@
+=== RUN   TestControllerPinnedCodexNativeLifecycle
+=== RUN   TestControllerPinnedCodexNativeLifecycle/success
+    codex_native_test.go:43: actual pinned Codex Controller; mode success state succeeded send/budget 1 real StopProof/release; identity/quota/upstream synthetic
+=== RUN   TestControllerPinnedCodexNativeLifecycle/rate_limit
+    codex_native_test.go:43: actual pinned Codex Controller; mode rate_limit state failed send/budget 1 real StopProof/release; identity/quota/upstream synthetic
+=== RUN   TestControllerPinnedCodexNativeLifecycle/unsafe503
+    codex_native_test.go:43: actual pinned Codex Controller; mode unsafe503 state failed send/budget 1 real StopProof/release; identity/quota/upstream synthetic
+=== RUN   TestControllerPinnedCodexNativeLifecycle/disconnect
+    codex_native_test.go:43: actual pinned Codex Controller; mode disconnect state succeeded send/budget 1 real StopProof/release; identity/quota/upstream synthetic
+=== RUN   TestControllerPinnedCodexNativeLifecycle/pause
+    codex_native_test.go:43: actual pinned Codex Controller; mode pause state cancelled send/budget 1 real StopProof/release; identity/quota/upstream synthetic
+=== RUN   TestControllerPinnedCodexNativeLifecycle/task_cancel
+    codex_native_test.go:43: actual pinned Codex Controller; mode task_cancel state cancelled send/budget 1 real StopProof/release; identity/quota/upstream synthetic
+=== RUN   TestControllerPinnedCodexNativeLifecycle/stage_cancel
+    codex_native_test.go:43: actual pinned Codex Controller; mode stage_cancel state cancelled send/budget 1 real StopProof/release; identity/quota/upstream synthetic
+=== RUN   TestControllerPinnedCodexNativeLifecycle/close
+    codex_native_test.go:43: actual pinned Codex Controller; mode close state cancelled send/budget 1 real StopProof/release; identity/quota/upstream synthetic
+=== RUN   TestControllerPinnedCodexNativeLifecycle/source_drift
+    codex_native_test.go:43: actual pinned Codex Controller; mode source_drift state cancelled send/budget 1 real StopProof/release; identity/quota/upstream synthetic
+=== RUN   TestControllerPinnedCodexNativeLifecycle/identity_drift
+    codex_native_test.go:43: actual pinned Codex Controller; mode identity_drift state cancelled send/budget 1 real StopProof/release; identity/quota/upstream synthetic
+=== RUN   TestControllerPinnedCodexNativeLifecycle/activation_refused
+    codex_native_test.go:43: actual pinned Codex Controller; mode activation_refused state cancelled send/budget 0 real StopProof/release; identity/quota/upstream synthetic
+--- PASS: TestControllerPinnedCodexNativeLifecycle (11.18s)
+    --- PASS: TestControllerPinnedCodexNativeLifecycle/success (1.06s)
+    --- PASS: TestControllerPinnedCodexNativeLifecycle/rate_limit (0.97s)
+    --- PASS: TestControllerPinnedCodexNativeLifecycle/unsafe503 (1.90s)
+    --- PASS: TestControllerPinnedCodexNativeLifecycle/disconnect (1.05s)
+    --- PASS: TestControllerPinnedCodexNativeLifecycle/pause (0.93s)
+    --- PASS: TestControllerPinnedCodexNativeLifecycle/task_cancel (0.93s)
+    --- PASS: TestControllerPinnedCodexNativeLifecycle/stage_cancel (0.91s)
+    --- PASS: TestControllerPinnedCodexNativeLifecycle/close (0.94s)
+    --- PASS: TestControllerPinnedCodexNativeLifecycle/source_drift (0.93s)
+    --- PASS: TestControllerPinnedCodexNativeLifecycle/identity_drift (0.92s)
+    --- PASS: TestControllerPinnedCodexNativeLifecycle/activation_refused (0.65s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/control	12.830s

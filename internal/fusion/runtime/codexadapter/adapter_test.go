@@ -234,3 +234,48 @@ func TestCodexAdapterPrivateOutputAndFormatting(t *testing.T) {
 		t.Fatal("private adapter serialized")
 	}
 }
+
+func TestCodexAdapterPreflightRequiresExactTargetAndCurrentSource(t *testing.T) {
+	for _, mode := range []string{"valid", "role", "version", "model", "billing", "plugin", "effort", "identity", "context", "callback_source"} {
+		t.Run(mode, func(t *testing.T) {
+			c, r, in, _, _, origin := adapterFixture(t)
+			role := r.Role
+			target := cloneTarget(r.Target)
+			ctx, cancel := context.WithCancel(context.Background())
+			defer cancel()
+			switch mode {
+			case "role":
+				role = "unknown"
+			case "version":
+				target.RuntimeVersion = "other"
+			case "model":
+				target.ResolvedModel = "other"
+			case "billing":
+				target.BillingPath = "api"
+			case "plugin":
+				x := "other"
+				target.PluginVersion = &x
+			case "effort":
+				target.Effort.Value = nil
+			case "identity":
+				c.Identity = func(stageplan.ExecutionTarget) codex.Identity { return codex.Identity{} }
+			case "context":
+				cancel()
+			case "callback_source":
+				old := c.Identity
+				c.Identity = func(x stageplan.ExecutionTarget) codex.Identity {
+					os.WriteFile(filepath.Join(origin, "fixture.txt"), []byte("changed"), 0600)
+					return old(x)
+				}
+			}
+			a, e := NewAdapter(c)
+			if e != nil {
+				t.Fatal(e)
+			}
+			e = a.ValidateLaunch(ctx, role, target, in)
+			if (e == nil) != (mode == "valid") {
+				t.Fatal("invalid preflight result", mode, e)
+			}
+		})
+	}
+}

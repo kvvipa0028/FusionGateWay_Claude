@@ -1,0 +1,57 @@
+=== RUN   TestCodexAdapterPinnedNative
+=== RUN   TestCodexAdapterPinnedNative/success
+    adapter_native_darwin_test.go:211: pinned Native Adapter; stage succeeded send/budget 1 actual wait/StopProof/release; synthetic subscription admission
+=== RUN   TestCodexAdapterPinnedNative/rate_limit
+    adapter_native_darwin_test.go:211: pinned Native Adapter; stage failed send/budget 1 actual wait/StopProof/release; synthetic subscription admission
+=== RUN   TestCodexAdapterPinnedNative/unsafe503
+    adapter_native_darwin_test.go:211: pinned Native Adapter; stage failed send/budget 1 actual wait/StopProof/release; synthetic subscription admission
+=== RUN   TestCodexAdapterPinnedNative/cancel
+    adapter_native_darwin_test.go:211: pinned Native Adapter; stage cancelled send/budget 1 actual wait/StopProof/release; synthetic subscription admission
+=== RUN   TestCodexAdapterPinnedNative/parent_cancel
+    adapter_native_darwin_test.go:211: pinned Native Adapter; stage cancelled send/budget 1 actual wait/StopProof/release; synthetic subscription admission
+=== RUN   TestCodexAdapterPinnedNative/timeout
+    adapter_native_darwin_test.go:211: pinned Native Adapter; stage cancelled send/budget 1 actual wait/StopProof/release; synthetic subscription admission
+=== RUN   TestCodexAdapterPinnedNative/source_drift
+    adapter_native_darwin_test.go:211: pinned Native Adapter; stage cancelled send/budget 1 actual wait/StopProof/release; synthetic subscription admission
+=== RUN   TestCodexAdapterPinnedNative/identity_drift
+    adapter_native_darwin_test.go:211: pinned Native Adapter; stage cancelled send/budget 1 actual wait/StopProof/release; synthetic subscription admission
+=== RUN   TestCodexAdapterPinnedNative/quota_before_send
+    adapter_native_darwin_test.go:211: pinned Native Adapter; stage failed send/budget 0 actual wait/StopProof/release; synthetic subscription admission
+=== RUN   TestCodexAdapterPinnedNative/activation_refused
+    adapter_native_darwin_test.go:211: pinned Native Adapter; stage cancelled send/budget 0 actual wait/StopProof/release; synthetic subscription admission
+=== RUN   TestCodexAdapterPinnedNative/snapshot_prompt
+    adapter_native_darwin_test.go:211: pinned Native Adapter; stage succeeded send/budget 1 actual wait/StopProof/release; synthetic subscription admission
+=== RUN   TestCodexAdapterPinnedNative/snapshot_target
+    adapter_native_darwin_test.go:211: pinned Native Adapter; stage succeeded send/budget 1 actual wait/StopProof/release; synthetic subscription admission
+=== RUN   TestCodexAdapterPinnedNative/duplicate
+    adapter_native_darwin_test.go:211: pinned Native Adapter; stage cancelled send/budget 1 actual wait/StopProof/release; synthetic subscription admission
+--- PASS: TestCodexAdapterPinnedNative (16.44s)
+    --- PASS: TestCodexAdapterPinnedNative/success (1.14s)
+    --- PASS: TestCodexAdapterPinnedNative/rate_limit (1.29s)
+    --- PASS: TestCodexAdapterPinnedNative/unsafe503 (2.13s)
+    --- PASS: TestCodexAdapterPinnedNative/cancel (0.96s)
+    --- PASS: TestCodexAdapterPinnedNative/parent_cancel (1.31s)
+    --- PASS: TestCodexAdapterPinnedNative/timeout (2.41s)
+    --- PASS: TestCodexAdapterPinnedNative/source_drift (1.05s)
+    --- PASS: TestCodexAdapterPinnedNative/identity_drift (0.95s)
+    --- PASS: TestCodexAdapterPinnedNative/quota_before_send (1.59s)
+    --- PASS: TestCodexAdapterPinnedNative/activation_refused (0.66s)
+    --- PASS: TestCodexAdapterPinnedNative/snapshot_prompt (1.01s)
+    --- PASS: TestCodexAdapterPinnedNative/snapshot_target (1.02s)
+    --- PASS: TestCodexAdapterPinnedNative/duplicate (0.91s)
+=== RUN   TestCodexAdapterPinnedPrelaunchAdmission
+=== RUN   TestCodexAdapterPinnedPrelaunchAdmission/current_false
+=== RUN   TestCodexAdapterPinnedPrelaunchAdmission/identity_generation
+=== RUN   TestCodexAdapterPinnedPrelaunchAdmission/identity_account
+=== RUN   TestCodexAdapterPinnedPrelaunchAdmission/identity_workspace
+=== RUN   TestCodexAdapterPinnedPrelaunchAdmission/identity_credential
+=== RUN   TestCodexAdapterPinnedPrelaunchAdmission/callback_revokes_identity
+--- PASS: TestCodexAdapterPinnedPrelaunchAdmission (0.68s)
+    --- PASS: TestCodexAdapterPinnedPrelaunchAdmission/current_false (0.21s)
+    --- PASS: TestCodexAdapterPinnedPrelaunchAdmission/identity_generation (0.05s)
+    --- PASS: TestCodexAdapterPinnedPrelaunchAdmission/identity_account (0.06s)
+    --- PASS: TestCodexAdapterPinnedPrelaunchAdmission/identity_workspace (0.07s)
+    --- PASS: TestCodexAdapterPinnedPrelaunchAdmission/identity_credential (0.09s)
+    --- PASS: TestCodexAdapterPinnedPrelaunchAdmission/callback_revokes_identity (0.21s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime/codexadapter	18.630s

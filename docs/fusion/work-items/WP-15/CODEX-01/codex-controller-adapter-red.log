@@ -1,0 +1,4 @@
+# github.com/yetone/magpie/internal/fusion/runtime/codexadapter [github.com/yetone/magpie/internal/fusion/runtime/codexadapter.test]
+internal/fusion/runtime/codexadapter/adapter_test.go:242:49: a.ValidateLaunch undefined (type *Adapter has no field or method ValidateLaunch)
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/codexadapter [build failed]
+FAIL

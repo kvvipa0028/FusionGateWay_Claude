@@ -1,0 +1,19 @@
+{
+  "base_commit": "4e98ed6d813791fe5dc8c04903f003f031168ce0",
+  "native_codex": "0.160.0",
+  "codex_executable_sha256": "112fae7a5a1223e673c8a1791d32338f37df8b527ff1159bb8adac6c4dbf1b4b",
+  "controller_native_processes": {
+    "codex": 11,
+    "grok": 20,
+    "claude": 5
+  },
+  "codex_adapter_native_processes": 13,
+  "codex_adapter_prelaunch_no_process_cases": 6,
+  "controller_codex_sends_used_calls": 10,
+  "identity_quota_upstream": "synthetic; not subscription/account admission",
+  "graph": {
+    "project": "fusion-development",
+    "nodes": 13881,
+    "edges": 122855
+  }
+}

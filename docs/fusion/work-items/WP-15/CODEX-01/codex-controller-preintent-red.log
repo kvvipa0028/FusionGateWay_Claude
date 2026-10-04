@@ -1,0 +1,25 @@
+=== RUN   TestControllerCodexSpecRejectedBeforeIntent
+=== RUN   TestControllerCodexSpecRejectedBeforeIntent/source_missing
+    launch_validation_test.go:41: adapter rejection committed an intent execution requires reconciliation after launch failure true
+=== RUN   TestControllerCodexSpecRejectedBeforeIntent/encoded_prompt
+    launch_validation_test.go:41: adapter rejection committed an intent execution requires reconciliation after launch failure true
+=== RUN   TestControllerCodexSpecRejectedBeforeIntent/timeout
+    launch_validation_test.go:41: adapter rejection committed an intent execution requires reconciliation after launch failure true
+=== RUN   TestControllerCodexSpecRejectedBeforeIntent/write
+=== RUN   TestControllerCodexSpecRejectedBeforeIntent/target_version
+    launch_validation_test.go:41: adapter rejection committed an intent execution requires reconciliation after launch failure true
+=== RUN   TestControllerCodexSpecRejectedBeforeIntent/identity
+    launch_validation_test.go:41: adapter rejection committed an intent execution requires reconciliation after launch failure true
+--- FAIL: TestControllerCodexSpecRejectedBeforeIntent (0.29s)
+    --- FAIL: TestControllerCodexSpecRejectedBeforeIntent/source_missing (0.06s)
+    --- FAIL: TestControllerCodexSpecRejectedBeforeIntent/encoded_prompt (0.05s)
+    --- FAIL: TestControllerCodexSpecRejectedBeforeIntent/timeout (0.05s)
+    --- PASS: TestControllerCodexSpecRejectedBeforeIntent/write (0.04s)
+    --- FAIL: TestControllerCodexSpecRejectedBeforeIntent/target_version (0.05s)
+    --- FAIL: TestControllerCodexSpecRejectedBeforeIntent/identity (0.05s)
+=== RUN   TestControllerLaunchValidationReceivesFrozenCopies
+    launch_validation_test.go:59: {succeeded true true} 0
+--- FAIL: TestControllerLaunchValidationReceivesFrozenCopies (0.05s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/control	1.157s
+FAIL

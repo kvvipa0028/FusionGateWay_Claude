@@ -18,6 +18,8 @@
 
 在任何可信服务 callback 前复制 prompt 和输入 Target；随后通过 `CheckPrepared` 核对权威 Store 中的 run、冻结目标、权限、quota、reservation 和预算。每个模型 HTTP 请求均使用真实 `Scheduler.Permit`，持续重核准入后记录持久调用预算。没有预算重置、退款或替换模型。
 
+后续 [WP-15-CODEX-01](../work-items/WP-15/CODEX-01/summary.md) 将 `ValidateLaunch` 接到 BindAdapter/Controller，在 intent 前核对同一静态 gateway Target 合同、角色、独立 registry identity、SourceGuard、私有目录、prompt 与时限。它不探测/启动 Native，不创建 grant 或消耗预算。身份 callback 前后重核来源、context 与身份；Start 再次验证并保留原 CheckPrepared/Permit。Controller 传入的 Target/prompt 为独立副本，validator 不能修改后续冻结输入。
+
 ## 原生执行与结果
 
 Adapter 验证可执行文件的固定 SHA，创建新的私有进程 session 标记和本阶段 grant，固定启动为 `app-server --listen stdio:// --strict-config`。session 标记用于受管进程归属；真正的 Native thread/turn ID 来自严格核验的 RPC 回复，二者不能混作恢复身份。
