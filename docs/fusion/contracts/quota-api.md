@@ -20,3 +20,5 @@ Broker 对精确 Identity 的同时刷新合并，并在后台保有最多十秒
 12 项 API 测试覆盖实际 loopback HTTP、cache-only GET、来源时间与过期、越权请求、身份/配置撤销、错误脱敏、首次授权失败、登记失配与热替换、合并刷新撤销、客户端取消后的实际名额、全服务名额耗尽、共享 pool 的更晚部分观测和采集 Context 的 issuer/deadline。本项采集器为 synthetic fixture，真实 GLM QuotaReader 的单次 CN 查询证据见 WP-14；本项没有新增真实模型/额度调用。产品接线继续实施，当前 Handler 的完整 OpenAPI 已纳入验证，Jev off。
 
 默认层写入仅改变选择配置，quota registration 使用独立 routeRevision，因此保留原 reader/cache/source age；选择变更不能重新登记相同来源或刷新 ObservedAt。响应 configuration_revision 仍为当前有效选择配置版本，不能拿它替代内部来源授权条件。新增默认层回归覆盖此行为，见 [default-layer-api.md](default-layer-api.md)。
+
+后续[GLM 产品额度宿主](glm-quota-host.md)已通过显式 CLI 查询用途登记接入本接口：读取缓存无上游调用，手动 refresh 才使用私有 FileCredential 与固定 CN 个人套餐 Reader。真实查询仍 Complete=false/Pool.Verified=false/status=unverified；不改变调度语义、真实生成准入或 Native 允许路径，UI 额度面板继续待接入。

@@ -1,0 +1,24 @@
+=== RUN   TestGLMQuotaHostReadIsIndependentFromExecution
+    quota_host_test.go:79: query promoted generation
+--- FAIL: TestGLMQuotaHostReadIsIndependentFromExecution (0.10s)
+=== RUN   TestQuotaHostRejectsInvalidRegistrationAndCleans
+=== RUN   TestQuotaHostRejectsInvalidRegistrationAndCleans/nil
+=== RUN   TestQuotaHostRejectsInvalidRegistrationAndCleans/empty
+=== RUN   TestQuotaHostRejectsInvalidRegistrationAndCleans/unknown-project
+=== RUN   TestQuotaHostRejectsInvalidRegistrationAndCleans/unknown-route
+=== RUN   TestQuotaHostRejectsInvalidRegistrationAndCleans/revision
+=== RUN   TestQuotaHostRejectsInvalidRegistrationAndCleans/account
+=== RUN   TestQuotaHostRejectsInvalidRegistrationAndCleans/no-current
+=== RUN   TestQuotaHostRejectsInvalidRegistrationAndCleans/error
+--- PASS: TestQuotaHostRejectsInvalidRegistrationAndCleans (0.36s)
+    --- PASS: TestQuotaHostRejectsInvalidRegistrationAndCleans/nil (0.00s)
+    --- PASS: TestQuotaHostRejectsInvalidRegistrationAndCleans/empty (0.05s)
+    --- PASS: TestQuotaHostRejectsInvalidRegistrationAndCleans/unknown-project (0.05s)
+    --- PASS: TestQuotaHostRejectsInvalidRegistrationAndCleans/unknown-route (0.05s)
+    --- PASS: TestQuotaHostRejectsInvalidRegistrationAndCleans/revision (0.05s)
+    --- PASS: TestQuotaHostRejectsInvalidRegistrationAndCleans/account (0.05s)
+    --- PASS: TestQuotaHostRejectsInvalidRegistrationAndCleans/no-current (0.05s)
+    --- PASS: TestQuotaHostRejectsInvalidRegistrationAndCleans/error (0.05s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	1.149s
+FAIL

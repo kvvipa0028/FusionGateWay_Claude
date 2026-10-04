@@ -1,0 +1,30 @@
+{
+  "component": "WP-15-GLM-QUOTA-HOST-01",
+  "product_cli": "fusion-control",
+  "binary_sha256": "9f838a5d28996aaf074ca622b78c36ba477c1c9242cc3b548e94a9687ea24829",
+  "query_endpoint": "https://open.bigmodel.cn/api/monitor/usage/quota/limit",
+  "explicit_refresh_requests": 1,
+  "real_model_calls": 0,
+  "execution_enabled": false,
+  "quota_status": "unverified",
+  "pool_verified": false,
+  "complete": false,
+  "observed_at": "2026-10-04T20:44:46Z",
+  "received_at": "2026-10-04T20:44:46.105406Z",
+  "model_windows": [
+    {
+      "kind": "coding_plan",
+      "used_percent": 0
+    },
+    {
+      "kind": "coding_plan",
+      "used_percent": 0
+    }
+  ],
+  "cache_GET_kept_original_snapshot": true,
+  "route_admitted": false,
+  "billing_known": false,
+  "jev": "off",
+  "owned_exit_code": 0,
+  "private_fixture_cleanup": true
+}

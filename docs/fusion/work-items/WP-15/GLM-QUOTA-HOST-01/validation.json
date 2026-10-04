@@ -1,0 +1,15 @@
+{
+  "source_files": 16,
+  "json_checked": 7,
+  "local_links_checked": 138,
+  "gofmt": "pass",
+  "diff": "pass",
+  "Python": "syntax pass; existing-report preflight refuses before product/key/query; actual single live product run passed prior output-only guard addition",
+  "private_key_byte_exclusion": "pass; no key/token or credential digest emitted",
+  "UI_assets": "all unchanged; original Magpie three assets byte-equal locked source",
+  "API_Store_Runtime_OpenAPI": "unchanged",
+  "build_log_and_binary_hashes": "pass; live CLI exact final build hash",
+  "graph": "refreshed 14068 nodes 125483 edges",
+  "actual_Native_UI": "not_repeated; UI unchanged",
+  "real_generation": "not_admitted; quota-only Controller nil"
+}

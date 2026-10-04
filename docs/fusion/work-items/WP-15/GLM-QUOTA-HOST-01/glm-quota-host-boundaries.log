@@ -1,0 +1,44 @@
+=== RUN   TestGLMQuotaHostReadIsIndependentFromExecution
+--- PASS: TestGLMQuotaHostReadIsIndependentFromExecution (0.12s)
+=== RUN   TestQuotaHostRejectsInvalidRegistrationAndCleans
+=== RUN   TestQuotaHostRejectsInvalidRegistrationAndCleans/nil
+=== RUN   TestQuotaHostRejectsInvalidRegistrationAndCleans/empty
+=== RUN   TestQuotaHostRejectsInvalidRegistrationAndCleans/unknown-project
+=== RUN   TestQuotaHostRejectsInvalidRegistrationAndCleans/unknown-route
+=== RUN   TestQuotaHostRejectsInvalidRegistrationAndCleans/revision
+=== RUN   TestQuotaHostRejectsInvalidRegistrationAndCleans/account
+=== RUN   TestQuotaHostRejectsInvalidRegistrationAndCleans/no-current
+=== RUN   TestQuotaHostRejectsInvalidRegistrationAndCleans/error
+--- PASS: TestQuotaHostRejectsInvalidRegistrationAndCleans (0.35s)
+    --- PASS: TestQuotaHostRejectsInvalidRegistrationAndCleans/nil (0.00s)
+    --- PASS: TestQuotaHostRejectsInvalidRegistrationAndCleans/empty (0.05s)
+    --- PASS: TestQuotaHostRejectsInvalidRegistrationAndCleans/unknown-project (0.05s)
+    --- PASS: TestQuotaHostRejectsInvalidRegistrationAndCleans/unknown-route (0.05s)
+    --- PASS: TestQuotaHostRejectsInvalidRegistrationAndCleans/revision (0.05s)
+    --- PASS: TestQuotaHostRejectsInvalidRegistrationAndCleans/account (0.05s)
+    --- PASS: TestQuotaHostRejectsInvalidRegistrationAndCleans/no-current (0.05s)
+    --- PASS: TestQuotaHostRejectsInvalidRegistrationAndCleans/error (0.05s)
+=== RUN   TestGLMQuotaHostRejectsInvalidScopeBeforeQuery
+=== RUN   TestGLMQuotaHostRejectsInvalidScopeBeforeQuery/unknown-project
+=== RUN   TestGLMQuotaHostRejectsInvalidScopeBeforeQuery/unknown-route
+=== RUN   TestGLMQuotaHostRejectsInvalidScopeBeforeQuery/ambiguous-revision
+=== RUN   TestGLMQuotaHostRejectsInvalidScopeBeforeQuery/wrong-provider
+=== RUN   TestGLMQuotaHostRejectsInvalidScopeBeforeQuery/missing-key
+=== RUN   TestGLMQuotaHostRejectsInvalidScopeBeforeQuery/public-key
+=== RUN   TestGLMQuotaHostRejectsInvalidScopeBeforeQuery/key-in-project
+=== RUN   TestGLMQuotaHostRejectsInvalidScopeBeforeQuery/cancelled
+=== RUN   TestGLMQuotaHostRejectsInvalidScopeBeforeQuery/no-reader
+--- PASS: TestGLMQuotaHostRejectsInvalidScopeBeforeQuery (0.40s)
+    --- PASS: TestGLMQuotaHostRejectsInvalidScopeBeforeQuery/unknown-project (0.05s)
+    --- PASS: TestGLMQuotaHostRejectsInvalidScopeBeforeQuery/unknown-route (0.05s)
+    --- PASS: TestGLMQuotaHostRejectsInvalidScopeBeforeQuery/ambiguous-revision (0.05s)
+    --- PASS: TestGLMQuotaHostRejectsInvalidScopeBeforeQuery/wrong-provider (0.05s)
+    --- PASS: TestGLMQuotaHostRejectsInvalidScopeBeforeQuery/missing-key (0.05s)
+    --- PASS: TestGLMQuotaHostRejectsInvalidScopeBeforeQuery/public-key (0.05s)
+    --- PASS: TestGLMQuotaHostRejectsInvalidScopeBeforeQuery/key-in-project (0.05s)
+    --- PASS: TestGLMQuotaHostRejectsInvalidScopeBeforeQuery/cancelled (0.00s)
+    --- PASS: TestGLMQuotaHostRejectsInvalidScopeBeforeQuery/no-reader (0.05s)
+=== RUN   TestGLMQuotaHostProductReaderOpensWithoutOutboundOrAdmission
+--- PASS: TestGLMQuotaHostProductReaderOpensWithoutOutboundOrAdmission (0.06s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	2.592s

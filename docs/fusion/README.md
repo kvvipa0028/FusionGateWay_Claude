@@ -8,6 +8,8 @@
 
 [阶段配置页面](contracts/stage-editor.md)直接复用原 Magpie UI 的样式与布局组件，已有三个区域、五角色独立设置、全局/项目保存和单阶段预览；通过[可信项目列表](contracts/project-index-api.md)发现登记。隔离浏览器测试使用临时管理凭据；[Native GUI 鉴权桥](contracts/native-stage-ui.md)已通过桥接回归和实际窗口保存/载入/退出验证，[命名预设创建/保存](contracts/preset-ui.md)已验证。[按项目任务分页](contracts/task-index-api.md)及受限 Native 读取通路已补齐，[任务工作台](contracts/task-workbench.md)已接入冻结提交、任务分页和计划/预算详情，[服务端提交回执](contracts/task-submission-receipt.md)已支持原请求在预览清理/宿主重启后的核对；[私有提交记录](contracts/task-submission-journal.md)已有存储与受限 [恢复 API/Native 通路](contracts/task-submission-api.md)，现已由[原请求恢复 UI](contracts/task-submission-ui.md)消费，浏览器关闭/宿主重开及同请求核对通过；实际 Native 恢复窗口验证仍待桌面解锁，[受限运行控制桥](contracts/native-task-control.md)已接入，[运行控制页面](contracts/task-execution-ui.md)已在原任务详情区接入阶段选择、启动、暂停、继续、取消及原请求核对；真实供应商执行和实际 Native 运行操作仍未验证。
 
+[GLM 产品额度宿主](contracts/glm-quota-host.md)已接显式只查询的 CLI 与 Management API，并完成一次真实 CN 额度读取；生成、物理池和账号归属仍未准入，额度界面继续待接入。
+
 ## 阅读顺序
 
 1. [当前需求摘录](requirements-summary.md)：已知目标与未取得的原始需求文档。

@@ -40,7 +40,7 @@ func OpenExecutionControl(parent context.Context, sourcePath, root, addr string,
 	if parent == nil || parent.Err() != nil || factory == nil {
 		return nil, ErrControlHost
 	}
-	return openControl(parent, sourcePath, root, addr, factory)
+	return openControl(parent, sourcePath, root, addr, factory, false)
 }
 
 func (h *ControlHost) executionCurrent(projectID string) bool {
@@ -117,7 +117,7 @@ func (h *ControlHost) resolveExecution(ctx context.Context, t store.Task, role s
 	l.Spec.Input = append([]byte(nil), l.Spec.Input...)
 	return l, nil
 }
-func (h *ControlHost) installRuntime(parent context.Context, s *api.Server, f RuntimeFactory) error {
+func (h *ControlHost) installRuntime(parent context.Context, s *api.Server, f RuntimeFactory, queryOnly bool) error {
 	h.runtimeContext, h.runtimeCancel = context.WithCancel(parent)
 	scheduler := policy.Scheduler{Store: h.store, Inspect: h.inspectExecution}
 	reg, e := f(h.runtimeContext, RuntimeEnvironment{Store: h.store, Manager: h.auth, Source: h.source, Scheduler: scheduler, Current: h.executionCurrent})
@@ -126,7 +126,14 @@ func (h *ControlHost) installRuntime(parent context.Context, s *api.Server, f Ru
 	h.mu.Lock()
 	h.runtime = &reg
 	h.mu.Unlock()
-	if e != nil || reg.Inspect == nil || reg.Resolve == nil || len(reg.Routes) == 0 || h.runtimeContext.Err() != nil {
+	if e != nil || h.runtimeContext.Err() != nil {
+		return ErrControlHost
+	}
+	if queryOnly {
+		if len(reg.Routes) != 0 || reg.Inspect != nil || reg.Resolve != nil || reg.SelectAuto != nil || len(reg.QuotaSources) == 0 {
+			return ErrControlHost
+		}
+	} else if reg.Inspect == nil || reg.Resolve == nil || len(reg.Routes) == 0 {
 		return ErrControlHost
 	}
 	for id, routes := range reg.Routes {
@@ -157,7 +164,7 @@ func (h *ControlHost) installRuntime(parent context.Context, s *api.Server, f Ru
 		}
 	}
 	for id, sources := range reg.QuotaSources {
-		if !h.executionCurrent(id) {
+		if !h.executionCurrent(id) || queryOnly && len(sources) == 0 {
 			return ErrControlHost
 		}
 		wrapped := make([]api.QuotaSource, len(sources))
@@ -197,6 +204,9 @@ func (h *ControlHost) installRuntime(parent context.Context, s *api.Server, f Ru
 		if s.SetQuotaSources(id, wrapped) != nil {
 			return ErrControlHost
 		}
+	}
+	if queryOnly {
+		return nil
 	}
 	selectAuto := reg.SelectAuto
 	if selectAuto != nil {

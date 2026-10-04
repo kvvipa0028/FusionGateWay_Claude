@@ -1,0 +1,143 @@
+{
+  "base_commit": "395bf315a4c185dfbb55e942f96061bb63554784",
+  "source_files": [
+    {
+      "path": "docs/fusion/README.md",
+      "sha256": "181746b2712cc1336f878d9992a536bfa13efaf9d2fa11074af60f91ccae685a"
+    },
+    {
+      "path": "docs/fusion/contracts/control-host.md",
+      "sha256": "6d67db583a044c29fc5efb690a01c6a79312600e6108f79d48323e89f44c1058"
+    },
+    {
+      "path": "docs/fusion/contracts/execution-host.md",
+      "sha256": "3753119721e079fd8861d7671c36b1dddfbfc4f2e2a6a970494b2c622ab30ab5"
+    },
+    {
+      "path": "docs/fusion/contracts/glm-quota-host.md",
+      "sha256": "65617bd811c036dc6ce1ca12fca8032e50ce8dbeb25169cd61ce9191d4d9a782"
+    },
+    {
+      "path": "docs/fusion/contracts/quota-api.md",
+      "sha256": "4589de776656856fd2c97189cec51c98b302a63eb41653c48eb67bb82b6abb92"
+    },
+    {
+      "path": "docs/fusion/planning/Fusion_Magpie_Fork_Agent工作包_v1.0.md",
+      "sha256": "e954bef376b59efd2f51aa3ab7dbe7811b3198526714cb44847ce0494a808fd5"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/glm-integration-verification.md",
+      "sha256": "a1558d7e457c01f3e979b8b60fcf720604451f11d50257adda47fc730386d89a"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-14/summary.md",
+      "sha256": "4884b87a88d0a279acd4780cdd056d92d50f6595a56fa6acaf391bcca9a60568"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/summary.md",
+      "sha256": "c7fe59dc9ced45a5ad841fe04af31b39c6d92b8708f5c6ec0abb69f5406324b6"
+    },
+    {
+      "path": "fusion_control_cli.go",
+      "sha256": "bdb3a46fb05a7787b2d20d79ef77accc379dbd4e2dcc59f9c2d39a29a8841c03"
+    },
+    {
+      "path": "fusion_control_cli_test.go",
+      "sha256": "08373c5d6de45a63bbade581b3e56aba0ff529faf0f8b21d6b2c441bb62fbede"
+    },
+    {
+      "path": "internal/fusion/bootstrap/execution.go",
+      "sha256": "fb66c8201bba5b7bd624465e908c871791bf5dcef94bbf116f111ed9087797ae"
+    },
+    {
+      "path": "internal/fusion/bootstrap/host.go",
+      "sha256": "9e5c51bece5d7a13bf186f4cf332c58e8350bbdbe35f493bbdd16c39b45b67f3"
+    },
+    {
+      "path": "internal/fusion/bootstrap/quota_host.go",
+      "sha256": "8b835f70c049458ec172e8151477881dc9a1d4bb2958a42b3ba564f48095eb74"
+    },
+    {
+      "path": "internal/fusion/bootstrap/quota_host_test.go",
+      "sha256": "57f493e81a1bfef2f068eec6583f7aca123eef728c6982108e8d5370b809abd0"
+    },
+    {
+      "path": "scripts/fusion/probe-glm-quota-host.py",
+      "sha256": "83f4eb8c7216f98ed88748c110e9b0d5deccb73a77a6449e716b11b85570e38e"
+    }
+  ],
+  "packet_files": [
+    {
+      "path": "docs/fusion/work-items/WP-15/GLM-QUOTA-HOST-01/build-cli.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/GLM-QUOTA-HOST-01/build-gui.log",
+      "sha256": "2b8a6f6d4993c456d7d9a17d04dbf1e202e5174800f651a1df41770ec8d65894"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/GLM-QUOTA-HOST-01/build-results.json",
+      "sha256": "ebc2606a1840de6b7e7e0f82cc9c4c5516e0cb8c2228af82b06fe034a95a537d"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/GLM-QUOTA-HOST-01/build-vet.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/GLM-QUOTA-HOST-01/glm-quota-cli-final.log",
+      "sha256": "5426af9d0e4ef5a7303f09eaa7e15f43d60f3bbf5c4f594001d4aac59f68d669"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/GLM-QUOTA-HOST-01/glm-quota-host-boundaries.log",
+      "sha256": "ceca8d6ccdfd1c0bb904fabb30c3350475cb9284fb260c820bbc02d90cd893a4"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/GLM-QUOTA-HOST-01/glm-quota-host-final.log",
+      "sha256": "5e2a5f699b6cf33a231b307fb6bba63e1d548a9ef6306de858fa6682975224e6"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/GLM-QUOTA-HOST-01/glm-quota-host-green-verified.log",
+      "sha256": "529947ac7715baf3eabf088ea18ca449fc3a66fcfe6607d119b9b2ebd7026c6c"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/GLM-QUOTA-HOST-01/glm-quota-host-green.log",
+      "sha256": "06bc8f59a03ca535744c6727f6646e715a4cf2c232941c98e90881dde16ed71b"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/GLM-QUOTA-HOST-01/glm-quota-host-native-regression.log",
+      "sha256": "0b1f37670a7170e5a02e0127390498f6de03e5077fc70cb256b825280eac3593"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/GLM-QUOTA-HOST-01/glm-quota-host-red.log",
+      "sha256": "a190ab8b17abb879a52612bae38b50be5a01aa0d23de2ac80d23279ee4e31a22"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/GLM-QUOTA-HOST-01/glm-quota-product-live.json",
+      "sha256": "d06c5fdcec990e1c6b91eac3a2fbb6f128c954499976b55df1ef4f79ac2e9999"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/GLM-QUOTA-HOST-01/glm-quota-product-live.log",
+      "sha256": "1e68f8f3fdb3d83d445ab37819faac16d505a912c65f5f818c1b7f6d3fc7e87f"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/GLM-QUOTA-HOST-01/graph.json",
+      "sha256": "db8bfa6bfb7c6acf01253bb8827f1d6f49298d5c917b34a5d3aa6bfe74fcb8cd"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/GLM-QUOTA-HOST-01/log-provenance.json",
+      "sha256": "553cb46245640fd980070ef5a43f224f9d396b6379b829dd6ec0e99cab83bafe"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/GLM-QUOTA-HOST-01/summary.md",
+      "sha256": "86f9864d075bde4205a688029fd29e1da6b38995c514aa1936e94d0fd4bafaff"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/GLM-QUOTA-HOST-01/test-results.json",
+      "sha256": "bd0838c0792b3031d22e795d98fdff88ae0062aafd664bb2d94f7d6551da6d14"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/GLM-QUOTA-HOST-01/validation.json",
+      "sha256": "08577049c245bd0e85634d4876a8a39a334f55f96eb949c44fea7021312f96b3"
+    }
+  ]
+}

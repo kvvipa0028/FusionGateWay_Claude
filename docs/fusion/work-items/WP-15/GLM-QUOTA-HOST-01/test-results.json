@@ -1,0 +1,51 @@
+{
+  "component": "WP-15-GLM-QUOTA-HOST-01",
+  "component_status": "done",
+  "parent_WP15_WP14": "in_progress",
+  "checks": [
+    {
+      "log": "glm-quota-host-final.log",
+      "top_pass": 48,
+      "sub_pass": 180,
+      "skip": 3,
+      "fail": 0
+    },
+    {
+      "log": "glm-quota-cli-final.log",
+      "top_pass": 3,
+      "sub_pass": 0,
+      "skip": 0,
+      "fail": 0
+    },
+    {
+      "log": "glm-quota-host-native-regression.log",
+      "top_pass": 2,
+      "sub_pass": 12,
+      "skip": 0,
+      "fail": 0
+    }
+  ],
+  "skip_explanation": "two fixed Native opt-ins were then run separately; old Reader live diagnostic opt-in remains skipped, real product query executed separately once",
+  "new_tests": {
+    "top": 5,
+    "sub": 19
+  },
+  "real_quota_HTTP_GET": 1,
+  "real_model_calls": 0,
+  "fixed_Native_regression": {
+    "actual_processes": 10,
+    "synthetic_HTTP_calls": 15,
+    "real_StopProof_and_release": true,
+    "real_provider_calls": 0
+  },
+  "quota_status": "unverified",
+  "pool_verified": false,
+  "upstream_account_verified": false,
+  "generation_billing_verified": false,
+  "Controller_installed_by_quota_host": false,
+  "product_UI_Native_bridge": "unchanged; quota UI/bridge pending",
+  "jev": "off",
+  "final_T01_T60": "not_run",
+  "build": "CLI/GUI/full tagged vet Go1.26.3 exit0",
+  "probe_after_live_change": "only refuses existing output before query/exclusive report creation; separate no-overwrite preflight test passed, no second real query"
+}

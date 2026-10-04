@@ -1,0 +1,10 @@
+# github.com/yetone/magpie/internal/fusion/bootstrap [github.com/yetone/magpie/internal/fusion/bootstrap.test]
+internal/fusion/bootstrap/quota_host_test.go:28:11: undefined: glmQuotaFactory
+internal/fusion/bootstrap/quota_host_test.go:34:7: undefined: OpenQuotaControl
+internal/fusion/bootstrap/quota_host_test.go:48:59: undefined: QuotaFactory
+internal/fusion/bootstrap/quota_host_test.go:49:47: undefined: QuotaEnvironment
+internal/fusion/bootstrap/quota_host_test.go:49:65: undefined: QuotaRegistration
+internal/fusion/bootstrap/quota_host_test.go:52:9: undefined: QuotaRegistration
+internal/fusion/bootstrap/quota_host_test.go:54:8: undefined: OpenQuotaControl
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap [build failed]
+FAIL

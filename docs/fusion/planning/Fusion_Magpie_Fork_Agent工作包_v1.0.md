@@ -472,6 +472,8 @@
 
 ---
 
+后续 [GLM-QUOTA-HOST-01](../work-items/WP-15/GLM-QUOTA-HOST-01/summary.md)已接独立产品额度查询与一次真实 CN 观察；不授予生成或物理池准入，父 WP-15 保持 in_progress。
+
 ### WP-16 · 阶段选择 UI 与单阶段工作台
 
 **阶段：**M2　**负责人角色：**前端 Agent　**状态：**in_progress

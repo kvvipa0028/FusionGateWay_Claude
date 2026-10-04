@@ -16,6 +16,13 @@ func TestFusionControlCommandRejectsArguments(t *testing.T) {
 		}
 	}
 }
+func TestFusionControlCommandRequiresCompleteQuotaPurpose(t *testing.T) {
+	for _, args := range [][]string{{"--projects", "/missing/projects.json", "--glm-quota-project", "fixture"}, {"--projects", "/missing/projects.json", "--glm-quota-route", "fixture"}, {"--projects", "/missing/projects.json", "--glm-quota-key", "fixture-key"}, {"--projects", "/missing/projects.json", "--glm-quota-project", "fixture", "--glm-quota-route", "fixture", "--glm-quota-key", "relative"}} {
+		if e := runFusionControl(context.Background(), args, io.Discard); e != bootstrap.ErrControlHost {
+			t.Fatal("partial or invalid quota purpose accepted")
+		}
+	}
+}
 func TestFusionControlCommandKeepsOtherCommands(t *testing.T) {
 	for _, args := range [][]string{nil, {"fusion-status"}, {"serve"}, {"web"}} {
 		handled, e := fusionControlCommand(args)

@@ -17,3 +17,5 @@ quota catalogue 只接受已登记项目及准确 route/account/provider workspa
 证据见 [EXECUTION-HOST-01](../work-items/WP-15/EXECUTION-HOST-01/summary.md)。此次没有真实账号、模型或额度调用；内部可信 Factory 接线不能替代真实 Factory 注册、产品启动/UI、工程闭环或60类最终 Gate。来源复核仍为有界观测，未建立外部写锁或树的原子快照；见 [workspace-source-guard.md](workspace-source-guard.md)。
 
 后续 [CODEX-HOST-01](../work-items/WP-15/CODEX-HOST-01/summary.md) 已沿同一 authenticated loopback HTTP/Factory 完成固定 Codex 0.160.0 的5个实际进程场景及2类 intent 前拒绝。关闭后真实 Store 重开、准确终态、停止证明与释放、调用预算和源文件保持均通过；未鉴权请求不进入 Resolve，相同 key 不重复执行。Inspect/identity/Forwarder/quota 仍为合成 fixture；生产注册与真实账号准入未完成，CLI execution off 不变。
+
+后续 [GLM-QUOTA-HOST-01](../work-items/WP-15/GLM-QUOTA-HOST-01/summary.md)增加独立 OpenQuotaControl：QuotaFactory 只获得 Loaded/Current，不能返回执行路线、Inspect、Resolve 或 SelectAuto；共享已有 quota 生命周期，Controller 保持 nil。OpenExecutionControl 仍必须提供原来完整的执行注册，不能以 quota-only 模式绕过准入。

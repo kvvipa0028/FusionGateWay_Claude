@@ -60,10 +60,10 @@ func (h *ControlHost) Addr() string {
 // OpenControl exposes unadmitted draft configuration only. It does not install
 // a Controller or grant Runtime, quota, workspace or route execution authority.
 func OpenControl(sourcePath, root, addr string) (*ControlHost, error) {
-	return openControl(nil, sourcePath, root, addr, nil)
+	return openControl(nil, sourcePath, root, addr, nil, false)
 }
 
-func openControl(parent context.Context, sourcePath, root, addr string, factory RuntimeFactory) (*ControlHost, error) {
+func openControl(parent context.Context, sourcePath, root, addr string, factory RuntimeFactory, queryOnly bool) (*ControlHost, error) {
 	host, port, e := net.SplitHostPort(addr)
 	n, pe := strconv.Atoi(port)
 	if e != nil || pe != nil || host != "127.0.0.1" || n < 0 || n > 65535 || strconv.Itoa(n) != port || !filepath.IsAbs(root) || filepath.Clean(root) != root {
@@ -122,7 +122,7 @@ func openControl(parent context.Context, sourcePath, root, addr string, factory 
 	// Initialize closeable resources before invoking trusted factory callbacks.
 	h.server = &http.Server{ReadHeaderTimeout: 5 * time.Second, ReadTimeout: 15 * time.Second, IdleTimeout: 30 * time.Second, MaxHeaderBytes: 16 << 10, ErrorLog: log.New(io.Discard, "", 0)}
 	if factory != nil {
-		if e = h.installRuntime(parent, s, factory); e != nil {
+		if e = h.installRuntime(parent, s, factory, queryOnly); e != nil {
 			h.Close()
 			return nil, ErrControlHost
 		}

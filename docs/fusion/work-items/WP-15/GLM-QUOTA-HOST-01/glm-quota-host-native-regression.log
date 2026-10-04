@@ -1,0 +1,42 @@
+=== RUN   TestExecutionHostPinnedCodexHTTP
+=== RUN   TestExecutionHostPinnedCodexHTTP/success
+    execution_codex_native_test.go:302: mode=success calls=1 native_processes=1 durable=succeeded stopped_verified=true released=true real_identity=false real_model=false real_quota=false
+=== RUN   TestExecutionHostPinnedCodexHTTP/cancel
+    execution_codex_native_test.go:302: mode=cancel calls=1 native_processes=1 durable=cancelled stopped_verified=true released=true real_identity=false real_model=false real_quota=false
+=== RUN   TestExecutionHostPinnedCodexHTTP/source-revocation
+    execution_codex_native_test.go:302: mode=source-revocation calls=1 native_processes=1 durable=cancelled stopped_verified=true released=true real_identity=false real_model=false real_quota=false
+=== RUN   TestExecutionHostPinnedCodexHTTP/close
+    execution_codex_native_test.go:302: mode=close calls=1 native_processes=1 durable=cancelled stopped_verified=true released=true real_identity=false real_model=false real_quota=false
+=== RUN   TestExecutionHostPinnedCodexHTTP/parent-cancel
+    execution_codex_native_test.go:302: mode=parent-cancel calls=1 native_processes=1 durable=cancelled stopped_verified=true released=true real_identity=false real_model=false real_quota=false
+=== RUN   TestExecutionHostPinnedCodexHTTP/rejected-prompt
+    execution_codex_native_test.go:196: mode=rejected-prompt native_processes=0 synthetic_calls=0 ready_generation=0 preintent=true
+=== RUN   TestExecutionHostPinnedCodexHTTP/rejected-timeout
+    execution_codex_native_test.go:196: mode=rejected-timeout native_processes=0 synthetic_calls=0 ready_generation=0 preintent=true
+--- PASS: TestExecutionHostPinnedCodexHTTP (5.27s)
+    --- PASS: TestExecutionHostPinnedCodexHTTP/success (1.15s)
+    --- PASS: TestExecutionHostPinnedCodexHTTP/cancel (0.96s)
+    --- PASS: TestExecutionHostPinnedCodexHTTP/source-revocation (0.96s)
+    --- PASS: TestExecutionHostPinnedCodexHTTP/close (0.95s)
+    --- PASS: TestExecutionHostPinnedCodexHTTP/parent-cancel (0.97s)
+    --- PASS: TestExecutionHostPinnedCodexHTTP/rejected-prompt (0.07s)
+    --- PASS: TestExecutionHostPinnedCodexHTTP/rejected-timeout (0.07s)
+=== RUN   TestExecutionHostPinnedNativeHTTP
+=== RUN   TestExecutionHostPinnedNativeHTTP/success
+    execution_native_test.go:239: mode=success calls=2 native_processes=1 durable=succeeded stopped_verified=true released=true real_model=false real_quota=false
+=== RUN   TestExecutionHostPinnedNativeHTTP/cancel
+    execution_native_test.go:239: mode=cancel calls=2 native_processes=1 durable=cancelled stopped_verified=true released=true real_model=false real_quota=false
+=== RUN   TestExecutionHostPinnedNativeHTTP/source-revocation
+    execution_native_test.go:239: mode=source-revocation calls=2 native_processes=1 durable=cancelled stopped_verified=true released=true real_model=false real_quota=false
+=== RUN   TestExecutionHostPinnedNativeHTTP/close
+    execution_native_test.go:239: mode=close calls=2 native_processes=1 durable=cancelled stopped_verified=true released=true real_model=false real_quota=false
+=== RUN   TestExecutionHostPinnedNativeHTTP/parent-cancel
+    execution_native_test.go:239: mode=parent-cancel calls=2 native_processes=1 durable=cancelled stopped_verified=true released=true real_model=false real_quota=false
+--- PASS: TestExecutionHostPinnedNativeHTTP (5.93s)
+    --- PASS: TestExecutionHostPinnedNativeHTTP/success (1.24s)
+    --- PASS: TestExecutionHostPinnedNativeHTTP/cancel (1.06s)
+    --- PASS: TestExecutionHostPinnedNativeHTTP/source-revocation (1.25s)
+    --- PASS: TestExecutionHostPinnedNativeHTTP/close (1.14s)
+    --- PASS: TestExecutionHostPinnedNativeHTTP/parent-cancel (1.15s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	12.866s

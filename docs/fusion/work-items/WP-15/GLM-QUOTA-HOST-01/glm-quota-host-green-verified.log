@@ -1,0 +1,22 @@
+=== RUN   TestGLMQuotaHostReadIsIndependentFromExecution
+--- PASS: TestGLMQuotaHostReadIsIndependentFromExecution (0.11s)
+=== RUN   TestQuotaHostRejectsInvalidRegistrationAndCleans
+=== RUN   TestQuotaHostRejectsInvalidRegistrationAndCleans/nil
+=== RUN   TestQuotaHostRejectsInvalidRegistrationAndCleans/empty
+=== RUN   TestQuotaHostRejectsInvalidRegistrationAndCleans/unknown-project
+=== RUN   TestQuotaHostRejectsInvalidRegistrationAndCleans/unknown-route
+=== RUN   TestQuotaHostRejectsInvalidRegistrationAndCleans/revision
+=== RUN   TestQuotaHostRejectsInvalidRegistrationAndCleans/account
+=== RUN   TestQuotaHostRejectsInvalidRegistrationAndCleans/no-current
+=== RUN   TestQuotaHostRejectsInvalidRegistrationAndCleans/error
+--- PASS: TestQuotaHostRejectsInvalidRegistrationAndCleans (0.36s)
+    --- PASS: TestQuotaHostRejectsInvalidRegistrationAndCleans/nil (0.00s)
+    --- PASS: TestQuotaHostRejectsInvalidRegistrationAndCleans/empty (0.05s)
+    --- PASS: TestQuotaHostRejectsInvalidRegistrationAndCleans/unknown-project (0.05s)
+    --- PASS: TestQuotaHostRejectsInvalidRegistrationAndCleans/unknown-route (0.05s)
+    --- PASS: TestQuotaHostRejectsInvalidRegistrationAndCleans/revision (0.05s)
+    --- PASS: TestQuotaHostRejectsInvalidRegistrationAndCleans/account (0.05s)
+    --- PASS: TestQuotaHostRejectsInvalidRegistrationAndCleans/no-current (0.05s)
+    --- PASS: TestQuotaHostRejectsInvalidRegistrationAndCleans/error (0.05s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	2.136s

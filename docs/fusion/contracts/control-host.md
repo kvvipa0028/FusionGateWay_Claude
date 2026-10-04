@@ -2,7 +2,7 @@
 
 `fusion` tagged 二进制新增 `fusion-control --projects /private/path/projects.json [--addr 127.0.0.1:0]`。仅沿独立 HOME/XDG 的 run-dev.py 启动；在 legacy 登录、代理、网关和自动更新启动逻辑之前分派。无 tag 构建保持原有命令行为。工作流主开关仍 off，Jev off。
 
-此服务把本机可信项目登记接入已有任务 API，供配置、默认层、预设与已有持久记录管理。**运行模式为 draft-control，execution_enabled=false**：路线始终未准入，未选择模型不能生成执行计划，没有注册 Controller/Native/额度采集器。启动接口在缺 Controller 时拒绝；它不代表已经可以执行真实项目。旧 Magpie model/gateway/GUI 入口继续关闭。
+此服务把本机可信项目登记接入已有任务 API，供配置、默认层、预设与已有持久记录管理。**运行模式为 draft-control，execution_enabled=false**：路线始终未准入，未选择模型不能生成执行计划，默认没有注册 Controller/Native/额度采集器；后续[独立 GLM 额度宿主](glm-quota-host.md)可通过明确的三个 CLI 参数仅登记额度查询，不注册执行 Controller。启动接口在缺 Controller 时拒绝；它不代表已经可以执行真实项目。旧 Magpie model/gateway/GUI 入口继续关闭。
 
 后续增加进程内 [execution-host.md](execution-host.md) 的可信 RuntimeFactory 接线，支持同一项目来源/路线检查、Controller 和额度生命周期。该接口不改变此草稿 CLI 的执行开关；真实 Factory/账号准入与产品入口仍待完成。共用 CloseContext 的等待超时不关闭仍被 owned 工作使用的 Store，可继续等待。
 
@@ -12,7 +12,7 @@
 
 服务状态在私有 FUSION_STATE_ROOT/data/fusion-gateway/control，包含 tasks 任务库与 management.token；根/父目录由当前用户拥有且private，Git外、无symlink，不能与登记项目目录相同或嵌套。Loader/Store继续独立验证。Tasks使用现有schema5与controller lock；两个实例不能同时打开同一库。
 
-首次使用crypto/rand生成32bytes的随机管理能力，fgm_前缀、base64url编码，0600/exclusive创建并fsync。既有文件只读验证私有owner/权限、单hardlink、普通有界文件及固定格式，不覆盖或自动旋转。管理凭据不接收argv/environment、不写stdout/stderr、不传到模型；启动JSON只返回地址、产品、draft模式及execution_enabled/jev。读写失败可能留下仅本人可访问的部分新状态，拒绝启动并由操作者检查，不能自动覆盖。
+首次使用crypto/rand生成32bytes的随机管理能力，fgm_前缀、base64url编码，0600/exclusive创建并fsync。既有文件只读验证私有owner/权限、单hardlink、普通有界文件及固定格式，不覆盖或自动旋转。管理凭据不接收argv/environment、不写stdout/stderr、不传到模型；启动JSON只返回地址、产品、draft模式及execution_enabled/quota_query_enabled/jev，不回显额度参数或私有文件位置。读写失败可能留下仅本人可访问的部分新状态，拒绝启动并由操作者检查，不能自动覆盖。
 
 每请求重查私有来源内容/身份、项目/控制根/tasks文件夹身份与权限，以及管理文件内容/身份；当前不符返回固定503并撤销Management。后台每250ms复核也会撤销已有Management，使SSE在其原有轮询周期退出。已撤销issuer不会因文件恢复而重启权限；需停止服务并明确重新加载。此本机观测不授予Runtime权限，未来执行Resolver仍必须在实际派单目的重查。
 

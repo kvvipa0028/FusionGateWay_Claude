@@ -1,0 +1,58 @@
+[
+  {
+    "source": ".fusion-dev/implementation/glm-quota-host-red.log",
+    "source_sha256": "a190ab8b17abb879a52612bae38b50be5a01aa0d23de2ac80d23279ee4e31a22",
+    "packet": "glm-quota-host-red.log",
+    "packet_sha256": "a190ab8b17abb879a52612bae38b50be5a01aa0d23de2ac80d23279ee4e31a22",
+    "normalization": "rstrip each line only; original retained in ignored scratch"
+  },
+  {
+    "source": ".fusion-dev/implementation/glm-quota-host-green.log",
+    "source_sha256": "06bc8f59a03ca535744c6727f6646e715a4cf2c232941c98e90881dde16ed71b",
+    "packet": "glm-quota-host-green.log",
+    "packet_sha256": "06bc8f59a03ca535744c6727f6646e715a4cf2c232941c98e90881dde16ed71b",
+    "normalization": "rstrip each line only; original retained in ignored scratch"
+  },
+  {
+    "source": ".fusion-dev/implementation/glm-quota-host-green-verified.log",
+    "source_sha256": "529947ac7715baf3eabf088ea18ca449fc3a66fcfe6607d119b9b2ebd7026c6c",
+    "packet": "glm-quota-host-green-verified.log",
+    "packet_sha256": "529947ac7715baf3eabf088ea18ca449fc3a66fcfe6607d119b9b2ebd7026c6c",
+    "normalization": "rstrip each line only; original retained in ignored scratch"
+  },
+  {
+    "source": ".fusion-dev/implementation/glm-quota-host-boundaries.log",
+    "source_sha256": "ceca8d6ccdfd1c0bb904fabb30c3350475cb9284fb260c820bbc02d90cd893a4",
+    "packet": "glm-quota-host-boundaries.log",
+    "packet_sha256": "ceca8d6ccdfd1c0bb904fabb30c3350475cb9284fb260c820bbc02d90cd893a4",
+    "normalization": "rstrip each line only; original retained in ignored scratch"
+  },
+  {
+    "source": ".fusion-dev/implementation/glm-quota-host-final.log",
+    "source_sha256": "5e2a5f699b6cf33a231b307fb6bba63e1d548a9ef6306de858fa6682975224e6",
+    "packet": "glm-quota-host-final.log",
+    "packet_sha256": "5e2a5f699b6cf33a231b307fb6bba63e1d548a9ef6306de858fa6682975224e6",
+    "normalization": "rstrip each line only; original retained in ignored scratch"
+  },
+  {
+    "source": ".fusion-dev/implementation/glm-quota-cli-final.log",
+    "source_sha256": "5426af9d0e4ef5a7303f09eaa7e15f43d60f3bbf5c4f594001d4aac59f68d669",
+    "packet": "glm-quota-cli-final.log",
+    "packet_sha256": "5426af9d0e4ef5a7303f09eaa7e15f43d60f3bbf5c4f594001d4aac59f68d669",
+    "normalization": "rstrip each line only; original retained in ignored scratch"
+  },
+  {
+    "source": ".fusion-dev/implementation/glm-quota-host-native-regression.log",
+    "source_sha256": "0b1f37670a7170e5a02e0127390498f6de03e5077fc70cb256b825280eac3593",
+    "packet": "glm-quota-host-native-regression.log",
+    "packet_sha256": "0b1f37670a7170e5a02e0127390498f6de03e5077fc70cb256b825280eac3593",
+    "normalization": "rstrip each line only; original retained in ignored scratch"
+  },
+  {
+    "source": ".fusion-dev/implementation/glm-quota-product-live.log",
+    "source_sha256": "1e68f8f3fdb3d83d445ab37819faac16d505a912c65f5f818c1b7f6d3fc7e87f",
+    "packet": "glm-quota-product-live.log",
+    "packet_sha256": "1e68f8f3fdb3d83d445ab37819faac16d505a912c65f5f818c1b7f6d3fc7e87f",
+    "normalization": "rstrip each line only; original retained in ignored scratch"
+  }
+]
