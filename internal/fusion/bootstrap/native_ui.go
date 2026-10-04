@@ -119,7 +119,7 @@ func nativeStageRequest(r *http.Request) bool {
 func (b *NativeStageBridge) allowed(method, path string) bool {
 	if method == "GET" || method == "HEAD" {
 		switch path {
-		case "/fusion/", "/fusion/index.html", "/fusion/editor.mjs", "/fusion/model.mjs", "/fusion/workbench.mjs", "/fusion/editor.css", "/fusion/app.css":
+		case "/fusion/", "/fusion/index.html", "/fusion/editor.mjs", "/fusion/model.mjs", "/fusion/workbench.mjs", "/fusion/quota.mjs", "/fusion/editor.css", "/fusion/app.css":
 			return true
 		}
 	}
@@ -155,11 +155,22 @@ func (b *NativeStageBridge) allowed(method, path string) bool {
 		switch parts[1] {
 		case "submission":
 			return method == "GET" || method == "POST"
-		case "configuration", "presets", "tasks":
+		case "configuration", "presets", "tasks", "quota":
 			return method == "GET"
 		case "defaults":
 			return method == "GET" || method == "PUT"
 		}
+	}
+	if len(parts) == 4 && parts[1] == "quota" && opaque(parts[2]) && parts[3] == "refresh" && method == "POST" {
+		project, err := b.host.source.Project(parts[0])
+		if err == nil {
+			for _, route := range project.Configuration.Routes {
+				if route.ID == parts[2] {
+					return true
+				}
+			}
+		}
+		return false
 	}
 	if len(parts) == 3 && parts[1] == "submission" && (parts[2] == "acknowledge" || parts[2] == "abandon") {
 		return method == "POST"

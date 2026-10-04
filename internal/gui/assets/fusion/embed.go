@@ -10,7 +10,7 @@ import (
 	magpieassets "github.com/yetone/magpie/internal/gui/assets"
 )
 
-//go:embed index.html editor.mjs model.mjs workbench.mjs editor.css
+//go:embed index.html editor.mjs model.mjs workbench.mjs quota.mjs editor.css
 var assets embed.FS
 
 func Handler() http.Handler {
@@ -34,6 +34,8 @@ func Handler() http.Handler {
 			name = "model.mjs"
 		case "/fusion/workbench.mjs":
 			name = "workbench.mjs"
+		case "/fusion/quota.mjs":
+			name = "quota.mjs"
 		case "/fusion/editor.css":
 			name = "editor.css"
 		case "/fusion/app.css":

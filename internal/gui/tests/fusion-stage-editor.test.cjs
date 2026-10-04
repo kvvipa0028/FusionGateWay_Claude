@@ -10,7 +10,7 @@ const repo=path.resolve(__dirname,"../../..");
 const binary=path.join(repo,".fusion-dev/fusion-gateway-cli");
 const models={a:"fixture-model-a",b:"fixture-model-b",c:"<svg>"};
 const key=id=>JSON.stringify(["fixture-"+id,1,models[id]]);
-async function fixture(t,admitted=false,withSecondProject=false,executionMode=""){
+async function fixture(t,admitted=false,withSecondProject=false,executionMode="",withQuota=false){
  const root=await fs.realpath(await fs.mkdtemp(path.join(os.tmpdir(),"fusion-stage-ui-")));
  await fs.chmod(root,0o700);
  for(const name of ["workspace","private","private/config"])await fs.mkdir(path.join(root,name),{mode:0o700});
@@ -22,7 +22,7 @@ async function fixture(t,admitted=false,withSecondProject=false,executionMode=""
  const go=execFileSync("which",["go"],{encoding:"utf8"}).trim();
  const control=path.join(root,"state/data/fusion-gateway/control");
  if(admitted)for(const name of ["state","state/data","state/data/fusion-gateway"])await fs.mkdir(path.join(root,name),{mode:0o700});
- const spawnHost=()=>admitted?spawn(path.join(repo,".fusion-dev/task-ui-fixture"),["-test.run=^TestTaskUIFixtureProcess$","-fusion-ui-fixture-source",source,"-fusion-ui-fixture-root",control,...(executionMode?["-fusion-ui-fixture-execution",executionMode]:[])],{cwd:repo,env:{PATH:"/usr/bin:/bin",HOME:path.join(root,"private"),XDG_CONFIG_HOME:path.join(root,"private/config"),XDG_DATA_HOME:path.join(root,"private/data"),XDG_CACHE_HOME:path.join(root,"private/cache"),TMPDIR:path.join(root,"private")},stdio:["ignore","pipe","pipe"]}):spawn("python3",[path.join(repo,"scripts/fusion/run-dev.py"),"--root",path.join(root,"state"),"--binary",binary,"--go",go,"--","fusion-control","--projects",source],{cwd:repo,stdio:["ignore","pipe","pipe"]});
+ const spawnHost=()=>admitted?spawn(path.join(repo,".fusion-dev/task-ui-fixture"),["-test.run=^TestTaskUIFixtureProcess$","-fusion-ui-fixture-source",source,"-fusion-ui-fixture-root",control,...(executionMode?["-fusion-ui-fixture-execution",executionMode]:[]),...(withQuota?["-fusion-ui-fixture-quota"]:[])],{cwd:repo,env:{PATH:"/usr/bin:/bin",HOME:path.join(root,"private"),XDG_CONFIG_HOME:path.join(root,"private/config"),XDG_DATA_HOME:path.join(root,"private/data"),XDG_CACHE_HOME:path.join(root,"private/cache"),TMPDIR:path.join(root,"private")},stdio:["ignore","pipe","pipe"]}):spawn("python3",[path.join(repo,"scripts/fusion/run-dev.py"),"--root",path.join(root,"state"),"--binary",binary,"--go",go,"--","fusion-control","--projects",source],{cwd:repo,stdio:["ignore","pipe","pipe"]});
  let child=spawnHost();
  let output="",errors="",browser=null,token=null;
  t.after(async()=>{
@@ -46,7 +46,7 @@ async function fixture(t,admitted=false,withSecondProject=false,executionMode=""
  if(admitted){assert.equal(announcement.synthetic_fixture,true);assert.equal(announcement.execution_supported,!!executionMode)}else assert.equal(announcement.execution_enabled,false);
  assert.equal(announcement.jev,"off");
  token=(await fs.readFile(path.join(root,"state/data/fusion-gateway/control/management.token"),"utf8")).trim();
- for(const name of ["index.html","editor.mjs","model.mjs","workbench.mjs","editor.css","app.css"]){
+ for(const name of ["index.html","editor.mjs","model.mjs","workbench.mjs","quota.mjs","editor.css","app.css"]){
   const response=await fetch(origin+"/fusion/"+name,{headers:{Authorization:"Bearer "+token},redirect:"error"});
   assert.equal(response.status,200);
   const actual=await response.text(),expected=await fs.readFile(path.join(repo,"internal/gui/assets",name==="app.css"?name:path.join("fusion",name)),"utf8");
@@ -241,7 +241,7 @@ test("actual API: expired route never selects a replacement; global and project 
  assert.equal(await page.getByRole("button",{name:"保存项目配置",exact:true}).isDisabled(),true);
  assert.ok(await page.getByRole("alert").filter({hasText:"请选择推理档位"}).isVisible());
  await page.getByLabel("设计推理档位",{exact:true}).selectOption("none");
- assert.ok(await page.getByText("额度尚未读取。",{exact:false}).isVisible());
+ assert.ok(await page.locator('[data-role="design"] p.details').filter({hasText:"额度尚未读取。"}).isVisible());
  await page.getByLabel("配置范围",{exact:true}).selectOption("global");
  await choose(page,"设计","c");
  await page.getByRole("button",{name:"保存全局默认",exact:true}).click();await status(page,"已保存版本 1");
@@ -531,9 +531,9 @@ async function savedControlTask(t,f){
 test('execution controls: idle pause continue cancel use the frozen Task condition without starting Runtime',async t=>{
  const f=await fixture(t,true),{page,task,errors}=await savedControlTask(t,f);
  assert.equal(await page.getByRole('button',{name:'暂停任务',exact:true}).count(),1);
- await page.getByRole('button',{name:'暂停任务',exact:true}).click();await page.locator('#execution-status').filter({hasText:'控制回执已核对'}).waitFor();assert.ok((await page.locator('#task-detail').innerText()).includes('paused'));
- await page.getByRole('button',{name:'继续派单',exact:true}).click();await page.locator('#execution-status').filter({hasText:'控制回执已核对'}).waitFor();assert.ok((await page.locator('#task-detail').innerText()).includes('ready'));
- page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'取消任务',exact:true}).click();await page.locator('#execution-status').filter({hasText:'控制回执已核对'}).waitFor();assert.ok((await page.locator('#task-detail').innerText()).includes('cancelled'));
+ await page.getByRole('button',{name:'暂停任务',exact:true}).click();await page.locator('#execution-status').filter({hasText:'控制回执已核对'}).waitFor();await page.locator('#task-detail').filter({hasText:'(paused)'}).waitFor();assert.ok((await page.locator('#task-detail').innerText()).includes('paused'));
+ await page.getByRole('button',{name:'继续派单',exact:true}).click();await page.locator('#execution-status').filter({hasText:'控制回执已核对'}).waitFor();await page.locator('#task-detail').filter({hasText:'(ready)'}).waitFor();assert.ok((await page.locator('#task-detail').innerText()).includes('ready'));
+ page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'取消任务',exact:true}).click();await page.locator('#execution-status').filter({hasText:'控制回执已核对'}).waitFor();await page.locator('#task-detail').filter({hasText:'(cancelled)'}).waitFor();assert.ok((await page.locator('#task-detail').innerText()).includes('cancelled'));
  const current=await f.request('/agent/v1/tasks/'+task.id);assert.equal(current.body.generation,3);assert.equal(current.body.state,'cancelled');assert.equal(await page.getByRole('button',{name:'启动所选阶段',exact:true}).isDisabled(),true);assert.deepEqual(errors,[]);
 });
 test('execution controls: a lost start receipt retries the exact original key and role then cancels one run',async t=>{
@@ -596,4 +596,112 @@ test('execution controls: changing project disables old task actions while new c
  page.once('dialog',d=>d.accept());await page.getByLabel('项目',{exact:true}).selectOption('synthetic-ui-other');await Promise.race([began,new Promise((_,reject)=>setTimeout(()=>reject(Error('project configuration request did not begin')),3000))]);
  try{assert.equal(await page.locator('#execution-controls').isVisible(),false);assert.equal(await page.locator('#start-role').isDisabled(),true);assert.equal(await page.locator('#pause-task').isDisabled(),true)}finally{release()}
  await page.getByRole('status').filter({hasText:'已载入当前配置'}).waitFor();assert.equal(await page.locator('#execution-controls').isVisible(),false);assert.deepEqual(errors,[]);
+});
+
+test('quota pane: initial cache read never refreshes suppliers and unsupported routes remain explicit',async t=>{
+ const f=await fixture(t),requests=[];
+ const {page,errors}=await f.newPage(async context=>{await context.route('**/control/v1/projects/*/quota**',async route=>{requests.push({method:route.request().method(),url:route.request().url()});await route.continue()})});
+ assert.equal(await page.locator('#quota-panel').count(),1);
+ await page.locator('#quota-panel summary').click();await page.locator('#quota-status').filter({hasText:'已读取额度缓存'}).waitFor();
+ assert.equal(requests.filter(r=>r.method==='POST').length,0);assert.equal(requests.filter(r=>r.method==='GET').length,1);
+ assert.equal(await page.locator('#quota-list .row').count(),3);assert.ok((await page.locator('#quota-list').innerText()).includes('不支持查询'));
+ assert.equal(await page.getByRole('button',{name:'刷新额度 fixture-a',exact:true}).isDisabled(),true);assert.deepEqual(errors,[]);
+});
+const quotaBase='/control/v1/projects/synthetic-ui/quota';
+async function openQuota(page){await page.locator('#quota-panel summary').click();await page.locator('#quota-status').filter({hasText:'已读取额度缓存'}).waitFor()}
+const quotaStatus=(page,text)=>page.locator('#quota-status').filter({hasText:text}).waitFor();
+test('quota pane: manual synthetic refresh shows zero usage as unverified and preserves source timestamps on cache reads',async t=>{
+ const f=await fixture(t,true,false,'',true),requests=[],{page,errors}=await f.newPage(async context=>{
+  await context.route('**/control/v1/projects/*/quota**',async r=>{requests.push(r.request().method());await r.continue()})
+ });
+ await openQuota(page);assert.deepEqual(requests,['GET']);
+ await page.getByRole('button',{name:'刷新额度 fixture-a',exact:true}).click();await quotaStatus(page,'已完成手动额度查询');
+ const first=await f.request(quotaBase),snapshot=first.body.routes[0].snapshot;
+ assert.equal(snapshot.status,'unverified');assert.equal(snapshot.windows[0].used_percent,0);assert.equal(snapshot.pool.verified,false);
+ const row=page.locator('#quota-list .row').filter({hasText:'fixture-a@1'});
+ assert.match(await row.textContent(),/已用 0%；剩余 100%/);assert.match(await row.textContent(),/额度：未核验/);
+ assert.match(await row.textContent(),/独立资源 credit（CNY）：2.50；不计入订阅百分比/);
+ assert.match(await row.textContent(),/观察时间：.+；接收时间：/);
+ await page.getByRole('button',{name:'读取额度缓存',exact:true}).click();await quotaStatus(page,'已读取额度缓存');
+ const again=await f.request(quotaBase);assert.deepEqual(again.body.routes[0].snapshot,snapshot);assert.deepEqual(requests,['GET','POST','GET']);
+ await page.setViewportSize({width:390,height:844});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+ await row.scrollIntoViewIfNeeded();assert.ok(await row.getByText('额度：未核验。',{exact:true}).isVisible());await row.screenshot({path:path.join(repo,'.fusion-dev/implementation/quota-ui-mobile-row.png')});
+ await page.locator('#view-fusion').evaluate(n=>n.scrollTop=0);await page.screenshot({path:path.join(repo,'.fusion-dev/implementation/quota-ui-mobile.png'),fullPage:true});
+ await page.setViewportSize({width:1140,height:1000});await row.scrollIntoViewIfNeeded();await row.screenshot({path:path.join(repo,'.fusion-dev/implementation/quota-ui-desktop-row.png')});
+ await page.locator('#view-fusion').evaluate(n=>n.scrollTop=0);await page.screenshot({path:path.join(repo,'.fusion-dev/implementation/quota-ui-desktop.png'),fullPage:true});
+ assert.deepEqual(errors,[]);
+});
+test('quota pane: lost manual query acknowledgement reconciles through cache without duplicate refresh',async t=>{
+ const f=await fixture(t,true,false,'',true),{page,context,errors}=await f.newPage();await openQuota(page);let sends=0;
+ await context.route('**/quota/fixture-a/refresh',async r=>{sends++;await r.fetch();await r.abort('failed')});
+ await page.getByRole('button',{name:'刷新额度 fixture-a',exact:true}).click();await quotaStatus(page,'额度查询结果未确认');
+ assert.equal(sends,1);assert.match(await page.locator('#quota-list').textContent(),/历史额度（本次未确认）/);
+ await page.getByRole('button',{name:'读取额度缓存',exact:true}).click();await quotaStatus(page,'已读取额度缓存');
+ assert.equal(sends,1);assert.match(await page.locator('#quota-list').textContent(),/已用 0%/);assert.doesNotMatch(await page.locator('#quota-list').textContent(),/历史额度/);
+ assert.deepEqual(errors,[]);
+});
+test('quota pane: malformed or substituted identity never replaces the previous independent observation',async t=>{
+ const f=await fixture(t,true,false,'',true),{page,context,errors}=await f.newPage();await openQuota(page);
+ await page.getByRole('button',{name:'刷新额度 fixture-a',exact:true}).click();await quotaStatus(page,'已完成手动额度查询');
+ const actual=(await f.request(quotaBase)).body;
+ for(const mutation of [body=>{body.routes[0].identity.account='foreign-account'},body=>{body.routes[0].snapshot.windows[0].used_percent=101},body=>{body.routes.push(body.routes[0])}]){
+  const bad=structuredClone(actual);mutation(bad);bad.private_key='never-render-this';
+  await context.route('**/control/v1/projects/synthetic-ui/quota',r=>r.fulfill({status:200,json:bad}));
+  await page.getByRole('button',{name:'读取额度缓存',exact:true}).click();await quotaStatus(page,'额度缓存读取失败');
+  const displayed=await page.locator('#quota-list').textContent();assert.match(displayed,/历史额度（本次未确认）/);assert.match(displayed,/已用 0%/);assert.doesNotMatch(displayed,/foreign-account|never-render-this|101%/);
+  await context.unroute('**/control/v1/projects/synthetic-ui/quota');
+ }
+ assert.deepEqual(errors,[]);
+});
+test('quota pane: old project refresh reply cannot populate a newly selected project',async t=>{
+ const f=await fixture(t,true,true,'',true),{page,context,errors}=await f.newPage();await openQuota(page);
+ let release,entered;const held=new Promise(r=>release=r),started=new Promise(r=>entered=r);
+ await context.route('**/quota/fixture-a/refresh',async r=>{const reply=await r.fetch();entered();await held;await r.fulfill({response:reply})});
+ try{
+  await page.getByRole('button',{name:'刷新额度 fixture-a',exact:true}).click();await started;
+  await page.getByLabel('项目',{exact:true}).selectOption('synthetic-ui-other');await status(page,'已载入当前配置');await quotaStatus(page,'已读取额度缓存');
+  const arrived=page.waitForResponse(r=>r.url().endsWith('/quota/fixture-a/refresh'));release();await arrived;
+  assert.equal(await page.getByLabel('项目',{exact:true}).inputValue(),'synthetic-ui-other');
+  assert.doesNotMatch(await page.locator('#quota-list').textContent(),/已用 0%|synthetic-browser-quota/);
+  assert.match(await page.locator('#quota-list').textContent(),/额度：未知/);
+ }finally{release()}
+ assert.deepEqual(errors,[]);
+});
+test('quota pane: null usage, expired times and server failures remain distinct from available quota',async t=>{
+ const f=await fixture(t,true,false,'',true),{page,context,errors}=await f.newPage();await openQuota(page);
+ await page.getByRole('button',{name:'刷新额度 fixture-a',exact:true}).click();await quotaStatus(page,'已完成手动额度查询');
+ const actual=(await f.request(quotaBase)).body;
+ for(const [code,label,used] of [['unknown','未知',null],['stale','已过期',0],['zero','已耗尽',100],['auth_required','需要授权',null],['unsupported','不支持查询',null]]){
+  const body=structuredClone(actual),v=body.routes[0];v.status=code;v.snapshot.status=code;v.snapshot.windows[0].used_percent=used;v.snapshot.windows[0].remaining_percent=null;
+  if(code==='zero'){v.snapshot.complete=true;Object.assign(v.snapshot.pool,{id:'shared-fixture',owner:'fixture-team',scope:'team',verified:true})}
+  await context.route('**/control/v1/projects/synthetic-ui/quota',r=>r.fulfill({status:200,json:body}));
+  await page.getByRole('button',{name:'读取额度缓存',exact:true}).click();await quotaStatus(page,'已读取额度缓存');
+  const row=page.locator('#quota-list .row').filter({hasText:'fixture-a@1'});assert.match(await row.textContent(),new RegExp('额度：'+label));
+  if(used===null)assert.match(await row.textContent(),/已用 未知；剩余 未知/);
+  await context.unroute('**/control/v1/projects/synthetic-ui/quota');
+ }
+ await context.route('**/control/v1/projects/synthetic-ui/quota',r=>r.fulfill({status:403,json:{error:{code:'forbidden',message:'unsafe-secret-message'}}}));
+ await page.getByRole('button',{name:'读取额度缓存',exact:true}).click();await quotaStatus(page,'管理授权已失效');
+ assert.doesNotMatch(await page.locator('#quota-panel').textContent(),/unsafe-secret-message/);assert.deepEqual(errors,[]);
+});
+test('quota pane: an available response with unknown subscription usage is conservatively displayed as unknown',async t=>{
+ const f=await fixture(t,true,false,'',true),{page,context}=await f.newPage();await openQuota(page);
+ await page.getByRole('button',{name:'刷新额度 fixture-a',exact:true}).click();await quotaStatus(page,'已完成手动额度查询');
+ const body=(await f.request(quotaBase)).body,v=body.routes[0];v.status=v.snapshot.status='available';v.snapshot.complete=true;
+ Object.assign(v.snapshot.pool,{id:'shared-fixture',owner:'fixture-team',scope:'team',verified:true});v.snapshot.windows[0].used_percent=null;
+ await context.route('**/control/v1/projects/synthetic-ui/quota',r=>r.fulfill({status:200,json:body}));
+ await page.getByRole('button',{name:'读取额度缓存',exact:true}).click();await quotaStatus(page,'已读取额度缓存');
+ assert.match(await page.locator('#quota-list .row').filter({hasText:'fixture-a@1'}).textContent(),/额度：未知/);
+});
+test('quota pane: elapsed source age downgrades cached availability without HTTP polling',async t=>{
+ const f=await fixture(t,true,false,'',true),{page,context,errors}=await f.newPage();await openQuota(page);
+ await page.getByRole('button',{name:'刷新额度 fixture-a',exact:true}).click();await quotaStatus(page,'已完成手动额度查询');
+ const body=(await f.request(quotaBase)).body,v=body.routes[0];v.status=v.snapshot.status='available';v.snapshot.complete=true;
+ Object.assign(v.snapshot.pool,{id:'shared-fixture',owner:'fixture-team',scope:'team',verified:true});let reads=0;
+ await context.route('**/control/v1/projects/synthetic-ui/quota',r=>{reads++;return r.fulfill({status:200,json:body})});
+ await page.getByRole('button',{name:'读取额度缓存',exact:true}).click();await quotaStatus(page,'已读取额度缓存');
+ const row=page.locator('#quota-list .row').filter({hasText:'fixture-a@1'});assert.match(await row.textContent(),/额度：可用观察/);
+ await page.evaluate(()=>{const current=Date.now.bind(Date);Date.now=()=>current()+61000});
+ await page.getByLabel('配置范围',{exact:true}).selectOption('global');
+ assert.match(await row.textContent(),/额度：已过期/);assert.equal(reads,1);assert.deepEqual(errors,[]);
 });

@@ -1,0 +1,76 @@
+{
+  "quota-ui-fixture-final-build.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "role": "historical intermediate; effective RED, fixture/test timing or pre-final bundle; not final result"
+  },
+  "quota-ui-cli-navigation.log": {
+    "sha256": "fe96716d578f2191438018488b7e32a7a5b9fe0d906f974e3771da36209ac8ea",
+    "role": "final"
+  },
+  "quota-ui-browser-green-first.log": {
+    "sha256": "8f2c4fe6f2a4c7e76361de603e65d73be0d1df53cf45a5f36d43de9251cc0919",
+    "role": "historical intermediate; effective RED, fixture/test timing or pre-final bundle; not final result"
+  },
+  "quota-ui-browser-red.log": {
+    "sha256": "4a8ffe1c90e2f138a4b94f0d374d01ec065a66b95a34fa11bdf6d82e6e3b9d24",
+    "role": "historical intermediate; effective RED, fixture/test timing or pre-final bundle; not final result",
+    "raw_sha256": "7b974d275d0c8fb9b35043d07f6ac0bf44d92313f9961dbad0759f88ad528a11",
+    "normalization": "only trailing spaces/tabs removed for git diff check; raw scratch logs preserved"
+  },
+  "quota-ui-browser-boundaries-first.log": {
+    "sha256": "098bad8828f59bc1f13f491d9e0e6353a14a7687acdf543d6750f3087c084711",
+    "role": "historical intermediate; effective RED, fixture/test timing or pre-final bundle; not final result",
+    "raw_sha256": "f9040ae5a7f66bf9f6d17bab2f7ba5d6ec3a471836be79a2ebb1ec32f95ab766",
+    "normalization": "only trailing spaces/tabs removed for git diff check; raw scratch logs preserved"
+  },
+  "quota-ui-browser-final.log": {
+    "sha256": "36d619f0f334dc58c9912e6529ce5ff94f95405a3c420c7f441deca5fb5b51fc",
+    "role": "historical intermediate; effective RED, fixture/test timing or pre-final bundle; not final result",
+    "raw_sha256": "c6be58103779ccbb59520a9b3b6877d8466e6893a70feca76d6702aea2d13f00",
+    "normalization": "only trailing spaces/tabs removed for git diff check; raw scratch logs preserved"
+  },
+  "quota-ui-native-final.log": {
+    "sha256": "81a577484d11821f505198e85a8f79e9a4c86ea9bd5c1cd15b29a377b85be82c",
+    "role": "final"
+  },
+  "build-vet.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "role": "final"
+  },
+  "quota-ui-native-red-verified.log": {
+    "sha256": "aa9f5fd6dac4203296b20d431647d3ed40836d4c78e2dfdc871542b61464a990",
+    "role": "historical intermediate; effective RED, fixture/test timing or pre-final bundle; not final result"
+  },
+  "quota-ui-browser-before-mobile-layout.log": {
+    "sha256": "ceb1f57f3d194a030a6ea453a2c36e8311b746cea00caac5824f229a61a1db59",
+    "role": "historical intermediate; effective RED, fixture/test timing or pre-final bundle; not final result"
+  },
+  "quota-ui-mobile-state-red.log": {
+    "sha256": "68458973426055b2a53f8f998f96c98dbcfd0f3477ce04a5576d830939360a36",
+    "role": "historical intermediate; effective RED, fixture/test timing or pre-final bundle; not final result",
+    "raw_sha256": "0968a1179f24a293ce5745b6673fef76268136fbff984f92c33d0c9bcfb6b6cb",
+    "normalization": "only trailing spaces/tabs removed for git diff check; raw scratch logs preserved"
+  },
+  "quota-ui-native-green.log": {
+    "sha256": "686f51e4b65397f2b1678d31e0d219c1c1f051bfe5c18363e222d64ab49a9799",
+    "role": "historical intermediate; effective RED, fixture/test timing or pre-final bundle; not final result"
+  },
+  "build-gui.log": {
+    "sha256": "dd39946a34d1f054375527350d9ed137024109afeae222303b8bee7504215f1d",
+    "role": "final"
+  },
+  "quota-ui-browser-detail-race.log": {
+    "sha256": "dba88b67beac25c13205e4fa030f61d1feafd5d68aee2609981bb836baa1292c",
+    "role": "historical intermediate; effective RED, fixture/test timing or pre-final bundle; not final result",
+    "raw_sha256": "2c76dec94e05c05e592cc23af146aac0caea147bb967d40fce0e936d0e11b38d",
+    "normalization": "only trailing spaces/tabs removed for git diff check; raw scratch logs preserved"
+  },
+  "quota-ui-browser-final-verified.log": {
+    "sha256": "d0d484997fad2a3861079ef76b2bcc7fafbf972f398ee5be00c4af09aa9b3527",
+    "role": "final"
+  },
+  "build-cli.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "role": "final"
+  }
+}

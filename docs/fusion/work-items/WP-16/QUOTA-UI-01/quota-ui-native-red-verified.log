@@ -1,0 +1,6 @@
+=== RUN   TestNativeQuotaUsesRegisteredScopeAndManualRefresh
+    native_quota_test.go:43: cache path not wired 404
+--- FAIL: TestNativeQuotaUsesRegisteredScopeAndManualRefresh (0.07s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	0.728s
+FAIL

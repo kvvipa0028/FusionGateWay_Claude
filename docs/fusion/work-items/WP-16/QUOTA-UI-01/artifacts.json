@@ -1,0 +1,195 @@
+{
+  "base_commit": "f9cfad4c243259756d8b45d81ebd2e869af80738",
+  "source_files": [
+    {
+      "path": "docs/fusion/README.md",
+      "sha256": "017d89d5f7cf741ab6f25ecefcb41804274f2dfb9b1d9b37a6754e5840a70a87"
+    },
+    {
+      "path": "docs/fusion/contracts/glm-quota-host.md",
+      "sha256": "79df5f0c391a25ed2c09bf376064d26c230aa4048d2c04a4a58ebe43aa227e39"
+    },
+    {
+      "path": "docs/fusion/contracts/native-stage-ui.md",
+      "sha256": "0dbd091a47e15b4d43cc6e8824f7fd83aa8ba00cfcec9090da59d23d97d44463"
+    },
+    {
+      "path": "docs/fusion/contracts/quota-api.md",
+      "sha256": "cf37bb112d0e1c9fff82e087e6d32d8182dcc28b0458c51d2378ecc208057aa6"
+    },
+    {
+      "path": "docs/fusion/contracts/quota-ui.md",
+      "sha256": "71169442e8b84ee2307977cea2e2680a7aee75ecb130d54e6d49b36fca445d8d"
+    },
+    {
+      "path": "docs/fusion/contracts/stage-editor.md",
+      "sha256": "5e36d5da00b6b86025032cf6cfc9d70edcbe6be89891a89fde9224acb3be05b3"
+    },
+    {
+      "path": "docs/fusion/planning/Fusion_Magpie_Fork_Agent工作包_v1.0.md",
+      "sha256": "a339c91fece8a417f0bd605f1a4c815570453a337fb3d425ac6d32a2ceb96cb3"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/summary.md",
+      "sha256": "8d1511351ec225118775df543333c0ef62e1fea1bdd74980d5b1c70e072031a5"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/summary.md",
+      "sha256": "bb11b75c12adc4a9221513de554bfe3d9c4bb7bc9c4bb34c9c1d5ba8630255ee"
+    },
+    {
+      "path": "fusion_gui_cli.go",
+      "sha256": "b52fa3239ce7f5c8426ea87948f70d4b4fce58ceca9f2cf6bd483391902e5130"
+    },
+    {
+      "path": "fusion_gui_cli_test.go",
+      "sha256": "033a0d79eae41672db5adcba68c64bcfb8a25521b6cb68cb9b1b4c1707f0969f"
+    },
+    {
+      "path": "internal/fusion/bootstrap/native_quota_test.go",
+      "sha256": "a03ae4c3a0026347cc6a571112c6236d93a05c401b25ff3c3a9cd6cd6b01c31d"
+    },
+    {
+      "path": "internal/fusion/bootstrap/native_ui.go",
+      "sha256": "8a57253c0c10d0dd403de08971ea797bc218a15a18c994759abfc9aa76a413ba"
+    },
+    {
+      "path": "internal/fusion/bootstrap/workbench_fixture_test.go",
+      "sha256": "8e934f26269067a701b225ca068175aad39830704e0437c4903abe924be25d27"
+    },
+    {
+      "path": "internal/gui/assets/fusion/editor.mjs",
+      "sha256": "f48f7b24dbc10d4b50dd4bcff9319fcdc051908a7a7d4f7951c7d20f42e24a31"
+    },
+    {
+      "path": "internal/gui/assets/fusion/embed.go",
+      "sha256": "60901a969bce36dc5d3dcdbcdf90ac7c82b49ef285860d83e04c5bce6884b8ae"
+    },
+    {
+      "path": "internal/gui/assets/fusion/index.html",
+      "sha256": "44b8b889c191b841e774dc4892c9d79b6a738a4236cf1f3e33da49aac00b0941"
+    },
+    {
+      "path": "internal/gui/assets/fusion/quota.mjs",
+      "sha256": "6f6040567d74a543857ce2de93c7d945908f5e150333bd2288959fbbab5f1d41"
+    },
+    {
+      "path": "internal/gui/fusion_native_darwin.go",
+      "sha256": "96f3e901f595ce7b87e6f7716d3e89fc39b76275ea3801bcc64b9602e4920f46"
+    },
+    {
+      "path": "internal/gui/tests/fusion-stage-editor.test.cjs",
+      "sha256": "a08c191dde1875a6faa9b639efc1ab94879b9c2ed06771d31fef46c6566920ff"
+    }
+  ],
+  "packet_files": [
+    {
+      "path": "docs/fusion/work-items/WP-16/QUOTA-UI-01/build-cli.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/QUOTA-UI-01/build-gui.log",
+      "sha256": "dd39946a34d1f054375527350d9ed137024109afeae222303b8bee7504215f1d"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/QUOTA-UI-01/build-results.json",
+      "sha256": "a9a9765a7c6d2d9376063fd29f99f0a30bc30b8cf1ad6ec0a272ce0e1b582f65"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/QUOTA-UI-01/build-vet.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/QUOTA-UI-01/desktop-row.png",
+      "sha256": "05681fe4da74d7aa6bce42b3c2d2b2a8741b0ab053a276362e8dbd612650f978"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/QUOTA-UI-01/desktop.png",
+      "sha256": "4e008718b47dc680685309bd8d02f1ff2fd6865e5e1b14a38524b4c11b48f398"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/QUOTA-UI-01/graph.json",
+      "sha256": "fa5b37a683c88165e6be2d84927ef58f305f246fcb9a167c8236781ed9f4820b"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/QUOTA-UI-01/log-provenance.json",
+      "sha256": "86dbe8358e66ed73fd918301a2ffc9c4d6bef312ee13cc7022a9afb4e9a86340"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/QUOTA-UI-01/mobile-row.png",
+      "sha256": "11a0d4172a78b2d62050555e32ba78bf7cfe028a33039d82450c6c90f1a1e1dc"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/QUOTA-UI-01/mobile.png",
+      "sha256": "ca6db7751373a99697aa265dd0e2c7cdd344a55d215fa8f66279b6bdbe29b06c"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/QUOTA-UI-01/native-startup.json",
+      "sha256": "4149dbdba252f1445f45894a319a1b6a0deee8edafafa835a4c9aee450c3a2cb"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/QUOTA-UI-01/quota-ui-browser-before-mobile-layout.log",
+      "sha256": "ceb1f57f3d194a030a6ea453a2c36e8311b746cea00caac5824f229a61a1db59"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/QUOTA-UI-01/quota-ui-browser-boundaries-first.log",
+      "sha256": "098bad8828f59bc1f13f491d9e0e6353a14a7687acdf543d6750f3087c084711"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/QUOTA-UI-01/quota-ui-browser-detail-race.log",
+      "sha256": "dba88b67beac25c13205e4fa030f61d1feafd5d68aee2609981bb836baa1292c"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/QUOTA-UI-01/quota-ui-browser-final-verified.log",
+      "sha256": "d0d484997fad2a3861079ef76b2bcc7fafbf972f398ee5be00c4af09aa9b3527"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/QUOTA-UI-01/quota-ui-browser-final.log",
+      "sha256": "36d619f0f334dc58c9912e6529ce5ff94f95405a3c420c7f441deca5fb5b51fc"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/QUOTA-UI-01/quota-ui-browser-green-first.log",
+      "sha256": "8f2c4fe6f2a4c7e76361de603e65d73be0d1df53cf45a5f36d43de9251cc0919"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/QUOTA-UI-01/quota-ui-browser-red.log",
+      "sha256": "4a8ffe1c90e2f138a4b94f0d374d01ec065a66b95a34fa11bdf6d82e6e3b9d24"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/QUOTA-UI-01/quota-ui-cli-navigation.log",
+      "sha256": "fe96716d578f2191438018488b7e32a7a5b9fe0d906f974e3771da36209ac8ea"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/QUOTA-UI-01/quota-ui-fixture-final-build.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/QUOTA-UI-01/quota-ui-mobile-state-red.log",
+      "sha256": "68458973426055b2a53f8f998f96c98dbcfd0f3477ce04a5576d830939360a36"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/QUOTA-UI-01/quota-ui-native-final.log",
+      "sha256": "81a577484d11821f505198e85a8f79e9a4c86ea9bd5c1cd15b29a377b85be82c"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/QUOTA-UI-01/quota-ui-native-green.log",
+      "sha256": "686f51e4b65397f2b1678d31e0d219c1c1f051bfe5c18363e222d64ab49a9799"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/QUOTA-UI-01/quota-ui-native-red-verified.log",
+      "sha256": "aa9f5fd6dac4203296b20d431647d3ed40836d4c78e2dfdc871542b61464a990"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/QUOTA-UI-01/summary.md",
+      "sha256": "8acfba1f33abb9d1b78e1795a32600fb4f50e5c39aef460de1893bc2ad7dd4db"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/QUOTA-UI-01/test-results.json",
+      "sha256": "da589b18466ac5512aa03ff9719cb6dc676d7fdf856ff9b730ab5fc6218784c9"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/QUOTA-UI-01/validation.json",
+      "sha256": "96a56111a16b622a928949eb46754ce4b00fee20e31dcb1adda65ad7857f427f"
+    }
+  ]
+}

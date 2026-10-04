@@ -16,8 +16,10 @@ import (
 	"testing"
 	"time"
 
+	"github.com/yetone/magpie/internal/fusion/api"
 	"github.com/yetone/magpie/internal/fusion/control"
 	"github.com/yetone/magpie/internal/fusion/policy"
+	"github.com/yetone/magpie/internal/fusion/quota"
 	"github.com/yetone/magpie/internal/fusion/stageplan"
 	"github.com/yetone/magpie/internal/fusion/store"
 )
@@ -25,6 +27,7 @@ import (
 var uiFixtureSource = flag.String("fusion-ui-fixture-source", "", "explicit synthetic UI fixture source; test binary only")
 var uiFixtureExecution = flag.String("fusion-ui-fixture-execution", "", "synthetic hold/success execution; test binary only")
 var uiFixtureRoot = flag.String("fusion-ui-fixture-root", "", "explicit private UI fixture state; test binary only")
+var uiFixtureQuota = flag.Bool("fusion-ui-fixture-quota", false, "synthetic quota only; no supplier calls")
 
 // This is a browser test process, not a product entry point. Its admitted
 // metadata is explicitly synthetic; default execution/inspection stays closed.
@@ -64,6 +67,24 @@ func TestTaskUIFixtureProcess(t *testing.T) {
 				route.LockEnforcement = stageplan.ControlledCalls
 				route.Capabilities = []string{"text"}
 				reg.Routes[p.ID] = append(reg.Routes[p.ID], route)
+			}
+			if *uiFixtureQuota {
+				if reg.QuotaSources == nil {
+					reg.QuotaSources = map[string][]api.QuotaSource{}
+				}
+				for _, route := range p.Configuration.Routes {
+					identity := quota.Identity{Provider: "synthetic", Account: route.Account, Workspace: route.Workspace, Region: "fixture", Generation: 1}
+					projectID := p.ID
+					reg.QuotaSources[p.ID] = append(reg.QuotaSources[p.ID], api.QuotaSource{Route: stageplan.RouteRef{ID: route.ID, Revision: route.Revision}, Identity: identity,
+						Current: func(ctx context.Context, i quota.Identity) bool {
+							return ctx.Err() == nil && i == identity && env.Current(projectID)
+						},
+						Fetch: func(_ context.Context, i quota.Identity) (quota.Snapshot, error) {
+							now := time.Now().UTC()
+							used, remaining := float64(0), float64(100)
+							return quota.Snapshot{Identity: i, Source: "synthetic-browser-quota", ObservedAt: &now, ReceivedAt: now, Status: quota.Unverified, Pool: quota.Pool{Provider: i.Provider, Region: i.Region}, Windows: []quota.Window{{Name: "synthetic window", Kind: "coding_plan", Unit: "percent", UsedPercent: &used, RemainingPercent: &remaining}}, Resources: []quota.Resource{{Kind: "credit", Unit: "CNY", Display: "2.50"}}}, nil
+						}})
+				}
 			}
 		}
 		if *uiFixtureExecution != "" {
@@ -132,7 +153,7 @@ func TestTaskUIFixtureProcess(t *testing.T) {
 		t.Fatal("synthetic UI host initialization")
 	}
 	defer h.Close()
-	announcement, _ := json.Marshal(map[string]any{"control_address": "http://" + h.Addr(), "synthetic_fixture": true, "execution_supported": *uiFixtureExecution != "", "synthetic_execution_mode": *uiFixtureExecution, "jev": "off"})
+	announcement, _ := json.Marshal(map[string]any{"control_address": "http://" + h.Addr(), "synthetic_fixture": true, "execution_supported": *uiFixtureExecution != "", "synthetic_execution_mode": *uiFixtureExecution, "synthetic_quota": *uiFixtureQuota, "jev": "off"})
 	fmt.Println(string(announcement))
 	if err := h.Serve(ctx); err != nil {
 		t.Fatal("synthetic UI host service")

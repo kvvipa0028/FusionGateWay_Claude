@@ -1,5 +1,6 @@
 import {roles,labels,groups,copy,expandLayer,groupShared,shareGroup,exactRoute,targetFor,routeKey,layerIssues,sameBinding} from "./model.mjs";
 import {createWorkbench} from "./workbench.mjs";
+import {createQuotaView} from "./quota.mjs";
 const $=id=>document.getElementById(id);
 const state={project:"",scope:"project",routes:[],layers:{},tags:{},config:{},presets:[],preset:null,editingPreset:null,presetNameDirty:false,expanded:new Set(),dirty:new Set(),loading:true,saving:false,taskPending:false,uncertain:null,notice:"正在读取本机配置…"};
 const messages={route_unavailable:"模型或路线版本已失效，请重新选择。",effort_unspecified:"请选择推理档位。",effort_unsupported:"该模型不支持此推理选择。",candidates_missing:"请明确添加批准的候选。",candidate_duplicate:"同一路线版本不能重复。",mode_invalid:"配置模式无效。",lock_exception_unaccepted:"此配置含未接受的锁定例外。"};
@@ -48,6 +49,7 @@ function errorText(e,saving=false){
 }
 const workbench=createWorkbench({request,onLock:value=>{state.taskPending=value;render()},onRestore:record=>{state.scope="task";$("scope").value="task";$("goal").value=record.goal;$("task-role").value=record.preview.plan.required_roles[0]},onNotice:(message,error=false)=>{state.notice=message;state.error=error;render()}});
 const disabled=()=>state.loading||state.saving||state.taskPending||!!state.uncertain;
+const quotaView=createQuotaView({request,onChange:()=>render()});
 function clearPreview(){workbench.invalidate();$("preview").hidden=true}
 function activeLayer(){return state.layers[state.scope]||expandLayer()}
 function setBinding(role,binding){state.layers[state.scope].roles[role]=binding;state.dirty.add(state.scope);state.notice="本地选择尚未保存。";clearPreview();render()}
@@ -76,7 +78,7 @@ function routeDetails(route){
  const p=el("p",null,{class:"details"});
  if(!route){p.textContent="请选择具体模型；不会自动改用列表中的其他模型。";return p}
  const lock={controlled_calls:"调用受控",primary_only:"仅主调用",unverified:"锁定能力未核验"}[route.lock_enforcement]||"锁定能力未知";
- p.textContent="账号："+route.account+"；计费："+route.billing_path+"；"+lock+"。额度尚未读取。";
+ p.textContent="账号："+route.account+"；计费："+route.billing_path+"；"+lock+"。"+quotaView.summary(route);
  if(!route.admitted||!route.billing_known){p.classList.add("warning");p.append(el("span"," 路线尚未准入，可保存草稿选择。"))}
  return p;
 }
@@ -142,10 +144,11 @@ function render(){
  $("preset-editing").textContent=state.editingPreset?"保存当前范围的五角色选择为预设新版本，基于已载入版本 "+state.editingPreset.revision+"；默认配置和已有任务来源保持原值。":"保存当前范围的五角色选择；修改已有预设须先载入明确版本。不会改写默认配置或启动模型。";
  $("status").textContent=state.notice;$("status").className=state.error?"error":"";
  $("preset-source").textContent=state.preset?"本次任务使用预设 "+state.preset.id+"@"+state.preset.revision:"";
+ quotaView.render(disabled());
  if(focus)[...document.querySelectorAll("[aria-label]")].find(n=>n.getAttribute("aria-label")===focus)?.focus({preventScroll:true});
 }
 async function loadProject(id){
- state.loading=true;workbench.setProject("");state.error=false;state.notice="正在读取项目配置…";render();
+ state.loading=true;quotaView.clear();workbench.setProject("");state.error=false;state.notice="正在读取项目配置…";render();
  try{
   const base="/control/v1/projects/"+encodeURIComponent(id);
   const [config,global,project,presets]=await Promise.all([request(base+"/configuration"),request("/control/v1/defaults/global"),request(base+"/defaults"),request(base+"/presets")]);
@@ -157,6 +160,7 @@ async function loadProject(id){
   presetOptions();
   $("preset-version").value="";clearPreview();state.notice="已载入当前配置。保存选择不会启动模型。";
   await workbench.setProject(id);
+  quotaView.setProject(id,state.routes);
  }catch(e){state.project="";state.layers={};state.error=true;state.notice=errorText(e)}
  state.loading=false;render();
 }

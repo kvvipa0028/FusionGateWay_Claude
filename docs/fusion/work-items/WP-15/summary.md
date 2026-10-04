@@ -2,7 +2,7 @@
 
 状态：`in_progress`。子工作项 [WP-15-PREVIEW-01](PREVIEW-01/summary.md) 已完成：受鉴权的无调用计划预览、冻结提交和任务读取组件。
 
-[GLM-QUOTA-HOST-01](GLM-QUOTA-HOST-01/summary.md) 已接独立额度用途的产品 CLI/Management API，私有 FileCredential、固定 CN Reader、当前来源/凭据复核和 owned 查询关闭均接线；一次真实只读查询通过，两个模型窗口 0% 已用。额度快照保持 unverified，不启用生成、Controller 或任何按量 fallback；GLM 真实执行和 Native/UI 额度面板仍待完成。
+[GLM-QUOTA-HOST-01](GLM-QUOTA-HOST-01/summary.md) 已接独立额度用途的产品 CLI/Management API，私有 FileCredential、固定 CN Reader、当前来源/凭据复核和 owned 查询关闭均接线；一次真实只读查询通过，两个模型窗口 0% 已用。额度快照保持 unverified，不启用生成、Controller 或任何按量 fallback；[QUOTA-UI-01](../WP-16/QUOTA-UI-01/summary.md)已接默认折叠的原 Magpie 额度区和可选 Native 宿主登记；GLM 真实执行与实际 Native 点击仍待验证。
 
 [SUBMISSION-JOURNAL-01](SUBMISSION-JOURNAL-01/summary.md) 已完成 schema 7 的私有原请求存储及 prepared/committed/acknowledged/abandoned 生命周期，创建与封存原子互斥，损坏冻结记录拒绝继续，历史回执/数据保留。[SUBMISSION-API-01](SUBMISSION-API-01/summary.md) 已接恢复 API 与 Native 通路，后续 [SUBMISSION-UI-01](../WP-16/SUBMISSION-UI-01/summary.md) 已接页面消费者并验证浏览器恢复，实际 Native 恢复窗口仍待验证；父包继续 in_progress。
 

@@ -1,6 +1,6 @@
 # 项目额度 API 合同
 
-此接口属于 Management 保护的内部 Handler，尚未注册产品 listener/GUI。QuotaSource 仅由可信 bootstrap 登记，绑定已存在项目的可信 route-registration revision、精确 route revision 和 quota identity（provider/account/workspace/region/generation）；HTTP 不能提供 token、URL、账号、workspace、generation 或采集器。Current 必须是本地、无阻塞的当前 quota-purpose/凭据身份检查，Fetch 必须在自己的出站边界独立检查用途与身份。额度查询准入独立于生成准入。
+此接口属于 Management 保护的 Handler；[GLM 产品宿主](glm-quota-host.md)已注册显式只查询的 listener，[原 Magpie 额度区](quota-ui.md)已接缓存读取/手动刷新与受限 Native 通路。QuotaSource 仅由可信 bootstrap 登记，绑定已存在项目的可信 route-registration revision、精确 route revision 和 quota identity（provider/account/workspace/region/generation）；HTTP 不能提供 token、URL、账号、workspace、generation 或采集器。Current 必须是本地、无阻塞的当前 quota-purpose/凭据身份检查，Fetch 必须在自己的出站边界独立检查用途与身份。额度查询准入独立于生成准入。
 
 | 方法/路径 | 行为 |
 |---|---|

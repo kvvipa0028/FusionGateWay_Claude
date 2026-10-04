@@ -1,0 +1,15 @@
+{
+  "owned_product_mode": "fusion-ui quota-only",
+  "execution_enabled": false,
+  "quota_query_enabled": true,
+  "jev": "off",
+  "cache_initial_status": "unknown",
+  "manual_quota_refresh_requests": 0,
+  "real_model_calls": 0,
+  "CUA_result": "Mac is locked; no screenshot/AX/click verified",
+  "owned_launcher_exit_code": 0,
+  "owned_GUI_exit_code": 0,
+  "temporary_private_fixture_cleanup": true,
+  "binary_sha256": "d093fd758f15f6cfb6350690ec146d74d4e568b38b78e260934a0bfaab9d6590",
+  "scope": "actual startup/cache/exit only; binary before final display-only status line correction"
+}

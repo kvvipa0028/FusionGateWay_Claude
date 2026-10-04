@@ -14,6 +14,7 @@
 <div class="presets profiles"><label>预设<select id="preset" aria-label="预设"><option value="">不载入预设</option></select></label><label>明确版本<input id="preset-version" aria-label="预设版本" inputmode="numeric"></label><button id="apply-preset" class="text action">载入此版本</button><span id="preset-source"></span></div>
 <div class="preset-save profiles"><label>预设名称<input id="preset-name" aria-label="预设名称"></label><button id="create-preset" class="text action">保存为新预设</button><button id="save-preset" class="text action">保存预设新版本</button><button id="retry-preset" class="text action" hidden>重试同一预设保存</button><p id="preset-editing">保存当前范围的五角色选择；不会改写默认配置或启动模型。</p></div>
 <div id="groups"></div>
+<details id="quota-panel" class="list" aria-label="路线额度"><summary>路线额度（仅手动刷新）</summary><div class="row"><p class="name">额度观察</p><button id="read-quota" class="text action" aria-label="读取额度缓存">读取额度缓存</button></div><p class="details">读取缓存不会查询供应商。额度观察不代表阶段已准入；共享池不累加，未知值不视为零。</p><div id="quota-list"></div><p id="quota-status" class="details" role="status" aria-live="polite">额度尚未读取。</p></details>
 <section id="task" class="list" hidden><h2>单阶段任务预览</h2><label>任务目标<textarea id="goal" aria-label="任务目标" rows="3"></textarea></label><label>本次阶段<select id="task-role" aria-label="本次阶段"></select></label><p>预览核对服务端模型绑定，不启动任务。</p></section>
 <footer><button id="save" class="text primary" disabled>保存项目配置</button><p id="status" role="status" aria-live="polite">正在读取本机配置…</p></footer>
 <section id="preview" class="list" hidden aria-label="计划预览"></section>

@@ -1,0 +1,41 @@
+{
+  "component": "WP-16-QUOTA-UI-01",
+  "component_status": "done",
+  "parent_WP16": "in_progress",
+  "browser": {
+    "pass": 44,
+    "fail": 0,
+    "skip": 0,
+    "log": "quota-ui-browser-final-verified.log",
+    "new_quota_scenarios": 8,
+    "original_regression_scenarios": 36
+  },
+  "bootstrap_race": {
+    "top_pass": 15,
+    "sub_pass": 41,
+    "fail": 0,
+    "skip": 0,
+    "log": "quota-ui-native-final.log"
+  },
+  "GUI_CLI_navigation": {
+    "pass": 2,
+    "fail": 0,
+    "skip": 0,
+    "log": "quota-ui-cli-navigation.log"
+  },
+  "build": "Go1.26.3 final CLI/GUI/full fusion,nogui vet exit0",
+  "actual_native_startup_cache_exit": "pass; binary before final display-only status-line correction",
+  "actual_native_pixels_clicks": "not_verified; Mac is locked",
+  "real_quota_refresh_requests": 0,
+  "real_model_calls": 0,
+  "jev": "off",
+  "original_Magpie_UI": "three assets byte-identical locked upstream; Fusion CSS byte-identical BASE",
+  "final_T01_T60": "not_run",
+  "remaining": [
+    "actual Native quota actions",
+    "window-close start identity recovery",
+    "run events/plan revision",
+    "real generation Factory/Forwarder/physical pool/account/billing proof",
+    "engineering stages/final Gate"
+  ]
+}

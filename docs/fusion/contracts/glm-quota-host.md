@@ -28,7 +28,7 @@ PATH="$HOME/.local/bin:$PATH" python3 scripts/fusion/run-dev.py \
   --glm-quota-key "$fusion_glm_key_file"
 ```
 
-将 project/route 替换成实际登记 ID，不能用模型名代替 route。启动 JSON 的 quota_query_enabled=true/execution_enabled=false 只表示查询配置已加载；没有后台额度轮询。沿[ControlHost 的内存凭据读取流程](control-host.md)访问 GET `/control/v1/projects/{project_id}/quota`；明确查询使用 POST `/control/v1/projects/{project_id}/quota/{route_id}/refresh`，JSON body `{}`。HTTP 不接受 key、URL、账号、workspace 或 generation 参数。Native 桥与 UI 额度面板尚未接入；不把管理凭据放进浏览器 URL、聊天或 shell 参数。
+将 project/route 替换成实际登记 ID，不能用模型名代替 route。启动 JSON 的 quota_query_enabled=true/execution_enabled=false 只表示查询配置已加载；没有后台额度轮询。沿[ControlHost 的内存凭据读取流程](control-host.md)访问 GET `/control/v1/projects/{project_id}/quota`；明确查询使用 POST `/control/v1/projects/{project_id}/quota/{route_id}/refresh`，JSON body `{}`。HTTP 不接受 key、URL、账号、workspace 或 generation 参数。后续 [原 Magpie 额度观察区](quota-ui.md)已接入 Native 桥及可选 fusion-ui 参数；不把管理凭据放进浏览器 URL、聊天或 shell 参数。
 
 Ctrl+C/SIGTERM 停止 owned 宿主。关闭撤销管理、取消正在读取的查询、等待实际 Reader 结束，再执行 cleanup/关闭 Store。CloseContext 超时不等于 Reader 已停，不能提前清理其依赖。首个 HTTP 断线不取消 Broker 的共享读取，来源撤销/宿主关闭则会取消。
 
@@ -36,7 +36,7 @@ Ctrl+C/SIGTERM 停止 owned 宿主。关闭撤销管理、取消正在读取的�
 
 实际产品 CLI 使用现有私有 key 完成一次刷新，两个 coding_plan 模型窗口均 0% 已用；GET 缓存没有改写 observation，宿主 SIGTERM exit0、临时状态/合成项目删除。模型调用数 0，未读取日常 Claude 认证，未修改用户日常配置。观察时间和二进制 hash 见 [原记录](../work-items/WP-15/GLM-QUOTA-HOST-01/glm-quota-product-live.json)，它是当次快照，不保证现在的额度。
 
-Reader 仍 Complete=false、Pool.Verified=false、status=unverified；0% 不证明物理池、账号归属、所有窗口完整、模型/effort/生成计费正确，更不能启用 Scheduler。真实生成 Factory、Native/UI 查询、工程流程和最终 Gate 仍未完成。
+Reader 仍 Complete=false、Pool.Verified=false、status=unverified；0% 不证明物理池、账号归属、所有窗口完整、模型/effort/生成计费正确，更不能启用 Scheduler。Native/UI 查询已由 QUOTA-UI-01 接入，实际 Native 点击尚未验证；真实生成 Factory、工程流程和最终 Gate 仍未完成。
 
 可选择执行一次真实只读复核；不自动重试，不发送模型请求。报告路径必须不存在，以免覆盖已有证据。探针使用全新私有合成项目与临时 HOME/XDG，在 finally 中停止自己启动的产品进程并清理临时目录；不会修改日常工程。
 

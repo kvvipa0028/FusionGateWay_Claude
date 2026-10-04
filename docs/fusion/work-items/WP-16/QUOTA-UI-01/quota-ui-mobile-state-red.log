@@ -1,0 +1,28 @@
+✖ quota pane: manual synthetic refresh shows zero usage as unverified and preserves source timestamps on cache reads (1098.20875ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1289.8995
+
+✖ failing tests:
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:613:1
+✖ quota pane: manual synthetic refresh shows zero usage as unverified and preserves source timestamps on cache reads (1098.20875ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+    assert.ok(await row.getByText('额度：未核验。',{exact:true}).isVisible())
+
+      at TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:628:44)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

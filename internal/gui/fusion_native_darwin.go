@@ -79,10 +79,32 @@ func nativeStageNavigationAllowed(uri string, mainFrame bool) bool {
 // RunFusion owns one draft-control host and one Native stage window. It does
 // not start the legacy gateway, install Runtime authority or register services.
 func RunFusion(parent context.Context, source, root string, out io.Writer) error {
+	return runFusion(parent, source, root, out, nil)
+}
+
+// FusionGLMQuota enables only the explicit Mainland Coding Plan quota reader.
+// KeyFile is a private path, never a key value or execution grant.
+type FusionGLMQuota struct {
+	Project string
+	Route   string
+	KeyFile string
+}
+
+func RunFusionWithGLMQuota(parent context.Context, source, root string, out io.Writer, quota FusionGLMQuota) error {
+	return runFusion(parent, source, root, out, &quota)
+}
+
+func runFusion(parent context.Context, source, root string, out io.Writer, quota *FusionGLMQuota) error {
 	if !isolation.Development || parent == nil || out == nil {
 		return bootstrap.ErrControlHost
 	}
-	control, e := bootstrap.OpenControl(source, root, "127.0.0.1:0")
+	var control *bootstrap.ControlHost
+	var e error
+	if quota == nil {
+		control, e = bootstrap.OpenControl(source, root, "127.0.0.1:0")
+	} else {
+		control, e = bootstrap.OpenGLMQuotaControl(parent, source, root, "127.0.0.1:0", quota.Project, quota.Route, quota.KeyFile)
+	}
 	if e != nil {
 		return bootstrap.ErrControlHost
 	}
@@ -126,7 +148,7 @@ func RunFusion(parent context.Context, source, root string, out io.Writer) error
 			cancel()
 			return
 		}
-		if json.NewEncoder(out).Encode(map[string]any{"product": "fusion-gateway", "control_address": "http://" + control.Addr(), "mode": "native-stage-editor", "execution_enabled": false, "jev": "off"}) != nil {
+		if json.NewEncoder(out).Encode(map[string]any{"product": "fusion-gateway", "control_address": "http://" + control.Addr(), "mode": "native-stage-editor", "execution_enabled": false, "quota_query_enabled": quota != nil, "jev": "off"}) != nil {
 			cancel()
 			return
 		}

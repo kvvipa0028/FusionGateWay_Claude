@@ -37,3 +37,5 @@ launcher 使用私有 HOME/XDG 和环境允许清单。启动 stdout 仅含产�
 2026-10-04 完成实际 Native 窗口载入、模型 B/none 的锁定选择、项目保存、独立 HTTP Store 回读、重新载入和窗口关闭。保存显示版本 1，回读确认完整绑定；关闭后进程 exit0，控制端口关闭。前期工具捕捉失败后，用户指出实际 Forbidden；SDK header 复现测试证实原因并完成严格本窗口修正。最终 CUA accessibility 操作成功，截图仍因 ScreenCaptureKit -3812 未取得，未声称完成截图视觉验收。
 
 任务列表、冻结提交和详情的 Native 桥已完成函数级/真实私有 HTTP 验证；本轮未重跑实际 Native 窗口。阶段执行控制工作台、真实 provider/Factory/账号/额度准入、完整工程闭环和最终 T01–T60 继续待完成；不能据此宣称用户已能执行真实任务。
+
+后续 [QUOTA-UI-01](quota-ui.md)增加已登记项目 quota GET、精确 route refresh POST 和 quota.mjs GET/HEAD；fusion-ui 可显式选择三个 GLM quota 参数登记只查询宿主，启动 JSON 增加 quota_query_enabled。8 秒 Native 期限、窗口/来源/鉴权约束不变，不注册生成 Controller。

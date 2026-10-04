@@ -1,0 +1,4 @@
+=== RUN   TestNativeQuotaUsesRegisteredScopeAndManualRefresh
+--- PASS: TestNativeQuotaUsesRegisteredScopeAndManualRefresh (0.11s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	1.788s
