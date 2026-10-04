@@ -104,11 +104,20 @@ func TestNativeTaskUISubmitsFrozenPreviewAndReadsOnlyRegisteredTask(t *testing.T
 			}
 		}
 	}
-	for _, path := range []string{"/agent/v1/tasks/" + created.ID, "/control/v1/tasks/" + created.ID + "/start", "/control/v1/tasks/" + created.ID + "/cancel", "/agent/v1/tasks/" + created.ID + "/events"} {
+	for _, path := range []string{"/agent/v1/tasks/" + created.ID, "/agent/v1/tasks/" + created.ID + "/events"} {
 		w := httptest.NewRecorder()
 		b.ServeHTTP(w, nativeRequest("POST", path, "{}"))
 		if w.Code != 404 {
 			t.Fatal("unexpected task control", path, w.Code)
+		}
+	}
+	// Controls are now explicitly bridged, but still require their full Task
+	// condition. This submission/read test must not inspect or launch Runtime.
+	for _, action := range []string{"start", "cancel"} {
+		w := httptest.NewRecorder()
+		b.ServeHTTP(w, nativeRequest("POST", "/control/v1/tasks/"+created.ID+"/"+action, "{}"))
+		if w.Code != 428 {
+			t.Fatal("condition-free task control accepted", action, w.Code)
 		}
 	}
 	if calls.Load() != 0 {

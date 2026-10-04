@@ -1,0 +1,79 @@
+[
+  {
+    "source": ".fusion-dev/implementation/native-task-control-final-verified.log",
+    "original_sha256": "f596a4a2e1acad2a764107245cc22d1521fd2407c86bc7ad47958a5322f52706",
+    "saved": "docs/fusion/work-items/WP-16/CONTROL-BRIDGE-01/native-task-control-final-verified.log",
+    "saved_sha256": "f596a4a2e1acad2a764107245cc22d1521fd2407c86bc7ad47958a5322f52706",
+    "normalization": "trailing whitespace per line only"
+  },
+  {
+    "source": ".fusion-dev/implementation/native-task-control-final.log",
+    "original_sha256": "548358b78035db0fc52e1280051574c935cf02ecb558b4a456e15c2611f39981",
+    "saved": "docs/fusion/work-items/WP-16/CONTROL-BRIDGE-01/native-task-control-final.log",
+    "saved_sha256": "548358b78035db0fc52e1280051574c935cf02ecb558b4a456e15c2611f39981",
+    "normalization": "trailing whitespace per line only"
+  },
+  {
+    "source": ".fusion-dev/implementation/native-task-control-green-verified.log",
+    "original_sha256": "f9ef341c784a901fdff4974791dd67f4d57bdfaa43464136be612e2c7ef8f5f3",
+    "saved": "docs/fusion/work-items/WP-16/CONTROL-BRIDGE-01/native-task-control-green-verified.log",
+    "saved_sha256": "f9ef341c784a901fdff4974791dd67f4d57bdfaa43464136be612e2c7ef8f5f3",
+    "normalization": "trailing whitespace per line only"
+  },
+  {
+    "source": ".fusion-dev/implementation/native-task-control-green.log",
+    "original_sha256": "cc4b436ad5a2169154d981d01bf19803864732edd08cd300d41e451bf59594dd",
+    "saved": "docs/fusion/work-items/WP-16/CONTROL-BRIDGE-01/native-task-control-green.log",
+    "saved_sha256": "cc4b436ad5a2169154d981d01bf19803864732edd08cd300d41e451bf59594dd",
+    "normalization": "trailing whitespace per line only"
+  },
+  {
+    "source": ".fusion-dev/implementation/native-task-control-lifecycle-verified.log",
+    "original_sha256": "6b14215e54c8723e7aaa6fc0be59487b24636ee9e35126e92f8008c068d4f47d",
+    "saved": "docs/fusion/work-items/WP-16/CONTROL-BRIDGE-01/native-task-control-lifecycle-verified.log",
+    "saved_sha256": "6b14215e54c8723e7aaa6fc0be59487b24636ee9e35126e92f8008c068d4f47d",
+    "normalization": "trailing whitespace per line only"
+  },
+  {
+    "source": ".fusion-dev/implementation/native-task-control-lifecycle.log",
+    "original_sha256": "53b12feab9cf05faa6e9ebdeed95f87fb71ba4a86a949458b478521e3ad3d75a",
+    "saved": "docs/fusion/work-items/WP-16/CONTROL-BRIDGE-01/native-task-control-lifecycle.log",
+    "saved_sha256": "53b12feab9cf05faa6e9ebdeed95f87fb71ba4a86a949458b478521e3ad3d75a",
+    "normalization": "trailing whitespace per line only"
+  },
+  {
+    "source": ".fusion-dev/implementation/native-task-control-red-verified.log",
+    "original_sha256": "d1dfba8f0dbb901476692271e0ec3a3fa026b1ef3e53a8f90ac7160792e6ef60",
+    "saved": "docs/fusion/work-items/WP-16/CONTROL-BRIDGE-01/native-task-control-red-verified.log",
+    "saved_sha256": "d1dfba8f0dbb901476692271e0ec3a3fa026b1ef3e53a8f90ac7160792e6ef60",
+    "normalization": "trailing whitespace per line only"
+  },
+  {
+    "source": ".fusion-dev/implementation/native-task-control-red.log",
+    "original_sha256": "6329fa11bfd2dd102db05c3e431ce66def538a3b8055c95149b3aaebe8277bdd",
+    "saved": "docs/fusion/work-items/WP-16/CONTROL-BRIDGE-01/native-task-control-red.log",
+    "saved_sha256": "6329fa11bfd2dd102db05c3e431ce66def538a3b8055c95149b3aaebe8277bdd",
+    "normalization": "trailing whitespace per line only"
+  },
+  {
+    "source": ".fusion-dev/build-dev/cli.log",
+    "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "saved": "docs/fusion/work-items/WP-16/CONTROL-BRIDGE-01/build-cli.log",
+    "saved_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "normalization": "trailing whitespace per line only"
+  },
+  {
+    "source": ".fusion-dev/build-dev/gui.log",
+    "original_sha256": "6be9d062a0f07a98b6b25075112766e75027a5c7f1af318c0cda7a10a2710c94",
+    "saved": "docs/fusion/work-items/WP-16/CONTROL-BRIDGE-01/build-gui.log",
+    "saved_sha256": "6be9d062a0f07a98b6b25075112766e75027a5c7f1af318c0cda7a10a2710c94",
+    "normalization": "trailing whitespace per line only"
+  },
+  {
+    "source": ".fusion-dev/build-dev/vet.log",
+    "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "saved": "docs/fusion/work-items/WP-16/CONTROL-BRIDGE-01/build-vet.log",
+    "saved_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "normalization": "trailing whitespace per line only"
+  }
+]

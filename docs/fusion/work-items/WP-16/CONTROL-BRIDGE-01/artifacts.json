@@ -1,0 +1,123 @@
+{
+  "base_commit": "fb64ca8e2f52982f01c9f0cd1741f541fc5e69a7",
+  "source_files": [
+    {
+      "path": "docs/fusion/README.md",
+      "sha256": "14ea3a7fd7a0f202eb0d2df89c0a9b4b199ec0bf0e212d178af7a613eb26f817"
+    },
+    {
+      "path": "docs/fusion/contracts/native-stage-ui.md",
+      "sha256": "cd89e331e26b84ac0e0c15d3a2b6c8261c3f514852d1e28c7c59efb9af9de1e8"
+    },
+    {
+      "path": "docs/fusion/contracts/native-task-control.md",
+      "sha256": "c703c48eaea406d421ed20d32455a6aae3f6822a8e612adb082e78293497f106"
+    },
+    {
+      "path": "docs/fusion/contracts/task-control-api.md",
+      "sha256": "bef7771324e97dabbddaf1176394099b1bc8264db250a1853106ea23e699a5d1"
+    },
+    {
+      "path": "docs/fusion/contracts/task-execution-api.md",
+      "sha256": "ac9c558439b2048807c53a11c10eb0ba29223cf931b244c543d7d73aee1455cd"
+    },
+    {
+      "path": "docs/fusion/contracts/task-workbench.md",
+      "sha256": "7b107fa2dc25fc3f2469615bc37d9637a65671656cb186c68789d6db216ad181"
+    },
+    {
+      "path": "docs/fusion/planning/Fusion_Magpie_Fork_Agent工作包_v1.0.md",
+      "sha256": "50d62de1c8b23967a10d37c76e1d0b921a390740d3f9ee08acda95c20b9b80e8"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-15/summary.md",
+      "sha256": "63ab38bf0594a7b5b52476a56cb8e29a2e0d38098f4202d87e5bb754fc13af54"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/summary.md",
+      "sha256": "fb035e439b29d31ca754b2fb1ba5bb718bcfbee5a43006e69ecda5b18ad0f4fb"
+    },
+    {
+      "path": "internal/fusion/bootstrap/native_task_control_test.go",
+      "sha256": "c50c7ee4255bdff805068e720e82bdf5f2fa80afcde0bf0119570e196f3ee79c"
+    },
+    {
+      "path": "internal/fusion/bootstrap/native_ui.go",
+      "sha256": "06c86d83ed9ce1cd82088b3b61e99acd0de07add6428c03dabd1d8b58875c40d"
+    },
+    {
+      "path": "internal/fusion/bootstrap/task_ui_test.go",
+      "sha256": "cd4bdf9732bf8522a3746a319c10a02815eb9be47e09c0be031b20eeb2b43470"
+    }
+  ],
+  "packet_files": [
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-BRIDGE-01/build-cli.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-BRIDGE-01/build-gui.log",
+      "sha256": "6be9d062a0f07a98b6b25075112766e75027a5c7f1af318c0cda7a10a2710c94"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-BRIDGE-01/build-results.json",
+      "sha256": "97c3fda5102b41a8ea15f2c7f3c9c36395a85ae69515a3a39809765dd7581efb"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-BRIDGE-01/build-vet.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-BRIDGE-01/graph.json",
+      "sha256": "522bfd7b326ab6b4434f30929db5a804fec6d71f617e0c0da75d970ee588bcfa"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-BRIDGE-01/log-provenance.json",
+      "sha256": "b3d7a74f2d6e3408e491e7ce87e000df575c85c66e46ec6f19e715f91c4321a8"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-BRIDGE-01/native-task-control-final-verified.log",
+      "sha256": "f596a4a2e1acad2a764107245cc22d1521fd2407c86bc7ad47958a5322f52706"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-BRIDGE-01/native-task-control-final.log",
+      "sha256": "548358b78035db0fc52e1280051574c935cf02ecb558b4a456e15c2611f39981"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-BRIDGE-01/native-task-control-green-verified.log",
+      "sha256": "f9ef341c784a901fdff4974791dd67f4d57bdfaa43464136be612e2c7ef8f5f3"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-BRIDGE-01/native-task-control-green.log",
+      "sha256": "cc4b436ad5a2169154d981d01bf19803864732edd08cd300d41e451bf59594dd"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-BRIDGE-01/native-task-control-lifecycle-verified.log",
+      "sha256": "6b14215e54c8723e7aaa6fc0be59487b24636ee9e35126e92f8008c068d4f47d"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-BRIDGE-01/native-task-control-lifecycle.log",
+      "sha256": "53b12feab9cf05faa6e9ebdeed95f87fb71ba4a86a949458b478521e3ad3d75a"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-BRIDGE-01/native-task-control-red-verified.log",
+      "sha256": "d1dfba8f0dbb901476692271e0ec3a3fa026b1ef3e53a8f90ac7160792e6ef60"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-BRIDGE-01/native-task-control-red.log",
+      "sha256": "6329fa11bfd2dd102db05c3e431ce66def538a3b8055c95149b3aaebe8277bdd"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-BRIDGE-01/summary.md",
+      "sha256": "05b1e0de63853d0ae7b95476c7538c29d58ed12114977de509ef0cb43cec4925"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-BRIDGE-01/test-results.json",
+      "sha256": "190b5c1bcd58b7cacd5a65e0a2a762186653ccf3f269253bef8522df6246f739"
+    },
+    {
+      "path": "docs/fusion/work-items/WP-16/CONTROL-BRIDGE-01/validation.json",
+      "sha256": "42502f34c73220c1dc1f4c0cff6c5aa7b7a13b5df0c03ad0c9ee92e7840dc202"
+    }
+  ]
+}

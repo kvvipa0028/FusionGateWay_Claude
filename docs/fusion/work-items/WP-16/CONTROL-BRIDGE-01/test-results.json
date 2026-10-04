@@ -1,0 +1,18 @@
+{
+  "scope": "Native fixed task-control routes; UI unchanged",
+  "top_pass": 54,
+  "sub_pass": 100,
+  "fail": 0,
+  "skip": 0,
+  "final_log": "native-task-control-final-verified.log",
+  "new_tests": 4,
+  "owned_loopback_and_real_Store_Controller": true,
+  "Runtime_and_StopProof": "synthetic; not real Native process verification",
+  "real_provider_calls": 0,
+  "jev": "off",
+  "actual_native_window": "not_verified_mac_locked",
+  "browser": "not_repeated; assets unchanged",
+  "OpenAPI": "unchanged",
+  "parent_WP16": "in_progress",
+  "final_T01_T60": "not_run"
+}

@@ -1,0 +1,13 @@
+{
+  "source_files": 12,
+  "json_checked": 4,
+  "local_links_checked": 147,
+  "gofmt": "pass",
+  "diff": "pass",
+  "private_key_byte_exclusion": "pass; no credential or credential hash emitted",
+  "UI_assets": "unchanged; original Magpie three assets byte-equal locked source",
+  "Go_API_Controller_Store_OpenAPI": "unchanged; Native bridge only",
+  "build_log_and_binary_hashes": "pass",
+  "graph": "refreshed 14052 nodes 125229 edges",
+  "actual_native_window": "not_verified"
+}

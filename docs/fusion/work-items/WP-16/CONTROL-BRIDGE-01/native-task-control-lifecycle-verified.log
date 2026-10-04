@@ -1,0 +1,10 @@
+=== RUN   TestNativeTaskControlOwnedRunAndOriginalStartRetry
+=== RUN   TestNativeTaskControlOwnedRunAndOriginalStartRetry/run-cancel
+=== RUN   TestNativeTaskControlOwnedRunAndOriginalStartRetry/pause
+=== RUN   TestNativeTaskControlOwnedRunAndOriginalStartRetry/cancel
+--- PASS: TestNativeTaskControlOwnedRunAndOriginalStartRetry (0.33s)
+    --- PASS: TestNativeTaskControlOwnedRunAndOriginalStartRetry/run-cancel (0.12s)
+    --- PASS: TestNativeTaskControlOwnedRunAndOriginalStartRetry/pause (0.10s)
+    --- PASS: TestNativeTaskControlOwnedRunAndOriginalStartRetry/cancel (0.10s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	2.019s

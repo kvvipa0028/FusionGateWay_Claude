@@ -129,6 +129,12 @@ func (b *NativeStageBridge) allowed(method, path string) bool {
 	if nativeTaskReadID(path) != "" {
 		return method == "GET"
 	}
+	if nativeTaskOperationID(path) != "" {
+		if strings.HasPrefix(path, "/agent/v1/tasks/") {
+			return method == "GET"
+		}
+		return method == "POST"
+	}
 	if path == "/control/v1/projects" {
 		return method == "GET"
 	}
@@ -186,6 +192,30 @@ func nativeTaskReadID(path string) string {
 	return ""
 }
 
+// Only exact stage controls and safe run reads are part of this bridge.
+// Checkpoint restore/archive and streaming events have separate contracts.
+func nativeTaskOperationID(path string) string {
+	if strings.HasPrefix(path, "/control/v1/tasks/") {
+		parts := strings.Split(strings.TrimPrefix(path, "/control/v1/tasks/"), "/")
+		if len(parts) == 2 && opaque(parts[0]) {
+			switch parts[1] {
+			case "start", "pause", "continue", "cancel":
+				return parts[0]
+			}
+		}
+		if len(parts) == 4 && opaque(parts[0]) && parts[1] == "runs" && opaque(parts[2]) && parts[3] == "cancel" {
+			return parts[0]
+		}
+	}
+	if strings.HasPrefix(path, "/agent/v1/tasks/") {
+		parts := strings.Split(strings.TrimPrefix(path, "/agent/v1/tasks/"), "/")
+		if len(parts) == 3 && opaque(parts[0]) && parts[1] == "runs" && opaque(parts[2]) {
+			return parts[0]
+		}
+	}
+	return ""
+}
+
 func (b *NativeStageBridge) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Cache-Control", "no-store")
 	w.Header().Set("X-Content-Type-Options", "nosniff")
@@ -229,7 +259,11 @@ func (b *NativeStageBridge) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	defer stop()
 	// This lookup occurs only after the exact Native window and current owned
 	// host were authenticated. A task in an unregistered project stays private.
-	if id := nativeTaskReadID(r.URL.Path); id != "" {
+	id := nativeTaskReadID(r.URL.Path)
+	if id == "" {
+		id = nativeTaskOperationID(r.URL.Path)
+	}
+	if id != "" {
 		task, err := b.host.store.Task(id)
 		if ctx.Err() != nil || err != nil && !errors.Is(err, store.ErrNotFound) {
 			http.Error(w, "Service Unavailable", 503)
@@ -272,7 +306,7 @@ func (b *NativeStageBridge) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			request.Header.Add(key, value)
 		}
 	}
-	if r.Method == "POST" && (r.URL.Path == "/agent/v1/tasks" || nativeSubmissionPath(r.URL.Path)) {
+	if r.Method == "POST" && (r.URL.Path == "/agent/v1/tasks" || nativeSubmissionPath(r.URL.Path) || nativeTaskOperationID(r.URL.Path) != "" && strings.HasSuffix(r.URL.Path, "/start")) {
 		for _, value := range r.Header.Values("Idempotency-Key") {
 			request.Header.Add("Idempotency-Key", value)
 		}
@@ -294,7 +328,7 @@ func (b *NativeStageBridge) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Service Unavailable", 503)
 		return
 	}
-	for _, key := range []string{"Content-Type", "Cache-Control", "ETag", "X-Content-Type-Options", "Referrer-Policy", "Content-Security-Policy", "Allow"} {
+	for _, key := range []string{"Content-Type", "Cache-Control", "ETag", "X-Fusion-Task-ETag", "X-Content-Type-Options", "Referrer-Policy", "Content-Security-Policy", "Allow"} {
 		if value := response.Header.Get(key); value != "" {
 			w.Header().Set(key, value)
 		}

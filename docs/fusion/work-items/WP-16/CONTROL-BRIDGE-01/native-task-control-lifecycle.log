@@ -1,0 +1,12 @@
+=== RUN   TestNativeTaskControlOwnedRunAndOriginalStartRetry
+=== RUN   TestNativeTaskControlOwnedRunAndOriginalStartRetry/run-cancel
+    native_task_control_test.go:197: stopping intent became misleading completion run-cancel cancelled
+=== RUN   TestNativeTaskControlOwnedRunAndOriginalStartRetry/pause
+=== RUN   TestNativeTaskControlOwnedRunAndOriginalStartRetry/cancel
+--- FAIL: TestNativeTaskControlOwnedRunAndOriginalStartRetry (0.33s)
+    --- FAIL: TestNativeTaskControlOwnedRunAndOriginalStartRetry/run-cancel (0.12s)
+    --- PASS: TestNativeTaskControlOwnedRunAndOriginalStartRetry/pause (0.10s)
+    --- PASS: TestNativeTaskControlOwnedRunAndOriginalStartRetry/cancel (0.10s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	0.986s
+FAIL

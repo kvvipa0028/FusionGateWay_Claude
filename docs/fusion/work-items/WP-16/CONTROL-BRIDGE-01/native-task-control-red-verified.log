@@ -1,0 +1,43 @@
+=== RUN   TestNativeTaskControlIdleConditionalCycle
+    native_task_control_test.go:46: pause 404
+--- FAIL: TestNativeTaskControlIdleConditionalCycle (0.08s)
+=== RUN   TestNativeTaskControlOwnedRunAndOriginalStartRetry
+    native_task_control_test.go:73: Native start missing 404
+--- FAIL: TestNativeTaskControlOwnedRunAndOriginalStartRetry (0.06s)
+=== RUN   TestNativeTaskControlBoundariesAndUnadmittedHost
+=== RUN   TestNativeTaskControlBoundariesAndUnadmittedHost/missing-condition
+    native_task_control_test.go:103: boundary 404
+=== RUN   TestNativeTaskControlBoundariesAndUnadmittedHost/weak-condition
+    native_task_control_test.go:103: boundary 404
+=== RUN   TestNativeTaskControlBoundariesAndUnadmittedHost/stale-condition
+    native_task_control_test.go:103: boundary 404
+=== RUN   TestNativeTaskControlBoundariesAndUnadmittedHost/missing-key
+    native_task_control_test.go:103: boundary 404
+=== RUN   TestNativeTaskControlBoundariesAndUnadmittedHost/privileged-body
+    native_task_control_test.go:103: boundary 404
+=== RUN   TestNativeTaskControlBoundariesAndUnadmittedHost/GET-action
+=== RUN   TestNativeTaskControlBoundariesAndUnadmittedHost/PUT-action
+=== RUN   TestNativeTaskControlBoundariesAndUnadmittedHost/extra-segment
+=== RUN   TestNativeTaskControlBoundariesAndUnadmittedHost/not-resume
+=== RUN   TestNativeTaskControlBoundariesAndUnadmittedHost/not-checkpoint
+=== RUN   TestNativeTaskControlBoundariesAndUnadmittedHost/not-events
+=== NAME  TestNativeTaskControlBoundariesAndUnadmittedHost
+    native_task_control_test.go:104: duplicate header lost If-Match 404
+--- FAIL: TestNativeTaskControlBoundariesAndUnadmittedHost (0.06s)
+    --- FAIL: TestNativeTaskControlBoundariesAndUnadmittedHost/missing-condition (0.00s)
+    --- FAIL: TestNativeTaskControlBoundariesAndUnadmittedHost/weak-condition (0.00s)
+    --- FAIL: TestNativeTaskControlBoundariesAndUnadmittedHost/stale-condition (0.00s)
+    --- FAIL: TestNativeTaskControlBoundariesAndUnadmittedHost/missing-key (0.00s)
+    --- FAIL: TestNativeTaskControlBoundariesAndUnadmittedHost/privileged-body (0.00s)
+    --- PASS: TestNativeTaskControlBoundariesAndUnadmittedHost/GET-action (0.00s)
+    --- PASS: TestNativeTaskControlBoundariesAndUnadmittedHost/PUT-action (0.00s)
+    --- PASS: TestNativeTaskControlBoundariesAndUnadmittedHost/extra-segment (0.00s)
+    --- PASS: TestNativeTaskControlBoundariesAndUnadmittedHost/not-resume (0.00s)
+    --- PASS: TestNativeTaskControlBoundariesAndUnadmittedHost/not-checkpoint (0.00s)
+    --- PASS: TestNativeTaskControlBoundariesAndUnadmittedHost/not-events (0.00s)
+=== RUN   TestNativeTaskControlDraftHostStaysUnavailable
+    native_task_control_test.go:118: draft gained control start 404
+--- FAIL: TestNativeTaskControlDraftHostStaysUnavailable (0.11s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	0.999s
+FAIL

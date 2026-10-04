@@ -1,0 +1,314 @@
+=== RUN   TestNativeTaskControlIdleConditionalCycle
+--- PASS: TestNativeTaskControlIdleConditionalCycle (0.11s)
+=== RUN   TestNativeTaskControlOwnedRunAndOriginalStartRetry
+=== RUN   TestNativeTaskControlOwnedRunAndOriginalStartRetry/run-cancel
+=== RUN   TestNativeTaskControlOwnedRunAndOriginalStartRetry/pause
+=== RUN   TestNativeTaskControlOwnedRunAndOriginalStartRetry/cancel
+--- PASS: TestNativeTaskControlOwnedRunAndOriginalStartRetry (0.36s)
+    --- PASS: TestNativeTaskControlOwnedRunAndOriginalStartRetry/run-cancel (0.12s)
+    --- PASS: TestNativeTaskControlOwnedRunAndOriginalStartRetry/pause (0.12s)
+    --- PASS: TestNativeTaskControlOwnedRunAndOriginalStartRetry/cancel (0.12s)
+=== RUN   TestNativeTaskControlBoundariesAndUnadmittedHost
+=== RUN   TestNativeTaskControlBoundariesAndUnadmittedHost/missing-condition
+=== RUN   TestNativeTaskControlBoundariesAndUnadmittedHost/weak-condition
+=== RUN   TestNativeTaskControlBoundariesAndUnadmittedHost/stale-condition
+=== RUN   TestNativeTaskControlBoundariesAndUnadmittedHost/missing-key
+=== RUN   TestNativeTaskControlBoundariesAndUnadmittedHost/privileged-body
+=== RUN   TestNativeTaskControlBoundariesAndUnadmittedHost/GET-action
+=== RUN   TestNativeTaskControlBoundariesAndUnadmittedHost/PUT-action
+=== RUN   TestNativeTaskControlBoundariesAndUnadmittedHost/extra-segment
+=== RUN   TestNativeTaskControlBoundariesAndUnadmittedHost/not-resume
+=== RUN   TestNativeTaskControlBoundariesAndUnadmittedHost/not-checkpoint
+=== RUN   TestNativeTaskControlBoundariesAndUnadmittedHost/not-events
+--- PASS: TestNativeTaskControlBoundariesAndUnadmittedHost (0.10s)
+    --- PASS: TestNativeTaskControlBoundariesAndUnadmittedHost/missing-condition (0.00s)
+    --- PASS: TestNativeTaskControlBoundariesAndUnadmittedHost/weak-condition (0.00s)
+    --- PASS: TestNativeTaskControlBoundariesAndUnadmittedHost/stale-condition (0.00s)
+    --- PASS: TestNativeTaskControlBoundariesAndUnadmittedHost/missing-key (0.00s)
+    --- PASS: TestNativeTaskControlBoundariesAndUnadmittedHost/privileged-body (0.00s)
+    --- PASS: TestNativeTaskControlBoundariesAndUnadmittedHost/GET-action (0.00s)
+    --- PASS: TestNativeTaskControlBoundariesAndUnadmittedHost/PUT-action (0.00s)
+    --- PASS: TestNativeTaskControlBoundariesAndUnadmittedHost/extra-segment (0.00s)
+    --- PASS: TestNativeTaskControlBoundariesAndUnadmittedHost/not-resume (0.00s)
+    --- PASS: TestNativeTaskControlBoundariesAndUnadmittedHost/not-checkpoint (0.00s)
+    --- PASS: TestNativeTaskControlBoundariesAndUnadmittedHost/not-events (0.00s)
+=== RUN   TestNativeTaskControlDraftHostStaysUnavailable
+--- PASS: TestNativeTaskControlDraftHostStaysUnavailable (0.14s)
+=== RUN   TestNativeStageBridgeAcceptsSDKWindowHeaders
+--- PASS: TestNativeStageBridgeAcceptsSDKWindowHeaders (0.06s)
+=== RUN   TestNativeStageBridgeFreezesOwnedWindow
+=== RUN   TestNativeStageBridgeFreezesOwnedWindow/missing-id
+=== RUN   TestNativeStageBridgeFreezesOwnedWindow/other-id
+=== RUN   TestNativeStageBridgeFreezesOwnedWindow/missing-name
+=== RUN   TestNativeStageBridgeFreezesOwnedWindow/other-name
+=== RUN   TestNativeStageBridgeFreezesOwnedWindow/duplicate-id
+=== RUN   TestNativeStageBridgeFreezesOwnedWindow/duplicate-name
+--- PASS: TestNativeStageBridgeFreezesOwnedWindow (0.06s)
+    --- PASS: TestNativeStageBridgeFreezesOwnedWindow/missing-id (0.00s)
+    --- PASS: TestNativeStageBridgeFreezesOwnedWindow/other-id (0.00s)
+    --- PASS: TestNativeStageBridgeFreezesOwnedWindow/missing-name (0.00s)
+    --- PASS: TestNativeStageBridgeFreezesOwnedWindow/other-name (0.00s)
+    --- PASS: TestNativeStageBridgeFreezesOwnedWindow/duplicate-id (0.00s)
+    --- PASS: TestNativeStageBridgeFreezesOwnedWindow/duplicate-name (0.00s)
+=== RUN   TestNativeStageBridgeCloseCancelsAnUnfinishedBody
+--- PASS: TestNativeStageBridgeCloseCancelsAnUnfinishedBody (0.06s)
+=== RUN   TestNativeStageBridgeUsesOwnedAuthenticatedHost
+--- PASS: TestNativeStageBridgeUsesOwnedAuthenticatedHost (0.08s)
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/real-network-peer
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/foreign-host
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/foreign-origin
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/null-origin
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/foreign-referer
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/cross-site
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/authority
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/cookie
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/forwarding
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/query
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/escaped-path
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/absolute-request
+--- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion (0.06s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/real-network-peer (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/foreign-host (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/foreign-origin (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/null-origin (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/foreign-referer (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/cross-site (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/authority (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/cookie (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/forwarding (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/query (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/escaped-path (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/absolute-request (0.00s)
+=== RUN   TestNativeStageBridgeSavesVersionedPresetOnly
+--- PASS: TestNativeStageBridgeSavesVersionedPresetOnly (0.07s)
+=== RUN   TestNativeStageBridgeRevocationAndClose
+=== RUN   TestNativeStageBridgeRevocationAndClose/source
+=== RUN   TestNativeStageBridgeRevocationAndClose/token
+=== RUN   TestNativeStageBridgeRevocationAndClose/bridge-close
+=== RUN   TestNativeStageBridgeRevocationAndClose/host-close
+--- PASS: TestNativeStageBridgeRevocationAndClose (0.25s)
+    --- PASS: TestNativeStageBridgeRevocationAndClose/source (0.06s)
+    --- PASS: TestNativeStageBridgeRevocationAndClose/token (0.06s)
+    --- PASS: TestNativeStageBridgeRevocationAndClose/bridge-close (0.06s)
+    --- PASS: TestNativeStageBridgeRevocationAndClose/host-close (0.06s)
+=== RUN   TestSubmissionJournalNativeDoesNotDiscloseAfterSourceChangedDuringResponse
+--- PASS: TestSubmissionJournalNativeDoesNotDiscloseAfterSourceChangedDuringResponse (0.07s)
+=== RUN   TestSubmissionJournalOwnedHostNativeRecoveryAndSealing
+--- PASS: TestSubmissionJournalOwnedHostNativeRecoveryAndSealing (0.13s)
+=== RUN   TestSubmissionReceiptOwnedHostRestartThroughNativeBridge
+--- PASS: TestSubmissionReceiptOwnedHostRestartThroughNativeBridge (0.09s)
+=== RUN   TestNativeStageBridgeTaskIndexReadOnlyAndSourceBound
+--- PASS: TestNativeStageBridgeTaskIndexReadOnlyAndSourceBound (0.06s)
+=== RUN   TestNativeTaskUISubmitsFrozenPreviewAndReadsOnlyRegisteredTask
+--- PASS: TestNativeTaskUISubmitsFrozenPreviewAndReadsOnlyRegisteredTask (0.09s)
+=== RUN   TestControlHostStageUIAssetsAreManagementProtected
+--- PASS: TestControlHostStageUIAssetsAreManagementProtected (0.07s)
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion//missing
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion//wrong
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion//stage
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion//host
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion//origin
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion//fetch-site
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/missing
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/wrong
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/stage
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/host
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/origin
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/fetch-site
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/workbench.mjs/missing
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/workbench.mjs/wrong
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/workbench.mjs/stage
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/workbench.mjs/host
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/workbench.mjs/origin
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/workbench.mjs/fetch-site
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/missing
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/wrong
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/stage
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/host
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/origin
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/fetch-site
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/missing
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/wrong
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/stage
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/host
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/origin
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/fetch-site
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/app.css/missing
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/app.css/wrong
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/app.css/stage
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/app.css/host
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/app.css/origin
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/app.css/fetch-site
+--- PASS: TestControlHostStageUIRejectsOtherAuthorities (0.08s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion//missing (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion//wrong (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion//stage (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion//host (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion//origin (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion//fetch-site (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/missing (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/wrong (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/stage (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/host (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/origin (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/fetch-site (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/workbench.mjs/missing (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/workbench.mjs/wrong (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/workbench.mjs/stage (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/workbench.mjs/host (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/workbench.mjs/origin (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/workbench.mjs/fetch-site (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/missing (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/wrong (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/stage (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/host (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/origin (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/fetch-site (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/missing (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/wrong (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/stage (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/host (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/origin (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/fetch-site (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/app.css/missing (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/app.css/wrong (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/app.css/stage (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/app.css/host (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/app.css/origin (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/app.css/fetch-site (0.00s)
+=== RUN   TestControlHostStageUIRevokesPrivateSource
+=== RUN   TestControlHostStageUIRevokesPrivateSource/source
+=== RUN   TestControlHostStageUIRevokesPrivateSource/token-permissions
+--- PASS: TestControlHostStageUIRevokesPrivateSource (0.12s)
+    --- PASS: TestControlHostStageUIRevokesPrivateSource/source (0.06s)
+    --- PASS: TestControlHostStageUIRevokesPrivateSource/token-permissions (0.06s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	3.660s
+=== RUN   TestAuthenticatedExecutionStartRetryCancelAndReadContract
+--- PASS: TestAuthenticatedExecutionStartRetryCancelAndReadContract (0.09s)
+=== RUN   TestExecutionPreconditionsAreStrongAndCheckedBeforeLaunch
+--- PASS: TestExecutionPreconditionsAreStrongAndCheckedBeforeLaunch (0.06s)
+=== RUN   TestExecutionTaskETagChangesOnCompletionWithoutAnotherGeneration
+--- PASS: TestExecutionTaskETagChangesOnCompletionWithoutAnotherGeneration (0.08s)
+=== RUN   TestExecutionReadAndCancelCannotAdoptAnotherTaskOrGeneration
+--- PASS: TestExecutionReadAndCancelCannotAdoptAnotherTaskOrGeneration (0.08s)
+=== RUN   TestTaskControlAPIIdlePauseContinueAndNoReplayOverHTTP
+--- PASS: TestTaskControlAPIIdlePauseContinueAndNoReplayOverHTTP (0.07s)
+=== RUN   TestTaskControlAPIPauseRunningStopsWithoutBlindContinue
+--- PASS: TestTaskControlAPIPauseRunningStopsWithoutBlindContinue (0.08s)
+=== RUN   TestTaskControlAPIRejectsUnsafeBodyHeadersScopeAndMethod
+--- PASS: TestTaskControlAPIRejectsUnsafeBodyHeadersScopeAndMethod (0.06s)
+=== RUN   TestTaskControlAPIUnavailableControllerAndStalePostPauseStayClosed
+--- PASS: TestTaskControlAPIUnavailableControllerAndStalePostPauseStayClosed (0.12s)
+=== RUN   TestTaskControlAPIRevocationDuringBodyReadStopsMutation
+=== RUN   TestTaskControlAPIRevocationDuringBodyReadStopsMutation/pause
+=== RUN   TestTaskControlAPIRevocationDuringBodyReadStopsMutation/continue
+--- PASS: TestTaskControlAPIRevocationDuringBodyReadStopsMutation (0.12s)
+    --- PASS: TestTaskControlAPIRevocationDuringBodyReadStopsMutation/pause (0.06s)
+    --- PASS: TestTaskControlAPIRevocationDuringBodyReadStopsMutation/continue (0.06s)
+=== RUN   TestTaskControlAPIPauseUncertainStopKeepsSafeReceiptAndReservation
+--- PASS: TestTaskControlAPIPauseUncertainStopKeepsSafeReceiptAndReservation (0.09s)
+=== RUN   TestSubmissionJournalAPIOriginalLifecycleAndRestart
+--- PASS: TestSubmissionJournalAPIOriginalLifecycleAndRestart (0.08s)
+=== RUN   TestSubmissionJournalAPIRejectsWrongIdentityAndUntrustedDraft
+--- PASS: TestSubmissionJournalAPIRejectsWrongIdentityAndUntrustedDraft (0.06s)
+=== RUN   TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare
+=== RUN   TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/expired
+=== RUN   TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/configuration
+=== RUN   TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/revision
+=== RUN   TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/foreign
+=== RUN   TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/missing
+--- PASS: TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare (0.27s)
+    --- PASS: TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/expired (0.05s)
+    --- PASS: TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/configuration (0.06s)
+    --- PASS: TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/revision (0.06s)
+    --- PASS: TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/foreign (0.05s)
+    --- PASS: TestSubmissionJournalAPIRequiresLivePreviewForNewPrepare/missing (0.05s)
+=== RUN   TestSubmissionJournalAPIRefusesGenericDraftWithoutInventingBudget
+--- PASS: TestSubmissionJournalAPIRefusesGenericDraftWithoutInventingBudget (0.06s)
+=== RUN   TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose
+=== RUN   TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/revoke/prepare
+=== RUN   TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/revoke/abandon
+=== RUN   TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/revoke/acknowledge
+=== RUN   TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/cancel/prepare
+=== RUN   TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/cancel/abandon
+=== RUN   TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/cancel/acknowledge
+--- PASS: TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose (0.31s)
+    --- PASS: TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/revoke/prepare (0.05s)
+    --- PASS: TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/revoke/abandon (0.05s)
+    --- PASS: TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/revoke/acknowledge (0.06s)
+    --- PASS: TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/cancel/prepare (0.05s)
+    --- PASS: TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/cancel/abandon (0.05s)
+    --- PASS: TestSubmissionJournalAPILateAuthorityDoesNotResolveOrDisclose/cancel/acknowledge (0.06s)
+=== RUN   TestSubmissionReceiptDoesNotDiscloseAfterAuthorityRevokedDuringRead
+=== RUN   TestSubmissionReceiptDoesNotDiscloseAfterAuthorityRevokedDuringRead/revoke
+=== RUN   TestSubmissionReceiptDoesNotDiscloseAfterAuthorityRevokedDuringRead/cancel
+--- PASS: TestSubmissionReceiptDoesNotDiscloseAfterAuthorityRevokedDuringRead (0.11s)
+    --- PASS: TestSubmissionReceiptDoesNotDiscloseAfterAuthorityRevokedDuringRead/revoke (0.05s)
+    --- PASS: TestSubmissionReceiptDoesNotDiscloseAfterAuthorityRevokedDuringRead/cancel (0.06s)
+=== RUN   TestSubmissionReceiptSurvivesPreviewEviction
+--- PASS: TestSubmissionReceiptSurvivesPreviewEviction (0.05s)
+=== RUN   TestSubmissionReceiptSurvivesStoreReopenAndRequiresRegisteredProject
+=== RUN   TestSubmissionReceiptSurvivesStoreReopenAndRequiresRegisteredProject/wrong-key
+=== RUN   TestSubmissionReceiptSurvivesStoreReopenAndRequiresRegisteredProject/missing-preview
+=== RUN   TestSubmissionReceiptSurvivesStoreReopenAndRequiresRegisteredProject/wrong-hash
+--- PASS: TestSubmissionReceiptSurvivesStoreReopenAndRequiresRegisteredProject (0.07s)
+    --- PASS: TestSubmissionReceiptSurvivesStoreReopenAndRequiresRegisteredProject/wrong-key (0.00s)
+    --- PASS: TestSubmissionReceiptSurvivesStoreReopenAndRequiresRegisteredProject/missing-preview (0.00s)
+    --- PASS: TestSubmissionReceiptSurvivesStoreReopenAndRequiresRegisteredProject/wrong-hash (0.00s)
+=== RUN   TestTaskCancelAPIIdleAndPausedOverHTTP
+=== RUN   TestTaskCancelAPIIdleAndPausedOverHTTP/ready
+=== RUN   TestTaskCancelAPIIdleAndPausedOverHTTP/paused
+--- PASS: TestTaskCancelAPIIdleAndPausedOverHTTP (0.12s)
+    --- PASS: TestTaskCancelAPIIdleAndPausedOverHTTP/ready (0.06s)
+    --- PASS: TestTaskCancelAPIIdleAndPausedOverHTTP/paused (0.06s)
+=== RUN   TestTaskCancelAPIRunningStopsWithoutReplay
+--- PASS: TestTaskCancelAPIRunningStopsWithoutReplay (0.08s)
+=== RUN   TestTaskCancelAPIRejectsUnsafeBodyHeadersScopeAndMethod
+--- PASS: TestTaskCancelAPIRejectsUnsafeBodyHeadersScopeAndMethod (0.05s)
+=== RUN   TestTaskCancelAPIUnavailableRevokedAndUnknownStayClosed
+--- PASS: TestTaskCancelAPIUnavailableRevokedAndUnknownStayClosed (0.15s)
+=== RUN   TestTaskCancelAPIUncertainStopKeepsSafeReceiptAndReservation
+--- PASS: TestTaskCancelAPIUncertainStopKeepsSafeReceiptAndReservation (0.07s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/api	3.926s
+=== RUN   TestControllerPauseContinueIdleNeverInvokesRuntime
+--- PASS: TestControllerPauseContinueIdleNeverInvokesRuntime (0.06s)
+=== RUN   TestControllerPauseOwnedRunStopsAndRetainsReviewWithoutReplay
+--- PASS: TestControllerPauseOwnedRunStopsAndRetainsReviewWithoutReplay (0.07s)
+=== RUN   TestControllerPauseUnverifiedOrFailedReleaseKeepsHeld
+=== RUN   TestControllerPauseUnverifiedOrFailedReleaseKeepsHeld/no_stop
+=== RUN   TestControllerPauseUnverifiedOrFailedReleaseKeepsHeld/release_error
+--- PASS: TestControllerPauseUnverifiedOrFailedReleaseKeepsHeld (0.15s)
+    --- PASS: TestControllerPauseUnverifiedOrFailedReleaseKeepsHeld/no_stop (0.07s)
+    --- PASS: TestControllerPauseUnverifiedOrFailedReleaseKeepsHeld/release_error (0.07s)
+=== RUN   TestControllerPauseForeignOwnershipAndStaleVersionCannotCancel
+--- PASS: TestControllerPauseForeignOwnershipAndStaleVersionCannotCancel (0.07s)
+=== RUN   TestControllerPauseContinueManagementRecheckedBeforeMutation
+--- PASS: TestControllerPauseContinueManagementRecheckedBeforeMutation (0.06s)
+=== RUN   TestControllerPauseCancelsHandleReturnedAfterIntent
+--- PASS: TestControllerPauseCancelsHandleReturnedAfterIntent (0.07s)
+=== RUN   TestControllerCancelTaskIdleNeverInvokesRuntime
+=== RUN   TestControllerCancelTaskIdleNeverInvokesRuntime/ready
+=== RUN   TestControllerCancelTaskIdleNeverInvokesRuntime/paused
+--- PASS: TestControllerCancelTaskIdleNeverInvokesRuntime (0.12s)
+    --- PASS: TestControllerCancelTaskIdleNeverInvokesRuntime/ready (0.06s)
+    --- PASS: TestControllerCancelTaskIdleNeverInvokesRuntime/paused (0.06s)
+=== RUN   TestControllerCancelTaskOwnedRunStopsAndClosesWithoutReplay
+--- PASS: TestControllerCancelTaskOwnedRunStopsAndClosesWithoutReplay (0.08s)
+=== RUN   TestControllerCancelTaskUnverifiedOrFailedReleaseKeepsHeld
+=== RUN   TestControllerCancelTaskUnverifiedOrFailedReleaseKeepsHeld/no_stop
+=== RUN   TestControllerCancelTaskUnverifiedOrFailedReleaseKeepsHeld/release_error
+--- PASS: TestControllerCancelTaskUnverifiedOrFailedReleaseKeepsHeld (0.15s)
+    --- PASS: TestControllerCancelTaskUnverifiedOrFailedReleaseKeepsHeld/no_stop (0.07s)
+    --- PASS: TestControllerCancelTaskUnverifiedOrFailedReleaseKeepsHeld/release_error (0.07s)
+=== RUN   TestControllerCancelTaskForeignOwnershipAndStaleVersionCannotCancel
+--- PASS: TestControllerCancelTaskForeignOwnershipAndStaleVersionCannotCancel (0.07s)
+=== RUN   TestControllerCancelTaskCancelsHandleReturnedAfterIntent
+--- PASS: TestControllerCancelTaskCancelsHandleReturnedAfterIntent (0.08s)
+=== RUN   TestControllerCancelTaskRechecksManagementBeforeMutation
+--- PASS: TestControllerCancelTaskRechecksManagementBeforeMutation (0.05s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/control	2.458s

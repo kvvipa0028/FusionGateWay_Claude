@@ -26,7 +26,7 @@
 
 列表校验页大小、项目、ID 去重、目标截断标记及 next_before 的页尾关系。刷新列表和选择项目/任务均有独立请求序号；旧项目或旧任务的迟到响应不能替换当前显示。目标、模型、状态和服务端字段通过 textContent/DOM 展示，不作为 HTML 或指令执行。
 
-Native 桥新增固定 POST `/agent/v1/tasks`、GET `/agent/v1/tasks/{id}`、GET `/control/v1/tasks/{id}/plan`、`budget`；新增固定工作台模块资源，不开放通用 assets。详情先核验本窗口及私有宿主，再核对 Task 所属项目在可信 Source 中；未知和未登记项目的任务同为 404。Idempotency-Key 只转送冻结提交和受限原提交准备/确认/封存路径；缺少/重复 header 仍由原 API 拒绝。start/pause/cancel/events/quota 等不因本组件扩大权限。来源/token 撤销、响应大小/期限和关闭取消沿用原桥保护。
+Native 桥新增固定 POST `/agent/v1/tasks`、GET `/agent/v1/tasks/{id}`、GET `/control/v1/tasks/{id}/plan`、`budget`；新增固定工作台模块资源，不开放通用 assets。详情先核验本窗口及私有宿主，再核对 Task 所属项目在可信 Source 中；未知和未登记项目的任务同为 404。Idempotency-Key 只转送冻结提交和受限原提交准备/确认/封存路径；缺少/重复 header 仍由原 API 拒绝。后续[运行控制桥](native-task-control.md)已开放受限 start/pause/continue/cancel 和 run 读取/取消，但本工作台页面尚未消费它们；events/quota 通路继续待接入。来源/token 撤销、响应大小/期限和关闭取消沿用原桥保护。
 
 ## 复现与证据
 

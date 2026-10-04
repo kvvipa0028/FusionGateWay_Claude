@@ -1,6 +1,6 @@
 # 任务控制 API 与 Controller
 
-内部 Handler 已实现此合同；[fusion-control 草稿服务](control-host.md) 已注册独立 listener，执行 Controller/GUI 尚未注册。所有请求走同一 Management middleware，stage/query credential 不能调用。可信 SetController 仅登记一次，并且 Controller 与 Server 必须使用同一 Store；客户端不能提供 owner、Native session、账号、workspace、Runtime 参数或 StopProof。
+内部 Handler 已实现此合同；[fusion-control 草稿服务](control-host.md) 已注册独立 listener；可信 OpenExecutionControl 已支持 Factory/Controller 接线，产品 CLI/GUI 草稿入口仍无 Controller。所有请求走同一 Management middleware，stage/query credential 不能调用。可信 SetController 仅登记一次，并且 Controller 与 Server 必须使用同一 Store；客户端不能提供 owner、Native session、账号、workspace、Runtime 参数或 StopProof。
 
 | 方法/路径 | 条件、请求与返回 |
 |---|---|
@@ -71,3 +71,5 @@ fusion_go test -race -v -count=1 -timeout=60s -mod=readonly -tags fusion,nogui \
 依次预期 6 / 6 / 5 / 3 PASS；此 flag 仅运行合成 Native fixtures，不加载真实 key。失败时保留日志和该私有临时目录，核对字段/状态/proof，不关闭断言或改用浮动 CLI。命令只创建本人临时测试数据；完成后可按本人清理策略处理该目录，不宽泛删除其他临时目录。API capture/checker 的同类隔离命令见 [openapi-verification.md](openapi-verification.md)。
 
 本机二进制 SHA256 应为 `6eab8333fe2121553100d8f40bfada384a3e989b94f947e18ba6677a6fcb41ea`，Adapter 会验证 pin，不支持替换成任意可执行文件。Go 1.26.3 与公开 module/cache 需预先准备，不能带入日常 HOME 或真实认证。完整日志、样本与 source/packet hash 见 [CANCEL-API-01](../work-items/WP-15/CANCEL-API-01/summary.md)；暂停历史证据见 [PAUSE-API-01](../work-items/WP-15/PAUSE-API-01/summary.md)。Jev off。产品接线、Native 恢复/副作用核对及最终 Gate 继续实施。
+
+后续 [CONTROL-BRIDGE-01](native-task-control.md) 已接精确 Native 运行控制路径并验证桥→真实私有 HTTP→Store/Controller 的合成 Runtime 生命周期；页面操作与真实供应商执行仍未完成。

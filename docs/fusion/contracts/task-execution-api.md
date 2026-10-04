@@ -1,6 +1,6 @@
 # 阶段执行 API 合同
 
-当前接口是带 Management middleware 的内部 Handler，尚未注册产品 listener/GUI。可信 bootstrap 只能一次 SetController，并且 Controller 必须使用相同 Store；请求不能更换控制器或提供 Runtime/workspace/token 参数。管理身份在预检查和 Inspection 前后按原 issuer 重查。无/错误管理凭据为 401，stage `fgs_` 凭据为 403，沿用 WP-06；不因接入新 API 改变鉴权合同。
+当前接口是带 Management middleware 的 Handler；可信 OpenExecutionControl 可注册 RuntimeFactory/Controller 并提供独立 loopback listener。CLI/GUI 产品入口仍为无 Controller 的 OpenControl 草稿宿主，真实供应商 Factory 尚未注册。可信 bootstrap 只能一次 SetController，并且 Controller 必须使用相同 Store；请求不能更换控制器或提供 Runtime/workspace/token 参数。管理身份在预检查和 Inspection 前后按原 issuer 重查。无/错误管理凭据为 401，stage `fgs_` 凭据为 403，沿用 WP-06；不因接入新 API 改变鉴权合同。
 
 | 方法/路径 | 请求与返回 |
 |---|---|
@@ -27,3 +27,5 @@ Run/start/cancel 响应的 `X-Fusion-Task-ETag` 是相关 Task 当前条件，Lo
 明确 checkpoint 恢复的持久幂等身份、严格 readonly 来源核验与受管执行已接入内部 Handler/Controller，见 [task-resume-api.md](task-resume-api.md)。产品 Worker/真实路线接线仍未完成。
 
 可信 owned run 的归档入口已接通 [task-checkpoint-api.md](task-checkpoint-api.md)，不接受 caller ref/Native/proof 或重造重启后的停止证明。原成功终态、同 Adapter 实际释放、Source/seal 与前后管理/Task条件均保留；产品执行接线仍未完成。
+
+后续 [CONTROL-BRIDGE-01](native-task-control.md) 已接精确 Native 运行控制路径并验证桥→真实私有 HTTP→Store/Controller 的合成 Runtime 生命周期；页面操作与真实供应商执行仍未完成。
