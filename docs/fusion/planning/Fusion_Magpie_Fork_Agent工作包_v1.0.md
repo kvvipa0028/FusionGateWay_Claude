@@ -614,7 +614,9 @@
 
 ### WP-21 · 真实验证和 EvidenceGate
 
-**阶段：**M3　**负责人角色：**验证工程 Agent　**状态：**planned
+**阶段：**M3　**负责人角色：**验证工程 Agent　**状态：**in_progress
+
+**当前组件证据：**[VERIFICATION-RUNNER-01](../work-items/WP-21/VERIFICATION-RUNNER-01/summary.md) 已完成直接命令的真实只读执行、版本/代码/测试集合/标准绑定和 owned EvidenceGate。持久证据与阶段消费者、子进程工具链和最终端到端断言仍须完成，不将组件通过等同整个工作包通过。
 
 **输入/前置：**WP-19, WP-20。同时读取这些前置包的合同、测试日志、阻断项与当前仓库 HEAD。
 

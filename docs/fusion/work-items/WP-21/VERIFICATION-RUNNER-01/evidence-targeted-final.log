@@ -1,0 +1,50 @@
+=== RUN   TestJUnitRejectsForgedAggregatesHiddenFailuresAndTruncatedReports
+--- PASS: TestJUnitRejectsForgedAggregatesHiddenFailuresAndTruncatedReports (0.00s)
+=== RUN   TestJUnitAggregatesActualNestedCasesWithoutRequiringWrapperCounters
+--- PASS: TestJUnitAggregatesActualNestedCasesWithoutRequiringWrapperCounters (0.00s)
+=== RUN   TestEvidenceWorker
+--- PASS: TestEvidenceWorker (0.00s)
+=== RUN   TestRunnerActualProcessBindsCodeSuiteCommandAndVersion
+--- PASS: TestRunnerActualProcessBindsCodeSuiteCommandAndVersion (0.08s)
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/exit
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/failed
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/zero
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/skipped
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/malformed
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/inconsistent
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/truncated
+--- PASS: TestRunnerActualReportFailuresCannotBecomePassed (0.49s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/exit (0.06s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/failed (0.06s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/zero (0.06s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/skipped (0.06s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/malformed (0.08s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/inconsistent (0.07s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/truncated (0.09s)
+=== RUN   TestRunnerActualKernelBoundariesAndPositiveScratch
+--- PASS: TestRunnerActualKernelBoundariesAndPositiveScratch (0.07s)
+=== RUN   TestRunnerStopsActualTimeoutAndSourceRevocation
+=== RUN   TestRunnerStopsActualTimeoutAndSourceRevocation/timeout
+=== RUN   TestRunnerStopsActualTimeoutAndSourceRevocation/revoke
+=== RUN   TestRunnerStopsActualTimeoutAndSourceRevocation/cancel
+--- PASS: TestRunnerStopsActualTimeoutAndSourceRevocation (0.60s)
+    --- PASS: TestRunnerStopsActualTimeoutAndSourceRevocation/timeout (0.23s)
+    --- PASS: TestRunnerStopsActualTimeoutAndSourceRevocation/revoke (0.20s)
+    --- PASS: TestRunnerStopsActualTimeoutAndSourceRevocation/cancel (0.17s)
+=== RUN   TestRunnerZeroTestsRequireExplicitFrozenProjectRule
+--- PASS: TestRunnerZeroTestsRequireExplicitFrozenProjectRule (0.06s)
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/hash
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/missing
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/version
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/suite
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/timeout
+--- PASS: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite (0.07s)
+    --- PASS: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/hash (0.01s)
+    --- PASS: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/missing (0.01s)
+    --- PASS: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/version (0.03s)
+    --- PASS: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/suite (0.01s)
+    --- PASS: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/timeout (0.01s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/evidence	2.869s

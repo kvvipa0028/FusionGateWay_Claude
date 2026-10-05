@@ -1,0 +1,103 @@
+{
+  "component": "WP-21-VERIFICATION-RUNNER-01",
+  "base": "3043eb5bcd4df6ead34e11a85377f5ef3a5ac75b",
+  "go_version": "1.26.3",
+  "fusion_final": {
+    "pass_top": 679,
+    "pass_sub": 1238,
+    "skip_top": 33,
+    "skip_sub": 11,
+    "fail_top": 0,
+    "fail_sub": 0,
+    "packages": 19
+  },
+  "evidence_targeted_final": {
+    "pass_top": 9,
+    "pass_sub": 15,
+    "skip_top": 0,
+    "skip_sub": 0,
+    "fail_top": 0,
+    "fail_sub": 0,
+    "packages": 1
+  },
+  "schema_actual_record_and_five_negatives": "pass",
+  "log_archives": {
+    "evidence-runner-red.log": {
+      "raw_log": ".fusion-dev/implementation/evidence-runner-red.log",
+      "raw_sha256": "9d769d7acf6c673f8ad35c32b7a9ca17ea81923b70f2f112e3501cae64b36795",
+      "archive_sha256": "9d769d7acf6c673f8ad35c32b7a9ca17ea81923b70f2f112e3501cae64b36795"
+    },
+    "evidence-runner-initial.log": {
+      "raw_log": ".fusion-dev/implementation/evidence-runner-initial.log",
+      "raw_sha256": "c67cef94f2fce31f46cef738a903928bf171defe55f0b341f03e6a863e0d7e84",
+      "archive_sha256": "c67cef94f2fce31f46cef738a903928bf171defe55f0b341f03e6a863e0d7e84"
+    },
+    "evidence-runner-second.log": {
+      "raw_log": ".fusion-dev/implementation/evidence-runner-second.log",
+      "raw_sha256": "24ec828a5235b5b99db9263f02762fa72efddedfeef53ce70eabbac4e02faa71",
+      "archive_sha256": "24ec828a5235b5b99db9263f02762fa72efddedfeef53ce70eabbac4e02faa71"
+    },
+    "evidence-exit-mutation.log": {
+      "raw_log": ".fusion-dev/implementation/evidence-exit-mutation.log",
+      "raw_sha256": "fcba6708a0d81e1a0f706f38241fb81d720284058f08efe28a303815ff1891db",
+      "archive_sha256": "fcba6708a0d81e1a0f706f38241fb81d720284058f08efe28a303815ff1891db"
+    },
+    "evidence-kernel-mutation.log": {
+      "raw_log": ".fusion-dev/implementation/evidence-kernel-mutation.log",
+      "raw_sha256": "0b695911c5447517787e93e7e5cf52f7f537210c7717eb4549799cc7ec3caf52",
+      "archive_sha256": "0b695911c5447517787e93e7e5cf52f7f537210c7717eb4549799cc7ec3caf52"
+    },
+    "evidence-fusion-final.log": {
+      "raw_log": ".fusion-dev/implementation/evidence-fusion-final.log",
+      "raw_sha256": "499be3e2540bb8b932b01068bb49591c8c108f0cbe3dc9a0b9e7410d4a5566c3",
+      "archive_sha256": "499be3e2540bb8b932b01068bb49591c8c108f0cbe3dc9a0b9e7410d4a5566c3"
+    },
+    "evidence-targeted-final.log": {
+      "raw_log": ".fusion-dev/implementation/evidence-targeted-final.log",
+      "raw_sha256": "d24b53ffba356847182bf53acbc307249f1adf63ce077ad3685efbda96a44c33",
+      "archive_sha256": "d24b53ffba356847182bf53acbc307249f1adf63ce077ad3685efbda96a44c33"
+    },
+    "build-cli.log": {
+      "raw_log": ".fusion-dev/build-dev/cli.log",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "archive_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "build-gui.log": {
+      "raw_log": ".fusion-dev/build-dev/gui.log",
+      "raw_sha256": "3ebd88a7fed05131a5178e718ede08ed3ab89e658604229f57aee1e45c095c36",
+      "archive_sha256": "3ebd88a7fed05131a5178e718ede08ed3ab89e658604229f57aee1e45c095c36"
+    },
+    "build-vet.log": {
+      "raw_log": ".fusion-dev/build-dev/vet.log",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "archive_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "evidence-source-binding-red.log": {
+      "raw_log": ".fusion-dev/implementation/evidence-source-binding-red.log",
+      "raw_sha256": "f779f90a613d7fc55124fd0734aff8b4a17801c0ad976d829bbcb158817eb4f4",
+      "archive_sha256": "f779f90a613d7fc55124fd0734aff8b4a17801c0ad976d829bbcb158817eb4f4"
+    }
+  },
+  "initial_failures": [
+    "Missing public evidence APIs compile RED.",
+    "Fixture used noncanonical macOS /var path; corrected canonical fixture, production guard preserved.",
+    "Fixture attempted to mutate readonly frozen artifact; corrected actual Copy-edit-Freeze new revision.",
+    "Final equal-content different-source artifact test RED; exact owned path + both Current provenance gate added, targeted/fullFusion/buildvet rerun."
+  ],
+  "effective_mutations": [
+    "Nonzero exit gate removed: actual exit7 plus passing report became passed; required test FAIL.",
+    "Input file-write allowed: actual worker created unauthorized file and exit85; required boundary test FAIL."
+  ],
+  "mutation_sources_restored_exactly": true,
+  "scope": {
+    "real_supplier_calls": 0,
+    "jev": "off",
+    "ui_changes": 0,
+    "store_schema": 10,
+    "product_consumer_and_durable_evidence_receipt": "not_integrated",
+    "direct_executable_backend": "verified_macos",
+    "child_process_toolchain_backend": "not_implemented",
+    "whole_WP21": "in_progress",
+    "final_T01_T60": "not_run"
+  }
+}

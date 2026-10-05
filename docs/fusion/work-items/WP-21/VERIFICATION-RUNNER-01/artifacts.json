@@ -1,0 +1,65 @@
+{
+  "component": "WP-21-VERIFICATION-RUNNER-01",
+  "base": "3043eb5bcd4df6ead34e11a85377f5ef3a5ac75b",
+  "files_sha256": {
+    "AGENTS.md": "47bc2c990d9d335d2b6589abc17dc0aba0b005a24e0eb27c195dadeb3a2546b0",
+    "docs/fusion/README.md": "af3bf139472788f180385648b052d50274166b199b51aaa755fd8bb4dd662769",
+    "docs/fusion/contracts/evidence.schema.json": "3c247e019f5b0874e159e6f137a4b42a0bdad05c00de0e86cec1be41bb5b71b0",
+    "docs/fusion/contracts/verification-runner.md": "e11da01c43d9191f71a7d6a7f99c759237587c68c4659b8691b050962f7fb87b",
+    "docs/fusion/planning/Fusion_Magpie_Fork_Agent工作包_v1.0.md": "e3d61eb788b0de8a2049ea5915beff7dbf5cd00fa03786bf1eb3cdb418e2959d",
+    "docs/fusion/planning/implementation_tasks.json": "78c6e06a5cb6d34e0c0e2dfda88ae3f06118f923f39e1a32f289316e2ee68801",
+    "docs/fusion/work-items/WP-21/VERIFICATION-RUNNER-01/actual-record.json": "5e802bc39ba2405e643f783cb0b621c14c4b5fab8d5d8298f2842ff5552b1823",
+    "docs/fusion/work-items/WP-21/VERIFICATION-RUNNER-01/actual-report.xml": "23198da49e6f44e4ef9e15b64e1e51c606fb703b72fa24fdbe1068b4aca6a0bb",
+    "docs/fusion/work-items/WP-21/VERIFICATION-RUNNER-01/actual-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/fusion/work-items/WP-21/VERIFICATION-RUNNER-01/build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/fusion/work-items/WP-21/VERIFICATION-RUNNER-01/build-gui.log": "3ebd88a7fed05131a5178e718ede08ed3ab89e658604229f57aee1e45c095c36",
+    "docs/fusion/work-items/WP-21/VERIFICATION-RUNNER-01/build-results.json": "59e6c471e81a0e72696928fdbbcb6fddb0ec5efd99b4db33a3d229e6012e15c9",
+    "docs/fusion/work-items/WP-21/VERIFICATION-RUNNER-01/build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/fusion/work-items/WP-21/VERIFICATION-RUNNER-01/check-schema.py": "f1b95efb9344fdabcfadc153ccbabe6e91f0a8efd512dd042ed0cba8340ef1ef",
+    "docs/fusion/work-items/WP-21/VERIFICATION-RUNNER-01/evidence-exit-mutation.log": "fcba6708a0d81e1a0f706f38241fb81d720284058f08efe28a303815ff1891db",
+    "docs/fusion/work-items/WP-21/VERIFICATION-RUNNER-01/evidence-fusion-final.log": "499be3e2540bb8b932b01068bb49591c8c108f0cbe3dc9a0b9e7410d4a5566c3",
+    "docs/fusion/work-items/WP-21/VERIFICATION-RUNNER-01/evidence-kernel-mutation.log": "0b695911c5447517787e93e7e5cf52f7f537210c7717eb4549799cc7ec3caf52",
+    "docs/fusion/work-items/WP-21/VERIFICATION-RUNNER-01/evidence-runner-initial.log": "c67cef94f2fce31f46cef738a903928bf171defe55f0b341f03e6a863e0d7e84",
+    "docs/fusion/work-items/WP-21/VERIFICATION-RUNNER-01/evidence-runner-red.log": "9d769d7acf6c673f8ad35c32b7a9ca17ea81923b70f2f112e3501cae64b36795",
+    "docs/fusion/work-items/WP-21/VERIFICATION-RUNNER-01/evidence-runner-second.log": "24ec828a5235b5b99db9263f02762fa72efddedfeef53ce70eabbac4e02faa71",
+    "docs/fusion/work-items/WP-21/VERIFICATION-RUNNER-01/evidence-source-binding-red.log": "f779f90a613d7fc55124fd0734aff8b4a17801c0ad976d829bbcb158817eb4f4",
+    "docs/fusion/work-items/WP-21/VERIFICATION-RUNNER-01/evidence-targeted-final.log": "d24b53ffba356847182bf53acbc307249f1adf63ce077ad3685efbda96a44c33",
+    "docs/fusion/work-items/WP-21/VERIFICATION-RUNNER-01/summary.md": "23b039467dd94303a3b5aa76717d9430bcd6e92c63a9c972fc211223933fe210",
+    "docs/fusion/work-items/WP-21/VERIFICATION-RUNNER-01/test-results.json": "c0902bc694de93489c795e8163a4e83d7a0a3926e4e98b6df6e2ef3992e893f2",
+    "docs/fusion/work-items/WP-21/summary.md": "e9b72a0f3c1351e8dcc39c17dbac0be096bc074673a5cfb1f6c1b4be2a8f4594",
+    "internal/fusion/evidence/junit.go": "d917d153d2e4dee14b6b7fb4bb900c07872f7d9cec0224b0ae5c3568372f7e15",
+    "internal/fusion/evidence/junit_test.go": "c68af0673b0c1fca4ce659170c1c79626d2bd58ff8869d58b03736691a5552aa",
+    "internal/fusion/evidence/process_darwin.go": "529dbb2f65985bba8b60bcb08e7b0558198d9b8f99ae39d385fc96ebf5905579",
+    "internal/fusion/evidence/process_unsupported.go": "a49dfde1482d118a5cb396c24a66ffeadbf0fa5fef6b58e71638e0770a703b9e",
+    "internal/fusion/evidence/runner.go": "a8a3593fb8386b1cec615be9979caee212e95e69843c550bba121b6f08eae277",
+    "internal/fusion/evidence/runner_test.go": "1cdce755157ce156c542b963799cf1f12844ba70b897e577d714810118f090c4"
+  },
+  "scope_integrity_checks": {
+    "all_gui_unchanged": [
+      "internal/gui"
+    ],
+    "api_controller_store_runtime_policy_handoff_unchanged": [
+      "internal/fusion/api",
+      "internal/fusion/control",
+      "internal/fusion/store",
+      "internal/fusion/runtime",
+      "internal/fusion/policy",
+      "internal/fusion/handoff",
+      "internal/fusion/bootstrap"
+    ],
+    "public_handoff_openapi_unchanged": [
+      "docs/fusion/contracts/handoff.schema.json",
+      "docs/fusion/contracts/openapi.yaml"
+    ]
+  },
+  "private_credential_bytes_excluded": true,
+  "ui_files_changed": 0,
+  "ui_main_assets_equal_pinned_upstream": true,
+  "local_doc_links_checked": 102,
+  "graph": {
+    "project": "fusion-development",
+    "nodes": 14458,
+    "edges": 129898
+  },
+  "current_binary_hashes_verified": true
+}

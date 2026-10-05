@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "spec": {
+    "tool": {
+      "executable": "/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-bcggyux6/go-build3015026858/b001/evidence.test",
+      "sha256": "15cdb52132ec4c968765f9651b14e7458544d9952babc575ed4fbf910947f7eb",
+      "version": "evidence-test-tool 1",
+      "version_args": [
+        "-test.run=^TestEvidenceWorker$",
+        "--",
+        "version"
+      ]
+    },
+    "args": [
+      "-test.run=^TestEvidenceWorker$",
+      "--",
+      "passed"
+    ],
+    "suite_paths": [
+      "tests"
+    ],
+    "rules": {
+      "min_tests": 1,
+      "allow_zero": false,
+      "allow_skipped": false
+    },
+    "timeout_ns": 2000000000
+  },
+  "environment": [
+    "PATH=/usr/bin:/bin",
+    "HOME=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-bcggyux6/TestRunnerActualProcessBindsCodeSuiteCommandAndVersion467716737/003/verify-2737554377/scratch/home",
+    "XDG_CONFIG_HOME=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-bcggyux6/TestRunnerActualProcessBindsCodeSuiteCommandAndVersion467716737/003/verify-2737554377/scratch/config",
+    "XDG_CACHE_HOME=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-bcggyux6/TestRunnerActualProcessBindsCodeSuiteCommandAndVersion467716737/003/verify-2737554377/scratch/cache",
+    "XDG_DATA_HOME=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-bcggyux6/TestRunnerActualProcessBindsCodeSuiteCommandAndVersion467716737/003/verify-2737554377/scratch/data",
+    "TMPDIR=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-bcggyux6/TestRunnerActualProcessBindsCodeSuiteCommandAndVersion467716737/003/verify-2737554377/scratch/tmp",
+    "LANG=C",
+    "TZ=UTC",
+    "GORACE=atexit_sleep_ms=0"
+  ],
+  "artifact_hash": "67c012903b74dbfe28863a717365841617cadde5f5fddc1c33da09e12afc7c39",
+  "suite_hash": "67c012903b74dbfe28863a717365841617cadde5f5fddc1c33da09e12afc7c39",
+  "spec_hash": "1ddb7630d75ada4317242501440a51e7f388545b70fc7edd1238b15d9cf7af06",
+  "environment_hash": "181750069f1ce742af20e5b0510e441efe3280dd6a6e2fc610125799b606be86",
+  "tool_version": "evidence-test-tool 1",
+  "report_hash": "23198da49e6f44e4ef9e15b64e1e51c606fb703b72fa24fdbe1068b4aca6a0bb",
+  "stderr_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "started_at": "2026-10-05T04:38:54.82219Z",
+  "finished_at": "2026-10-05T04:38:54.834152Z",
+  "exit_code": 0,
+  "executed": true,
+  "stopped": true,
+  "truncated": false,
+  "interrupted": false,
+  "input_changed": false
+}

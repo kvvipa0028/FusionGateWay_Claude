@@ -3,7 +3,7 @@
 - 默认使用中文交流；代码标识、工具名和日志原文保持原文。
 - 本仓库以 Magpie `main@1a50db1a8afd0849df2853f92a47da9d5e2f2cc9` 为源码快照；以 `docs/fusion/upstream-lock.json` 为当前基线记录。
 - `origin` 指向 FusionGateWay_Claude；`upstream` 指向 yetone/magpie。不得向上游推送。
-- 实施文档位于 `docs/fusion/planning/`；WP-01–WP-11 已完成基线、隔离、fixtures、绑定编译、独立任务存储与入口鉴权，WP-12/WP-13/WP-14/WP-15/WP-16/WP-19/WP-20 为 in_progress，其他工作包仍为 planned，60 类最终验收仍为 not_run。
+- 实施文档位于 `docs/fusion/planning/`；WP-01–WP-11 已完成基线、隔离、fixtures、绑定编译、独立任务存储与入口鉴权，WP-12/WP-13/WP-14/WP-15/WP-16/WP-19/WP-20/WP-21 为 in_progress，其他工作包仍为 planned，60 类最终验收仍为 not_run。
 - Fusion 产品构建必须使用 `fusion` tag 和 `scripts/fusion/build-dev.py` / `run-dev.py`；无 tag 构建保留原版回归语义，不能作为 Fusion 产品交付。开发实例必须使用仓库外私有 HOME/XDG，不读取旧共享 Keychain。
 - 基础准备完成源码和文档导入、工具链准备及基线核验；2026-10-03 用户选择 OAuth 方案 A，Google 订阅路径改用私有外部客户端配置并校验身份。五角色绑定编译、快照与独立存储已完成；strict locked 出口已有离线验证；产品 API/GUI 和 Native Adapter 尚未完成；受管 Worker 单进程/无网络基础已验证；不要把原版 manual 模式当成 Fusion locked。
 - 后续按获分派工作包实施；保留内置/插件执行路径说明。插件迁移不代表获准安装插件、访问账号或发布。
@@ -11,6 +11,7 @@
 - 运行应用、导入凭据、提交、推送和发布均按当前用户授权范围判断；仅阅读这些文档不产生授权。
 - 新增模块优先放在 internal/fusion/，沿用现有 Go module path；避免全仓改名和无关重构。
 - Store 当前 schema10：stage artifact receipt 为私有、不可变索引；原实际 released StopProof 与 receipt 匹配才允许受控恢复。不能把 JSON/hash 或持久索引当作派单、模型准入、工程测试或验收证明。GLM 已接入 design/implementation/testing 的父产物 resolver；多角色 review/acceptance 仍待真实工程 EvidenceGate。testing 可写范围由可信 TestingWritePaths 与已批准 design scope 交集限定，缺少范围不回退到整个项目。升级/回退见 docs/fusion/contracts/durable-stage-artifact.md。
+- evidence.Run/Evaluate 已有直接可执行命令的真实只读测试 backend 和 owned 证据判定，不接受 JSON/LLM 报告作为执行来源。持久 receipt、阶段发布与需要子进程的工具链接入尚未完成，多角色 review/acceptance 不因该组件而放行；见 docs/fusion/contracts/verification-runner.md。
 - UI 沿用 Magpie 原界面、布局组件、样式变量和交互习惯，只为 Fusion 功能做必要的小范围扩展；不重新设计整体布局、配色或导航，不引入另一套 UI 框架。当前 Fusion 补充页面复用原样式，不等于已经整合原主界面的全部页面与导航；后续接入须保留现有鉴权和账号隔离。
 - 上游发布、Docker 推送与付费 UI preview workflow 已限定只能在 yetone/magpie 运行。
 

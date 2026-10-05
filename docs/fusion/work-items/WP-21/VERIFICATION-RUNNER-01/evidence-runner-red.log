@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/evidence [github.com/yetone/magpie/internal/fusion/evidence.test]
+internal/fusion/evidence/runner_test.go:49:68: undefined: Spec
+internal/fusion/evidence/runner_test.go:60:10: undefined: Spec
+internal/fusion/evidence/runner_test.go:60:21: undefined: Tool
+internal/fusion/evidence/runner_test.go:60: undefined: Rules
+internal/fusion/evidence/runner_test.go:66:17: undefined: Run
+internal/fusion/evidence/runner_test.go:70:12: undefined: Evaluate
+internal/fusion/evidence/runner_test.go:70:60: undefined: Passed
+internal/fusion/evidence/runner_test.go:72:12: undefined: Evaluate
+internal/fusion/evidence/runner_test.go:72:21: undefined: Result
+internal/fusion/evidence/runner_test.go:72:62: undefined: Unverified
+internal/fusion/evidence/runner_test.go:72:62: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/evidence [build failed]
+FAIL

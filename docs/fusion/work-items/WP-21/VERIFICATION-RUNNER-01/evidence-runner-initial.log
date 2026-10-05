@@ -1,0 +1,62 @@
+=== RUN   TestEvidenceWorker
+--- PASS: TestEvidenceWorker (0.00s)
+=== RUN   TestRunnerActualProcessBindsCodeSuiteCommandAndVersion
+    runner_test.go:136: unsafe workspace boundary
+--- FAIL: TestRunnerActualProcessBindsCodeSuiteCommandAndVersion (0.00s)
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/exit
+    runner_test.go:169: unsafe workspace boundary
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/failed
+    runner_test.go:169: unsafe workspace boundary
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/zero
+    runner_test.go:169: unsafe workspace boundary
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/skipped
+    runner_test.go:169: unsafe workspace boundary
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/malformed
+    runner_test.go:169: unsafe workspace boundary
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/inconsistent
+    runner_test.go:169: unsafe workspace boundary
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/truncated
+    runner_test.go:169: unsafe workspace boundary
+--- FAIL: TestRunnerActualReportFailuresCannotBecomePassed (0.00s)
+    --- FAIL: TestRunnerActualReportFailuresCannotBecomePassed/exit (0.00s)
+    --- FAIL: TestRunnerActualReportFailuresCannotBecomePassed/failed (0.00s)
+    --- FAIL: TestRunnerActualReportFailuresCannotBecomePassed/zero (0.00s)
+    --- FAIL: TestRunnerActualReportFailuresCannotBecomePassed/skipped (0.00s)
+    --- FAIL: TestRunnerActualReportFailuresCannotBecomePassed/malformed (0.00s)
+    --- FAIL: TestRunnerActualReportFailuresCannotBecomePassed/inconsistent (0.00s)
+    --- FAIL: TestRunnerActualReportFailuresCannotBecomePassed/truncated (0.00s)
+=== RUN   TestRunnerActualKernelBoundariesAndPositiveScratch
+    runner_test.go:182: unsafe workspace boundary
+--- FAIL: TestRunnerActualKernelBoundariesAndPositiveScratch (0.00s)
+=== RUN   TestRunnerStopsActualTimeoutAndSourceRevocation
+=== RUN   TestRunnerStopsActualTimeoutAndSourceRevocation/timeout
+    runner_test.go:194: unsafe workspace boundary
+=== RUN   TestRunnerStopsActualTimeoutAndSourceRevocation/revoke
+    runner_test.go:194: unsafe workspace boundary
+=== RUN   TestRunnerStopsActualTimeoutAndSourceRevocation/cancel
+    runner_test.go:194: unsafe workspace boundary
+--- FAIL: TestRunnerStopsActualTimeoutAndSourceRevocation (0.00s)
+    --- FAIL: TestRunnerStopsActualTimeoutAndSourceRevocation/timeout (0.00s)
+    --- FAIL: TestRunnerStopsActualTimeoutAndSourceRevocation/revoke (0.00s)
+    --- FAIL: TestRunnerStopsActualTimeoutAndSourceRevocation/cancel (0.00s)
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/hash
+    runner_test.go:221: unsafe workspace boundary
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/missing
+    runner_test.go:221: unsafe workspace boundary
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/version
+    runner_test.go:221: unsafe workspace boundary
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/suite
+    runner_test.go:221: unsafe workspace boundary
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/timeout
+    runner_test.go:221: unsafe workspace boundary
+--- FAIL: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite (0.00s)
+    --- FAIL: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/hash (0.00s)
+    --- FAIL: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/missing (0.00s)
+    --- FAIL: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/version (0.00s)
+    --- FAIL: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/suite (0.00s)
+    --- FAIL: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/timeout (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/evidence	0.528s
+FAIL

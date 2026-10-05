@@ -1,0 +1,46 @@
+=== RUN   TestEvidenceWorker
+--- PASS: TestEvidenceWorker (0.00s)
+=== RUN   TestRunnerActualProcessBindsCodeSuiteCommandAndVersion
+    runner_test.go:178: open /private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-u2o7bp_4/TestRunnerActualProcessBindsCodeSuiteCommandAndVersion1744866640/005/artifact/code/tests/input.txt: permission denied
+--- FAIL: TestRunnerActualProcessBindsCodeSuiteCommandAndVersion (0.07s)
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/exit
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/failed
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/zero
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/skipped
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/malformed
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/inconsistent
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/truncated
+--- PASS: TestRunnerActualReportFailuresCannotBecomePassed (0.44s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/exit (0.06s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/failed (0.07s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/zero (0.07s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/skipped (0.06s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/malformed (0.06s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/inconsistent (0.06s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/truncated (0.06s)
+=== RUN   TestRunnerActualKernelBoundariesAndPositiveScratch
+--- PASS: TestRunnerActualKernelBoundariesAndPositiveScratch (0.06s)
+=== RUN   TestRunnerStopsActualTimeoutAndSourceRevocation
+=== RUN   TestRunnerStopsActualTimeoutAndSourceRevocation/timeout
+=== RUN   TestRunnerStopsActualTimeoutAndSourceRevocation/revoke
+=== RUN   TestRunnerStopsActualTimeoutAndSourceRevocation/cancel
+--- PASS: TestRunnerStopsActualTimeoutAndSourceRevocation (0.62s)
+    --- PASS: TestRunnerStopsActualTimeoutAndSourceRevocation/timeout (0.23s)
+    --- PASS: TestRunnerStopsActualTimeoutAndSourceRevocation/revoke (0.20s)
+    --- PASS: TestRunnerStopsActualTimeoutAndSourceRevocation/cancel (0.18s)
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/hash
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/missing
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/version
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/suite
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/timeout
+--- PASS: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite (0.07s)
+    --- PASS: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/hash (0.01s)
+    --- PASS: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/missing (0.01s)
+    --- PASS: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/version (0.03s)
+    --- PASS: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/suite (0.01s)
+    --- PASS: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/timeout (0.01s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/evidence	1.883s
+FAIL

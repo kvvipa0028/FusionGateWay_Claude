@@ -1,0 +1,6 @@
+=== RUN   TestRunnerActualProcessBindsCodeSuiteCommandAndVersion
+    runner_test.go:214: another source's equal bytes reused this execution {passed  1 0}
+--- FAIL: TestRunnerActualProcessBindsCodeSuiteCommandAndVersion (0.07s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/evidence	0.585s
+FAIL
