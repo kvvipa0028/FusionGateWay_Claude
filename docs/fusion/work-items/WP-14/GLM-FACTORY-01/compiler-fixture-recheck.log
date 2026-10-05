@@ -1,0 +1,10 @@
+=== RUN   TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops
+=== RUN   TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops/scope
+=== RUN   TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops/activate
+=== RUN   TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops/listener_failed
+--- PASS: TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops (0.84s)
+    --- PASS: TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops/scope (0.31s)
+    --- PASS: TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops/activate (0.27s)
+    --- PASS: TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops/listener_failed (0.26s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime	2.246s

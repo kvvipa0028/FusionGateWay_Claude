@@ -1,0 +1,9 @@
+=== RUN   TestGLMFactoryRejectsReplacedRootBeforeRegistration
+    glm_execution_test.go:346: replaced root registered <nil>
+--- FAIL: TestGLMFactoryRejectsReplacedRootBeforeRegistration (0.10s)
+=== RUN   TestGLMFactoryDoesNotDiscardChangesThroughFreshMultistageCopies
+    glm_execution_test.go:371: multistage fresh copy would discard previous implementation
+--- FAIL: TestGLMFactoryDoesNotDiscardChangesThroughFreshMultistageCopies (0.08s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	0.856s
+FAIL

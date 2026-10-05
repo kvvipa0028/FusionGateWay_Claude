@@ -57,3 +57,5 @@ glm.Adapter 已实现公共 Probe/Start/Resume 接口，并自建可信 Supervis
 后续 [WP-15-SOURCE-GUARD-01](../WP-15/SOURCE-GUARD-01/summary.md) 完成私有来源记录接入执行/归档边界，固定Grok/Claude Native源漂移拒绝成功并实际停止/释放通过。完整Fusion460PASS22SKIP0FAIL，Native7顶层/17子测试通过；整体产品登记/真实路线/最终Gate仍未完成。
 
 后续 [WP-15-GLM-QUOTA-HOST-01](../WP-15/GLM-QUOTA-HOST-01/summary.md)已将真实 FileCredential/QuotaReader 接到 quota-only 产品 CLI 与 Management API，并用现有私有 key 完成一次 CN 只读查询；两个模型窗口返回 0% 已用。来源、凭据漂移和有序关闭已验证，生成 Controller 不注册。物理池/真实上游账号归属/完整性/生成计费仍未证明，快照保持 unverified，不能替代 WP-14 或 Gate A 的生成路线准入。
+
+后续 [GLM-FACTORY-01](GLM-FACTORY-01/summary.md)完成 GLM 单阶段生产后端组装，沿真实 HTTP/Controller/Store 接到固定 Native；成功、Edit 副本与四类取消/撤销场景均完成实际停止释放。独立真实 Registry/Inspector 尚未登记，CLI execution off；工程 Handoff 未接入时不执行多角色计划。完整 WP-14/三路线 Gate A/最终验收仍未完成。

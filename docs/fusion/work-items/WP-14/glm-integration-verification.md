@@ -12,6 +12,7 @@ WP-14 状态 `in_progress`；生成路线不因这些离线证据自动变成 ad
 | Native 文件工具 | Read、Edit、Edit 创建；越界/只读负例与 is_error 修复 | 本机合成文件通过；Write/Bash 等未准入 |
 | 进程取消/退出 | 真实 TERM/KILL/wait、kernel 出生身份、StopProof/Release | 本机受管场景通过 |
 | Native 适配器 | glm.Adapter 的可信构造与公共 Runtime 接口、七个真实 CLI 场景 | 已实现内部 Adapter；产品控制器未注册 |
+| 单阶段生产 Factory | NewGLMRuntimeFactory 组装实际 Adapter/私有 key loader/CNTransport/来源副本；六个真实 Native 经 HTTP/Controller/Store 完成与撤销 | 组装已实现；上游仍为合成，真实 Registry/Inspector 与产品 CLI 执行未登记，多阶段等待 Handoff |
 | 真实连接 | 早期独立诊断成功连接已保存的 CN key | 只证明当时连接，不证明工程准入 |
 | 真实账号/地区/模型/effort/计费 | 尚无满足 Registry 完整 Evidence 的实时证据 | 未完成，不能借 Native costUSD/firstParty 推断 |
 | 当前额度与共享 quota pool | WP-09 语义/Broker、内部 CN 个人套餐 Reader；一次真实 GET 观察模型窗口 0%/93% | Reader 与 quota-only 产品 CLI/API 已接入；物理池/完整性仍未证明，快照保持 unverified |
@@ -20,5 +21,7 @@ WP-14 状态 `in_progress`；生成路线不因这些离线证据自动变成 ad
 这里的假路线明确使用 synthetic identity/quota 与本机 TLS 假上游，禁止把测试 Inspector 的 true 标志送进产品 Registry。真正执行前需完成适用的套餐/编码宿主/二次封装用途核验、真实上游的版本绑定证据、物理额度池与完整性核验，以及已实现 CNTransport/Credential service/QuotaReader 的产品 API/控制器接线。未达到要求时报告 blocked，不转普通按量 API，不继承其他 provider Key。
 
 各轮原始日志与 hash 分别保留于 TEMP-01、PROTOCOL-01、SYSTEM-DATA-01、CALLS-01、GRANT-01、CHANNEL-01、TOOLS-01、ADAPTER-01、QUOTA-READER-01、PRIVATE-CREDENTIAL-01、CN-TRANSPORT-01。历史源码 hash 应按对应 owning commit 校验，不能用当前 HEAD 重解释旧证据。QUOTA-READER-01 与 PRIVATE-CREDENTIAL-01 各有一次显式真实额度 GET，模型调用数均为 0；不更改用户日常 Claude 配置。
+
+[GLM-FACTORY-01](GLM-FACTORY-01/summary.md)完成实际单阶段后端组装及 owned revocation watcher。真实 Native 场景使用合成上游/准入，不增加真实模型/额度调用；完整 WP-14、WP-17/Gate A、工程闭环和最终验收继续未完成。
 
 [WP-15-GLM-QUOTA-HOST-01](../WP-15/GLM-QUOTA-HOST-01/summary.md)补齐独立产品额度注册和一次真实 CN GET：本机声明的账号/workspace 标签仍未证明上游归属，不把查询目的授权转换为生成准入；UI 和真实执行 Factory 继续未完成。

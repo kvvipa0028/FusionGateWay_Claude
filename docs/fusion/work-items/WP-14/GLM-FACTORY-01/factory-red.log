@@ -1,0 +1,8 @@
+# github.com/yetone/magpie/internal/fusion/bootstrap [github.com/yetone/magpie/internal/fusion/bootstrap.test]
+internal/fusion/bootstrap/glm_execution_test.go:28:72: undefined: GLMRuntimeConfig
+internal/fusion/bootstrap/glm_execution_test.go:61:7: undefined: GLMRuntimeConfig
+internal/fusion/bootstrap/glm_execution_test.go:94:20: undefined: NewGLMRuntimeFactory
+internal/fusion/bootstrap/glm_execution_test.go:109:18: undefined: NewGLMRuntimeFactory
+internal/fusion/bootstrap/glm_execution_test.go:144:19: undefined: NewGLMRuntimeFactory
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap [build failed]
+FAIL

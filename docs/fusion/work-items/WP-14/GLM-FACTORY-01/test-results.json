@@ -1,0 +1,76 @@
+{
+  "component": "WP-14-GLM-FACTORY-01",
+  "base": "d8dc12bc410d3b6a7b635b5a2b3f3820178b5e1f",
+  "go": "1.26.3",
+  "platform": "macOS/arm64",
+  "factory_targeted": {
+    "top_pass": 7,
+    "sub_pass": 31,
+    "fail": 0,
+    "skip": 0
+  },
+  "native_process_scenarios": {
+    "success_calls": 1,
+    "implementation_calls": 2,
+    "cancel_calls": 1,
+    "registry_revocation_calls": 1,
+    "credential_rotation_calls": 1,
+    "source_revocation_calls": 1,
+    "stop_verified": true,
+    "released": true,
+    "original_unchanged": true,
+    "upstream_and_admission": "synthetic"
+  },
+  "fusion_final": {
+    "top_pass": 646,
+    "sub_pass": 1176,
+    "top_skip": 32,
+    "sub_skip": 10,
+    "fail": 0,
+    "packages": 17
+  },
+  "initial_regression_failure": {
+    "test": "TestManagedClaudeChannelScopeFailureNeverSpawnsAndActivationFailureStops/scope",
+    "cause": "C fixture compiler signal: segmentation fault",
+    "isolated_recheck": "pass",
+    "final_fusion_recheck": "pass",
+    "production_or_test_change_to_mask_failure": false
+  },
+  "builds": {
+    "cli": 0,
+    "gui": 0,
+    "vet": 0
+  },
+  "raw_log_sha256": {
+    "factory-red.log": "0704a6392bef6335cbba1b9dbca43952ceec1014ba7e6a4b716ab18244dc22a0",
+    "default-effort-red.log": "3fc422835cd361921f05deae0690739256c121947a590c83a419edaef973d3bf",
+    "registry-revocation-red.log": "f4fa3441d645c14aaae8f9d0cb812a83dc19adb56767d38aa91164673fc91547",
+    "root-and-multistage-red.log": "356512d410bf0eb3d44c04a3e43d86bf0c82f00910e45cf570b636b40da70106",
+    "factory-native-final.log": "53d02dba813d1d24305d0de7844f65f746f08d875ac739fd19cd858e30767f4a",
+    "fusion-regression-initial-failure.log": "58066a11884218359202316bd3a9cecbe543e4fbef01ca89c3990bb3d4b780c3",
+    "compiler-fixture-recheck.log": "480326d37cb2592b79a59686e80f213ce8feb69c17c883cfd2b2e5ab1ab33edb",
+    "fusion-regression-final.log": "4a477ae314bbb0397caa63b8e6fbcf66981033ea517d79296d5afb2a56ca2fa7",
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "cea14af465abf585568408920be770386fb7f14464e294e33a765e7e2375f89b",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "log_normalization": "only trailing whitespace removed; raw originals retained in ignored implementation directory",
+  "real_model_calls": 0,
+  "real_quota_queries": 0,
+  "jev": "off",
+  "product_cli_execution": "off; no trusted real supplier Registry/Inspector registered",
+  "ui_changed": false,
+  "graph": {
+    "nodes": 14268,
+    "edges": 128209
+  },
+  "pending": [
+    "real supplier account/region/billing/physical quota pool/publisher reports",
+    "product CLI execution wiring with verified services",
+    "engineering Handoff and multistage execution",
+    "Codex/Grok official login and forwarders",
+    "original Magpie main UI integration",
+    "actual Native UI operations; current tool reports Mac locked",
+    "final T01-T60"
+  ]
+}

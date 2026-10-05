@@ -1,0 +1,6 @@
+=== RUN   TestGLMFactoryPreservesDefaultEffortWithResolvedValue
+    glm_execution_test.go:323: valid resolved default refused execution management authority unavailable
+--- FAIL: TestGLMFactoryPreservesDefaultEffortWithResolvedValue (0.10s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	0.777s
+FAIL

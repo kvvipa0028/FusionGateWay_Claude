@@ -19,3 +19,5 @@ quota catalogue 只接受已登记项目及准确 route/account/provider workspa
 后续 [CODEX-HOST-01](../work-items/WP-15/CODEX-HOST-01/summary.md) 已沿同一 authenticated loopback HTTP/Factory 完成固定 Codex 0.160.0 的5个实际进程场景及2类 intent 前拒绝。关闭后真实 Store 重开、准确终态、停止证明与释放、调用预算和源文件保持均通过；未鉴权请求不进入 Resolve，相同 key 不重复执行。Inspect/identity/Forwarder/quota 仍为合成 fixture；生产注册与真实账号准入未完成，CLI execution off 不变。
 
 后续 [GLM-QUOTA-HOST-01](../work-items/WP-15/GLM-QUOTA-HOST-01/summary.md)增加独立 OpenQuotaControl：QuotaFactory 只获得 Loaded/Current，不能返回执行路线、Inspect、Resolve 或 SelectAuto；共享已有 quota 生命周期，Controller 保持 nil。OpenExecutionControl 仍必须提供原来完整的执行注册，不能以 quota-only 模式绕过准入。
+
+后续 [GLM 单阶段生产 Factory](glm-execution-factory.md)已将真实 Adapter/FileCredential/固定 CNTransport/私有 Copy/SourceGuard 组装成可信 `NewGLMRuntimeFactory`，固定 Native 六场景经产品 HTTP 与 Store 完成并停止释放。Registry 与当前 Inspector 必须独立准入；没有真实证据就不能登记，CLI execution off 不变。工程 Handoff 尚未接入时拒绝多角色计划，防止后续阶段重新复制原项目丢失实施修改。

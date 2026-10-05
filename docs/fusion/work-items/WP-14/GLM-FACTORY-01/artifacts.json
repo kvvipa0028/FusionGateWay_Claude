@@ -1,0 +1,61 @@
+{
+  "component": "WP-14-GLM-FACTORY-01",
+  "base": "d8dc12bc410d3b6a7b635b5a2b3f3820178b5e1f",
+  "files_sha256": {
+    "internal/fusion/bootstrap/glm_execution.go": "fbad862733f4d66aa0f12eb94448ee649a00bf16de0088a8882623954296bc11",
+    "internal/fusion/bootstrap/glm_execution_test.go": "2ff1cbf17fb516626a7d015ae31e7828e664cbe6639adcc27e031ec3f7ac5153",
+    "internal/fusion/bootstrap/glm_execution_native_test.go": "c0ecc8a526ce16fbf38c8441bf0a7d80fd2ff9a9bca9c8b61d1ce76a255d22b9",
+    "docs/fusion/contracts/glm-execution-factory.md": "7e56de16039695ab4d8d17b2b47b894adf06577027a07540edec544e46aed42b",
+    "docs/fusion/contracts/execution-host.md": "6d9304a1fec1c8de105bf463731fd4adc07b7067116b673d29e81f48359efec0",
+    "docs/fusion/work-items/WP-14/glm-integration-verification.md": "59ea9b602ac572e8680b7345d7a9985539bb02640b2c3a59ce500bc8c335ce5d",
+    "docs/fusion/work-items/WP-14/summary.md": "80573349d7d478ad745dbfe66b6880a7b63d480ff27770618be10196627d8ad0",
+    "docs/fusion/work-items/WP-14/GLM-FACTORY-01/build-cli.log": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "docs/fusion/work-items/WP-14/GLM-FACTORY-01/build-gui.log": "cea14af465abf585568408920be770386fb7f14464e294e33a765e7e2375f89b",
+    "docs/fusion/work-items/WP-14/GLM-FACTORY-01/build-results.json": "870812fb510dc1f717c2dc0c3994843eac0216c0a4e1cf49e8c88db8d28997f0",
+    "docs/fusion/work-items/WP-14/GLM-FACTORY-01/build-vet.log": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "docs/fusion/work-items/WP-14/GLM-FACTORY-01/compiler-fixture-recheck.log": "480326d37cb2592b79a59686e80f213ce8feb69c17c883cfd2b2e5ab1ab33edb",
+    "docs/fusion/work-items/WP-14/GLM-FACTORY-01/default-effort-red.log": "3fc422835cd361921f05deae0690739256c121947a590c83a419edaef973d3bf",
+    "docs/fusion/work-items/WP-14/GLM-FACTORY-01/factory-native-final.log": "53d02dba813d1d24305d0de7844f65f746f08d875ac739fd19cd858e30767f4a",
+    "docs/fusion/work-items/WP-14/GLM-FACTORY-01/factory-red.log": "0704a6392bef6335cbba1b9dbca43952ceec1014ba7e6a4b716ab18244dc22a0",
+    "docs/fusion/work-items/WP-14/GLM-FACTORY-01/fusion-regression-final.log": "4a477ae314bbb0397caa63b8e6fbcf66981033ea517d79296d5afb2a56ca2fa7",
+    "docs/fusion/work-items/WP-14/GLM-FACTORY-01/fusion-regression-initial-failure.log": "d21cc846932685a8a6b0cc9501791af6fe051d012afc3e8f4d9376a8c8e4e377",
+    "docs/fusion/work-items/WP-14/GLM-FACTORY-01/registry-revocation-red.log": "f4fa3441d645c14aaae8f9d0cb812a83dc19adb56767d38aa91164673fc91547",
+    "docs/fusion/work-items/WP-14/GLM-FACTORY-01/root-and-multistage-red.log": "356512d410bf0eb3d44c04a3e43d86bf0c82f00910e45cf570b636b40da70106",
+    "docs/fusion/work-items/WP-14/GLM-FACTORY-01/summary.md": "a6e582803eee50b24137da6a5108ce0873df11776997b75a7292a242a3edad9a",
+    "docs/fusion/work-items/WP-14/GLM-FACTORY-01/test-results.json": "cc63973fc4943c4cfe20fec220eaac44b472b873cf6d702d2b82e8351993cd7b"
+  },
+  "scope_integrity_checks": [
+    [
+      "git",
+      "diff",
+      "--exit-code",
+      "HEAD",
+      "--",
+      "internal/gui"
+    ],
+    [
+      "git",
+      "diff",
+      "--exit-code",
+      "1a50db1a8afd0849df2853f92a47da9d5e2f2cc9",
+      "--",
+      "internal/gui/assets/app.css",
+      "internal/gui/assets/app.js",
+      "internal/gui/assets/index.html"
+    ],
+    [
+      "git",
+      "diff",
+      "--exit-code",
+      "HEAD",
+      "--",
+      "internal/fusion/runtime",
+      "internal/fusion/api",
+      "internal/fusion/policy",
+      "internal/fusion/store"
+    ]
+  ],
+  "local_document_links": 27,
+  "private_credential_bytes_excluded": true,
+  "ui_and_existing_core_unchanged": true
+}
