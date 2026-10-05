@@ -1,0 +1,42 @@
+=== RUN   TestHumanMigrationElevenPreservesActualReceiptAndNoHumanDecisionInvented
+--- PASS: TestHumanMigrationElevenPreservesActualReceiptAndNoHumanDecisionInvented (0.71s)
+=== RUN   TestHumanMigrationFailureLeavesSchemaTenAndRetries
+--- PASS: TestHumanMigrationFailureLeavesSchemaTenAndRetries (0.70s)
+=== RUN   TestHumanMigrationChecksumDriftAndFutureTwelveRefused
+=== RUN   TestHumanMigrationChecksumDriftAndFutureTwelveRefused/checksum
+=== RUN   TestHumanMigrationChecksumDriftAndFutureTwelveRefused/future
+--- PASS: TestHumanMigrationChecksumDriftAndFutureTwelveRefused (0.19s)
+    --- PASS: TestHumanMigrationChecksumDriftAndFutureTwelveRefused/checksum (0.10s)
+    --- PASS: TestHumanMigrationChecksumDriftAndFutureTwelveRefused/future (0.09s)
+=== RUN   TestReworkMigrationTwelvePreservesElevenAndFailureRollsBack
+--- PASS: TestReworkMigrationTwelvePreservesElevenAndFailureRollsBack (0.23s)
+=== RUN   TestReworkCurrentFilesStaleConditionsAndSharedBudgetBlockRound
+=== RUN   TestReworkCurrentFilesStaleConditionsAndSharedBudgetBlockRound/header
+=== RUN   TestReworkCurrentFilesStaleConditionsAndSharedBudgetBlockRound/stale
+=== RUN   TestReworkCurrentFilesStaleConditionsAndSharedBudgetBlockRound/zero
+=== RUN   TestReworkCurrentFilesStaleConditionsAndSharedBudgetBlockRound/used
+--- PASS: TestReworkCurrentFilesStaleConditionsAndSharedBudgetBlockRound (2.08s)
+    --- PASS: TestReworkCurrentFilesStaleConditionsAndSharedBudgetBlockRound/header (0.51s)
+    --- PASS: TestReworkCurrentFilesStaleConditionsAndSharedBudgetBlockRound/stale (0.50s)
+    --- PASS: TestReworkCurrentFilesStaleConditionsAndSharedBudgetBlockRound/zero (0.54s)
+    --- PASS: TestReworkCurrentFilesStaleConditionsAndSharedBudgetBlockRound/used (0.53s)
+=== RUN   TestReworkConcurrentBeginRestartAndImmutableReceipt
+--- PASS: TestReworkConcurrentBeginRestartAndImmutableReceipt (0.58s)
+=== RUN   TestReworkOwnedEvidenceOpensOnlyOneRoundWithExactReviewParent
+--- PASS: TestReworkOwnedEvidenceOpensOnlyOneRoundWithExactReviewParent (0.57s)
+=== RUN   TestReworkOwnershipAuthorityAndEventFailureCannotInventRound
+--- PASS: TestReworkOwnershipAuthorityAndEventFailureCannotInventRound (0.57s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/store	7.271s
+=== RUN   TestControllerFollowupReleasesOldSlotAtCapacityOneAndCloseWaits
+--- PASS: TestControllerFollowupReleasesOldSlotAtCapacityOneAndCloseWaits (0.14s)
+=== RUN   TestControllerCloseCancelsOwnedFollowupHookWithoutDetachedStart
+--- PASS: TestControllerCloseCancelsOwnedFollowupHookWithoutDetachedStart (0.11s)
+=== RUN   TestControllerUnverifiedReleaseCannotInvokeFollowup
+=== RUN   TestControllerUnverifiedReleaseCannotInvokeFollowup/no_stop
+=== RUN   TestControllerUnverifiedReleaseCannotInvokeFollowup/release_error
+--- PASS: TestControllerUnverifiedReleaseCannotInvokeFollowup (0.22s)
+    --- PASS: TestControllerUnverifiedReleaseCannotInvokeFollowup/no_stop (0.11s)
+    --- PASS: TestControllerUnverifiedReleaseCannotInvokeFollowup/release_error (0.11s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/control	2.228s

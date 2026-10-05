@@ -30,7 +30,7 @@ func TestArtifactMigrationTenPreservesLegacyAndRejectsDrift(t *testing.T) {
 		t.Fatal(err)
 	}
 	var version, count int
-	if err := s.db.QueryRow("PRAGMA user_version").Scan(&version); err != nil || version != 11 {
+	if err := s.db.QueryRow("PRAGMA user_version").Scan(&version); err != nil || version != 12 {
 		t.Fatal("schema10", err)
 	}
 	if got, err := s.LookupSubmission("legacy-preview", "fixture-schema4-key", in.Plan.Hash); err != nil || got != task {

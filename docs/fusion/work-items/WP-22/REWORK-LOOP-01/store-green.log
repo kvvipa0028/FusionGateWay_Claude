@@ -1,0 +1,6 @@
+=== RUN   TestReworkOwnedEvidenceOpensOnlyOneRoundWithExactReviewParent
+--- PASS: TestReworkOwnedEvidenceOpensOnlyOneRoundWithExactReviewParent (0.57s)
+=== RUN   TestReworkOwnershipAuthorityAndEventFailureCannotInventRound
+--- PASS: TestReworkOwnershipAuthorityAndEventFailureCannotInventRound (0.56s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/store	2.773s

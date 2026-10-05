@@ -74,9 +74,21 @@ func (s *Store) VerifiedArtifact(runID, source, stateRoot string, spec evidence.
 	}
 	t, err := taskIn(s.db, a.Reference.Binding.TaskID)
 	context := err == nil && verificationContextIn(s.db, t, a.Verification)
+	var latest string
+	latestErr := s.db.QueryRow("SELECT a.run_id FROM stage_artifacts a JOIN stage_runs r ON r.id=a.run_id JOIN reservations v ON v.run_id=r.id WHERE r.task_id=? AND v.state='released' ORDER BY r.generation DESC LIMIT 1", a.Reference.Binding.TaskID).Scan(&latest)
+	currentTree := true
+	if latestErr == nil {
+		last, e := artifactReleasedIn(s.db, latest)
+		currentTree = e == nil && last.Reference.TreeHash == a.Reference.TreeHash
+	} else {
+		currentTree = false
+	}
 	s.mu.Unlock()
 	if !context {
 		return a, evidence.Verdict{Status: evidence.Superseded, Reason: "design_or_standard_changed"}, nil
+	}
+	if !currentTree {
+		return a, evidence.Verdict{Status: evidence.Superseded, Reason: "current_tree_changed"}, nil
 	}
 	bundle, err := handoff.Restore(a.Reference, source, stateRoot)
 	if err != nil {

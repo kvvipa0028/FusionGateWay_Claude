@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -210,6 +211,16 @@ func newGLMRuntimeFactory(c GLMRuntimeConfig, transport http.RoundTripper) (Runt
 				return control.Launch{}, control.ErrForbidden
 			}
 			prompt := glmStagePrompt{Role: role, Goal: task.Goal, Workflow: stage.Workflow, WritePaths: writePaths}
+			if role == stageplan.Implementation && stage.Parent != nil && stage.Parent.Reference.Binding.Role == stageplan.Review {
+				if c.Verification == nil || !glmVerificationMatches(c.Verification, stage) {
+					return control.Launch{}, control.ErrUnsupported
+				}
+				review, hard, err := e.Store.ReviewedArtifact(stage.Parent.Reference.Binding.RunID, p.Path, c.ExecutionRoot, c.Verification.Spec)
+				if err != nil || hard.Status != evidence.Passed || review.Review == nil || !review.Review.Valid || review.Review.Document.Verdict != "changes_required" || !reflect.DeepEqual(review, *stage.Parent) {
+					return control.Launch{}, control.ErrUnsupported
+				}
+				prompt.Review = &glmAcceptanceReview{RunID: review.Reference.Binding.RunID, TextHash: review.Review.TextHash, Document: review.Review.Document}
+			}
 			if role == stageplan.Review && glmHasMultipleRoles(stage) {
 				if !glmVerificationMatches(c.Verification, stage) || stage.Parent == nil || stage.Parent.Reference.Binding.Role != stageplan.Testing {
 					return control.Launch{}, control.ErrUnsupported
@@ -416,7 +427,44 @@ func newGLMRuntimeFactory(c GLMRuntimeConfig, transport http.RoundTripper) (Runt
 			}
 			return proof, authority, nil
 		}
-		return RuntimeRegistration{Routes: map[string][]stageplan.Route{p.ID: {route}}, Inspect: inspect, Resolve: resolve, FinalEvidence: finalEvidence, Close: func(context.Context) error { closed.Store(true); return nil }}, nil
+		afterRelease := func(call context.Context, run store.StageRun) (*control.Followup, error) {
+			authority := func() bool { return e.Manager.ExecutionEnabled() && current(call, run.Target) }
+			if !authority() {
+				return nil, control.ErrForbidden
+			}
+			task, err := e.Store.Task(run.TaskID)
+			if err != nil || task.ProjectID != p.ID || task.PlanRevision != run.PlanRevision || task.Generation != run.Generation || run.State != "succeeded" {
+				return nil, control.ErrIdentity
+			}
+			round, err := e.Store.Rework(task.ID)
+			if errors.Is(err, store.ErrNotFound) {
+				if run.Role != stageplan.Review || run.Attempt != 1 || task.State != "needs_review" || c.Verification == nil {
+					return nil, nil
+				}
+				var proof store.ReworkEvidence
+				proof, err = e.Store.PrepareReworkEvidence(run.ID, p.Path, c.ExecutionRoot, c.Verification.Spec)
+				if err != nil {
+					return nil, err
+				}
+				round, err = e.Store.BeginReworkAuthorized(task.ID, store.TaskVersion{PlanRevision: task.PlanRevision, Generation: task.Generation, State: task.State}, proof, authority)
+				if err != nil {
+					return nil, err
+				}
+				task, err = e.Store.Task(task.ID)
+			}
+			if err != nil {
+				return nil, err
+			}
+			if task.State != "ready" || run.Generation < round.Generation {
+				return nil, nil
+			}
+			view, err := e.Store.Workflow(task.ID)
+			if err != nil || view.Blocker != "" || view.Next == "" || !authority() {
+				return nil, control.ErrUnsupported
+			}
+			return &control.Followup{Key: "rework-" + round.ReviewRunID + "-" + string(view.Next), Identity: store.StartIdentity{TaskID: task.ID, Role: view.Next, PlanRevision: task.PlanRevision, Generation: task.Generation}, Current: func(next context.Context) bool { return next != nil && next.Err() == nil && authority() }}, nil
+		}
+		return RuntimeRegistration{Routes: map[string][]stageplan.Route{p.ID: {route}}, Inspect: inspect, Resolve: resolve, FinalEvidence: finalEvidence, AfterRelease: afterRelease, Close: func(context.Context) error { closed.Store(true); return nil }}, nil
 	}, nil
 }
 

@@ -1,6 +1,6 @@
 # 有限工作流与设计批准合同
 
-本合同对应 WP-19-DESIGN-GATE-01，提供版本 1 的核心定义、私有 Store 持久记录与启动约束。后续[Management API 与 Native 通路](workflow-api.md)已接入附加、方案提交与明确批准；WP-19 仍为 in_progress，[工作流页面](workflow-ui.md)已在原 Magpie 样式任务详情区接入，实际 Native 工作流操作仍未验证。生产入口不会自动附加工作流，也不会自动推进下一阶段。三路线真实准入 Gate A 尚未通过，不能据此启用自动工程闭环。
+本合同对应 WP-19-DESIGN-GATE-01，提供版本 1 的核心定义、私有 Store 持久记录与启动约束。后续[Management API 与 Native 通路](workflow-api.md)已接入附加、方案提交与明确批准；WP-19 仍为 in_progress，[工作流页面](workflow-ui.md)已在原 Magpie 样式任务详情区接入，实际 Native 工作流操作仍未验证。生产入口不会自动附加工作流；普通路径仍逐阶段明确启动。当前已接入[一次受控返工](rework-policy.md)，仅在已批准方案、显式 MaxReworks=1 和当前可信 changes_required 证据下推进有限补救阶段。三路线真实准入 Gate A 尚未通过，不能据此启用自动工程闭环。
 
 ## 固定角色与条件
 
@@ -35,7 +35,7 @@ Controller 在选择目标或准备 Runtime 前做只读预检；Store 在写启
 | task_not_ready | Task 尚不可启动 |
 | workflow_complete | 固定序列已结束，禁止再建阶段 |
 
-工作流序列结束不会把 Task 改为 completed，也不等于验收证据完整或整项需求通过。真实测试/审查证据及有限返工分别属于 WP-21/WP-22；版本 1 不提供隐藏循环或自动权限提升。现有 HTTP 启动对 `ErrWorkflowGate` 返回 409 `workflow_requires_review`，不给出私有目标、凭据或 Runtime 信息；其他 readiness、管理鉴权和预算拒绝语义保持原样。核心组件本身未加 UI/CSS；后续 API/Native 固定路径另按工作流接口合同验证。
+工作流序列结束不会把 Task 改为 completed，也不等于验收证据完整或整项需求通过。真实测试/审查证据与一次受控返工分别由 WP-21/WP-22 的可信消费者落实；原版本 1 定义不改，内部返工序列由不可变 receipt 派生，不提供隐藏循环或自动权限提升。现有 HTTP 启动对 `ErrWorkflowGate` 返回 409 `workflow_requires_review`，不给出私有目标、凭据或 Runtime 信息；其他 readiness、管理鉴权和预算拒绝语义保持原样。核心组件本身未加 UI/CSS；后续 API/Native 固定路径另按工作流接口合同验证。
 
 ## 存储升级与回退
 

@@ -1,0 +1,53 @@
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/rework_success
+    glm_handoff_native_test.go:499: repair diagnostic created 0
+    glm_handoff_native_test.go:499: repair diagnostic workflow_attached 0
+    glm_handoff_native_test.go:499: repair diagnostic start_intent 1
+    glm_handoff_native_test.go:502: repair run design 1 succeeded
+    glm_handoff_native_test.go:504: repair completion { false false} execution requires explicit reconciliation
+    glm_handoff_native_test.go:499: repair diagnostic reservation_held 1
+    glm_handoff_native_test.go:499: repair diagnostic started 1
+    glm_handoff_native_test.go:499: repair diagnostic model_call_reserved 1
+    glm_handoff_native_test.go:499: repair diagnostic finished_succeeded 1
+    glm_handoff_native_test.go:499: repair diagnostic artifact_recorded 1
+    glm_handoff_native_test.go:499: repair diagnostic reservation_released 1
+    glm_handoff_native_test.go:499: repair diagnostic design_frozen 1
+    glm_handoff_native_test.go:499: repair diagnostic design_approved 1
+    glm_handoff_native_test.go:499: repair diagnostic start_intent 2
+    glm_handoff_native_test.go:502: repair run implementation 1 succeeded
+    glm_handoff_native_test.go:504: repair completion { false false} execution requires explicit reconciliation
+    glm_handoff_native_test.go:499: repair diagnostic reservation_held 2
+    glm_handoff_native_test.go:499: repair diagnostic started 2
+    glm_handoff_native_test.go:499: repair diagnostic model_call_reserved 2
+    glm_handoff_native_test.go:499: repair diagnostic model_call_reserved 2
+    glm_handoff_native_test.go:499: repair diagnostic finished_succeeded 2
+    glm_handoff_native_test.go:499: repair diagnostic artifact_recorded 2
+    glm_handoff_native_test.go:499: repair diagnostic reservation_released 2
+    glm_handoff_native_test.go:499: repair diagnostic start_intent 3
+    glm_handoff_native_test.go:502: repair run testing 1 succeeded
+    glm_handoff_native_test.go:504: repair completion { false false} execution requires explicit reconciliation
+    glm_handoff_native_test.go:499: repair diagnostic reservation_held 3
+    glm_handoff_native_test.go:499: repair diagnostic started 3
+    glm_handoff_native_test.go:499: repair diagnostic model_call_reserved 3
+    glm_handoff_native_test.go:499: repair diagnostic model_call_reserved 3
+    glm_handoff_native_test.go:499: repair diagnostic finished_succeeded 3
+    glm_handoff_native_test.go:499: repair diagnostic artifact_recorded 3
+    glm_handoff_native_test.go:499: repair diagnostic reservation_released 3
+    glm_handoff_native_test.go:499: repair diagnostic start_intent 4
+    glm_handoff_native_test.go:502: repair run review 1 succeeded
+    glm_handoff_native_test.go:504: repair completion {succeeded true true} <nil>
+    glm_handoff_native_test.go:499: repair diagnostic reservation_held 4
+    glm_handoff_native_test.go:499: repair diagnostic started 4
+    glm_handoff_native_test.go:499: repair diagnostic model_call_reserved 4
+    glm_handoff_native_test.go:499: repair diagnostic finished_succeeded 4
+    glm_handoff_native_test.go:499: repair diagnostic artifact_recorded 4
+    glm_handoff_native_test.go:499: repair diagnostic review_requires_review 4
+    glm_handoff_native_test.go:499: repair diagnostic reservation_released 4
+    glm_handoff_native_test.go:499: repair diagnostic rework_started 4
+    glm_handoff_native_test.go:499: repair diagnostic rework_stopped 5
+    glm_handoff_native_test.go:507: actual rework chain did not reach current acceptance {task-7db3f0567be376ad44bd0dfe30252e30 fixture-project synthetic pipeline goal needs_review 1 5}
+--- FAIL: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart (24.92s)
+    --- FAIL: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/rework_success (24.92s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	25.559s
+FAIL

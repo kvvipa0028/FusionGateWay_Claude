@@ -174,6 +174,11 @@ func (m *Manager) ManagementCurrent(ctx context.Context) bool {
 	return m.adminEnabled.Load()
 }
 
+// ExecutionEnabled is a lock-free revocation check for already authorized
+// in-process task continuations. It does not authenticate any HTTP context or
+// issue stage capabilities; those still require their original issuer gates.
+func (m *Manager) ExecutionEnabled() bool { return m != nil && m.adminEnabled.Load() }
+
 // WithStage carries an issuer-owned capability in a private context key. The
 // secret itself is not passed to an executor, transport or request body.
 func (m *Manager) WithStage(ctx context.Context, raw string, expected Claims) (context.Context, error) {

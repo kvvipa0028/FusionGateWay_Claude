@@ -1,0 +1,12 @@
+# github.com/yetone/magpie/internal/fusion/store [github.com/yetone/magpie/internal/fusion/store.test]
+internal/fusion/store/rework_test.go:11:44: undefined: ReworkEvidence
+internal/fusion/store/rework_test.go:16:12: s.PrepareReworkEvidence undefined (type *Store has no field or method PrepareReworkEvidence)
+internal/fusion/store/rework_test.go:27:11: s.BeginReworkAuthorized undefined (type *Store has no field or method BeginReworkAuthorized)
+internal/fusion/store/rework_test.go:37:13: s.BeginReworkAuthorized undefined (type *Store has no field or method BeginReworkAuthorized)
+internal/fusion/store/rework_test.go:45:26: undefined: ReworkEvidence
+internal/fusion/store/rework_test.go:46:13: s.BeginReworkAuthorized undefined (type *Store has no field or method BeginReworkAuthorized)
+internal/fusion/store/rework_test.go:49:12: s.BeginReworkAuthorized undefined (type *Store has no field or method BeginReworkAuthorized)
+internal/fusion/store/rework_test.go:51:12: s.BeginReworkAuthorized undefined (type *Store has no field or method BeginReworkAuthorized)
+internal/fusion/store/rework_test.go:54:12: s.Rework undefined (type *Store has no field or method Rework)
+FAIL	github.com/yetone/magpie/internal/fusion/store [build failed]
+FAIL

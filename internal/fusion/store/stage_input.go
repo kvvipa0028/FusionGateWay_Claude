@@ -40,23 +40,21 @@ func (s *Store) StageArtifactInput(taskID string, expected TaskVersion, role sta
 		return StageInput{}, ErrWorkflowGate
 	}
 	out := StageInput{Workflow: &v}
-	for n, r := range v.Definition.RequiredRoles {
-		if r != role {
-			continue
-		}
-		if n == 0 {
-			return out, nil
-		}
-		var id string
-		if err := s.db.QueryRow("SELECT id FROM stage_runs WHERE task_id=? AND role=? AND generation<=? ORDER BY generation DESC LIMIT 1", t.ID, v.Definition.RequiredRoles[n-1], t.Generation).Scan(&id); err != nil {
-			return StageInput{}, ErrWorkflowGate
-		}
-		a, err := artifactReleasedIn(s.db, id)
-		if err != nil {
-			return StageInput{}, err
-		}
-		out.Parent = &a
+	var count int
+	if err := s.db.QueryRow("SELECT COUNT(*) FROM stage_runs WHERE task_id=?", t.ID).Scan(&count); err != nil {
+		return StageInput{}, err
+	}
+	if count == 0 {
 		return out, nil
 	}
-	return StageInput{}, ErrWorkflowGate
+	var id string
+	if err := s.db.QueryRow("SELECT id FROM stage_runs WHERE task_id=? AND generation<=? ORDER BY generation DESC LIMIT 1", t.ID, t.Generation).Scan(&id); err != nil {
+		return StageInput{}, ErrWorkflowGate
+	}
+	a, err := artifactReleasedIn(s.db, id)
+	if err != nil {
+		return StageInput{}, err
+	}
+	out.Parent = &a
+	return out, nil
 }

@@ -1,0 +1,8 @@
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/rework_success
+    glm_handoff_native_test.go:497: actual rework chain did not reach current acceptance {task-a5b5eff97579486e04e7edf8841c7567 fixture-project synthetic pipeline goal needs_review 1 4}
+--- FAIL: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart (22.51s)
+    --- FAIL: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/rework_success (22.51s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	23.116s
+FAIL

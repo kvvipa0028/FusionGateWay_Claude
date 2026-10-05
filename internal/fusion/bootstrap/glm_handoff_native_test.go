@@ -31,12 +31,25 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 	if *hostNativeGLM == "" {
 		t.Skip("explicit pinned Native fixture only")
 	}
-	for _, mode := range []string{"success", "testing_scope_violation", "parent_header_drift", "unscoped_external_write", "hard_test_failure", "malformed_test_report", "missing_verifier", "wrong_standard", "verifier_config_mutation", "review_changes", "review_malformed", "review_write", "review_standard_changed", "review_no_verifier", "review_parent_drift", "acceptance_rejected", "acceptance_unverified", "acceptance_malformed", "acceptance_missing_criteria", "acceptance_write", "acceptance_standard_changed", "acceptance_parent_drift", "human_standard_changed", "human_reader_revoked", "human_commit_revoked"} {
+	for _, mode := range []string{"rework_success", "rework_exhausted", "rework_retest_failure", "rework_budget", "rework_revoked", "rework_parent_drift", "rework_cancel", "success", "testing_scope_violation", "parent_header_drift", "unscoped_external_write", "hard_test_failure", "malformed_test_report", "missing_verifier", "wrong_standard", "verifier_config_mutation", "review_changes", "review_malformed", "review_write", "review_standard_changed", "review_no_verifier", "review_parent_drift", "acceptance_rejected", "acceptance_unverified", "acceptance_malformed", "acceptance_missing_criteria", "acceptance_write", "acceptance_standard_changed", "acceptance_parent_drift", "human_standard_changed", "human_reader_revoked", "human_commit_revoked"} {
 		t.Run(mode, func(t *testing.T) {
 			path, d, c, _, _ := glmFactoryFixture(t, true)
 			c.Executable, _ = filepath.EvalSymlinks(*hostNativeGLM)
 			c.TestingWritePaths = []string{"tests"}
+			if mode == "review_changes" {
+				zero := 0
+				d.Projects[0].MaxReworks = &zero
+				writeSource(t, path, d)
+			}
+			if mode == "rework_budget" {
+				calls := 8
+				d.Projects[0].MaxCalls = &calls
+				writeSource(t, path, d)
+			}
 			verifierMode := "pass"
+			if mode == "rework_retest_failure" {
+				verifierMode = "repair-fail"
+			}
 			if mode == "hard_test_failure" {
 				verifierMode = "fail"
 			}
@@ -58,6 +71,7 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 			}
 			var mu sync.Mutex
 			var activeRole stageplan.Role
+			var activeAttempt int64
 			var spec managed.Spec
 			var owned control.Execution
 			var calls atomic.Int64
@@ -65,16 +79,22 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 			upstream := glmHostUpstream(func(r *http.Request) (*http.Response, error) {
 				calls.Add(1)
 				mu.Lock()
-				role, work := activeRole, spec.Workspace
+				role, work, attempt := activeRole, spec.Workspace, activeAttempt
 				rounds[role]++
 				n := rounds[role]
 				mu.Unlock()
 				write := ""
 				if role == stageplan.Implementation && n == 1 {
 					write = filepath.Join(work, "src/implemented.txt")
+					if attempt == 2 {
+						write = filepath.Join(work, "src/reworked.txt")
+					}
 				}
 				if role == stageplan.Testing && n == 1 {
 					write = filepath.Join(work, "tests/generated.txt")
+					if attempt == 2 {
+						write = filepath.Join(work, "tests/retested.txt")
+					}
 					if mode == "testing_scope_violation" {
 						write = filepath.Join(work, "src/forbidden.txt")
 					}
@@ -88,7 +108,7 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 				}
 				if role == stageplan.Review {
 					text := `{"version":1,"verdict":"approve","findings":[]}`
-					if mode == "review_changes" {
+					if mode == "review_changes" || strings.HasPrefix(mode, "rework_") && (attempt == 1 || mode == "rework_exhausted") {
 						text = `{"version":1,"verdict":"changes_required","findings":[{"id":"R1","severity":"blocking","summary":"synthetic defect requires implementation repair"}]}`
 					}
 					if mode == "review_malformed" {
@@ -146,6 +166,33 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 						return current != nil && current()
 					}, err
 				}
+				after := reg.AfterRelease
+				reg.AfterRelease = func(call context.Context, run store.StageRun) (*control.Followup, error) {
+					if run.Role == stageplan.Review && run.Attempt == 1 {
+						if mode == "rework_revoked" {
+							e.Manager.RevokeManagement()
+						}
+						if mode == "rework_parent_drift" {
+							a, err := e.Store.Artifact(run.ID)
+							if err != nil {
+								t.Error(err)
+							} else {
+								name := filepath.Join(a.Reference.Path, "handoff.json")
+								if err = os.Chmod(name, 0600); err != nil {
+									t.Error(err)
+								}
+								if err = os.WriteFile(name, []byte("changed review header"), 0400); err != nil {
+									t.Error(err)
+								}
+							}
+						}
+					}
+					next, err := after(call, run)
+					if mode == "rework_cancel" && next != nil {
+						e.Manager.RevokeManagement()
+					}
+					return next, err
+				}
 				resolve := reg.Resolve
 				reg.Resolve = func(ctx context.Context, task store.Task, role stageplan.Role, target stageplan.ExecutionTarget) (control.Launch, error) {
 					launch, err := resolve(ctx, task, role, target)
@@ -154,6 +201,11 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 							var prompt glmStagePrompt
 							if json.Unmarshal(launch.Spec.Input, &prompt) != nil || prompt.Role != role || prompt.Workflow == nil || prompt.Workflow.Design == nil || prompt.Workflow.Approval == nil || prompt.Parent == nil || prompt.Parent.Binding.TaskID != task.ID || prompt.Workflow.Approval.DesignHash != prompt.Workflow.Design.Snapshot.Hash || prompt.Parent.Evidence != "unverified" {
 								t.Error("Native prompt lost exact approved context or promoted evidence")
+							}
+							if role == stageplan.Implementation && prompt.Parent != nil && prompt.Parent.Binding.Role == stageplan.Review {
+								if prompt.Review == nil || prompt.Review.RunID != prompt.Parent.Binding.RunID || prompt.Review.Document.Verdict != "changes_required" || len(prompt.Review.Document.Findings) != 1 || prompt.Review.Document.Findings[0].ID != "R1" || prompt.Review.Document.Findings[0].Summary != "synthetic defect requires implementation repair" || prompt.Review.TextHash == "" {
+									t.Error("repair lost exact released review findings")
+								}
 							}
 						}
 						if role == stageplan.Review {
@@ -173,6 +225,10 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 						mu.Unlock()
 						start := launch.Backend.Start
 						launch.Backend.Start = func(ctx context.Context, run store.StageRun, spec managed.Spec) (control.Execution, error) {
+							mu.Lock()
+							activeAttempt = run.Attempt
+							rounds[role] = 0
+							mu.Unlock()
 							h, err := start(ctx, run, spec)
 							mu.Lock()
 							owned = h
@@ -450,6 +506,131 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 					t.Fatal("failed review write published artifact")
 				}
 				return
+			}
+			if strings.HasPrefix(mode, "rework_") {
+				deadline := time.Now().Add(20 * time.Second)
+				for {
+					current, err := h.store.Task(task.ID)
+					if err != nil {
+						t.Fatal(err)
+					}
+					wantGen := int64(0)
+					wantRound := 1
+					wantCalls := int64(0)
+					switch mode {
+					case "rework_exhausted":
+						wantGen = 7
+						wantCalls = 11
+					case "rework_retest_failure":
+						wantGen = 6
+						wantCalls = 10
+					case "rework_budget":
+						wantGen = 6
+						wantCalls = 8
+					case "rework_revoked", "rework_parent_drift":
+						wantGen = 4
+						wantRound = 0
+						wantCalls = 6
+					case "rework_cancel":
+						wantGen = 5
+						wantCalls = 6
+					}
+					if wantGen != 0 && current.Generation == wantGen && current.State == "needs_review" {
+						if err := h.controller.Close(context.Background()); err != nil {
+							t.Fatal(err)
+						}
+						budget, _ := h.store.Budget(task.ID)
+						if budget.UsedReworks != wantRound || int64(budget.UsedCalls) != calls.Load() || calls.Load() != wantCalls {
+							t.Fatal("bounded repair did not stop with exact budget", mode, budget, calls.Load())
+						}
+						var stageCount int
+						events, _ := h.store.Events(task.ID, 0)
+						for _, ev := range events {
+							if ev.Kind == "start_intent" {
+								stageCount++
+							}
+						}
+						expectedStages := int(wantGen)
+						if mode == "rework_cancel" || mode == "rework_budget" {
+							expectedStages--
+						}
+						if stageCount != expectedStages {
+							t.Fatal("repair launched extra stage", stageCount, expectedStages)
+						}
+						return
+					}
+					if current.Generation == 8 && current.State == "advisory_only" {
+						final, err := h.store.FinalAcceptanceRun(task.ID, store.TaskVersion{PlanRevision: current.PlanRevision, Generation: current.Generation, State: current.State})
+						if err == nil {
+							wait(api.ExecutionReply{Run: api.RunView{ID: final.ID}}, true)
+							proof, err := h.store.PrepareFinalEvidence(final.ID, d.Projects[0].Path, c.ExecutionRoot, expectedVerification.Spec)
+							if err != nil || proof.Report().Hard.Status != evidence.Passed {
+								t.Fatal("rework lost actual hard evidence", err)
+							}
+							if _, hard, err := h.store.VerifiedArtifact(testingRun.Run.ID, d.Projects[0].Path, c.ExecutionRoot, expectedVerification.Spec); err != nil || hard.Status != evidence.Superseded {
+								t.Fatal("repair reused old tests", hard, err)
+							}
+							budget, _ := h.store.Budget(task.ID)
+							if budget.UsedReworks != 1 || int64(budget.UsedCalls) != calls.Load() || calls.Load() != 12 {
+								t.Fatal("rework budget reset or hidden calls", budget, calls.Load())
+							}
+							sequence := []stageplan.Role{stageplan.Design, stageplan.Implementation, stageplan.Testing, stageplan.Review, stageplan.Implementation, stageplan.Testing, stageplan.Review, stageplan.Acceptance}
+							events, _ := h.store.Events(task.ID, 0)
+							n := 0
+							sessions := map[string]bool{}
+							lastParent := ""
+							plan, _ := h.store.Plan(task.ID, 1)
+							for _, ev := range events {
+								if ev.Kind == "start_intent" {
+									r, _ := h.store.Run(ev.RunID)
+									a, err := h.store.Artifact(r.ID)
+									if n >= len(sequence) || r.Role != sequence[n] || r.State != "succeeded" || r.Attempt > 2 || r.NativeSessionID == "" || sessions[r.NativeSessionID] || !reflect.DeepEqual(r.Target, *plan.Bindings[r.Role].Target) || err != nil || a.ParentRunID != lastParent {
+										t.Fatal("repair changed binding/session/parent sequence", r.Role, r.Attempt, err)
+									}
+									sessions[r.NativeSessionID] = true
+									lastParent = r.ID
+									n++
+								}
+							}
+							if n != 8 {
+								t.Fatal("repair stage count", n)
+							}
+							accepted, err := h.store.Artifact(final.ID)
+							if err != nil {
+								t.Fatal(err)
+							}
+							bundle, err := handoff.Restore(accepted.Reference, d.Projects[0].Path, c.ExecutionRoot)
+							if err != nil {
+								t.Fatal(err)
+							}
+							copy, err := bundle.Copy(accepted.Reference.Binding, c.ExecutionRoot, "repaired-output")
+							if err != nil {
+								t.Fatal(err)
+							}
+							for _, name := range []string{"src/reworked.txt", "tests/retested.txt"} {
+								if b, err := os.ReadFile(filepath.Join(copy.Path, name)); err != nil || string(b) != "synthetic factory file\n" {
+									t.Fatal("actual repair/retest file missing", name, err)
+								}
+							}
+							nativeHumanDecision(t, h, task.ID, "accept", "operator checked repaired tree and actual retest", true)
+							return
+						}
+					}
+					if time.Now().After(deadline) {
+						events, _ := h.store.Events(task.ID, 0)
+						for _, ev := range events {
+							t.Log("repair diagnostic", ev.Kind, ev.Generation)
+							if ev.Kind == "start_intent" {
+								r, _ := h.store.Run(ev.RunID)
+								t.Log("repair run", r.Role, r.Attempt, r.State)
+								done, err := h.controller.Wait(context.Background(), r.ID)
+								t.Log("repair completion", done, err)
+							}
+						}
+						t.Fatal("actual rework chain did not reach current acceptance", current)
+					}
+					time.Sleep(10 * time.Millisecond)
+				}
 			}
 			reviewed, hard, err := h.store.ReviewedArtifact(review.Run.ID, d.Projects[0].Path, c.ExecutionRoot, expectedVerification.Spec)
 			if err != nil || hard.Status != evidence.Passed || reviewed.Review == nil || reviewed.Review.TestingRunID != testingRun.Run.ID || reviewed.Reference.TreeHash != result.Reference.TreeHash {

@@ -1,0 +1,8 @@
+=== RUN   TestReworkRejectsChangedHardStandardAndNonRepairOpinions
+=== RUN   TestReworkRejectsChangedHardStandardAndNonRepairOpinions/changed_standard
+    rework_test.go:41: non-current hard proof or non-repair opinion admitted repair <nil>
+--- FAIL: TestReworkRejectsChangedHardStandardAndNonRepairOpinions (0.54s)
+    --- FAIL: TestReworkRejectsChangedHardStandardAndNonRepairOpinions/changed_standard (0.54s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/store	1.008s
+FAIL

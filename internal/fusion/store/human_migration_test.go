@@ -49,7 +49,7 @@ func TestHumanMigrationElevenPreservesActualReceiptAndNoHumanDecisionInvented(t 
 	}
 	defer s.Close()
 	var version, count int
-	if err := s.db.QueryRow("PRAGMA user_version").Scan(&version); err != nil || version != 11 {
+	if err := s.db.QueryRow("PRAGMA user_version").Scan(&version); err != nil || version != 12 {
 		t.Fatal("schema11", err, version)
 	}
 	if _, err := s.Task(legacy); err != nil {
@@ -108,7 +108,7 @@ func TestHumanMigrationChecksumDriftAndFutureTwelveRefused(t *testing.T) {
 			s, root := openFixture(t)
 			query := "UPDATE metadata SET value='drift' WHERE key='migration_011_sha256'"
 			if mode == "future" {
-				query = "PRAGMA user_version=12"
+				query = "PRAGMA user_version=13"
 			}
 			if _, err := s.db.Exec(query); err != nil {
 				t.Fatal(err)

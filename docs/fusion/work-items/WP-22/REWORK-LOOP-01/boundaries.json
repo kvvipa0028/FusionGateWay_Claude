@@ -1,0 +1,20 @@
+{
+  "base": "ad9ca82df3fc3904b2a79588f210f4994e624197",
+  "ui_changed": false,
+  "pinned_main_assets_equal": [
+    "internal/gui/assets/index.html",
+    "internal/gui/assets/app.js",
+    "internal/gui/assets/i18n.js"
+  ],
+  "pinned_css_equal": 6,
+  "schema": 12,
+  "sql001_011_equal": true,
+  "public_definition_roles": 5,
+  "internal_rework_sequence_roles": 8,
+  "public_openapi_changed": false,
+  "graph_nodes": 14632,
+  "graph_edges": 131966,
+  "real_vendor_calls": 0,
+  "jev": "off",
+  "whole_wp22": "in_progress"
+}

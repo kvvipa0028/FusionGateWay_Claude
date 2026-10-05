@@ -33,6 +33,11 @@ func TestGLMVerificationWorker(t *testing.T) {
 		os.Exit(0)
 	}
 	fmt.Print(`<testsuite tests="2"><testcase name="actual_implementation"/><testcase name="actual_generated_test"/></testsuite>`)
+	if mode == "repair-fail" {
+		if _, err := os.Stat("src/reworked.txt"); err == nil {
+			os.Exit(7)
+		}
+	}
 	if mode == "fail" {
 		os.Exit(7)
 	}

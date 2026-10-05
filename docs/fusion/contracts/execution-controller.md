@@ -37,3 +37,9 @@ WP-15-CANCEL-API-01 新增 CancelTask/CancelTaskAuthorized：全 TaskVersion Sto
 [WP-15-SOURCE-GUARD-01](../work-items/WP-15/SOURCE-GUARD-01/summary.md) 已将私有SourceGuard接入Controller派单/归档、Grok/GLM Current和Supervisor启动/heartbeat/结果检查，见[合同](workspace-source-guard.md)。RequireSource=true拒绝无来源新执行；旧诊断兼容不提升来源证据。实际固定Native源漂移拒绝成功并核验wait/proof/release；产品项目登记与真实准入仍未完成。
 
 [WP-15-CODEX-01](../work-items/WP-15/CODEX-01/summary.md) 验证 BindAdapter → Codex 只读 Adapter 的实际 11 个原生生命周期场景：成功、429/unsafe503 失败、HTTP 断线、Pause、TaskCancel、Stage Cancel、Close、来源/身份漂移和 grant 激活失败。准确 receipt 不重放，已知错误 Handle 仍实际 wait/proof/release；暂停进入 needs_review，取消不暴露成功文字。新增 Adapter preflight 关闭可提前发现的错误在 intent 后占用预留的缺口，真实 Host RED→GREEN 记录保留。真实 subscription Factory/账号/Forwarder/quota、产品 HTTP 接线、写/工具/恢复与最终工程 Gate 继续未完成。
+
+## 受控返工继续
+
+Config.AfterRelease 是可信进程内 callback，不属于 HTTP DTO 或公开导入配置。只有实际终态 Wait、对应 StopProof、原 Backend.Release 成功后才调用。由已批准流程和 owned 当前 review 证据派生精确 Followup；callback 不选新模型、不发管理 Token、不取消既有 budget/intent 上限。
+
+继续工作纳入原 Controller lifetime、容量和 WaitGroup。先登记受控继续工作，再释放旧 work slot，允许容量为1时推进；Close 停派单、取消并等待 callback 与随后运行，不留下 detached worker。Host 对项目/计划/generation、来源和当前撤销状态封装复核，实际 Start 仍走原 Resolve/Scheduler/Permit。继续启动失败仅对精确 ready TaskVersion 写 needs_review 与 generation fence；不启动、不释放不确定进程、不退款。中断后的持久记录不在重启时自动执行，需明确恢复。详见[返工策略](rework-policy.md)。

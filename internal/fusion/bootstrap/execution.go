@@ -31,6 +31,7 @@ type RuntimeRegistration struct {
 	SelectAuto    func(context.Context, store.Task, stageplan.Role, stageplan.FrozenBinding) (stageplan.ExecutionTarget, error)
 	QuotaSources  map[string][]api.QuotaSource
 	FinalEvidence api.FinalEvidenceReader
+	AfterRelease  func(context.Context, store.StageRun) (*control.Followup, error)
 	Close         func(context.Context) error
 }
 
@@ -132,7 +133,7 @@ func (h *ControlHost) installRuntime(parent context.Context, s *api.Server, f Ru
 		return ErrControlHost
 	}
 	if queryOnly {
-		if len(reg.Routes) != 0 || reg.Inspect != nil || reg.Resolve != nil || reg.SelectAuto != nil || reg.FinalEvidence != nil || len(reg.QuotaSources) == 0 {
+		if len(reg.Routes) != 0 || reg.Inspect != nil || reg.Resolve != nil || reg.SelectAuto != nil || reg.FinalEvidence != nil || reg.AfterRelease != nil || len(reg.QuotaSources) == 0 {
 			return ErrControlHost
 		}
 	} else if reg.Inspect == nil || reg.Resolve == nil || len(reg.Routes) == 0 {
@@ -249,7 +250,25 @@ func (h *ControlHost) installRuntime(parent context.Context, s *api.Server, f Ru
 			return copyRuntimeValue(v), e
 		}
 	}
-	h.controller, e = control.New(h.runtimeContext, control.Config{RequireSource: true, Scheduler: scheduler, Resolve: h.resolveExecution, SelectAuto: selectAuto})
+	var afterRelease func(context.Context, store.StageRun) (*control.Followup, error)
+	if reg.AfterRelease != nil {
+		afterRelease = func(ctx context.Context, r store.StageRun) (*control.Followup, error) {
+			t, err := h.store.Task(r.TaskID)
+			if err != nil || ctx.Err() != nil || !h.auth.ExecutionEnabled() || !h.executionCurrent(t.ProjectID) || t.PlanRevision != r.PlanRevision || t.Generation != r.Generation {
+				return nil, control.ErrForbidden
+			}
+			next, err := reg.AfterRelease(ctx, copyRuntimeValue(r))
+			if err != nil || next == nil {
+				return nil, err
+			}
+			prior := next.Current
+			next.Current = func(call context.Context) bool {
+				return call != nil && call.Err() == nil && h.auth.ExecutionEnabled() && h.executionCurrent(t.ProjectID) && prior != nil && prior(call)
+			}
+			return next, nil
+		}
+	}
+	h.controller, e = control.New(h.runtimeContext, control.Config{RequireSource: true, Scheduler: scheduler, Resolve: h.resolveExecution, SelectAuto: selectAuto, AfterRelease: afterRelease})
 	if e != nil || s.SetController(h.controller) != nil {
 		return ErrControlHost
 	}

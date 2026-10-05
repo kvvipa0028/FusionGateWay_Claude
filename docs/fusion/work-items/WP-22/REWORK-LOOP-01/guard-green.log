@@ -1,0 +1,14 @@
+=== RUN   TestReworkRejectsChangedHardStandardAndNonRepairOpinions
+=== RUN   TestReworkRejectsChangedHardStandardAndNonRepairOpinions/changed_standard
+=== RUN   TestReworkRejectsChangedHardStandardAndNonRepairOpinions/approve
+=== RUN   TestReworkRejectsChangedHardStandardAndNonRepairOpinions/invalid
+--- PASS: TestReworkRejectsChangedHardStandardAndNonRepairOpinions (1.49s)
+    --- PASS: TestReworkRejectsChangedHardStandardAndNonRepairOpinions/changed_standard (0.52s)
+    --- PASS: TestReworkRejectsChangedHardStandardAndNonRepairOpinions/approve (0.48s)
+    --- PASS: TestReworkRejectsChangedHardStandardAndNonRepairOpinions/invalid (0.48s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/store	3.276s
+=== RUN   TestExecutionEnabledIsRevocationStateAndCannotAuthenticateManagement
+--- PASS: TestExecutionEnabledIsRevocationStateAndCannotAuthenticateManagement (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/policy	1.668s

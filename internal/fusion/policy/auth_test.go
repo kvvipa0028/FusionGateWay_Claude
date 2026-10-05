@@ -13,6 +13,24 @@ import (
 func fixtureClaims() Claims {
 	return Claims{TaskID: "fixture-task", RunID: "fixture-run", Role: stageplan.Design, Attempt: 1, PlanRevision: 1, Generation: 1, ProjectID: "fixture-project", Audience: ModelAudience}
 }
+
+func TestExecutionEnabledIsRevocationStateAndCannotAuthenticateManagement(t *testing.T) {
+	m := NewManager("fixture-management", nil, nil)
+	if !m.ExecutionEnabled() || m.ManagementCurrent(context.Background()) {
+		t.Fatal("enabled state granted management context")
+	}
+	calls := 0
+	h := m.Management(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) { calls++ }))
+	w := httptest.NewRecorder()
+	h.ServeHTTP(w, httptest.NewRequest("POST", "/", nil))
+	if calls != 0 || w.Code < 400 {
+		t.Fatal("enabled state bypassed HTTP authentication")
+	}
+	m.RevokeManagement()
+	if m.ExecutionEnabled() {
+		t.Fatal("revocation did not disable continuation")
+	}
+}
 func TestStageCredentialScopeRevocationAndExpiry(t *testing.T) {
 	valid := true
 	m := NewManager("fixture-management-secret", func(c Claims) bool { return valid && c == fixtureClaims() }, []string{"http://127.0.0.1:3426"})

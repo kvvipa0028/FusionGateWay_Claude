@@ -83,6 +83,13 @@ type Config struct {
 	Scheduler     policy.Scheduler
 	Resolve       func(context.Context, store.Task, stageplan.Role, stageplan.ExecutionTarget) (Launch, error)
 	SelectAuto    func(context.Context, store.Task, stageplan.Role, stageplan.FrozenBinding) (stageplan.ExecutionTarget, error)
+	// Trusted owned rework wiring only; never an HTTP/request field.
+	AfterRelease func(context.Context, store.StageRun) (*Followup, error)
+}
+type Followup struct {
+	Key      string
+	Identity store.StartIdentity
+	Current  func(context.Context) bool
 }
 type Completion struct {
 	State           string `json:"state"`
@@ -334,7 +341,31 @@ func (c *Controller) start(request context.Context, key string, in store.StartId
 		_ = h.Cancel()
 	}
 	transferred = true
-	go func() { defer finishWork(); c.observe(job, h, launch.Backend) }()
+	go func() {
+		next := c.observe(job, h, launch.Backend)
+		tracked := false
+		if next != nil {
+			c.mu.Lock()
+			if !c.closed && c.lifetime.Err() == nil {
+				c.wg.Add(1)
+				tracked = true
+			}
+			c.mu.Unlock()
+		}
+		// Keep the continuation counted before releasing the old job. No new
+		// WaitGroup work can appear after Close observed zero or marked closed.
+		finishWork()
+		if next != nil && !tracked {
+			c.suspendRework(job.run)
+			return
+		}
+		if tracked {
+			defer c.wg.Done()
+			if _, err := c.StartAuthorized(c.lifetime, next.Key, next.Identity, next.Current); err != nil {
+				c.suspendRework(job.run)
+			}
+		}
+	}()
 	if e != nil {
 		return receipt, ErrLaunch
 	}
@@ -421,7 +452,7 @@ func terminal(state string) bool {
 	}
 	return false
 }
-func (c *Controller) observe(j *executionJob, h Execution, b Backend) {
+func (c *Controller) observe(j *executionJob, h Execution, b Backend) *Followup {
 	result, e := h.Wait(context.Background())
 	completion := Completion{State: "execution_uncertain"}
 	r, re := c.config.Scheduler.Store.Run(j.run.ID)
@@ -434,9 +465,26 @@ func (c *Controller) observe(j *executionJob, h Execution, b Backend) {
 			j.stoppedRun = clone(r)
 		}
 	}
+	var next *Followup
+	if completion.Released && c.config.AfterRelease != nil {
+		var err error
+		next, err = c.config.AfterRelease(c.lifetime, clone(r))
+		if err != nil {
+			c.suspendRework(r)
+			next = nil
+		}
+		if next != nil && (next.Current == nil || next.Identity.TaskID != r.TaskID || next.Identity.PlanRevision != r.PlanRevision || next.Identity.Generation != r.Generation || next.Identity.Restore != nil) {
+			c.suspendRework(r)
+			next = nil
+		}
+	}
 	j.cancel()
 	j.completion = completion
 	close(j.done)
+	return next
+}
+func (c *Controller) suspendRework(r store.StageRun) {
+	_ = c.config.Scheduler.Store.SuspendRework(r.TaskID, store.TaskVersion{PlanRevision: r.PlanRevision, Generation: r.Generation, State: "ready"})
 }
 func (c *Controller) Cancel(taskID, runID string, generation int64) (store.StageRun, error) {
 	return c.cancelRun(taskID, runID, generation, 0)

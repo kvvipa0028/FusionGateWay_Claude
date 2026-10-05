@@ -1,0 +1,185 @@
+{
+  "base": "ad9ca82df3fc3904b2a79588f210f4994e624197",
+  "tests": {
+    "build-cli": {
+      "top_pass": 0,
+      "sub_pass": 0,
+      "top_fail": 0,
+      "sub_fail": 0,
+      "top_skip": 0,
+      "sub_skip": 0,
+      "packages": 0
+    },
+    "build-gui": {
+      "top_pass": 0,
+      "sub_pass": 0,
+      "top_fail": 0,
+      "sub_fail": 0,
+      "top_skip": 0,
+      "sub_skip": 0,
+      "packages": 0
+    },
+    "build-vet": {
+      "top_pass": 0,
+      "sub_pass": 0,
+      "top_fail": 0,
+      "sub_fail": 0,
+      "top_skip": 0,
+      "sub_skip": 0,
+      "packages": 0
+    },
+    "core-targeted": {
+      "top_pass": 11,
+      "sub_pass": 8,
+      "top_fail": 0,
+      "sub_fail": 0,
+      "top_skip": 0,
+      "sub_skip": 0,
+      "packages": 2
+    },
+    "full-fusion": {
+      "top_pass": 722,
+      "sub_pass": 1303,
+      "top_fail": 0,
+      "sub_fail": 0,
+      "top_skip": 33,
+      "sub_skip": 11,
+      "packages": 19
+    },
+    "guard-green": {
+      "top_pass": 2,
+      "sub_pass": 3,
+      "top_fail": 0,
+      "sub_fail": 0,
+      "top_skip": 0,
+      "sub_skip": 0,
+      "packages": 2
+    },
+    "mutation": {
+      "top_pass": 0,
+      "sub_pass": 0,
+      "top_fail": 1,
+      "sub_fail": 1,
+      "top_skip": 0,
+      "sub_skip": 0,
+      "packages": 0
+    },
+    "native-debug": {
+      "top_pass": 0,
+      "sub_pass": 0,
+      "top_fail": 1,
+      "sub_fail": 1,
+      "top_skip": 0,
+      "sub_skip": 0,
+      "packages": 0
+    },
+    "native-final": {
+      "top_pass": 10,
+      "sub_pass": 64,
+      "top_fail": 0,
+      "sub_fail": 0,
+      "top_skip": 0,
+      "sub_skip": 0,
+      "packages": 1
+    },
+    "native-green": {
+      "top_pass": 0,
+      "sub_pass": 0,
+      "top_fail": 1,
+      "sub_fail": 1,
+      "top_skip": 0,
+      "sub_skip": 0,
+      "packages": 0
+    },
+    "native-red": {
+      "top_pass": 0,
+      "sub_pass": 0,
+      "top_fail": 1,
+      "sub_fail": 1,
+      "top_skip": 0,
+      "sub_skip": 0,
+      "packages": 0
+    },
+    "native-rework": {
+      "top_pass": 1,
+      "sub_pass": 7,
+      "top_fail": 0,
+      "sub_fail": 0,
+      "top_skip": 0,
+      "sub_skip": 0,
+      "packages": 1
+    },
+    "native-success": {
+      "top_pass": 1,
+      "sub_pass": 1,
+      "top_fail": 0,
+      "sub_fail": 0,
+      "top_skip": 0,
+      "sub_skip": 0,
+      "packages": 1
+    },
+    "store-api-red": {
+      "top_pass": 0,
+      "sub_pass": 0,
+      "top_fail": 0,
+      "sub_fail": 0,
+      "top_skip": 0,
+      "sub_skip": 0,
+      "packages": 0
+    },
+    "store-green": {
+      "top_pass": 2,
+      "sub_pass": 0,
+      "top_fail": 0,
+      "sub_fail": 0,
+      "top_skip": 0,
+      "sub_skip": 0,
+      "packages": 1
+    },
+    "store-regression": {
+      "top_pass": 236,
+      "sub_pass": 197,
+      "top_fail": 2,
+      "sub_fail": 0,
+      "top_skip": 9,
+      "sub_skip": 0,
+      "packages": 2
+    }
+  },
+  "go": "1.26.3",
+  "effective_mutation": {
+    "removed": "PrepareReworkEvidence current hard.Status == Passed gate",
+    "exit_code": 1,
+    "restored_exact_source": true
+  },
+  "raw_log_sha256": {
+    "native-red.log": "a4756a0b8bd489009d4b629a52692819f095e53bedef511af646e20e888bf1c2",
+    "store-api-red.log": "19c93ada896dd510e9957fdfb8dd34197d393ec3bbd1b0d9081abfdb4ccdbe4f",
+    "store-green.log": "e4b7ed83ef599575b216185b76a0745dcde2e7864fec9c5b41c076b787c40e35",
+    "native-green.log": "afa22e67ffd1749edd679594efe75f97a1c7dde6e75dd49f7abcf56cacc35c8e",
+    "native-debug.log": "e40d2211d41fea6407923878cab7fda1fb85265ac5ddbb0262e60d1acc2c7221",
+    "store-regression.log": "06df95c70a8139bac8d2da4ed57748f070f691d8315749dcb4ef6377409a5eb8",
+    "native-success.log": "36e86c17a9a5e642c833dd602a1b4030baa97292a95a82c7daeec7460f3160fa",
+    "native-rework.log": "5dff4f89648fff8c7135f14c303255dfd9fd38065a0a404baf15b0b0d96e647c",
+    "core-targeted.log": "b65e68bf13a044f6dfe9da9b0201af0cfdf10418aa82fb8976cb292cc5adc324",
+    "guard-green.log": "e43403078b479574d89127592887d794be3cd934bbb3e838474e1b46ee83364c",
+    "mutation.log": "dfce24e9d9e1f15ba9aa2dd8d4e44907b42ef37eaa663ef7e7edda7aafdbadaa",
+    "full-fusion.log": "31f9f4214813cc8502929103a296ee3dfcf20db073c0179574c6176ac56838da",
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "9d310438a63287afc09b6f65df4c6bc28ae375fafb365de86ed607aeecefcb20",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-final.log": "0a7675bdfd47b41d5ada784844df6cc5917e861255bc3400a4de48e206e641a7"
+  },
+  "public_log_processing": "only trim trailing line whitespace; raw scratch retained",
+  "historical_failures": {
+    "native-red": "old product stops at first review instead of performing repair",
+    "store-api-red": "missing new APIs: compile evidence only",
+    "native-green": "initial callback error shadow caused new round to stop before second implementation",
+    "native-debug": "same error diagnosed with actual events",
+    "store-regression": "old schema10 fixture lacks workflow_reworks; fixed explicit pre12 original sequence reader"
+  },
+  "ui_changed": false,
+  "browser_rerun": false,
+  "real_vendor_calls": 0,
+  "jev": "off"
+}

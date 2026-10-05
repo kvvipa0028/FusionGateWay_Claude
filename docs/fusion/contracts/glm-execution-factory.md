@@ -30,7 +30,7 @@ Timeout 默认 2 分钟，可由可信宿主配置为不超过 4 分钟的正值
 
 ## 执行与撤销
 
-接受冻结的单角色计划，以及已有工作流中 design、implementation、testing 的受控执行。角色和目标从 Store/Controller 取得；模型、账号、effort、计费路径、Runtime、capabilities 必须匹配 Registry 当前不可变路线。JSON prompt 保留实际 Task goal 和 role，后续阶段携带已批准设计与精确父产物身份，目标文本作为字段传递，不作为 argv。每次 Resolve 创建独立 `launch-*` 目录，分别放置 workspace 副本和 worker root。第一阶段复制登记原项目，后续阶段只恢复和复制上一阶段匹配 released StopProof 的持久产物；原项目不由 Native 修改。
+接受冻结的单角色计划，以及已有工作流五角色的受控执行。角色和目标从 Store/Controller 取得；模型、账号、effort、计费路径、Runtime、capabilities 必须匹配 Registry 当前不可变路线。JSON prompt 保留实际 Task goal 和 role，后续阶段携带已批准设计与精确父产物身份，目标文本作为字段传递，不作为 argv。每次 Resolve 创建独立 `launch-*` 目录，分别放置 workspace 副本和 worker root。第一阶段复制登记原项目，后续阶段只恢复和复制上一阶段匹配 released StopProof 的持久产物；原项目不由 Native 修改。
 
 只有项目显式授权 write 且角色为 implementation/testing 时才生成 Writable Spec，并要求 Inspector 提供 writer 预留。多阶段 implementation 只能写已批准设计的 Scope；testing 只能写可信 TestingWritePaths 与设计 Scope 的交集，缺少明确测试路径或交集为空均拒绝。Seatbelt 在实际进程中限制写入路径，停止后冻结产物时再次核对真实变化范围。design/review/acceptance 和只读项目不能获得写权限。复制前核验 DataAllowed；权限、原来源、凭据、路线或执行根变化时拒绝。
 
@@ -42,7 +42,7 @@ Timeout 默认 2 分钟，可由可信宿主配置为不超过 4 分钟的正值
 
 多阶段 design → 人工冻结与批准 → implementation → testing 已接通真实代码交接，包括宿主重启后的实施文件恢复、独立 Native 会话和精确父产物索引。Store 的 StageArtifactInput 必须验证完整 Task condition、工作流顺序、批准设计和前一阶段 released receipt；启动与发布前再次检查上下文。详细合同及负向证据见 [GLM 阶段消费者](glm-stage-handoff.md)和 [HANDOFF-RESOLVER-01](../work-items/WP-20/HANDOFF-RESOLVER-01/summary.md)。
 
-testing 已接入[直接执行器和持久证据门](verification-runner.md)。多角色 testing 必须提供可信 Verification，且 Acceptance 与已批准设计一致；实际 Native 停止后才运行固定命令，硬失败/报告无效使 Task needs_review，重启核验仍绑定原产物和标准。Native 成功不能证明测试通过。[多阶段只读 review](review-assessment.md)已接入 exact released testing 证据、当前 Spec/批准标准和实际 Native 结构化意见；不通过/无效意见进入 needs_review。[只读 acceptance](acceptance-decision.md)已消费 exact released review/current testing/批准标准，保存逐项模型建议；accepted 进入 advisory_only 等待人工接受。人工最终接受、完整测试和有限返工仍必须实现，不缩减 WP-19–WP-22 或最终 T01–T60。
+testing 已接入[直接执行器和持久证据门](verification-runner.md)。多角色 testing 必须提供可信 Verification，且 Acceptance 与已批准设计一致；实际 Native 停止后才运行固定命令，硬失败/报告无效使 Task needs_review，重启核验仍绑定原产物和标准。Native 成功不能证明测试通过。[多阶段只读 review](review-assessment.md)已接入 exact released testing 证据、当前 Spec/批准标准和实际 Native 结构化意见；不通过/无效意见进入 needs_review。[只读 acceptance](acceptance-decision.md)已消费 exact released review/current testing/批准标准，保存逐项模型建议；accepted 进入 advisory_only 等待人工接受。[人工最终接受](human-acceptance.md)及[一次有限返工链](rework-policy.md)已接入。补救 implementation prompt 消费精确原 review 的 run/text hash 与结构化 findings；复测、复查和 acceptance 仍使用冻结角色绑定及独立 Native session。完整子进程测试工具链、项目强制独立性和真实端到端仍必须完成，不缩减 WP-19–WP-22 或最终 T01–T60。
 
 本组件没有登记真实账号/publisher/计费/物理池报告，没有打开产品 CLI 执行，也没有新增 quota reader。真实 CN quota-only 查询保持独立；其 unverified 快照仍不能放行 Scheduler。OpenAI/X 登录、实际供应商 Gate A、完整原 Magpie 主界面整合与实际 Native UI 点击仍未完成。
 
@@ -59,4 +59,4 @@ PATH="$HOME/.local/bin:$PATH" python3 docs/fusion/work-items/WP-13/CALLS-01/run-
   -fusion-host-native-claude /Users/zhaojianzhi/.local/share/claude/versions/2.1.287
 ```
 
-没有该 pin 的环境可运行不带 Native flag 的单元测试；Native 场景会明确 skip，不能记作通过。回退时停止派单，确认所有 owned Handle 实际停止并释放，再去掉可信 Factory 登记或撤回本组件；不删除未核验 launch 目录、重放请求或回滚 SQLite。现有草稿/额度产品入口、所有 UI 文件及样式保持原状。当前 Store 为 schema10，升级与回退边界见持久产物合同。
+没有该 pin 的环境可运行不带 Native flag 的单元测试；Native 场景会明确 skip，不能记作通过。回退时停止派单，确认所有 owned Handle 实际停止并释放，再去掉可信 Factory 登记或撤回本组件；不删除未核验 launch 目录、重放请求或回滚 SQLite。现有草稿/额度产品入口、所有 UI 文件及样式保持原状。当前 Store 为 schema12，升级与回退边界见持久产物合同。

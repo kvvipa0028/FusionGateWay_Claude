@@ -226,13 +226,12 @@ func artifactParentIn(tx *sql.Tx, t Task, r StageRun, a ArtifactRecord) error {
 	if err != nil {
 		return ErrConflict
 	}
-	n := -1
-	for i, role := range v.Definition.RequiredRoles {
-		if role == r.Role {
-			n = i
-		}
+	sequence, err := workflowSequenceIn(tx, t, v)
+	if err != nil {
+		return ErrConflict
 	}
-	if n < 0 {
+	var n int
+	if err = tx.QueryRow("SELECT COUNT(*) FROM stage_runs WHERE task_id=? AND generation<?", t.ID, r.Generation).Scan(&n); err != nil || n >= len(sequence) || sequence[n] != r.Role {
 		return ErrConflict
 	}
 	if n == 0 {
@@ -242,7 +241,7 @@ func artifactParentIn(tx *sql.Tx, t Task, r StageRun, a ArtifactRecord) error {
 		return nil
 	}
 	var parent string
-	if err := tx.QueryRow("SELECT id FROM stage_runs WHERE task_id=? AND role=? AND generation<? ORDER BY generation DESC LIMIT 1", t.ID, v.Definition.RequiredRoles[n-1], r.Generation).Scan(&parent); err != nil || parent != a.ParentRunID {
+	if err := tx.QueryRow("SELECT id FROM stage_runs WHERE task_id=? AND generation<? ORDER BY generation DESC LIMIT 1", t.ID, r.Generation).Scan(&parent); err != nil || parent != a.ParentRunID {
 		return ErrConflict
 	}
 	previous, err := artifactReleasedIn(tx, parent)

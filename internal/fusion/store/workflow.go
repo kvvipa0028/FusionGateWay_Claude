@@ -143,13 +143,17 @@ func workflowIn(q workflowQuery, t Task) (WorkflowView, error) {
 	if e != nil {
 		return v, e
 	}
-	if len(ids) > len(v.Definition.RequiredRoles) {
+	sequence, e := workflowSequenceIn(q, t, v)
+	if e != nil {
+		return v, e
+	}
+	if len(ids) > len(sequence) {
 		return v, ErrWorkflowGate
 	}
 	var generation int64
 	for n, id := range ids {
 		r, err := runIn(q, id)
-		if err != nil || r.TaskID != t.ID || r.Role != v.Definition.RequiredRoles[n] || r.Generation <= generation || r.Generation > t.Generation {
+		if err != nil || r.TaskID != t.ID || r.Role != sequence[n] || r.Generation <= generation || r.Generation > t.Generation {
 			return v, ErrWorkflowGate
 		}
 		generation = r.Generation
@@ -191,11 +195,11 @@ func workflowIn(q workflowQuery, t Task) (WorkflowView, error) {
 		v.Blocker = "design_required"
 		return v, nil
 	}
-	if len(ids) == len(v.Definition.RequiredRoles) {
+	if len(ids) == len(sequence) {
 		v.Blocker = "workflow_complete"
 		return v, nil
 	}
-	v.Next = v.Definition.RequiredRoles[len(ids)]
+	v.Next = sequence[len(ids)]
 	if len(ids) > 0 && v.Definition.RequiredRoles[0] == stageplan.Design && v.Approval == nil {
 		v.Blocker = "approval_required"
 	}
