@@ -1,0 +1,14 @@
+{
+  "component": "WP-12-WRITE-PROJECTION-01",
+  "owned_files": 10,
+  "local_doc_links_checked": 4,
+  "utf8_json_gofmt": "PASS",
+  "private_credential_exact_bytes_excluded": true,
+  "private_key_file_present": false,
+  "probe_scripts_committed": false,
+  "ui_store_dependencies_and_final_statuses_unchanged": true,
+  "primary_dirty_preserved": true,
+  "real_model_calls": 0,
+  "write_end_to_end_claimed": false,
+  "whole_goal_complete": false
+}

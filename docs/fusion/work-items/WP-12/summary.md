@@ -68,3 +68,7 @@ T01/T02/T14/T15/T25/T31/T32/T35/T44/T53/T59 的最终端到端状态继续为 `n
 ## 生产执行 Factory
 
 [FACTORY-01](FACTORY-01/summary.md) 已实现可信 `CodexRuntimeConfig`/`NewCodexRuntimeFactory`：绑定独立 admitted Registry candidate、显式 upstream account、私有 pinned cache、冻结独立 Identity epoch、固定 SubscriptionForwarder、私有执行根与当前项目 source；构造零启动/零查询/零准入，公开入口无上游覆写缝。GLM 共享阶段执行提取到 `stage_execution.go` 且 lifecycle/handoff 回归不变；Store 授权锁内回调改用独立有界 `registrationCurrent`（真实死锁 RED 复现并修复），Codex 档位核对改为 admitted route 声明的 Efforts（官方开放枚举）。固定 Native 生命周期 7 场景（含 Registry/缓存/epoch/source 撤销实际终止与写入 intent 前拒绝）、合成 targeted、GLM 回归、6 包 race 与 CLI/GUI/vet 均通过。合同见 [执行 Factory](../../contracts/codex-execution-factory.md)。真实登录、三路线真实准入、产品 CLI/GUI 注册、工具/写入/恢复与最终 Gate 仍待完成；父包保持 in_progress。
+
+## 写入协议投影
+
+[WRITE-PROJECTION-01](WRITE-PROJECTION-01/summary.md) 开放 Codex 写入的协议层：CallGate tools 受限非空集（官方 custom/freeform apply_patch 与 function 形态、受控名称白名单、有界数量/大小）、官方四类工具调用/回传项的输入输出校验、纯工具调用应答；codexadapter/gateway Client/channel 播种按写入角色开放 workspace-write（reservation 双向一致、fileChange 事件、sandbox_mode 跟随意图）。官方 wire 形态取自公开 0.160.0 源码；合成投影 13 子场景、三包 race、工具名 mutation 与 CLI/GUI/vet 通过。固定 Native 的 writable turn 端到端两场景显式 Skip：独立探查证明 Native 无外层 Seatbelt 时可写 turn 正常且请求过 CallGate 白名单，失败仅发生在外层沙箱内（已排除 config/事件/fork/exec/CallGate 五项）；外层沙箱差分完成前不宣称写入端到端。合同见 [CallGate](../../contracts/codex-call-gate.md)。

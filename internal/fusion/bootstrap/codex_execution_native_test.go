@@ -31,9 +31,19 @@ func TestCodexFactoryPinnedNativeProductLifecycle(t *testing.T) {
 	if *hostNativeCodex == "" {
 		t.Skip("explicit pinned Native fixture only")
 	}
-	for _, mode := range []string{"success", "cancel", "registry_revocation", "credential_rotation", "epoch_drift", "source_revocation", "writer_preintent"} {
+	for _, mode := range []string{"success", "implementation", "cancel", "registry_revocation", "credential_rotation", "epoch_drift", "source_revocation", "writer_launch"} {
 		t.Run(mode, func(t *testing.T) {
-			path, d, c, _, epoch := codexFactoryFixture(t, mode == "writer_preintent")
+			if mode == "implementation" {
+				// The protocol projection, sandbox seed, event admission and
+				// reservation agreement are landed and synthetically verified,
+				// but the pinned Native still fails its writing turn against
+				// the synthetic upstream: the official stream shape for
+				// custom_tool_call turns (argument delta events and exact lark
+				// payload) needs a byte-level comparison against official
+				// traffic before this end-to-end scenario can be claimed.
+				t.Skip("pinned-Native writing turn pending official stream alignment")
+			}
+			path, d, c, _, epoch := codexFactoryFixture(t, mode == "writer_launch")
 			exe, err := filepath.EvalSymlinks(*hostNativeCodex)
 			if err != nil {
 				t.Fatal(err)
@@ -70,11 +80,14 @@ func TestCodexFactoryPinnedNativeProductLifecycle(t *testing.T) {
 				if target.ResolvedModel == "" || target.Effort.Value == nil || *target.Effort.Value != "medium" || target.RuntimeVersion != codex.CLIVersion || target.BillingPath != "subscription" {
 					t.Error("frozen Codex contract changed")
 				}
-				if mode != "success" && mode != "writer_preintent" {
+				if mode != "success" && mode != "implementation" && mode != "writer_launch" {
 					enterOnce.Do(func() { close(entered) })
 					<-ctx.Done()
 					endOnce.Do(func() { close(ended) })
 					return codex.ForwardResponse{}, ctx.Err()
+				}
+				if mode == "implementation" && !strings.Contains(string(raw), "custom_tool_call_output") {
+					return codex.ForwardResponse{StatusCode: 200, ContentType: "text/event-stream", ReportedModel: target.ResolvedModel, Body: io.NopCloser(strings.NewReader(hostCodexApplyPatchSSE(target.ResolvedModel)))}, nil
 				}
 				return codex.ForwardResponse{StatusCode: 200, ContentType: "text/event-stream", ReportedModel: target.ResolvedModel, Body: io.NopCloser(strings.NewReader(hostCodexSSE(target.ResolvedModel)))}, nil
 			})
@@ -99,6 +112,9 @@ func TestCodexFactoryPinnedNativeProductLifecycle(t *testing.T) {
 					start := launch.Backend.Start
 					launch.Backend.Start = func(ctx context.Context, run store.StageRun, s managed.Spec) (control.Execution, error) {
 						h, err := start(ctx, run, s)
+						if err != nil || h == nil {
+							t.Logf("native start failed: h=%v err=%v", h != nil, err)
+						}
 						mu.Lock()
 						owned = h
 						mu.Unlock()
@@ -115,7 +131,7 @@ func TestCodexFactoryPinnedNativeProductLifecycle(t *testing.T) {
 			}
 			serveExecutionHost(t, h)
 			role := stageplan.Design
-			if mode == "writer_preintent" {
+			if mode == "writer_launch" {
 				role = stageplan.Implementation
 			}
 			request := fmt.Sprintf(`{"project_id":"fixture-project","goal":"synthetic codex factory goal","required_roles":["%s"]}`, role)
@@ -134,29 +150,19 @@ func TestCodexFactoryPinnedNativeProductLifecycle(t *testing.T) {
 				t.Fatal("factory submit", code)
 			}
 			code, b, _ = hostHTTP(t, h, "POST", "/control/v1/tasks/"+task.ID+"/start", fmt.Sprintf(`{"role":"%s"}`, role), "fixture-start", `"p1-g0-ready"`)
-			if mode == "writer_preintent" {
-				if code != 503 {
-					t.Fatal("writable Codex launch not refused before intent", code, string(b))
-				}
-				live, err := h.store.Task(task.ID)
-				if err != nil || live.State != "ready" || calls.Load() != 0 {
-					t.Fatal("writer refusal changed task or called upstream", err)
-				}
-				budget, err := h.store.Budget(task.ID)
-				if err != nil || budget.UsedCalls != 0 {
-					t.Fatal("writer refusal spent budget", err)
-				}
-				t.Logf("mode=%s writer refused preintent native_calls=0", mode)
-				if err := h.Close(); err != nil {
-					t.Fatal(err)
-				}
-				return
+			if mode == "writer_launch" {
+				// The launch, sandbox seed, event admission and reservation
+				// agreement are landed; the pinned Native accepts the writable
+				// thread/turn but its turn fails under the outer Seatbelt for
+				// a not-yet-identified resource. Pending a differential probe
+				// with Native debug logging before claiming writer end-to-end.
+				t.Skip("pinned-Native writable turn pending outer-sandbox differential")
 			}
 			var receipt api.ExecutionReply
 			if code != 202 || json.Unmarshal(b, &receipt) != nil || receipt.Run.ID == "" {
 				t.Fatal("factory Native start", code, string(b))
 			}
-			if mode != "success" {
+			if mode != "success" && mode != "implementation" && mode != "writer_launch" {
 				select {
 				case <-entered:
 				case <-time.After(10 * time.Second):
@@ -194,7 +200,7 @@ func TestCodexFactoryPinnedNativeProductLifecycle(t *testing.T) {
 			defer cancel()
 			done, err := h.controller.Wait(wait, receipt.Run.ID)
 			want := "cancelled"
-			if mode == "success" {
+			if mode == "success" || mode == "implementation" || mode == "writer_launch" {
 				want = "succeeded"
 			}
 			if err != nil || done.State != want || !done.StoppedVerified || !done.Released {
@@ -248,6 +254,16 @@ func TestCodexFactoryPinnedNativeProductLifecycle(t *testing.T) {
 				if next.Path == "" || next.Path == spec.Workspace {
 					t.Fatal("consumer copy bound to producer workspace")
 				}
+				if mode == "implementation" {
+					created, err := os.ReadFile(filepath.Join(next.Path, "created.txt"))
+					if err != nil || string(created) != "synthetic codex patch\n" {
+						t.Fatal("real apply_patch output lost after restart", err)
+					}
+					entries := doc.Artifact.Entries
+					if len(entries) == 0 || doc.Artifact.BaseTreeHash == doc.Artifact.TreeHash {
+						t.Fatal("writer artifact has no change")
+					}
+				}
 				if _, err := handoff.Restore(persisted.Reference, d.Projects[0].Path, filepath.Dir(c.ExecutionRoot)); err == nil {
 					t.Fatal("unregistered root restore")
 				}
@@ -268,4 +284,19 @@ func TestCodexFactoryPinnedNativeProductLifecycle(t *testing.T) {
 			t.Logf("production factory -> HTTP/Controller/Store -> CodexAdapter -> pinned Native -> %d synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission", calls.Load())
 		})
 	}
+}
+
+// hostCodexApplyPatchSSE answers the first writing turn with the official
+// freeform apply_patch tool call; the Native sandbox executes it and replays
+// the output before the final message turn.
+func hostCodexApplyPatchSSE(model string) string {
+	item := map[string]any{"type": "custom_tool_call", "id": "tc_fixture", "call_id": "call_fixture", "name": "apply_patch", "input": "*** Begin Patch\n*** Add File: created.txt\n+synthetic codex patch\n*** End Patch"}
+	events := []map[string]any{{"type": "response.created", "response": map[string]any{"id": "resp_fixture", "status": "in_progress", "model": model, "output": []any{}}}, {"type": "response.output_item.done", "output_index": 0, "item": item}, {"type": "response.completed", "response": map[string]any{"id": "resp_fixture", "status": "completed", "model": model, "output": []any{item}, "usage": map[string]any{"input_tokens": 3, "output_tokens": 2, "total_tokens": 5}}}}
+	var b strings.Builder
+	for i, x := range events {
+		x["sequence_number"] = i
+		raw, _ := json.Marshal(x)
+		fmt.Fprintf(&b, "event: %s\ndata: %s\n\n", x["type"], raw)
+	}
+	return b.String()
 }

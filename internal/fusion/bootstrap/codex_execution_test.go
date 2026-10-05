@@ -222,8 +222,8 @@ func TestCodexFactoryExactCopiesAndRoles(t *testing.T) {
 				if launch.Spec.Timeout != c.Timeout || target.Effort.Value == nil || *target.Effort.Value != "medium" || target.Effort.RequestedMode != stageplan.EffortDefault {
 					t.Fatal("timeout or default effort lost")
 				}
-				if wantWrite && launch.Backend.ValidateLaunch(context.Background(), role, target, launch.Spec) == nil {
-					t.Fatal("unsupported writer silently downgraded")
+				if wantWrite && launch.Backend.ValidateLaunch(context.Background(), role, target, launch.Spec) != nil {
+					t.Fatal("bounded writer launch refused")
 				}
 				if e := os.WriteFile(filepath.Join(launch.Spec.Workspace, "source.txt"), []byte("copy"), 0600); e != nil {
 					t.Fatal(e)

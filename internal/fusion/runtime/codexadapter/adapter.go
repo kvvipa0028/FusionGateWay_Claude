@@ -115,9 +115,6 @@ func validateSpec(ctx context.Context, in managed.Spec) error {
 	if ctx.Err() != nil || !in.Source.Present() || !in.SourceCurrent() || !in.ValidWriteScope() || in.Executable != "" || in.ExecutableHash != "" || len(in.Args) != 0 || len(in.FixtureEnvironment) != 0 || in.NativeSessionID != "" || in.ClaudeChannel != nil || in.GrokChannel != nil || in.CodexChannel != nil || in.ValidateOutcome != nil || in.Timeout <= 0 || in.Timeout > 4*time.Minute || len(in.Input) == 0 || len(in.Input) > 64<<10 || !utf8.Valid(in.Input) || bytes.IndexByte(in.Input, 0) >= 0 {
 		return codex.ErrUnverified
 	}
-	if in.Writable {
-		return managed.ErrUnsupported
-	}
 	if workspace.PrivateState(in.Root) != nil || workspace.PrivateState(in.Workspace) != nil || in.Root == in.Workspace || strings.HasPrefix(in.Root, in.Workspace+"/") || strings.HasPrefix(in.Workspace, in.Root+"/") {
 		return codex.ErrUnverified
 	}
@@ -188,7 +185,9 @@ func (a *Adapter) Start(ctx context.Context, inputRun store.StageRun, in managed
 		return nil, codex.ErrIdentity
 	}
 	reservation, e := a.config.Scheduler.Store.Reservation(r.ID)
-	if e != nil || reservation.WriteKey != "" {
+	// Write authority and write intent must agree exactly: a readonly run
+	// never carries a write key, and a writer run must have been granted one.
+	if e != nil || in.Writable && reservation.WriteKey == "" || !in.Writable && reservation.WriteKey != "" {
 		return nil, codex.ErrUnverified
 	}
 	if _, e := a.Probe(ctx); e != nil {

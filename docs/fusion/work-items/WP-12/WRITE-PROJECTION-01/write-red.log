@@ -1,0 +1,38 @@
+=== RUN   TestCodexWriteToolRequestProjection
+=== RUN   TestCodexWriteToolRequestProjection/apply-patch
+    write_projection_test.go:56: official write projection rejected apply-patch
+=== RUN   TestCodexWriteToolRequestProjection/function-tool
+    write_projection_test.go:56: official write projection rejected function-tool
+=== RUN   TestCodexWriteToolRequestProjection/history-function-call
+    write_projection_test.go:56: official write projection rejected history-function-call
+=== RUN   TestCodexWriteToolRequestProjection/unknown-tool-type
+=== RUN   TestCodexWriteToolRequestProjection/malformed-name
+=== RUN   TestCodexWriteToolRequestProjection/too-many-tools
+=== RUN   TestCodexWriteToolRequestProjection/oversized-arguments
+=== RUN   TestCodexWriteToolRequestProjection/unknown-item-field
+=== RUN   TestCodexWriteToolRequestProjection/shell-tool-namespace
+--- FAIL: TestCodexWriteToolRequestProjection (0.02s)
+    --- FAIL: TestCodexWriteToolRequestProjection/apply-patch (0.00s)
+    --- FAIL: TestCodexWriteToolRequestProjection/function-tool (0.00s)
+    --- FAIL: TestCodexWriteToolRequestProjection/history-function-call (0.00s)
+    --- PASS: TestCodexWriteToolRequestProjection/unknown-tool-type (0.00s)
+    --- PASS: TestCodexWriteToolRequestProjection/malformed-name (0.00s)
+    --- PASS: TestCodexWriteToolRequestProjection/too-many-tools (0.00s)
+    --- PASS: TestCodexWriteToolRequestProjection/oversized-arguments (0.01s)
+    --- PASS: TestCodexWriteToolRequestProjection/unknown-item-field (0.00s)
+    --- PASS: TestCodexWriteToolRequestProjection/shell-tool-namespace (0.00s)
+=== RUN   TestCodexWriteToolResponseItems
+=== RUN   TestCodexWriteToolResponseItems/custom-tool-call
+    write_projection_test.go:79: official tool call item rejected custom-tool-call
+=== RUN   TestCodexWriteToolResponseItems/function-call
+    write_projection_test.go:79: official tool call item rejected function-call
+=== RUN   TestCodexWriteToolResponseItems/unknown-item
+=== RUN   TestCodexWriteToolResponseItems/bad-call-id
+--- FAIL: TestCodexWriteToolResponseItems (0.00s)
+    --- FAIL: TestCodexWriteToolResponseItems/custom-tool-call (0.00s)
+    --- FAIL: TestCodexWriteToolResponseItems/function-call (0.00s)
+    --- PASS: TestCodexWriteToolResponseItems/unknown-item (0.00s)
+    --- PASS: TestCodexWriteToolResponseItems/bad-call-id (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/codex	0.710s
+FAIL

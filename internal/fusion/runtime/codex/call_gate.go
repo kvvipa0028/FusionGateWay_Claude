@@ -337,9 +337,18 @@ func (g *CallGate) request(raw []byte) bool {
 		return false
 	}
 	if v, exists := f["tools"]; exists {
+		// Official 0.160.0 writers may register bounded function/custom tool
+		// definitions; execution stays inside the Native sandbox. The channel
+		// config already disables shell/unified-exec and friends, so only the
+		// controlled file-write surface is admitted here as deep defense.
 		a, ok := array(v)
-		if !ok || len(a) != 0 {
+		if !ok || len(a) > 32 {
 			return false
+		}
+		for _, tool := range a {
+			if !toolDefinition(tool) {
+				return false
+			}
 		}
 	}
 	reasoning, ok := object(f["reasoning"], "effort")
@@ -401,6 +410,126 @@ func (g *CallGate) request(raw []byte) bool {
 	}
 	return true
 }
+
+// toolCallItem is the shared wire shape of the official 0.160.0 tool-call
+// items (function_call / custom_tool_call, and the matching *_output items
+// Native returns). Bounded names, ids and payloads only: no execution
+// authority is conferred by carrying them.
+// toolDefinition admits the official wire shapes of Responses API tool
+// definitions: freeform writers serialize as custom grammar tools (official
+// apply_patch) and ordinary helpers as function tools. Names come from the
+// controlled write/read surface; sizes and field sets stay bounded.
+func toolDefinition(raw []byte) bool {
+	var kind struct{ Type string }
+	if decode(raw, &kind) != nil {
+		return false
+	}
+	switch kind.Type {
+	case "custom":
+		f, ok := object(raw, "type", "name", "description", "format")
+		if !ok {
+			return false
+		}
+		return toolName(f) && toolFormat(f["format"])
+	case "function":
+		f, ok := object(raw, "type", "name", "description", "parameters", "strict")
+		if !ok || !toolName(f) {
+			return false
+		}
+		if v, exists := f["strict"]; exists {
+			var strict bool
+			if json.Unmarshal(v, &strict) != nil || bytes.Equal(bytes.TrimSpace(v), []byte("null")) {
+				return false
+			}
+		}
+		if v, exists := f["parameters"]; exists {
+			if len(v) > 32<<10 || bytes.Equal(bytes.TrimSpace(v), []byte("null")) {
+				return false
+			}
+			var schema map[string]json.RawMessage
+			if decode(v, &schema) != nil {
+				return false
+			}
+		}
+		return true
+	}
+	return false
+}
+
+func toolName(f map[string]json.RawMessage) bool {
+	name, ok := stringField(f, "name")
+	if !ok || len(name) > 128 {
+		return false
+	}
+	switch name {
+	case "apply_patch", "view_image", "read_file", "list_dir", "grep":
+		return true
+	}
+	return false
+}
+
+func toolFormat(raw []byte) bool {
+	f, ok := object(raw, "type", "syntax", "definition")
+	if !ok {
+		return false
+	}
+	typ, typOK := stringField(f, "type")
+	syntax, synOK := stringField(f, "syntax")
+	definition, defOK := stringField(f, "definition")
+	return typOK && typ == "grammar" && synOK && syntax == "lark" && defOK && len(definition) > 0 && len(definition) <= 64<<10
+}
+
+func toolCallItem(raw []byte, kind string, terminal bool) bool {
+	var payload string
+	switch kind {
+	case "function_call":
+		payload = "arguments"
+	case "custom_tool_call":
+		payload = "input"
+	case "function_call_output", "custom_tool_call_output":
+		payload = "output"
+	default:
+		return false
+	}
+	allowed := []string{"type", "call_id", payload}
+	for _, optional := range []string{"id", "status", "name"} {
+		allowed = append(allowed, optional)
+	}
+	f, ok := object(raw, allowed...)
+	if !ok {
+		return false
+	}
+	callID, hasCall := stringField(f, "call_id")
+	if !hasCall || !gateID.MatchString(callID) {
+		return false
+	}
+	if _, exists := f["name"]; exists {
+		name, ok := stringField(f, "name")
+		if !ok || !gateID.MatchString(name) {
+			return false
+		}
+	}
+	if _, exists := f["id"]; exists {
+		s, ok := stringField(f, "id")
+		if !ok || s == "" {
+			return false
+		}
+	} else if terminal {
+		return false
+	}
+	if _, exists := f["status"]; exists {
+		s, ok := stringField(f, "status")
+		if !ok || (s != "completed" && s != "in_progress") {
+			return false
+		}
+	}
+	value, ok := stringField(f, payload)
+	if !ok || len(value) > 64<<10 {
+		return false
+	}
+	return true
+}
+
 func inputItem(raw []byte) bool {
 	var kind struct{ Type string }
 	if decode(raw, &kind) != nil {
@@ -408,6 +537,9 @@ func inputItem(raw []byte) bool {
 	}
 	if kind.Type == "reasoning" {
 		return reasoningItem(raw)
+	}
+	if kind.Type == "function_call" || kind.Type == "custom_tool_call" || kind.Type == "function_call_output" || kind.Type == "custom_tool_call_output" {
+		return toolCallItem(raw, kind.Type, false)
 	}
 	f, ok := object(raw, "type", "id", "status", "role", "content")
 	if !ok || kind.Type != "message" {

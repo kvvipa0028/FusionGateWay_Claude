@@ -1,0 +1,22 @@
+{
+  "docs/fusion/contracts/codex-call-gate.md": "5ed8e3559e89a089713c23024f6349c15813586fdd484ebde08b7df6cd5adbd7",
+  "docs/fusion/work-items/WP-12/WRITE-PROJECTION-01/scope-check.json": "25c90e7bb726900f57bd1bcf51a6d50cea7b7866acd02e673e9272c200d71587",
+  "docs/fusion/work-items/WP-12/WRITE-PROJECTION-01/summary.md": "4bf20d73ac69c0365b0e087ff09d5d57c3bbe2a9411c3e79f32fd4f3f0853f78",
+  "docs/fusion/work-items/WP-12/WRITE-PROJECTION-01/test-results.json": "c1960c3b40535974b8062394e388ac1428b238f689f5ff8879e89c0df0bf190a",
+  "docs/fusion/work-items/WP-12/WRITE-PROJECTION-01/write-build.log": "ee5843ba8efa1fc8bd85d79079ecd1a564c46c02021ed3bf2844076b9f3dcfe2",
+  "docs/fusion/work-items/WP-12/WRITE-PROJECTION-01/write-final4.log": "14a97fed4e3b10717b9675b4269c75ec27a4cc0afaf210a886aee77ed15d8ec6",
+  "docs/fusion/work-items/WP-12/WRITE-PROJECTION-01/write-green.log": "706e00da7c85c699dd7a589501df4077c0a06173f353f58c3e4a4f33530c347a",
+  "docs/fusion/work-items/WP-12/WRITE-PROJECTION-01/write-mutation.log": "e18a46b7b83948e4683149beed941dd7e85ffeef23d858c70e4b4a386d5d707b",
+  "docs/fusion/work-items/WP-12/WRITE-PROJECTION-01/write-package5.log": "ecd1230b953d375429597232e264de14705c1bf700898a11e8e54f91c987f384",
+  "docs/fusion/work-items/WP-12/WRITE-PROJECTION-01/write-red.log": "0d792c577e964ba5f40a38fac5293a3eabee3fd89b838c9d9e6029a7dddb1130",
+  "docs/fusion/work-items/WP-12/summary.md": "181edb65c6e7fdaaaab529e59684e99a07f51ed382432be1af8682ea4314e10e",
+  "internal/fusion/bootstrap/codex_execution_native_test.go": "78f66b27fdd94c1b7384c412997749d857ecc38ecc1436e364ded49d79e269d6",
+  "internal/fusion/bootstrap/codex_execution_test.go": "b1a08701f13b5d4ace07c6a860954dcd21e487bdcba253b8dd7adb0f0c8ea4de",
+  "internal/fusion/runtime/codex/call_gate.go": "1a3c8d286c79eb14e220d90f5f82d68b2c3e6be59217b5ad9388924983d7d2a3",
+  "internal/fusion/runtime/codex/client.go": "8604482aa55797fd65406f3156802c481919e2e2e679115bbda4d7fa2de504c0",
+  "internal/fusion/runtime/codex/gateway_client_test.go": "2bbd45f3d6e8395536da65d5a93df771146523111a30ded76a2a97392c81b65d",
+  "internal/fusion/runtime/codex/responses_stream.go": "c26730fdb6191b0913a679841b32270f48ea6265ea23a02a8ef8e918172cd18f",
+  "internal/fusion/runtime/codex/write_projection_test.go": "03af974d99f185da329943785add134e8e98823e3df8453c3c24fa50cab8c849",
+  "internal/fusion/runtime/codexadapter/adapter.go": "24c106e8f9cfe94f884558055fb6293974720c611fa8e6af460ad802de19938d",
+  "internal/fusion/runtime/sandbox_darwin.go": "398cc08804926b3b5479f28907584ad352f6511667e4d6523cd02954973cbdeb"
+}

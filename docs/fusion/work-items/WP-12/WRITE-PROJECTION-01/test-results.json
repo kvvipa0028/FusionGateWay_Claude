@@ -1,0 +1,21 @@
+{
+  "component": "WP-12-WRITE-PROJECTION-01",
+  "go_version": "1.26.3",
+  "runner": ".fusion-dev/codex-factory/run.py (isolated HOME/XDG, environment whitelist, GOPROXY/GOSUMDB off, race)",
+  "runs": [
+    {"name": "initial-red", "command": "codex TestCodexWriteTool (pre-implementation)", "exit": 1, "failure": "official write projection rejected by empty-tools/whitelist contract", "evidence": "write-red.log"},
+    {"name": "target-green", "command": "codex TestCodexWriteTool*, race", "exit": 0, "subtests": 13, "evidence": "write-green.log"},
+    {"name": "native-lifecycle", "command": "bootstrap TestCodexFactoryPinnedNativeProductLifecycle + pinned Native 0.160.0, race", "exit": 0, "pass": 6, "skipped": ["implementation", "writer_launch"], "skip_reason": "pinned-Native writable turn pending outer-Seatbelt differential", "evidence": "write-final4.log"},
+    {"name": "affected-race", "command": "codex codexadapter bootstrap, race", "exit": 0, "packages": 3, "evidence": "write-package5.log"},
+    {"name": "mutation-toolnames", "command": "overlay: controlled tool-name allowlist replaced by generic gateID", "exit": 1, "failed_subtest": "RequestProjection/shell-tool-namespace", "evidence": "write-mutation.log"},
+    {"name": "build-dev", "command": "python3 scripts/fusion/build-dev.py", "exit": 0, "checks": ["cli", "gui", "vet"], "evidence": "write-build.log"}
+  ],
+  "official_evidence": {
+    "apply_patch": "freeform tool, Responses API type=custom with lark grammar (codex-rs apply_patch_spec.rs)",
+    "tool_call_items": "function_call / custom_tool_call; outputs function_call_output / custom_tool_call_output (codex-rs protocol models.rs)"
+  },
+  "probe_finding": "pinned Native accepts workspace-write thread/turn without the outer Seatbelt and its request body passes the CallGate allowlist; the turn fails only under the outer Seatbelt. Ruled out: config seed, fileChange admission, process-fork, process-exec, CallGate checks.",
+  "synthetic_only": true,
+  "real_vendor_calls": 0,
+  "write_end_to_end_claimed": false
+}

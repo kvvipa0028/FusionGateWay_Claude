@@ -27,6 +27,7 @@ func responsesStream(raw []byte, model string, markers ...[]byte) bool {
 	outputs := []json.RawMessage{}
 	seen := map[string]bool{}
 	messages := 0
+	toolCalls := 0
 	added := map[int]string{}
 	addedKinds := map[int]string{}
 	deltas := map[string]string{}
@@ -123,6 +124,9 @@ func responsesStream(raw []byte, model string, markers ...[]byte) bool {
 					return false
 				}
 			}
+			if kind == "function_call" || kind == "custom_tool_call" {
+				toolCalls++
+			}
 			delete(added, idx)
 			delete(addedKinds, idx)
 			seen[itemID] = true
@@ -173,7 +177,9 @@ func responsesStream(raw []byte, model string, markers ...[]byte) bool {
 			}
 			return emptyOptionalArrays(fields, "logprobs")
 		case "response.completed":
-			if !envelopeKeys(fields, "type", "sequence_number", "response") || messages < 1 || len(added) != 0 {
+			// A writing turn may answer with tool calls only; an empty
+			// response (no message and no tool call) is still rejected.
+			if !envelopeKeys(fields, "type", "sequence_number", "response") || messages+toolCalls < 1 || len(added) != 0 {
 				return false
 			}
 			r, ok := responseObject(fields["response"], model, "completed")
@@ -265,6 +271,15 @@ func outputItem(raw []byte, terminal bool) (map[string]json.RawMessage, string, 
 	}
 	if v.Type == "reasoning" {
 		if !reasoningItem(raw) {
+			return nil, "", "", false
+		}
+		var m map[string]json.RawMessage
+		_ = json.Unmarshal(raw, &m)
+		id, _ := stringField(m, "id")
+		return m, id, v.Type, true
+	}
+	if v.Type == "function_call" || v.Type == "custom_tool_call" {
+		if !toolCallItem(raw, v.Type, terminal) {
 			return nil, "", "", false
 		}
 		var m map[string]json.RawMessage

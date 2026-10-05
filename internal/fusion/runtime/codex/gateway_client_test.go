@@ -77,21 +77,31 @@ func TestGatewayClientAdmissionIsRecheckedAfterCallback(t *testing.T) {
 		t.Fatal("revoked inside callback escaped", e)
 	}
 }
-func TestGatewayClientNeverEnablesToolsOrWorkspaceWrites(t *testing.T) {
+func TestGatewayClientGrantsWritesOnlyToWritingRoles(t *testing.T) {
 	for _, role := range stageplan.AllRoles() {
 		t.Run(string(role), func(t *testing.T) {
 			c, f := gatewayFixture(t)
 			c.binding.Scope.Role = role
 			f.scope.Role = role
+			writing := role == stageplan.Implementation || role == stageplan.Testing
+			if writing {
+				var d map[string]any
+				json.Unmarshal(f.response["thread/start"], &d)
+				d["sandbox"] = map[string]any{"type": "workspaceWrite", "networkAccess": false, "writableRoots": []string{c.binding.Cwd}, "excludeSlashTmp": true, "excludeTmpdirEnvVar": true}
+				f.response["thread/start"], _ = json.Marshal(d)
+			}
 			initThread(t, c)
 			c.StartTurn(context.Background(), "fixture")
-			if c.writing() {
-				t.Fatal("gateway granted writes")
+			if c.writing() != writing {
+				t.Fatal("gateway write roles drifted")
 			}
-			for _, kind := range []string{"commandExecution", "fileChange", "imageView", "sleep", "plan", "collabAgentToolCall"} {
+			for _, kind := range []string{"commandExecution", "imageView", "sleep", "plan", "collabAgentToolCall"} {
 				if c.allowedItem(kind) {
 					t.Fatal("gateway allowed unverified tool", kind)
 				}
+			}
+			if c.allowedItem("fileChange") != writing {
+				t.Fatal("gateway file-change items must track the writer roles")
 			}
 		})
 	}

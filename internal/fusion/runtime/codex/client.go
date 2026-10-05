@@ -309,7 +309,7 @@ func (c *Client) StartTurn(ctx context.Context, prompt string) (string, error) {
 }
 
 func (c *Client) writing() bool {
-	return !c.gateway && (c.binding.Scope.Role == stageplan.Implementation || c.binding.Scope.Role == stageplan.Testing)
+	return c.binding.Scope.Role == stageplan.Implementation || c.binding.Scope.Role == stageplan.Testing
 }
 func (c *Client) sandboxPolicy() map[string]any {
 	if c.writing() {
@@ -433,6 +433,12 @@ func advertisesVersion(agent string) bool {
 // observation filter does not replace OS tool confinement or route admission.
 func (c *Client) allowedItem(kind string) bool {
 	if c.gateway {
+		// A writing turn also reports the executed file changes; execution
+		// stays inside the Native sandbox and the artifact diff is verified
+		// against the frozen write scope at release.
+		if c.writing() {
+			return kind == "userMessage" || kind == "agentMessage" || kind == "reasoning" || kind == "fileChange"
+		}
 		return kind == "userMessage" || kind == "agentMessage" || kind == "reasoning"
 	}
 	switch kind {

@@ -16,7 +16,7 @@ Current 必须核对全部冻结 Binding、当前登记凭据、来源工作区�
 
 唯一入口是 `POST /responses`，JSON、无压缩，无 query/RawPath/绝对 URL；拒绝 subagent header。请求最多1MiB，完整对象解析沿用 Codex 的 UTF-8、重复/case-fold 字段、深度、null 与 trailing 拒绝。input 最多128项。
 
-本版仅允许文字消息与无 summary 的 encrypted reasoning history，tools 缺省或空数组；拒绝历史工具项、工具定义、图像、外部搜索、service tier、未知 client metadata、structured output、WebSocket、压缩与 compact 等路径。effort 必须等于冻结值，summary/context 不开放，stream=true、store=false；include 仅允许 reasoning.encrypted_content。这是受限字段投影，不承诺未经实测的原生工具集兼容。
+本版允许文字消息、无 summary 的 encrypted reasoning history，以及受限写入工具投影：tools 至多 32 项且仅接受 function/custom 形态与受控名称（apply_patch/view_image/read_file/list_dir/grep，作为 channel 已禁工具的深度防御）；输入/输出接受官方 function_call/custom_tool_call 及其回传项（有界 call_id/name/payload）；拒绝图像、外部搜索、service tier、未知 client metadata、structured output、WebSocket、压缩与 compact 等路径。真实 Native 的写入端到端仍待外层沙箱差分（见 [写入投影证据](../work-items/WP-12/WRITE-PROJECTION-01/summary.md)）。effort 必须等于冻结值，summary/context 不开放，stream=true、store=false；include 仅允许 reasoning.encrypted_content。这是受限字段投影，不承诺未经实测的原生工具集兼容。
 
 `client_metadata` 只接受固定 Native 实测的七个观测键：root_turn_id、session_id、thread_id、turn_id、x-codex-installation-id、x-codex-turn-metadata、x-codex-window-id。每项必须是非空字符串，最多4096字节；未知账号键、null、类型错误、重复/case aliases 及凭据反射拒绝。观测字段不参与账号、路由、权限或预算授权。
 

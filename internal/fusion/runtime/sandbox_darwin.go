@@ -6,6 +6,7 @@ import (
 	"fmt"
 
 	"github.com/pelletier/go-toml/v2"
+	"github.com/yetone/magpie/internal/fusion/stageplan"
 	"github.com/yetone/magpie/internal/fusion/workspace"
 	"os"
 	"os/exec"
@@ -152,10 +153,16 @@ func sandbox(spec Spec) (string, []string, error) {
 			if e != nil {
 				return "", nil, ErrLaunch
 			}
+			// Strict config overrides per-thread params, so the seeded sandbox
+			// mode must follow the run's own write intent exactly.
+			sandboxMode := "read-only"
+			if c.run.Role == stageplan.Implementation || c.run.Role == stageplan.Testing {
+				sandboxMode = "workspace-write"
+			}
 			config := map[string]any{
 				"model_provider": CodexStageProvider, "model": c.run.Target.RequestedModel,
 				"model_reasoning_effort": *c.run.Target.Effort.Value, "model_reasoning_summary": "none",
-				"approval_policy": "never", "sandbox_mode": "read-only", "web_search": "disabled",
+				"approval_policy": "never", "sandbox_mode": sandboxMode, "web_search": "disabled",
 				"cli_auth_credentials_store": "file", "check_for_update_on_startup": false,
 				"analytics": map[string]any{"enabled": false}, "feedback": map[string]any{"enabled": false},
 				"agents":   map[string]any{"enabled": false},
@@ -166,6 +173,9 @@ func sandbox(spec Spec) (string, []string, error) {
 					"wire_api": "responses", "requires_openai_auth": false, "supports_websockets": false,
 					"request_max_retries": 2, "stream_max_retries": 2, "stream_idle_timeout_ms": 5000,
 				}},
+			}
+			if sandboxMode == "workspace-write" {
+				config["sandbox_workspace_write"] = map[string]any{"network_access": false, "exclude_slash_tmp": true, "exclude_tmpdir_env_var": true}
 			}
 			raw, e := toml.Marshal(config)
 			if e != nil {

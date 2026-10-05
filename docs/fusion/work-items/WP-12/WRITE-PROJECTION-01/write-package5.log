@@ -1,0 +1,3 @@
+ok  	github.com/yetone/magpie/internal/fusion/runtime/codex	6.335s
+ok  	github.com/yetone/magpie/internal/fusion/runtime/codexadapter	5.383s
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	23.957s
