@@ -45,6 +45,12 @@ func TestMainPageUsesOriginalMagpieHeaderWithOneFusionTab(t *testing.T) {
 	if strings.Contains(w.Header().Get("Content-Security-Policy"), "unsafe-inline") {
 		t.Fatal("CSP weakened")
 	}
+	_, providers, _ := strings.Cut(original, `<main class="view" id="view-providers" hidden>`)
+	providers, _, _ = strings.Cut(providers, "</main>")
+	providers = strings.Replace(providers, `id="addProvider"`, `id="addProvider" disabled`, 1)
+	if !strings.Contains(body, `<main class="view" id="view-providers" hidden>`+providers+"</main>") || !strings.Contains(body, `<div class="modal" id="modal" hidden><div class="dialog"></div></div>`) {
+		t.Fatal("original provider page or modal not reused")
+	}
 }
 
 func TestMainIntegrationFailsClosedOnUpstreamOrPanelDrift(t *testing.T) {
@@ -62,15 +68,20 @@ func TestMainIntegrationFailsClosedOnUpstreamOrPanelDrift(t *testing.T) {
 		strings.Replace(source, `id="nav"`, `id="other-nav"`, 1),
 		strings.Replace(source, `data-view="agents" class="on"`, `data-view="agents"`, 1),
 		strings.Replace(source, `id="sync"`, `id="other-sync"`, 1),
+		strings.Replace(source, `id="view-providers"`, `id="other-providers"`, 1),
+		strings.Replace(source, `id="providers"`, `id="other-list"`, 1),
+		strings.Replace(source, `id="modal"`, `id="other-modal"`, 1),
 		source + "</header>",
 	} {
 		if page, err := integrateMainPage(broken, string(panel)); err == nil || len(page) != 0 {
 			t.Fatal("drift served fallback or exposed original page")
 		}
 	}
-	for _, broken := range []string{strings.ReplaceAll(string(panel), "<!-- MAGPIE_HEADER -->", ""), string(panel) + "<!-- MAGPIE_HEADER -->"} {
-		if page, err := integrateMainPage(source, broken); err == nil || len(page) != 0 {
-			t.Fatal("panel drift accepted")
+	for _, marker := range []string{"<!-- MAGPIE_HEADER -->", "<!-- MAGPIE_PROVIDERS -->", "<!-- MAGPIE_MODAL -->"} {
+		for _, broken := range []string{strings.ReplaceAll(string(panel), marker, ""), string(panel) + marker} {
+			if page, err := integrateMainPage(source, broken); err == nil || len(page) != 0 {
+				t.Fatal("panel drift accepted")
+			}
 		}
 	}
 }

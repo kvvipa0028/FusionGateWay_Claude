@@ -29,3 +29,5 @@
 [EVENT-PAGE-01](EVENT-PAGE-01/summary.md)新增有界只读事件分页及精确 Native 通路，在原详情附近用默认折叠区按序回读，CSS 未改。完整浏览器49PASS、API113顶层/81子、Native/Store12顶层/22子PASS；关闭重开、授权/来源撤销和游标边界验证通过。实际 Native 点击、实时推送、真实供应商执行和完整工程闭环仍未完成；父包保持 in_progress，最终60类验收 not_run。
 
 [START-JOURNAL-01](../WP-15/START-JOURNAL-01/summary.md)及[START-JOURNAL-API-01](../WP-15/START-JOURNAL-API-01/summary.md)提供 Store 原记录与精确 Native 通路；后续[START-RECOVERY-UI-01](START-RECOVERY-UI-01/summary.md)已在原详情区接入持久准备、浏览器/宿主重开回读、独立运行确认和明确封存。复用原 Magpie 样式，全部 CSS 未改；实际 Native 恢复点击仍未验证，父包保持 in_progress。
+
+[MAIN-UI-01](MAIN-UI-01/summary.md)已直接提取原首页页头、鸟形标识和八个导航，仅增加 Fusion 入口。后续[PROVIDERS-UI-01](PROVIDERS-UI-01/summary.md)直接提取原 Providers 页面及 modal，接入登记模型/账号详情和单阶段草稿选择，不改原 CSS。新增账号、登录及其他原页面功能仍待接入；真实供应商准入、实际 Wails 点击与最终验收边界保持不变。

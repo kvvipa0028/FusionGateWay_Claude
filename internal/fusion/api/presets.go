@@ -127,9 +127,10 @@ func (s *Server) presetControl(w http.ResponseWriter, r *http.Request) {
 		}
 		w.Header().Set("ETag", etag(p.revision))
 		respond(w, 200, struct {
+			ProjectID     string               `json:"project_id"`
 			Revision      int64                `json:"revision"`
 			Configuration ProjectConfiguration `json:"configuration"`
-		}{p.revision, p.configuration})
+		}{parts[0], p.revision, p.configuration})
 		return
 	}
 	if parts[1] != "presets" || (len(parts) != 2 && len(parts) != 3 && len(parts) != 5) || len(parts) > 2 && !opaque(parts[2]) {

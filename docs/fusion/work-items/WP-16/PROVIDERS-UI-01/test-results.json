@@ -1,0 +1,18 @@
+{
+  "api_top_pass": 132,
+  "api_sub_pass": 154,
+  "host_ui_top_pass": 14,
+  "host_ui_sub_pass": 66,
+  "browser_model_pass": 96,
+  "browser_model_fail": 0,
+  "browser_model_skip": 0,
+  "native_pipeline_success_cases": 1,
+  "openapi_operations": 49,
+  "openapi_actual_response_samples": 126,
+  "identity_mutation_expected_exit": 1,
+  "initial_browser_pass": 95,
+  "initial_browser_fail": 1,
+  "component": "PROVIDERS-UI-01",
+  "parent_work_package": "in_progress",
+  "final_acceptance": "not_run"
+}

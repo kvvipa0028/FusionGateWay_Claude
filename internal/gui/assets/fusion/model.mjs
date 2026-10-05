@@ -38,6 +38,24 @@ export function targetFor(route) {
  return {route:{id:route.id,revision:route.revision},model:route.model,effort:null};
 }
 export const routeKey = route => JSON.stringify([route.id,route.revision,route.model]);
+// Metadata is copied from the exact project response, never used as an execution
+// grant. Opaque credential identities and unknown fields stay out of the view.
+export function configurationRoutes(reply,project) {
+ const body=reply?.body;
+ if(body?.project_id!==project||!Number.isSafeInteger(body.revision)||body.revision<1||reply.etag!=='"'+body.revision+'"'||!body.configuration||typeof body.configuration!=="object"||Array.isArray(body.configuration)||!Object.hasOwn(body.configuration,"routes")||![body.configuration.global,body.configuration.project].every(v=>v&&typeof v==="object"&&!Array.isArray(v)))throw Error("configuration_invalid");
+ const rows=body.configuration.routes??[];
+ if(!Array.isArray(rows)||rows.length>256)throw Error("configuration_invalid");
+ const text=(v,empty=false)=>typeof v==="string"&&(empty||v.length>0)&&v.length<=4096&&!/[\u0000-\u001f\u007f]/.test(v);
+ const refs=new Set();
+ return rows.map(r=>{
+  if(!r||![r.id,r.model,r.account,r.workspace,r.runtime_version].every(v=>text(v))||!text(r.billing_path,true)||!Number.isSafeInteger(r.revision)||r.revision<1||![r.admitted,r.billing_known,r.no_effort].every(v=>typeof v==="boolean")||!["controlled_calls","primary_only","unverified"].includes(r.lock_enforcement)||!(r.plugin_version===null||text(r.plugin_version))||!(r.default_effort===null||text(r.default_effort)))throw Error("configuration_invalid");
+  const ref=JSON.stringify([r.id,r.revision]);if(refs.has(ref))throw Error("configuration_invalid");refs.add(ref);
+  const list=value=>{const v=value??[];if(!Array.isArray(v)||v.length>128||!v.every(x=>text(x))||new Set(v).size!==v.length)throw Error("configuration_invalid");return [...v]};
+  const efforts=list(r.efforts),capabilities=list(r.capabilities);
+  if(r.default_effort!==null&&!efforts.includes(r.default_effort))throw Error("configuration_invalid");
+  return {id:r.id,revision:r.revision,model:r.model,account:r.account,workspace:r.workspace,runtime_version:r.runtime_version,plugin_version:r.plugin_version,billing_path:r.billing_path,billing_known:r.billing_known,admitted:r.admitted,no_effort:r.no_effort,default_effort:r.default_effort,lock_enforcement:r.lock_enforcement,efforts,capabilities};
+ });
+}
 export function exactRoute(target,routes) {
  const found=routes.filter(r=>target?.route?.id===r.id && target.route.revision===r.revision && target.model===r.model && Number.isSafeInteger(r.revision));
  return found.length===1 ? found[0] : null;

@@ -3671,9 +3671,14 @@ components:
       type: object
       additionalProperties: false
       required:
+      - project_id
       - revision
       - configuration
       properties:
+        project_id:
+          type: string
+          minLength: 1
+          maxLength: 256
         revision:
           type: integer
           minimum: 1

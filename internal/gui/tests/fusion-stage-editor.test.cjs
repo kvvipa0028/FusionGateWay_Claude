@@ -52,8 +52,10 @@ async function fixture(t,admitted=false,withSecondProject=false,executionMode=""
   assert.equal(response.status,200);
   const actual=await response.text(),expected=await fs.readFile(path.join(repo,"internal/gui/assets",name==="app.css"?name:path.join("fusion",name)),"utf8");
   if(name==="index.html"){
-   const parts=expected.split("<!-- MAGPIE_HEADER -->");assert.equal(parts.length,2);
-   assert.ok(actual.startsWith(parts[0])&&actual.endsWith(parts[1]),"integrated stage panel differs from current source");
+   const parts=expected.split(/<!-- MAGPIE_(HEADER|PROVIDERS|MODAL) -->/).filter((_,i)=>i%2===0);assert.equal(parts.length,4);
+   let offset=0;for(const part of parts){const at=actual.indexOf(part,offset);assert.ok(at>=offset,"integrated stage panel differs from current source");offset=at+part.length}
+   assert.ok(actual.startsWith(parts[0])&&actual.endsWith(parts.at(-1)),"integrated stage panel ends differ from current source");
+   assert.ok(actual.includes('id="view-providers"')&&actual.includes('id="modal"'),"original provider markup missing");
    assert.ok(actual.includes('data-view="fusion"')&&actual.includes('class="logo"'),"original main shell missing");
   }else assert.ok(actual===expected,"stage bundle differs from current source");
  }
@@ -67,7 +69,7 @@ async function fixture(t,admitted=false,withSecondProject=false,executionMode=""
   await page.goto(origin+"/fusion/");await page.locator("#status").filter({hasText:/已载入当前配置|已恢复原任务请求|已恢复原阶段启动请求/}).waitFor();
   return {page,context,errors};
  };
- return {get origin(){return origin},newPage,async restart(){
+ return {get origin(){return origin},source,newPage,async restart(){
   assert.ok(admitted,"restart only owns the synthetic test host");
   const done=once(child,"exit");child.kill("SIGTERM");let timer;
   try{await Promise.race([done,new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error("fixture restart shutdown deadline")),8000)})])}finally{clearTimeout(timer)}
@@ -201,7 +203,7 @@ test("actual API: edit layer and version come from the same defaults response",a
  const saved=await f.request("/control/v1/projects/synthetic-ui/defaults","PUT",{layer:{roles:{testing:target}}},'"0"');
  assert.equal(saved.status,201);
  const {page,errors}=await f.newPage(async context=>{
-  await context.route(f.origin+"/control/v1/projects/synthetic-ui/configuration",r=>r.fulfill({status:200,contentType:"application/json",body:JSON.stringify(old.body)}));
+  await context.route(f.origin+"/control/v1/projects/synthetic-ui/configuration",r=>r.fulfill({status:200,contentType:"application/json",headers:{ETag:old.etag},body:JSON.stringify(old.body)}));
  });
  await page.getByLabel("实施与测试展开").click();
  assert.equal(await page.getByLabel("测试模式",{exact:true}).inputValue(),"locked");
@@ -236,7 +238,7 @@ test("actual API: expired route never selects a replacement; global and project 
   await context.route(f.origin+"/control/v1/projects/synthetic-ui/configuration",async r=>{
    const response=await r.fetch({maxRedirects:0}),body=await response.json();
    body.configuration.routes=body.configuration.routes.filter(route=>route.id!=="fixture-b");
-   await r.fulfill({status:200,contentType:"application/json",body:JSON.stringify(body)});
+   await r.fulfill({response,body:JSON.stringify(body)});
   });
  });
  assert.equal(await page.getByLabel("设计模型",{exact:true}).inputValue(),"expired");
@@ -1147,8 +1149,8 @@ test('Magpie main navigation reuses original header and preserves unsaved Fusion
  for(const view of ["agents","providers","gateway","routing","usage","sessions","library","plugins"]){
   await page.locator(`#nav [data-view="${view}"]`).click();
   assert.equal(await page.locator('#view-fusion').isVisible(),false);
-  assert.equal(await page.locator('#view-unavailable').isVisible(),true);
-  assert.match(await page.locator('#view-unavailable').innerText(),/尚未/);
+  if(view==='providers')assert.equal(await page.locator('#view-providers').isVisible(),true);
+  else {assert.equal(await page.locator('#view-unavailable').isVisible(),true);assert.match(await page.locator('#view-unavailable').innerText(),/尚未/)}
   assert.equal(await page.locator(`#nav [data-view="${view}"]`).getAttribute('aria-current'),'page');
   assert.equal(new URL(page.url()).search,'');assert.equal(new URL(page.url()).hash,'');
  }
@@ -1182,4 +1184,142 @@ test('Magpie original main shell fits desktop and mobile in both original color 
   }
   assert.deepEqual(errors,[]);await context.close();
  }
+});
+
+test('Magpie Providers consumes registered models and explicitly selects one stage draft without execution',async t=>{
+ const f=await fixture(t),{page,errors}=await f.newPage();
+ const calls=[];page.on('request',r=>calls.push({path:new URL(r.url()).pathname,method:r.method()}));
+ await choose(page,'设计','a');
+ await page.locator('#nav [data-view="providers"]').click();
+ await page.locator('#view-providers').waitFor({state:'visible',timeout:2000});
+ assert.equal(await page.locator('#providers > .row.provider').count(),3);
+ assert.equal(await page.locator('#providers svg').count(),0);
+ assert.ok((await page.locator('#providers').innerText()).includes('<svg>'));
+ assert.equal(await page.locator('#addProvider').isDisabled(),true);
+ await page.locator('#providers [data-id="fixture-b"]').click();
+ assert.equal(await page.getByRole('dialog',{name:'模型与账号详情'}).isVisible(),true);
+ const detail=await page.locator('#modal').innerText();
+ assert.match(detail,/fixture-model-b/);assert.match(detail,/fixture-account-b/);assert.match(detail,/未准入/);
+ assert.ok(!detail.includes('fixture-identity-b'));
+ await page.getByLabel('应用到阶段', {exact:true}).selectOption('testing');
+ await page.getByRole('button',{name:'应用到阶段草稿',exact:true}).click();
+ assert.equal(await page.locator('#view-fusion').isVisible(),true);
+ assert.equal(await page.getByLabel('设计模型',{exact:true}).inputValue(),key('a'));
+ assert.equal(await page.getByLabel('测试模型',{exact:true}).inputValue(),key('b'));
+ assert.equal(await page.getByLabel('测试推理档位',{exact:true}).inputValue(),'');
+ assert.equal(await page.getByRole('button',{name:'保存项目配置',exact:true}).isDisabled(),true);
+ await page.getByLabel('测试推理档位',{exact:true}).selectOption('none');
+ await page.getByRole('button',{name:'保存项目配置',exact:true}).click();await status(page,'已保存版本 1');
+ const saved=await f.request('/control/v1/projects/synthetic-ui/defaults');
+ assert.equal(saved.body.layer.roles.testing.model,models.b);assert.equal(saved.body.layer.roles.design.model,models.a);
+ assert.equal(saved.body.layer.roles.review.mode,'inherit');
+ const tasks=await f.request('/control/v1/projects/synthetic-ui/tasks');assert.deepEqual(tasks.body.tasks,[]);
+ assert.ok(!calls.some(r=>r.path.startsWith('/api/')||r.path.includes('/start')||r.path.includes('/refresh')));
+ assert.deepEqual(errors,[]);
+});
+
+test('Magpie Providers rejects foreign, malformed and mismatched version data and clears previously open details',async t=>{
+ const f=await fixture(t),{page,context,errors}=await f.newPage(process.env.FUSION_PROVIDERS_ID_MUTATION==='1'?async context=>{
+  await context.route('**/fusion/model.mjs',async route=>{
+   const response=await route.fetch(),source=await response.text(),guard='body?.project_id!==project||';
+   assert.ok(source.includes(guard),'identity mutation must change the served guard');
+   await route.fulfill({response,body:source.replace(guard,'')});
+  });
+ }:null);
+ let change=null;
+ await context.route('**/control/v1/projects/synthetic-ui/configuration',async route=>{
+  const response=await route.fetch(),body=await response.json(),headers={...response.headers()};if(change)change(body,headers);
+  await route.fulfill({response,headers,json:body});
+ });
+ await page.locator('#nav [data-view="providers"]').click();
+ for(const mutate of [body=>body.project_id='foreign-project',(body,headers)=>headers.etag='"999"',body=>body.configuration.routes[0].admitted='yes',body=>body.configuration.routes.push(body.configuration.routes[0])]){
+  await page.locator('#providers [data-id="fixture-a"]').click();assert.equal(await page.getByRole('dialog').isVisible(),true);
+  await page.keyboard.press('Escape');change=mutate;
+  await page.getByRole('button',{name:'重新载入模型与账号',exact:true}).click();
+  await page.locator('#fileError').filter({hasText:'请求未完成'}).waitFor();
+  assert.equal(await page.locator('#providers > .row.provider').count(),0);
+  assert.equal(await page.locator('#modal').isVisible(),false);
+  assert.ok(!(await page.locator('#view-providers').innerText()).includes('fixture-account-a'));
+  change=null;await page.getByRole('button',{name:'重新载入模型与账号',exact:true}).click();
+  await page.locator('#providers [data-id="fixture-a"]').waitFor();
+ }
+ assert.deepEqual(errors,[]);
+});
+
+test('Magpie Providers dialog preserves original keyboard and backdrop behavior and fits both themes on desktop and mobile',async t=>{
+ const f=await fixture(t);await fs.mkdir(path.join(repo,'.fusion-dev/providers-ui'),{recursive:true});
+ for(const [name,width,height]of [['desktop',1140,900],['mobile',390,844]]){
+  const {page,context,errors}=await f.newPage(null,{width,height});
+  for(const theme of ['light','dark']){
+   await page.evaluate(theme=>document.documentElement.dataset.theme=theme,theme);
+   await page.locator('#nav [data-view="providers"]').click();
+   const row=page.locator('#providers [data-id="fixture-c"]');await row.focus();await page.keyboard.press('Enter');
+   assert.equal(await page.getByRole('dialog',{name:'模型与账号详情'}).isVisible(),true);
+   assert.equal(await page.locator('.top').evaluate(n=>n.inert),true);
+   await page.getByLabel('应用到阶段',{exact:true}).focus();await page.keyboard.press('Shift+Tab');
+   assert.equal(await page.getByRole('button',{name:'应用到阶段草稿',exact:true}).evaluate(n=>n===document.activeElement),true);
+   await page.keyboard.press('Tab');assert.equal(await page.getByLabel('应用到阶段',{exact:true}).evaluate(n=>n===document.activeElement),true);
+   const bounds=await page.getByRole('dialog').evaluate(n=>{const r=n.getBoundingClientRect();return {left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:innerWidth,height:innerHeight}});
+   assert.ok(bounds.left>=0&&bounds.right<=width+1&&bounds.top>=0&&bounds.bottom<=height+1,JSON.stringify(bounds));
+   await page.screenshot({path:path.join(repo,'.fusion-dev/providers-ui',name+'-'+theme+'-detail.png')});
+   await page.keyboard.press('Escape');assert.equal(await page.locator('#modal').isVisible(),false);assert.equal(await row.evaluate(n=>n===document.activeElement),true);
+   assert.equal(await page.locator('.top').evaluate(n=>n.inert),false);
+   await row.click();await page.locator('#modal').click({position:{x:1,y:1}});assert.equal(await page.locator('#modal').isVisible(),false);
+   await page.locator('#view-providers').evaluate(async n=>{await Promise.all(n.getAnimations().map(a=>a.finished))});
+   assert.equal(await page.locator('#view-providers').evaluate(n=>getComputedStyle(n).opacity),'1');
+   await page.screenshot({path:path.join(repo,'.fusion-dev/providers-ui',name+'-'+theme+'.png')});
+  }
+  assert.deepEqual(errors,[]);await context.close();
+ }
+});
+
+test('Magpie Providers cannot bypass an unconfirmed save and keeps the exact existing retry',async t=>{
+ const f=await fixture(t),{page,context,errors}=await f.newPage();await choose(page,'设计','b');
+ const posts=[];
+ await context.route('**/control/v1/projects/synthetic-ui/defaults',async route=>{
+  if(route.request().method()!=='PUT')return route.continue();
+  posts.push({body:route.request().postData(),tag:route.request().headers()['if-match']});
+  if(posts.length===1){await route.fetch();return route.abort('failed')}return route.continue();
+ });
+ await page.getByRole('button',{name:'保存项目配置',exact:true}).click();await status(page,'保存状态未确认');
+ await page.locator('#nav [data-view="providers"]').click();await page.locator('#providers [data-id="fixture-a"]').click();
+ assert.equal(await page.getByRole('button',{name:'应用到阶段草稿',exact:true}).isDisabled(),true);
+ await page.getByRole('button',{name:'应用到阶段草稿',exact:true}).evaluate(n=>n.click());assert.equal(posts.length,1);
+ await page.keyboard.press('Escape');await page.locator('#nav [data-view="fusion"]').click();
+ assert.equal(await page.getByLabel('设计模型',{exact:true}).inputValue(),key('b'));
+ await page.getByRole('button',{name:'重试同一保存',exact:true}).click();await status(page,'已保存版本 1');
+ assert.equal(posts.length,2);assert.deepEqual(posts[0],posts[1]);assert.deepEqual(errors,[]);
+});
+
+test('Magpie Providers clears revoked real host metadata and rejects old account details after source changes',async t=>{
+ const f=await fixture(t),{page,errors}=await f.newPage();await page.locator('#nav [data-view="providers"]').click();
+ await page.locator('#providers [data-id="fixture-a"]').click();await page.keyboard.press('Escape');
+ const source=JSON.parse(await fs.readFile(f.source,'utf8'));source.revision++;await fs.writeFile(f.source,JSON.stringify(source),{mode:0o600});
+ await page.getByRole('button',{name:'重新载入模型与账号',exact:true}).click();
+ await page.locator('#fileError').filter({hasText:/读取失败|已撤销|授权已失效/}).waitFor();
+ assert.equal(await page.locator('#providers > .row.provider').count(),0);assert.equal(await page.locator('#modal').isVisible(),false);
+ assert.ok(!(await page.locator('#view-providers').innerText()).includes('fixture-account-a'));assert.deepEqual(errors,[]);
+});
+
+
+test('Magpie Providers metadata reload honors dirty draft cancellation and superseded project responses',async t=>{
+ const f=await fixture(t,false,true),{page,context,errors}=await f.newPage();
+ await choose(page,'设计','b');
+ await page.locator('#nav [data-view="providers"]').click();
+ let reads=0;page.on('request',r=>{if(new URL(r.url()).pathname.endsWith('/configuration'))reads++});
+ const cancelled=new Promise(resolve=>page.once('dialog',async dialog=>{assert.equal(dialog.type(),'confirm');await dialog.dismiss();resolve()}));
+ await page.getByRole('button',{name:'重新载入模型与账号',exact:true}).click();await cancelled;
+ assert.equal(reads,0);
+ await page.locator('#nav [data-view="fusion"]').click();assert.equal(await page.getByLabel('设计模型',{exact:true}).inputValue(),key('b'));
+ const resumed=new Promise(resolve=>page.once('dialog',async dialog=>{await dialog.accept();resolve()}));
+ let release,entered;const gate=new Promise(resolve=>release=resolve),waiting=new Promise(resolve=>entered=resolve);
+ await context.route('**/control/v1/projects/synthetic-ui/configuration',async route=>{const response=await route.fetch();entered();await gate;await route.fulfill({response})});
+ await page.locator('#nav [data-view="providers"]').click();await page.getByRole('button',{name:'重新载入模型与账号',exact:true}).click();await resumed;await waiting;
+ assert.equal(await page.locator('#providers > .row.provider').count(),0);
+ const switched=new Promise(resolve=>page.once('dialog',async dialog=>{assert.equal(dialog.type(),'confirm');await dialog.accept();resolve()}));
+ await page.locator('#project').evaluate(n=>{n.value='synthetic-ui-other';n.dispatchEvent(new Event('change'))});await switched;
+ await page.locator('#fileError').filter({hasText:'项目：synthetic-ui-other'}).waitFor();
+ const late=page.waitForResponse(r=>r.url().endsWith('/synthetic-ui/configuration'));release();await(await late).finished();await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+ await page.locator('#providers [data-id="fixture-a"]').click();assert.match(await page.locator('#modal').innerText(),/项目：synthetic-ui-other/);
+ assert.equal(await page.locator('#project').inputValue(),'synthetic-ui-other');assert.deepEqual(errors,[]);
 });

@@ -1,0 +1,13 @@
+✔ Magpie Providers consumes registered models and explicitly selects one stage draft without execution (901.560917ms)
+✔ Magpie Providers rejects foreign, malformed and mismatched version data and clears previously open details (1535.841542ms)
+✔ Magpie Providers dialog preserves original keyboard and backdrop behavior and fits both themes on desktop and mobile (1959.579958ms)
+✔ Magpie Providers cannot bypass an unconfirmed save and keeps the exact existing retry (1708.973084ms)
+✔ Magpie Providers clears revoked real host metadata and rejects old account details after source changes (1082.634542ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7406.848417

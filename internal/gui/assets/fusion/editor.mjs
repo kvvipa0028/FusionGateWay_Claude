@@ -1,8 +1,9 @@
-import {roles,labels,groups,copy,expandLayer,groupShared,shareGroup,exactRoute,targetFor,routeKey,layerIssues,sameBinding} from "./model.mjs";
+import {roles,labels,groups,copy,expandLayer,groupShared,shareGroup,exactRoute,targetFor,routeKey,configurationRoutes,layerIssues,sameBinding} from "./model.mjs";
+import {updateProviders,configureProviders} from "./main.mjs";
 import {createWorkbench,workflowRoles} from "./workbench.mjs";
 import {createQuotaView} from "./quota.mjs";
 const $=id=>document.getElementById(id);
-const state={project:"",scope:"project",routes:[],layers:{},tags:{},config:{},presets:[],preset:null,editingPreset:null,presetNameDirty:false,expanded:new Set(),dirty:new Set(),loading:true,saving:false,taskPending:false,uncertain:null,notice:"正在读取本机配置…"};
+const state={project:"",scope:"project",routes:[],layers:{},tags:{},config:{},presets:[],preset:null,editingPreset:null,presetNameDirty:false,expanded:new Set(),dirty:new Set(),loading:true,saving:false,taskPending:false,providerRevoked:false,uncertain:null,notice:"正在读取本机配置…"};
 const messages={route_unavailable:"模型或路线版本已失效，请重新选择。",effort_unspecified:"请选择推理档位。",effort_unsupported:"该模型不支持此推理选择。",candidates_missing:"请明确添加批准的候选。",candidate_duplicate:"同一路线版本不能重复。",mode_invalid:"配置模式无效。",lock_exception_unaccepted:"此配置含未接受的锁定例外。"};
 function el(tag,text,attrs={}){const n=document.createElement(tag);if(text!==null)n.textContent=text;for(const[k,v]of Object.entries(attrs))n.setAttribute(k,v);if(tag==="button")n.classList.add("text","action");if(tag==="select")n.classList.add("field");return n}
 function option(select,value,text){select.append(el("option",text,{value}))}
@@ -36,7 +37,7 @@ async function request(path,options={}){
  let response;try{response=await fetch(path,{...options,cache:"no-store",credentials:"omit",redirect:"error",headers:{"Content-Type":"application/json",...(options.headers||{})}})}catch{throw new RequestError(0,"transport_unconfirmed")}
  let body;try{body=await response.json()}catch{throw new RequestError(response.status,"response_unavailable")}
  const reply={body,etag:response.headers.get("ETag"),taskEtag:response.headers.get("X-Fusion-Task-ETag"),status:response.status};
- if(!response.ok)throw new RequestError(response.status,body?.error?.code,reply);
+ if(!response.ok){if(response.status===401||response.status===403)state.providerRevoked=true;throw new RequestError(response.status,body?.error?.code,reply)}
  return reply;
 }
 function errorText(e,saving=false){
@@ -53,6 +54,16 @@ const quotaView=createQuotaView({request,onChange:()=>render()});
 function clearPreview(){workbench.invalidate();$("preview").hidden=true}
 function activeLayer(){return state.layers[state.scope]||expandLayer()}
 function setBinding(role,binding){state.layers[state.scope].roles[role]=binding;state.dirty.add(state.scope);state.notice="本地选择尚未保存。";clearPreview();render()}
+configureProviders({
+ select({project,role,route}){
+  if(disabled()||state.providerRevoked||project!==state.project||!roles.includes(role))return false;
+  const current=state.routes.find(r=>routeKey(r)===routeKey(route));if(!current)return false;
+  const group=groups.find(g=>g.roles.includes(role));if(group.roles.length>1&&group.roles[1]===role)state.expanded.add(group.id);
+  setBinding(role,{mode:"locked",...targetFor(current)});return true;
+ },
+ reload(){ $("reload").click() },
+ focus(role){$("groups").querySelector('[aria-label="'+labels[role]+'推理档位"]')?.focus()},
+});
 function controlsFor(target,onchange,prefix){
  const fragment=document.createDocumentFragment(),routeLabel=el("label","模型"),select=el("select",null,{"aria-label":prefix+"模型"});
  option(select,"","请选择已登记模型");
@@ -145,23 +156,29 @@ function render(){
  $("status").textContent=state.notice;$("status").className=state.error?"error":"";
  $("preset-source").textContent=state.preset?"本次任务使用预设 "+state.preset.id+"@"+state.preset.revision:"";
  quotaView.render(disabled());
+ updateProviders({project:state.providerRevoked?"":state.project,routes:state.loading||state.providerRevoked?[]:state.routes,scope:state.scope,blocked:disabled()||state.providerRevoked,loading:state.loading,error:state.providerRevoked?"管理授权已失效，请重新连接本机服务。":state.project?"":state.notice});
  if(focus)[...document.querySelectorAll("[aria-label]")].find(n=>n.getAttribute("aria-label")===focus)?.focus({preventScroll:true});
 }
+let projectLoad=0;
 async function loadProject(id){
+ const generation=++projectLoad;
  state.loading=true;quotaView.clear();workbench.setProject("");state.error=false;state.notice="正在读取项目配置…";render();
  try{
   const base="/control/v1/projects/"+encodeURIComponent(id);
   const [config,global,project,presets]=await Promise.all([request(base+"/configuration"),request("/control/v1/defaults/global"),request(base+"/defaults"),request(base+"/presets")]);
+  if(generation!==projectLoad)return;
+  let routes;try{routes=configurationRoutes(config,id)}catch{throw new RequestError(config.status,"response_unavailable")}
   const globalDefault=defaultSnapshot(global.body,global.etag,500,config.body.configuration.global||{}),projectDefault=defaultSnapshot(project.body,project.etag,500,config.body.configuration.project||{});
-  state.project=id;state.routes=config.body.configuration.routes||[];state.config={global:globalDefault.layer,project:projectDefault.layer};
+  state.project=id;state.routes=routes;state.providerRevoked=false;state.config={global:globalDefault.layer,project:projectDefault.layer};
   state.layers={global:expandLayer(state.config.global),project:expandLayer(state.config.project),task:expandLayer()};
   state.tags={global:global.etag,project:project.etag};state.presets=presets.body.presets||[];
   state.preset=null;state.editingPreset=null;state.presetNameDirty=false;$("preset-name").value="";state.uncertain=null;state.dirty.clear();state.expanded.clear();
   presetOptions();
   $("preset-version").value="";clearPreview();state.notice="已载入当前配置。保存选择不会启动模型。";
   await workbench.setProject(id);
+  if(generation!==projectLoad)return;
   quotaView.setProject(id,state.routes);
- }catch(e){state.project="";state.layers={};state.error=true;state.notice=errorText(e)}
+ }catch(e){if(generation!==projectLoad)return;state.project="";state.routes=[];state.layers={};state.error=true;state.notice=errorText(e)}
  state.loading=false;render();
 }
 $("scope").onchange=()=>{state.scope=$("scope").value;state.error=false;state.notice=state.dirty.has(state.scope)?"本地选择尚未保存。":"已切换配置范围。";clearPreview();render()};

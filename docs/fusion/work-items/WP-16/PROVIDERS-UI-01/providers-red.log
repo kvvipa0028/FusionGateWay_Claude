@@ -1,0 +1,22 @@
+✖ Magpie Providers consumes registered models and explicitly selects one stage draft without execution (7588.112542ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7811.144334
+
+✖ failing tests:
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:1187:1
+✖ Magpie Providers consumes registered models and explicitly selects one stage draft without execution (7588.112542ms)
+  locator.waitFor: Timeout 2000ms exceeded.
+  Call log:
+  [2m  - waiting for locator('#view-providers') to be visible[22m
+
+      at TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:1192:40) {
+    name: 'TimeoutError',
+    log: [ "  - waiting for locator('#view-providers') to be visible" ]
+  }

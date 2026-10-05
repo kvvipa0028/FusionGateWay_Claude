@@ -9,6 +9,21 @@ const routes = [
  {id:"b",revision:2,model:"model-b",account:"account-b",efforts:[],default_effort:null,no_effort:true},
 ];
 const locked = (r=routes[0]) => ({mode:"locked",route:{id:r.id,revision:r.revision},model:r.model,effort:{mode:r.no_effort?"none":"default"}});
+test("project registry metadata binds identity and revision, copies only display fields and never admits by coercion",async()=>{
+ const m=await model();const row={...routes[0],workspace:"workspace",runtime_version:"pinned",plugin_version:null,billing_path:"subscription",billing_known:false,admitted:false,lock_enforcement:"unverified",capabilities:null,credential_identity:"must-not-render",api_key:"must-not-render"};
+ const reply={body:{project_id:"project",revision:2,configuration:{global:{},project:{},routes:[row]}},etag:'"2"'};
+ const got=m.configurationRoutes(reply,"project");assert.equal(got.length,1);assert.equal(got[0].admitted,false);assert.equal(got[0].billing_known,false);
+ assert.ok(!JSON.stringify(got).includes("must-not-render"));got[0].efforts[0]="edited";assert.equal(row.efforts[0],"medium");
+ assert.deepEqual(m.configurationRoutes({...reply,body:{...reply.body,configuration:{...reply.body.configuration,routes:null}}},"project"),[]);
+ for(const mutate of [
+  v=>v.body.project_id="other",v=>v.etag='"3"',v=>v.body.revision=Number.MAX_SAFE_INTEGER+1,
+  v=>v.body.configuration.routes.push(v.body.configuration.routes[0]),v=>v.body.configuration.routes[0].admitted="true",
+  v=>v.body.configuration.routes[0].billing_known=null,v=>v.body.configuration.routes[0].account="",
+  v=>delete v.body.configuration.routes,v=>v.body.configuration.global=null,
+  v=>v.body.configuration.routes[0].model="bad\ntext",v=>v.body.configuration.routes[0].lock_enforcement="verified",
+  v=>v.body.configuration.routes[0].efforts.push("medium"),v=>v.body.configuration.routes[0].default_effort="unknown",
+ ]){const bad=structuredClone(reply);mutate(bad);assert.throws(()=>m.configurationRoutes(bad,"project"))}
+});
 test("expands groups then complete role overrides; explicit inherit masks group", async()=>{
  const m=await model();const layer={groups:{implementation_testing:locked()},roles:{testing:{mode:"inherit"}}};
  const out=m.expandLayer(layer);assert.equal(out.roles.implementation.model,"model-a");assert.deepEqual(out.roles.testing,{mode:"inherit"});

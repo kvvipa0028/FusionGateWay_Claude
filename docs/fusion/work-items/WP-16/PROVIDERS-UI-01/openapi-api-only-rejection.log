@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/scripts/fusion/check-openapi.py", line 309, in <module>
+    print(json.dumps(verify(args.contract, args.standard_schema, args.samples), indent=2))
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/scripts/fusion/check-openapi.py", line 166, in verify
+    assert covered == {(path, method) for path, methods in EXPECTED.items() for method in methods}, "missing successful Handler operation samples"
+AssertionError: missing successful Handler operation samples

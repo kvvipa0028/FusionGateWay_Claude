@@ -1,0 +1,22 @@
+✖ Magpie Providers rejects foreign, malformed and mismatched version data and clears previously open details (32401.298417ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 32878.780292
+
+✖ failing tests:
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:1221:1
+✖ Magpie Providers rejects foreign, malformed and mismatched version data and clears previously open details (32401.298417ms)
+  locator.waitFor: Timeout 30000ms exceeded.
+  Call log:
+  [2m  - waiting for locator('#fileError').filter({ hasText: '请求未完成' }) to be visible[22m
+
+      at TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:1239:62) {
+    name: 'TimeoutError',
+    log: [ "  - waiting for locator('#fileError').filter({ hasText: '请求未完成' }) to be visible" ]
+  }

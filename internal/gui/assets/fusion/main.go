@@ -7,7 +7,7 @@ import (
 	magpieassets "github.com/yetone/magpie/internal/gui/assets"
 )
 
-// Derive only the original header, not boot.js/app.js or legacy controls.
+// Derive original markup; its legacy scripts and authority remain unavailable.
 // Exact anchors fail closed when upstream changes instead of silently falling
 // back to a separately maintained shell or exposing legacy authority.
 func mainPage(panel []byte) ([]byte, error) {
@@ -42,5 +42,21 @@ func integrateMainPage(source, panel string) ([]byte, error) {
 		}
 		header = strings.Replace(header, `id="`+id+`"`, `id="`+id+`" disabled`, 1)
 	}
-	return []byte(strings.Replace(panel, marker, header, 1)), nil
+	page := strings.Replace(panel, marker, header, 1)
+	const providersMarker = "<!-- MAGPIE_PROVIDERS -->"
+	const providersStart = `<main class="view" id="view-providers" hidden>`
+	const modalMarker = "<!-- MAGPIE_MODAL -->"
+	const modal = `<div class="modal" id="modal" hidden><div class="dialog"></div></div>`
+	if strings.Count(source, providersStart) != 1 || strings.Count(panel, providersMarker) != 1 || strings.Count(source, modal) != 1 || strings.Count(panel, modalMarker) != 1 {
+		return nil, errors.New("provider page unavailable")
+	}
+	_, providerTail, _ := strings.Cut(source, providersStart)
+	providerBody, _, ok := strings.Cut(providerTail, "</main>")
+	if !ok || strings.Count(providerBody, `id="providers"`) != 1 || strings.Count(providerBody, `id="addProvider"`) != 1 || strings.Count(providerBody, `id="fileError"`) != 1 {
+		return nil, errors.New("provider controls unavailable")
+	}
+	providerPage := providersStart + providerBody + "</main>"
+	providerPage = strings.Replace(providerPage, `id="addProvider"`, `id="addProvider" disabled`, 1)
+	page = strings.Replace(page, providersMarker, providerPage, 1)
+	return []byte(strings.Replace(page, modalMarker, modal, 1)), nil
 }

@@ -242,10 +242,11 @@ func TestPresetAPIConfigurationIsReadOnlyAndTaskProvenanceIsExact(t *testing.T) 
 	_, _, h := presetSetup(t)
 	w := request(h, "GET", "/control/v1/projects/fixture-project/configuration", "", "", "fixture-management")
 	var config struct {
+		ProjectID     string               `json:"project_id"`
 		Revision      int64                `json:"revision"`
 		Configuration ProjectConfiguration `json:"configuration"`
 	}
-	if w.Code != 200 || json.Unmarshal(w.Body.Bytes(), &config) != nil || config.Revision != 2 || len(config.Configuration.Routes) != 2 || w.Header().Get("ETag") != `"2"` {
+	if w.Code != 200 || json.Unmarshal(w.Body.Bytes(), &config) != nil || config.ProjectID != "fixture-project" || config.Revision != 2 || len(config.Configuration.Routes) != 2 || w.Header().Get("ETag") != `"2"` {
 		t.Fatal("trusted metadata unavailable", w.Code)
 	}
 	if w = request(h, "PUT", "/control/v1/projects/fixture-project/configuration", `{"routes":[]}`, "", "fixture-management"); w.Code != 405 {
