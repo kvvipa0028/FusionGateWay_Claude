@@ -6,4 +6,6 @@
 
 [ACCEPTANCE-DECISION-01](ACCEPTANCE-DECISION-01/summary.md) 完成只读 acceptance 消费、冻结条件逐项模型建议、advisory_only 等待人工接受及受控重启回读。
 
-未完成：人工最终接受记录、最多一个自动返工回合与阶段次数限制、项目强制独立性策略、UI 状态消费及完整端到端。没有 merge/deploy/flash。UI 继续复用 Magpie，只做必要扩展。
+[HUMAN-DECISION-STORE-01](HUMAN-DECISION-STORE-01/summary.md) 完成独立的人工接受/退回持久记录、owned 当前证据/CAS/事务门与 schema11 迁移。
+
+未完成：人工最终接受 Management API/Native UI 消费、最多一个自动返工回合与阶段次数限制、项目强制独立性策略、UI 状态消费及完整端到端。没有 merge/deploy/flash。UI 继续复用 Magpie，只做必要扩展。

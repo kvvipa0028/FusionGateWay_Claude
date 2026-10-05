@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"reflect"
 	"strings"
 	"sync"
 	"sync/atomic"
@@ -523,6 +524,15 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 				if current.State != "needs_review" || accepted.Acceptance.Document.Verdict == "accepted" {
 					t.Fatal("Native success overrode invalid/rejected/unverified acceptance", current)
 				}
+				permit, err := h.store.PrepareFinalEvidence(acceptance.Run.ID, d.Projects[0].Path, c.ExecutionRoot, expectedVerification.Spec)
+				if err != nil {
+					t.Fatal(err)
+				}
+				before := calls.Load()
+				decision, err := h.store.DecideHumanAcceptance(task.ID, store.TaskVersion{PlanRevision: current.PlanRevision, Generation: current.Generation, State: current.State}, permit, "return", "operator requires missing evidence or corrections", func() bool { return h.current() })
+				if err != nil || decision.Action != "return" || calls.Load() != before {
+					t.Fatal("human return started a Native or lost exact receipt", err)
+				}
 				return
 			}
 			if !accepted.Acceptance.Valid || accepted.Acceptance.Document.Verdict != "accepted" || current.State != "advisory_only" {
@@ -550,6 +560,36 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 			if _, v, err := h.store.AcceptanceArtifact(acceptance.Run.ID, d.Projects[0].Path, c.ExecutionRoot, changed); err != nil || v.Status != evidence.Superseded {
 				t.Fatal("final decision reused obsolete test standard", err, v)
 			}
+			permit, err := h.store.PrepareFinalEvidence(acceptance.Run.ID, d.Projects[0].Path, c.ExecutionRoot, expectedVerification.Spec)
+			if err != nil {
+				t.Fatal(err)
+			}
+			before = calls.Load()
+			beforeBudget, _ := h.store.Budget(task.ID)
+			beforeRun, _ := h.store.Run(acceptance.Run.ID)
+			current, _ = h.store.Task(task.ID)
+			decision, err := h.store.DecideHumanAcceptance(task.ID, store.TaskVersion{PlanRevision: current.PlanRevision, Generation: current.Generation, State: current.State}, permit, "accept", "operator checked actual code and frozen criteria", func() bool { return h.current() })
+			if err != nil || decision.Action != "accept" || decision.RunID != acceptance.Run.ID || calls.Load() != before {
+				t.Fatal("explicit human decision lost actual released origin", err)
+			}
+			current, _ = h.store.Task(task.ID)
+			afterBudget, _ := h.store.Budget(task.ID)
+			afterRun, _ := h.store.Run(acceptance.Run.ID)
+			if current.State != "completed" || beforeBudget != afterBudget || !reflect.DeepEqual(beforeRun, afterRun) {
+				t.Fatal("human acceptance changed Native/budget or did not complete", current)
+			}
+			if err := h.Close(); err != nil {
+				t.Fatal(err)
+			}
+			h, err = OpenExecutionControl(context.Background(), path, root, "127.0.0.1:0", wrapped)
+			if err != nil {
+				t.Fatal(err)
+			}
+			serveExecutionHost(t, h)
+			if persisted, err := h.store.HumanDecision(task.ID); err != nil || persisted != decision {
+				t.Fatal("restart lost separate actual human decision", err)
+			}
+
 		})
 	}
 }

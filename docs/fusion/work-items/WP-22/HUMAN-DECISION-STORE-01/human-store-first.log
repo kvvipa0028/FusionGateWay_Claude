@@ -1,0 +1,24 @@
+=== RUN   TestHumanDecisionRequiresOwnedCurrentEvidenceAndPreservesNativeBudget
+--- PASS: TestHumanDecisionRequiresOwnedCurrentEvidenceAndPreservesNativeBudget (0.76s)
+=== RUN   TestHumanAcceptCannotOverrideModelUnknownOrCurrentStandard
+=== RUN   TestHumanAcceptCannotOverrideModelUnknownOrCurrentStandard/unverified
+=== RUN   TestHumanAcceptCannotOverrideModelUnknownOrCurrentStandard/changed_standard
+--- PASS: TestHumanAcceptCannotOverrideModelUnknownOrCurrentStandard (1.29s)
+    --- PASS: TestHumanAcceptCannotOverrideModelUnknownOrCurrentStandard/unverified (0.65s)
+    --- PASS: TestHumanAcceptCannotOverrideModelUnknownOrCurrentStandard/changed_standard (0.64s)
+=== RUN   TestHumanDecisionRechecksFilesVersionAuthorityAndRollsBackEvent
+=== RUN   TestHumanDecisionRechecksFilesVersionAuthorityAndRollsBackEvent/stale_task
+=== RUN   TestHumanDecisionRechecksFilesVersionAuthorityAndRollsBackEvent/revoked_commit
+=== RUN   TestHumanDecisionRechecksFilesVersionAuthorityAndRollsBackEvent/event_failure
+=== RUN   TestHumanDecisionRechecksFilesVersionAuthorityAndRollsBackEvent/changed_header
+=== RUN   TestHumanDecisionRechecksFilesVersionAuthorityAndRollsBackEvent/invalid_action
+=== RUN   TestHumanDecisionRechecksFilesVersionAuthorityAndRollsBackEvent/empty_reason
+--- PASS: TestHumanDecisionRechecksFilesVersionAuthorityAndRollsBackEvent (3.79s)
+    --- PASS: TestHumanDecisionRechecksFilesVersionAuthorityAndRollsBackEvent/stale_task (0.62s)
+    --- PASS: TestHumanDecisionRechecksFilesVersionAuthorityAndRollsBackEvent/revoked_commit (0.65s)
+    --- PASS: TestHumanDecisionRechecksFilesVersionAuthorityAndRollsBackEvent/event_failure (0.65s)
+    --- PASS: TestHumanDecisionRechecksFilesVersionAuthorityAndRollsBackEvent/changed_header (0.62s)
+    --- PASS: TestHumanDecisionRechecksFilesVersionAuthorityAndRollsBackEvent/invalid_action (0.62s)
+    --- PASS: TestHumanDecisionRechecksFilesVersionAuthorityAndRollsBackEvent/empty_reason (0.62s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/store	7.461s

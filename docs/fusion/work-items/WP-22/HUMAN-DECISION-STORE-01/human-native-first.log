@@ -1,0 +1,4 @@
+# github.com/yetone/magpie/internal/fusion/bootstrap [github.com/yetone/magpie/internal/fusion/bootstrap.test]
+internal/fusion/bootstrap/glm_handoff_native_test.go:577:71: undefined: reflect
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap [build failed]
+FAIL

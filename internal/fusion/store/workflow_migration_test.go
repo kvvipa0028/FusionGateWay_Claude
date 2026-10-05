@@ -36,7 +36,7 @@ func TestWorkflowMigrationNinePreservesLegacyAndRejectsChecksumDrift(t *testing.
 		t.Fatal(e)
 	}
 	var version int
-	if e = s.db.QueryRow("PRAGMA user_version").Scan(&version); e != nil || version != 10 {
+	if e = s.db.QueryRow("PRAGMA user_version").Scan(&version); e != nil || version != 11 {
 		t.Fatal("schema9 missing", e)
 	}
 	if got, e := s.LookupSubmission("legacy-preview", "fixture-schema4-key", in.Plan.Hash); e != nil || got != task {
@@ -114,7 +114,7 @@ func TestWorkflowMigrationNineFailureRollsBackAndRetries(t *testing.T) {
 	if got, e := s.LookupSubmission("legacy-preview", "fixture-schema4-key", in.Plan.Hash); e != nil || got != task {
 		t.Fatal("retry changed receipt", e)
 	}
-	if e = s.db.QueryRow("PRAGMA user_version").Scan(&version); e != nil || version != 10 {
+	if e = s.db.QueryRow("PRAGMA user_version").Scan(&version); e != nil || version != 11 {
 		t.Fatal("retry not schema9", e)
 	}
 }

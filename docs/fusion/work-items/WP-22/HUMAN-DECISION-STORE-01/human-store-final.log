@@ -1,0 +1,40 @@
+=== RUN   TestHumanDecisionRequiresOwnedCurrentEvidenceAndPreservesNativeBudget
+--- PASS: TestHumanDecisionRequiresOwnedCurrentEvidenceAndPreservesNativeBudget (0.87s)
+=== RUN   TestHumanAcceptCannotOverrideModelUnknownOrCurrentStandard
+=== RUN   TestHumanAcceptCannotOverrideModelUnknownOrCurrentStandard/unverified
+=== RUN   TestHumanAcceptCannotOverrideModelUnknownOrCurrentStandard/changed_standard
+--- PASS: TestHumanAcceptCannotOverrideModelUnknownOrCurrentStandard (1.51s)
+    --- PASS: TestHumanAcceptCannotOverrideModelUnknownOrCurrentStandard/unverified (0.76s)
+    --- PASS: TestHumanAcceptCannotOverrideModelUnknownOrCurrentStandard/changed_standard (0.75s)
+=== RUN   TestHumanDecisionRechecksFilesVersionAuthorityAndRollsBackEvent
+=== RUN   TestHumanDecisionRechecksFilesVersionAuthorityAndRollsBackEvent/stale_task
+=== RUN   TestHumanDecisionRechecksFilesVersionAuthorityAndRollsBackEvent/revoked_commit
+=== RUN   TestHumanDecisionRechecksFilesVersionAuthorityAndRollsBackEvent/event_failure
+=== RUN   TestHumanDecisionRechecksFilesVersionAuthorityAndRollsBackEvent/changed_header
+=== RUN   TestHumanDecisionRechecksFilesVersionAuthorityAndRollsBackEvent/late_header
+=== RUN   TestHumanDecisionRechecksFilesVersionAuthorityAndRollsBackEvent/source_drift
+=== RUN   TestHumanDecisionRechecksFilesVersionAuthorityAndRollsBackEvent/invalid_action
+=== RUN   TestHumanDecisionRechecksFilesVersionAuthorityAndRollsBackEvent/empty_reason
+--- PASS: TestHumanDecisionRechecksFilesVersionAuthorityAndRollsBackEvent (5.84s)
+    --- PASS: TestHumanDecisionRechecksFilesVersionAuthorityAndRollsBackEvent/stale_task (0.74s)
+    --- PASS: TestHumanDecisionRechecksFilesVersionAuthorityAndRollsBackEvent/revoked_commit (0.75s)
+    --- PASS: TestHumanDecisionRechecksFilesVersionAuthorityAndRollsBackEvent/event_failure (0.75s)
+    --- PASS: TestHumanDecisionRechecksFilesVersionAuthorityAndRollsBackEvent/changed_header (0.70s)
+    --- PASS: TestHumanDecisionRechecksFilesVersionAuthorityAndRollsBackEvent/late_header (0.75s)
+    --- PASS: TestHumanDecisionRechecksFilesVersionAuthorityAndRollsBackEvent/source_drift (0.72s)
+    --- PASS: TestHumanDecisionRechecksFilesVersionAuthorityAndRollsBackEvent/invalid_action (0.73s)
+    --- PASS: TestHumanDecisionRechecksFilesVersionAuthorityAndRollsBackEvent/empty_reason (0.70s)
+=== RUN   TestHumanConcurrentFreshConditionProducesOneDecision
+--- PASS: TestHumanConcurrentFreshConditionProducesOneDecision (0.78s)
+=== RUN   TestHumanMigrationElevenPreservesActualReceiptAndNoHumanDecisionInvented
+--- PASS: TestHumanMigrationElevenPreservesActualReceiptAndNoHumanDecisionInvented (0.73s)
+=== RUN   TestHumanMigrationFailureLeavesSchemaTenAndRetries
+--- PASS: TestHumanMigrationFailureLeavesSchemaTenAndRetries (0.80s)
+=== RUN   TestHumanMigrationChecksumDriftAndFutureTwelveRefused
+=== RUN   TestHumanMigrationChecksumDriftAndFutureTwelveRefused/checksum
+=== RUN   TestHumanMigrationChecksumDriftAndFutureTwelveRefused/future
+--- PASS: TestHumanMigrationChecksumDriftAndFutureTwelveRefused (0.21s)
+    --- PASS: TestHumanMigrationChecksumDriftAndFutureTwelveRefused/checksum (0.10s)
+    --- PASS: TestHumanMigrationChecksumDriftAndFutureTwelveRefused/future (0.10s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/store	12.175s

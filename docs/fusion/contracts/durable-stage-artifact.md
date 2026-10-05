@@ -1,6 +1,6 @@
 # 持久阶段产物与受控恢复 v1
 
-本合同补充 [阶段交接](stage-handoff.md)。Store schema10 为真实成功阶段保存不可变 `ArtifactRecord`；它是内部受保护数据，没有 HTTP importer、CLI JSON 授权开关或 UI 导入按钮。原 Magpie UI 与所有 CSS 保持原状，Jev off。
+本合同补充 [阶段交接](stage-handoff.md)。Store schema11 保留 schema10 引入的真实成功阶段不可变 `ArtifactRecord`；它是内部受保护数据，没有 HTTP importer、CLI JSON 授权开关或 UI 导入按钮。原 Magpie UI 与所有 CSS 保持原状，Jev off。
 
 ## 发布与可消费条件
 
@@ -22,7 +22,7 @@ witness v1 记录原来源、执行根、全部冻结祖先的 device/inode/mode
 
 ## Schema10、故障与回退
 
-`010.sql` 增加 `stage_artifacts`、写保护/插入核验 triggers 和 `migration_010_sha256`。升级在 transaction 内执行；失败无部分表/trigger/version，修复原因后重开可重试。旧任务、submission、workflow/design/approval 不重写。schema10 checksum 漂移及 future schema11 均拒绝打开；001–009 不改。
+`010.sql` 增加 `stage_artifacts`、写保护/插入核验 triggers 和 `migration_010_sha256`。升级在 transaction 内执行；失败无部分表/trigger/version，修复原因后重开可重试。旧任务、submission、workflow/design/approval 不重写。当前 schema11 保留001–010不改，新增[人工接受/退回表与迁移](human-acceptance.md)；任一 checksum 漂移与 future schema12 均拒绝打开。
 
 生产回退必须先停止派单，核验 owned 进程真正停止、reservation 与 receipt 状态，关闭宿主。升级前使用原已关闭实例的完整私有 stateRoot 备份；应连同原 executionRoot 保留，不能用重新复制的代码冒充原 inode。不要删除 stage_artifacts、更改 user_version 或覆盖 checksum 来让旧程序打开 schema10。旧版本不能读取新数据库；只有在明确接受备份后新增运行记录不会随旧备份保留的前提下，才能恢复升级前独立备份并使用旧二进制。当前组件不提供自动数据库 downgrade 或自动搬迁 artifact。
 
@@ -47,4 +47,4 @@ PATH="$HOME/.local/bin:$PATH" python3 scripts/fusion/build-dev.py
 
 固定 Native 测试经过实际 Claude Code、产品 HTTP、Controller 和 SQLite，在实际 Edit 后关闭 producer 宿主、重开数据库、从 receipt 恢复并独立复制修改代码；预算也从重开 Store 读取。模型、准入和 key 均为合成 fixtures，不调用真实模型/额度。缺少固定 Native 时明确 skip，不算通过。
 
-[本组件证据](../work-items/WP-20/DURABLE-ARTIFACT-01/summary.md)。[产品下一阶段 resolver](glm-stage-handoff.md)与 implementation/testing 实际写范围已接入。[实际 testing 直接验证与持久证据](verification-runner.md)已接入；[只读 review 与模型意见](review-assessment.md)已接入；[只读 acceptance 建议](acceptance-decision.md)已接入；受控子进程工具链、人工最终接受与有限返工仍需实现，WP-20 继续 in_progress。真实 Gate A、Native UI 和最终 T01–T60 未通过。
+[本组件证据](../work-items/WP-20/DURABLE-ARTIFACT-01/summary.md)。[产品下一阶段 resolver](glm-stage-handoff.md)与 implementation/testing 实际写范围已接入。[实际 testing 直接验证与持久证据](verification-runner.md)已接入；[只读 review 与模型意见](review-assessment.md)已接入；[只读 acceptance 建议](acceptance-decision.md)已接入；受控子进程工具链、人工决定 Store 已接入；Management API/Native UI 消费与有限返工仍需实现，WP-20 继续 in_progress。真实 Gate A、Native UI 和最终 T01–T60 未通过。

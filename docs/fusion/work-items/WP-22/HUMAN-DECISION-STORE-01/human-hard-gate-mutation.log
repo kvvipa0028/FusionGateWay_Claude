@@ -1,0 +1,8 @@
+=== RUN   TestHumanAcceptCannotOverrideModelUnknownOrCurrentStandard
+=== RUN   TestHumanAcceptCannotOverrideModelUnknownOrCurrentStandard/changed_standard
+    human_decision_test.go:105: human action bypassed hard/model gate
+--- FAIL: TestHumanAcceptCannotOverrideModelUnknownOrCurrentStandard (0.69s)
+    --- FAIL: TestHumanAcceptCannotOverrideModelUnknownOrCurrentStandard/changed_standard (0.69s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/store	1.278s
+FAIL

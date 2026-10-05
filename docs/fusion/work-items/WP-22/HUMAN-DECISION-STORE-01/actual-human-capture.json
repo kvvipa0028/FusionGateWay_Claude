@@ -1,0 +1,52 @@
+{
+  "decision": {
+    "version": 1,
+    "task_id": "task-7193476a08710c4828b29a3cc6e73a7e",
+    "plan_revision": 1,
+    "generation": 5,
+    "run_id": "run-670bcafbfb50a1a8d189b01487bb36d9",
+    "text_hash": "a8df9e71bad853accc04b080a6c2ddf773480161c3a06aa5693ce81fc85878cf",
+    "tree_hash": "c99b0b430b095cbfd285734fcd12d7cc0cc84f0e3732a856881fea108ac1151e",
+    "spec_hash": "0087711cd41f4c47e955abacaa4d169416b2a70219b44e1fe6ab4bedc673fa1d",
+    "design_hash": "c45e199469e4fb9d3ecce7b077c4b455e6346814610d4aa9250710674837a532",
+    "acceptance_hash": "ad55c0b6c1e329cc0546752641debfa7d998b180e16cbe7033d7943abe75e904",
+    "action": "accept",
+    "reason": "checked delivery",
+    "authority": "management",
+    "at": "2026-10-05T06:28:48.452218Z"
+  },
+  "report": {
+    "run_id": "run-670bcafbfb50a1a8d189b01487bb36d9",
+    "text_hash": "a8df9e71bad853accc04b080a6c2ddf773480161c3a06aa5693ce81fc85878cf",
+    "tree_hash": "c99b0b430b095cbfd285734fcd12d7cc0cc84f0e3732a856881fea108ac1151e",
+    "spec_hash": "0087711cd41f4c47e955abacaa4d169416b2a70219b44e1fe6ab4bedc673fa1d",
+    "design_hash": "c45e199469e4fb9d3ecce7b077c4b455e6346814610d4aa9250710674837a532",
+    "acceptance_hash": "ad55c0b6c1e329cc0546752641debfa7d998b180e16cbe7033d7943abe75e904",
+    "model": {
+      "version": 1,
+      "verdict": "accepted",
+      "criteria": [
+        {
+          "index": 0,
+          "status": "met",
+          "reason": "checked"
+        }
+      ]
+    },
+    "model_valid": true,
+    "hard": {
+      "status": "passed",
+      "reason": "",
+      "tests": 1,
+      "skipped": 0
+    }
+  },
+  "task": {
+    "id": "task-7193476a08710c4828b29a3cc6e73a7e",
+    "project_id": "fixture-project",
+    "goal": "fixture goal",
+    "state": "completed",
+    "plan_revision": 1,
+    "generation": 5
+  }
+}

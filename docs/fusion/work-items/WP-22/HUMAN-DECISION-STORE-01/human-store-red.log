@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/store [github.com/yetone/magpie/internal/fusion/store.test]
+internal/fusion/store/human_decision_test.go:34:17: s.DecideHumanAcceptance undefined (type *Store has no field or method DecideHumanAcceptance)
+internal/fusion/store/human_decision_test.go:34:57: undefined: FinalEvidence
+internal/fusion/store/human_decision_test.go:37:19: s.PrepareFinalEvidence undefined (type *Store has no field or method PrepareFinalEvidence)
+internal/fusion/store/human_decision_test.go:44:21: s.DecideHumanAcceptance undefined (type *Store has no field or method DecideHumanAcceptance)
+internal/fusion/store/human_decision_test.go:54:5: invalid operation: run != beforeRun (struct containing stageplan.ExecutionTarget cannot be compared)
+internal/fusion/store/human_decision_test.go:59:18: s.DecideHumanAcceptance undefined (type *Store has no field or method DecideHumanAcceptance)
+internal/fusion/store/human_decision_test.go:67:17: s.DecideHumanAcceptance undefined (type *Store has no field or method DecideHumanAcceptance)
+internal/fusion/store/human_decision_test.go:78:16: s.HumanDecision undefined (type *Store has no field or method HumanDecision)
+internal/fusion/store/human_decision_test.go:82:17: s.DecideHumanAcceptance undefined (type *Store has no field or method DecideHumanAcceptance)
+internal/fusion/store/human_decision_test.go:98:21: s.PrepareFinalEvidence undefined (type *Store has no field or method PrepareFinalEvidence)
+internal/fusion/store/human_decision_test.go:98:21: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/store [build failed]
+FAIL

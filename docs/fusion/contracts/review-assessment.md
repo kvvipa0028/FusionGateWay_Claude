@@ -20,8 +20,8 @@ ReviewedArtifact 只读取 exact released review receipt，独立恢复 review �
 
 ## 兼容、失败和边界
 
-schema10 SQL001–010 不变，Review 是 omitempty 可选字段；旧 receipt canonical bytes 保持。旧二进制不能读取新 reviewed canonical receipt，回退必须先停止派单、确认所有 owned 进程真正停止，再恢复同一检查点的数据库与 artifact/ExecutionRoot 备份。不得删除 Review 伪装兼容或自动重放任务。
+Review 接线基于 schema10，当前[人工决定](human-acceptance.md)新增 schema11 而 SQL001–010 不变；Review 是 omitempty 可选字段；旧 receipt canonical bytes 保持。旧二进制不能读取新 reviewed canonical receipt，回退必须先停止派单、确认所有 owned 进程真正停止，再恢复同一检查点的数据库与 artifact/ExecutionRoot 备份。不得删除 Review 伪装兼容或自动重放任务。
 
-最多一次自动返工、阶段首次+一次补救限制、项目强制独立性冲突策略及最终人工接受记录仍必须实现；当前模型 acceptance 只给建议，不自动返工或 merge/deploy/flash。需要子进程的工具链、真实账号/项目与最终 T01–T60 仍未验证。不能把本次真实工具配合合成上游的成功当作真实供应商准入。
+最多一次自动返工、阶段首次+一次补救限制、项目强制独立性冲突策略及最终人工接受的 API/Native UI 消费仍必须实现（Store 记录已接入）；当前模型 acceptance 只给建议，不自动返工或 merge/deploy/flash。需要子进程的工具链、真实账号/项目与最终 T01–T60 仍未验证。不能把本次真实工具配合合成上游的成功当作真实供应商准入。
 
 [组件验证和复现](../work-items/WP-22/REVIEW-ASSESSMENT-01/summary.md)。

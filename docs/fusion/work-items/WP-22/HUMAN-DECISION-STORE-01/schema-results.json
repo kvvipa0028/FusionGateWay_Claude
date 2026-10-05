@@ -1,0 +1,7 @@
+{
+  "historical_human_receipt_shape": "pass",
+  "hard_model_and_explicit_action_separate": "pass",
+  "exact_report_identity": "pass",
+  "negative_documents": 9,
+  "schema_does_not_mint_final_evidence_or_prove_human_ui_action": true
+}

@@ -22,10 +22,10 @@ acceptance 使用新的 Native session、任务累计预算，不取得 writer s
 
 AcceptanceArtifact 仅消费 exact released receipt，独立恢复 acceptance/review/testing 真实包，并按当前 Spec 再评估硬证据；标准或代码变化返回 superseded。实际硬结果与模型意见分别返回，宿主重启后仍保持这一边界。
 
-SQLite schema10 未改，旧 receipt 的 canonical JSON 保持兼容。新增字段不保证旧 binary 能读取新 receipt；回滚必须停派单并对账，恢复匹配的数据库和 artifact 备份，不能只换 binary。
+本模型组件基于 SQLite schema10，当前[人工决定组件](human-acceptance.md)升级 schema11 并保持001–010与旧 receipt canonical JSON 不变。新增字段不保证旧 binary 能读取新 receipt；回滚必须停派单并对账，恢复匹配的数据库和 artifact 备份，不能只换 binary。
 
 ## 证据与未完成项
 
 [组件证据](../work-items/WP-22/ACCEPTANCE-DECISION-01/summary.md)区分：固定实际 Claude Code 2.1.287 + 合成上游/key/准入的五阶段链；实际直接验证器 + 合成 Native bookkeeping 的 Store fixture；离线 JSON schema 仅验证结构/hash。它们均不代表真实供应商或最终人工接受。
 
-人工最终 accept/return API、持久人工决定、Magpie 原界面状态消费、最多一次自动返工及阶段首次+一次补救、项目强制独立性冲突策略、子进程工具链、真实账号/项目和 T01–T60 仍必须完成。当前不自动返工，不改写锁定模型，不缩减工作包。
+[持久人工决定 Store](human-acceptance.md)已接入；人工最终 accept/return API、Magpie 原界面状态消费、最多一次自动返工及阶段首次+一次补救、项目强制独立性冲突策略、子进程工具链、真实账号/项目和 T01–T60 仍必须完成。当前不自动返工，不改写锁定模型，不缩减工作包。

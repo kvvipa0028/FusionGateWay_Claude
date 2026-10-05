@@ -1,0 +1,127 @@
+{
+  "component": "WP-22-HUMAN-DECISION-STORE-01",
+  "base": "875771c073fb0ee9289778444e31ebe7498b6cc6",
+  "go_version": "1.26.3",
+  "fusion_final": {
+    "pass_top": 700,
+    "pass_sub": 1265,
+    "skip_top": 33,
+    "skip_sub": 11,
+    "fail_top": 0,
+    "fail_sub": 0,
+    "packages": 19
+  },
+  "native_final": {
+    "pass_top": 10,
+    "pass_sub": 54,
+    "skip_top": 0,
+    "skip_sub": 0,
+    "fail_top": 0,
+    "fail_sub": 0,
+    "packages": 1
+  },
+  "store_final": {
+    "pass_top": 7,
+    "pass_sub": 12,
+    "skip_top": 0,
+    "skip_sub": 0,
+    "fail_top": 0,
+    "fail_sub": 0,
+    "packages": 1
+  },
+  "log_archives": {
+    "human-store-red.log": {
+      "raw_log": ".fusion-dev/implementation/human-store-red.log",
+      "raw_sha256": "2b4d8dd7df529fce836292f1df72ef5c08217f47c453fe73b5e6997ba9e6ab50",
+      "archive_sha256": "2b4d8dd7df529fce836292f1df72ef5c08217f47c453fe73b5e6997ba9e6ab50"
+    },
+    "human-store-red-corrected.log": {
+      "raw_log": ".fusion-dev/implementation/human-store-red-corrected.log",
+      "raw_sha256": "7fe73af081773afc01a0b636a52137c2e8d387c9c34ef2c33a908a9d47474d51",
+      "archive_sha256": "7fe73af081773afc01a0b636a52137c2e8d387c9c34ef2c33a908a9d47474d51"
+    },
+    "human-store-first.log": {
+      "raw_log": ".fusion-dev/implementation/human-store-first.log",
+      "raw_sha256": "61298dec9e4f6c04713c644789f6d9cbaf70d5726b6914e8c1d97ee43bb48f7b",
+      "archive_sha256": "61298dec9e4f6c04713c644789f6d9cbaf70d5726b6914e8c1d97ee43bb48f7b"
+    },
+    "human-store-expanded.log": {
+      "raw_log": ".fusion-dev/implementation/human-store-expanded.log",
+      "raw_sha256": "3b02a5fa0fde6dc82c02fd79b4ee11614d712b596db7f8db15ce615af968b735",
+      "archive_sha256": "3b02a5fa0fde6dc82c02fd79b4ee11614d712b596db7f8db15ce615af968b735"
+    },
+    "human-native-first.log": {
+      "raw_log": ".fusion-dev/implementation/human-native-first.log",
+      "raw_sha256": "27c83b2f4f77b96f21314facb2da78a49a7dea7b965d500c02f3d968150a65e4",
+      "archive_sha256": "27c83b2f4f77b96f21314facb2da78a49a7dea7b965d500c02f3d968150a65e4"
+    },
+    "human-native-first-green.log": {
+      "raw_log": ".fusion-dev/implementation/human-native-first-green.log",
+      "raw_sha256": "4d66ad256a4113196652bc2e08e68413eda21a3a066e9c1cd5373546bb908163",
+      "archive_sha256": "4d66ad256a4113196652bc2e08e68413eda21a3a066e9c1cd5373546bb908163"
+    },
+    "human-hard-gate-mutation.log": {
+      "raw_log": ".fusion-dev/implementation/human-hard-gate-mutation.log",
+      "raw_sha256": "d35a3c97b5e02db47bd851a53dd9738c756d9bbb54038542d44bfe400362df30",
+      "archive_sha256": "d35a3c97b5e02db47bd851a53dd9738c756d9bbb54038542d44bfe400362df30"
+    },
+    "human-store-final.log": {
+      "raw_log": ".fusion-dev/implementation/human-store-final.log",
+      "raw_sha256": "978a4cb0ceab60f9c20188910a2bbb8570bef48b3c706498785e42af195fb8a1",
+      "archive_sha256": "978a4cb0ceab60f9c20188910a2bbb8570bef48b3c706498785e42af195fb8a1"
+    },
+    "human-native-final.log": {
+      "raw_log": ".fusion-dev/implementation/human-native-final.log",
+      "raw_sha256": "7949ce4c1ac03cf003566adbf467421704499ecee1ea44ed7c90c3a4d6066fb3",
+      "archive_sha256": "7949ce4c1ac03cf003566adbf467421704499ecee1ea44ed7c90c3a4d6066fb3"
+    },
+    "human-fusion-final.log": {
+      "raw_log": ".fusion-dev/implementation/human-fusion-final.log",
+      "raw_sha256": "77014261478a907f1d915e2cf2e12f8ee70c5be87cbdb68193b7cc96a7cf687e",
+      "archive_sha256": "77014261478a907f1d915e2cf2e12f8ee70c5be87cbdb68193b7cc96a7cf687e"
+    },
+    "human-vet-final.log": {
+      "raw_log": ".fusion-dev/implementation/human-vet-final.log",
+      "raw_sha256": "46cfc362111752d008709295abb00866f19f3f5e7800ea873a00d8b491d52a97",
+      "archive_sha256": "46cfc362111752d008709295abb00866f19f3f5e7800ea873a00d8b491d52a97"
+    },
+    "build-cli.log": {
+      "raw_log": ".fusion-dev/build-dev/cli.log",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "archive_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "build-gui.log": {
+      "raw_log": ".fusion-dev/build-dev/gui.log",
+      "raw_sha256": "c1a212943c62b8da81610248a79dcdb893295f01afc6a03c968e105a0aa18ca8",
+      "archive_sha256": "c1a212943c62b8da81610248a79dcdb893295f01afc6a03c968e105a0aa18ca8"
+    },
+    "build-vet.log": {
+      "raw_log": ".fusion-dev/build-dev/vet.log",
+      "raw_sha256": "212e160a1e7e53d3f1231eb4c2b5a45927caeefbe5d0b224693976b96a860c1f",
+      "archive_sha256": "212e160a1e7e53d3f1231eb4c2b5a45927caeefbe5d0b224693976b96a860c1f"
+    }
+  },
+  "effective_mutation": "Removing owned current hard passed condition allowed explicit accept after current Spec changed; test FAIL, production bytes restored exactly, final full Fusion and Native green.",
+  "mutation_exact_source_restored": true,
+  "initial_failures": [
+    "Missing FinalEvidence/Store APIs compile RED; initial noncomparable StageRun comparison corrected to reflect.DeepEqual without weakening assertions.",
+    "Native test initial missing reflect import compile failure fixed.",
+    "Full vet initial found two unkeyed external TaskVersion literals in new Native tests; named fields are semantic equivalent; isolated full vet exit0 after fix. Passing unchanged CLI/GUI build retained, full Native/Fusion not unnecessarily rerun for literal style only.",
+    "Offline bad_date schema case initially passed: optional RFC3339 format dependency missing. Added explicit stdlib UTC checker, nine actual negatives now pass."
+  ],
+  "scope": {
+    "human_store": "owned_current_evidence_explicit_action_immutable_receipt",
+    "operator_product_api_and_native_ui": "not_implemented",
+    "actual_native_fixture": "pinned actual Claude Code 2.1.287 with synthetic upstream/key/admission, explicit Store action supplied by test",
+    "store_fixture": "actual direct verifier with synthetic Native bookkeeping/action",
+    "schema": 11,
+    "old_migrations_001_to_010": "unchanged",
+    "ui_changes": 0,
+    "jev": "off",
+    "real_supplier_calls": 0,
+    "bounded_rework_and_independence": "not_implemented",
+    "child_toolchain_backend": "not_implemented",
+    "WP22": "in_progress",
+    "final_T01_T60": "not_run"
+  }
+}

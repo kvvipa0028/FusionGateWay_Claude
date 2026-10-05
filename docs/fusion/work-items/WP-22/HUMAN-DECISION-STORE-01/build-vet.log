@@ -1,0 +1,2 @@
+internal/fusion/bootstrap/glm_handoff_native_test.go:532:61: github.com/yetone/magpie/internal/fusion/store.TaskVersion struct literal uses unkeyed fields
+internal/fusion/bootstrap/glm_handoff_native_test.go:571:60: github.com/yetone/magpie/internal/fusion/store.TaskVersion struct literal uses unkeyed fields
