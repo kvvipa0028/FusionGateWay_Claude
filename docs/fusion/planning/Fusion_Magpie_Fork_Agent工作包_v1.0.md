@@ -510,7 +510,9 @@
 
 ### WP-17 · 三条路线的真实受控 Smoke Test
 
-**阶段：**M2　**负责人角色：**验证 Agent + 用户　**状态：**planned
+**阶段：**M2　**负责人角色：**验证 Agent + 用户　**状态：**in_progress
+
+**当前证据：**[WP-17/summary.md](../work-items/WP-17/summary.md)。仅完成三条固定 Runtime 的真实发布者/文件核验；账号、费用、额度准入及完整工程 Smoke 尚未完成。
 
 **输入/前置：**WP-07, WP-09, WP-10, WP-12, WP-13, WP-14, WP-15, WP-16。同时读取这些前置包的合同、测试日志、阻断项与当前仓库 HEAD。
 

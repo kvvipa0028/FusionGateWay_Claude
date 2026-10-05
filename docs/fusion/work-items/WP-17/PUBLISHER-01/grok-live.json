@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "component": "WP-17-PUBLISHER-01",
+  "observation_only": true,
+  "registry_admission_granted": false,
+  "runtimes": [
+    {
+      "runtime": "grok",
+      "version": "1.0.48",
+      "platform": "darwin-arm64",
+      "executable_sha256": "1ed292eb62206b1a2ec3d17dc69c9c8406a07f5ff414305f953baee5b72a4a05",
+      "identifier": "xai-grok-pager",
+      "team_identifier": "5Y6N3AJ54S",
+      "publisher_verified": true,
+      "apple_developer_id_requirement_verified": true,
+      "official_release_bytes_verified": true,
+      "manifest_signing_fingerprint": null,
+      "observed_at": "2026-10-05T12:43:01.562000+00:00",
+      "public_sources": [
+        {
+          "source": "https://x.ai/cli/grok-1.0.48-macos-aarch64.gz",
+          "final_host": "x.ai",
+          "bytes": 64340124,
+          "sha256": "4e68289afba45fb87e2d946419e5710e9928ab94423c273b3984ecd96c8846a9"
+        }
+      ],
+      "authentication_inspected": false,
+      "generation_admitted": false,
+      "billing_verified": false,
+      "quota_verified": false,
+      "real_model_calls": 0,
+      "temporary_files_removed": true
+    }
+  ]
+}

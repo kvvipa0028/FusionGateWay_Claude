@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "component": "WP-17-PUBLISHER-01",
+  "observation_only": true,
+  "registry_admission_granted": false,
+  "runtimes": [
+    {
+      "runtime": "claude",
+      "version": "2.1.287",
+      "platform": "darwin-arm64",
+      "executable_sha256": "6eab8333fe2121553100d8f40bfada384a3e989b94f947e18ba6677a6fcb41ea",
+      "identifier": "com.anthropic.claude-code",
+      "team_identifier": "Q6L2SF6YDW",
+      "publisher_verified": true,
+      "apple_developer_id_requirement_verified": true,
+      "official_release_bytes_verified": true,
+      "manifest_signing_fingerprint": "31DDDE24DDFAB679F42D7BD2BAA929FF1A7ECACE",
+      "observed_at": "2026-10-05T12:42:28.047156+00:00",
+      "public_sources": [
+        {
+          "source": "https://downloads.claude.ai/claude-code-releases/2.1.287/manifest.json",
+          "final_host": "downloads.claude.ai",
+          "bytes": 2144,
+          "sha256": "7654db465063ffed4718ac52ad9eaaba489511bb326abdbbbc2203e44b8e61fe"
+        },
+        {
+          "source": "https://downloads.claude.ai/claude-code-releases/2.1.287/manifest.json.sig",
+          "final_host": "downloads.claude.ai",
+          "bytes": 833,
+          "sha256": "5de6c29a8932c6c017ba5d8822521910d0672875c04a21046f29ffa439525904"
+        },
+        {
+          "source": "https://downloads.claude.ai/keys/claude-code.asc",
+          "final_host": "downloads.claude.ai",
+          "bytes": 1688,
+          "sha256": "bd70a5e4a268002704024ceba7f8446024114e94f3f0bdd11c23a9e592be81c6"
+        }
+      ],
+      "authentication_inspected": false,
+      "generation_admitted": false,
+      "billing_verified": false,
+      "quota_verified": false,
+      "real_model_calls": 0,
+      "temporary_files_removed": true
+    }
+  ]
+}

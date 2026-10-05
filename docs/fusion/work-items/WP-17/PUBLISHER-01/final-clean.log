@@ -1,0 +1,20 @@
+test_archive_hash_is_real_single_regular_binary_without_extraction (test_runtime_publishers.PublisherTests) ... ok
+test_claude_manifest_requires_exact_version_size_and_checksum (test_runtime_publishers.PublisherTests) ... ok
+test_codex_release_requires_exact_owned_asset_and_digest (test_runtime_publishers.PublisherTests) ... ok
+test_existing_report_refused_before_any_verification (test_runtime_publishers.PublisherTests) ... ok
+test_expired_fetch_never_opens_network (test_runtime_publishers.PublisherTests) ... ok
+test_fetch_requires_complete_bounded_bytes_and_has_no_retry (test_runtime_publishers.PublisherTests) ... ok
+test_grok_compressed_bytes_must_match_whole_local_binary (test_runtime_publishers.PublisherTests) ... ok
+test_literal_apple_requirement_rejects_other_publishers (test_runtime_publishers.PublisherTests) ... ok
+test_local_tamper_symlink_or_non_executable_rejected (test_runtime_publishers.PublisherTests) ... ok
+test_pins_have_no_account_or_network_override (test_runtime_publishers.PublisherTests) ... ok
+test_real_apple_verifier_accepts_pinned_vendor_and_refuses_wrong_team (test_runtime_publishers.PublisherTests) ... ok
+test_real_official_manifest_signature_rejects_changed_content_and_key (test_runtime_publishers.PublisherTests) ... ok
+test_redirect_authority_has_no_http_foreign_bucket_or_credentials (test_runtime_publishers.PublisherTests) ... ok
+test_redirect_handler_blocks_foreign_destination_before_request (test_runtime_publishers.PublisherTests) ... ok
+test_replaced_file_during_public_download_cannot_emit_success (test_runtime_publishers.PublisherTests) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.310s
+
+OK

@@ -24,7 +24,7 @@
 4. [验收矩阵](planning/Fusion_Magpie_Fork_验收矩阵_v1.0.md)：T01–T60；当前均为 `not_run`。
 5. [源码与工具链锁](upstream-lock.json)、[基线报告](baseline/baseline-report.md)：本轮实际准备与验证证据。
 
-`planning/implementation_tasks.json` 和 `planning/acceptance_tests.json` 由本地三份 Markdown 提取，已核对编号、引用及依赖无环；它们不是原 ZIP 的恢复副本。WP-01–WP-11 为 `done`，WP-12–WP-16、WP-19–WP-22 为 `in_progress`，其余包为 `planned`；最终验收仍为 `not_run`。
+`planning/implementation_tasks.json` 和 `planning/acceptance_tests.json` 由本地三份 Markdown 提取，已核对编号、引用及依赖无环；它们不是原 ZIP 的恢复副本。WP-01–WP-11 为 `done`，WP-12–WP-17、WP-19–WP-22 为 `in_progress`，其余包为 `planned`；最终验收仍为 `not_run`。
 
 ## 源码与 Git
 
@@ -77,6 +77,8 @@ WP-04 role merge/freeze contract completed: [evidence](work-items/WP-04/summary.
 [WP-06 evidence](work-items/WP-06/summary.md), [stage credential contract](contracts/stage-credential-contract.md), [ingress auth map](contracts/ingress-auth-map.md).
 
 WP-08 official native candidate inventory: [account routes](integration/account-route-matrix.md), [capabilities](integration/capability-matrix.json), [live checklist](integration/live-probe-checklist.md). All real generation/quota routes remain unverified.
+
+WP-17 已完成三条固定 Runtime 的真实[发布者/官方文件核验](integration/runtime-publisher-verification.md)，无登录、安装或模型调用；[真实接入矩阵](integration/live-matrix.md)仍保留账号、费用、额度准入及完整工程 Smoke 缺口，Gate A 未完成。
 
 WP-09 quota normalization and bounded broker completed with synthetic inputs: [contract](contracts/quota-adapters.md), [schema](contracts/quota-snapshot.schema.json), [fixtures](integration/quota-fixtures.json). No real quota query admitted yet.
 

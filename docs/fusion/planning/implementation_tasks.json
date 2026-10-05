@@ -399,7 +399,7 @@
       "id": "WP-17",
       "title": "三条路线的真实受控 Smoke Test",
       "milestone": "M2",
-      "status": "planned",
+      "status": "in_progress",
       "depends_on": [
         "WP-07",
         "WP-09",

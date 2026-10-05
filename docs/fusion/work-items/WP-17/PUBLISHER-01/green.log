@@ -1,0 +1,25 @@
+test_archive_hash_is_real_single_regular_binary_without_extraction (test_runtime_publishers.PublisherTests) ... ok
+test_claude_manifest_requires_exact_version_size_and_checksum (test_runtime_publishers.PublisherTests) ... ok
+test_codex_release_requires_exact_owned_asset_and_digest (test_runtime_publishers.PublisherTests) ... ok
+test_existing_report_refused_before_any_verification (test_runtime_publishers.PublisherTests) ... ok
+test_grok_compressed_bytes_must_match_whole_local_binary (test_runtime_publishers.PublisherTests) ... ok
+test_literal_apple_requirement_rejects_other_publishers (test_runtime_publishers.PublisherTests) ... ok
+test_local_tamper_symlink_or_non_executable_rejected (test_runtime_publishers.PublisherTests) ... ERROR
+test_pins_have_no_account_or_network_override (test_runtime_publishers.PublisherTests) ... ok
+test_redirect_authority_has_no_http_foreign_bucket_or_credentials (test_runtime_publishers.PublisherTests) ... ok
+
+======================================================================
+ERROR: test_local_tamper_symlink_or_non_executable_rejected (test_runtime_publishers.PublisherTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/scripts/fusion/tests/test_runtime_publishers.py", line 54, in test_local_tamper_symlink_or_non_executable_rejected
+    original = probe.local_identity(p, pin)
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/scripts/fusion/verify-runtime-publishers.py", line 63, in local_identity
+    raise ValueError("canonical executable required")
+ValueError: canonical executable required
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.004s
+
+FAILED (errors=1)
+publisher proof unconfirmed; no automatic retry or admission

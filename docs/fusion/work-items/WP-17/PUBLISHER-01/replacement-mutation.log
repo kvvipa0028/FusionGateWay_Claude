@@ -1,0 +1,14 @@
+test_replaced_file_during_public_download_cannot_emit_success (publisher_test_mutation.PublisherTests) ... FAIL
+
+======================================================================
+FAIL: test_replaced_file_during_public_download_cannot_emit_success (publisher_test_mutation.PublisherTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "scripts/fusion/tests/test_runtime_publishers.py", line 204, in test_replaced_file_during_public_download_cannot_emit_success
+    with self.assertRaises(ValueError): probe.verify_runtime("grok")
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.005s
+
+FAILED (failures=1)

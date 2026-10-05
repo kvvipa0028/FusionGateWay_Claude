@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "component": "WP-17-PUBLISHER-01",
+  "observation_only": true,
+  "registry_admission_granted": false,
+  "runtimes": [
+    {
+      "runtime": "codex",
+      "version": "0.160.0",
+      "platform": "darwin-arm64",
+      "executable_sha256": "112fae7a5a1223e673c8a1791d32338f37df8b527ff1159bb8adac6c4dbf1b4b",
+      "identifier": "codex",
+      "team_identifier": "2DC432GLL2",
+      "publisher_verified": true,
+      "apple_developer_id_requirement_verified": true,
+      "official_release_bytes_verified": true,
+      "manifest_signing_fingerprint": null,
+      "observed_at": "2026-10-05T12:43:08.206132+00:00",
+      "public_sources": [
+        {
+          "source": "https://api.github.com/repos/openai/codex/releases/tags/rust-v0.160.0",
+          "final_host": "api.github.com",
+          "bytes": 305938,
+          "sha256": "50996d679b53da528d6d1c121945d973fa9cb593b8a6ea441e2284ec9d78e0da"
+        },
+        {
+          "source": "https://github.com/openai/codex/releases/download/rust-v0.160.0/codex-aarch64-apple-darwin.tar.gz",
+          "final_host": "release-assets.githubusercontent.com",
+          "bytes": 95893648,
+          "sha256": "07c3c7ca376a8f791115342f53138dda37e97cfa29b8125d0652d93784894b5d"
+        }
+      ],
+      "authentication_inspected": false,
+      "generation_admitted": false,
+      "billing_verified": false,
+      "quota_verified": false,
+      "real_model_calls": 0,
+      "temporary_files_removed": true
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "component": "WP-17-PUBLISHER-01",
+  "base": "f9d9054ac35512e5ba51d171f4be4cbfd2814127",
+  "owned_files": [
+    "AGENTS.md",
+    "docs/fusion/README.md",
+    "docs/fusion/integration/account-route-matrix.md",
+    "docs/fusion/integration/live-matrix.md",
+    "docs/fusion/integration/runtime-publisher-verification.md",
+    "docs/fusion/planning/Fusion_Magpie_Fork_Agent工作包_v1.0.md",
+    "docs/fusion/planning/implementation_tasks.json",
+    "docs/fusion/work-items/WP-17/PUBLISHER-01/claude-live.json",
+    "docs/fusion/work-items/WP-17/PUBLISHER-01/codex-live.json",
+    "docs/fusion/work-items/WP-17/PUBLISHER-01/expanded.log",
+    "docs/fusion/work-items/WP-17/PUBLISHER-01/final-clean.log",
+    "docs/fusion/work-items/WP-17/PUBLISHER-01/green-canonical.log",
+    "docs/fusion/work-items/WP-17/PUBLISHER-01/green.log",
+    "docs/fusion/work-items/WP-17/PUBLISHER-01/grok-live.json",
+    "docs/fusion/work-items/WP-17/PUBLISHER-01/red.log",
+    "docs/fusion/work-items/WP-17/PUBLISHER-01/replacement-mutation.log",
+    "docs/fusion/work-items/WP-17/PUBLISHER-01/summary.md",
+    "docs/fusion/work-items/WP-17/PUBLISHER-01/test-results.json",
+    "docs/fusion/work-items/WP-17/summary.md",
+    "scripts/fusion/tests/fixtures/claude-2.1.287/key.asc",
+    "scripts/fusion/tests/fixtures/claude-2.1.287/manifest.json",
+    "scripts/fusion/tests/fixtures/claude-2.1.287/manifest.json.sig",
+    "scripts/fusion/tests/test_runtime_publishers.py",
+    "scripts/fusion/verify-runtime-publishers.py",
+    "docs/fusion/work-items/WP-17/PUBLISHER-01/scope-check.json",
+    "docs/fusion/work-items/WP-17/PUBLISHER-01/artifacts.json"
+  ],
+  "ui_and_go_source_changed": false,
+  "primary_untracked_preserved": [
+    ".DS_Store",
+    "docs/.DS_Store"
+  ],
+  "private_key_bytes_excluded": true,
+  "local_links_checked": 150,
+  "graph_nodes": 36112,
+  "graph_edges": 199861,
+  "final_acceptance_status": {
+    "not_run": 60
+  },
+  "work_package_status": {
+    "done": 11,
+    "in_progress": 10,
+    "planned": 9
+  }
+}

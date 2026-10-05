@@ -1,0 +1,86 @@
+test_archive_hash_is_real_single_regular_binary_without_extraction (test_runtime_publishers.PublisherTests) ... FAIL
+test_claude_manifest_requires_exact_version_size_and_checksum (test_runtime_publishers.PublisherTests) ... FAIL
+test_codex_release_requires_exact_owned_asset_and_digest (test_runtime_publishers.PublisherTests) ... FAIL
+test_existing_report_refused_before_any_verification (test_runtime_publishers.PublisherTests) ... FAIL
+test_grok_compressed_bytes_must_match_whole_local_binary (test_runtime_publishers.PublisherTests) ... FAIL
+test_literal_apple_requirement_rejects_other_publishers (test_runtime_publishers.PublisherTests) ... FAIL
+test_local_tamper_symlink_or_non_executable_rejected (test_runtime_publishers.PublisherTests) ... FAIL
+test_pins_have_no_account_or_network_override (test_runtime_publishers.PublisherTests) ... FAIL
+test_redirect_authority_has_no_http_foreign_bucket_or_credentials (test_runtime_publishers.PublisherTests) ... FAIL
+
+======================================================================
+FAIL: test_archive_hash_is_real_single_regular_binary_without_extraction (test_runtime_publishers.PublisherTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/scripts/fusion/tests/test_runtime_publishers.py", line 26, in setUp
+    self.assertIsNotNone(probe, "explicit fixed-version publisher verifier missing")
+AssertionError: unexpectedly None : explicit fixed-version publisher verifier missing
+
+======================================================================
+FAIL: test_claude_manifest_requires_exact_version_size_and_checksum (test_runtime_publishers.PublisherTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/scripts/fusion/tests/test_runtime_publishers.py", line 26, in setUp
+    self.assertIsNotNone(probe, "explicit fixed-version publisher verifier missing")
+AssertionError: unexpectedly None : explicit fixed-version publisher verifier missing
+
+======================================================================
+FAIL: test_codex_release_requires_exact_owned_asset_and_digest (test_runtime_publishers.PublisherTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/scripts/fusion/tests/test_runtime_publishers.py", line 26, in setUp
+    self.assertIsNotNone(probe, "explicit fixed-version publisher verifier missing")
+AssertionError: unexpectedly None : explicit fixed-version publisher verifier missing
+
+======================================================================
+FAIL: test_existing_report_refused_before_any_verification (test_runtime_publishers.PublisherTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/scripts/fusion/tests/test_runtime_publishers.py", line 26, in setUp
+    self.assertIsNotNone(probe, "explicit fixed-version publisher verifier missing")
+AssertionError: unexpectedly None : explicit fixed-version publisher verifier missing
+
+======================================================================
+FAIL: test_grok_compressed_bytes_must_match_whole_local_binary (test_runtime_publishers.PublisherTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/scripts/fusion/tests/test_runtime_publishers.py", line 26, in setUp
+    self.assertIsNotNone(probe, "explicit fixed-version publisher verifier missing")
+AssertionError: unexpectedly None : explicit fixed-version publisher verifier missing
+
+======================================================================
+FAIL: test_literal_apple_requirement_rejects_other_publishers (test_runtime_publishers.PublisherTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/scripts/fusion/tests/test_runtime_publishers.py", line 26, in setUp
+    self.assertIsNotNone(probe, "explicit fixed-version publisher verifier missing")
+AssertionError: unexpectedly None : explicit fixed-version publisher verifier missing
+
+======================================================================
+FAIL: test_local_tamper_symlink_or_non_executable_rejected (test_runtime_publishers.PublisherTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/scripts/fusion/tests/test_runtime_publishers.py", line 26, in setUp
+    self.assertIsNotNone(probe, "explicit fixed-version publisher verifier missing")
+AssertionError: unexpectedly None : explicit fixed-version publisher verifier missing
+
+======================================================================
+FAIL: test_pins_have_no_account_or_network_override (test_runtime_publishers.PublisherTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/scripts/fusion/tests/test_runtime_publishers.py", line 26, in setUp
+    self.assertIsNotNone(probe, "explicit fixed-version publisher verifier missing")
+AssertionError: unexpectedly None : explicit fixed-version publisher verifier missing
+
+======================================================================
+FAIL: test_redirect_authority_has_no_http_foreign_bucket_or_credentials (test_runtime_publishers.PublisherTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/scripts/fusion/tests/test_runtime_publishers.py", line 26, in setUp
+    self.assertIsNotNone(probe, "explicit fixed-version publisher verifier missing")
+AssertionError: unexpectedly None : explicit fixed-version publisher verifier missing
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.001s
+
+FAILED (failures=9)

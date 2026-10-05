@@ -1,0 +1,17 @@
+{
+  "component": "WP-17-PUBLISHER-01",
+  "unit_command": "python3 -m unittest discover -s scripts/fusion/tests -v",
+  "unit_exit_code": 0,
+  "unit_tests_passed": 15,
+  "unit_tests_failed": 0,
+  "unit_tests_skipped": 0,
+  "real_publisher_verifications": 3,
+  "real_model_calls": 0,
+  "installed_runtime_changed": false,
+  "go_or_ui_changed": false,
+  "whole_smoke_complete": false,
+  "effective_final_identity_mutation": "one expected assertion failure",
+  "initial_red": "9 expected missing verifier failures",
+  "first_green_issue": "macOS temporary /var path needed canonical /private/var fixture; production guard retained",
+  "original_signature_probe_issue": "codesign -R literal requires leading equals; corrected before production verifier"
+}
