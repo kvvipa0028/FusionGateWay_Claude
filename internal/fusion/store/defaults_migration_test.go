@@ -63,7 +63,7 @@ func TestDefaultsMigrationFivePreservesPresetReferencesAndRejectsChecksumDrift(t
 	defer s.Close()
 	var version int
 	s.db.QueryRow("PRAGMA user_version").Scan(&version)
-	if version != 9 {
+	if version != 10 {
 		t.Fatal("current schema missing")
 	}
 	task, e := s.CreateCurrent("fixture-schema4-key", in, DefaultStamp{})

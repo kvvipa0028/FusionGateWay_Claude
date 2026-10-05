@@ -1,0 +1,46 @@
+=== RUN   TestArtifactMigrationTenPreservesLegacyAndRejectsDrift
+--- PASS: TestArtifactMigrationTenPreservesLegacyAndRejectsDrift (0.16s)
+=== RUN   TestArtifactMigrationFailureRollsBackAndRetries
+--- PASS: TestArtifactMigrationFailureRollsBackAndRetries (0.19s)
+=== RUN   TestArtifactWorkflowRequiresExactReleasedParentAndInheritedCode
+=== RUN   TestArtifactWorkflowRequiresExactReleasedParentAndInheritedCode/missing_parent
+=== RUN   TestArtifactWorkflowRequiresExactReleasedParentAndInheritedCode/wrong_parent
+=== RUN   TestArtifactWorkflowRequiresExactReleasedParentAndInheritedCode/wrong_input
+=== RUN   TestArtifactWorkflowRequiresExactReleasedParentAndInheritedCode/fresh_original_copy
+--- PASS: TestArtifactWorkflowRequiresExactReleasedParentAndInheritedCode (0.29s)
+    --- PASS: TestArtifactWorkflowRequiresExactReleasedParentAndInheritedCode/missing_parent (0.01s)
+    --- PASS: TestArtifactWorkflowRequiresExactReleasedParentAndInheritedCode/wrong_parent (0.01s)
+    --- PASS: TestArtifactWorkflowRequiresExactReleasedParentAndInheritedCode/wrong_input (0.01s)
+    --- PASS: TestArtifactWorkflowRequiresExactReleasedParentAndInheritedCode/fresh_original_copy (0.02s)
+=== RUN   TestArtifactIndexRequiresReleasedProofAndSurvivesRestart
+--- PASS: TestArtifactIndexRequiresReleasedProofAndSurvivesRestart (0.13s)
+=== RUN   TestArtifactIndexIsIdempotentConcurrentAndImmutable
+--- PASS: TestArtifactIndexIsIdempotentConcurrentAndImmutable (0.11s)
+=== RUN   TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation
+=== RUN   TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/task
+=== RUN   TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/run
+=== RUN   TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/plan
+=== RUN   TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/generation
+=== RUN   TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/role
+=== RUN   TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/target
+=== RUN   TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/input
+=== RUN   TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/parent
+=== RUN   TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/proof
+=== RUN   TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/witness
+=== RUN   TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/current
+--- PASS: TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation (1.06s)
+    --- PASS: TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/task (0.10s)
+    --- PASS: TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/run (0.10s)
+    --- PASS: TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/plan (0.10s)
+    --- PASS: TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/generation (0.10s)
+    --- PASS: TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/role (0.09s)
+    --- PASS: TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/target (0.10s)
+    --- PASS: TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/input (0.10s)
+    --- PASS: TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/parent (0.10s)
+    --- PASS: TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/proof (0.10s)
+    --- PASS: TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/witness (0.09s)
+    --- PASS: TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/current (0.09s)
+=== RUN   TestArtifactIndexEventFailureAndRevocationRollBack
+--- PASS: TestArtifactIndexEventFailureAndRevocationRollBack (0.11s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/store	3.635s

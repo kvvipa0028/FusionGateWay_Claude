@@ -1,0 +1,4 @@
+# github.com/yetone/magpie/internal/fusion/store [github.com/yetone/magpie/internal/fusion/store.test]
+internal/fusion/store/artifact_parent_test.go:47:38: undefined: workflow.Change
+FAIL	github.com/yetone/magpie/internal/fusion/store [build failed]
+FAIL

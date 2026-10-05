@@ -10,6 +10,7 @@
 - 离线验证使用临时 HOME、XDG 目录和环境变量白名单，不继承真实认证。用户另行授权的真实连接使用登记的私有凭据与隔离宿主，证据单独记录；Jev 保持 off，不启动真实 Jev 调用。
 - 运行应用、导入凭据、提交、推送和发布均按当前用户授权范围判断；仅阅读这些文档不产生授权。
 - 新增模块优先放在 internal/fusion/，沿用现有 Go module path；避免全仓改名和无关重构。
+- Store 当前 schema10：stage artifact receipt 为私有、不可变索引；原实际 released StopProof 与 receipt 匹配才允许受控恢复。不能把 JSON/hash 或持久索引当作派单、模型准入、工程测试或验收证明；多角色 Factory 仍待下一阶段 resolver。升级/回退见 docs/fusion/contracts/durable-stage-artifact.md。
 - UI 沿用 Magpie 原界面、布局组件、样式变量和交互习惯，只为 Fusion 功能做必要的小范围扩展；不重新设计整体布局、配色或导航，不引入另一套 UI 框架。当前 Fusion 补充页面复用原样式，不等于已经整合原主界面的全部页面与导航；后续接入须保留现有鉴权和账号隔离。
 - 上游发布、Docker 推送与付费 UI preview workflow 已限定只能在 yetone/magpie 运行。
 

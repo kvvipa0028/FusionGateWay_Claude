@@ -92,4 +92,4 @@ Grok受管生命周期组件：[CHANNEL-01证据](work-items/WP-13/CHANNEL-01/su
 
 Grok只读Runtime Adapter：[ADAPTER-01证据](work-items/WP-13/ADAPTER-01/summary.md)、[Adapter合同](contracts/grok-adapter.md)。实际固定Native/private prompt/read/取消/停止已验证；真实X准入、Resume/write/工程闭环与final Gate继续待完成。
 
-[阶段代码冻结与交接](contracts/stage-handoff.md)完成私有代码快照、基线/tree/change hash、来源链校验和 GLM 成功运行产物发布。持久产物索引、下一阶段 resolver、真实测试/审查/验收仍未接入，多角色执行继续拒绝；原 Magpie UI 不改。
+[阶段代码冻结与交接](contracts/stage-handoff.md)完成私有代码快照、基线/tree/change hash、来源链校验和 GLM 成功运行产物发布。[持久产物索引与受控重启恢复](contracts/durable-stage-artifact.md)已接入实际 GLM producer，验证真实 Edit 代码在数据库重开后仍可独立复制。产品下一阶段 resolver、真实测试/审查/验收仍未接入，多角色执行继续拒绝；原 Magpie UI 不改。

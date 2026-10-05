@@ -1,0 +1,8 @@
+=== RUN   TestGLMFactoryPinnedNativeProductLifecycle
+=== RUN   TestGLMFactoryPinnedNativeProductLifecycle/implementation
+    glm_execution_native_test.go:237: real Native artifact not durably indexed record not found
+--- FAIL: TestGLMFactoryPinnedNativeProductLifecycle (0.94s)
+    --- FAIL: TestGLMFactoryPinnedNativeProductLifecycle/implementation (0.94s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	1.652s
+FAIL

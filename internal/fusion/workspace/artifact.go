@@ -47,6 +47,7 @@ type artifactSeal struct {
 	info     os.FileInfo
 	code     *sourceSeal
 	manifest sourceEntry
+	header   *sourceEntry
 }
 
 func (FrozenArtifact) String() string   { return "frozen code artifact (redacted)" }
@@ -184,7 +185,20 @@ func (a *artifactSeal) current() bool {
 		return false
 	}
 	b, err := readSourceFile(r, "manifest.json", i)
-	return err == nil && contentHash(b) == a.manifest.hash
+	if err != nil || contentHash(b) != a.manifest.hash {
+		return false
+	}
+	if a.header != nil {
+		i, err := r.Lstat("handoff.json")
+		if err != nil || !sameSourceInfo(a.header.info, i) {
+			return false
+		}
+		b, err := readSourceFile(r, "handoff.json", i)
+		if err != nil || contentHash(b) != a.header.hash {
+			return false
+		}
+	}
+	return true
 }
 
 // Bundle metadata may be added alongside code after freeze. APFS directory

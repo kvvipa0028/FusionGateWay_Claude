@@ -1,0 +1,81 @@
+{
+  "component": "WP-20-DURABLE-ARTIFACT-01",
+  "base": "b98610e79c0f7b0635a29f560844b88243a0603a",
+  "files_sha256": {
+    "AGENTS.md": "dbcf20b894fa33812ff6747d4a2b15b3740c4e46228020f154d4011ac72320cb",
+    "docs/fusion/README.md": "e079c1a1a5d253c54bf3394f4e9f4127742edfab84beffac09c65b0ee37d5187",
+    "docs/fusion/contracts/durable-stage-artifact.md": "8a53c855e3c09369e56e3db1a9db3d16a9f14fcf6a9f2207a831963476a0e938",
+    "docs/fusion/contracts/glm-execution-factory.md": "c652cba68df35657907745a7091cee0d2e0ad24708c9d6799412d6fd59504ea4",
+    "docs/fusion/contracts/stage-handoff.md": "d4e299b9b9d6f9cdb60defffa05985a98db830e7d8d0e1f2095ae1ccdc1522c3",
+    "docs/fusion/work-items/WP-20/DURABLE-ARTIFACT-01/artifact-index-red.log": "bfc45aec4e2d9c148d544fb49e9406e42e3d727211c1ee99bf04bf4fd12fc9f9",
+    "docs/fusion/work-items/WP-20/DURABLE-ARTIFACT-01/artifact-parent-final.log": "f94213c930c73eed90b80ee0cbe219867429601a89d815eb9cb1e48be823ad40",
+    "docs/fusion/work-items/WP-20/DURABLE-ARTIFACT-01/artifact-parent-initial.log": "230bf0765d3337b088023adafdc43b2782a0cf55e0a35b2fcf0dcc2d88a4761d",
+    "docs/fusion/work-items/WP-20/DURABLE-ARTIFACT-01/build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/fusion/work-items/WP-20/DURABLE-ARTIFACT-01/build-gui.log": "91d47b53927b8b00918678efbe5eba009579cd8bff74e188297a9bb348b720fe",
+    "docs/fusion/work-items/WP-20/DURABLE-ARTIFACT-01/build-results.json": "287131c382800ea3949d78c43107e5fcfa94f1123ea1e7e5eb52c282096d6d1e",
+    "docs/fusion/work-items/WP-20/DURABLE-ARTIFACT-01/build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/fusion/work-items/WP-20/DURABLE-ARTIFACT-01/durable-fusion-final.log": "64a3efaea6e7dbca344d243a8c2e8592b2188849ffb4fff34c34c002ebf79443",
+    "docs/fusion/work-items/WP-20/DURABLE-ARTIFACT-01/durable-native-final.log": "2d810fea4d2c5a2dd66b1384be723c6d576e22533eb2035bc72829842f2671f1",
+    "docs/fusion/work-items/WP-20/DURABLE-ARTIFACT-01/durable-native-initial.log": "2e0beff3c7063d7fc490dc4a17b3559cf403e8e53e7519962550cbc772d43bf1",
+    "docs/fusion/work-items/WP-20/DURABLE-ARTIFACT-01/durable-native-red.log": "5378ebd3f50d3034d1c453af10a9a1742732e8fb86bab4707e255130e1cecb64",
+    "docs/fusion/work-items/WP-20/DURABLE-ARTIFACT-01/reference-initial.log": "e0a18438f9baf5e2e21ea060e33ed072ae5f33eec93c48856cd443d6e2371344",
+    "docs/fusion/work-items/WP-20/DURABLE-ARTIFACT-01/reference-red.log": "23aea73c501e42f9f728de75e23c2c1349ce742a26610c88123f03fe6ad63cf3",
+    "docs/fusion/work-items/WP-20/DURABLE-ARTIFACT-01/summary.md": "5daa7589d82ad76a047ca4a01c4468e4e416ba328b594bc1048835c0ae8ef9be",
+    "docs/fusion/work-items/WP-20/DURABLE-ARTIFACT-01/test-results.json": "a2de23f750ce84a39542a26d7dd7d3fba53c9503844dbe1dbe99fdf1361e4bfc",
+    "docs/fusion/work-items/WP-20/summary.md": "d12496557434bc70174ed381697c95f6655a5dff934cd3c9b96f2ee005f26ae5",
+    "internal/fusion/bootstrap/glm_execution.go": "3e83101d8e9250c055afcce190907b24dc202fef3950b0144690388b7805b651",
+    "internal/fusion/bootstrap/glm_execution_native_test.go": "a5e99a8774abb464e47fb96aad62fdae9f5926d0b3030becf56c3f97cf930298",
+    "internal/fusion/handoff/bundle.go": "d69b32b3e563bf86969588e4b1694249a4f8483e04366ffc07f3059239eb6a7a",
+    "internal/fusion/handoff/reference.go": "1c275a1f49156749ab29f0e6fd22f7afc5007fe50004c060d171403f4f36c9a5",
+    "internal/fusion/handoff/reference_test.go": "7c6ee496b8760205ba932ce0d205122518df42c36c0325d59795dfb80a2ab06c",
+    "internal/fusion/store/artifact_migration_test.go": "a341e54ce639bd8cfff58ae141ca3deca9534469b1c637fc0611f417d6fd9b54",
+    "internal/fusion/store/artifact_parent_test.go": "2eec38fb883ee50ad723c31ab2edd11cdfe2af6372004e2a093ffe90eeae8289",
+    "internal/fusion/store/artifacts.go": "1f688ac068dd4a96cb062d711db290d1dfb1278df691c5839ab0276fdf49c3bf",
+    "internal/fusion/store/artifacts_test.go": "2a6ce6c30679c29178c53a32a6b178166bc2daab0be86dde2c3aaca862217263",
+    "internal/fusion/store/defaults_migration_test.go": "782f0af6d2a6184be62ede2ad1a7f922c0abb69a93ba9d59de740c055c46090f",
+    "internal/fusion/store/migrations/010.sql": "a57d01407e0852002fce4f85d485052b22f979b8fa9ed093f66c3b0eacb8fdb2",
+    "internal/fusion/store/preset_migration_test.go": "6d118b9560d5769d44e098f0c16921849731b4a384640e71d8c87aa694dfb988",
+    "internal/fusion/store/scheduling_test.go": "ea782b94246051b1f4d6fe46df7af4955b983d2f2bcf6c7b49b54b258b899678",
+    "internal/fusion/store/start_journal_migration_test.go": "1d80ddf40dd830f5d1fdcc6ede666a82709b197b4b11fbdb8c72d76ae24144ff",
+    "internal/fusion/store/start_once_test.go": "8a7da031f92c6b74d15e4b1a3863925b8d7bb02595f4416d9d5462b1b4911d0a",
+    "internal/fusion/store/store.go": "ddedef0fa7832ea7d884688e10014b84fcab2c6144a3c90afc6debe87353be95",
+    "internal/fusion/store/submission_journal_migration_test.go": "946e4f42ab58d57c579fd49b95cd3301e74260342bc656e2e2af79d412a2c6ae",
+    "internal/fusion/store/submission_migration_test.go": "ebfc159347eb0f71ed21ee279b5c15c0c78883c6a443950ea0cd8feae93b3dfd",
+    "internal/fusion/store/workflow_migration_test.go": "0078728783503e6812dcc7bcc800502900718004af68f4ef3c3da33c12bb78d6",
+    "internal/fusion/workspace/artifact.go": "d699e12100654ed7d6ccd9e7cfc5e7db601c5d3c0de23dd5075d0f89ec63b32e",
+    "internal/fusion/workspace/witness.go": "c75e317c8aed2762b4c1b4f9cb1e4c616a1bc428c09e299ee810b66e572bc88f"
+  },
+  "scope_integrity_checks": {
+    "all_gui_unchanged": [
+      "internal/gui"
+    ],
+    "runtime_api_policy_unchanged": [
+      "internal/fusion/runtime",
+      "internal/fusion/api",
+      "internal/fusion/policy"
+    ],
+    "old_migrations_001_009_unchanged": [
+      "internal/fusion/store/migrations/001.sql",
+      "internal/fusion/store/migrations/002.sql",
+      "internal/fusion/store/migrations/003.sql",
+      "internal/fusion/store/migrations/004.sql",
+      "internal/fusion/store/migrations/005.sql",
+      "internal/fusion/store/migrations/006.sql",
+      "internal/fusion/store/migrations/007.sql",
+      "internal/fusion/store/migrations/008.sql",
+      "internal/fusion/store/migrations/009.sql"
+    ],
+    "public_handoff_schema_unchanged": [
+      "docs/fusion/contracts/handoff.schema.json"
+    ]
+  },
+  "private_credential_bytes_excluded": true,
+  "ui_files_changed": 0,
+  "ui_main_assets_equal_pinned_upstream": true,
+  "local_doc_links_checked": 98,
+  "graph": {
+    "project": "fusion-development",
+    "nodes": 14371,
+    "edges": 129222
+  }
+}

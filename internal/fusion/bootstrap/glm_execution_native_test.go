@@ -216,6 +216,7 @@ func TestGLMFactoryPinnedNativeProductLifecycle(t *testing.T) {
 			artifactPath := filepath.Join(filepath.Dir(spec.Workspace), "handoff")
 			actualHandle := owned
 			mu.Unlock()
+			budgetStore := h.store
 			if mode == "handoff_collision" {
 				result, err := actualHandle.Wait(wait)
 				if err != nil || !result.StoppedVerified || !result.Proof.DescendantsStopped {
@@ -232,6 +233,10 @@ func TestGLMFactoryPinnedNativeProductLifecycle(t *testing.T) {
 					t.Fatal("failed capture published handoff", err)
 				}
 			} else if want == "succeeded" {
+				indexed, err := h.store.Artifact(receipt.Run.ID)
+				if err != nil || indexed.Reference.Binding.RunID != receipt.Run.ID || indexed.Reference.Binding.TaskID != task.ID {
+					t.Fatal("real Native artifact not durably indexed", err)
+				}
 				raw, err := os.ReadFile(filepath.Join(artifactPath, "handoff.json"))
 				var doc handoff.Document
 				if err != nil || json.Unmarshal(raw, &doc) != nil || doc.Binding.TaskID != task.ID || doc.Binding.RunID != receipt.Run.ID || doc.Binding.Role != role || doc.Binding.PlanHash != preview.Plan.Hash || doc.Evidence.TestsExecuted || doc.Evidence.Status != "unverified" {
@@ -252,10 +257,40 @@ func TestGLMFactoryPinnedNativeProductLifecycle(t *testing.T) {
 				if strings.Contains(string(raw), "native_session") || strings.Contains(string(raw), "fixture-controller-key") {
 					t.Fatal("session or credential entered handoff")
 				}
+				if err := h.Close(); err != nil {
+					t.Fatal("producer close", err)
+				}
+				reopened, err := store.Open(filepath.Join(root, "tasks"))
+				if err != nil {
+					t.Fatal("actual DB reopen", err)
+				}
+				defer reopened.Close()
+				budgetStore = reopened
+				persisted, err := reopened.Artifact(receipt.Run.ID)
+				if err != nil {
+					t.Fatal("actual Native receipt lost", err)
+				}
+				consumer, err := handoff.Restore(persisted.Reference, d.Projects[0].Path, c.ExecutionRoot)
+				if err != nil {
+					t.Fatal("real artifact restore", err)
+				}
+				next, err := consumer.Copy(persisted.Reference.Binding, c.ExecutionRoot, "consumer-"+mode)
+				if err != nil {
+					t.Fatal("real artifact transfer", err)
+				}
+				if mode == "implementation" {
+					b, err := os.ReadFile(filepath.Join(next.Path, "created.txt"))
+					if err != nil || string(b) != "synthetic factory file\n" {
+						t.Fatal("restart lost actual Edit output", err)
+					}
+				}
+				if _, err := handoff.Restore(persisted.Reference, d.Projects[0].Path, filepath.Dir(c.ExecutionRoot)); err == nil {
+					t.Fatal("unregistered root restore")
+				}
 			} else if _, err := os.Stat(artifactPath); !os.IsNotExist(err) {
 				t.Fatal("cancelled run published successful artifact", err)
 			}
-			budget, err := h.store.Budget(task.ID)
+			budget, err := budgetStore.Budget(task.ID)
 			if err != nil || int64(budget.UsedCalls) != calls.Load() || calls.Load() < 1 {
 				t.Fatal("factory bypassed persisted calls", err, budget, calls.Load())
 			}

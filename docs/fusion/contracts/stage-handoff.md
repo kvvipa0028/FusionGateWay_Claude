@@ -24,7 +24,7 @@ Changes 按 Path 排序，每项为 before/after 条目，null 表示新增/删�
 
 ## 来源与消费者
 
-`FrozenArtifact`、`Bundle`、`SourceGuard` 保留私有内存 provenance；Path/JSON/Files/hash 字符串不能创建授权对象。`Manifest()`/`Read()` 返回副本，改动返回值不影响原对象。没有从任意 JSON/path 自动恢复可信对象的接口。
+`FrozenArtifact`、`Bundle`、`SourceGuard` 保留私有内存 provenance；Path/JSON/Files/hash 字符串不能创建授权对象。`Manifest()`/`Read()` 返回副本，改动返回值不影响原对象。受控重启恢复使用私有 Store 的 released-run receipt，以及独立登记的原项目和执行根；格式与边界见 [持久产物合同](durable-stage-artifact.md)。没有从任意 HTTP JSON/path 自动恢复可信对象的入口。
 
 `Bundle.Copy(expectedBinding, privateRoot, name)` 先核对完整 binding、代码和清单，再生成新的私有工作副本，之后复查父包。binding 必须对应 task_id、plan_revision/hash、run_id、generation、role、target_hash。跨任务、跨计划、错误角色或目标都拒绝。原始来源、冻结代码、manifest 或 header 的内容/inode/权限发生变化也拒绝；坏包不发布 consumer 副本。
 
@@ -34,7 +34,7 @@ Changes 按 Path 排序，每项为 before/after 条目，null 表示新增/删�
 
 handoff.json 包含 version/binding/task/artifact/decisions/evidence/changes/pending。完整格式见 [schema](handoff.schema.json)。本版本 task 保留实际冻结 goal；design decisions 尚未提取，数组为空且 pending 明示。evidence 仅记录原 Runtime output hash 和实际 StopProof report hash，status 固定 unverified，tests_executed 固定 false。没有原始 stdout、凭据、原 Native session 或账号授权；消费者使用新 Runtime/session。Schema 只验证结构，不能证明 hash 内容、停止或供应商准入。
 
-当前真实 GLM producer 发布前后核对 Store 和原来源，成功包需真实停止与资源释放才能用于后续工作。尚缺 **durable artifact index、重启后受控 rehydrate、Task/Plan/parent-run 绑定的下一阶段 resolver**。因此多角色 Factory 仍返回 unsupported。磁盘上的包不是自动派单许可，也不是测试执行、审查、验收或 Gate A 通过；WP-20 继续 in_progress，完整 WP-19–WP-23 与 T01–T60 保持要求。
+当前真实 GLM producer 发布前后核对 Store 和原来源，成功包需真实停止与资源释放才能用于后续工作。私有 Store 的 durable artifact index 与重启后受控 rehydrate 已实现，并校验 Task/Plan/Run/target、实际 released StopProof 与父包来源链。尚缺 **Task/Plan/parent-run 绑定的产品下一阶段 resolver**。因此多角色 Factory 仍返回 unsupported。磁盘上的包不是自动派单许可，也不是测试执行、审查、验收或 Gate A 通过；WP-20 继续 in_progress，完整 WP-19–WP-23 与 T01–T60 保持要求。
 
 ## 复现、故障与回退
 

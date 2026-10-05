@@ -93,7 +93,11 @@ func Publish(a workspace.FrozenArtifact, binding Binding, goal string, evidence 
 	if writeErr != nil || syncErr != nil || statErr != nil || closeErr != nil || !a.Current() {
 		return Bundle{}, ErrInvalid
 	}
-	h := Bundle{artifact: a, binding: binding, info: info, hash: Hash(raw)}
+	bound, err := a.WithHandoffHeader(Hash(raw))
+	if err != nil {
+		return Bundle{}, ErrInvalid
+	}
+	h := Bundle{artifact: bound, binding: binding, info: info, hash: Hash(raw)}
 	if _, err := h.Read(binding); err != nil {
 		return Bundle{}, err
 	}

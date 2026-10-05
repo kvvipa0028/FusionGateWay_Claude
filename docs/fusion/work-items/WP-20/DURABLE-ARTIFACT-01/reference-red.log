@@ -1,0 +1,11 @@
+# github.com/yetone/magpie/internal/fusion/handoff [github.com/yetone/magpie/internal/fusion/handoff.test]
+internal/fusion/handoff/reference_test.go:32:13: h.Reference undefined (type Bundle has no field or method Reference)
+internal/fusion/handoff/reference_test.go:34:16: undefined: Reference
+internal/fusion/handoff/reference_test.go:37:16: undefined: Restore
+internal/fusion/handoff/reference_test.go:44:13: h2.Reference undefined (type Bundle has no field or method Reference)
+internal/fusion/handoff/reference_test.go:45:16: undefined: Restore
+internal/fusion/handoff/reference_test.go:53:12: undefined: Restore
+internal/fusion/handoff/reference_test.go:60:15: h.Reference undefined (type Bundle has no field or method Reference)
+internal/fusion/handoff/reference_test.go:78:14: undefined: Restore
+FAIL	github.com/yetone/magpie/internal/fusion/handoff [build failed]
+FAIL

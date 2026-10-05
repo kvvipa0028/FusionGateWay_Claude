@@ -66,7 +66,7 @@ func TestPresetMigrationFourPreservesSchemaThreeReceiptsBudgetsAndHistory(t *tes
 	defer s.Close()
 	var version int
 	s.db.QueryRow("PRAGMA user_version").Scan(&version)
-	if version != 9 {
+	if version != 10 {
 		t.Fatal("migration not installed", version)
 	}
 	replay, e := s.Create("fixture-key", in)
@@ -114,7 +114,7 @@ func TestPresetMigrationFourPreservesSchemaThreeReceiptsBudgetsAndHistory(t *tes
 
 func TestPresetFutureSchemaIsRejectedWithoutDowngrade(t *testing.T) {
 	s, root := openFixture(t)
-	if _, e := s.db.Exec("PRAGMA user_version=10"); e != nil {
+	if _, e := s.db.Exec("PRAGMA user_version=11"); e != nil {
 		t.Fatal(e)
 	}
 	s.Close()
@@ -131,7 +131,7 @@ func TestPresetFutureSchemaIsRejectedWithoutDowngrade(t *testing.T) {
 	defer db.Close()
 	var version int
 	db.QueryRow("PRAGMA user_version").Scan(&version)
-	if version != 10 {
+	if version != 11 {
 		t.Fatal("future schema was rewritten", version)
 	}
 }

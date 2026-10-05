@@ -262,8 +262,17 @@ func newGLMRuntimeFactory(c GLMRuntimeConfig, transport http.RoundTripper) (Runt
 				if _, err := bundle.Read(binding); err != nil || !identityCurrent() {
 					return control.ErrReconcile
 				}
-				// Publication failure retains reservations for reconciliation.
-				// Durable artifact indexing/next-stage resolution is still pending.
+				reference, err := bundle.Reference(c.ExecutionRoot)
+				if err != nil {
+					return control.ErrReconcile
+				}
+				// Never call the Store-reading identityCurrent under Store.mu.
+				// Recheck its Task/Plan/Run fields inside RecordArtifact itself.
+				if err := e.Store.RecordArtifactAuthorized(store.ArtifactRecord{Reference: reference, InputTreeHash: reference.BaseTreeHash}, func() bool { return ctx.Err() == nil && !closed.Load() && e.Current(c.ProjectID) }); err != nil || !identityCurrent() {
+					return control.ErrReconcile
+				}
+				// Indexed metadata is still pending until the exact released
+				// StopProof matches. Failure retains reservations for reconciliation.
 				return backend.Release(proof)
 			}
 			return control.Launch{Backend: local, Spec: managed.Spec{Root: worker, Workspace: snapshot.Path, Source: guard, Input: input, Timeout: c.Timeout, Writable: p.Write && (role == stageplan.Implementation || role == stageplan.Testing)}}, nil

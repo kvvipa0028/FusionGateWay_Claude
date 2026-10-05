@@ -1,0 +1,146 @@
+{
+  "component": "WP-20-DURABLE-ARTIFACT-01",
+  "base": "b98610e79c0f7b0635a29f560844b88243a0603a",
+  "go_version": "1.26.3",
+  "checks": {
+    "durable-fusion-final.log": {
+      "PASS": {
+        "top": 664,
+        "sub": 1223
+      },
+      "SKIP": {
+        "top": 32,
+        "sub": 11
+      },
+      "FAIL": {
+        "top": 0,
+        "sub": 0
+      },
+      "packages": 18
+    },
+    "durable-native-final.log": {
+      "PASS": {
+        "top": 7,
+        "sub": 32
+      },
+      "SKIP": {
+        "top": 0,
+        "sub": 0
+      },
+      "FAIL": {
+        "top": 0,
+        "sub": 0
+      },
+      "packages": 1
+    },
+    "artifact-parent-final.log": {
+      "PASS": {
+        "top": 7,
+        "sub": 15
+      },
+      "SKIP": {
+        "top": 0,
+        "sub": 0
+      },
+      "FAIL": {
+        "top": 0,
+        "sub": 0
+      },
+      "packages": 1
+    }
+  },
+  "log_archive": {
+    "artifact-index-red.log": {
+      "original_sha256": "bfc45aec4e2d9c148d544fb49e9406e42e3d727211c1ee99bf04bf4fd12fc9f9",
+      "archive_sha256": "bfc45aec4e2d9c148d544fb49e9406e42e3d727211c1ee99bf04bf4fd12fc9f9",
+      "normalization": "line trailing whitespace only"
+    },
+    "reference-red.log": {
+      "original_sha256": "23aea73c501e42f9f728de75e23c2c1349ce742a26610c88123f03fe6ad63cf3",
+      "archive_sha256": "23aea73c501e42f9f728de75e23c2c1349ce742a26610c88123f03fe6ad63cf3",
+      "normalization": "line trailing whitespace only"
+    },
+    "reference-initial.log": {
+      "original_sha256": "e0a18438f9baf5e2e21ea060e33ed072ae5f33eec93c48856cd443d6e2371344",
+      "archive_sha256": "e0a18438f9baf5e2e21ea060e33ed072ae5f33eec93c48856cd443d6e2371344",
+      "normalization": "line trailing whitespace only"
+    },
+    "durable-native-red.log": {
+      "original_sha256": "5378ebd3f50d3034d1c453af10a9a1742732e8fb86bab4707e255130e1cecb64",
+      "archive_sha256": "5378ebd3f50d3034d1c453af10a9a1742732e8fb86bab4707e255130e1cecb64",
+      "normalization": "line trailing whitespace only"
+    },
+    "durable-native-initial.log": {
+      "original_sha256": "2e0beff3c7063d7fc490dc4a17b3559cf403e8e53e7519962550cbc772d43bf1",
+      "archive_sha256": "2e0beff3c7063d7fc490dc4a17b3559cf403e8e53e7519962550cbc772d43bf1",
+      "normalization": "line trailing whitespace only"
+    },
+    "artifact-parent-initial.log": {
+      "original_sha256": "230bf0765d3337b088023adafdc43b2782a0cf55e0a35b2fcf0dcc2d88a4761d",
+      "archive_sha256": "230bf0765d3337b088023adafdc43b2782a0cf55e0a35b2fcf0dcc2d88a4761d",
+      "normalization": "line trailing whitespace only"
+    },
+    "artifact-parent-final.log": {
+      "original_sha256": "f94213c930c73eed90b80ee0cbe219867429601a89d815eb9cb1e48be823ad40",
+      "archive_sha256": "f94213c930c73eed90b80ee0cbe219867429601a89d815eb9cb1e48be823ad40",
+      "normalization": "line trailing whitespace only"
+    },
+    "durable-fusion-final.log": {
+      "original_sha256": "64a3efaea6e7dbca344d243a8c2e8592b2188849ffb4fff34c34c002ebf79443",
+      "archive_sha256": "64a3efaea6e7dbca344d243a8c2e8592b2188849ffb4fff34c34c002ebf79443",
+      "normalization": "line trailing whitespace only"
+    },
+    "durable-native-final.log": {
+      "original_sha256": "2d810fea4d2c5a2dd66b1384be723c6d576e22533eb2035bc72829842f2671f1",
+      "archive_sha256": "2d810fea4d2c5a2dd66b1384be723c6d576e22533eb2035bc72829842f2671f1",
+      "normalization": "line trailing whitespace only"
+    },
+    "build-cli.log": {
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "archive_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "normalization": "line trailing whitespace only"
+    },
+    "build-gui.log": {
+      "original_sha256": "91d47b53927b8b00918678efbe5eba009579cd8bff74e188297a9bb348b720fe",
+      "archive_sha256": "91d47b53927b8b00918678efbe5eba009579cd8bff74e188297a9bb348b720fe",
+      "normalization": "line trailing whitespace only"
+    },
+    "build-vet.log": {
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "archive_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "normalization": "line trailing whitespace only"
+    }
+  },
+  "native_process_scenarios": 7,
+  "synthetic_model_calls": 8,
+  "real_supplier_model_or_quota_calls": 0,
+  "Jev": "off",
+  "graph": {
+    "project": "fusion-development",
+    "nodes": 14371,
+    "edges": 129222
+  },
+  "initial_failures": {
+    "artifact-index-red.log": "missing new Store APIs",
+    "reference-red.log": "missing new controlled Restore APIs",
+    "reference-initial.log": "fabricated FileInfo cannot pass os.SameFile; replaced with persisted fingerprint precheck and real FileInfo",
+    "durable-native-red.log": "actual successful Edit had no durable receipt",
+    "durable-native-initial.log": "fixture read budget from Store already closed for genuine restart; now reads reopened Store",
+    "artifact-parent-initial.log": "new fixture used nonexistent workflow.Change constant; actual existing finite kind is change"
+  },
+  "scope": {
+    "schema": 10,
+    "ui_files_changed": 0,
+    "main_assets_match_pinned_upstream": true,
+    "old_migrations_001_009_unchanged": true,
+    "runtime_api_policy_unchanged": true
+  },
+  "remaining": [
+    "product parent-bound next-stage resolver",
+    "engineering TestExecutor/EvidenceGate",
+    "review/acceptance permissions and rework",
+    "actual supplier Gate A",
+    "actual Native UI",
+    "final T01-T60"
+  ]
+}

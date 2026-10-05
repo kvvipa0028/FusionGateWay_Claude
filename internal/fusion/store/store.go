@@ -45,6 +45,9 @@ var migrationEight string
 
 //go:embed migrations/009.sql
 var migrationNine string
+
+//go:embed migrations/010.sql
+var migrationTen string
 var (
 	ErrConflict         = errors.New("store conflict")
 	ErrFenced           = errors.New("execution fenced")
@@ -170,7 +173,7 @@ func Open(root string) (*Store, error) {
 		}); e != nil {
 			return fail(e)
 		}
-	} else if version != 1 && version != 2 && version != 3 && version != 4 && version != 5 && version != 6 && version != 7 && version != 8 && version != 9 {
+	} else if version < 1 || version > 10 {
 		return fail(ErrUnsupported)
 	}
 	var checksum string
@@ -287,6 +290,20 @@ func Open(root string) (*Store, error) {
 		}
 	}
 	if e = s.db.QueryRow("SELECT value FROM metadata WHERE key='migration_009_sha256'").Scan(&checksum); e != nil || checksum != hash([]byte(migrationNine)) {
+		return fail(ErrUnsupported)
+	}
+	if version < 10 {
+		if e = s.transaction(func(tx *sql.Tx) error {
+			if _, e := tx.Exec(migrationTen); e != nil {
+				return e
+			}
+			_, e := tx.Exec("INSERT INTO metadata VALUES('migration_010_sha256',?)", hash([]byte(migrationTen)))
+			return e
+		}); e != nil {
+			return fail(e)
+		}
+	}
+	if e = s.db.QueryRow("SELECT value FROM metadata WHERE key='migration_010_sha256'").Scan(&checksum); e != nil || checksum != hash([]byte(migrationTen)) {
 		return fail(ErrUnsupported)
 	}
 	if e = s.recover(); e != nil {

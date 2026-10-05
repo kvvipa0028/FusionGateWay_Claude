@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/store [github.com/yetone/magpie/internal/fusion/store.test]
+internal/fusion/store/artifacts_test.go:18:52: undefined: ArtifactRecord
+internal/fusion/store/artifacts_test.go:35:9: undefined: ArtifactRecord
+internal/fusion/store/artifacts_test.go:41:12: s.RecordArtifact undefined (type *Store has no field or method RecordArtifact)
+internal/fusion/store/artifacts_test.go:42:14: s.Artifact undefined (type *Store has no field or method Artifact)
+internal/fusion/store/artifacts_test.go:42:46: undefined: ErrArtifactPending
+internal/fusion/store/artifacts_test.go:44:14: s.Artifact undefined (type *Store has no field or method Artifact)
+internal/fusion/store/artifacts_test.go:47:18: opened.Artifact undefined (type *Store has no field or method Artifact)
+internal/fusion/store/artifacts_test.go:57:67: s.RecordArtifact undefined (type *Store has no field or method RecordArtifact)
+internal/fusion/store/artifacts_test.go:60:12: s.RecordArtifact undefined (type *Store has no field or method RecordArtifact)
+internal/fusion/store/artifacts_test.go:85:14: s.RecordArtifactAuthorized undefined (type *Store has no field or method RecordArtifactAuthorized)
+internal/fusion/store/artifacts_test.go:85:14: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/store [build failed]
+FAIL

@@ -37,7 +37,7 @@ Timeout 默认 2 分钟，可由可信宿主配置为不超过 4 分钟的正值
 
 ## 工程闭环边界
 
-[阶段代码交接](stage-handoff.md)已在实际成功且停止核验通过后发布独立代码副本、变化清单、Task/Plan/Run/target 绑定及 advisory evidence；交接失败不释放资源预留。取消/失败阶段不发布成功交接包。
+[阶段代码交接](stage-handoff.md)已在实际成功且停止核验通过后发布独立代码副本、变化清单、Task/Plan/Run/target 绑定及 advisory evidence；交接失败不释放资源预留。成功包经私有 Store 持久索引，只有原 run 的 released StopProof 与 receipt 匹配才可供受控恢复；见 [持久产物合同](durable-stage-artifact.md)。取消/失败阶段不发布成功交接包。
 
 多阶段任务需要传递已验证实施副本、设计合同、测试和审查产物；重新复制原项目会丢失上一阶段修改。因此本 Factory 暂时返回 unsupported，而不是把独立单阶段复制伪装成五阶段 Handoff。完整工程交接仍属于必须实现的后续工作，不缩减 WP-19–WP-22 或最终 T01–T60。
 
@@ -56,4 +56,4 @@ PATH="$HOME/.local/bin:$PATH" python3 docs/fusion/work-items/WP-13/CALLS-01/run-
   -fusion-host-native-claude /Users/zhaojianzhi/.local/share/claude/versions/2.1.287
 ```
 
-没有该 pin 的环境可运行不带 Native flag 的单元测试；Native 场景会明确 skip，不能记作通过。回退时停止派单，确认所有 owned Handle 实际停止并释放，再去掉可信 Factory 登记或撤回本组件；不删除未核验 launch 目录、重放请求或回滚 SQLite。现有草稿/额度产品入口、schema9、所有 UI 文件及样式保持原状。
+没有该 pin 的环境可运行不带 Native flag 的单元测试；Native 场景会明确 skip，不能记作通过。回退时停止派单，确认所有 owned Handle 实际停止并释放，再去掉可信 Factory 登记或撤回本组件；不删除未核验 launch 目录、重放请求或回滚 SQLite。现有草稿/额度产品入口、所有 UI 文件及样式保持原状。当前 Store 为 schema10，升级与回退边界见持久产物合同。

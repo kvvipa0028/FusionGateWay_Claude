@@ -1,0 +1,141 @@
+=== RUN   TestCopyRetainsOwnerExecuteWithoutGroupPermissions
+--- PASS: TestCopyRetainsOwnerExecuteWithoutGroupPermissions (0.00s)
+=== RUN   TestFrozenArtifactTransfersActualChangesWithPrivateProvenance
+--- PASS: TestFrozenArtifactTransfersActualChangesWithPrivateProvenance (0.02s)
+=== RUN   TestFrozenArtifactRejectsCorruptionBeforeCopy
+=== RUN   TestFrozenArtifactRejectsCorruptionBeforeCopy/code
+=== RUN   TestFrozenArtifactRejectsCorruptionBeforeCopy/manifest
+=== RUN   TestFrozenArtifactRejectsCorruptionBeforeCopy/add
+=== RUN   TestFrozenArtifactRejectsCorruptionBeforeCopy/symlink
+=== RUN   TestFrozenArtifactRejectsCorruptionBeforeCopy/hardlink
+=== RUN   TestFrozenArtifactRejectsCorruptionBeforeCopy/permission
+=== RUN   TestFrozenArtifactRejectsCorruptionBeforeCopy/root
+=== RUN   TestFrozenArtifactRejectsCorruptionBeforeCopy/ancestor
+--- PASS: TestFrozenArtifactRejectsCorruptionBeforeCopy (0.05s)
+    --- PASS: TestFrozenArtifactRejectsCorruptionBeforeCopy/code (0.01s)
+    --- PASS: TestFrozenArtifactRejectsCorruptionBeforeCopy/manifest (0.01s)
+    --- PASS: TestFrozenArtifactRejectsCorruptionBeforeCopy/add (0.01s)
+    --- PASS: TestFrozenArtifactRejectsCorruptionBeforeCopy/symlink (0.01s)
+    --- PASS: TestFrozenArtifactRejectsCorruptionBeforeCopy/hardlink (0.01s)
+    --- PASS: TestFrozenArtifactRejectsCorruptionBeforeCopy/permission (0.01s)
+    --- PASS: TestFrozenArtifactRejectsCorruptionBeforeCopy/root (0.01s)
+    --- PASS: TestFrozenArtifactRejectsCorruptionBeforeCopy/ancestor (0.01s)
+=== RUN   TestFreezeRejectsUnsafeProducerAndOverwrites
+=== RUN   TestFreezeRejectsUnsafeProducerAndOverwrites/symlink
+=== RUN   TestFreezeRejectsUnsafeProducerAndOverwrites/hardlink
+=== RUN   TestFreezeRejectsUnsafeProducerAndOverwrites/forged
+=== RUN   TestFreezeRejectsUnsafeProducerAndOverwrites/existing
+=== RUN   TestFreezeRejectsUnsafeProducerAndOverwrites/invalid_utf8
+    artifact_test.go:196: filesystem rejects invalid UTF-8 names before artifact freeze; byte-name fixture requires a supporting filesystem
+--- PASS: TestFreezeRejectsUnsafeProducerAndOverwrites (0.01s)
+    --- PASS: TestFreezeRejectsUnsafeProducerAndOverwrites/symlink (0.00s)
+    --- PASS: TestFreezeRejectsUnsafeProducerAndOverwrites/hardlink (0.00s)
+    --- PASS: TestFreezeRejectsUnsafeProducerAndOverwrites/forged (0.00s)
+    --- PASS: TestFreezeRejectsUnsafeProducerAndOverwrites/existing (0.00s)
+    --- SKIP: TestFreezeRejectsUnsafeProducerAndOverwrites/invalid_utf8 (0.00s)
+=== RUN   TestArtifactNeverWritesIntoRegisteredOriginal
+--- PASS: TestArtifactNeverWritesIntoRegisteredOriginal (0.01s)
+=== RUN   TestFrozenArtifactPinsGitBaseWithoutCommittingProject
+--- PASS: TestFrozenArtifactPinsGitBaseWithoutCommittingProject (0.24s)
+=== RUN   TestCopyPreservesSourceAndExcludesAuthentication
+--- PASS: TestCopyPreservesSourceAndExcludesAuthentication (0.00s)
+=== RUN   TestCopyRejectsLinksAndNeverLeavesPartialWorkspace
+=== RUN   TestCopyRejectsLinksAndNeverLeavesPartialWorkspace/symlink
+=== RUN   TestCopyRejectsLinksAndNeverLeavesPartialWorkspace/hardlink
+--- PASS: TestCopyRejectsLinksAndNeverLeavesPartialWorkspace (0.00s)
+    --- PASS: TestCopyRejectsLinksAndNeverLeavesPartialWorkspace/symlink (0.00s)
+    --- PASS: TestCopyRejectsLinksAndNeverLeavesPartialWorkspace/hardlink (0.00s)
+=== RUN   TestSnapshotSourceCurrentUsesPrivateSeal
+--- PASS: TestSnapshotSourceCurrentUsesPrivateSeal (0.00s)
+=== RUN   TestSnapshotSourceCurrentRejectsWholeTreeDrift
+=== RUN   TestSnapshotSourceCurrentRejectsWholeTreeDrift/content
+=== RUN   TestSnapshotSourceCurrentRejectsWholeTreeDrift/same_bytes_replacement
+=== RUN   TestSnapshotSourceCurrentRejectsWholeTreeDrift/add_file
+=== RUN   TestSnapshotSourceCurrentRejectsWholeTreeDrift/remove_file
+=== RUN   TestSnapshotSourceCurrentRejectsWholeTreeDrift/add_directory
+=== RUN   TestSnapshotSourceCurrentRejectsWholeTreeDrift/replace_directory
+=== RUN   TestSnapshotSourceCurrentRejectsWholeTreeDrift/symlink
+=== RUN   TestSnapshotSourceCurrentRejectsWholeTreeDrift/hardlink
+=== RUN   TestSnapshotSourceCurrentRejectsWholeTreeDrift/mode
+=== RUN   TestSnapshotSourceCurrentRejectsWholeTreeDrift/root_replacement
+--- PASS: TestSnapshotSourceCurrentRejectsWholeTreeDrift (0.02s)
+    --- PASS: TestSnapshotSourceCurrentRejectsWholeTreeDrift/content (0.00s)
+    --- PASS: TestSnapshotSourceCurrentRejectsWholeTreeDrift/same_bytes_replacement (0.00s)
+    --- PASS: TestSnapshotSourceCurrentRejectsWholeTreeDrift/add_file (0.00s)
+    --- PASS: TestSnapshotSourceCurrentRejectsWholeTreeDrift/remove_file (0.01s)
+    --- PASS: TestSnapshotSourceCurrentRejectsWholeTreeDrift/add_directory (0.00s)
+    --- PASS: TestSnapshotSourceCurrentRejectsWholeTreeDrift/replace_directory (0.00s)
+    --- PASS: TestSnapshotSourceCurrentRejectsWholeTreeDrift/symlink (0.00s)
+    --- PASS: TestSnapshotSourceCurrentRejectsWholeTreeDrift/hardlink (0.00s)
+    --- PASS: TestSnapshotSourceCurrentRejectsWholeTreeDrift/mode (0.00s)
+    --- PASS: TestSnapshotSourceCurrentRejectsWholeTreeDrift/root_replacement (0.00s)
+=== RUN   TestCopyRechecksWholeSourceBeforePublication
+=== RUN   TestCopyRechecksWholeSourceBeforePublication/content
+=== RUN   TestCopyRechecksWholeSourceBeforePublication/new_file
+=== RUN   TestCopyRechecksWholeSourceBeforePublication/root_replacement
+--- PASS: TestCopyRechecksWholeSourceBeforePublication (0.01s)
+    --- PASS: TestCopyRechecksWholeSourceBeforePublication/content (0.01s)
+    --- PASS: TestCopyRechecksWholeSourceBeforePublication/new_file (0.00s)
+    --- PASS: TestCopyRechecksWholeSourceBeforePublication/root_replacement (0.00s)
+=== RUN   TestSnapshotSourceExclusionsAndPrivateCopy
+--- PASS: TestSnapshotSourceExclusionsAndPrivateCopy (0.00s)
+=== RUN   TestCopyBoundsEmptyDirectoryTree
+--- PASS: TestCopyBoundsEmptyDirectoryTree (4.70s)
+=== RUN   TestSourceGuardIsImmutableAndBoundToCopiedDirectory
+--- PASS: TestSourceGuardIsImmutableAndBoundToCopiedDirectory (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/workspace	6.628s
+=== RUN   TestHandoffCopiesCodeOnlyForExactBinding
+=== RUN   TestHandoffCopiesCodeOnlyForExactBinding/task
+=== RUN   TestHandoffCopiesCodeOnlyForExactBinding/run
+=== RUN   TestHandoffCopiesCodeOnlyForExactBinding/plan
+=== RUN   TestHandoffCopiesCodeOnlyForExactBinding/generation
+=== RUN   TestHandoffCopiesCodeOnlyForExactBinding/role
+=== RUN   TestHandoffCopiesCodeOnlyForExactBinding/target
+--- PASS: TestHandoffCopiesCodeOnlyForExactBinding (0.02s)
+    --- PASS: TestHandoffCopiesCodeOnlyForExactBinding/task (0.00s)
+    --- PASS: TestHandoffCopiesCodeOnlyForExactBinding/run (0.00s)
+    --- PASS: TestHandoffCopiesCodeOnlyForExactBinding/plan (0.00s)
+    --- PASS: TestHandoffCopiesCodeOnlyForExactBinding/generation (0.00s)
+    --- PASS: TestHandoffCopiesCodeOnlyForExactBinding/role (0.00s)
+    --- PASS: TestHandoffCopiesCodeOnlyForExactBinding/target (0.00s)
+=== RUN   TestHandoffRejectsHeaderAndCodeCorruption
+=== RUN   TestHandoffRejectsHeaderAndCodeCorruption/header
+=== RUN   TestHandoffRejectsHeaderAndCodeCorruption/code
+=== RUN   TestHandoffRejectsHeaderAndCodeCorruption/header_link
+=== RUN   TestHandoffRejectsHeaderAndCodeCorruption/source
+--- PASS: TestHandoffRejectsHeaderAndCodeCorruption (0.05s)
+    --- PASS: TestHandoffRejectsHeaderAndCodeCorruption/header (0.01s)
+    --- PASS: TestHandoffRejectsHeaderAndCodeCorruption/code (0.01s)
+    --- PASS: TestHandoffRejectsHeaderAndCodeCorruption/header_link (0.01s)
+    --- PASS: TestHandoffRejectsHeaderAndCodeCorruption/source (0.01s)
+=== RUN   TestHandoffCannotInventSuccessOrAcceptUnownedArtifact
+--- PASS: TestHandoffCannotInventSuccessOrAcceptUnownedArtifact (0.00s)
+=== RUN   TestHandoffReferenceRehydratesExactCopyWithAllAncestors
+    reference_test.go:65: invalid stage handoff
+--- FAIL: TestHandoffReferenceRehydratesExactCopyWithAllAncestors (0.02s)
+=== RUN   TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope
+=== RUN   TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/witness
+=== RUN   TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/header
+=== RUN   TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/code
+=== RUN   TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/original_replacement
+=== RUN   TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/root_replacement
+=== RUN   TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/source
+=== RUN   TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/root
+=== RUN   TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/binding
+=== RUN   TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/tree
+=== RUN   TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/version
+--- PASS: TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope (0.16s)
+    --- PASS: TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/witness (0.01s)
+    --- PASS: TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/header (0.02s)
+    --- PASS: TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/code (0.02s)
+    --- PASS: TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/original_replacement (0.02s)
+    --- PASS: TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/root_replacement (0.02s)
+    --- PASS: TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/source (0.02s)
+    --- PASS: TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/root (0.02s)
+    --- PASS: TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/binding (0.02s)
+    --- PASS: TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/tree (0.02s)
+    --- PASS: TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/version (0.02s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/handoff	0.966s
+FAIL
