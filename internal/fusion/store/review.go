@@ -33,7 +33,7 @@ func reviewOpinion(raw string) (workflow.ReviewDocument, bool) {
 }
 func validArtifactReview(a ArtifactRecord) bool {
 	r := a.Review
-	if r == nil || a.Verification != nil || a.Reference.Binding.Role != stageplan.Review || !utf8.ValidString(r.Text) || len(r.Text) > 1<<20 || r.TextHash != hash([]byte(r.Text)) || r.TestingRunID != a.ParentRunID || !opaque(r.TestingRunID) || r.TreeHash != a.Reference.TreeHash || r.TreeHash != a.InputTreeHash || !validHash(r.SpecHash) || !validHash(r.DesignHash) || !validHash(r.AcceptanceHash) {
+	if r == nil || a.Verification != nil || a.Acceptance != nil || a.Reference.Binding.Role != stageplan.Review || !utf8.ValidString(r.Text) || len(r.Text) > 1<<20 || r.TextHash != hash([]byte(r.Text)) || r.TestingRunID != a.ParentRunID || !opaque(r.TestingRunID) || r.TreeHash != a.Reference.TreeHash || r.TreeHash != a.InputTreeHash || !validHash(r.SpecHash) || !validHash(r.DesignHash) || !validHash(r.AcceptanceHash) {
 		return false
 	}
 	d, valid := reviewOpinion(r.Text)
@@ -56,7 +56,7 @@ func reviewContextIn(q workflowQuery, t Task, a ArtifactRecord) bool {
 // authority. Public artifact writes reject declared Review. current cannot
 // reenter Store; immutable run/parent/criteria fences are repeated in transaction.
 func (s *Store) RecordReviewedArtifactAuthorized(a ArtifactRecord, raw string, current func() bool) error {
-	if a.Review != nil || a.Verification != nil || current == nil || !current() || a.Reference.Binding.Role != stageplan.Review || len(raw) > 1<<20 || !utf8.ValidString(raw) {
+	if a.Review != nil || a.Verification != nil || a.Acceptance != nil || current == nil || !current() || a.Reference.Binding.Role != stageplan.Review || len(raw) > 1<<20 || !utf8.ValidString(raw) {
 		return ErrInvalid
 	}
 	p, err := s.Artifact(a.ParentRunID)

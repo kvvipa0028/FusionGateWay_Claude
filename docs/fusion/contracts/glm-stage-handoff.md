@@ -1,6 +1,6 @@
 # GLM 阶段 resolver 与写范围
 
-本合同接续[持久产物](durable-stage-artifact.md)与[Factory](glm-execution-factory.md)。当前实际接入 design→人工批准→implementation→testing。实际 testing 已接入直接执行器、硬证据和重启回读。[只读 review](review-assessment.md)已消费当前测试证据并持久记录模型意见。完整目标仍包含受控子进程工具链、最终验收和有限返工；多角色 acceptance 在其受控消费者完成前保持 unsupported。原 Magpie UI/CSS 不改，Jev off。
+本合同接续[持久产物](durable-stage-artifact.md)与[Factory](glm-execution-factory.md)。当前实际接入 design→人工批准→implementation→testing。实际 testing 已接入直接执行器、硬证据和重启回读。[只读 review](review-assessment.md)已消费当前测试证据并持久记录模型意见。完整目标仍包含受控子进程工具链、最终验收和有限返工；[多角色 acceptance](acceptance-decision.md)已消费 exact released review/current testing，模型 accepted 仅进入 advisory_only 等待人工接受；人工最终接受和有限返工仍需实现。原 Magpie UI/CSS 不改，Jev off。
 
 ## 精确输入与执行
 

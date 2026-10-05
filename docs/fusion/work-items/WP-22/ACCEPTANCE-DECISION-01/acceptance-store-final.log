@@ -1,0 +1,26 @@
+=== RUN   TestAcceptanceKeepsHardModelAndHumanSeparateAndSurvivesRestart
+--- PASS: TestAcceptanceKeepsHardModelAndHumanSeparateAndSurvivesRestart (0.77s)
+=== RUN   TestAcceptanceEventFailureRollsBackAndRejectionNeverCompletesTask
+=== RUN   TestAcceptanceEventFailureRollsBackAndRejectionNeverCompletesTask/accepted
+=== RUN   TestAcceptanceEventFailureRollsBackAndRejectionNeverCompletesTask/rejected
+=== RUN   TestAcceptanceEventFailureRollsBackAndRejectionNeverCompletesTask/unverified
+=== RUN   TestAcceptanceEventFailureRollsBackAndRejectionNeverCompletesTask/missing_criteria
+--- PASS: TestAcceptanceEventFailureRollsBackAndRejectionNeverCompletesTask (2.82s)
+    --- PASS: TestAcceptanceEventFailureRollsBackAndRejectionNeverCompletesTask/accepted (0.73s)
+    --- PASS: TestAcceptanceEventFailureRollsBackAndRejectionNeverCompletesTask/rejected (0.71s)
+    --- PASS: TestAcceptanceEventFailureRollsBackAndRejectionNeverCompletesTask/unverified (0.70s)
+    --- PASS: TestAcceptanceEventFailureRollsBackAndRejectionNeverCompletesTask/missing_criteria (0.67s)
+=== RUN   TestAcceptanceInvalidProducerAndRevokedCommitLeaveNoDecision
+=== RUN   TestAcceptanceInvalidProducerAndRevokedCommitLeaveNoDecision/wrong_parent
+=== RUN   TestAcceptanceInvalidProducerAndRevokedCommitLeaveNoDecision/changed_tree
+=== RUN   TestAcceptanceInvalidProducerAndRevokedCommitLeaveNoDecision/wrong_input
+=== RUN   TestAcceptanceInvalidProducerAndRevokedCommitLeaveNoDecision/revoked_commit
+=== RUN   TestAcceptanceInvalidProducerAndRevokedCommitLeaveNoDecision/wrong_role
+--- PASS: TestAcceptanceInvalidProducerAndRevokedCommitLeaveNoDecision (0.65s)
+    --- PASS: TestAcceptanceInvalidProducerAndRevokedCommitLeaveNoDecision/wrong_parent (0.00s)
+    --- PASS: TestAcceptanceInvalidProducerAndRevokedCommitLeaveNoDecision/changed_tree (0.01s)
+    --- PASS: TestAcceptanceInvalidProducerAndRevokedCommitLeaveNoDecision/wrong_input (0.01s)
+    --- PASS: TestAcceptanceInvalidProducerAndRevokedCommitLeaveNoDecision/revoked_commit (0.01s)
+    --- PASS: TestAcceptanceInvalidProducerAndRevokedCommitLeaveNoDecision/wrong_role (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/store	5.669s

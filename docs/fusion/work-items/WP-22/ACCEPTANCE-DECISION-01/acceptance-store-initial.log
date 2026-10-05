@@ -1,0 +1,26 @@
+=== RUN   TestAcceptanceKeepsHardModelAndHumanSeparateAndSurvivesRestart
+--- PASS: TestAcceptanceKeepsHardModelAndHumanSeparateAndSurvivesRestart (0.68s)
+=== RUN   TestAcceptanceEventFailureRollsBackAndRejectionNeverCompletesTask
+=== RUN   TestAcceptanceEventFailureRollsBackAndRejectionNeverCompletesTask/{"version":1,"verdict":"accepted","criteria":[{"index":0,"status":"met","reason":"checked"}]}
+=== RUN   TestAcceptanceEventFailureRollsBackAndRejectionNeverCompletesTask/{"version":1,"verdict":"rejected","criteria":[{"index":0,"status":"not_met","reason":"defect"}]}
+=== RUN   TestAcceptanceEventFailureRollsBackAndRejectionNeverCompletesTask/{"version":1,"verdict":"unverified","criteria":[{"index":0,"status":"unverified","reason":"no_HIL_evidence"}]}
+=== RUN   TestAcceptanceEventFailureRollsBackAndRejectionNeverCompletesTask/{"version":1,"verdict":"accepted","criteria":[]}
+--- PASS: TestAcceptanceEventFailureRollsBackAndRejectionNeverCompletesTask (2.35s)
+    --- PASS: TestAcceptanceEventFailureRollsBackAndRejectionNeverCompletesTask/{"version":1,"verdict":"accepted","criteria":[{"index":0,"status":"met","reason":"checked"}]} (0.59s)
+    --- PASS: TestAcceptanceEventFailureRollsBackAndRejectionNeverCompletesTask/{"version":1,"verdict":"rejected","criteria":[{"index":0,"status":"not_met","reason":"defect"}]} (0.58s)
+    --- PASS: TestAcceptanceEventFailureRollsBackAndRejectionNeverCompletesTask/{"version":1,"verdict":"unverified","criteria":[{"index":0,"status":"unverified","reason":"no_HIL_evidence"}]} (0.59s)
+    --- PASS: TestAcceptanceEventFailureRollsBackAndRejectionNeverCompletesTask/{"version":1,"verdict":"accepted","criteria":[]} (0.59s)
+=== RUN   TestAcceptanceInvalidProducerAndRevokedCommitLeaveNoDecision
+=== RUN   TestAcceptanceInvalidProducerAndRevokedCommitLeaveNoDecision/wrong_parent
+=== RUN   TestAcceptanceInvalidProducerAndRevokedCommitLeaveNoDecision/changed_tree
+=== RUN   TestAcceptanceInvalidProducerAndRevokedCommitLeaveNoDecision/wrong_input
+=== RUN   TestAcceptanceInvalidProducerAndRevokedCommitLeaveNoDecision/revoked_commit
+=== RUN   TestAcceptanceInvalidProducerAndRevokedCommitLeaveNoDecision/wrong_role
+--- PASS: TestAcceptanceInvalidProducerAndRevokedCommitLeaveNoDecision (0.52s)
+    --- PASS: TestAcceptanceInvalidProducerAndRevokedCommitLeaveNoDecision/wrong_parent (0.00s)
+    --- PASS: TestAcceptanceInvalidProducerAndRevokedCommitLeaveNoDecision/changed_tree (0.01s)
+    --- PASS: TestAcceptanceInvalidProducerAndRevokedCommitLeaveNoDecision/wrong_input (0.01s)
+    --- PASS: TestAcceptanceInvalidProducerAndRevokedCommitLeaveNoDecision/revoked_commit (0.01s)
+    --- PASS: TestAcceptanceInvalidProducerAndRevokedCommitLeaveNoDecision/wrong_role (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/store	5.190s

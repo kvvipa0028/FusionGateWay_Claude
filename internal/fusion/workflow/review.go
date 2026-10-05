@@ -3,6 +3,7 @@ package workflow
 import (
 	"encoding/json"
 	"io"
+	"slices"
 	"strings"
 	"unicode/utf8"
 )
@@ -25,7 +26,7 @@ func ParseReview(raw string) (ReviewDocument, error) {
 		return ReviewDocument{}, ErrInvalid
 	}
 	dec := json.NewDecoder(strings.NewReader(raw))
-	if !reviewJSONValue(dec, 0) {
+	if !opinionJSONValue(dec, 0, []string{"version", "verdict", "findings"}, []string{"id", "severity", "summary"}) {
 		return ReviewDocument{}, ErrInvalid
 	}
 	if _, err := dec.Token(); err != io.EOF {
@@ -56,7 +57,7 @@ func ParseReview(raw string) (ReviewDocument, error) {
 }
 
 // encoding/json otherwise accepts duplicate keys and overwrites old values.
-func reviewJSONValue(dec *json.Decoder, depth int) bool {
+func opinionJSONValue(dec *json.Decoder, depth int, top, item []string) bool {
 	if depth > 16 {
 		return false
 	}
@@ -70,19 +71,24 @@ func reviewJSONValue(dec *json.Decoder, depth int) bool {
 	}
 	switch delim {
 	case '{':
+		keys := top
+		if depth == 2 {
+			keys = item
+		} else if depth != 0 {
+			return false
+		}
 		seen := map[string]bool{}
 		for dec.More() {
 			key, err := dec.Token()
 			name, ok := key.(string)
-			known := depth == 0 && (name == "version" || name == "verdict" || name == "findings") || depth == 2 && (name == "id" || name == "severity" || name == "summary")
-			if err != nil || !ok || !known || seen[name] || !reviewJSONValue(dec, depth+1) {
+			if err != nil || !ok || !slices.Contains(keys, name) || seen[name] || !opinionJSONValue(dec, depth+1, top, item) {
 				return false
 			}
 			seen[name] = true
 		}
 	case '[':
 		for dec.More() {
-			if !reviewJSONValue(dec, depth+1) {
+			if !opinionJSONValue(dec, depth+1, top, item) {
 				return false
 			}
 		}

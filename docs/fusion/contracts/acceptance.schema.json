@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fusion:acceptance:v1",
+  "title": "Advisory model acceptance v1",
+  "type": "object",
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "verdict": {
+      "enum": [
+        "accepted",
+        "rejected",
+        "unverified"
+      ]
+    },
+    "criteria": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 128,
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 127
+          },
+          "status": {
+            "enum": [
+              "met",
+              "not_met",
+              "unverified"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 8192
+          }
+        },
+        "required": [
+          "index",
+          "status",
+          "reason"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "version",
+    "verdict",
+    "criteria"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "verdict": {
+            "const": "accepted"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "criteria": {
+            "items": {
+              "properties": {
+                "status": {
+                  "const": "met"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "verdict": {
+            "const": "rejected"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "criteria": {
+            "contains": {
+              "properties": {
+                "status": {
+                  "const": "not_met"
+                }
+              },
+              "required": [
+                "status"
+              ]
+            },
+            "minContains": 1
+          }
+        }
+      }
+    }
+  ]
+}

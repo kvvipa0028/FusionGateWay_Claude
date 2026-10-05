@@ -190,7 +190,7 @@ func newGLMRuntimeFactory(c GLMRuntimeConfig, transport http.RoundTripper) (Runt
 				return control.Launch{}, control.ErrIdentity
 			}
 			stage, err := e.Store.StageArtifactInput(task.ID, store.TaskVersion{PlanRevision: task.PlanRevision, Generation: task.Generation, State: task.State}, role)
-			if err != nil || glmHasMultipleRoles(stage) && (role == stageplan.Acceptance || !p.Write && (role == stageplan.Implementation || role == stageplan.Testing)) {
+			if err != nil || glmHasMultipleRoles(stage) && !p.Write && (role == stageplan.Implementation || role == stageplan.Testing) {
 				return control.Launch{}, control.ErrUnsupported
 			}
 			if role == stageplan.Testing && glmHasMultipleRoles(stage) && !glmVerificationMatches(c.Verification, stage) {
@@ -221,6 +221,23 @@ func newGLMRuntimeFactory(c GLMRuntimeConfig, transport http.RoundTripper) (Runt
 				v := testing.Verification.Data.Record
 				prompt.Verification = &glmReviewVerification{TestingRunID: testing.Reference.Binding.RunID, ArtifactHash: v.ArtifactHash, SuiteHash: v.SuiteHash, SpecHash: v.SpecHash, AcceptanceHash: testing.Verification.AcceptanceHash, ReportHash: v.ReportHash, ToolVersion: v.ToolVersion, ExitCode: v.ExitCode, Tests: hard.Tests, Skipped: hard.Skipped}
 				prompt.ReviewResponseContract = `Return only one JSON object, at most 64 KiB: {"version":1,"verdict":"approve|changes_required|unverified","findings":[{"id":"unique finding id","severity":"blocking|nonblocking","summary":"concrete issue and required correction"}]}. No unknown keys. approve cannot include blocking findings; changes_required requires findings. Review the frozen code, approved design and actual test summary. Your opinion is advisory and cannot change hard test results, criteria, permissions, or human acceptance. Do not edit files.`
+			}
+			if role == stageplan.Acceptance && glmHasMultipleRoles(stage) {
+				if !glmVerificationMatches(c.Verification, stage) || stage.Parent == nil || stage.Parent.Reference.Binding.Role != stageplan.Review {
+					return control.Launch{}, control.ErrUnsupported
+				}
+				reviewed, hard, err := e.Store.ReviewedArtifact(stage.Parent.Reference.Binding.RunID, p.Path, c.ExecutionRoot, c.Verification.Spec)
+				if err != nil || hard.Status != evidence.Passed || reviewed.Review == nil || !reviewed.Review.Valid || reviewed.Review.Document.Verdict != "approve" || !reflect.DeepEqual(reviewed, *stage.Parent) {
+					return control.Launch{}, control.ErrUnsupported
+				}
+				testing, err := e.Store.Artifact(reviewed.Review.TestingRunID)
+				if err != nil || testing.Verification == nil || testing.Reference.TreeHash != reviewed.Reference.TreeHash {
+					return control.Launch{}, control.ErrUnsupported
+				}
+				v := testing.Verification.Data.Record
+				prompt.Verification = &glmReviewVerification{TestingRunID: testing.Reference.Binding.RunID, ArtifactHash: v.ArtifactHash, SuiteHash: v.SuiteHash, SpecHash: v.SpecHash, AcceptanceHash: testing.Verification.AcceptanceHash, ReportHash: v.ReportHash, ToolVersion: v.ToolVersion, ExitCode: v.ExitCode, Tests: hard.Tests, Skipped: hard.Skipped}
+				prompt.Review = &glmAcceptanceReview{RunID: reviewed.Reference.Binding.RunID, TextHash: reviewed.Review.TextHash, Document: reviewed.Review.Document}
+				prompt.AcceptanceResponseContract = `Return only one JSON object, at most 64 KiB: {"version":1,"verdict":"accepted|rejected|unverified","criteria":[{"index":0,"status":"met|not_met|unverified","reason":"concrete evidence or missing evidence"}]}. Cover every frozen approved acceptance criterion once by its zero-based index, no unknown keys. accepted requires all criteria met; rejected requires a not_met criterion. Hard test results and review remain independent facts. This direct backend provides no HIL/WCET/hardware evidence; leave unsupported criteria unverified. Your opinion is advisory, not human acceptance, Task completion or deployment permission. Do not edit files or change criteria.`
 			}
 			var parent handoff.Bundle
 			var inputEntries []workspace.ArtifactEntry
@@ -363,6 +380,12 @@ func newGLMRuntimeFactory(c GLMRuntimeConfig, transport http.RoundTripper) (Runt
 						return control.ErrReconcile
 					}
 					err = e.Store.RecordReviewedArtifactAuthorized(record, raw, storeCurrent)
+				} else if role == stageplan.Acceptance && glmHasMultipleRoles(stage) {
+					observed, raw, observeErr := adapter.Observation(run.ID, run.Generation)
+					if observeErr != nil || observed.State != "succeeded" || observed.SessionID != run.NativeSessionID || prompt.Verification == nil || prompt.Review == nil {
+						return control.ErrReconcile
+					}
+					err = e.Store.RecordAcceptanceArtifactAuthorized(record, raw, storeCurrent)
 				} else {
 					err = e.Store.RecordArtifactAuthorized(record, storeCurrent)
 				}

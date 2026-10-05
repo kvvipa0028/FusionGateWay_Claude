@@ -47,4 +47,4 @@ PATH="$HOME/.local/bin:$PATH" python3 scripts/fusion/build-dev.py
 
 固定 Native 测试经过实际 Claude Code、产品 HTTP、Controller 和 SQLite，在实际 Edit 后关闭 producer 宿主、重开数据库、从 receipt 恢复并独立复制修改代码；预算也从重开 Store 读取。模型、准入和 key 均为合成 fixtures，不调用真实模型/额度。缺少固定 Native 时明确 skip，不算通过。
 
-[本组件证据](../work-items/WP-20/DURABLE-ARTIFACT-01/summary.md)。[产品下一阶段 resolver](glm-stage-handoff.md)与 implementation/testing 实际写范围已接入。[实际 testing 直接验证与持久证据](verification-runner.md)已接入；[只读 review 与模型意见](review-assessment.md)已接入；受控子进程工具链、完整 acceptance 与有限返工仍需实现，多角色 acceptance 保持阻断，WP-20 继续 in_progress。真实 Gate A、Native UI 和最终 T01–T60 未通过。
+[本组件证据](../work-items/WP-20/DURABLE-ARTIFACT-01/summary.md)。[产品下一阶段 resolver](glm-stage-handoff.md)与 implementation/testing 实际写范围已接入。[实际 testing 直接验证与持久证据](verification-runner.md)已接入；[只读 review 与模型意见](review-assessment.md)已接入；[只读 acceptance 建议](acceptance-decision.md)已接入；受控子进程工具链、人工最终接受与有限返工仍需实现，WP-20 继续 in_progress。真实 Gate A、Native UI 和最终 T01–T60 未通过。

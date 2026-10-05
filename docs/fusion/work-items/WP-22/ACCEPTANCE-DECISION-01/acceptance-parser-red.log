@@ -1,0 +1,7 @@
+# github.com/yetone/magpie/internal/fusion/workflow [github.com/yetone/magpie/internal/fusion/workflow.test]
+internal/fusion/workflow/acceptance_test.go:7:14: undefined: ParseAcceptance
+internal/fusion/workflow/acceptance_test.go:24:16: undefined: ParseAcceptance
+internal/fusion/workflow/acceptance_test.go:32:16: undefined: ParseAcceptance
+internal/fusion/workflow/acceptance_test.go:36:15: undefined: ParseAcceptance
+FAIL	github.com/yetone/magpie/internal/fusion/workflow [build failed]
+FAIL

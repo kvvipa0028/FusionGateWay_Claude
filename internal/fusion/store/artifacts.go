@@ -20,6 +20,7 @@ type ArtifactRecord struct {
 	InputTreeHash string                `json:"input_tree_hash"`
 	Verification  *ArtifactVerification `json:"verification,omitempty"`
 	Review        *ArtifactReview       `json:"review,omitempty"`
+	Acceptance    *ArtifactAcceptance   `json:"acceptance,omitempty"`
 }
 
 func (ArtifactRecord) String() string   { return "stored stage artifact (redacted)" }
@@ -42,6 +43,9 @@ func artifactRecordIn(q queryRow, runID string) (ArtifactRecord, error) {
 		return ArtifactRecord{}, ErrInvalid
 	}
 	if a.Review != nil && !validArtifactReview(a) {
+		return ArtifactRecord{}, ErrInvalid
+	}
+	if a.Acceptance != nil && !validArtifactAcceptance(a) {
 		return ArtifactRecord{}, ErrInvalid
 	}
 	b, err := json.Marshal(a)
@@ -117,7 +121,7 @@ func (s *Store) RecordArtifact(a ArtifactRecord) error {
 // The producer must verify actual Supervisor stop and current filesystem bytes
 // independently before calling; a caller-declared boolean/hash is insufficient.
 func (s *Store) RecordArtifactAuthorized(a ArtifactRecord, current func() bool) error {
-	if a.Verification != nil || a.Review != nil {
+	if a.Verification != nil || a.Review != nil || a.Acceptance != nil {
 		return ErrInvalid
 	}
 	return s.recordArtifactAuthorized(a, current)
@@ -161,6 +165,9 @@ func (s *Store) recordArtifactAuthorized(a ArtifactRecord, current func() bool) 
 			if a.Review != nil && !reviewContextIn(tx, t, a) {
 				return ErrConflict
 			}
+			if a.Acceptance != nil && !acceptanceContextIn(tx, t, a) {
+				return ErrConflict
+			}
 			if _, err := tx.Exec("INSERT INTO stage_artifacts VALUES(?,?,?,?)", r.ID, r.TaskID, string(raw), hash(raw)); err != nil {
 				return err
 			}
@@ -180,6 +187,18 @@ func (s *Store) recordArtifactAuthorized(a ArtifactRecord, current func() bool) 
 					return err
 				}
 				if err := event(tx, r.TaskID, "review_requires_review", r.ID, r.Generation); err != nil {
+					return err
+				}
+			}
+			if a.Acceptance != nil {
+				state, kind := "needs_review", "acceptance_requires_review"
+				if a.Acceptance.Valid && a.Acceptance.Document.Verdict == "accepted" {
+					state, kind = "advisory_only", "acceptance_awaiting_human"
+				}
+				if _, err := tx.Exec("UPDATE tasks SET state=? WHERE id=?", state, r.TaskID); err != nil {
+					return err
+				}
+				if err := event(tx, r.TaskID, kind, r.ID, r.Generation); err != nil {
 					return err
 				}
 			}

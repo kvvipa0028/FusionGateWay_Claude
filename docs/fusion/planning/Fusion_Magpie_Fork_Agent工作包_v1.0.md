@@ -644,7 +644,7 @@
 
 **阶段：**M3　**负责人角色：**工作流 Agent　**状态：**in_progress
 
-**当前组件证据：**[REVIEW-ASSESSMENT-01](../work-items/WP-22/REVIEW-ASSESSMENT-01/summary.md) 已接入真实当前测试证据的只读 review、结构化模型意见及需要修改时的阻断。acceptance、有限返工、独立性策略和完整端到端仍须完成，不将组件通过等同整个工作包通过。
+**当前组件证据：**[REVIEW-ASSESSMENT-01](../work-items/WP-22/REVIEW-ASSESSMENT-01/summary.md) 已接入真实当前测试证据的只读 review、结构化模型意见及需要修改时的阻断。[ACCEPTANCE-DECISION-01](../work-items/WP-22/ACCEPTANCE-DECISION-01/summary.md) 已接入只读验收模型建议并保持等待人工接受。人工最终接受、有限返工、独立性策略和完整端到端仍须完成，不将组件通过等同整个工作包通过。
 
 **输入/前置：**WP-19, WP-20, WP-21。同时读取这些前置包的合同、测试日志、阻断项与当前仓库 HEAD。
 

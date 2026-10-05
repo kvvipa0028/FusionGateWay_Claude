@@ -1,0 +1,9 @@
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/acceptance_standard_changed
+    glm_handoff_native_test.go:151: acceptance lost readonly exact review/test/approved-criteria contract
+    glm_handoff_native_test.go:499: invalid acceptance inputs spawned Native or wrote intent 202 {task-91a1f0c257158e155bb7fce4f74f2e5c fixture-project synthetic pipeline goal running 1 5}
+--- FAIL: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart (5.27s)
+    --- FAIL: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/acceptance_standard_changed (5.27s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	5.720s
+FAIL

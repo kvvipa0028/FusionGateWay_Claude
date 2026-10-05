@@ -17,7 +17,7 @@ type ArtifactVerification struct {
 
 func validArtifactVerification(a ArtifactRecord) bool {
 	v := a.Verification
-	return v != nil && a.Reference.Binding.Role == stageplan.Testing && evidence.ValidStored(v.Data) && v.Data.ArtifactPath == a.Reference.Path && v.Data.Record.ArtifactHash == a.Reference.TreeHash && (v.DesignHash == "" && v.AcceptanceHash == "" || validHash(v.DesignHash) && validHash(v.AcceptanceHash))
+	return v != nil && a.Review == nil && a.Acceptance == nil && a.Reference.Binding.Role == stageplan.Testing && evidence.ValidStored(v.Data) && v.Data.ArtifactPath == a.Reference.Path && v.Data.Record.ArtifactHash == a.Reference.TreeHash && (v.DesignHash == "" && v.AcceptanceHash == "" || validHash(v.DesignHash) && validHash(v.AcceptanceHash))
 }
 func verificationContextIn(q workflowQuery, t Task, v *ArtifactVerification) bool {
 	w, err := workflowIn(q, t)
@@ -31,7 +31,7 @@ func verificationContextIn(q workflowQuery, t Task, v *ArtifactVerification) boo
 // Native stop/Task/Plan/parent/source fences remain independent requirements.
 // current must not reenter Store; registration never releases a reservation.
 func (s *Store) RecordVerifiedArtifactAuthorized(a ArtifactRecord, r evidence.Result, frozen workspace.FrozenArtifact, spec evidence.Spec, current func() bool) error {
-	if a.Verification != nil || a.Review != nil || current == nil || !current() {
+	if a.Verification != nil || a.Review != nil || a.Acceptance != nil || current == nil || !current() {
 		return ErrInvalid
 	}
 	v, err := evidence.Export(r, frozen, spec)

@@ -1,0 +1,48 @@
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/success
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/testing_scope_violation
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/parent_header_drift
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/unscoped_external_write
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/hard_test_failure
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/malformed_test_report
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/missing_verifier
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/wrong_standard
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/verifier_config_mutation
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/review_changes
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/review_malformed
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/review_write
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/review_standard_changed
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/review_no_verifier
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/review_parent_drift
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/acceptance_rejected
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/acceptance_unverified
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/acceptance_malformed
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/acceptance_missing_criteria
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/acceptance_write
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/acceptance_standard_changed
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/acceptance_parent_drift
+--- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart (86.07s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/success (5.48s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/testing_scope_violation (2.79s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/parent_header_drift (1.98s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/unscoped_external_write (2.85s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/hard_test_failure (3.09s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/malformed_test_report (3.10s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/missing_verifier (1.95s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/wrong_standard (2.01s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/verifier_config_mutation (5.46s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/review_changes (4.16s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/review_malformed (4.13s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/review_write (4.07s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/review_standard_changed (3.20s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/review_no_verifier (3.28s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/review_parent_drift (3.18s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/acceptance_rejected (5.37s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/acceptance_unverified (5.29s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/acceptance_malformed (5.42s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/acceptance_missing_criteria (5.47s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/acceptance_write (5.19s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/acceptance_standard_changed (4.27s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/acceptance_parent_drift (4.32s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	87.756s

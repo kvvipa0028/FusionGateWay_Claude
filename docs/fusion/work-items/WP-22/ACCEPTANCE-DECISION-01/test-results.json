@@ -1,0 +1,132 @@
+{
+  "component": "WP-22-ACCEPTANCE-DECISION-01",
+  "base": "666e1ad13f2ced6bae5f2764fee0f7e51671c456",
+  "go_version": "1.26.3",
+  "fusion_final": {
+    "pass_top": 693,
+    "pass_sub": 1253,
+    "skip_top": 33,
+    "skip_sub": 11,
+    "fail_top": 0,
+    "fail_sub": 0,
+    "packages": 19
+  },
+  "native_final": {
+    "pass_top": 10,
+    "pass_sub": 54,
+    "skip_top": 0,
+    "skip_sub": 0,
+    "fail_top": 0,
+    "fail_sub": 0,
+    "packages": 1
+  },
+  "store_final": {
+    "pass_top": 3,
+    "pass_sub": 9,
+    "skip_top": 0,
+    "skip_sub": 0,
+    "fail_top": 0,
+    "fail_sub": 0,
+    "packages": 1
+  },
+  "log_archives": {
+    "acceptance-parser-red.log": {
+      "raw_log": ".fusion-dev/implementation/acceptance-parser-red.log",
+      "raw_sha256": "12b46db9edfc5fe389b7d396254651ab7a0cc467134a916dd215fb72a2c2f9c2",
+      "archive_sha256": "12b46db9edfc5fe389b7d396254651ab7a0cc467134a916dd215fb72a2c2f9c2"
+    },
+    "acceptance-parser-green.log": {
+      "raw_log": ".fusion-dev/implementation/acceptance-parser-green.log",
+      "raw_sha256": "bd44733632d59c81dae81178fd22c97baf455a2c78df5437fcde35ddbc95db2a",
+      "archive_sha256": "bd44733632d59c81dae81178fd22c97baf455a2c78df5437fcde35ddbc95db2a"
+    },
+    "acceptance-native-red.log": {
+      "raw_log": ".fusion-dev/implementation/acceptance-native-red.log",
+      "raw_sha256": "d2c0543a4d2ded91b19be6196e7530ba0819acbb69cb9ef30eea467d53936fe3",
+      "archive_sha256": "13723858177b9916eeb00a33536b0877a0b44f39f7398e58dfb511156089d8a2"
+    },
+    "acceptance-native-first.log": {
+      "raw_log": ".fusion-dev/implementation/acceptance-native-first.log",
+      "raw_sha256": "6aa1cf556aa3736d50adb6325a07ffe6d8e449dc20ea2426ad4195433290831e",
+      "archive_sha256": "6aa1cf556aa3736d50adb6325a07ffe6d8e449dc20ea2426ad4195433290831e"
+    },
+    "acceptance-native-expanded.log": {
+      "raw_log": ".fusion-dev/implementation/acceptance-native-expanded.log",
+      "raw_sha256": "b1eadd9bf33dfe2a7a1e1ba081aad2df0786b127230f2d1edc5fb11cc2436423",
+      "archive_sha256": "b1eadd9bf33dfe2a7a1e1ba081aad2df0786b127230f2d1edc5fb11cc2436423"
+    },
+    "acceptance-store-initial.log": {
+      "raw_log": ".fusion-dev/implementation/acceptance-store-initial.log",
+      "raw_sha256": "91fe148f803e40a744632292f01b3fea225a7a9d533a8c6fcefa64b99b9350ea",
+      "archive_sha256": "91fe148f803e40a744632292f01b3fea225a7a9d533a8c6fcefa64b99b9350ea"
+    },
+    "acceptance-gate-mutation-no-match.log": {
+      "raw_log": ".fusion-dev/implementation/acceptance-gate-mutation-no-match.log",
+      "raw_sha256": "300fa399cfea32b42a3d57f5bb863a8578e9472c1ed9fa2e4c1158edfe72d8d4",
+      "archive_sha256": "300fa399cfea32b42a3d57f5bb863a8578e9472c1ed9fa2e4c1158edfe72d8d4"
+    },
+    "acceptance-gate-mutation.log": {
+      "raw_log": ".fusion-dev/implementation/acceptance-gate-mutation.log",
+      "raw_sha256": "ef6d7856025d426dc1d4410c1d1e3d18c7a4899e06a14d1eff88cd64cf692ca5",
+      "archive_sha256": "ef6d7856025d426dc1d4410c1d1e3d18c7a4899e06a14d1eff88cd64cf692ca5"
+    },
+    "acceptance-store-capture-path-error.log": {
+      "raw_log": ".fusion-dev/implementation/acceptance-store-capture-path-error.log",
+      "raw_sha256": "d7916243ae35927a4a294a8db7872da8b5ad8deb2e872783b37dff771a9fbe6c",
+      "archive_sha256": "d7916243ae35927a4a294a8db7872da8b5ad8deb2e872783b37dff771a9fbe6c"
+    },
+    "acceptance-store-final.log": {
+      "raw_log": ".fusion-dev/implementation/acceptance-store-final.log",
+      "raw_sha256": "793ea89e4cf8e719036eea96e142a54b5eb3daeb911de66a6153b649fe031b4f",
+      "archive_sha256": "793ea89e4cf8e719036eea96e142a54b5eb3daeb911de66a6153b649fe031b4f"
+    },
+    "acceptance-native-final.log": {
+      "raw_log": ".fusion-dev/implementation/acceptance-native-final.log",
+      "raw_sha256": "a003b55a7718a911d0163d84d9e3fc28ae2050f622c3b75cf6e4960577ad3f8a",
+      "archive_sha256": "a003b55a7718a911d0163d84d9e3fc28ae2050f622c3b75cf6e4960577ad3f8a"
+    },
+    "acceptance-fusion-final.log": {
+      "raw_log": ".fusion-dev/implementation/acceptance-fusion-final.log",
+      "raw_sha256": "359ee747555e0bba0d0ec185196c3c9cc8fb542dc20d61b9313e8e173c56bbfb",
+      "archive_sha256": "359ee747555e0bba0d0ec185196c3c9cc8fb542dc20d61b9313e8e173c56bbfb"
+    },
+    "build-cli.log": {
+      "raw_log": ".fusion-dev/build-dev/cli.log",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "archive_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "build-gui.log": {
+      "raw_log": ".fusion-dev/build-dev/gui.log",
+      "raw_sha256": "ab86fb5f2d38aa38a98b90f8aa579b2934f65a3dfc52e5db4ea887a61425bc82",
+      "archive_sha256": "ab86fb5f2d38aa38a98b90f8aa579b2934f65a3dfc52e5db4ea887a61425bc82"
+    },
+    "build-vet.log": {
+      "raw_log": ".fusion-dev/build-dev/vet.log",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "archive_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "effective_mutation": "Removing acceptance hard.Status != passed guard allowed 202/new generation after current standard changed; actual Native negative test FAIL. Production bytes restored exactly; final full Fusion and pinned Native green.",
+  "mutation_source_restored_exactly": true,
+  "initial_failures": [
+    "Missing parser API compile RED.",
+    "Actual approved four-stage pipeline acceptance returned runtime_unsupported 503 (behavior RED).",
+    "Initial mutation selector matched no tests: retained, not mutation evidence; corrected selector produced actual FAIL.",
+    "Initial Store capture used relative path resolved by go test package cwd, file missing: retained; absolute output path fixed invocation, source unchanged."
+  ],
+  "scope": {
+    "ui_changes": 0,
+    "jev": "off",
+    "real_supplier_calls": 0,
+    "native": "pinned actual Claude Code 2.1.287 with synthetic upstream/key/admission",
+    "schema": 10,
+    "acceptance": "readonly_actual_consumer_and_private_advisory_receipt",
+    "model_accepted_task_state": "advisory_only",
+    "human_final_acceptance": "not_implemented",
+    "rework_and_independence_policy": "not_implemented",
+    "child_toolchain_backend": "not_implemented",
+    "whole_WP22": "in_progress",
+    "final_T01_T60": "not_run"
+  },
+  "corrected_scope_path": "docs/fusion/openapi-fusion.yaml exists and is unchanged; historical packet hashes not rewritten"
+}

@@ -7,6 +7,7 @@ import (
 	"github.com/yetone/magpie/internal/fusion/handoff"
 	"github.com/yetone/magpie/internal/fusion/stageplan"
 	"github.com/yetone/magpie/internal/fusion/store"
+	"github.com/yetone/magpie/internal/fusion/workflow"
 	"github.com/yetone/magpie/internal/fusion/workspace"
 )
 
@@ -21,13 +22,21 @@ type glmStageParent struct {
 }
 
 type glmStagePrompt struct {
-	Role                   stageplan.Role         `json:"role"`
-	Goal                   string                 `json:"goal"`
-	Workflow               *store.WorkflowView    `json:"workflow,omitempty"`
-	Parent                 *glmStageParent        `json:"parent,omitempty"`
-	WritePaths             []string               `json:"write_paths,omitempty"`
-	Verification           *glmReviewVerification `json:"verification,omitempty"`
-	ReviewResponseContract string                 `json:"review_response_contract,omitempty"`
+	Role                       stageplan.Role         `json:"role"`
+	Goal                       string                 `json:"goal"`
+	Workflow                   *store.WorkflowView    `json:"workflow,omitempty"`
+	Parent                     *glmStageParent        `json:"parent,omitempty"`
+	WritePaths                 []string               `json:"write_paths,omitempty"`
+	Verification               *glmReviewVerification `json:"verification,omitempty"`
+	ReviewResponseContract     string                 `json:"review_response_contract,omitempty"`
+	Review                     *glmAcceptanceReview   `json:"review,omitempty"`
+	AcceptanceResponseContract string                 `json:"acceptance_response_contract,omitempty"`
+}
+
+type glmAcceptanceReview struct {
+	RunID    string                  `json:"run_id"`
+	TextHash string                  `json:"text_hash"`
+	Document workflow.ReviewDocument `json:"document"`
 }
 
 type glmReviewVerification struct {

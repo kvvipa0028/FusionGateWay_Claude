@@ -1,6 +1,6 @@
 # 只读 review、真实证据与模型意见
 
-本合同实现 design→人工批准→implementation→实际 testing→review。它不是最终 acceptance，也不改变人工批准、硬检查或 Task 完成的定义。UI 沿用原 Magpie，本次没有 GUI/CSS 修改；Jev off。
+本合同实现 design→人工批准→implementation→实际 testing→review。[模型验收决策](acceptance-decision.md)已消费 exact released review 与当前硬证据；两者均不改变人工批准、硬检查或 Task 完成的定义。UI 沿用原 Magpie，本次没有 GUI/CSS 修改；Jev off。
 
 ## 启动与权限
 
@@ -22,6 +22,6 @@ ReviewedArtifact 只读取 exact released review receipt，独立恢复 review �
 
 schema10 SQL001–010 不变，Review 是 omitempty 可选字段；旧 receipt canonical bytes 保持。旧二进制不能读取新 reviewed canonical receipt，回退必须先停止派单、确认所有 owned 进程真正停止，再恢复同一检查点的数据库与 artifact/ExecutionRoot 备份。不得删除 Review 伪装兼容或自动重放任务。
 
-acceptance、最多一次自动返工、阶段首次+一次补救限制、项目强制独立性冲突策略及最终人工接受记录仍必须实现；当前不自动返工，不运行多角色 acceptance，不 merge/deploy/flash。需要子进程的工具链、真实账号/项目与最终 T01–T60 仍未验证。不能把本次真实工具配合合成上游的成功当作真实供应商准入。
+最多一次自动返工、阶段首次+一次补救限制、项目强制独立性冲突策略及最终人工接受记录仍必须实现；当前模型 acceptance 只给建议，不自动返工或 merge/deploy/flash。需要子进程的工具链、真实账号/项目与最终 T01–T60 仍未验证。不能把本次真实工具配合合成上游的成功当作真实供应商准入。
 
 [组件验证和复现](../work-items/WP-22/REVIEW-ASSESSMENT-01/summary.md)。

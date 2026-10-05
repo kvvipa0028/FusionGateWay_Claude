@@ -30,7 +30,7 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 	if *hostNativeGLM == "" {
 		t.Skip("explicit pinned Native fixture only")
 	}
-	for _, mode := range []string{"success", "testing_scope_violation", "parent_header_drift", "unscoped_external_write", "hard_test_failure", "malformed_test_report", "missing_verifier", "wrong_standard", "verifier_config_mutation", "review_changes", "review_malformed", "review_write", "review_standard_changed", "review_no_verifier", "review_parent_drift"} {
+	for _, mode := range []string{"success", "testing_scope_violation", "parent_header_drift", "unscoped_external_write", "hard_test_failure", "malformed_test_report", "missing_verifier", "wrong_standard", "verifier_config_mutation", "review_changes", "review_malformed", "review_write", "review_standard_changed", "review_no_verifier", "review_parent_drift", "acceptance_rejected", "acceptance_unverified", "acceptance_malformed", "acceptance_missing_criteria", "acceptance_write", "acceptance_standard_changed", "acceptance_parent_drift"} {
 		t.Run(mode, func(t *testing.T) {
 			path, d, c, _, _ := glmFactoryFixture(t, true)
 			c.Executable, _ = filepath.EvalSymlinks(*hostNativeGLM)
@@ -98,6 +98,24 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 					}
 					return &http.Response{StatusCode: 200, Header: http.Header{"Content-Type": []string{"text/event-stream"}}, Body: io.NopCloser(strings.NewReader(glmHostSSEWithText(t, int64(n), write, text)))}, nil
 				}
+				if role == stageplan.Acceptance {
+					text := `{"version":1,"verdict":"accepted","criteria":[{"index":0,"status":"met","reason":"actual frozen code, passed pinned verifier and review checked"}]}`
+					switch mode {
+					case "acceptance_rejected":
+						text = `{"version":1,"verdict":"rejected","criteria":[{"index":0,"status":"not_met","reason":"synthetic acceptance defect"}]}`
+					case "acceptance_unverified":
+						text = `{"version":1,"verdict":"unverified","criteria":[{"index":0,"status":"unverified","reason":"required evidence not independently established"}]}`
+					case "acceptance_malformed":
+						text = "accepted but no actual criterion report"
+					case "acceptance_missing_criteria":
+						text = `{"version":1,"verdict":"accepted","criteria":[]}`
+					case "acceptance_write":
+						if n == 1 {
+							write = filepath.Join(work, "src/acceptance-write.txt")
+						}
+					}
+					return &http.Response{StatusCode: 200, Header: http.Header{"Content-Type": []string{"text/event-stream"}}, Body: io.NopCloser(strings.NewReader(glmHostSSEWithText(t, int64(n), write, text)))}, nil
+				}
 				return &http.Response{StatusCode: 200, Header: http.Header{"Content-Type": []string{"text/event-stream"}}, Body: io.NopCloser(strings.NewReader(glmHostSSE(t, int64(n), write)))}, nil
 			})
 			factory, err := newGLMRuntimeFactory(c, upstream)
@@ -125,6 +143,12 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 							var prompt glmStagePrompt
 							if json.Unmarshal(launch.Spec.Input, &prompt) != nil || launch.Spec.Writable || len(launch.Spec.WritePaths) != 0 || prompt.Verification == nil || prompt.Verification.Tests != 2 || prompt.Verification.ExitCode != 0 || prompt.Parent == nil || prompt.Parent.Evidence != "passed" || prompt.Parent.TreeHash != prompt.Verification.ArtifactHash || prompt.ReviewResponseContract == "" {
 								t.Error("review lost readonly current hard-evidence contract")
+							}
+						}
+						if role == stageplan.Acceptance {
+							var prompt glmStagePrompt
+							if json.Unmarshal(launch.Spec.Input, &prompt) != nil || launch.Spec.Writable || len(launch.Spec.WritePaths) != 0 || prompt.Verification == nil || prompt.Verification.Tests != 2 || prompt.Review == nil || prompt.Review.Document.Verdict != "approve" || prompt.Parent == nil || prompt.Review.RunID != prompt.Parent.Binding.RunID || prompt.Parent.TreeHash != prompt.Verification.ArtifactHash || prompt.AcceptanceResponseContract == "" || prompt.Workflow.Design.Snapshot.AcceptanceHash != prompt.Verification.AcceptanceHash {
+								t.Error("acceptance lost readonly exact review/test/approved-criteria contract")
 							}
 						}
 						mu.Lock()
@@ -308,6 +332,10 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 				if code == 202 || calls.Load() != before {
 					t.Fatal("hard failure allowed review start", code)
 				}
+				code, _, _ = hostHTTP(t, h, "POST", baseURL+"/start", `{"role":"acceptance"}`, "hard-failed-acceptance", etag)
+				if code == 202 || calls.Load() != before {
+					t.Fatal("model acceptance bypassed actual hard failure", code)
+				}
 				return
 			}
 			result, err := h.store.Artifact(testingRun.Run.ID)
@@ -415,6 +443,11 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 				if current.State != "needs_review" || (mode == "review_malformed") == reviewed.Review.Valid || reviewed.Review.Document.Verdict == "approve" {
 					t.Fatal("Native success overrode blocking/invalid model review", current, reviewed.Review)
 				}
+				before = calls.Load()
+				code, _, _ = hostHTTP(t, h, "POST", baseURL+"/start", `{"role":"acceptance"}`, "blocked-review-acceptance", `"p1-g4-needs_review"`)
+				if code == 202 || calls.Load() != before {
+					t.Fatal("acceptance bypassed blocked/invalid review", code)
+				}
 				return
 			}
 			if !reviewed.Review.Valid || reviewed.Review.Document.Verdict != "approve" || current.State != "ready" {
@@ -431,6 +464,16 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 			if err := h.Close(); err != nil {
 				t.Fatal(err)
 			}
+			if mode == "acceptance_standard_changed" {
+				updated := c
+				updated.TestingWritePaths = []string{"tests"}
+				updated.Verification = copyRuntimeValue(expectedVerification)
+				updated.Verification.Spec.Rules.MinTests = 3
+				factory, err = newGLMRuntimeFactory(updated, upstream)
+				if err != nil {
+					t.Fatal(err)
+				}
+			}
 			h, err = OpenExecutionControl(context.Background(), path, root, "127.0.0.1:0", wrapped)
 			if err != nil {
 				t.Fatal(err)
@@ -439,10 +482,73 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 			if _, v, err := h.store.ReviewedArtifact(review.Run.ID, d.Projects[0].Path, c.ExecutionRoot, expectedVerification.Spec); err != nil || v.Status != evidence.Passed {
 				t.Fatal("review restart lost bound evidence", err, v)
 			}
-			before = calls.Load()
-			code, _, _ = hostHTTP(t, h, "POST", baseURL+"/start", `{"role":"acceptance"}`, "acceptance-consumer-pending", `"p1-g4-ready"`)
-			if code == 202 || calls.Load() != before {
-				t.Fatal("advisory review approved final acceptance", code)
+			if mode == "acceptance_parent_drift" {
+				name := filepath.Join(reviewed.Reference.Path, "handoff.json")
+				if err := os.Chmod(name, 0600); err != nil {
+					t.Fatal(err)
+				}
+				if err := os.WriteFile(name, []byte("changed review header"), 0400); err != nil {
+					t.Fatal(err)
+				}
+			}
+			if mode == "acceptance_standard_changed" || mode == "acceptance_parent_drift" {
+				before = calls.Load()
+				code, _, _ = hostHTTP(t, h, "POST", baseURL+"/start", `{"role":"acceptance"}`, "refused-acceptance", `"p1-g4-ready"`)
+				current, _ := h.store.Task(task.ID)
+				if code == 202 || calls.Load() != before || current.Generation != 4 || current.State != "ready" {
+					t.Fatal("invalid acceptance inputs spawned Native or wrote intent", code, current)
+				}
+				return
+			}
+			acceptance := start(stageplan.Acceptance)
+			wait(acceptance, mode != "acceptance_write")
+			if mode == "acceptance_write" {
+				mu.Lock()
+				acceptanceSpec := spec
+				mu.Unlock()
+				if _, err := os.Stat(filepath.Join(acceptanceSpec.Workspace, "src/acceptance-write.txt")); !os.IsNotExist(err) {
+					t.Fatal("acceptance model acquired write authority", err)
+				}
+				if _, err := h.store.Artifact(acceptance.Run.ID); err == nil {
+					t.Fatal("failed acceptance write registered decision")
+				}
+				return
+			}
+			accepted, hard, err := h.store.AcceptanceArtifact(acceptance.Run.ID, d.Projects[0].Path, c.ExecutionRoot, expectedVerification.Spec)
+			if err != nil || hard.Status != evidence.Passed || accepted.Acceptance == nil || accepted.Acceptance.ReviewRunID != review.Run.ID || accepted.Acceptance.TestingRunID != testingRun.Run.ID || accepted.Reference.TreeHash != result.Reference.TreeHash {
+				t.Fatal("acceptance lost exact actual review/test inputs", err, hard)
+			}
+			current, _ = h.store.Task(task.ID)
+			if strings.HasPrefix(mode, "acceptance_") {
+				if current.State != "needs_review" || accepted.Acceptance.Document.Verdict == "accepted" {
+					t.Fatal("Native success overrode invalid/rejected/unverified acceptance", current)
+				}
+				return
+			}
+			if !accepted.Acceptance.Valid || accepted.Acceptance.Document.Verdict != "accepted" || current.State != "advisory_only" {
+				t.Fatal("model opinion falsely completed task or lost advisory status", current)
+			}
+			acceptedRun, _ := h.store.Run(acceptance.Run.ID)
+			if acceptedRun.NativeSessionID == "" || seen[acceptedRun.NativeSessionID] || acceptedRun.NativeSessionID == reviewRun.NativeSessionID {
+				t.Fatal("acceptance reused prior Native session")
+			}
+			budget, _ = h.store.Budget(task.ID)
+			if int64(budget.UsedCalls) != calls.Load() || calls.Load() != 7 {
+				t.Fatal("acceptance reset task budget", calls.Load(), budget)
+			}
+			if err := h.Close(); err != nil {
+				t.Fatal(err)
+			}
+			h, err = OpenExecutionControl(context.Background(), path, root, "127.0.0.1:0", wrapped)
+			if err != nil {
+				t.Fatal(err)
+			}
+			serveExecutionHost(t, h)
+			if _, v, err := h.store.AcceptanceArtifact(acceptance.Run.ID, d.Projects[0].Path, c.ExecutionRoot, expectedVerification.Spec); err != nil || v.Status != evidence.Passed {
+				t.Fatal("acceptance restart lost bound evidence", err, v)
+			}
+			if _, v, err := h.store.AcceptanceArtifact(acceptance.Run.ID, d.Projects[0].Path, c.ExecutionRoot, changed); err != nil || v.Status != evidence.Superseded {
+				t.Fatal("final decision reused obsolete test standard", err, v)
 			}
 		})
 	}

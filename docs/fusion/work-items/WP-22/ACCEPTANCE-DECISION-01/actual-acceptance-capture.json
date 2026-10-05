@@ -1,0 +1,512 @@
+{
+  "artifact": {
+    "reference": {
+      "version": 1,
+      "binding": {
+        "task_id": "task-470ac3a9dd6b53e6fb6b6a7c600e36e6",
+        "plan_revision": 1,
+        "plan_hash": "74b2e16f7db6ddc3153750e760279e0be254977809b065bd97fdbe5e2c5c37b4",
+        "run_id": "run-7d1cef7cec832f136e0e7a131577978b",
+        "generation": 5,
+        "role": "acceptance",
+        "target_hash": "48337d1da8b1b2448dc8cdb5f275ea2b3aef73d420e5e5c04fe137f4f38044f2"
+      },
+      "path": "/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-9evt9xt_/TestAcceptanceKeepsHardModelAndHumanSeparateAndSurvivesRestart2535927872/003/acceptance-artifact",
+      "tree_hash": "c99b0b430b095cbfd285734fcd12d7cc0cc84f0e3732a856881fea108ac1151e",
+      "base_tree_hash": "c99b0b430b095cbfd285734fcd12d7cc0cc84f0e3732a856881fea108ac1151e",
+      "stop_proof_hash": "27809433d57683d404095dd8e70314172c57da636c4bfb344e0c05aa59a4e719",
+      "header_hash": "b5a52aa9c8c26f457e439d4e636cc69b531ee4312367f84f07a9ca86c2859d5f",
+      "header_info": {
+        "device": 16777230,
+        "inode": 233645073,
+        "mode": 256,
+        "uid": 501,
+        "gid": 20,
+        "links": 1,
+        "bytes": 1182,
+        "modified": 1791180740087647995
+      },
+      "witness": {
+        "version": 1,
+        "state_root": "/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-9evt9xt_/TestAcceptanceKeepsHardModelAndHumanSeparateAndSurvivesRestart2535927872/003",
+        "state_info": {
+          "device": 16777230,
+          "inode": 233645011,
+          "mode": 2147484096,
+          "uid": 501,
+          "gid": 20,
+          "links": 13,
+          "bytes": 0,
+          "modified": 0
+        },
+        "source": {
+          "path": "/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-9evt9xt_/TestAcceptanceKeepsHardModelAndHumanSeparateAndSurvivesRestart2535927872/002",
+          "commit": null,
+          "entries": [
+            {
+              "path": ".",
+              "info": {
+                "device": 16777230,
+                "inode": 233645010,
+                "mode": 2147484141,
+                "uid": 501,
+                "gid": 20,
+                "links": 3,
+                "bytes": 0,
+                "modified": 0
+              },
+              "sha256": ""
+            },
+            {
+              "path": "tests.txt",
+              "info": {
+                "device": 16777230,
+                "inode": 233645012,
+                "mode": 384,
+                "uid": 501,
+                "gid": 20,
+                "links": 1,
+                "bytes": 17,
+                "modified": 1791180739665549901
+              },
+              "sha256": "d7cc681d8b53607c48b9a792b06b45950b0db02b12964ed05953c54b12e619ec"
+            }
+          ]
+        },
+        "artifacts": [
+          {
+            "path": "/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-9evt9xt_/TestAcceptanceKeepsHardModelAndHumanSeparateAndSurvivesRestart2535927872/003/design-artifact",
+            "info": {
+              "device": 16777230,
+              "inode": 233645015,
+              "mode": 2147484096,
+              "uid": 501,
+              "gid": 20,
+              "links": 0,
+              "bytes": 0,
+              "modified": 0
+            },
+            "code": {
+              "path": "/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-9evt9xt_/TestAcceptanceKeepsHardModelAndHumanSeparateAndSurvivesRestart2535927872/003/design-artifact/code",
+              "commit": null,
+              "entries": [
+                {
+                  "path": ".",
+                  "info": {
+                    "device": 16777230,
+                    "inode": 233645016,
+                    "mode": 2147484096,
+                    "uid": 501,
+                    "gid": 20,
+                    "links": 3,
+                    "bytes": 0,
+                    "modified": 0
+                  },
+                  "sha256": ""
+                },
+                {
+                  "path": "tests.txt",
+                  "info": {
+                    "device": 16777230,
+                    "inode": 233645017,
+                    "mode": 256,
+                    "uid": 501,
+                    "gid": 20,
+                    "links": 1,
+                    "bytes": 17,
+                    "modified": 1791180739688470341
+                  },
+                  "sha256": "d7cc681d8b53607c48b9a792b06b45950b0db02b12964ed05953c54b12e619ec"
+                }
+              ]
+            },
+            "manifest": {
+              "path": "manifest.json",
+              "info": {
+                "device": 16777230,
+                "inode": 233645018,
+                "mode": 256,
+                "uid": 501,
+                "gid": 20,
+                "links": 1,
+                "bytes": 423,
+                "modified": 1791180739689125174
+              },
+              "sha256": "07ab064d909a46e49f562d0375f9bb7e5ad2962445249a2c34305d35dc6911db"
+            },
+            "header": {
+              "path": "handoff.json",
+              "info": {
+                "device": 16777230,
+                "inode": 233645019,
+                "mode": 256,
+                "uid": 501,
+                "gid": 20,
+                "links": 1,
+                "bytes": 1178,
+                "modified": 1791180739691066589
+              },
+              "sha256": "8fa4d74f4722bdd6bbdb72dbd1fea4ff29b2cae8590acd72e32549af3c410642"
+            }
+          },
+          {
+            "path": "/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-9evt9xt_/TestAcceptanceKeepsHardModelAndHumanSeparateAndSurvivesRestart2535927872/003/implementation-artifact",
+            "info": {
+              "device": 16777230,
+              "inode": 233645022,
+              "mode": 2147484096,
+              "uid": 501,
+              "gid": 20,
+              "links": 0,
+              "bytes": 0,
+              "modified": 0
+            },
+            "code": {
+              "path": "/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-9evt9xt_/TestAcceptanceKeepsHardModelAndHumanSeparateAndSurvivesRestart2535927872/003/implementation-artifact/code",
+              "commit": null,
+              "entries": [
+                {
+                  "path": ".",
+                  "info": {
+                    "device": 16777230,
+                    "inode": 233645023,
+                    "mode": 2147484096,
+                    "uid": 501,
+                    "gid": 20,
+                    "links": 3,
+                    "bytes": 0,
+                    "modified": 0
+                  },
+                  "sha256": ""
+                },
+                {
+                  "path": "tests.txt",
+                  "info": {
+                    "device": 16777230,
+                    "inode": 233645024,
+                    "mode": 256,
+                    "uid": 501,
+                    "gid": 20,
+                    "links": 1,
+                    "bytes": 17,
+                    "modified": 1791180739749622128
+                  },
+                  "sha256": "d7cc681d8b53607c48b9a792b06b45950b0db02b12964ed05953c54b12e619ec"
+                }
+              ]
+            },
+            "manifest": {
+              "path": "manifest.json",
+              "info": {
+                "device": 16777230,
+                "inode": 233645025,
+                "mode": 256,
+                "uid": 501,
+                "gid": 20,
+                "links": 1,
+                "bytes": 423,
+                "modified": 1791180739750148503
+              },
+              "sha256": "07ab064d909a46e49f562d0375f9bb7e5ad2962445249a2c34305d35dc6911db"
+            },
+            "header": {
+              "path": "handoff.json",
+              "info": {
+                "device": 16777230,
+                "inode": 233645026,
+                "mode": 256,
+                "uid": 501,
+                "gid": 20,
+                "links": 1,
+                "bytes": 1186,
+                "modified": 1791180739753064875
+              },
+              "sha256": "47a4ee99c3577a89c61731e28375c53dec3b99cfc6a2fe12293816596e9cf9e0"
+            }
+          },
+          {
+            "path": "/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-9evt9xt_/TestAcceptanceKeepsHardModelAndHumanSeparateAndSurvivesRestart2535927872/003/testing-artifact",
+            "info": {
+              "device": 16777230,
+              "inode": 233645029,
+              "mode": 2147484096,
+              "uid": 501,
+              "gid": 20,
+              "links": 0,
+              "bytes": 0,
+              "modified": 0
+            },
+            "code": {
+              "path": "/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-9evt9xt_/TestAcceptanceKeepsHardModelAndHumanSeparateAndSurvivesRestart2535927872/003/testing-artifact/code",
+              "commit": null,
+              "entries": [
+                {
+                  "path": ".",
+                  "info": {
+                    "device": 16777230,
+                    "inode": 233645030,
+                    "mode": 2147484096,
+                    "uid": 501,
+                    "gid": 20,
+                    "links": 3,
+                    "bytes": 0,
+                    "modified": 0
+                  },
+                  "sha256": ""
+                },
+                {
+                  "path": "tests.txt",
+                  "info": {
+                    "device": 16777230,
+                    "inode": 233645031,
+                    "mode": 256,
+                    "uid": 501,
+                    "gid": 20,
+                    "links": 1,
+                    "bytes": 17,
+                    "modified": 1791180739800725839
+                  },
+                  "sha256": "d7cc681d8b53607c48b9a792b06b45950b0db02b12964ed05953c54b12e619ec"
+                }
+              ]
+            },
+            "manifest": {
+              "path": "manifest.json",
+              "info": {
+                "device": 16777230,
+                "inode": 233645032,
+                "mode": 256,
+                "uid": 501,
+                "gid": 20,
+                "links": 1,
+                "bytes": 423,
+                "modified": 1791180739801245214
+              },
+              "sha256": "07ab064d909a46e49f562d0375f9bb7e5ad2962445249a2c34305d35dc6911db"
+            },
+            "header": {
+              "path": "handoff.json",
+              "info": {
+                "device": 16777230,
+                "inode": 233645046,
+                "mode": 256,
+                "uid": 501,
+                "gid": 20,
+                "links": 1,
+                "bytes": 1141,
+                "modified": 1791180739904393135
+              },
+              "sha256": "5a50f11028024f37777734f32bb63f3f4c1bd6752db259622c67b29264bee075"
+            }
+          },
+          {
+            "path": "/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-9evt9xt_/TestAcceptanceKeepsHardModelAndHumanSeparateAndSurvivesRestart2535927872/003/review-artifact",
+            "info": {
+              "device": 16777230,
+              "inode": 233645049,
+              "mode": 2147484096,
+              "uid": 501,
+              "gid": 20,
+              "links": 0,
+              "bytes": 0,
+              "modified": 0
+            },
+            "code": {
+              "path": "/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-9evt9xt_/TestAcceptanceKeepsHardModelAndHumanSeparateAndSurvivesRestart2535927872/003/review-artifact/code",
+              "commit": null,
+              "entries": [
+                {
+                  "path": ".",
+                  "info": {
+                    "device": 16777230,
+                    "inode": 233645050,
+                    "mode": 2147484096,
+                    "uid": 501,
+                    "gid": 20,
+                    "links": 3,
+                    "bytes": 0,
+                    "modified": 0
+                  },
+                  "sha256": ""
+                },
+                {
+                  "path": "tests.txt",
+                  "info": {
+                    "device": 16777230,
+                    "inode": 233645051,
+                    "mode": 256,
+                    "uid": 501,
+                    "gid": 20,
+                    "links": 1,
+                    "bytes": 17,
+                    "modified": 1791180739980088202
+                  },
+                  "sha256": "d7cc681d8b53607c48b9a792b06b45950b0db02b12964ed05953c54b12e619ec"
+                }
+              ]
+            },
+            "manifest": {
+              "path": "manifest.json",
+              "info": {
+                "device": 16777230,
+                "inode": 233645052,
+                "mode": 256,
+                "uid": 501,
+                "gid": 20,
+                "links": 1,
+                "bytes": 423,
+                "modified": 1791180739980720327
+              },
+              "sha256": "07ab064d909a46e49f562d0375f9bb7e5ad2962445249a2c34305d35dc6911db"
+            },
+            "header": {
+              "path": "handoff.json",
+              "info": {
+                "device": 16777230,
+                "inode": 233645053,
+                "mode": 256,
+                "uid": 501,
+                "gid": 20,
+                "links": 1,
+                "bytes": 1178,
+                "modified": 1791180739985181573
+              },
+              "sha256": "4d6e44b3e2335d64ef5d6a54cf7f21b960dfcb7c3ce349629d9eda2bb134d2ee"
+            }
+          },
+          {
+            "path": "/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-9evt9xt_/TestAcceptanceKeepsHardModelAndHumanSeparateAndSurvivesRestart2535927872/003/acceptance-artifact",
+            "info": {
+              "device": 16777230,
+              "inode": 233645069,
+              "mode": 2147484096,
+              "uid": 501,
+              "gid": 20,
+              "links": 0,
+              "bytes": 0,
+              "modified": 0
+            },
+            "code": {
+              "path": "/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-9evt9xt_/TestAcceptanceKeepsHardModelAndHumanSeparateAndSurvivesRestart2535927872/003/acceptance-artifact/code",
+              "commit": null,
+              "entries": [
+                {
+                  "path": ".",
+                  "info": {
+                    "device": 16777230,
+                    "inode": 233645070,
+                    "mode": 2147484096,
+                    "uid": 501,
+                    "gid": 20,
+                    "links": 3,
+                    "bytes": 0,
+                    "modified": 0
+                  },
+                  "sha256": ""
+                },
+                {
+                  "path": "tests.txt",
+                  "info": {
+                    "device": 16777230,
+                    "inode": 233645071,
+                    "mode": 256,
+                    "uid": 501,
+                    "gid": 20,
+                    "links": 1,
+                    "bytes": 17,
+                    "modified": 1791180740081086250
+                  },
+                  "sha256": "d7cc681d8b53607c48b9a792b06b45950b0db02b12964ed05953c54b12e619ec"
+                }
+              ]
+            },
+            "manifest": {
+              "path": "manifest.json",
+              "info": {
+                "device": 16777230,
+                "inode": 233645072,
+                "mode": 256,
+                "uid": 501,
+                "gid": 20,
+                "links": 1,
+                "bytes": 423,
+                "modified": 1791180740081733374
+              },
+              "sha256": "07ab064d909a46e49f562d0375f9bb7e5ad2962445249a2c34305d35dc6911db"
+            },
+            "header": {
+              "path": "handoff.json",
+              "info": {
+                "device": 16777230,
+                "inode": 233645073,
+                "mode": 256,
+                "uid": 501,
+                "gid": 20,
+                "links": 1,
+                "bytes": 1182,
+                "modified": 1791180740087647995
+              },
+              "sha256": "b5a52aa9c8c26f457e439d4e636cc69b531ee4312367f84f07a9ca86c2859d5f"
+            }
+          }
+        ],
+        "manifest": {
+          "version": 1,
+          "base_commit": null,
+          "base_tree_hash": "c99b0b430b095cbfd285734fcd12d7cc0cc84f0e3732a856881fea108ac1151e",
+          "tree_hash": "c99b0b430b095cbfd285734fcd12d7cc0cc84f0e3732a856881fea108ac1151e",
+          "change_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "entries": [
+            {
+              "path": "tests.txt",
+              "kind": "file",
+              "sha256": "d7cc681d8b53607c48b9a792b06b45950b0db02b12964ed05953c54b12e619ec",
+              "bytes": 17
+            }
+          ],
+          "changes": []
+        }
+      },
+      "witness_hash": "4796a458644bd90f7378f23fde189a8613567116c03e041c0155811b4a559e5b"
+    },
+    "parent_run_id": "run-675dded401575c8141bd136c13f33c07",
+    "input_tree_hash": "c99b0b430b095cbfd285734fcd12d7cc0cc84f0e3732a856881fea108ac1151e",
+    "acceptance": {
+      "text": "{\"version\":1,\"verdict\":\"accepted\",\"criteria\":[{\"index\":0,\"status\":\"met\",\"reason\":\"actual pinned report and readonly review checked\"}]}",
+      "text_hash": "8ece19ef3942bd4875174ef3d7e976713f5e7c33141d665c5664b65b57f5dc95",
+      "document": {
+        "version": 1,
+        "verdict": "accepted",
+        "criteria": [
+          {
+            "index": 0,
+            "status": "met",
+            "reason": "actual pinned report and readonly review checked"
+          }
+        ]
+      },
+      "valid": true,
+      "criteria_count": 1,
+      "review_run_id": "run-675dded401575c8141bd136c13f33c07",
+      "testing_run_id": "run-422283245e78259e96773807d56198b5",
+      "tree_hash": "c99b0b430b095cbfd285734fcd12d7cc0cc84f0e3732a856881fea108ac1151e",
+      "spec_hash": "8e7eb899997404356908572637e8e801537163dee9bd6712018061de5d5c525e",
+      "design_hash": "c45e199469e4fb9d3ecce7b077c4b455e6346814610d4aa9250710674837a532",
+      "acceptance_hash": "ad55c0b6c1e329cc0546752641debfa7d998b180e16cbe7033d7943abe75e904"
+    }
+  },
+  "hard_verdict": {
+    "status": "passed",
+    "reason": "",
+    "tests": 1,
+    "skipped": 0
+  },
+  "task": {
+    "id": "task-470ac3a9dd6b53e6fb6b6a7c600e36e6",
+    "project_id": "fixture-project",
+    "goal": "fixture goal",
+    "state": "advisory_only",
+    "plan_revision": 1,
+    "generation": 5
+  }
+}

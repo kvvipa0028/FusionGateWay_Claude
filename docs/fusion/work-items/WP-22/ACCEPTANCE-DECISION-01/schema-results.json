@@ -1,0 +1,8 @@
+{
+  "captured_private_advisory_acceptance": "pass",
+  "actual_text_hash": "pass",
+  "hard_model_and_human_authority_separate": "pass",
+  "negative_documents": 8,
+  "exact_approved_coverage_and_duplicate_fields_enforced_by_go": true,
+  "schema_does_not_establish_native_origin_or_human_acceptance": true
+}
