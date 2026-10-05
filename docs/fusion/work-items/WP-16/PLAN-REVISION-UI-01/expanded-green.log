@@ -1,0 +1,34 @@
+✔ plan revision draft converts requested effort without credential metadata and submits only changed required roles (1.598209ms)
+✔ plan revision UI: explicit load and selective preview/apply preserve original plan budget and CSS (2309.015584ms)
+✔ plan revision UI: lost apply acknowledgement locks original intent and retries exact receipt after later revision (1358.395708ms)
+✔ plan revision UI: dirty draft requires explicit overwrite, changed draft clears preview and invalid reply cannot apply (1336.608708ms)
+✔ plan revision UI: changed binding and response conditions must match the explicit request (1824.952292ms)
+✖ plan revision UI: started roles remain immutable and a stale apply is explicitly rejected without resetting budgets (1276.050292ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 5
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8382.696375
+
+✖ failing tests:
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:1382:1
+✖ plan revision UI: started roles remain immutable and a stale apply is explicitly rejected without resetting budgets (1276.050292ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  0 !== 1
+
+      at TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:1386:85)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

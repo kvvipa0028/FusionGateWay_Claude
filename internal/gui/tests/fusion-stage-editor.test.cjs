@@ -66,6 +66,11 @@ async function fixture(t,admitted=false,withSecondProject=false,executionMode=""
   const page=await context.newPage();
   const errors=[];page.on("pageerror",e=>errors.push(e.message));
   if(beforeLoad)await beforeLoad(context);
+  if(process.env.FUSION_REVISION_MUTATION==='all_roles')await context.route('**/fusion/model.mjs',async r=>{
+   const response=await r.fetch(),original=await response.text(),gate='if(!sameBinding(original.roles[role],draft.roles[role]))';
+   assert.equal(original.split(gate).length,2,'mutation must target exact changed-role gate');
+   await r.fulfill({response,body:original.replace(gate,'if(true)')});
+  });
   await page.goto(origin+"/fusion/");await page.locator("#status").filter({hasText:/已载入当前配置|已恢复原任务请求|已恢复原阶段启动请求/}).waitFor();
   return {page,context,errors};
  };
@@ -1322,4 +1327,97 @@ test('Magpie Providers metadata reload honors dirty draft cancellation and super
  const late=page.waitForResponse(r=>r.url().endsWith('/synthetic-ui/configuration'));release();await(await late).finished();await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
  await page.locator('#providers [data-id="fixture-a"]').click();assert.match(await page.locator('#modal').innerText(),/项目：synthetic-ui-other/);
  assert.equal(await page.locator('#project').inputValue(),'synthetic-ui-other');assert.deepEqual(errors,[]);
+});
+async function editPlan(page){
+ assert.equal(await page.locator('#plan-revision').count(),1,'folded revision section must reuse current task details');
+ await page.locator('#plan-revision summary').click();await page.getByRole('button',{name:'载入当前阶段选择',exact:true}).click();
+ await status(page,'正在修改已保存任务');
+}
+test('plan revision UI: explicit load and selective preview/apply preserve original plan budget and CSS',async t=>{
+ const {f,page,context,task,errors}=await savedWorkflow(t);const old=(await f.request('/control/v1/tasks/'+task.id+'/plan')).body,budget=(await f.request('/control/v1/tasks/'+task.id+'/budget')).body;
+ const before=(await f.request('/agent/v1/tasks/'+task.id+'/events/page/0')).body;let starts=0;const writes=[];
+ await context.route(/\/control\/v1\/tasks\/[^/]+\/plan(?:\/preview)?$/,async r=>{if(r.request().method()!=='GET')writes.push({method:r.request().method(),tag:r.request().headers()['if-match'],body:r.request().postDataJSON(),key:r.request().headers()['idempotency-key']});await r.continue()});
+ await context.route('**/control/v1/tasks/*/start',r=>{starts++;return r.continue()});
+ await editPlan(page);assert.equal(await page.getByLabel('配置范围').inputValue(),'task');assert.equal(await page.getByLabel('配置范围').isDisabled(),true);
+ assert.equal(await page.getByRole('button',{name:'预览工作流任务',exact:true}).isDisabled(),true);
+ await choose(page,'审查','b');await page.getByRole('button',{name:'预览阶段修订',exact:true}).click();await status(page,'修订预览已核对');
+ assert.equal((await f.request('/control/v1/tasks/'+task.id+'/plan')).body.revision,1);assert.deepEqual((await f.request('/agent/v1/tasks/'+task.id+'/events/page/0')).body,before);
+ await page.locator('#plan-revision').scrollIntoViewIfNeeded();
+ for(const theme of ['light','dark']){await page.emulateMedia({colorScheme:theme});await page.screenshot({path:path.join(repo,'.fusion-dev/plan-revision-ui/desktop-'+theme+'.png')});}
+ await page.setViewportSize({width:390,height:844});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await page.locator('#plan-revision').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(repo,'.fusion-dev/plan-revision-ui/mobile-dark.png')});await page.setViewportSize({width:1140,height:1000});
+ assert.deepEqual(Object.keys(writes[0].body.task.roles),['review']);assert.equal(writes[0].tag,'"1"');assert.equal(writes[0].key,undefined);
+ page.once('dialog',d=>d.dismiss());await page.getByRole('button',{name:'应用已预览修订',exact:true}).click();assert.equal(writes.length,1);
+ page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'应用已预览修订',exact:true}).click();await status(page,'阶段修订已核对：计划 2');
+ const current=(await f.request('/control/v1/tasks/'+task.id+'/plan')).body;assert.equal(current.bindings.review.target.resolved_model,models.b);assert.deepEqual(current.bindings.design,old.bindings.design);assert.equal(current.revision,2);assert.deepEqual((await f.request('/control/v1/tasks/'+task.id+'/budget')).body,budget);assert.equal(starts,0);assert.equal((await f.request('/agent/v1/tasks/'+task.id)).body.generation,0);assert.equal(writes[1].tag,'"1"');assert.deepEqual(Object.keys(writes[1].body).sort(),['plan_hash','preview_id']);assert.equal(writes[1].key,undefined);
+ assert.equal(await page.getByLabel('配置范围').isDisabled(),false);assert.deepEqual(errors,[]);
+});
+test('plan revision UI: lost apply acknowledgement locks original intent and retries exact receipt after later revision',async t=>{
+ const {f,page,context,task,errors}=await savedWorkflow(t),puts=[];let lose=true;
+ await context.route('**/control/v1/tasks/*/plan',async r=>{
+  if(r.request().method()!=='PUT')return r.continue();puts.push({body:r.request().postData(),tag:r.request().headers()['if-match']});const actual=await r.fetch();assert.equal(actual.status(),200);if(lose){lose=false;await r.abort()}else await r.fulfill({response:actual});
+ });
+ await editPlan(page);await choose(page,'审查','b');await page.getByRole('button',{name:'预览阶段修订',exact:true}).click();await status(page,'修订预览已核对');page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'应用已预览修订',exact:true}).click();await status(page,'修订结果未确认');
+ assert.equal(await page.getByLabel('审查模型',{exact:true}).isDisabled(),true);assert.equal(await page.getByRole('button',{name:'启动所选阶段',exact:true}).isDisabled(),true);assert.equal(await page.getByRole('button',{name:'结束阶段修订',exact:true}).isDisabled(),true);
+ await page.getByRole('button',{name:'重新读取任务',exact:true}).click();await status(page,'已读取任务详情');assert.equal(await page.getByLabel('配置范围').isDisabled(),true);
+ const p=await f.request('/control/v1/tasks/'+task.id+'/plan/preview','POST',{task:{roles:{acceptance:{mode:'locked',route:{id:'fixture-b',revision:1},model:models.b,effort:{mode:'none'}}}}},'"2"');assert.equal(p.status,200);
+ assert.equal((await f.request('/control/v1/tasks/'+task.id+'/plan','PUT',{preview_id:p.body.preview_id,plan_hash:p.body.plan.hash},'"2"')).status,200);
+ const events=(await f.request('/agent/v1/tasks/'+task.id+'/events/page/0')).body;
+ await page.getByRole('button',{name:'重试同一阶段修订',exact:true}).click();await status(page,'阶段修订已核对：计划 2');assert.equal(puts.length,2);assert.deepEqual(puts[1],puts[0]);assert.equal((await f.request('/control/v1/tasks/'+task.id+'/plan')).body.revision,3);assert.deepEqual((await f.request('/agent/v1/tasks/'+task.id+'/events/page/0')).body,events);assert.deepEqual(errors,[]);
+});
+test('plan revision UI: dirty draft requires explicit overwrite, changed draft clears preview and invalid reply cannot apply',async t=>{
+ const {f,page,context,task,errors}=await savedWorkflow(t);await choose(page,'设计','b');await page.locator('#plan-revision summary').click();
+ page.once('dialog',d=>d.dismiss());await page.getByRole('button',{name:'载入当前阶段选择',exact:true}).click();assert.equal(await page.getByLabel('设计模型',{exact:true}).inputValue(),key('b'));
+ page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'载入当前阶段选择',exact:true}).click();await status(page,'正在修改已保存任务');assert.equal(await page.getByLabel('设计模型',{exact:true}).inputValue(),key('a'));
+ await choose(page,'审查','b');await page.getByRole('button',{name:'预览阶段修订',exact:true}).click();await status(page,'修订预览已核对');await choose(page,'验收','b');assert.equal(await page.getByRole('button',{name:'应用已预览修订',exact:true}).isDisabled(),true);
+ await context.route('**/control/v1/tasks/*/plan/preview',async r=>{const actual=await r.fetch(),v=await actual.json();v.plan.bindings.design.target.account='foreign-account';await r.fulfill({response:actual,json:v})});
+ await page.getByRole('button',{name:'预览阶段修订',exact:true}).click();await status(page,'修订预览未通过核对');assert.equal(await page.getByRole('button',{name:'应用已预览修订',exact:true}).isDisabled(),true);assert.equal((await f.request('/control/v1/tasks/'+task.id+'/plan')).body.revision,1);
+ await page.getByRole('button',{name:'结束阶段修订',exact:true}).click();assert.equal(await page.getByLabel('配置范围').isDisabled(),false);assert.deepEqual(errors,[]);
+});
+test('plan revision UI: changed binding and response conditions must match the explicit request',async t=>{
+ const {f,page,context,task,errors}=await savedWorkflow(t);await editPlan(page);await choose(page,'审查','b');let mutation=null;
+ await context.route('**/control/v1/tasks/*/plan/preview',async r=>{const actual=await r.fetch(),v=await actual.json();const headers={...actual.headers()};mutation(v,headers);await r.fulfill({response:actual,json:v,headers})});
+ for(const alter of [
+  v=>v.plan.bindings.review.target.route.id='foreign-route',v=>v.plan.bindings.review.target.account='foreign-account',v=>v.plan.bindings.review.target.requested_model=models.a,
+  v=>v.plan.bindings.review.target.effort.requested_mode='default',v=>v.plan.bindings.review.source='global',
+  v=>v.plan.bindings.review.required_capabilities=['undeclared'],v=>v.plan.bindings.review.accept_primary_only=true,
+  (v,h)=>h.etag='"2"',v=>v.expires_at='2000-01-01T00:00:00Z',v=>v.budget.max_calls++,v=>v.plan.independence=[{first:'design',second:'review'}],
+ ]){
+  mutation=alter;await page.getByRole('button',{name:'预览阶段修订',exact:true}).click();await page.waitForFunction(()=>document.getElementById('plan-revision-status').textContent.startsWith('修订预览'));
+  assert.match(await page.locator('#plan-revision-status').innerText(),/修订预览未通过核对/);assert.equal(await page.getByRole('button',{name:'应用已预览修订',exact:true}).isDisabled(),true);
+ }
+ assert.equal((await f.request('/control/v1/tasks/'+task.id+'/plan')).body.revision,1);assert.deepEqual(errors,[]);
+});
+test('plan revision UI: started roles remain immutable and a stale apply is explicitly rejected without resetting budgets',async t=>{
+ const {f,page,task,errors}=await savedWorkflow(t);await page.getByLabel('附加流程').selectOption('change');await page.getByRole('button',{name:'附加所选流程',exact:true}).click();await status(page,'流程已附加');
+ await page.getByRole('button',{name:'启动所选阶段',exact:true}).click();await page.locator('#run-record').filter({hasText:'已知阶段执行'}).waitFor();
+ for(let i=0;i<12;i++){await page.getByRole('button',{name:'重新读取任务',exact:true}).click();await status(page,'已读取任务详情');if((await page.locator('#run-record').innerText()).includes('succeeded'))break}
+ const before=(await f.request('/control/v1/tasks/'+task.id+'/budget')).body;assert.equal((await f.request('/agent/v1/tasks/'+task.id)).body.generation,1,'owned synthetic execution must have started; fixture does not spend vendor calls');
+ await editPlan(page);await choose(page,'设计','b');await page.getByRole('button',{name:'预览阶段修订',exact:true}).click();await status(page,'修订预览未通过核对');assert.equal((await f.request('/control/v1/tasks/'+task.id+'/plan')).body.revision,1);
+ await choose(page,'设计','a');await choose(page,'审查','b');await page.getByRole('button',{name:'预览阶段修订',exact:true}).click();await status(page,'修订预览已核对');
+ const other=await f.request('/control/v1/tasks/'+task.id+'/plan/preview','POST',{task:{roles:{acceptance:{mode:'locked',route:{id:'fixture-b',revision:1},model:models.b,effort:{mode:'none'}}}}},'"1"');assert.equal(other.status,200);assert.equal((await f.request('/control/v1/tasks/'+task.id+'/plan','PUT',{preview_id:other.body.preview_id,plan_hash:other.body.plan.hash},'"1"')).status,200);
+ page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'应用已预览修订',exact:true}).click();await status(page,'原修订回执已被服务端明确拒绝');await status(page,'已读取任务详情');assert.equal(await page.getByLabel('配置范围').isDisabled(),false);assert.equal((await f.request('/control/v1/tasks/'+task.id+'/plan')).body.revision,2);assert.deepEqual((await f.request('/control/v1/tasks/'+task.id+'/budget')).body,before);assert.deepEqual(errors,[]);
+});
+test('plan revision UI: malformed successful apply reply preserves uncertainty and exact retry without another write',async t=>{
+ const {f,page,context,task,errors}=await savedWorkflow(t);let corrupt=true;const writes=[];
+ await context.route('**/control/v1/tasks/*/plan',async r=>{if(r.request().method()!=='PUT')return r.continue();writes.push({body:r.request().postData(),tag:r.request().headers()['if-match']});const actual=await r.fetch(),v=await actual.json();if(corrupt){corrupt=false;v.bindings.review.target.account='foreign-account'}await r.fulfill({response:actual,json:v})});
+ await editPlan(page);await choose(page,'审查','b');await page.getByRole('button',{name:'预览阶段修订',exact:true}).click();await status(page,'修订预览已核对');page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'应用已预览修订',exact:true}).click();await status(page,'修订结果未确认');
+ assert.equal(await page.getByLabel('审查模型',{exact:true}).isDisabled(),true);assert.equal(await page.getByRole('button',{name:'暂停任务',exact:true}).isDisabled(),true);assert.equal(await page.getByRole('button',{name:'预览阶段修订',exact:true}).isDisabled(),true);
+ const events=(await f.request('/agent/v1/tasks/'+task.id+'/events/page/0')).body;assert.equal((await f.request('/control/v1/tasks/'+task.id+'/plan')).body.revision,2);
+ await page.getByRole('button',{name:'重试同一阶段修订',exact:true}).click();await status(page,'阶段修订已核对：计划 2');assert.equal(writes.length,2);assert.deepEqual(writes[0],writes[1]);assert.deepEqual((await f.request('/agent/v1/tasks/'+task.id+'/events/page/0')).body,events);assert.deepEqual(errors,[]);
+});
+test('plan revision UI: single-role task disables absent role editors and cross-role sharing',async t=>{
+ const {f,page,task,errors}=await savedWorkflow(t,'investigate');assert.deepEqual((await f.request('/control/v1/tasks/'+task.id+'/plan')).body.required_roles,['design']);
+ await editPlan(page);assert.equal(await page.getByLabel('设计模式',{exact:true}).isDisabled(),false);
+ for(const role of ['实施','测试','审查','验收'])assert.equal(await page.getByLabel(role+'模式',{exact:true}).isDisabled(),true,'task must not suggest editing an absent role');
+ assert.equal(await page.getByLabel('实施与测试共用').isDisabled(),true);assert.equal(await page.getByLabel('审查与验收共用').isDisabled(),true);
+ await choose(page,'设计','b');await page.getByRole('button',{name:'预览阶段修订',exact:true}).click();await status(page,'修订预览已核对');page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'应用已预览修订',exact:true}).click();await status(page,'阶段修订已核对：计划 2');assert.equal((await f.request('/control/v1/tasks/'+task.id+'/plan')).body.bindings.design.target.resolved_model,models.b);assert.deepEqual(errors,[]);
+});
+test('plan revision UI: future role auto candidates and explicit inherit retain original lower layer semantics',async t=>{
+ const {f,page,task,errors}=await savedWorkflow(t);await editPlan(page);await page.getByLabel('审查模式',{exact:true}).selectOption('auto');
+ for(const [n,id] of [[1,'a'],[2,'b']]){await page.getByLabel('审查添加批准候选').click();await page.getByLabel('审查候选'+n+'模型').selectOption(key(id));await page.getByLabel('审查候选'+n+'推理档位').selectOption('none')}
+ await page.getByRole('button',{name:'预览阶段修订',exact:true}).click();await status(page,'修订预览已核对');page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'应用已预览修订',exact:true}).click();await status(page,'阶段修订已核对：计划 2');await status(page,'已读取任务详情');
+ const automatic=(await f.request('/control/v1/tasks/'+task.id+'/plan')).body;assert.equal(automatic.bindings.review.mode,'auto');assert.deepEqual(automatic.bindings.review.candidates.map(c=>c.requested_model),[models.a,models.b]);
+ page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'载入当前阶段选择',exact:true}).click();await status(page,'正在修改已保存任务');await page.getByLabel('审查模式',{exact:true}).selectOption('inherit');
+ await page.getByRole('button',{name:'预览阶段修订',exact:true}).click();await status(page,'修订预览已核对');page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'应用已预览修订',exact:true}).click();await status(page,'阶段修订已核对：计划 3');
+ const inherited=(await f.request('/control/v1/tasks/'+task.id+'/plan')).body;assert.equal(inherited.bindings.review.source,'global');assert.equal(inherited.bindings.review.target.requested_model,models.a);assert.equal((await f.request('/agent/v1/tasks/'+task.id)).body.generation,0);assert.deepEqual(errors,[]);
 });

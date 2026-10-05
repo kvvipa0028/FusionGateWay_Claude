@@ -24,4 +24,4 @@
 
 [证据](../work-items/WP-16/PLAN-REVISION-BRIDGE-01/summary.md)覆盖真实 NativeStageBridge→loopback Management HTTP→可信Factory/Store，SDK窗口header、外国/未知Task、强tag、非法DTO、并发只允许一个提交、跨Taskreceipt、预览后启动、来源撤销、历史/预算保持及宿主关闭重开。活动run是明确标注的合成Store生命周期，不冒充真实Native供应商执行或StopProof。
 
-实际Wails点击/像素、页面计划修订控件、三路线真实准入、工程试点与最终T01–T60仍未完成。WP-16保持in_progress，Jev off。本组件未变更UI模板、配色、CSS或原Magpie资产。
+后续[页面消费者](plan-revision-ui.md)已复用原模型选择器和 CSS 增加折叠修订区。实际Wails点击/像素、三路线真实准入、工程试点与最终T01–T60仍未完成。WP-16保持in_progress，Jev off。本组件未变更UI模板、配色、CSS或原Magpie资产。

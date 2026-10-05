@@ -1,0 +1,68 @@
+✖ plan revision draft converts requested effort without credential metadata and submits only changed required roles (1.108375ms)
+✖ plan revision UI: explicit load and selective preview/apply preserve original plan budget and CSS (1459.393083ms)
+✖ plan revision UI: lost apply acknowledgement locks original intent and retries exact receipt after later revision (1016.577959ms)
+✖ plan revision UI: dirty draft requires explicit overwrite, changed draft clears preview and invalid reply cannot apply (31046.548208ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 0
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 34157.486209
+
+✖ failing tests:
+
+test at internal/gui/tests/fusion-editor-model.test.cjs:75:1
+✖ plan revision draft converts requested effort without credential metadata and submits only changed required roles (1.108375ms)
+  TypeError [Error]: m.frozenPlanLayer is not a function
+      at TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-editor-model.test.cjs:79:16)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:1331:1
+✖ plan revision UI: explicit load and selective preview/apply preserve original plan budget and CSS (1459.393083ms)
+  AssertionError [ERR_ASSERTION]: folded revision section must reuse current task details
+
+  0 !== 1
+
+      at editPlan (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:1327:9)
+      at async TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:1336:2)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:1346:1
+✖ plan revision UI: lost apply acknowledgement locks original intent and retries exact receipt after later revision (1016.577959ms)
+  AssertionError [ERR_ASSERTION]: folded revision section must reuse current task details
+
+  0 !== 1
+
+      at editPlan (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:1327:9)
+      at async TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:1351:2)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:1359:1
+✖ plan revision UI: dirty draft requires explicit overwrite, changed draft clears preview and invalid reply cannot apply (31046.548208ms)
+  locator.click: Timeout 30000ms exceeded.
+  Call log:
+  [2m  - waiting for locator('#plan-revision summary')[22m
+
+      at TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:1360:133) {
+    name: 'TimeoutError',
+    log: [ "  - waiting for locator('#plan-revision summary')" ]
+  }

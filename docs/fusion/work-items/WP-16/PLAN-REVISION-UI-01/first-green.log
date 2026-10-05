@@ -1,0 +1,12 @@
+✔ plan revision draft converts requested effort without credential metadata and submits only changed required roles (1.785542ms)
+✔ plan revision UI: explicit load and selective preview/apply preserve original plan budget and CSS (2260.437167ms)
+✔ plan revision UI: lost apply acknowledgement locks original intent and retries exact receipt after later revision (1378.665709ms)
+✔ plan revision UI: dirty draft requires explicit overwrite, changed draft clears preview and invalid reply cannot apply (1319.284959ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5240.968583

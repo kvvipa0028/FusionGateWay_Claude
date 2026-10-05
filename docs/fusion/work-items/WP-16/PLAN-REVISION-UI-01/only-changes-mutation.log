@@ -1,0 +1,35 @@
+✖ plan revision UI: explicit load and selective preview/apply preserve original plan budget and CSS (1474.533459ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1688.889667
+
+✖ failing tests:
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:1336:1
+✖ plan revision UI: explicit load and selective preview/apply preserve original plan budget and CSS (1474.533459ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+
+    [
+  +   'design',
+  +   'implementation',
+  +   'testing',
+      'review',
+  +   'acceptance'
+    ]
+
+      at TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:1348:9)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'design', 'implementation', 'testing', 'review', 'acceptance' ],
+    expected: [ 'review' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

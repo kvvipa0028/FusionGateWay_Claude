@@ -33,3 +33,5 @@
 [MAIN-UI-01](MAIN-UI-01/summary.md)已直接提取原首页页头、鸟形标识和八个导航，仅增加 Fusion 入口。后续[PROVIDERS-UI-01](PROVIDERS-UI-01/summary.md)直接提取原 Providers 页面及 modal，接入登记模型/账号详情和单阶段草稿选择，不改原 CSS。新增账号、登录及其他原页面功能仍待接入；真实供应商准入、实际 Wails 点击与最终验收边界保持不变。
 
 [PLAN-REVISION-BRIDGE-01](PLAN-REVISION-BRIDGE-01/summary.md)已接入未来阶段的精确 Native 计划预览/应用通路，实际HTTP/Store和窗口身份/来源撤销验证通过；保留已启动角色、旧快照、预算和原receipt回读。页面修订控件与实际 Wails 操作仍待完成，父包继续 in_progress。
+
+[PLAN-REVISION-UI-01](PLAN-REVISION-UI-01/summary.md)复用原阶段模型选择器与全部 CSS，在现有任务详情旁增加默认折叠的修订区。仅预览改变的必需角色，明确确认应用；未知结果保持原receipt/tag，回读当前任务不擅自解除，精准重试不倒退历史或重置预算。实际Wails操作、真实供应商准入及最终验收仍待完成，父包继续in_progress。

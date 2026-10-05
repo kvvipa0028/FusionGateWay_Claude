@@ -72,3 +72,15 @@ test("draft saving validation does not promote unadmitted route",async()=>{
  const m=await model();const list=routes.map(x=>({...x,admitted:false,billing_known:false,lock_enforcement:"unverified"}));
  assert.deepEqual(m.layerIssues(m.expandLayer({roles:{design:locked()}}),list),[]);assert.equal(list[0].admitted,false);
 });
+test('plan revision draft converts requested effort without credential metadata and submits only changed required roles',async()=>{
+ const m=await model(),target={route:{id:'a',revision:1},requested_model:'model-a',resolved_model:'model-a',account:'private-account',credential_identity:'must-not-copy',effort:{requested_mode:'default',value:'medium'}};
+ const binding={mode:'locked',source:'project',target,required_capabilities:['text']};
+ const plan={required_roles:['design','review'],bindings:{design:binding,review:structuredClone(binding)}};
+ const layer=m.frozenPlanLayer(plan);assert.deepEqual(layer.roles.design,{mode:'locked',route:{id:'a',revision:1},model:'model-a',effort:{mode:'default'},required_capabilities:['text']});
+ assert.ok(!JSON.stringify(layer).includes('must-not-copy'));assert.deepEqual(m.planRevisionChanges(plan,layer),{roles:{}});
+ layer.roles.review.model='model-b';layer.roles.review.route={id:'b',revision:2};layer.roles.review.effort={mode:'none'};
+ assert.deepEqual(Object.keys(m.planRevisionChanges(plan,layer).roles),['review']);assert.deepEqual(plan.bindings.design.target.route,{id:'a',revision:1});
+ layer.roles.testing=locked(routes[1]);assert.deepEqual(Object.keys(m.planRevisionChanges(plan,layer).roles),['review']);
+ const auto={required_roles:['review'],bindings:{review:{mode:'auto',candidates:[{...target,effort:{requested_mode:'explicit',value:'high'}},{...target,route:{id:'b',revision:2},effort:{requested_mode:'none',value:null}}],accept_primary_only:true}}};
+ const converted=m.frozenPlanLayer(auto);assert.deepEqual(converted.roles.review.candidates.map(c=>c.effort),[{mode:'explicit',value:'high'},{mode:'none'}]);assert.equal(converted.roles.review.accept_primary_only,true);
+});

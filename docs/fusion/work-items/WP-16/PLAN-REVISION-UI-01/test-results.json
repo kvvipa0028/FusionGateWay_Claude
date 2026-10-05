@@ -1,0 +1,32 @@
+{
+  "component": "PLAN-REVISION-UI-01",
+  "full_browser_model_pass": 104,
+  "separate_auto_inherit_pass": 1,
+  "full_browser_model_fail": 0,
+  "final_host_assets_regression": {
+    "github.com/yetone/magpie/internal/fusion/bootstrap": {
+      "top_pass": 69,
+      "sub_pass": 228,
+      "top_skip": 5,
+      "sub_skip": 0,
+      "fail": 0
+    },
+    "github.com/yetone/magpie/internal/gui/assets/fusion": {
+      "top_pass": 3,
+      "sub_pass": 0,
+      "top_skip": 0,
+      "sub_skip": 0,
+      "fail": 0
+    }
+  },
+  "compiler": "Go1.26.3",
+  "ui_supplier_calls": 0,
+  "mutation": {
+    "expected_exit": 1,
+    "observed_exit": 1,
+    "scope": "isolated browser context only; production bytes never edited"
+  },
+  "actual_wails_revision_ui_verified": false,
+  "parent_work_package": "in_progress",
+  "final_acceptance": "not_run"
+}

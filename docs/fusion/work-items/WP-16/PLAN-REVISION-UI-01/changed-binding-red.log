@@ -1,0 +1,28 @@
+✖ plan revision UI: changed binding and response conditions must match the explicit request (1291.062125ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1487.245625
+
+✖ failing tests:
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:1368:1
+✖ plan revision UI: changed binding and response conditions must match the explicit request (1291.062125ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /修订预览未通过核对/. Input:
+
+  '修订预览已核对，尚未应用或启动。请审阅后明确应用。'
+
+      at TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:1378:10)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '修订预览已核对，尚未应用或启动。请审阅后明确应用。',
+    expected: /修订预览未通过核对/,
+    operator: 'match',
+    diff: 'simple'
+  }

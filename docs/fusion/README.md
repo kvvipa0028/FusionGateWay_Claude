@@ -96,4 +96,4 @@ Grok只读Runtime Adapter：[ADAPTER-01证据](work-items/WP-13/ADAPTER-01/summa
 
 [WP-21 真实验证](work-items/WP-21/summary.md)已完成[直接命令执行器与 owned EvidenceGate](contracts/verification-runner.md)。实际版本/exit/report、产物/测试集合/标准绑定及 kernel 隔离已有本机验证；[实际 testing 发布与重启证据核验](work-items/WP-21/VERIFIED-TESTING-01/summary.md)已接入。[审查证据消费](contracts/review-assessment.md)已接入；[模型验收决策](contracts/acceptance-decision.md)已接入；人工控制消费者已接入；一次有限返工链已接入；项目强制独立性已接入；原导航框架已接入，[固定 Go backend](contracts/go-verification-backend.md)已支持可信编译器子进程与实际隔离测试，原各页数据/操作、CGO/在线依赖及其他工具链仍待完成，不将独立组件通过当成五阶段验收完成。
 
-[未开始阶段计划修订桥](contracts/native-plan-revision.md)已将既有受管理预览/应用接口接入精确 Native 通路，保持活动阶段、历史计划与累计预算。实际页面修订控件及 Wails 操作仍待接入或验证，不能通过该通路获得供应商执行准入。
+[未开始阶段计划修订桥](contracts/native-plan-revision.md)已将既有受管理预览/应用接口接入精确 Native 通路，保持活动阶段、历史计划与累计预算。[页面消费者](contracts/plan-revision-ui.md)已在现有详情旁增加折叠区，复用原阶段模型选择器和 CSS；实际 Wails 修订操作仍未验证，不能通过该通路获得供应商执行准入。

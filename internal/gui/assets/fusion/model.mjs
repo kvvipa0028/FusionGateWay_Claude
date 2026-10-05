@@ -86,3 +86,37 @@ export function layerIssues(layer,routes) {
  }
  return out;
 }
+// A task snapshot freezes resolved metadata; draft targets retain the user's
+// requested effort mode. Neither credentials nor execution authority are copied.
+export function frozenPlanLayer(plan) {
+ const target=t=>({route:copy(t.route),model:t.requested_model,effort:t.effort.requested_mode==='explicit'?{mode:'explicit',value:t.effort.value}:{mode:t.effort.requested_mode}});
+ const selected={};
+ for(const role of plan.required_roles){
+  const b=plan.bindings[role],next=b.mode==='locked'?{mode:'locked',...target(b.target)}:{mode:'auto',candidates:b.candidates.map(target)};
+  if(b.required_capabilities!==undefined)next.required_capabilities=copy(b.required_capabilities);
+  if(b.accept_primary_only!==undefined)next.accept_primary_only=b.accept_primary_only;
+  selected[role]=next;
+ }
+ return expandLayer({roles:selected});
+}
+export function planRevisionChanges(plan,layer) {
+ const original=frozenPlanLayer(plan),draft=expandLayer(layer),changes={roles:{}};
+ for(const role of plan.required_roles)if(!sameBinding(original.roles[role],draft.roles[role]))changes.roles[role]=copy(draft.roles[role]);
+ return changes;
+}
+export function revisionPlanMatches(plan,changes,routes) {
+ const matches=(actual,requested)=>{
+  const route=exactRoute(requested,routes);if(!route||!sameBinding(actual?.route,requested.route)||actual.requested_model!==requested.model||actual.resolved_model!==route.model||actual.effort?.requested_mode!==requested.effort?.mode)return false;
+  const effort=requested.effort.mode==='none'?null:requested.effort.mode==='default'?route.default_effort:requested.effort.value;
+  if(actual.effort.value!==effort)return false;
+  return ['account','workspace','runtime_version','plugin_version','billing_path','lock_enforcement'].every(k=>actual[k]===route[k])&&sameBinding(actual.capabilities??[],route.capabilities??[]);
+ };
+ for(const [role,requested] of Object.entries(changes.roles)){
+  if(requested.mode==='inherit')continue;
+  const actual=plan.bindings[role];
+  if(actual?.mode!==requested.mode||actual.source!=='task'||!sameBinding(actual.required_capabilities??[],requested.required_capabilities??[])||(actual.accept_primary_only??false)!==(requested.accept_primary_only??false))return false;
+  if(requested.mode==='locked'){if(!matches(actual.target,requested))return false}
+  else if(!Array.isArray(actual.candidates)||actual.candidates.length!==requested.candidates.length||actual.candidates.some((t,i)=>!matches(t,requested.candidates[i])))return false;
+ }
+ return true;
+}

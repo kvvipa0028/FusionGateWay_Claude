@@ -44,4 +44,4 @@ launcher 使用私有 HOME/XDG 和环境允许清单。启动 stdout 仅含产�
 
 后续 [MAIN-UI-01](magpie-main-ui.md)直接复用原首页页头与导航接入现有 Fusion 面板，精确增加 main.mjs 静态资源，不扩大主框架、窗口身份、HTTP/API 权限。2026-10-05 浏览器及 SDK-window 回归通过；本轮桌面报告 Mac locked，未重验此版本的实际 Wails 操作。
 
-后续[未开始阶段计划修订通路](native-plan-revision.md)开放精确 plan/preview POST 和 plan PUT，先核验当前窗口、宿主与已登记 Task；沿原 Management/If-Match/receipt 合同，不调用 Runtime，不开放泛化路径。回执绑定原计划版本，拒绝未知 Idempotency-Key，保留128KiB/2MiB/8秒与来源撤销保护。页面修订控件尚未接入，当前 bridge/HTTP 证据不等于实际 Wails 操作。
+后续[未开始阶段计划修订通路](native-plan-revision.md)开放精确 plan/preview POST 和 plan PUT，先核验当前窗口、宿主与已登记 Task；沿原 Management/If-Match/receipt 合同，不调用 Runtime，不开放泛化路径。回执绑定原计划版本，拒绝未知 Idempotency-Key，保留128KiB/2MiB/8秒与来源撤销保护。后续[页面消费者](plan-revision-ui.md)已接入原控件和 CSS 的折叠修订区，当前浏览器/bridge/HTTP 证据不等于实际 Wails 操作。

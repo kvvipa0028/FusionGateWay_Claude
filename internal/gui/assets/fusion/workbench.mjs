@@ -93,8 +93,9 @@ function humanValue(reply,data,scope,sent=null){
  return b;
 }
 function readFailure(e){return e.status===401||e.status===403?'管理授权已失效，请重新连接。':e.status===503?'本机服务不可用或已撤销。':'读取失败，请重新读取。'}
-export function createWorkbench({request,onLock,onNotice,onRestore}){
+export function createWorkbench({request,onLock,onNotice,onRestore,onEditPlan,onRevisionDraft,onValidateRevision,onEndRevision}){
  let project='',preview=null,attempt=null,expiry=null,epoch=0,listSerial=0,detailSerial=0,listBusy=false,detailBusy=false,next='',items=[],selected='',busy=false,recoveryBlocked=false,taskData=null,controlAttempt=null,controlBusy=false,knownRun=null,workflowUncertain=false,humanData=null,humanBusy=false,humanSerial=0,humanUncertain=false;
+ let revision=null,revisionBusy=false,revisionExpiry=null;
  let eventTask='',eventSerial=0,eventCursor=0,eventRows=[],eventBusy=false,startBlocked=false,startSerial=0;
  function clearEvents(id=''){
   eventTask=id;eventSerial++;eventCursor=0;eventRows=[];eventBusy=false;$('event-history').replaceChildren();$('task-events').open=false;$('events-status').textContent=id?'尚未读取任务事件。':'选择任务后读取事件。';
@@ -121,7 +122,7 @@ export function createWorkbench({request,onLock,onNotice,onRestore}){
   }catch(e){if(version===epoch&&serial===eventSerial&&id===eventTask)$('events-status').textContent=readFailure(e)+'原事件和游标已保留，不自动重试。'}
   finally{if(version===epoch&&serial===eventSerial&&id===eventTask){eventBusy=false;controls()}}
  }
- function lock(value){onLock(value||controlBusy||!!controlAttempt||startBlocked)}
+ function lock(value){onLock(value||controlBusy||!!controlAttempt||startBlocked||revisionBusy||!!revision?.attempt)}
  function executionNotice(message){$('execution-status').textContent=message}
  function controls(){
   $('task-submit').hidden=!preview&&!attempt;
@@ -133,9 +134,9 @@ export function createWorkbench({request,onLock,onNotice,onRestore}){
   $('abandon-submission').hidden=!attempt||!!attempt.task||['committed','acknowledged'].includes(attempt.journal?.state);
   $('abandon-submission').disabled=busy||controlBusy;$('abandon-submission').textContent=attempt?.action==='abandon'?'重试放弃原请求':'放弃未提交请求';
   $('refresh-tasks').disabled=!project||listBusy;$('older-tasks').hidden=!next;$('older-tasks').disabled=listBusy;
-  $('reload-task').disabled=!selected||detailBusy||controlBusy;
+  $('reload-task').disabled=!selected||detailBusy||controlBusy||revisionBusy;
   $('task-events').hidden=!selected;$('read-events').disabled=eventBusy||detailBusy||!taskData||busy||controlBusy;$('reset-events').disabled=$('read-events').disabled;
-  const unavailable=busy||!!attempt||recoveryBlocked||startBlocked||controlBusy||!!controlAttempt||detailBusy||!taskData;
+  const unavailable=!!revision||revisionBusy||busy||!!attempt||recoveryBlocked||startBlocked||controlBusy||!!controlAttempt||detailBusy||!taskData;
   $('execution-controls').hidden=!selected;
   $('execution-role').disabled=unavailable;
   $('start-role').disabled=workflowUncertain||!!taskData&&taskData.workflow===null&&taskData.plan.required_roles.length>1||!!taskData?.workflow&&(!!taskData.workflow.blocker||$('execution-role').value!==taskData.workflow.next)||unavailable||taskData?.task.state!=='ready'||taskData.budget.used_calls>=taskData.budget.max_calls;
@@ -143,6 +144,7 @@ export function createWorkbench({request,onLock,onNotice,onRestore}){
   $('pause-task').disabled=unavailable||!['ready','running','paused','pausing'].includes(taskData?.task.state);
   $('continue-task').disabled=unavailable||taskData?.task.state!=='paused';
   $('cancel-task').disabled=unavailable||!['ready','running','paused','pausing','cancelling','failed','advisory_only'].includes(taskData?.task.state);
+  revisionControls();
   $('retry-execution').hidden=!controlAttempt;$('retry-execution').disabled=controlBusy||busy||detailBusy;
   const original=controlAttempt?.action==='start'?controlAttempt:null;
   $('retry-execution').textContent=original?.phase==='abandon'?'重试封存原启动请求':original?.phase==='acknowledge'?'重试启动记录确认':original&&!original.journal?'重试保存原启动请求':'重试原运行请求';
@@ -150,13 +152,13 @@ export function createWorkbench({request,onLock,onNotice,onRestore}){
   $('abandon-start').hidden=!original||!!original.runId||!!original.journal?.run_id;
   $('abandon-start').disabled=busy||controlBusy||detailBusy;
  }
- function invalidate(){if(attempt||recoveryBlocked)return;clearTimeout(expiry);expiry=null;preview=null;controls()}
+ function invalidate(){if(revision&&!revision.attempt&&!revisionBusy){clearTimeout(revisionExpiry);revisionExpiry=null;revision.preview=null;$('plan-revision-preview').replaceChildren()}if(attempt||recoveryBlocked)return;clearTimeout(expiry);expiry=null;preview=null;controls()}
  function renderList(){
   const root=$('task-list');root.replaceChildren();
   for(const task of items){
    const row=node('div',null,'row'),who=node('div',null,'who');
    who.append(node('p',task.goal+(task.goal_truncated?'…':''),'name'),node('p',task.id+' · '+stateName(task.state)+' · 计划 '+task.plan_revision,'sub'));
-   const button=node('button','查看任务','text action');button.disabled=controlBusy||!!controlAttempt;button.dataset.taskId=task.id;button.setAttribute('aria-label','查看任务 '+task.id);button.onclick=()=>loadTask(task.id);
+   const button=node('button','查看任务','text action');button.disabled=!!revision||revisionBusy||controlBusy||!!controlAttempt;button.dataset.taskId=task.id;button.setAttribute('aria-label','查看任务 '+task.id);button.onclick=()=>loadTask(task.id);
    row.append(who,button);root.append(row);
   }
  }
@@ -177,7 +179,7 @@ export function createWorkbench({request,onLock,onNotice,onRestore}){
   finally{if(version===epoch&&serial===listSerial){listBusy=false;controls()}}
  }
  async function loadTask(id,internal=false){
-  if(!project||!opaque(id)||controlBusy&&!internal||controlAttempt&&controlAttempt.task.id!==id)return;
+  if(!project||!opaque(id)||revision&&revision.task.id!==id||revisionBusy&&!internal||controlBusy&&!internal||controlAttempt&&controlAttempt.task.id!==id)return;
   if(eventTask!==id)clearEvents(id);
   const scope=project,version=epoch,serial=++detailSerial;if(selected!==id){knownRun=null;$('run-record').replaceChildren();executionNotice('')}selected=id;taskData=null;detailBusy=true;clearWorkflow(id);$('task-detail').replaceChildren();$('task-detail-status').textContent='正在读取任务详情…';controls();
   try{
@@ -209,6 +211,74 @@ export function createWorkbench({request,onLock,onNotice,onRestore}){
   }catch(e){if(version===epoch&&serial===detailSerial){taskData=null;$('task-detail').replaceChildren();$('run-record').replaceChildren();$('task-detail-status').textContent=readFailure(e)}}
   finally{if(version===epoch&&serial===detailSerial){detailBusy=false;controls()}}
  }
+ function revisionControls(){
+  $('plan-revision').hidden=!selected;
+  const blocked=busy||!!attempt||recoveryBlocked||startBlocked||controlBusy||!!controlAttempt||detailBusy||humanBusy||!taskData;
+  $('edit-plan').disabled=blocked||!!revision||['completed','cancelled'].includes(taskData?.task.state);
+  $('preview-plan-revision').disabled=blocked||revisionBusy||!revision||!!revision.attempt||!onRevisionDraft?.(revision.plan);
+  $('apply-plan-revision').disabled=blocked||revisionBusy||!revision?.preview||!!revision.attempt||Date.now()>=revision.preview.expires;
+  $('retry-plan-revision').hidden=!revision?.attempt;$('retry-plan-revision').disabled=revisionBusy||detailBusy||busy||controlBusy;
+  $('end-plan-revision').hidden=!revision;$('end-plan-revision').disabled=revisionBusy||!!revision?.attempt;
+ }
+ function revisionNotice(text){$('plan-revision-status').textContent=text}
+ function endRevision(){
+  if(revisionBusy||revision?.attempt)return;
+  revision=null;clearTimeout(revisionExpiry);revisionExpiry=null;$('plan-revision-preview').replaceChildren();onEndRevision?.();lock(!!attempt||recoveryBlocked);controls();renderList();
+ }
+ function editPlan(){
+  if($('edit-plan').disabled||!taskData)return;
+  if(onEditPlan?.(taskData.plan,taskData.task)!==true)return;
+  revision={task:JSON.parse(JSON.stringify(taskData.task)),plan:JSON.parse(JSON.stringify(taskData.plan)),budget:JSON.parse(JSON.stringify(taskData.budget)),etag:'"'+taskData.plan.revision+'"',preview:null,attempt:null};
+  $('plan-revision-preview').replaceChildren();revisionNotice('已载入计划 '+revision.plan.revision+'。在上方修改未来阶段后预览，尚未应用。');controls();renderList();
+ }
+ async function previewRevision(){
+  if($('preview-plan-revision').disabled||!revision)return;
+  const current=revision,draft=onRevisionDraft?.(current.plan),version=epoch;if(!draft)return;
+  current.preview=null;clearTimeout(revisionExpiry);$('plan-revision-preview').replaceChildren();revisionBusy=true;lock(true);controls();revisionNotice('正在预览阶段修订…');
+  try{
+   const result=await request('/control/v1/tasks/'+encodeURIComponent(current.task.id)+'/plan/preview',{method:'POST',headers:{'If-Match':current.etag},body:JSON.stringify(draft)});
+   if(version!==epoch||current!==revision)return;
+   const v=result.body;planValue(v?.plan,current.plan.revision+1);
+   if(result.status!==200||result.etag!==current.etag||!opaque(v.preview_id)||!integer(v.configuration_revision,1)||!Number.isFinite(Date.parse(v.expires_at))||Date.parse(v.expires_at)<=Date.now()||!same(v.plan.required_roles,current.plan.required_roles)||!same(v.plan.independence??[],current.plan.independence??[])||!same(v.budget,{max_calls:current.budget.max_calls,max_reworks:current.budget.max_reworks}))throw bad();
+   if(onValidateRevision?.(v.plan,draft.task)!==true)throw bad();
+   for(const role of current.plan.required_roles)if(!Object.hasOwn(draft.task.roles,role)&&!same(v.plan.bindings[role],current.plan.bindings[role]))throw bad();
+   current.preview={plan:JSON.parse(JSON.stringify(v.plan)),id:v.preview_id,expires:Date.parse(v.expires_at)};
+   const root=$('plan-revision-preview');root.append(node('p','计划 '+current.plan.revision+' → '+v.plan.revision+'；任务 '+current.task.id+'。','details'));
+   for(const role of Object.keys(draft.task.roles)){const b=v.plan.bindings[role];root.append(node('h3',labels[role]));for(const target of b.mode==='locked'?[b.target]:b.candidates)root.append(node('p',target.resolved_model,'task-model'),node('p','路线：'+target.route.id+'@'+target.route.revision+'；账号：'+target.account+'；effort：'+target.effort.requested_mode+(target.effort.value?' / '+target.effort.value:'')+'；计费：'+target.billing_path,'details'))}
+   root.append(node('p','计划 hash：'+v.plan.hash+'；有效至：'+new Date(current.preview.expires).toLocaleString(),'details'));
+   revisionExpiry=setTimeout(()=>{if(revision===current&&!current.attempt){revisionNotice('修订预览已到期，请重新预览。');controls()}},Math.min(current.preview.expires-Date.now(),2147483647));
+   revisionNotice('修订预览已核对，尚未应用或启动。请审阅后明确应用。');
+  }catch(e){if(version===epoch&&current===revision)revisionNotice('修订预览未通过核对。'+(e.status===409?'计划、配置或已启动角色已变化，请结束修订并重新读取任务。':readFailure(e)))}
+  finally{revisionBusy=false;lock(!!attempt||recoveryBlocked);controls();renderList()}
+ }
+ async function applyRevision(retry=false){
+  if(!revision||revisionBusy||detailBusy||busy||controlBusy||(retry?$('retry-plan-revision').disabled:$('apply-plan-revision').disabled))return;
+  const current=revision,version=epoch;
+  if(!current.attempt){
+   if(!current.preview||Date.now()>=current.preview.expires)return;
+   if(!window.confirm('应用任务 '+current.task.id+' 的阶段修订：计划 '+current.plan.revision+' → '+current.preview.plan.revision+'？\n计划 hash：'+current.preview.plan.hash+'\n历史与预算保持原值，不自动启动阶段。'))return;
+   current.attempt={body:JSON.stringify({preview_id:current.preview.id,plan_hash:current.preview.plan.hash}),plan:current.preview.plan};
+  }
+  const original=current.attempt;revisionBusy=true;lock(true);controls();renderList();revisionNotice('正在核对阶段修订…');
+  let confirmed=false,rejected=false;
+  try{
+   const result=await request('/control/v1/tasks/'+encodeURIComponent(current.task.id)+'/plan',{method:'PUT',headers:{'If-Match':current.etag},body:original.body});
+   if(version!==epoch||current!==revision)return;
+   planValue(result.body,current.plan.revision+1);
+   if(result.status!==200||result.etag!=='"'+original.plan.revision+'"'||!same(result.body,original.plan))throw bad();
+   confirmed=true;revisionNotice('阶段修订已核对：计划 '+result.body.revision+'。请重新核对当前计划和方案批准；未启动阶段。');
+  }catch(e){
+   if(version===epoch&&current===revision){
+    rejected=[400,409,412,422,428].includes(e.status)&&!!e.code&&e.code!=='response_unavailable';
+    revisionNotice(rejected?'原修订回执已被服务端明确拒绝，请重新读取任务并重新预览。':('修订结果未确认。原预览、计划 hash 和条件已保留，请重试同一阶段修订。'+readFailure(e)));
+   }
+  }finally{
+   revisionBusy=false;
+   if(confirmed||rejected){current.attempt=null;endRevision();await loadTask(current.task.id);refreshList()}
+   lock(!!attempt||recoveryBlocked);controls();renderList();
+  }
+ }
+
  let workflowTask='';
  function clearWorkflow(id=''){
   humanData=null;humanBusy=false;humanSerial++;humanUncertain=false;$('human-report').replaceChildren();$('human-status').textContent='尚未读取当前验收证据。';if(workflowTask!==id)$('human-reason').value='';
@@ -345,7 +415,7 @@ export function createWorkbench({request,onLock,onNotice,onRestore}){
   return ids[0];
  }
  async function setProject(id){
-  if(attempt||recoveryBlocked||controlAttempt||controlBusy||startBlocked)return;
+  if(revision||revisionBusy||attempt||recoveryBlocked||controlAttempt||controlBusy||startBlocked)return;
   clearWorkflow();workflowUncertain=false;clearEvents();
   project=id;taskData=null;knownRun=null;startSerial++;$('start-record').replaceChildren();$('run-record').replaceChildren();executionNotice('');epoch++;listSerial++;detailSerial++;items=[];next='';selected='';listBusy=false;detailBusy=false;invalidate();renderList();$('task-detail').replaceChildren();$('task-detail-status').textContent='选择任务读取完整目标、冻结计划和预算。';controls();if(project){refreshList();await readOriginal(true);await readStartOriginal(true)}
  }
@@ -538,6 +608,7 @@ export function createWorkbench({request,onLock,onNotice,onRestore}){
   }finally{controlBusy=false;renderStart();lock(!!attempt||recoveryBlocked);controls();renderList()}
   if(reread)await readStartOriginal();
  }
+ $('edit-plan').onclick=editPlan;$('preview-plan-revision').onclick=previewRevision;$('apply-plan-revision').onclick=()=>applyRevision();$('retry-plan-revision').onclick=()=>applyRevision(true);$('end-plan-revision').onclick=()=>{endRevision();revisionNotice('已结束修订，本地阶段选择保留。未应用或启动。')};
  for(const action of ['attach','design','approve'])$({attach:'attach-workflow',design:'freeze-design',approve:'approve-design'}[action]).onclick=()=>workflowWrite(action);
  $('read-decision').onclick=readHuman;$('human-reason').oninput=controls;$('human-accept').onclick=()=>decideHuman('accept');$('human-return').onclick=()=>decideHuman('return');
  $('workflow-kind').onchange=controls;for(const n of ['run','scope','constraints','interfaces','acceptance'])$('design-'+n).oninput=controls;$('execution-role').onchange=controls;
@@ -545,6 +616,6 @@ export function createWorkbench({request,onLock,onNotice,onRestore}){
  $('read-events').onclick=()=>readEvents();$('reset-events').onclick=()=>readEvents(true);
  $('start-role').onclick=()=>execute('start');$('pause-task').onclick=()=>execute('pause');$('continue-task').onclick=()=>execute('continue');$('cancel-task').onclick=()=>execute('cancel');$('retry-execution').onclick=()=>execute('',true);
  $('submit-task').onclick=submit;$('retry-task').onclick=submit;$('refresh-submission').onclick=()=>readOriginal();$('abandon-submission').onclick=abandon;$('refresh-tasks').onclick=()=>refreshList();$('older-tasks').onclick=()=>refreshList(true);$('reload-task').onclick=()=>loadTask(selected);
- window.addEventListener('beforeunload',event=>{if(attempt||controlAttempt){event.preventDefault();event.returnValue=''}});
+ window.addEventListener('beforeunload',event=>{if(attempt||controlAttempt||revision?.attempt){event.preventDefault();event.returnValue=''}});
  controls();return {setProject,setPreview,invalidate,findPendingProject};
 }

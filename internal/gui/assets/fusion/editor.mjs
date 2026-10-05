@@ -1,9 +1,9 @@
-import {roles,labels,groups,copy,expandLayer,groupShared,shareGroup,exactRoute,targetFor,routeKey,configurationRoutes,layerIssues,sameBinding} from "./model.mjs";
+import {roles,labels,groups,copy,expandLayer,groupShared,shareGroup,exactRoute,targetFor,routeKey,configurationRoutes,layerIssues,sameBinding,frozenPlanLayer,planRevisionChanges,revisionPlanMatches} from "./model.mjs";
 import {updateProviders,configureProviders} from "./main.mjs";
 import {createWorkbench,workflowRoles} from "./workbench.mjs";
 import {createQuotaView} from "./quota.mjs";
 const $=id=>document.getElementById(id);
-const state={project:"",scope:"project",routes:[],layers:{},tags:{},config:{},presets:[],preset:null,editingPreset:null,presetNameDirty:false,expanded:new Set(),dirty:new Set(),loading:true,saving:false,taskPending:false,providerRevoked:false,uncertain:null,notice:"正在读取本机配置…"};
+const state={project:"",scope:"project",routes:[],layers:{},tags:{},config:{},presets:[],preset:null,editingPreset:null,presetNameDirty:false,expanded:new Set(),dirty:new Set(),loading:true,saving:false,taskPending:false,revising:false,revisingRoles:[],providerRevoked:false,uncertain:null,notice:"正在读取本机配置…"};
 const messages={route_unavailable:"模型或路线版本已失效，请重新选择。",effort_unspecified:"请选择推理档位。",effort_unsupported:"该模型不支持此推理选择。",candidates_missing:"请明确添加批准的候选。",candidate_duplicate:"同一路线版本不能重复。",mode_invalid:"配置模式无效。",lock_exception_unaccepted:"此配置含未接受的锁定例外。"};
 function el(tag,text,attrs={}){const n=document.createElement(tag);if(text!==null)n.textContent=text;for(const[k,v]of Object.entries(attrs))n.setAttribute(k,v);if(tag==="button")n.classList.add("text","action");if(tag==="select")n.classList.add("field");return n}
 function option(select,value,text){select.append(el("option",text,{value}))}
@@ -48,15 +48,33 @@ function errorText(e,saving=false){
  if(e.status===0)return saving?"保存状态未确认。请重试同一保存，或重新载入核对。":"本机配置读取失败，请重新载入。";
  return"请求未完成，请检查配置并重新载入。";
 }
-const workbench=createWorkbench({request,onLock:value=>{state.taskPending=value;render()},onRestore:record=>{state.scope="task";$("scope").value="task";$("goal").value=record.goal;$("task-kind").value="manual";$("task-role").value=record.preview.plan.required_roles[0]},onNotice:(message,error=false)=>{state.notice=message;state.error=error;render()}});
+const workbench=createWorkbench({request,
+ onEditPlan(plan,task){
+  if(disabled()||state.providerRevoked||task.project_id!==state.project)return false;
+  if((state.dirty.has('task')||state.presetNameDirty)&&!window.confirm('载入任务的冻结选择会覆盖本次任务草稿及未保存的预设名称。继续？'))return false;
+  state.scope='task';$('scope').value='task';state.layers.task=frozenPlanLayer(plan);state.preset=null;state.editingPreset=null;state.presetNameDirty=false;$('preset-name').value='';state.dirty.delete('task');
+  state.revising=true;state.revisingRoles=[...plan.required_roles];state.expanded=new Set(groups.filter(g=>g.roles.length>1).map(g=>g.id));$('goal').value=task.goal;
+  clearPreview();state.notice='正在修改已保存任务 '+task.id+' 的阶段选择；请预览修订。';state.error=false;render();return true;
+ },
+ onRevisionDraft(plan){
+  if(!state.revising||state.scope!=='task'||state.loading||state.saving||state.providerRevoked)return null;
+  const task=planRevisionChanges(plan,activeLayer());return Object.keys(task.roles).length&&layerIssues(task,state.routes).length===0?{task}:null;
+ },
+ onValidateRevision(plan,changes){return !state.providerRevoked&&revisionPlanMatches(plan,changes,state.routes)},
+ onEndRevision(){state.revising=false;state.revisingRoles=[];render()},
+ onLock:value=>{state.taskPending=value;render()},onRestore:record=>{state.scope="task";$("scope").value="task";$("goal").value=record.goal;$("task-kind").value="manual";$("task-role").value=record.preview.plan.required_roles[0]},onNotice:(message,error=false)=>{state.notice=message;state.error=error;render()}});
 const disabled=()=>state.loading||state.saving||state.taskPending||!!state.uncertain;
+const roleDisabled=role=>disabled()||state.revising&&!state.revisingRoles.includes(role);
 const quotaView=createQuotaView({request,onChange:()=>render()});
 function clearPreview(){workbench.invalidate();$("preview").hidden=true}
 function activeLayer(){return state.layers[state.scope]||expandLayer()}
-function setBinding(role,binding){state.layers[state.scope].roles[role]=binding;state.dirty.add(state.scope);state.notice="本地选择尚未保存。";clearPreview();render()}
+function setBinding(role,binding){
+ if(roleDisabled(role))return;
+ if(state.revising){const old=activeLayer().roles[role];for(const field of ['required_capabilities','accept_primary_only'])if(Object.hasOwn(old,field))binding[field]=copy(old[field])}
+ state.layers[state.scope].roles[role]=binding;state.dirty.add(state.scope);state.notice="本地选择尚未保存。";clearPreview();render()}
 configureProviders({
  select({project,role,route}){
-  if(disabled()||state.providerRevoked||project!==state.project||!roles.includes(role))return false;
+  if(roleDisabled(role)||state.providerRevoked||project!==state.project||!roles.includes(role))return false;
   const current=state.routes.find(r=>routeKey(r)===routeKey(route));if(!current)return false;
   const group=groups.find(g=>g.roles.includes(role));if(group.roles.length>1&&group.roles[1]===role)state.expanded.add(group.id);
   setBinding(role,{mode:"locked",...targetFor(current)});return true;
@@ -64,14 +82,14 @@ configureProviders({
  reload(){ $("reload").click() },
  focus(role){$("groups").querySelector('[aria-label="'+labels[role]+'推理档位"]')?.focus()},
 });
-function controlsFor(target,onchange,prefix){
+function controlsFor(target,onchange,prefix,role){
  const fragment=document.createDocumentFragment(),routeLabel=el("label","模型"),select=el("select",null,{"aria-label":prefix+"模型"});
  option(select,"","请选择已登记模型");
  for(const r of state.routes){if(Number.isSafeInteger(r.revision))option(select,routeKey(r),r.model+" · "+r.account+" · "+r.id+"@"+r.revision)}
  const current=exactRoute(target,state.routes);
  if(current)select.value=routeKey(current);
  else if(target?.route){option(select,"expired","已失效："+(target.model||target.route.id));select.value="expired"}
- select.disabled=disabled();routeLabel.append(select);
+ select.disabled=roleDisabled(role);routeLabel.append(select);
  select.onchange=()=>{const r=state.routes.find(r=>routeKey(r)===select.value);if(r)onchange(targetFor(r))};
  const effortLabel=el("label","推理档位"),effort=el("select",null,{"aria-label":prefix+"推理档位"});
  option(effort,"","请选择推理档位");
@@ -80,7 +98,7 @@ function controlsFor(target,onchange,prefix){
  for(const v of current?.efforts||[])option(effort,"explicit:"+v,v);
  const value=target?.effort?.mode==="explicit"?"explicit:"+target.effort.value:target?.effort?.mode;
  if(value){if(![...effort.options].some(o=>o.value===value))option(effort,value,"已失效："+value);effort.value=value}
- effort.disabled=disabled()||!current;effortLabel.append(effort);
+ effort.disabled=roleDisabled(role)||!current;effortLabel.append(effort);
  effort.onchange=()=>{const next=copy(target);next.effort=effort.value.startsWith("explicit:")?{mode:"explicit",value:effort.value.slice(9)}:{mode:effort.value};onchange(next)};
  fragment.append(routeLabel,effortLabel);
  return {fragment,current};
@@ -98,27 +116,28 @@ function roleEditor(role){
  row.append(el("div",labels[role],{class:"role-title"}));
  const controls=el("div",null,{class:"controls"}),modeLabel=el("label","模式"),mode=el("select",null,{"aria-label":labels[role]+"模式"});
  for(const[v,t]of [["inherit","继承"],["locked","指定并锁定"],["auto","批准候选内自动"]])option(mode,v,t);
- mode.value=b.mode;mode.disabled=disabled();modeLabel.append(mode);controls.append(modeLabel);
+ mode.value=b.mode;mode.disabled=roleDisabled(role);modeLabel.append(mode);controls.append(modeLabel);
  mode.onchange=()=>setBinding(role,mode.value==="auto"?{mode:"auto",candidates:[]}:mode.value==="locked"?{mode:"locked",route:null,model:"",effort:null}:{mode:"inherit"});
  if(b.mode==="locked"){
-  const fields=controlsFor(b,target=>setBinding(role,{...copy(b),...target}),labels[role]);
+  const fields=controlsFor(b,target=>setBinding(role,{...copy(b),...target}),labels[role],role);
   controls.append(fields.fragment);row.append(controls,routeDetails(fields.current));
  }else if(b.mode==="auto"){
   row.append(controls,el("p","只在下方明确批准的候选中选择，候选失败不扩大清单。",{class:"details"}));
   (b.candidates||[]).forEach((candidate,index)=>{
    const item=el("div",null,{class:"candidate"}),grid=el("div",null,{class:"controls"});
-   const fields=controlsFor(candidate,target=>{const next=copy(b);next.candidates[index]=target;setBinding(role,next)},labels[role]+"候选"+(index+1));
-   const remove=el("button","移除候选",{"aria-label":labels[role]+"移除候选"+(index+1)});remove.disabled=disabled();
+   const fields=controlsFor(candidate,target=>{const next=copy(b);next.candidates[index]=target;setBinding(role,next)},labels[role]+"候选"+(index+1),role);
+   const remove=el("button","移除候选",{"aria-label":labels[role]+"移除候选"+(index+1)});remove.disabled=roleDisabled(role);
    remove.onclick=()=>{const next=copy(b);next.candidates.splice(index,1);setBinding(role,next)};
    grid.append(fields.fragment,remove);item.append(grid,routeDetails(fields.current));row.append(item);
   });
-  const add=el("button","添加批准候选",{"aria-label":labels[role]+"添加批准候选"});add.disabled=disabled();
+  const add=el("button","添加批准候选",{"aria-label":labels[role]+"添加批准候选"});add.disabled=roleDisabled(role);
   add.onclick=()=>{const next=copy(b);next.candidates.push({route:null,model:"",effort:null});setBinding(role,next)};row.append(add);
  }else{
   row.append(controls);const lower=state.scope==="task"?["project","global"]:state.scope==="project"?["global"]:[];
   let inherited=null;for(const scope of lower){const candidate=expandLayer(state.config[scope]||{}).roles[role];if(candidate.mode!=="inherit"){inherited=candidate;break}}
   row.append(el("p",inherited?"继承已保存的"+(inherited.model||"自动候选")+"完整绑定。":"较低层尚无可继承的模型配置。",{class:"details"}));
  }
+ if(state.revising&&!state.revisingRoles.includes(role))row.append(el('p','此任务不包含该角色。',{class:'details'}));
  const issue=layerIssues(activeLayer(),state.routes).find(i=>i.role===role);
  if(issue)row.append(el("p",messages[issue.code],{class:"error",role:"alert"}));
  return row;
@@ -136,20 +155,20 @@ function render(){
    if(open){
     section.append(roleEditor(group.roles[1]));
     const tools=el("div",null,{class:"group-tools"}),merge=el("button","共用"+labels[group.roles[0]]+"设置",{"aria-label":group.title+"共用"});
-    merge.disabled=disabled()||!separate;
+    merge.disabled=disabled()||!separate||state.revising&&group.roles.some(role=>!state.revisingRoles.includes(role));
     merge.onclick=()=>{if(!window.confirm("将覆盖独立的"+labels[group.roles[1]]+"模型与推理设置，改为共用"+labels[group.roles[0]]+"完整绑定。继续？"))return;state.layers[state.scope]=shareGroup(activeLayer(),group.id);state.dirty.add(state.scope);state.notice="本地选择尚未保存。";clearPreview();render()};
     tools.append(merge,el("span","收起仅隐藏控件，始终保留两个角色的值。"));section.append(tools);
    }
   }
   root.append(section);
  }
- $("scope").disabled=disabled();$("project").disabled=disabled();$("reload").disabled=state.loading||state.saving||state.taskPending;
- $("preset").disabled=disabled();$("preset-version").disabled=disabled();$("apply-preset").disabled=disabled()||!$("preset").value;
- $("task").hidden=state.scope!=="task";$("goal").disabled=disabled();$("task-role").disabled=disabled();$("task-kind").disabled=disabled();$("task-role-label").hidden=$("task-kind").value!=="manual";
+ $("scope").disabled=disabled()||state.revising;$("project").disabled=disabled()||state.revising;$("reload").disabled=state.loading||state.saving||state.taskPending||state.revising;
+ $("preset").disabled=disabled()||state.revising;$("preset-version").disabled=disabled()||state.revising;$("apply-preset").disabled=disabled()||state.revising||!$("preset").value;
+ $("task").hidden=state.scope!=="task";$("goal").disabled=disabled()||state.revising;$("task-role").disabled=disabled()||state.revising;$("task-kind").disabled=disabled()||state.revising;$("task-role-label").hidden=$("task-kind").value!=="manual";
  $("save").textContent=state.uncertain&&state.uncertain.kind!=="preset"?"重试同一保存":state.scope==="task"?($("task-kind").value==="manual"?"预览单阶段任务":"预览工作流任务"):state.scope==="global"?"保存全局默认":"保存项目配置";
- $("save").disabled=state.loading||state.saving||state.taskPending||state.uncertain?.kind==="preset"||!state.project||(!state.uncertain&&layerIssues(activeLayer(),state.routes).length>0);
- const canSavePreset=!disabled()&&!!state.project&&presetNameValid($("preset-name").value)&&layerIssues(activeLayer(),state.routes).length===0;
- $("preset-name").disabled=disabled();$("create-preset").disabled=!canSavePreset;
+ $("save").disabled=state.loading||state.saving||state.taskPending||state.revising||state.uncertain?.kind==="preset"||!state.project||(!state.uncertain&&layerIssues(activeLayer(),state.routes).length>0);
+ const canSavePreset=!disabled()&&!state.revising&&!!state.project&&presetNameValid($("preset-name").value)&&layerIssues(activeLayer(),state.routes).length===0;
+ $("preset-name").disabled=disabled()||state.revising;$("create-preset").disabled=!canSavePreset;
  $("save-preset").disabled=!canSavePreset||!state.editingPreset||state.editingPreset.id!==$("preset").value;
  $("retry-preset").hidden=state.uncertain?.kind!=="preset";$("retry-preset").disabled=state.loading||state.saving;
  $("preset-editing").textContent=state.editingPreset?"保存当前范围的五角色选择为预设新版本，基于已载入版本 "+state.editingPreset.revision+"；默认配置和已有任务来源保持原值。":"保存当前范围的五角色选择；修改已有预设须先载入明确版本。不会改写默认配置或启动模型。";
