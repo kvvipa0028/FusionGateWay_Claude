@@ -11,6 +11,7 @@ import (
 )
 
 var ErrWorkflowGate = errors.New("workflow requires review or design approval")
+var ErrWorkflowAuthority = errors.New("workflow management authority unavailable")
 
 type WorkflowDesign struct {
 	RunID        string                  `json:"run_id"`
@@ -216,12 +217,16 @@ func (s *Store) Workflow(taskID string) (WorkflowView, error) {
 	return workflowIn(s.db, t)
 }
 func (s *Store) AttachWorkflow(taskID string, expected TaskVersion, kind workflow.Kind) (WorkflowView, error) {
+	return s.AttachWorkflowAuthorized(taskID, expected, kind, func() bool { return true })
+}
+
+func (s *Store) AttachWorkflowAuthorized(taskID string, expected TaskVersion, kind workflow.Kind, current func() bool) (WorkflowView, error) {
 	var out WorkflowView
 	definition, e := workflow.DefinitionFor(kind)
 	if e != nil {
 		return out, ErrInvalid
 	}
-	e = s.transaction(func(tx *sql.Tx) error {
+	e = s.workflowTransaction(current, func(tx *sql.Tx) error {
 		t, err := taskVersionIn(tx, taskID, expected)
 		if err != nil {
 			return err
@@ -257,15 +262,22 @@ func (s *Store) AttachWorkflow(taskID string, expected TaskVersion, kind workflo
 		out, err = workflowIn(tx, t)
 		return err
 	})
-	return out, e
+	if e != nil {
+		return WorkflowView{}, e
+	}
+	return out, nil
 }
 func (s *Store) SaveWorkflowDesign(taskID string, expected TaskVersion, runID string, doc workflow.DesignDocument) (WorkflowView, error) {
+	return s.SaveWorkflowDesignAuthorized(taskID, expected, runID, doc, func() bool { return true })
+}
+
+func (s *Store) SaveWorkflowDesignAuthorized(taskID string, expected TaskVersion, runID string, doc workflow.DesignDocument, current func() bool) (WorkflowView, error) {
 	var out WorkflowView
 	snapshot, e := workflow.FreezeDesign(doc)
 	if e != nil || !opaque(runID) {
 		return out, ErrInvalid
 	}
-	e = s.transaction(func(tx *sql.Tx) error {
+	e = s.workflowTransaction(current, func(tx *sql.Tx) error {
 		t, err := taskVersionIn(tx, taskID, expected)
 		if err != nil {
 			return err
@@ -309,14 +321,21 @@ func (s *Store) SaveWorkflowDesign(taskID string, expected TaskVersion, runID st
 		out, err = workflowIn(tx, t)
 		return err
 	})
-	return out, e
+	if e != nil {
+		return WorkflowView{}, e
+	}
+	return out, nil
 }
 
 // ApproveWorkflowDesign is a trusted human-authority operation. A model
 // output, Worker grant or plain "continue" must never call it as authorization.
 func (s *Store) ApproveWorkflowDesign(taskID string, expected TaskVersion, designHash, criteriaHash string) (WorkflowView, error) {
+	return s.ApproveWorkflowDesignAuthorized(taskID, expected, designHash, criteriaHash, func() bool { return true })
+}
+
+func (s *Store) ApproveWorkflowDesignAuthorized(taskID string, expected TaskVersion, designHash, criteriaHash string, current func() bool) (WorkflowView, error) {
 	var out WorkflowView
-	e := s.transaction(func(tx *sql.Tx) error {
+	e := s.workflowTransaction(current, func(tx *sql.Tx) error {
 		t, err := taskVersionIn(tx, taskID, expected)
 		if err != nil {
 			return err
@@ -353,7 +372,10 @@ func (s *Store) ApproveWorkflowDesign(taskID string, expected TaskVersion, desig
 		out, err = workflowIn(tx, t)
 		return err
 	})
-	return out, e
+	if e != nil {
+		return WorkflowView{}, e
+	}
+	return out, nil
 }
 func workflowStartIn(tx *sql.Tx, t Task, role stageplan.Role) error {
 	v, e := workflowIn(tx, t)
@@ -381,5 +403,23 @@ func (s *Store) ValidateWorkflowStart(in StartIdentity) error {
 			return e
 		}
 		return workflowStartIn(tx, t, in.Role)
+	})
+}
+
+// current must be a local, nonblocking authority check that does not reenter
+// Store. Recheck under its mutex and before commit so waiting/revoked requests
+// cannot leave partial design or approval decisions.
+func (s *Store) workflowTransaction(current func() bool, write func(*sql.Tx) error) error {
+	return s.transaction(func(tx *sql.Tx) error {
+		if current == nil || !current() {
+			return ErrWorkflowAuthority
+		}
+		if e := write(tx); e != nil {
+			return e
+		}
+		if !current() {
+			return ErrWorkflowAuthority
+		}
+		return nil
 	})
 }

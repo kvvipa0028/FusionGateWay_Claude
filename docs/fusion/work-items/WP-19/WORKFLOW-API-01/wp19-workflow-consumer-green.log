@@ -1,0 +1,74 @@
+=== RUN   TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision
+=== RUN   TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/GET/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow{}
+=== RUN   TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/PUT/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow{}"p1-g0-ready"
+=== RUN   TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/GET/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow/design
+=== RUN   TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/GET/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow/approve
+=== RUN   TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/POST/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow{"kind":"change"}
+=== RUN   TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/POST/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow{"kind":"change"}"p1-g1-ready"
+=== RUN   TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/POST/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow{"kind":"change"}"p1-g0-running"
+=== RUN   TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/POST/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow{"kind":"continue"}"p1-g0-ready"
+=== RUN   TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/POST/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow{"kind":"change","role":"implementation"}"p1-g0-ready"
+=== RUN   TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/POST/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow{"kind":"change","kind":"investigate"}"p1-g0-ready"
+=== RUN   TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/POST/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow{"Kind":"change"}"p1-g0-ready"
+=== RUN   TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/POST/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow/extra{}"p1-g0-ready"
+=== RUN   TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/POST/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow/approve/extra{}"p1-g0-ready"
+=== RUN   TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/POST/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow?after=1{"kind":"change"}"p1-g0-ready"
+=== RUN   TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/POST/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow/design{"run_id":"missing","document":{}}"p1-g0-ready"
+=== RUN   TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/POST/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow/approve{"design_hash":"bad","acceptance_hash":"bad"}"p1-g0-ready"
+=== RUN   TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/POST/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow/approve{"design_hash":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","acceptance_hash":"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"}"p1-g0-ready"
+--- PASS: TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision (0.12s)
+    --- PASS: TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/GET/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow{} (0.00s)
+    --- PASS: TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/PUT/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow{}"p1-g0-ready" (0.00s)
+    --- PASS: TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/GET/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow/design (0.00s)
+    --- PASS: TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/GET/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow/approve (0.00s)
+    --- PASS: TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/POST/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow{"kind":"change"} (0.00s)
+    --- PASS: TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/POST/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow{"kind":"change"}"p1-g1-ready" (0.00s)
+    --- PASS: TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/POST/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow{"kind":"change"}"p1-g0-running" (0.00s)
+    --- PASS: TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/POST/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow{"kind":"continue"}"p1-g0-ready" (0.00s)
+    --- PASS: TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/POST/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow{"kind":"change","role":"implementation"}"p1-g0-ready" (0.00s)
+    --- PASS: TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/POST/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow{"kind":"change","kind":"investigate"}"p1-g0-ready" (0.00s)
+    --- PASS: TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/POST/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow{"Kind":"change"}"p1-g0-ready" (0.00s)
+    --- PASS: TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/POST/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow/extra{}"p1-g0-ready" (0.00s)
+    --- PASS: TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/POST/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow/approve/extra{}"p1-g0-ready" (0.00s)
+    --- PASS: TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/POST/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow?after=1{"kind":"change"}"p1-g0-ready" (0.00s)
+    --- PASS: TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/POST/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow/design{"run_id":"missing","document":{}}"p1-g0-ready" (0.00s)
+    --- PASS: TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/POST/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow/approve{"design_hash":"bad","acceptance_hash":"bad"}"p1-g0-ready" (0.00s)
+    --- PASS: TestWorkflowManagementRejectsScopeHeadersBodiesAndStaleConditionsWithoutDecision/POST/control/v1/tasks/task-63fb308ea4bc9ae34ac85066fc729a40/workflow/approve{"design_hash":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","acceptance_hash":"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"}"p1-g0-ready" (0.00s)
+=== RUN   TestWorkflowManagementRevokedOrCancelledBeforeAndDuringWaitCannotDiscloseOrWrite
+=== RUN   TestWorkflowManagementRevokedOrCancelledBeforeAndDuringWaitCannotDiscloseOrWrite/GETcancel
+=== RUN   TestWorkflowManagementRevokedOrCancelledBeforeAndDuringWaitCannotDiscloseOrWrite/GETrevoke
+=== RUN   TestWorkflowManagementRevokedOrCancelledBeforeAndDuringWaitCannotDiscloseOrWrite/POSTcancel
+=== RUN   TestWorkflowManagementRevokedOrCancelledBeforeAndDuringWaitCannotDiscloseOrWrite/POSTrevoke
+--- PASS: TestWorkflowManagementRevokedOrCancelledBeforeAndDuringWaitCannotDiscloseOrWrite (0.43s)
+    --- PASS: TestWorkflowManagementRevokedOrCancelledBeforeAndDuringWaitCannotDiscloseOrWrite/GETcancel (0.09s)
+    --- PASS: TestWorkflowManagementRevokedOrCancelledBeforeAndDuringWaitCannotDiscloseOrWrite/GETrevoke (0.09s)
+    --- PASS: TestWorkflowManagementRevokedOrCancelledBeforeAndDuringWaitCannotDiscloseOrWrite/POSTcancel (0.09s)
+    --- PASS: TestWorkflowManagementRevokedOrCancelledBeforeAndDuringWaitCannotDiscloseOrWrite/POSTrevoke (0.08s)
+=== RUN   TestWorkflowManagementHashRunAndNewPlanRemainBoundToCurrentTask
+--- PASS: TestWorkflowManagementHashRunAndNewPlanRemainBoundToCurrentTask (0.15s)
+=== RUN   TestWorkflowManagementNeverAcceptsUnsupportedKeyHeaders
+--- PASS: TestWorkflowManagementNeverAcceptsUnsupportedKeyHeaders (0.08s)
+=== RUN   TestWorkflowManagementFreezesDesignRequiresExplicitApprovalAndReplaysWithoutRuntime
+--- PASS: TestWorkflowManagementFreezesDesignRequiresExplicitApprovalAndReplaysWithoutRuntime (0.15s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/api	2.722s
+=== RUN   TestNativeWorkflowDesignApprovalSurvivesHostRestartWithoutLaunchOrCredential
+--- PASS: TestNativeWorkflowDesignApprovalSurvivesHostRestartWithoutLaunchOrCredential (0.23s)
+=== RUN   TestNativeWorkflowOnlyExactWindowProjectMethodsAndTaskConditions
+--- PASS: TestNativeWorkflowOnlyExactWindowProjectMethodsAndTaskConditions (0.10s)
+=== RUN   TestNativeWorkflowLateSourceLossSuppressesCommittedApprovalReceipt
+--- PASS: TestNativeWorkflowLateSourceLossSuppressesCommittedApprovalReceipt (0.13s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	2.254s
+=== RUN   TestWorkflowAuthorityIsRecheckedInsideWriteAndRollsBackEveryMetadataDecision
+=== RUN   TestWorkflowAuthorityIsRecheckedInsideWriteAndRollsBackEveryMetadataDecision/attach
+=== RUN   TestWorkflowAuthorityIsRecheckedInsideWriteAndRollsBackEveryMetadataDecision/design
+=== RUN   TestWorkflowAuthorityIsRecheckedInsideWriteAndRollsBackEveryMetadataDecision/approve
+--- PASS: TestWorkflowAuthorityIsRecheckedInsideWriteAndRollsBackEveryMetadataDecision (0.34s)
+    --- PASS: TestWorkflowAuthorityIsRecheckedInsideWriteAndRollsBackEveryMetadataDecision/attach (0.08s)
+    --- PASS: TestWorkflowAuthorityIsRecheckedInsideWriteAndRollsBackEveryMetadataDecision/design (0.12s)
+    --- PASS: TestWorkflowAuthorityIsRecheckedInsideWriteAndRollsBackEveryMetadataDecision/approve (0.14s)
+=== RUN   TestWorkflowAuthorityLossDuringStoreMutexWaitCannotAttach
+--- PASS: TestWorkflowAuthorityLossDuringStoreMutexWaitCannotAttach (0.08s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/store	2.023s

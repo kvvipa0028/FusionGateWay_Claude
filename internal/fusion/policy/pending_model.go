@@ -42,7 +42,7 @@ func (p *PendingModelGrant) PreparedFor(expected Claims, lifetime time.Duration)
 	m.mu.Lock()
 	defer m.mu.Unlock()
 	prepared, ok := m.prepared[p.hash]
-	return ok && prepared.claims == expected && p.claims == expected && m.adminEnabled && !m.revokedRuns[expected.RunID] && m.now().Before(prepared.expiry) && prepared.ttl >= lifetime+20*time.Second
+	return ok && prepared.claims == expected && p.claims == expected && m.adminEnabled.Load() && !m.revokedRuns[expected.RunID] && m.now().Before(prepared.expiry) && prepared.ttl >= lifetime+20*time.Second
 }
 
 // PrepareModel may precede process startup. Its output is unknown to stage
@@ -54,7 +54,7 @@ func (m *Manager) PrepareModel(c Claims, ttl time.Duration) (*PendingModelGrant,
 	}
 	m.mu.Lock()
 	defer m.mu.Unlock()
-	if !m.adminEnabled || m.validate == nil || !validScope(c) || c.Audience != ModelAudience || m.revokedRuns[c.RunID] || ttl <= 0 || ttl > 5*time.Minute {
+	if !m.adminEnabled.Load() || m.validate == nil || !validScope(c) || c.Audience != ModelAudience || m.revokedRuns[c.RunID] || ttl <= 0 || ttl > 5*time.Minute {
 		return nil, ErrForbidden
 	}
 	now := m.now()
@@ -93,7 +93,7 @@ func (p *PendingModelGrant) Secret() (string, error) {
 	m := p.manager
 	m.mu.Lock()
 	defer m.mu.Unlock()
-	if !m.adminEnabled || m.revokedRuns[p.claims.RunID] {
+	if !m.adminEnabled.Load() || m.revokedRuns[p.claims.RunID] {
 		return "", ErrUnauthenticated
 	}
 	if prepared, ok := m.prepared[p.hash]; ok {
@@ -118,7 +118,7 @@ func (p *PendingModelGrant) Activate() error {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 	prepared, ok := m.prepared[p.hash]
-	if !ok || prepared.claims != p.claims || !m.adminEnabled || m.revokedRuns[p.claims.RunID] || m.validate == nil {
+	if !ok || prepared.claims != p.claims || !m.adminEnabled.Load() || m.revokedRuns[p.claims.RunID] || m.validate == nil {
 		return ErrForbidden
 	}
 	now := m.now()

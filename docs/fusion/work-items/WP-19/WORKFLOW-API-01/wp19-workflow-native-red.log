@@ -1,0 +1,14 @@
+=== RUN   TestNativeWorkflowDesignApprovalSurvivesHostRestartWithoutLaunchOrCredential
+    native_workflow_test.go:90: Native workflow response 404 404 page not found
+
+--- FAIL: TestNativeWorkflowDesignApprovalSurvivesHostRestartWithoutLaunchOrCredential (0.11s)
+=== RUN   TestNativeWorkflowOnlyExactWindowProjectMethodsAndTaskConditions
+    native_workflow_test.go:145: foreign window authorized workflow 404
+--- FAIL: TestNativeWorkflowOnlyExactWindowProjectMethodsAndTaskConditions (0.08s)
+=== RUN   TestNativeWorkflowLateSourceLossSuppressesCommittedApprovalReceipt
+    native_workflow_test.go:188: Native workflow response 404 404 page not found
+
+--- FAIL: TestNativeWorkflowLateSourceLossSuppressesCommittedApprovalReceipt (0.09s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	0.947s
+FAIL

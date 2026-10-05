@@ -1,0 +1,164 @@
+=== RUN   TestStageScopeUsesPersistedRunAndRejectsCompletedGeneration
+--- PASS: TestStageScopeUsesPersistedRunAndRejectsCompletedGeneration (0.10s)
+=== RUN   TestStageCredentialScopeRevocationAndExpiry
+--- PASS: TestStageCredentialScopeRevocationAndExpiry (0.00s)
+=== RUN   TestWorkerCannotFallBackToManagementOrChangeRoleHeaders
+--- PASS: TestWorkerCannotFallBackToManagementOrChangeRoleHeaders (0.00s)
+=== RUN   TestQueryKeyAndCrossOriginRequestsNeverReachHandler
+--- PASS: TestQueryKeyAndCrossOriginRequestsNeverReachHandler (0.00s)
+=== RUN   TestCredentialIssuanceRejectsUnknownScopesAndUnsafeTTL
+--- PASS: TestCredentialIssuanceRejectsUnknownScopesAndUnsafeTTL (0.00s)
+=== RUN   TestManagementRevocationAndFailuresDoNotEchoCredentials
+--- PASS: TestManagementRevocationAndFailuresDoNotEchoCredentials (0.00s)
+=== RUN   TestStageDoesNotForwardNoncanonicalAuthorityHeaders
+--- PASS: TestStageDoesNotForwardNoncanonicalAuthorityHeaders (0.00s)
+=== RUN   TestManagementContextRemainsIssuerBoundAndRevocable
+--- PASS: TestManagementContextRemainsIssuerBoundAndRevocable (0.00s)
+=== RUN   TestStrictDispatchFrozenTargetAndCredentialRenewal
+--- PASS: TestStrictDispatchFrozenTargetAndCredentialRenewal (0.09s)
+=== RUN   TestStrictDispatchRejectsTargetDriftBeforeProvider
+=== RUN   TestStrictDispatchRejectsTargetDriftBeforeProvider/removed
+=== RUN   TestStrictDispatchRejectsTargetDriftBeforeProvider/model
+=== RUN   TestStrictDispatchRejectsTargetDriftBeforeProvider/account
+=== RUN   TestStrictDispatchRejectsTargetDriftBeforeProvider/identity
+=== RUN   TestStrictDispatchRejectsTargetDriftBeforeProvider/effort
+=== RUN   TestStrictDispatchRejectsTargetDriftBeforeProvider/default
+=== RUN   TestStrictDispatchRejectsTargetDriftBeforeProvider/runtime
+=== RUN   TestStrictDispatchRejectsTargetDriftBeforeProvider/plugin
+=== RUN   TestStrictDispatchRejectsTargetDriftBeforeProvider/billing
+=== RUN   TestStrictDispatchRejectsTargetDriftBeforeProvider/admission
+=== RUN   TestStrictDispatchRejectsTargetDriftBeforeProvider/lock
+=== RUN   TestStrictDispatchRejectsTargetDriftBeforeProvider/capability
+--- PASS: TestStrictDispatchRejectsTargetDriftBeforeProvider (0.91s)
+    --- PASS: TestStrictDispatchRejectsTargetDriftBeforeProvider/removed (0.08s)
+    --- PASS: TestStrictDispatchRejectsTargetDriftBeforeProvider/model (0.07s)
+    --- PASS: TestStrictDispatchRejectsTargetDriftBeforeProvider/account (0.07s)
+    --- PASS: TestStrictDispatchRejectsTargetDriftBeforeProvider/identity (0.08s)
+    --- PASS: TestStrictDispatchRejectsTargetDriftBeforeProvider/effort (0.07s)
+    --- PASS: TestStrictDispatchRejectsTargetDriftBeforeProvider/default (0.08s)
+    --- PASS: TestStrictDispatchRejectsTargetDriftBeforeProvider/runtime (0.08s)
+    --- PASS: TestStrictDispatchRejectsTargetDriftBeforeProvider/plugin (0.08s)
+    --- PASS: TestStrictDispatchRejectsTargetDriftBeforeProvider/billing (0.07s)
+    --- PASS: TestStrictDispatchRejectsTargetDriftBeforeProvider/admission (0.08s)
+    --- PASS: TestStrictDispatchRejectsTargetDriftBeforeProvider/lock (0.08s)
+    --- PASS: TestStrictDispatchRejectsTargetDriftBeforeProvider/capability (0.08s)
+=== RUN   TestStrictDispatchRetriesRecheckIdentityAndNeverFallback
+=== RUN   TestStrictDispatchRetriesRecheckIdentityAndNeverFallback/none
+=== RUN   TestStrictDispatchRetriesRecheckIdentityAndNeverFallback/route
+=== RUN   TestStrictDispatchRetriesRecheckIdentityAndNeverFallback/revoked
+=== RUN   TestStrictDispatchRetriesRecheckIdentityAndNeverFallback/budget
+=== RUN   TestStrictDispatchRetriesRecheckIdentityAndNeverFallback/cancelled
+--- PASS: TestStrictDispatchRetriesRecheckIdentityAndNeverFallback (0.39s)
+    --- PASS: TestStrictDispatchRetriesRecheckIdentityAndNeverFallback/none (0.08s)
+    --- PASS: TestStrictDispatchRetriesRecheckIdentityAndNeverFallback/route (0.08s)
+    --- PASS: TestStrictDispatchRetriesRecheckIdentityAndNeverFallback/revoked (0.08s)
+    --- PASS: TestStrictDispatchRetriesRecheckIdentityAndNeverFallback/budget (0.08s)
+    --- PASS: TestStrictDispatchRetriesRecheckIdentityAndNeverFallback/cancelled (0.08s)
+=== RUN   TestStrictDispatchMissingAuthorityAndOverrides
+--- PASS: TestStrictDispatchMissingAuthorityAndOverrides (0.09s)
+=== RUN   TestStrictDispatchUnknownAndMismatchedUpstreamModel
+--- PASS: TestStrictDispatchUnknownAndMismatchedUpstreamModel (0.16s)
+=== RUN   TestStrictDispatchGateCannotChangeRouteOrMutateFrozenTarget
+=== RUN   TestStrictDispatchGateCannotChangeRouteOrMutateFrozenTarget/route
+=== RUN   TestStrictDispatchGateCannotChangeRouteOrMutateFrozenTarget/transport
+=== RUN   TestStrictDispatchGateCannotChangeRouteOrMutateFrozenTarget/revoke
+=== RUN   TestStrictDispatchGateCannotChangeRouteOrMutateFrozenTarget/copy
+--- PASS: TestStrictDispatchGateCannotChangeRouteOrMutateFrozenTarget (0.31s)
+    --- PASS: TestStrictDispatchGateCannotChangeRouteOrMutateFrozenTarget/route (0.08s)
+    --- PASS: TestStrictDispatchGateCannotChangeRouteOrMutateFrozenTarget/transport (0.08s)
+    --- PASS: TestStrictDispatchGateCannotChangeRouteOrMutateFrozenTarget/revoke (0.08s)
+    --- PASS: TestStrictDispatchGateCannotChangeRouteOrMutateFrozenTarget/copy (0.08s)
+=== RUN   TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse
+=== RUN   TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/identity
+=== RUN   TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/account
+=== RUN   TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/redirect
+=== RUN   TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/503
+=== RUN   TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/partial
+=== RUN   TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/duplicate
+=== RUN   TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/unknown
+=== RUN   TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/oversize
+--- PASS: TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse (0.63s)
+    --- PASS: TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/identity (0.08s)
+    --- PASS: TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/account (0.08s)
+    --- PASS: TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/redirect (0.08s)
+    --- PASS: TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/503 (0.08s)
+    --- PASS: TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/partial (0.08s)
+    --- PASS: TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/duplicate (0.08s)
+    --- PASS: TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/unknown (0.08s)
+    --- PASS: TestHTTPStrictExecutorRefusesIdentitySwitchRedirectAndAmbiguousResponse/oversize (0.08s)
+=== RUN   TestManagementCurrentDoesNotWaitForStageStoreValidation
+--- PASS: TestManagementCurrentDoesNotWaitForStageStoreValidation (0.00s)
+=== RUN   TestPreparedModelSecretHasNoAuthorityBeforeCurrentActivation
+--- PASS: TestPreparedModelSecretHasNoAuthorityBeforeCurrentActivation (0.00s)
+=== RUN   TestPreparedModelActivationExpiryRevocationAndIssuerIsolation
+=== RUN   TestPreparedModelActivationExpiryRevocationAndIssuerIsolation/prepare_expired
+=== RUN   TestPreparedModelActivationExpiryRevocationAndIssuerIsolation/run_revoked
+=== RUN   TestPreparedModelActivationExpiryRevocationAndIssuerIsolation/manager_revoked
+=== RUN   TestPreparedModelActivationExpiryRevocationAndIssuerIsolation/cancelled
+=== RUN   TestPreparedModelActivationExpiryRevocationAndIssuerIsolation/active_expired
+=== RUN   TestPreparedModelActivationExpiryRevocationAndIssuerIsolation/identity
+--- PASS: TestPreparedModelActivationExpiryRevocationAndIssuerIsolation (0.00s)
+    --- PASS: TestPreparedModelActivationExpiryRevocationAndIssuerIsolation/prepare_expired (0.00s)
+    --- PASS: TestPreparedModelActivationExpiryRevocationAndIssuerIsolation/run_revoked (0.00s)
+    --- PASS: TestPreparedModelActivationExpiryRevocationAndIssuerIsolation/manager_revoked (0.00s)
+    --- PASS: TestPreparedModelActivationExpiryRevocationAndIssuerIsolation/cancelled (0.00s)
+    --- PASS: TestPreparedModelActivationExpiryRevocationAndIssuerIsolation/active_expired (0.00s)
+    --- PASS: TestPreparedModelActivationExpiryRevocationAndIssuerIsolation/identity (0.00s)
+=== RUN   TestPreparedModelRejectsMissingScopeUnsafeTTLAndBoundedCapacity
+--- PASS: TestPreparedModelRejectsMissingScopeUnsafeTTLAndBoundedCapacity (0.73s)
+=== RUN   TestPrepareOnceRetryDoesNotInspectOrSpendAfterTerminal
+--- PASS: TestPrepareOnceRetryDoesNotInspectOrSpendAfterTerminal (0.15s)
+=== RUN   TestPrepareOnceRecoveryReadsUnknownWithoutAdmission
+--- PASS: TestPrepareOnceRecoveryReadsUnknownWithoutAdmission (0.16s)
+=== RUN   TestPrepareOncePayloadConflictsAndInvalidRequestsDoNotInspect
+--- PASS: TestPrepareOncePayloadConflictsAndInvalidRequestsDoNotInspect (0.14s)
+=== RUN   TestPrepareOnceNewRequestStillRequiresCurrentQuotaAndGeneration
+--- PASS: TestPrepareOnceNewRequestStillRequiresCurrentQuotaAndGeneration (0.14s)
+=== RUN   TestPrepareOnceConcurrentRequestsHaveOneLaunchWinner
+--- PASS: TestPrepareOnceConcurrentRequestsHaveOneLaunchWinner (0.17s)
+=== RUN   TestPrepareOnceLosingInspectionReadsCommittedWinner
+--- PASS: TestPrepareOnceLosingInspectionReadsCommittedWinner (0.14s)
+=== RUN   TestPrepareOnceRestoreIdentityPersistsAndFreezesThroughInspection
+--- PASS: TestPrepareOnceRestoreIdentityPersistsAndFreezesThroughInspection (0.17s)
+=== RUN   TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls
+=== RUN   TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/valid
+=== RUN   TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/quota
+=== RUN   TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/proof
+=== RUN   TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/owner
+=== RUN   TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/target
+=== RUN   TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/running
+--- PASS: TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls (0.47s)
+    --- PASS: TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/valid (0.08s)
+    --- PASS: TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/quota (0.08s)
+    --- PASS: TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/proof (0.08s)
+    --- PASS: TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/owner (0.08s)
+    --- PASS: TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/target (0.08s)
+    --- PASS: TestSchedulerRevalidatesPreparedRunWithoutSpendingCalls/running (0.08s)
+=== RUN   TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification
+=== RUN   TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/quota
+=== RUN   TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/stale
+=== RUN   TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/billing
+=== RUN   TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/permission
+=== RUN   TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/sandbox
+=== RUN   TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/verification
+=== RUN   TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/subagents
+=== RUN   TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/query
+=== RUN   TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/identity
+--- PASS: TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification (0.65s)
+    --- PASS: TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/quota (0.07s)
+    --- PASS: TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/stale (0.07s)
+    --- PASS: TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/billing (0.07s)
+    --- PASS: TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/permission (0.07s)
+    --- PASS: TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/sandbox (0.07s)
+    --- PASS: TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/verification (0.07s)
+    --- PASS: TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/subagents (0.07s)
+    --- PASS: TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/query (0.07s)
+    --- PASS: TestSchedulerCallGateRejectsUnknownQuotaBillingPermissionsAndVerification/identity (0.07s)
+=== RUN   TestSchedulerPrepareRequiresBudgetAndNoImplicitFallback
+--- PASS: TestSchedulerPrepareRequiresBudgetAndNoImplicitFallback (0.07s)
+=== RUN   TestConcurrentDispatchesCannotRunSameStageInParallel
+--- PASS: TestConcurrentDispatchesCannotRunSameStageInParallel (0.08s)
+=== RUN   TestSchedulerPrepareSpendAndVerifiedReleaseUseOnePersistentContract
+--- PASS: TestSchedulerPrepareSpendAndVerifiedReleaseUseOnePersistentContract (0.10s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/policy	7.477s

@@ -57,6 +57,33 @@ func TestImplementedAPIContractSamples(t *testing.T) {
 		samples = append(samples, v)
 	}
 
+	workflowExecution := workflowManagementFixture(t)
+	workflowBase := "/control/v1/tasks/" + workflowExecution.task.ID + "/workflow"
+	captureWorkflow := func(method, path, body, tag string, status int) {
+		headers := map[string]string{}
+		if tag != "" {
+			headers["If-Match"] = tag
+		}
+		add(method, path, body, status, workflowCall(workflowExecution.h, method, path, body, tag), headers)
+	}
+	captureWorkflow("GET", workflowBase, "", "", 200)
+	captureWorkflow("POST", workflowBase, `{"kind":"change"}`, workflowExecution.tag(t), 200)
+	captureWorkflow("GET", workflowBase, "", "", 200)
+	frozenWorkflow, workflowDesignBody := workflowFrozenFixture(t, workflowExecution)
+	captureWorkflow("POST", workflowBase+"/design", workflowDesignBody, workflowExecution.tag(t), 200)
+	captureWorkflow("GET", workflowBase, "", "", 200)
+	workflowApproval, _ := json.Marshal(ApproveWorkflowRequest{DesignHash: frozenWorkflow.Workflow.Design.Snapshot.Hash, AcceptanceHash: frozenWorkflow.Workflow.Design.Snapshot.AcceptanceHash})
+	captureWorkflow("POST", workflowBase+"/approve", string(workflowApproval), workflowExecution.tag(t), 200)
+	captureWorkflow("POST", workflowBase+"/approve", string(workflowApproval), workflowExecution.tag(t), 200)
+	captureWorkflow("GET", workflowBase, "", "", 200)
+	captureWorkflow("POST", workflowBase+"/approve", string(workflowApproval), `"p1-g0-ready"`, 412)
+	captureWorkflow("POST", workflowBase+"/approve", string(workflowApproval), "", 428)
+	captureWorkflow("POST", workflowBase+"/approve", `{"design_hash":"`+strings.Repeat("a", 64)+`","acceptance_hash":"`+strings.Repeat("b", 64)+`"}`, workflowExecution.tag(t), 409)
+	captureWorkflow("POST", workflowBase, `{"kind":"change","role":"implementation"}`, workflowExecution.tag(t), 400)
+	captureWorkflow("PUT", workflowBase, `{}`, workflowExecution.tag(t), 405)
+	add("GET", workflowBase, "", 401, executionRequest(workflowExecution.h, "GET", workflowBase, "", "", "", ""), nil)
+	add("GET", workflowBase, "", 403, executionRequest(workflowExecution.h, "GET", workflowBase, "", "", "", "fgs_fixture"), nil)
+	add("GET", "/control/v1/tasks/missing/workflow", "", 404, workflowCall(workflowExecution.h, "GET", "/control/v1/tasks/missing/workflow", "", ""), nil)
 	_, _, startHandler, startTask := startJournalTask(t)
 	startJournalSamplePath := "/control/v1/tasks/" + startTask.ID + "/start-request"
 	startHeaders := map[string]string{"If-Match": `"p1-g0-ready"`, "Idempotency-Key": "fixture-contract-start"}

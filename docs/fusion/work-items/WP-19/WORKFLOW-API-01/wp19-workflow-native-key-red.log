@@ -1,0 +1,10 @@
+=== RUN   TestNativeWorkflowDesignApprovalSurvivesHostRestartWithoutLaunchOrCredential
+--- PASS: TestNativeWorkflowDesignApprovalSurvivesHostRestartWithoutLaunchOrCredential (0.20s)
+=== RUN   TestNativeWorkflowOnlyExactWindowProjectMethodsAndTaskConditions
+    native_workflow_test.go:157: unsupported key silently discarded 200
+--- FAIL: TestNativeWorkflowOnlyExactWindowProjectMethodsAndTaskConditions (0.09s)
+=== RUN   TestNativeWorkflowLateSourceLossSuppressesCommittedApprovalReceipt
+--- PASS: TestNativeWorkflowLateSourceLossSuppressesCommittedApprovalReceipt (0.13s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	1.077s
+FAIL

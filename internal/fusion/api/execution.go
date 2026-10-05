@@ -126,7 +126,7 @@ func validRole(role stageplan.Role) bool {
 func controlErrorValue(e error) (int, controlError) {
 	code, reason := 500, "internal_error"
 	switch {
-	case errors.Is(e, control.ErrForbidden):
+	case errors.Is(e, control.ErrForbidden), errors.Is(e, store.ErrWorkflowAuthority):
 		code, reason = 401, "management_authority_unavailable"
 	case errors.Is(e, errInvalid), errors.Is(e, store.ErrInvalid):
 		code, reason = 400, "invalid_request"

@@ -1,0 +1,165 @@
+{
+  "component": "WP-19-WORKFLOW-API-01",
+  "base": "eca928285aec261d2d9a4049b0e5f9eeed5f5491",
+  "component_status": "complete",
+  "parent_status": "in_progress",
+  "goal_status": "active",
+  "go_version": "1.26.3",
+  "graph": {
+    "project": "fusion-development",
+    "nodes": 14249,
+    "edges": 127786,
+    "mode": "fast"
+  },
+  "real_supplier_model_calls": 0,
+  "real_supplier_quota_calls": 0,
+  "jev": "off",
+  "actual_native_window": "not_run",
+  "browser": "not_run; all UI files unchanged against base",
+  "final_T01_T60": "not_run",
+  "new_top_level_tests": 11,
+  "counts": {
+    "wp19-workflow-api-red.log": {
+      "PASS": 0,
+      "FAIL": 1,
+      "SKIP": 0,
+      "subpass": 0,
+      "subfail": 0,
+      "subskip": 0,
+      "packages": 0
+    },
+    "wp19-workflow-authority-green.log": {
+      "PASS": 2,
+      "FAIL": 1,
+      "SKIP": 0,
+      "subpass": 2,
+      "subfail": 1,
+      "subskip": 0,
+      "packages": 1
+    },
+    "wp19-workflow-native-red.log": {
+      "PASS": 0,
+      "FAIL": 3,
+      "SKIP": 0,
+      "subpass": 0,
+      "subfail": 0,
+      "subskip": 0,
+      "packages": 0
+    },
+    "wp19-workflow-native-key-red.log": {
+      "PASS": 2,
+      "FAIL": 1,
+      "SKIP": 0,
+      "subpass": 0,
+      "subfail": 0,
+      "subskip": 0,
+      "packages": 0
+    },
+    "wp19-workflow-api-key-red-final.log": {
+      "PASS": 0,
+      "FAIL": 1,
+      "SKIP": 0,
+      "subpass": 0,
+      "subfail": 0,
+      "subskip": 0,
+      "packages": 0
+    },
+    "wp19-workflow-manager-lock-red.log": {
+      "PASS": 0,
+      "FAIL": 1,
+      "SKIP": 0,
+      "subpass": 0,
+      "subfail": 0,
+      "subskip": 0,
+      "packages": 0
+    },
+    "wp19-workflow-consumer-green.log": {
+      "PASS": 10,
+      "FAIL": 0,
+      "SKIP": 0,
+      "subpass": 24,
+      "subfail": 0,
+      "subskip": 0,
+      "packages": 3
+    },
+    "wp19-workflow-policy-final.log": {
+      "PASS": 31,
+      "FAIL": 0,
+      "SKIP": 0,
+      "subpass": 50,
+      "subfail": 0,
+      "subskip": 0,
+      "packages": 1
+    },
+    "wp19-workflow-full-fusion-final.log": {
+      "PASS": 640,
+      "FAIL": 0,
+      "SKIP": 31,
+      "subpass": 1151,
+      "subfail": 0,
+      "subskip": 10,
+      "packages": 17
+    },
+    "wp19-workflow-contract-capture-final.log": {
+      "PASS": 1,
+      "FAIL": 0,
+      "SKIP": 0,
+      "subpass": 0,
+      "subfail": 0,
+      "subskip": 0,
+      "packages": 1
+    }
+  },
+  "log_provenance": {
+    "wp19-workflow-api-red.log": {
+      "scratch_raw_sha256": "fb67092bb7b2d9f2895e9b48a5a2f554efa630fee6bacb4ecd3a2b81a1825fc7",
+      "packet_sha256": "df1890187ae47eb42de66b7e5b70daf2c40b95189002c8915a7761c36f613b91",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp19-workflow-authority-green.log": {
+      "scratch_raw_sha256": "923b0d371014e6cbfde99e4c3e269205e98b866f1f07e6f6db7b2279666d5591",
+      "packet_sha256": "923b0d371014e6cbfde99e4c3e269205e98b866f1f07e6f6db7b2279666d5591",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp19-workflow-native-red.log": {
+      "scratch_raw_sha256": "ccf0041535a4aa6548769b6055b7544e8ccfb7fa3bae1b7efdd21b28427b5f46",
+      "packet_sha256": "f2aebb8784739f0557c13a67c80422db88f3480e4afb1fe00ba80494de6edddc",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp19-workflow-native-key-red.log": {
+      "scratch_raw_sha256": "f33a468f5a2d553055331e1b92092e78176e953287b6fe1d43a02e666edc83cf",
+      "packet_sha256": "f33a468f5a2d553055331e1b92092e78176e953287b6fe1d43a02e666edc83cf",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp19-workflow-api-key-red-final.log": {
+      "scratch_raw_sha256": "788d32f729dbdcca25d7d279112f38fa55e9f15756d87035e13464072d818ab0",
+      "packet_sha256": "788d32f729dbdcca25d7d279112f38fa55e9f15756d87035e13464072d818ab0",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp19-workflow-manager-lock-red.log": {
+      "scratch_raw_sha256": "a4a9ffce7f35693f006736c3f19adc23982d81ad4ed07ca28aca327c3adefe15",
+      "packet_sha256": "a4a9ffce7f35693f006736c3f19adc23982d81ad4ed07ca28aca327c3adefe15",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp19-workflow-consumer-green.log": {
+      "scratch_raw_sha256": "2e8bbbd95b05c202ecb1530dcaad83b700a5e0188b14a8224ab1c1bbee1619c7",
+      "packet_sha256": "2e8bbbd95b05c202ecb1530dcaad83b700a5e0188b14a8224ab1c1bbee1619c7",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp19-workflow-policy-final.log": {
+      "scratch_raw_sha256": "5377019786e660c8cfdc6f5d16c1fdf2f5b76a9b3a7cc5218711f658ab03fa51",
+      "packet_sha256": "5377019786e660c8cfdc6f5d16c1fdf2f5b76a9b3a7cc5218711f658ab03fa51",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp19-workflow-full-fusion-final.log": {
+      "scratch_raw_sha256": "955192e0039bda6b5b7ca39eb36e59acd062ec7347356a8e476d4f3f0d2e33ec",
+      "packet_sha256": "955192e0039bda6b5b7ca39eb36e59acd062ec7347356a8e476d4f3f0d2e33ec",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp19-workflow-contract-capture-final.log": {
+      "scratch_raw_sha256": "f34720d57b53849f5536a1850c937fce846528d4d125c62052eec35266bec70a",
+      "packet_sha256": "f34720d57b53849f5536a1850c937fce846528d4d125c62052eec35266bec70a",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    }
+  }
+}

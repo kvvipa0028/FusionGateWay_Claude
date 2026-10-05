@@ -1,0 +1,63 @@
+{
+  "base": "eca928285aec261d2d9a4049b0e5f9eeed5f5491",
+  "sources": {
+    "docs/fusion/README.md": "b1900ce18d043ac9e5a6693631c4b3ff3b77611177d2163d945eb62d32caa6e1",
+    "docs/fusion/contracts/openapi-verification.md": "1d8b2e5915538ae91fb531127819f5bcf87a137c14340f3ea1cd76b1c282d78c",
+    "docs/fusion/contracts/workflow-design-gate.md": "2fed34496af8bfccadb313670ec351f0325beb755cd0efd2ba83b24f30d1b755",
+    "docs/fusion/contracts/workflow-api.md": "9419f14172bf30b5604286dd998b577e699eb0cdc99767f09b834ae37234d28d",
+    "docs/fusion/openapi-fusion.yaml": "88c809c5646c7499526d5e0b4f472508b2e0faddf935305ebb1087a36d516337",
+    "docs/fusion/work-items/WP-19/summary.md": "3678c1110985286dc6b5bb3fb842bd2cbfe5730c92bc0c3289960f323bdcf59d",
+    "internal/fusion/api/execution.go": "44c58393cf75ed33a8093935463122fdd91e317130fdf6dcab8338f420f866a2",
+    "internal/fusion/api/openapi_samples_test.go": "707306383cd1a959b899a09892154f9f51b08aaceb2c130b193f103cddfbcbf6",
+    "internal/fusion/api/preview.go": "0451a4bf7bdd5a8f3a92d2b1e31c04a768f079b0f16647067b26bde22a15841b",
+    "internal/fusion/api/workflow.go": "8a6a099e4e6eadf770454936ea490f530c61205811b3532af124c98f41a311cf",
+    "internal/fusion/api/workflow_control_test.go": "fa64727ac8942579557cee93c0d266880d1d49f7bcc890f9b763d05c8a5789f4",
+    "internal/fusion/bootstrap/native_ui.go": "cd1ffef48328650888cb6ad9bc8162aad6cfd5f1d7a8f2534dc845e95b18695f",
+    "internal/fusion/bootstrap/native_workflow_test.go": "00d91e8158bbc020c94c091bc89f49e55d80b8e4ec75220b7415fc3fa270bfeb",
+    "internal/fusion/policy/auth.go": "5fe427788edddab280b44ce3a8c7fee05a0b160e599d5d5f3203c7a46eb0f023",
+    "internal/fusion/policy/pending_model.go": "e230f375a6600ae87d143a65de306f87d449b90dfb48e99a12ac837d660ea7b1",
+    "internal/fusion/policy/management_concurrency_test.go": "a519da1e373bae07aedce59aa6ee5faf65e3fa6dc89d1d819cfd0019795d49fe",
+    "internal/fusion/store/workflow.go": "37a3131fe09f93d2c1ab332ec301c10181c9c73c4388c65f2c4f3c70e09328fa",
+    "internal/fusion/store/workflow_authority_test.go": "a79863b84593eb0f3733e1faa58b08515d08ba718cd4fb076c1e85e75e7126f9",
+    "scripts/fusion/check-openapi.py": "98f4dd71ff4954b11b3f9d0b53d0b6f77e7aaa3a2701f195781d7ffc9d57075b"
+  },
+  "files": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "a1de4e99710fd2ba9fccc2d2ecb1931277003d3f7f9dd011b948508816a2f78d",
+    "build-results.json": "d92fe2568895bc59382c2163588494a2b632e9dc1cd0235401bd1e5a92cad9f5",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "summary.md": "bf9eb769c214650a34caead2e60096ca3ce28059e1aaa3fe73b7686679774baa",
+    "test-results.json": "5b45504ea83cc601ac97ca9da3b911d3793620dc88af150efd30a7ac3cdc9554",
+    "wp19-workflow-api-key-red-final.log": "788d32f729dbdcca25d7d279112f38fa55e9f15756d87035e13464072d818ab0",
+    "wp19-workflow-api-red.log": "df1890187ae47eb42de66b7e5b70daf2c40b95189002c8915a7761c36f613b91",
+    "wp19-workflow-authority-green.log": "923b0d371014e6cbfde99e4c3e269205e98b866f1f07e6f6db7b2279666d5591",
+    "wp19-workflow-consumer-green.log": "2e8bbbd95b05c202ecb1530dcaad83b700a5e0188b14a8224ab1c1bbee1619c7",
+    "wp19-workflow-contract-capture-final.log": "f34720d57b53849f5536a1850c937fce846528d4d125c62052eec35266bec70a",
+    "wp19-workflow-full-fusion-final.log": "955192e0039bda6b5b7ca39eb36e59acd062ec7347356a8e476d4f3f0d2e33ec",
+    "wp19-workflow-manager-lock-red.log": "a4a9ffce7f35693f006736c3f19adc23982d81ad4ed07ca28aca327c3adefe15",
+    "wp19-workflow-native-key-red.log": "f33a468f5a2d553055331e1b92092e78176e953287b6fe1d43a02e666edc83cf",
+    "wp19-workflow-native-red.log": "f2aebb8784739f0557c13a67c80422db88f3480e4afb1fe00ba80494de6edddc",
+    "wp19-workflow-openapi.json": "be4541610a7d9661a4b40eee6dc00295bedb1303b70895438029869ad6103e78",
+    "wp19-workflow-policy-final.log": "5377019786e660c8cfdc6f5d16c1fdf2f5b76a9b3a7cc5218711f658ab03fa51",
+    "wp19-workflow-samples.json": "3cfe044cb5c192742d6d497de25930ff48c2273e6f91b4c65e5509266d06983b"
+  },
+  "binary_sha256": {
+    "fusion-gateway-cli": "a41cc18d58696b4663c6c5469470018a470a9166bfe4966d5b6de6593316db2a",
+    "fusion-gateway-gui": "e9eaa2a80103ba02edc31a4329909f7f354b4ca453f4fed2dcfbeb8f29bacae6"
+  },
+  "unchanged_original_magpie_assets": 3,
+  "unchanged_ui_files": 475,
+  "unchanged_migrations": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "local_links_checked": 94,
+  "secret_byte_exclusion": "pass"
+}

@@ -1,0 +1,7 @@
+=== RUN   TestWorkflowManagementFreezesDesignRequiresExplicitApprovalAndReplaysWithoutRuntime
+    workflow_control_test.go:50: workflow response 404 404 page not found
+
+--- FAIL: TestWorkflowManagementFreezesDesignRequiresExplicitApprovalAndReplaysWithoutRuntime (0.09s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/api	0.742s
+FAIL

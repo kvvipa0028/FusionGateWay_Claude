@@ -13,6 +13,7 @@ import (
 	"net/url"
 	"strings"
 	"sync"
+	"sync/atomic"
 	"time"
 	"unicode"
 )
@@ -47,7 +48,7 @@ type grant struct {
 type Manager struct {
 	mu           sync.Mutex
 	admin        [32]byte
-	adminEnabled bool
+	adminEnabled atomic.Bool
 	grants       map[[32]byte]grant
 	prepared     map[[32]byte]preparedModel
 	revokedRuns  map[string]bool
@@ -60,7 +61,8 @@ type Manager struct {
 // validate must consult current server task/run generation, lease and admission;
 // it must not reenter Manager. Restarting an issuer revokes all stage secrets.
 func NewManager(managementSecret string, validate func(Claims) bool, origins []string) *Manager {
-	m := &Manager{admin: sha256.Sum256([]byte(managementSecret)), adminEnabled: managementSecret != "" && !strings.HasPrefix(managementSecret, "fgs_"), grants: map[[32]byte]grant{}, revokedRuns: map[string]bool{}, validate: validate, origins: map[string]bool{}, now: time.Now}
+	m := &Manager{admin: sha256.Sum256([]byte(managementSecret)), grants: map[[32]byte]grant{}, revokedRuns: map[string]bool{}, validate: validate, origins: map[string]bool{}, now: time.Now}
+	m.adminEnabled.Store(managementSecret != "" && !strings.HasPrefix(managementSecret, "fgs_"))
 	for _, origin := range origins {
 		u, e := url.Parse(origin)
 		if e == nil && u.Scheme != "" && u.Host != "" && u.User == nil && u.Path == "" && u.RawQuery == "" && u.Fragment == "" {
@@ -86,7 +88,7 @@ func validScope(c Claims) bool {
 func (m *Manager) Issue(c Claims, ttl time.Duration) (string, error) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
-	if !m.adminEnabled || !validScope(c) || ttl <= 0 || ttl > 5*time.Minute || m.validate == nil || m.revokedRuns[c.RunID] || !m.validate(c) {
+	if !m.adminEnabled.Load() || !validScope(c) || ttl <= 0 || ttl > 5*time.Minute || m.validate == nil || m.revokedRuns[c.RunID] || !m.validate(c) {
 		return "", ErrForbidden
 	}
 	now := m.now()
@@ -115,7 +117,7 @@ func (m *Manager) Issue(c Claims, ttl time.Duration) (string, error) {
 func (m *Manager) RevokeManagement() {
 	m.mu.Lock()
 	defer m.mu.Unlock()
-	m.adminEnabled = false
+	m.adminEnabled.Store(false)
 	m.grants = map[[32]byte]grant{}
 	m.prepared = map[[32]byte]preparedModel{}
 }
@@ -159,6 +161,8 @@ type managementKey struct{}
 // ManagementCurrent rechecks a context authenticated by this exact issuer.
 // Long-lived connections carry no raw management secret and become invalid on
 // revocation; a context from another issuer cannot inherit the authority.
+// This check must remain lock-free: a Store transaction may call it while a
+// stage validator holds Manager.mu and waits on that Store.
 func (m *Manager) ManagementCurrent(ctx context.Context) bool {
 	if ctx == nil || ctx.Err() != nil {
 		return false
@@ -167,9 +171,7 @@ func (m *Manager) ManagementCurrent(ctx context.Context) bool {
 	if !ok || issuer != m {
 		return false
 	}
-	m.mu.Lock()
-	defer m.mu.Unlock()
-	return m.adminEnabled
+	return m.adminEnabled.Load()
 }
 
 // WithStage carries an issuer-owned capability in a private context key. The
@@ -192,7 +194,7 @@ func (m *Manager) authorizeContext(ctx context.Context) (Claims, error) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 	g, exists := m.grants[h]
-	if !m.adminEnabled || !exists || g.claims != c || !m.now().Before(g.expiry) || m.revokedRuns[c.RunID] || m.validate == nil || !m.validate(c) {
+	if !m.adminEnabled.Load() || !exists || g.claims != c || !m.now().Before(g.expiry) || m.revokedRuns[c.RunID] || m.validate == nil || !m.validate(c) {
 		return Claims{}, ErrForbidden
 	}
 	return c, nil
@@ -295,7 +297,7 @@ func (m *Manager) Management(next http.Handler) http.Handler {
 		}
 		h := sha256.Sum256([]byte(raw))
 		m.mu.Lock()
-		ok := m.adminEnabled && subtle.ConstantTimeCompare(h[:], m.admin[:]) == 1
+		ok := m.adminEnabled.Load() && subtle.ConstantTimeCompare(h[:], m.admin[:]) == 1
 		m.mu.Unlock()
 		if !ok {
 			authFailure(w, ErrUnauthenticated)

@@ -16,6 +16,9 @@ from referencing import Registry, Resource
 from referencing.jsonschema import DRAFT202012
 
 EXPECTED = {
+    "/control/v1/tasks/{task_id}/workflow": {"get", "post"},
+    "/control/v1/tasks/{task_id}/workflow/design": {"post"},
+    "/control/v1/tasks/{task_id}/workflow/approve": {"post"},
     "/control/v1/projects/{project_id}/start-request": {"get"},
     "/control/v1/tasks/{task_id}/start-request": {"get", "post"},
     "/control/v1/tasks/{task_id}/start-request/acknowledge": {"post"},
@@ -161,6 +164,9 @@ def verify(contract, official, samples):
     negative["ResumeRoleRequest"] = {"role":"design", "restore":{"origin_run_id":"fixture", "checkpoint_id":"b"*64, "checkpoint_digest":"c"*64}, "native_session_id":"fixture-forbidden"}
     negative["RestoreIdentity"] = {"origin_run_id":"fixture", "checkpoint_id":"b"*64, "checkpoint_digest":"c"*64, "argv":[]}
     negative["CheckpointRef"] = {"id":"b"*64,"digest":"c"*64,"native_session_id":"fixture-forbidden"}
+    negative["AttachWorkflowRequest"] = {"kind":"change","target":{"model":"forbidden"}}
+    negative["WorkflowDesignRequest"] = {"run_id":"fixture-run","document":{"goal":"fixture","scope":["src"],"constraints":["preserve API"],"interfaces":["typed API"],"acceptance":["tests pass"]},"stopped_verified":True}
+    negative["ApproveWorkflowRequest"] = {"design_hash":"a"*64,"acceptance_hash":"b"*64,"approved":True,"role":"implementation"}
     for name, value in negative.items():
         assert not validator({"$ref": "#/components/schemas/" + name}).is_valid(value)
     project_response = validator({"$ref": "#/components/schemas/ProjectsReply"})
@@ -218,7 +224,26 @@ def verify(contract, official, samples):
     for value in invalid_starts:
         assert not start_response.is_valid(value)
     assert not validator({"$ref": "#/components/schemas/StartRequestRecordReply"}).is_valid({"request": None})
-    return {"official_openapi_document_schema": "3.1/2022-10-07", "paths": len(EXPECTED), "operations": len(operations), "handler_samples": count, "covered_operations": len(covered), "negative_schema_cases": len(negative), "negative_project_response_cases": len(invalid_inventory), "negative_task_response_cases": len(invalid_tasks), "negative_submission_response_cases": len(invalid_submissions), "negative_event_page_cases":len(invalid_pages), "negative_start_response_cases":len(invalid_starts)+1, "offline": True, "production_registered": False}
+    workflow_response = validator({"$ref":"#/components/schemas/WorkflowReply"})
+    valid_workflow = next(s["body"] for s in json.loads(samples.read_text()) if s["path"].endswith("/workflow/approve") and s["status"] == 200)
+    invalid_workflows = []
+    for modify in [
+        lambda v:v.pop("task"),
+        lambda v:v.update(workflow=[]),
+        lambda v:v["workflow"].update(token="forbidden"),
+        lambda v:v["workflow"]["definition"].update(schema_version=2),
+        lambda v:v["workflow"]["definition"].update(required_roles=["design"]),
+        lambda v:v["workflow"].update(next="publish"),
+        lambda v:v["workflow"]["approval"].update(native_session_id="forbidden"),
+        lambda v:v["workflow"]["design"]["snapshot"]["document"].update(acceptance=[]),
+        lambda v:v["workflow"]["design"]["snapshot"].update(hash="bad"),
+        lambda v:v["workflow"]["design"]["snapshot"]["document"].update(scope=["src","src"]),
+    ]:
+        value = copy.deepcopy(valid_workflow)
+        modify(value)
+        invalid_workflows.append(value)
+        assert not workflow_response.is_valid(value)
+    return {"official_openapi_document_schema": "3.1/2022-10-07", "paths": len(EXPECTED), "operations": len(operations), "handler_samples": count, "covered_operations": len(covered), "negative_schema_cases": len(negative), "negative_project_response_cases": len(invalid_inventory), "negative_task_response_cases": len(invalid_tasks), "negative_submission_response_cases": len(invalid_submissions), "negative_event_page_cases":len(invalid_pages), "negative_start_response_cases":len(invalid_starts)+1, "negative_workflow_response_cases":len(invalid_workflows), "offline": True, "production_registered": False}
 
 
 if __name__ == "__main__":

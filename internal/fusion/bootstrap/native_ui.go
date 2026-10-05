@@ -129,6 +129,9 @@ func (b *NativeStageBridge) allowed(method, path string) bool {
 	if nativeStartRequestID(path) != "" {
 		return method == "POST" || method == "GET" && strings.HasSuffix(path, "/start-request")
 	}
+	if nativeWorkflowID(path) != "" {
+		return method == "POST" || method == "GET" && strings.HasSuffix(path, "/workflow")
+	}
 	if nativeTaskReadID(path) != "" {
 		return method == "GET"
 	}
@@ -197,6 +200,18 @@ func nativeStartRequestID(path string) string {
 	}
 	parts := strings.Split(strings.TrimPrefix(path, "/control/v1/tasks/"), "/")
 	if len(parts) >= 2 && opaque(parts[0]) && parts[1] == "start-request" && (len(parts) == 2 || len(parts) == 3 && (parts[2] == "acknowledge" || parts[2] == "abandon")) {
+		return parts[0]
+	}
+	return ""
+}
+
+// Fixed workflow metadata only; this grants no generic Worker control.
+func nativeWorkflowID(path string) string {
+	if !strings.HasPrefix(path, "/control/v1/tasks/") {
+		return ""
+	}
+	parts := strings.Split(strings.TrimPrefix(path, "/control/v1/tasks/"), "/")
+	if len(parts) >= 2 && opaque(parts[0]) && parts[1] == "workflow" && (len(parts) == 2 || len(parts) == 3 && (parts[2] == "design" || parts[2] == "approve")) {
 		return parts[0]
 	}
 	return ""
@@ -306,6 +321,13 @@ func (b *NativeStageBridge) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	if id == "" {
 		id = nativeStartRequestID(r.URL.Path)
+	}
+	if id == "" {
+		id = nativeWorkflowID(r.URL.Path)
+	}
+	if nativeWorkflowID(r.URL.Path) != "" && len(r.Header.Values("Idempotency-Key")) != 0 {
+		http.Error(w, "Bad Request", 400)
+		return
 	}
 	if id != "" {
 		task, err := b.host.store.Task(id)

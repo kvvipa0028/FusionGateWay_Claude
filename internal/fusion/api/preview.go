@@ -337,6 +337,8 @@ func (s *Server) Handler() http.Handler {
 			s.submissionControl(w, r)
 		case startJournalPath(r.URL.Path):
 			s.startJournalControl(w, r)
+		case workflowPath(r.URL.Path):
+			s.workflowControl(w, r)
 		case taskIndexPath(r.URL.Path):
 			s.taskIndex(w, r)
 		case defaultsPath(r.URL.Path):

@@ -1,0 +1,6 @@
+=== RUN   TestManagementCurrentDoesNotWaitForStageStoreValidation
+    management_concurrency_test.go:58: management recheck waited on stage validator; Store/Manager locks can deadlock
+--- FAIL: TestManagementCurrentDoesNotWaitForStageStoreValidation (1.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/policy	1.635s
+FAIL

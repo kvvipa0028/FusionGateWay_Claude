@@ -2,13 +2,242 @@ openapi: 3.1.0
 info:
   title: Fusion task control API
   version: 0.1.0-draft
-  description: 当前已实现 Handler 合同；37 paths、43 operations。独立 fusion-control 草稿 listener 已注册；可信执行宿主与 Native 阶段配置页面已接线，真实供应商 Factory/准入与工程闭环尚未完成。原阶段启动记录 API 保持原 ready Task 条件；读取或确认元数据不证明执行成功。pause/continue 使用完整 Task If-Match，暂停中不宣称已停，continue 仅解除可靠暂停，不隐式启动或恢复 Native。全局/项目默认层只允许绑定，历史快照保持冻结。
+  description: 当前已实现 Handler 合同；40 paths、47 operations。独立 fusion-control 草稿 listener 已注册；可信执行宿主与 Native 阶段配置页面已接线，真实供应商 Factory/准入与工程闭环尚未完成。原阶段启动记录 API 保持原 ready Task 条件；读取或确认元数据不证明执行成功。pause/continue 使用完整 Task If-Match，暂停中不宣称已停，continue 仅解除可靠暂停，不隐式启动或恢复 Native。全局/项目默认层只允许绑定，历史快照保持冻结。
 x-fusion-status: implemented-handler-contract
 x-fusion-production-registered: false
 x-fusion-draft-control-registered: true
 security:
 - ManagementBearer: []
 paths:
+  /control/v1/tasks/{task_id}/workflow:
+    get:
+      operationId: readWorkflow
+      description: Management authority only. Explicit human approval is separate
+        from ordinary continue; Worker/model output is not approval.
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      responses:
+        '200':
+          description: Current Task and immutable workflow metadata; never launches
+            Runtime.
+          headers:
+            ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g(0|[1-9][0-9]*)-[a-z_]+"$
+              description: Current full Task condition.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowReply'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '412':
+          $ref: '#/components/responses/Error412'
+        '428':
+          $ref: '#/components/responses/Error428'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+    post:
+      operationId: attachWorkflow
+      description: Management authority only. Explicit human approval is separate
+        from ordinary continue; Worker/model output is not approval.
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      - name: If-Match
+        in: header
+        required: true
+        description: Current whole Task condition; stale or foreign conditions never
+          approve.
+        schema:
+          type: string
+          pattern: ^"p[1-9][0-9]*-g(0|[1-9][0-9]*)-[a-z_]+"$
+      responses:
+        '200':
+          description: Current Task and immutable workflow metadata; never launches
+            Runtime.
+          headers:
+            ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g(0|[1-9][0-9]*)-[a-z_]+"$
+              description: Current full Task condition.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowReply'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '412':
+          $ref: '#/components/responses/Error412'
+        '428':
+          $ref: '#/components/responses/Error428'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AttachWorkflowRequest'
+  /control/v1/tasks/{task_id}/workflow/design:
+    post:
+      operationId: freezeWorkflowDesign
+      description: Management authority only. Explicit human approval is separate
+        from ordinary continue; Worker/model output is not approval.
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      - name: If-Match
+        in: header
+        required: true
+        description: Current whole Task condition; stale or foreign conditions never
+          approve.
+        schema:
+          type: string
+          pattern: ^"p[1-9][0-9]*-g(0|[1-9][0-9]*)-[a-z_]+"$
+      responses:
+        '200':
+          description: Current Task and immutable workflow metadata; never launches
+            Runtime.
+          headers:
+            ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g(0|[1-9][0-9]*)-[a-z_]+"$
+              description: Current full Task condition.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowReply'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '412':
+          $ref: '#/components/responses/Error412'
+        '428':
+          $ref: '#/components/responses/Error428'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowDesignRequest'
+  /control/v1/tasks/{task_id}/workflow/approve:
+    post:
+      operationId: approveWorkflowDesign
+      description: Management authority only. Explicit human approval is separate
+        from ordinary continue; Worker/model output is not approval.
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      - name: If-Match
+        in: header
+        required: true
+        description: Current whole Task condition; stale or foreign conditions never
+          approve.
+        schema:
+          type: string
+          pattern: ^"p[1-9][0-9]*-g(0|[1-9][0-9]*)-[a-z_]+"$
+      responses:
+        '200':
+          description: Current Task and immutable workflow metadata; never launches
+            Runtime.
+          headers:
+            ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g(0|[1-9][0-9]*)-[a-z_]+"$
+              description: Current full Task condition.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowReply'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '412':
+          $ref: '#/components/responses/Error412'
+        '428':
+          $ref: '#/components/responses/Error428'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApproveWorkflowRequest'
   /control/v1/projects/{project_id}/start-request:
     get:
       operationId: readPendingStartRequest
@@ -2678,6 +2907,296 @@ components:
       scheme: bearer
       description: 仅服务端管理凭据。stage fgs_ identity 被拒绝；禁止通过 query/body 提供凭据。
   schemas:
+    AttachWorkflowRequest:
+      type: object
+      additionalProperties: false
+      required:
+      - kind
+      properties:
+        kind:
+          type: string
+          enum:
+          - investigate
+          - review
+          - change
+          - bugfix
+    WorkflowDesignDocument:
+      type: object
+      additionalProperties: false
+      required:
+      - goal
+      - scope
+      - constraints
+      - interfaces
+      - acceptance
+      properties:
+        goal:
+          type: string
+          minLength: 1
+          pattern: ^[^\u0000]*\S[^\u0000]*$
+        scope:
+          type: array
+          minItems: 1
+          maxItems: 128
+          items:
+            type: string
+            minLength: 1
+            pattern: ^[^\u0000]*\S[^\u0000]*$
+          uniqueItems: true
+          x-fusion-canonical-relative-posix: true
+        constraints:
+          type: array
+          minItems: 1
+          maxItems: 128
+          items:
+            type: string
+            minLength: 1
+            pattern: ^[^\u0000]*\S[^\u0000]*$
+        interfaces:
+          type: array
+          minItems: 1
+          maxItems: 128
+          items:
+            type: string
+            minLength: 1
+            pattern: ^[^\u0000]*\S[^\u0000]*$
+        acceptance:
+          type: array
+          minItems: 1
+          maxItems: 128
+          items:
+            type: string
+            minLength: 1
+            pattern: ^[^\u0000]*\S[^\u0000]*$
+      x-fusion-max-json-utf8-bytes: 65536
+    WorkflowDesignRequest:
+      type: object
+      additionalProperties: false
+      required:
+      - run_id
+      - document
+      properties:
+        run_id:
+          type: string
+          minLength: 1
+          maxLength: 256
+        document:
+          $ref: '#/components/schemas/WorkflowDesignDocument'
+    ApproveWorkflowRequest:
+      type: object
+      additionalProperties: false
+      required:
+      - design_hash
+      - acceptance_hash
+      properties:
+        design_hash:
+          type: string
+          pattern: ^[0-9a-f]{64}$
+        acceptance_hash:
+          type: string
+          pattern: ^[0-9a-f]{64}$
+    WorkflowDefinition:
+      type: object
+      additionalProperties: false
+      required:
+      - schema_version
+      - kind
+      - required_roles
+      - hash
+      properties:
+        schema_version:
+          const: 1
+        kind:
+          type: string
+          enum:
+          - investigate
+          - review
+          - change
+          - bugfix
+        required_roles:
+          type: array
+          minItems: 1
+          maxItems: 5
+          items:
+            $ref: '#/components/schemas/Role'
+        hash:
+          type: string
+          pattern: ^[0-9a-f]{64}$
+      oneOf:
+      - properties:
+          kind:
+            const: investigate
+          required_roles:
+            type: array
+            prefixItems:
+            - const: design
+            items: false
+            minItems: 1
+            maxItems: 1
+      - properties:
+          kind:
+            const: review
+          required_roles:
+            type: array
+            prefixItems:
+            - const: review
+            items: false
+            minItems: 1
+            maxItems: 1
+      - properties:
+          kind:
+            const: change
+          required_roles:
+            type: array
+            prefixItems:
+            - const: design
+            - const: implementation
+            - const: testing
+            - const: review
+            - const: acceptance
+            items: false
+            minItems: 5
+            maxItems: 5
+      - properties:
+          kind:
+            const: bugfix
+          required_roles:
+            type: array
+            prefixItems:
+            - const: design
+            - const: implementation
+            - const: testing
+            - const: review
+            - const: acceptance
+            items: false
+            minItems: 5
+            maxItems: 5
+    WorkflowDesignSnapshot:
+      type: object
+      additionalProperties: false
+      required:
+      - schema_version
+      - document
+      - hash
+      - acceptance_hash
+      properties:
+        schema_version:
+          const: 1
+        document:
+          $ref: '#/components/schemas/WorkflowDesignDocument'
+        hash:
+          type: string
+          pattern: ^[0-9a-f]{64}$
+        acceptance_hash:
+          type: string
+          pattern: ^[0-9a-f]{64}$
+    WorkflowDesign:
+      type: object
+      additionalProperties: false
+      required:
+      - run_id
+      - plan_revision
+      - plan_hash
+      - generation
+      - snapshot
+      properties:
+        run_id:
+          type: string
+          minLength: 1
+        plan_revision:
+          type: integer
+          minimum: 1
+        plan_hash:
+          type: string
+          pattern: ^[0-9a-f]{64}$
+        generation:
+          type: integer
+          minimum: 1
+        snapshot:
+          $ref: '#/components/schemas/WorkflowDesignSnapshot'
+    WorkflowApproval:
+      type: object
+      additionalProperties: false
+      required:
+      - plan_revision
+      - plan_hash
+      - generation
+      - design_hash
+      - acceptance_hash
+      properties:
+        plan_revision:
+          type: integer
+          minimum: 1
+        plan_hash:
+          type: string
+          pattern: ^[0-9a-f]{64}$
+        generation:
+          type: integer
+          minimum: 1
+        design_hash:
+          type: string
+          pattern: ^[0-9a-f]{64}$
+        acceptance_hash:
+          type: string
+          pattern: ^[0-9a-f]{64}$
+    WorkflowView:
+      type: object
+      additionalProperties: false
+      required:
+      - task_id
+      - definition
+      - design
+      - approval
+      - next
+      - blocker
+      properties:
+        task_id:
+          type: string
+          minLength: 1
+        definition:
+          $ref: '#/components/schemas/WorkflowDefinition'
+        design:
+          anyOf:
+          - $ref: '#/components/schemas/WorkflowDesign'
+          - type: 'null'
+        approval:
+          anyOf:
+          - $ref: '#/components/schemas/WorkflowApproval'
+          - type: 'null'
+        next:
+          type: string
+          enum:
+          - ''
+          - design
+          - implementation
+          - testing
+          - review
+          - acceptance
+        blocker:
+          type: string
+          enum:
+          - ''
+          - design_required
+          - approval_required
+          - stage_active
+          - stop_unverified
+          - stage_unverified
+          - stage_failed
+          - task_not_ready
+          - workflow_complete
+    WorkflowReply:
+      type: object
+      additionalProperties: false
+      required:
+      - task
+      - workflow
+      properties:
+        task:
+          $ref: '#/components/schemas/Task'
+        workflow:
+          anyOf:
+          - $ref: '#/components/schemas/WorkflowView'
+          - type: 'null'
     PresetSelection:
       type: object
       additionalProperties: false

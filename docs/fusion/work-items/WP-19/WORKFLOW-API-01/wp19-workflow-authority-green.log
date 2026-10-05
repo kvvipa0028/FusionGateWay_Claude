@@ -1,0 +1,18 @@
+=== RUN   TestWorkflowAuthorityIsRecheckedInsideWriteAndRollsBackEveryMetadataDecision
+=== RUN   TestWorkflowAuthorityIsRecheckedInsideWriteAndRollsBackEveryMetadataDecision/attach
+=== RUN   TestWorkflowAuthorityIsRecheckedInsideWriteAndRollsBackEveryMetadataDecision/design
+=== RUN   TestWorkflowAuthorityIsRecheckedInsideWriteAndRollsBackEveryMetadataDecision/approve
+    workflow_authority_test.go:59: absent authority exposed or wrote decision <nil>
+--- FAIL: TestWorkflowAuthorityIsRecheckedInsideWriteAndRollsBackEveryMetadataDecision (0.28s)
+    --- PASS: TestWorkflowAuthorityIsRecheckedInsideWriteAndRollsBackEveryMetadataDecision/attach (0.08s)
+    --- PASS: TestWorkflowAuthorityIsRecheckedInsideWriteAndRollsBackEveryMetadataDecision/design (0.11s)
+    --- FAIL: TestWorkflowAuthorityIsRecheckedInsideWriteAndRollsBackEveryMetadataDecision/approve (0.10s)
+=== RUN   TestWorkflowAuthorityLossDuringStoreMutexWaitCannotAttach
+--- PASS: TestWorkflowAuthorityLossDuringStoreMutexWaitCannotAttach (0.07s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/store	0.938s
+=== RUN   TestWorkflowManagementFreezesDesignRequiresExplicitApprovalAndReplaysWithoutRuntime
+--- PASS: TestWorkflowManagementFreezesDesignRequiresExplicitApprovalAndReplaysWithoutRuntime (0.17s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/api	1.653s
+FAIL
