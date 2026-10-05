@@ -1,0 +1,22 @@
+{
+  "private_login_tests": 13,
+  "publisher_regressions": 15,
+  "total_tests": 28,
+  "failures": 0,
+  "skipped": 0,
+  "actual_final_exit_code": 0,
+  "true_account_login_completed": false,
+  "real_model_calls": 0,
+  "final_acceptance_status_changed": false,
+  "runtime_help_exit_codes": {
+    "codex": 0,
+    "grok": 0
+  },
+  "live_device_probe_exit_codes": {
+    "codex": -15,
+    "grok": -15
+  },
+  "cwd_mutation_detected": true,
+  "kernel_positive_and_negative_controls": true,
+  "all_three_standard_streams_require_tty": true
+}

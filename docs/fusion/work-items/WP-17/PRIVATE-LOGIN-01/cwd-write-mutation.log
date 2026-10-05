@@ -1,0 +1,21 @@
+test_real_kernel_boundaries_with_unconfined_positive_control (private_login_mutation_tests.PrivateLoginTests) ...
+======================================================================
+FAIL: test_real_kernel_boundaries_with_unconfined_positive_control (private_login_mutation_tests.PrivateLoginTests) (online=False)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "scripts/fusion/tests/test_private_runtime_login.py", line 159, in test_real_kernel_boundaries_with_unconfined_positive_control
+    self.assertEqual(confined.returncode, 0, "real kernel auth boundary failed")
+AssertionError: 72 != 0 : real kernel auth boundary failed
+
+======================================================================
+FAIL: test_real_kernel_boundaries_with_unconfined_positive_control (private_login_mutation_tests.PrivateLoginTests) (online=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "scripts/fusion/tests/test_private_runtime_login.py", line 159, in test_real_kernel_boundaries_with_unconfined_positive_control
+    self.assertEqual(confined.returncode, 0, "real kernel auth boundary failed")
+AssertionError: 72 != 0 : real kernel auth boundary failed
+
+----------------------------------------------------------------------
+Ran 1 test in 0.341s
+
+FAILED (failures=2)

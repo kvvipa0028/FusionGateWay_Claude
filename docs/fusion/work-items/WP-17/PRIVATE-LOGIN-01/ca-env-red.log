@@ -1,0 +1,33 @@
+test_cache_presence_does_not_claim_login_or_parse_credentials (test_private_runtime_login.PrivateLoginTests) ... ok
+test_cancel_reaps_real_sandbox_process_and_handles_group_exit_race (test_private_runtime_login.PrivateLoginTests) ... ok
+test_codex_uses_verified_public_system_ca_not_ambient_ca (test_private_runtime_login.PrivateLoginTests) ... ERROR
+test_environment_does_not_forward_ambient_auth_proxy_or_oidc (test_private_runtime_login.PrivateLoginTests) ... ERROR
+test_link_hardlink_or_public_credential_cache_refused (test_private_runtime_login.PrivateLoginTests) ... ok
+test_noninteractive_login_refused_before_prepare_or_native (test_private_runtime_login.PrivateLoginTests) ... ok
+test_only_official_device_flow_command_is_available (test_private_runtime_login.PrivateLoginTests) ... ok
+test_prepare_two_runtime_homes_without_creating_credentials (test_private_runtime_login.PrivateLoginTests) ... ok
+test_real_kernel_boundaries_with_unconfined_positive_control (test_private_runtime_login.PrivateLoginTests) ... ok
+test_seed_drift_refused_without_overwriting_user_or_auth (test_private_runtime_login.PrivateLoginTests) ... ok
+test_symlink_git_root_or_loose_directory_refused (test_private_runtime_login.PrivateLoginTests) ... ok
+test_system_dns_socket_allowed_only_for_online_login (test_private_runtime_login.PrivateLoginTests) ... ok
+
+======================================================================
+ERROR: test_codex_uses_verified_public_system_ca_not_ambient_ca (test_private_runtime_login.PrivateLoginTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/scripts/fusion/tests/test_private_runtime_login.py", line 103, in test_codex_uses_verified_public_system_ca_not_ambient_ca
+    self.assertEqual(env["SSL_CERT_FILE"], "/private/etc/ssl/cert.pem")
+KeyError: 'SSL_CERT_FILE'
+
+======================================================================
+ERROR: test_environment_does_not_forward_ambient_auth_proxy_or_oidc (test_private_runtime_login.PrivateLoginTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/scripts/fusion/tests/test_private_runtime_login.py", line 93, in test_environment_does_not_forward_ambient_auth_proxy_or_oidc
+    self.assertEqual(env["NO_PROXY"], "*")
+KeyError: 'NO_PROXY'
+
+----------------------------------------------------------------------
+Ran 12 tests in 1.452s
+
+FAILED (errors=2)

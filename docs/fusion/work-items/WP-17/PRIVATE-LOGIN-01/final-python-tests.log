@@ -1,0 +1,33 @@
+test_cache_presence_does_not_claim_login_or_parse_credentials (test_private_runtime_login.PrivateLoginTests) ... ok
+test_cancel_reaps_real_sandbox_process_and_handles_group_exit_race (test_private_runtime_login.PrivateLoginTests) ... ok
+test_codex_uses_verified_public_system_ca_not_ambient_ca (test_private_runtime_login.PrivateLoginTests) ... ok
+test_environment_does_not_forward_ambient_auth_proxy_or_oidc (test_private_runtime_login.PrivateLoginTests) ... ok
+test_link_hardlink_or_public_credential_cache_refused (test_private_runtime_login.PrivateLoginTests) ... ok
+test_noninteractive_login_refused_before_prepare_or_native (test_private_runtime_login.PrivateLoginTests) ... ok
+test_only_official_device_flow_command_is_available (test_private_runtime_login.PrivateLoginTests) ... ok
+test_prepare_two_runtime_homes_without_creating_credentials (test_private_runtime_login.PrivateLoginTests) ... ok
+test_real_kernel_boundaries_with_unconfined_positive_control (test_private_runtime_login.PrivateLoginTests) ... ok
+test_redirected_stderr_refused_before_prepare_or_native (test_private_runtime_login.PrivateLoginTests) ... ok
+test_seed_drift_refused_without_overwriting_user_or_auth (test_private_runtime_login.PrivateLoginTests) ... ok
+test_symlink_git_root_or_loose_directory_refused (test_private_runtime_login.PrivateLoginTests) ... ok
+test_system_dns_socket_allowed_only_for_online_login (test_private_runtime_login.PrivateLoginTests) ... ok
+test_archive_hash_is_real_single_regular_binary_without_extraction (test_runtime_publishers.PublisherTests) ... ok
+test_claude_manifest_requires_exact_version_size_and_checksum (test_runtime_publishers.PublisherTests) ... ok
+test_codex_release_requires_exact_owned_asset_and_digest (test_runtime_publishers.PublisherTests) ... ok
+test_existing_report_refused_before_any_verification (test_runtime_publishers.PublisherTests) ... ok
+test_expired_fetch_never_opens_network (test_runtime_publishers.PublisherTests) ... ok
+test_fetch_requires_complete_bounded_bytes_and_has_no_retry (test_runtime_publishers.PublisherTests) ... ok
+test_grok_compressed_bytes_must_match_whole_local_binary (test_runtime_publishers.PublisherTests) ... ok
+test_literal_apple_requirement_rejects_other_publishers (test_runtime_publishers.PublisherTests) ... ok
+test_local_tamper_symlink_or_non_executable_rejected (test_runtime_publishers.PublisherTests) ... ok
+test_pins_have_no_account_or_network_override (test_runtime_publishers.PublisherTests) ... ok
+test_real_apple_verifier_accepts_pinned_vendor_and_refuses_wrong_team (test_runtime_publishers.PublisherTests) ... ok
+test_real_official_manifest_signature_rejects_changed_content_and_key (test_runtime_publishers.PublisherTests) ... ok
+test_redirect_authority_has_no_http_foreign_bucket_or_credentials (test_runtime_publishers.PublisherTests) ... ok
+test_redirect_handler_blocks_foreign_destination_before_request (test_runtime_publishers.PublisherTests) ... ok
+test_replaced_file_during_public_download_cannot_emit_success (test_runtime_publishers.PublisherTests) ... ok
+
+----------------------------------------------------------------------
+Ran 28 tests in 1.990s
+
+OK

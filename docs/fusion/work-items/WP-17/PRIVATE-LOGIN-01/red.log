@@ -1,0 +1,77 @@
+test_cache_presence_does_not_claim_login_or_parse_credentials (test_private_runtime_login.PrivateLoginTests) ... FAIL
+test_environment_does_not_forward_ambient_auth_proxy_or_oidc (test_private_runtime_login.PrivateLoginTests) ... FAIL
+test_link_hardlink_or_public_credential_cache_refused (test_private_runtime_login.PrivateLoginTests) ... FAIL
+test_noninteractive_login_refused_before_prepare_or_native (test_private_runtime_login.PrivateLoginTests) ... FAIL
+test_only_official_device_flow_command_is_available (test_private_runtime_login.PrivateLoginTests) ... FAIL
+test_prepare_two_runtime_homes_without_creating_credentials (test_private_runtime_login.PrivateLoginTests) ... FAIL
+test_seed_drift_refused_without_overwriting_user_or_auth (test_private_runtime_login.PrivateLoginTests) ... FAIL
+test_symlink_git_root_or_loose_directory_refused (test_private_runtime_login.PrivateLoginTests) ... FAIL
+
+======================================================================
+FAIL: test_cache_presence_does_not_claim_login_or_parse_credentials (test_private_runtime_login.PrivateLoginTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/scripts/fusion/tests/test_private_runtime_login.py", line 22, in setUp
+    self.assertIsNotNone(login, "isolated official login entry missing")
+AssertionError: unexpectedly None : isolated official login entry missing
+
+======================================================================
+FAIL: test_environment_does_not_forward_ambient_auth_proxy_or_oidc (test_private_runtime_login.PrivateLoginTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/scripts/fusion/tests/test_private_runtime_login.py", line 22, in setUp
+    self.assertIsNotNone(login, "isolated official login entry missing")
+AssertionError: unexpectedly None : isolated official login entry missing
+
+======================================================================
+FAIL: test_link_hardlink_or_public_credential_cache_refused (test_private_runtime_login.PrivateLoginTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/scripts/fusion/tests/test_private_runtime_login.py", line 22, in setUp
+    self.assertIsNotNone(login, "isolated official login entry missing")
+AssertionError: unexpectedly None : isolated official login entry missing
+
+======================================================================
+FAIL: test_noninteractive_login_refused_before_prepare_or_native (test_private_runtime_login.PrivateLoginTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/scripts/fusion/tests/test_private_runtime_login.py", line 22, in setUp
+    self.assertIsNotNone(login, "isolated official login entry missing")
+AssertionError: unexpectedly None : isolated official login entry missing
+
+======================================================================
+FAIL: test_only_official_device_flow_command_is_available (test_private_runtime_login.PrivateLoginTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/scripts/fusion/tests/test_private_runtime_login.py", line 22, in setUp
+    self.assertIsNotNone(login, "isolated official login entry missing")
+AssertionError: unexpectedly None : isolated official login entry missing
+
+======================================================================
+FAIL: test_prepare_two_runtime_homes_without_creating_credentials (test_private_runtime_login.PrivateLoginTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/scripts/fusion/tests/test_private_runtime_login.py", line 22, in setUp
+    self.assertIsNotNone(login, "isolated official login entry missing")
+AssertionError: unexpectedly None : isolated official login entry missing
+
+======================================================================
+FAIL: test_seed_drift_refused_without_overwriting_user_or_auth (test_private_runtime_login.PrivateLoginTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/scripts/fusion/tests/test_private_runtime_login.py", line 22, in setUp
+    self.assertIsNotNone(login, "isolated official login entry missing")
+AssertionError: unexpectedly None : isolated official login entry missing
+
+======================================================================
+FAIL: test_symlink_git_root_or_loose_directory_refused (test_private_runtime_login.PrivateLoginTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/scripts/fusion/tests/test_private_runtime_login.py", line 22, in setUp
+    self.assertIsNotNone(login, "isolated official login entry missing")
+AssertionError: unexpectedly None : isolated official login entry missing
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.001s
+
+FAILED (failures=8)

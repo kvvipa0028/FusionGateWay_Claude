@@ -1,0 +1,18 @@
+{
+  "scoped_owned_files": 32,
+  "manifest_hashed_files": 31,
+  "local_document_links_checked": 42,
+  "python_ast_and_json": "PASS",
+  "private_credential_exact_bytes_excluded": true,
+  "original_and_fusion_gui_assets_unchanged": true,
+  "task_and_final_acceptance_lists_unchanged": true,
+  "shell_syntax": "PASS",
+  "both_non_tty_launchers_refuse_login": true,
+  "diff_check": "PASS",
+  "real_user_authentication_completed": false,
+  "whole_goal_complete": false,
+  "export_log_trailing_spaces_normalized": [
+    "cwd-write-mutation.log",
+    "dns-red.log"
+  ]
+}

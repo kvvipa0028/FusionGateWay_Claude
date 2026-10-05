@@ -11,6 +11,7 @@
 - [验收矩阵](docs/fusion/planning/Fusion_Magpie_Fork_验收矩阵_v1.0.md)
 - [固定源码与工具链](docs/fusion/upstream-lock.json)
 - [本轮基线报告](docs/fusion/baseline/baseline-report.md)
+- [本人独立官方设备登录](docs/fusion/integration/private-runtime-login.md)（入口已验证，本人登录与真实路线准入待完成）
 
 上游原版产品说明在 [README.magpie.md](docs/fusion/upstream/README.magpie.md)。保留其 Go module path 和源代码边界；本项目新增内容同样采用 MIT License，保留上游版权与许可原文。
 
