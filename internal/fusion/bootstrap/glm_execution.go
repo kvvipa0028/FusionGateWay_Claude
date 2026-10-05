@@ -398,7 +398,25 @@ func newGLMRuntimeFactory(c GLMRuntimeConfig, transport http.RoundTripper) (Runt
 			}
 			return control.Launch{Backend: local, Spec: managed.Spec{Root: worker, Workspace: snapshot.Path, Source: guard, Input: input, Timeout: c.Timeout, Writable: write, WritePaths: append([]string(nil), writePaths...)}}, nil
 		}
-		return RuntimeRegistration{Routes: map[string][]stageplan.Route{p.ID: {route}}, Inspect: inspect, Resolve: resolve, Close: func(context.Context) error { closed.Store(true); return nil }}, nil
+		finalEvidence := func(call context.Context, task store.Task, run store.StageRun) (store.FinalEvidence, func() bool, error) {
+			authority := func() bool { return task.ProjectID == p.ID && current(call, run.Target) }
+			if c.Verification == nil || run.TaskID != task.ID || run.Role != stageplan.Acceptance || !authority() {
+				return store.FinalEvidence{}, nil, control.ErrUnsupported
+			}
+			w, err := e.Store.Workflow(task.ID)
+			if err != nil || w.Design == nil || w.Approval == nil || !reflect.DeepEqual(c.Verification.Acceptance, w.Design.Snapshot.Document.Acceptance) {
+				return store.FinalEvidence{}, nil, control.ErrUnsupported
+			}
+			proof, err := e.Store.PrepareFinalEvidence(run.ID, p.Path, c.ExecutionRoot, c.Verification.Spec)
+			if err != nil || !authority() {
+				if err == nil {
+					err = control.ErrUnsupported
+				}
+				return store.FinalEvidence{}, nil, err
+			}
+			return proof, authority, nil
+		}
+		return RuntimeRegistration{Routes: map[string][]stageplan.Route{p.ID: {route}}, Inspect: inspect, Resolve: resolve, FinalEvidence: finalEvidence, Close: func(context.Context) error { closed.Store(true); return nil }}, nil
 	}, nil
 }
 

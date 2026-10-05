@@ -25,12 +25,13 @@ type RuntimeEnvironment struct {
 	Current   func(string) bool
 }
 type RuntimeRegistration struct {
-	Routes       map[string][]stageplan.Route
-	Inspect      func(context.Context, store.Task, stageplan.Role, stageplan.ExecutionTarget) (policy.Inspection, error)
-	Resolve      func(context.Context, store.Task, stageplan.Role, stageplan.ExecutionTarget) (control.Launch, error)
-	SelectAuto   func(context.Context, store.Task, stageplan.Role, stageplan.FrozenBinding) (stageplan.ExecutionTarget, error)
-	QuotaSources map[string][]api.QuotaSource
-	Close        func(context.Context) error
+	Routes        map[string][]stageplan.Route
+	Inspect       func(context.Context, store.Task, stageplan.Role, stageplan.ExecutionTarget) (policy.Inspection, error)
+	Resolve       func(context.Context, store.Task, stageplan.Role, stageplan.ExecutionTarget) (control.Launch, error)
+	SelectAuto    func(context.Context, store.Task, stageplan.Role, stageplan.FrozenBinding) (stageplan.ExecutionTarget, error)
+	QuotaSources  map[string][]api.QuotaSource
+	FinalEvidence api.FinalEvidenceReader
+	Close         func(context.Context) error
 }
 
 // OpenExecutionControl preserves the private registration identity and
@@ -131,7 +132,7 @@ func (h *ControlHost) installRuntime(parent context.Context, s *api.Server, f Ru
 		return ErrControlHost
 	}
 	if queryOnly {
-		if len(reg.Routes) != 0 || reg.Inspect != nil || reg.Resolve != nil || reg.SelectAuto != nil || len(reg.QuotaSources) == 0 {
+		if len(reg.Routes) != 0 || reg.Inspect != nil || reg.Resolve != nil || reg.SelectAuto != nil || reg.FinalEvidence != nil || len(reg.QuotaSources) == 0 {
 			return ErrControlHost
 		}
 	} else if reg.Inspect == nil || reg.Resolve == nil || len(reg.Routes) == 0 {
@@ -203,6 +204,32 @@ func (h *ControlHost) installRuntime(parent context.Context, s *api.Server, f Ru
 			}
 		}
 		if s.SetQuotaSources(id, wrapped) != nil {
+			return ErrControlHost
+		}
+	}
+
+	if reg.FinalEvidence != nil {
+		if s.SetFinalEvidenceReader(func(ctx context.Context, t store.Task, r store.StageRun) (store.FinalEvidence, func() bool, error) {
+			if ctx.Err() != nil || !h.executionCurrent(t.ProjectID) || r.TaskID != t.ID || r.Role != stageplan.Acceptance || r.PlanRevision != t.PlanRevision || r.Generation != t.Generation {
+				return store.FinalEvidence{}, nil, control.ErrForbidden
+			}
+			route, ok := h.registeredRoute(t.ProjectID, r.Target.Route)
+			if !ok {
+				return store.FinalEvidence{}, nil, control.ErrUnsupported
+			}
+			proof, current, err := reg.FinalEvidence(ctx, copyRuntimeValue(t), copyRuntimeValue(r))
+			wrapped := func() bool {
+				live, ok := h.registeredRoute(t.ProjectID, r.Target.Route)
+				return ctx.Err() == nil && h.executionCurrent(t.ProjectID) && ok && reflect.DeepEqual(live, route) && current != nil && current()
+			}
+			if err != nil || !wrapped() {
+				if err == nil {
+					err = control.ErrUnsupported
+				}
+				return store.FinalEvidence{}, nil, err
+			}
+			return proof, wrapped, nil
+		}) != nil {
 			return ErrControlHost
 		}
 	}

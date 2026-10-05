@@ -1,0 +1,8 @@
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/human_reader_revoked
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/human_commit_revoked
+--- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart (11.66s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/human_reader_revoked (5.83s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/human_commit_revoked (5.83s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	13.328s

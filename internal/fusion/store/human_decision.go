@@ -60,6 +60,44 @@ func (p FinalEvidence) filesCurrent() bool {
 	}
 	return true
 }
+
+// Current only rechecks the owned filesystem witnesses; it grants no Store
+// or Runtime authority and cannot be made true from presentation JSON.
+func (p FinalEvidence) Current() bool { return p.filesCurrent() }
+
+// FinalAcceptanceRun identifies metadata for the exact current released final
+// stage. It is not a proof of current engineering evidence.
+func (s *Store) FinalAcceptanceRun(taskID string, expected TaskVersion) (StageRun, error) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	if s.db == nil {
+		return StageRun{}, ErrClosed
+	}
+	t, err := taskVersionIn(s.db, taskID, expected)
+	if err != nil {
+		return StageRun{}, err
+	}
+	v, err := workflowIn(s.db, t)
+	if err != nil {
+		return StageRun{}, err
+	}
+	if v.Blocker != "workflow_complete" || len(v.Definition.RequiredRoles) == 0 || v.Definition.RequiredRoles[len(v.Definition.RequiredRoles)-1] != stageplan.Acceptance {
+		return StageRun{}, ErrNotFound
+	}
+	var id string
+	if err := s.db.QueryRow("SELECT id FROM stage_runs WHERE task_id=? AND generation=? AND plan_revision=? AND role='acceptance'", taskID, t.Generation, t.PlanRevision).Scan(&id); err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			err = ErrNotFound
+		}
+		return StageRun{}, err
+	}
+	a, err := artifactReleasedIn(s.db, id)
+	if err != nil || !validArtifactAcceptance(a) {
+		return StageRun{}, ErrNotFound
+	}
+	return runIn(s.db, id)
+}
+
 func (s *Store) PrepareFinalEvidence(runID, source, stateRoot string, spec evidence.Spec) (FinalEvidence, error) {
 	a, hard, err := s.AcceptanceArtifact(runID, source, stateRoot, spec)
 	if err != nil {

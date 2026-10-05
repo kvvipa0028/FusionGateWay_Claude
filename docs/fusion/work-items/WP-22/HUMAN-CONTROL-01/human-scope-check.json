@@ -1,0 +1,21 @@
+{
+  "magpie_original_assets_equal_pin": "1a50db1a8afd0849df2853f92a47da9d5e2f2cc9",
+  "original_assets_sha256": {
+    "internal/gui/assets/app.js": "4484b81c5581925ad88808754c6539818719465614e0d72ac7ea7147e37cbc80",
+    "internal/gui/assets/app.css": "86f8853f683605079737d7cc9d2f0702fbdf46a0af5026f2fc3b7501ef47a471",
+    "internal/gui/assets/index.html": "07c2658d16f14d160afd286f8e3f0d5752c4cce831e79b902f57b09589e41b64"
+  },
+  "ui_changes": [
+    "internal/gui/assets/fusion/index.html",
+    "internal/gui/assets/fusion/workbench.mjs",
+    "internal/gui/tests/fusion-stage-editor.test.cjs"
+  ],
+  "css_changes": 0,
+  "sql_changes": 0,
+  "graph": {
+    "nodes": 14584,
+    "edges": 131332
+  },
+  "real_vendor_calls": 0,
+  "jev": "off"
+}

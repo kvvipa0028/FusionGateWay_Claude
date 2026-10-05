@@ -6,6 +6,7 @@ schema is supplied explicitly; this checker never retrieves remote resources.
 """
 import argparse
 import copy
+import datetime
 import json
 import re
 from pathlib import Path
@@ -16,6 +17,7 @@ from referencing import Registry, Resource
 from referencing.jsonschema import DRAFT202012
 
 EXPECTED = {
+    "/control/v1/tasks/{task_id}/workflow/decision": {"get", "post"},
     "/control/v1/tasks/{task_id}/workflow": {"get", "post"},
     "/control/v1/tasks/{task_id}/workflow/design": {"post"},
     "/control/v1/tasks/{task_id}/workflow/approve": {"post"},
@@ -90,6 +92,20 @@ def verify(contract, official, samples):
             resources.append((content["$id"], resource))
     registry = Registry().with_resources(resources)
     checker = FormatChecker()
+    # The bundled runtime may lack the optional RFC3339 dependency. Validate
+    # actual RFC3339 timestamps explicitly instead of silently ignoring it.
+    # Human receipts additionally require UTC in their own schema pattern.
+    @checker.checks("date-time", raises=(ValueError, TypeError))
+    def rfc3339_datetime(value):
+        if not isinstance(value, str):
+            return True
+        if not re.fullmatch(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,9})?(?:Z|[+-]\d{2}:\d{2})", value):
+            return False
+        # Python 3.9 only accepts three or six fractional digits; Go emits
+        # nanoseconds. Normalize precision after validating the exact grammar.
+        normalized = re.sub(r"\.(\d+)(?=Z|[+-])", lambda m: "."+(m.group(1)+"000000")[:6], value)
+        datetime.datetime.fromisoformat(normalized.replace("Z", "+00:00"))
+        return True
 
     def validator(schema):
         # Give relative and fragment refs the OpenAPI document's base URI.
@@ -243,7 +259,26 @@ def verify(contract, official, samples):
         modify(value)
         invalid_workflows.append(value)
         assert not workflow_response.is_valid(value)
-    return {"official_openapi_document_schema": "3.1/2022-10-07", "paths": len(EXPECTED), "operations": len(operations), "handler_samples": count, "covered_operations": len(covered), "negative_schema_cases": len(negative), "negative_project_response_cases": len(invalid_inventory), "negative_task_response_cases": len(invalid_tasks), "negative_submission_response_cases": len(invalid_submissions), "negative_event_page_cases":len(invalid_pages), "negative_start_response_cases":len(invalid_starts)+1, "negative_workflow_response_cases":len(invalid_workflows), "offline": True, "production_registered": False}
+    human_response = validator({"$ref":"#/components/schemas/HumanDecisionReply"})
+    valid_human = next(s["body"] for s in json.loads(samples.read_text()) if s["path"].endswith("/workflow/decision") and s["method"] == "POST" and s["status"] == 200)
+    invalid_humans = []
+    for modify in [
+        lambda v:v.update(passed=True),
+        lambda v:v["report"].update(token="forbidden"),
+        lambda v:v["report"].update(tree_hash="bad"),
+        lambda v:v["report"]["hard"].update(status="accepted"),
+        lambda v:v["report"]["model"].update(version=2),
+        lambda v:v["report"]["model"]["criteria"][0].update(index=-1),
+        lambda v:v["decision"].update(authority="model"),
+        lambda v:v["decision"].update(at="2026-99-05T00:00:00Z"),
+    ]:
+        value=copy.deepcopy(valid_human);modify(value);invalid_humans.append(value)
+        assert not human_response.is_valid(value)
+    human_request=validator({"$ref":"#/components/schemas/HumanDecisionRequest"})
+    valid_request=next(s["request"] for s in json.loads(samples.read_text()) if s["path"].endswith("/workflow/decision") and s["method"] == "POST" and s["status"] == 200)
+    for modify in [lambda v:v.update(spec={}),lambda v:v.update(reason=" "),lambda v:v.update(action="auto"),lambda v:v.update(tree_hash=None)]:
+        value=copy.deepcopy(valid_request);modify(value);assert not human_request.is_valid(value)
+    return {"official_openapi_document_schema": "3.1/2022-10-07", "paths": len(EXPECTED), "operations": len(operations), "handler_samples": count, "covered_operations": len(covered), "negative_schema_cases": len(negative), "negative_project_response_cases": len(invalid_inventory), "negative_task_response_cases": len(invalid_tasks), "negative_submission_response_cases": len(invalid_submissions), "negative_event_page_cases":len(invalid_pages), "negative_start_response_cases":len(invalid_starts)+1, "negative_workflow_response_cases":len(invalid_workflows), "negative_human_response_cases":len(invalid_humans), "negative_human_request_cases":4, "offline": True, "production_registered": False}
 
 
 if __name__ == "__main__":

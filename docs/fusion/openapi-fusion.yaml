@@ -2,13 +2,126 @@ openapi: 3.1.0
 info:
   title: Fusion task control API
   version: 0.1.0-draft
-  description: 当前已实现 Handler 合同；40 paths、47 operations。独立 fusion-control 草稿 listener 已注册；可信执行宿主与 Native 阶段配置页面已接线，真实供应商 Factory/准入与工程闭环尚未完成。原阶段启动记录 API 保持原 ready Task 条件；读取或确认元数据不证明执行成功。pause/continue 使用完整 Task If-Match，暂停中不宣称已停，continue 仅解除可靠暂停，不隐式启动或恢复 Native。全局/项目默认层只允许绑定，历史快照保持冻结。
+  description: 当前已实现 Handler 合同；41 paths、49 operations。独立 fusion-control 草稿 listener 已注册；可信执行宿主与 Native 阶段配置页面已接线，真实供应商 Factory/准入与工程闭环尚未完成。原阶段启动记录 API 保持原 ready Task 条件；读取或确认元数据不证明执行成功。pause/continue 使用完整 Task If-Match，暂停中不宣称已停，continue 仅解除可靠暂停，不隐式启动或恢复 Native。全局/项目默认层只允许绑定，历史快照保持冻结。
 x-fusion-status: implemented-handler-contract
 x-fusion-production-registered: false
 x-fusion-draft-control-registered: true
 security:
 - ManagementBearer: []
 paths:
+  /control/v1/tasks/{task_id}/workflow/decision:
+    get:
+      operationId: readHumanDecision
+      description: Authenticated management only. Current independently owned hard evidence,
+        model opinion and durable human decision are separate. Reading never grants
+        authority or starts a stage. Exact full Task and six output identities are required
+        for a write; no automatic retry or rework.
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      responses:
+        '200':
+          description: Current report and separate human receipt. Missing reader/final
+            stage returns null report with an unavailable code. Current evidence is
+            always reevaluated, including after restart.
+          headers:
+            ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g(0|[1-9][0-9]*)-[a-z_]+"$
+              description: Current full Task condition.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HumanDecisionReply'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '412':
+          $ref: '#/components/responses/Error412'
+        '428':
+          $ref: '#/components/responses/Error428'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+    post:
+      operationId: decideHumanAcceptance
+      description: Authenticated management only. Current independently owned hard evidence,
+        model opinion and durable human decision are separate. Reading never grants
+        authority or starts a stage. Exact full Task and six output identities are required
+        for a write; no automatic retry or rework.
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 256
+      - name: If-Match
+        in: header
+        required: true
+        description: Current whole Task condition; stale or foreign conditions never
+          approve.
+        schema:
+          type: string
+          pattern: ^"p[1-9][0-9]*-g(0|[1-9][0-9]*)-[a-z_]+"$
+      responses:
+        '200':
+          description: Current report and separate human receipt. Missing reader/final
+            stage returns null report with an unavailable code. Current evidence is
+            always reevaluated, including after restart.
+          headers:
+            ETag:
+              schema:
+                type: string
+                pattern: ^"p[1-9][0-9]*-g(0|[1-9][0-9]*)-[a-z_]+"$
+              description: Current full Task condition.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HumanDecisionReply'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '412':
+          $ref: '#/components/responses/Error412'
+        '428':
+          $ref: '#/components/responses/Error428'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HumanDecisionRequest'
   /control/v1/tasks/{task_id}/workflow:
     get:
       operationId: readWorkflow
@@ -2907,6 +3020,212 @@ components:
       scheme: bearer
       description: 仅服务端管理凭据。stage fgs_ identity 被拒绝；禁止通过 query/body 提供凭据。
   schemas:
+    HumanDecisionRequest:
+      type: object
+      additionalProperties: false
+      required:
+      - run_id
+      - text_hash
+      - tree_hash
+      - spec_hash
+      - design_hash
+      - acceptance_hash
+      - action
+      - reason
+      properties:
+        run_id: &id002
+          type: string
+          minLength: 1
+          maxLength: 256
+        text_hash: &id003
+          type: string
+          pattern: ^[0-9a-f]{64}$
+        tree_hash: &id004
+          type: string
+          pattern: ^[0-9a-f]{64}$
+        spec_hash: &id005
+          type: string
+          pattern: ^[0-9a-f]{64}$
+        design_hash: &id006
+          type: string
+          pattern: ^[0-9a-f]{64}$
+        acceptance_hash: &id007
+          type: string
+          pattern: ^[0-9a-f]{64}$
+        action:
+          type: string
+          enum:
+          - accept
+          - return
+        reason: &id001
+          type: string
+          minLength: 1
+          maxLength: 8192
+          pattern: \S
+          allOf:
+          - pattern: ^[^\u0000]+$
+    FinalAcceptanceModel:
+      type: object
+      additionalProperties: false
+      required:
+      - version
+      - verdict
+      - criteria
+      properties:
+        version:
+          const: 1
+        verdict:
+          type: string
+          enum:
+          - accepted
+          - rejected
+          - unverified
+        criteria:
+          type: array
+          maxItems: 128
+          items:
+            type: object
+            additionalProperties: false
+            required:
+            - index
+            - status
+            - reason
+            properties:
+              index:
+                type: integer
+                minimum: 0
+                maximum: 127
+              status:
+                type: string
+                enum:
+                - met
+                - not_met
+                - unverified
+              reason: *id001
+    FinalHardVerdict:
+      type: object
+      additionalProperties: false
+      required:
+      - status
+      - reason
+      - tests
+      - skipped
+      properties:
+        status:
+          type: string
+          enum:
+          - passed
+          - failed
+          - unverified
+          - superseded
+        reason:
+          type: string
+        tests:
+          type: integer
+          minimum: 0
+        skipped:
+          type: integer
+          minimum: 0
+    FinalEvidenceReport:
+      type: object
+      additionalProperties: false
+      required:
+      - run_id
+      - text_hash
+      - tree_hash
+      - spec_hash
+      - design_hash
+      - acceptance_hash
+      - model
+      - model_valid
+      - hard
+      properties:
+        run_id: *id002
+        text_hash: *id003
+        tree_hash: *id004
+        spec_hash: *id005
+        design_hash: *id006
+        acceptance_hash: *id007
+        model:
+          $ref: '#/components/schemas/FinalAcceptanceModel'
+        model_valid:
+          type: boolean
+        hard:
+          $ref: '#/components/schemas/FinalHardVerdict'
+    HumanAcceptanceDecision:
+      type: object
+      additionalProperties: false
+      required:
+      - version
+      - task_id
+      - plan_revision
+      - generation
+      - run_id
+      - text_hash
+      - tree_hash
+      - spec_hash
+      - design_hash
+      - acceptance_hash
+      - action
+      - reason
+      - authority
+      - at
+      properties:
+        version:
+          const: 1
+        task_id:
+          type: string
+          minLength: 1
+          maxLength: 256
+        plan_revision:
+          type: integer
+          minimum: 1
+        generation:
+          type: integer
+          minimum: 1
+        run_id: *id002
+        text_hash: *id003
+        tree_hash: *id004
+        spec_hash: *id005
+        design_hash: *id006
+        acceptance_hash: *id007
+        action:
+          type: string
+          enum:
+          - accept
+          - return
+        reason: *id001
+        authority:
+          const: management
+        at:
+          type: string
+          format: date-time
+          pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,9})?Z$
+    HumanDecisionReply:
+      type: object
+      additionalProperties: false
+      required:
+      - task
+      - report
+      - decision
+      - unavailable
+      properties:
+        task:
+          $ref: '#/components/schemas/Task'
+        report:
+          anyOf:
+          - type: 'null'
+          - $ref: '#/components/schemas/FinalEvidenceReport'
+        decision:
+          anyOf:
+          - type: 'null'
+          - $ref: '#/components/schemas/HumanAcceptanceDecision'
+        unavailable:
+          type: string
+          enum:
+          - ''
+          - acceptance_pending
+          - verification_reader_unavailable
     AttachWorkflowRequest:
       type: object
       additionalProperties: false

@@ -1,0 +1,8 @@
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/human_commit_revoked
+    glm_handoff_native_test.go:576: revoked human control wrote decision/task/event/budget <nil>
+--- FAIL: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart (6.10s)
+    --- FAIL: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/human_commit_revoked (6.09s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	6.705s
+FAIL

@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/scripts/fusion/check-openapi.py", line 286, in <module>
+    print(json.dumps(verify(args.contract, args.standard_schema, args.samples), indent=2))
+  File "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/scripts/fusion/check-openapi.py", line 150, in verify
+    validator(schema).validate(sample["body"])
+  File "/Users/zhaojianzhi/Library/Python/3.9/lib/python/site-packages/jsonschema/validators.py", line 451, in validate
+    raise error
+jsonschema.exceptions.ValidationError: '2026-10-05T15:11:38.32543+08:00' is not a 'date-time'
+
+Failed validating 'format' in schema['properties']['expires_at']:
+    {'type': 'string', 'format': 'date-time'}
+
+On instance['expires_at']:
+    '2026-10-05T15:11:38.32543+08:00'

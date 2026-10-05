@@ -35,7 +35,7 @@ function journalValue(body,scope,original){
  if(original&&(v.key!==original.key||v.goal!==original.goal||!samePreview(v.preview,original.value)))throw bad();
  return v;
 }
-const stateName=s=>({ready:'待执行',running:'运行中',paused:'已暂停',pausing:'暂停中',cancelling:'取消中',cancelled:'已取消',needs_review:'需要核对',succeeded:'成功',failed:'失败'})[s]||s;
+const stateName=s=>({ready:'待执行',running:'运行中',paused:'已暂停',pausing:'暂停中',cancelling:'取消中',cancelled:'已取消',needs_review:'需要核对',succeeded:'成功',failed:'失败',advisory_only:'等待人工验收',completed:'已完成'})[s]||s;
 function startJournalValue(body,scope,original){
  if(!body||Array.isArray(body)||Object.keys(body).length!==1||!Object.hasOwn(body,'request'))throw bad();
  const v=body.request;if(v===null)return null;
@@ -65,9 +65,36 @@ function workflowValue(reply,data,scope){
  if(v.blocker==='approval_required'&&(!v.design||v.approval)||v.blocker==='design_required'&&v.design)throw bad();
  return v;
 }
+const reasonValue=s=>typeof s==='string'&&s.trim()&&new TextEncoder().encode(s).length<=8192&&!s.includes('\0');
+const reportKeys=['run_id','text_hash','tree_hash','spec_hash','design_hash','acceptance_hash'];
+function humanValue(reply,data,scope,sent=null){
+ const b=reply?.body;if(reply.status!==200||!fields(b,['task','report','decision','unavailable']))throw bad();
+ taskValue(b.task,scope,reply.etag);
+ if(sent){if(b.task.id!==data.task.id||b.task.goal!==data.task.goal||b.task.plan_revision!==data.task.plan_revision||b.task.generation!==data.task.generation||b.task.state!==(sent.action==='accept'?'completed':'needs_review'))throw bad()}
+ else if(!same(b.task,data.task))throw bad();
+ if(!['','acceptance_pending','verification_reader_unavailable'].includes(b.unavailable)||(b.report===null)!==!!b.unavailable)throw bad();
+ const r=b.report,v=data.workflow;
+ if(r){
+  if(!fields(r,[...reportKeys,'model','model_valid','hard'])||!opaque(r.run_id)||reportKeys.slice(1).some(k=>!hash(r[k]))||typeof r.model_valid!=='boolean'||v?.blocker!=='workflow_complete'||!v.approval||r.design_hash!==v.design.snapshot.hash||r.acceptance_hash!==v.design.snapshot.acceptance_hash||!fields(r.hard,['status','reason','tests','skipped'])||!['passed','failed','unverified','superseded'].includes(r.hard.status)||typeof r.hard.reason!=='string'||!integer(r.hard.tests)||!integer(r.hard.skipped)||r.hard.skipped>r.hard.tests||r.hard.status==='passed'&&r.hard.tests===0)throw bad();
+  const m=r.model,criteria=v.design.snapshot.document.acceptance;
+  if(!fields(m,['version','verdict','criteria'])||m.version!==1||!['accepted','rejected','unverified'].includes(m.verdict)||!Array.isArray(m.criteria)||new TextEncoder().encode(JSON.stringify(m)).length>65536)throw bad();
+  if(r.model_valid){
+   if(m.criteria.length!==criteria.length||new Set(m.criteria.map(c=>c?.index)).size!==criteria.length||m.criteria.some(c=>!fields(c,['index','status','reason'])||!integer(c.index)||c.index>=criteria.length||!['met','not_met','unverified'].includes(c.status)||!reasonValue(c.reason)))throw bad();
+   const no=m.criteria.some(c=>c.status==='not_met'),unknown=m.criteria.some(c=>c.status==='unverified');
+   if(m.verdict!==(no?'rejected':unknown?'unverified':'accepted'))throw bad();
+  }else if(m.verdict!=='unverified'||m.criteria.length)throw bad();
+ }
+ const d=b.decision;
+ if(d){
+  if(!fields(d,['version','task_id','plan_revision','generation',...reportKeys,'action','reason','authority','at'])||d.version!==1||d.task_id!==data.task.id||!integer(d.plan_revision,1)||d.plan_revision>data.task.plan_revision||!integer(d.generation,1)||d.generation>data.task.generation||!opaque(d.run_id)||reportKeys.slice(1).some(k=>!hash(d[k]))||!['accept','return'].includes(d.action)||!reasonValue(d.reason)||d.authority!=='management'||typeof d.at!=='string'||!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,9})?Z$/.test(d.at)||!Number.isFinite(Date.parse(d.at)))throw bad();
+  if(d.plan_revision===data.task.plan_revision&&d.generation===data.task.generation&&(!r||reportKeys.some(k=>d[k]!==r[k])||b.task.state!==(d.action==='accept'?'completed':'needs_review')))throw bad();
+ }
+ if(sent&&(!r||reportKeys.some(k=>sent[k]!==r[k])||!d||d.action!==sent.action||d.reason!==sent.reason||d.plan_revision!==data.task.plan_revision||d.generation!==data.task.generation))throw bad();
+ return b;
+}
 function readFailure(e){return e.status===401||e.status===403?'管理授权已失效，请重新连接。':e.status===503?'本机服务不可用或已撤销。':'读取失败，请重新读取。'}
 export function createWorkbench({request,onLock,onNotice,onRestore}){
- let project='',preview=null,attempt=null,expiry=null,epoch=0,listSerial=0,detailSerial=0,listBusy=false,detailBusy=false,next='',items=[],selected='',busy=false,recoveryBlocked=false,taskData=null,controlAttempt=null,controlBusy=false,knownRun=null,workflowUncertain=false;
+ let project='',preview=null,attempt=null,expiry=null,epoch=0,listSerial=0,detailSerial=0,listBusy=false,detailBusy=false,next='',items=[],selected='',busy=false,recoveryBlocked=false,taskData=null,controlAttempt=null,controlBusy=false,knownRun=null,workflowUncertain=false,humanData=null,humanBusy=false,humanSerial=0,humanUncertain=false;
  let eventTask='',eventSerial=0,eventCursor=0,eventRows=[],eventBusy=false,startBlocked=false,startSerial=0;
  function clearEvents(id=''){
   eventTask=id;eventSerial++;eventCursor=0;eventRows=[];eventBusy=false;$('event-history').replaceChildren();$('task-events').open=false;$('events-status').textContent=id?'尚未读取任务事件。':'选择任务后读取事件。';
@@ -112,7 +139,7 @@ export function createWorkbench({request,onLock,onNotice,onRestore}){
   $('execution-controls').hidden=!selected;
   $('execution-role').disabled=unavailable;
   $('start-role').disabled=workflowUncertain||!!taskData&&taskData.workflow===null&&taskData.plan.required_roles.length>1||!!taskData?.workflow&&(!!taskData.workflow.blocker||$('execution-role').value!==taskData.workflow.next)||unavailable||taskData?.task.state!=='ready'||taskData.budget.used_calls>=taskData.budget.max_calls;
-  workflowControls(unavailable);
+  workflowControls(unavailable||humanBusy);humanControls(unavailable);
   $('pause-task').disabled=unavailable||!['ready','running','paused','pausing'].includes(taskData?.task.state);
   $('continue-task').disabled=unavailable||taskData?.task.state!=='paused';
   $('cancel-task').disabled=unavailable||!['ready','running','paused','pausing','cancelling','failed','advisory_only'].includes(taskData?.task.state);
@@ -184,6 +211,7 @@ export function createWorkbench({request,onLock,onNotice,onRestore}){
  }
  let workflowTask='';
  function clearWorkflow(id=''){
+  humanData=null;humanBusy=false;humanSerial++;humanUncertain=false;$('human-report').replaceChildren();$('human-status').textContent='尚未读取当前验收证据。';if(workflowTask!==id)$('human-reason').value='';
   if(workflowTask!==id){workflowTask=id;$('workflow-panel').open=false;for(const n of ['run','scope','constraints','interfaces','acceptance'])$('design-'+n).value='';$('workflow-kind').value=''}
   $('workflow-record').replaceChildren();$('workflow-status').textContent='';
  }
@@ -205,6 +233,54 @@ export function createWorkbench({request,onLock,onNotice,onRestore}){
   root.append(node('p',names[v.definition.kind]+' · '+v.definition.required_roles.map(r=>labels[r]).join(' → ')),node('p',v.blocker?blockers[v.blocker]:'下一阶段：'+labels[v.next]),node('p','附加、冻结和批准均不自动启动阶段。范围声明不改变文件权限。','details'));
   if(v.design){const d=v.design.snapshot;root.append(node('p',d.document.goal,'task-goal'));for(const [key,label] of [['scope','范围'],['constraints','约束'],['interfaces','接口'],['acceptance','验收标准']]){root.append(node('h3',label));for(const value of d.document[key])root.append(node('p',value,'task-goal'))}root.append(node('p','设计 hash：'+d.hash,'details'),node('p','验收标准 hash：'+d.acceptance_hash,'details'),node('p','设计运行：'+v.design.run_id,'details'))}
   if(v.approval)root.append(node('p','当前计划已批准 · 计划 '+v.approval.plan_revision+'。批准不替代 Runtime、预算或写权限准入。'));
+ }
+ function humanControls(unavailable){
+  $('human-panel').hidden=!taskData?.plan.required_roles.includes('acceptance');
+  $('read-decision').disabled=unavailable||humanBusy;
+  $('human-reason').disabled=unavailable||humanBusy;
+  const r=humanData?.report,d=humanData?.decision,t=taskData?.task;
+  const decided=d&&d.plan_revision===t?.plan_revision&&d.generation===t?.generation;
+  const off=unavailable||humanBusy||humanUncertain||workflowUncertain||!r||decided||!reasonValue($('human-reason').value)||!['advisory_only','needs_review'].includes(t?.state);
+  $('human-return').disabled=!!off;
+  $('human-accept').disabled=!!off||t?.state!=='advisory_only'||r?.hard.status!=='passed'||!r.model_valid||r.model.verdict!=='accepted';
+ }
+ function renderHuman(){
+  const root=$('human-report');root.replaceChildren();const b=humanData,r=b?.report,d=b?.decision;
+  if(r){
+   const hard={passed:'通过',failed:'失败',unverified:'未验证',superseded:'已失效'},verdict={accepted:'建议接受',rejected:'建议退回',unverified:'未验证'},opinion={met:'符合',not_met:'不符合',unverified:'未验证'};
+   root.append(node('p','真实测试结果：'+hard[r.hard.status]+' · 执行 '+r.hard.tests+' 项，跳过 '+r.hard.skipped+' 项。'),node('p','模型验收意见：'+verdict[r.model.verdict]+(r.model_valid?'':'（响应格式无效）')+'。'));
+   const criteria=taskData.workflow.design.snapshot.document.acceptance;
+   for(const [i,text] of criteria.entries()){const c=r.model.criteria.find(c=>c.index===i);root.append(node('p',(i+1)+'. '+text,'task-goal'),node('p',c?opinion[c.status]+'：'+c.reason:'尚无有效逐项意见。','details'))}
+   root.append(node('p','交付运行：'+r.run_id,'details'),node('p','交付内容 hash：'+r.tree_hash,'details'));
+  }
+  if(d)root.append(node('p','人工决定：'+(d.action==='accept'?'已接受':'已退回')+' · 计划 '+d.plan_revision+' · generation '+d.generation+'。'),node('p',d.reason,'task-goal'));
+ }
+ async function readHuman(){
+  if($('read-decision').disabled||!taskData)return;
+  const data=taskData,id=data.task.id,version=epoch,detail=detailSerial,serial=++humanSerial;
+  humanData=null;humanBusy=true;renderHuman();controls();$('human-status').textContent='正在核对当前验收证据…';
+  try{
+   const reply=await request('/control/v1/tasks/'+encodeURIComponent(id)+'/workflow/decision');
+   if(version!==epoch||detail!==detailSerial||serial!==humanSerial||id!==selected)return;
+   humanData=humanValue(reply,data,project);humanUncertain=false;renderHuman();$('human-status').textContent=humanData.report?'已核对当前验收证据，请审阅后明确决定。':'尚无可核对的最终验收证据。';
+  }catch(e){if(version===epoch&&detail===detailSerial&&serial===humanSerial&&id===selected){humanUncertain=true;humanData=null;renderHuman();$('human-status').textContent=readFailure(e)+'验收操作已停用，请重新读取任务与证据。'}}
+  finally{if(version===epoch&&detail===detailSerial&&serial===humanSerial){humanBusy=false;controls()}}
+ }
+ async function decideHuman(action){
+  if(!['accept','return'].includes(action)||$('human-'+action).disabled||!taskData||!humanData?.report)return;
+  const data=taskData,id=data.task.id,version=epoch,serial=detailSerial,r=humanData.report;
+  const body=Object.fromEntries(reportKeys.map(k=>[k,r[k]]));body.action=action;body.reason=$('human-reason').value;
+  if(!window.confirm((action==='accept'?'接受':'退回')+'任务 '+id+' 的当前交付？\n内容 hash：'+body.tree_hash+'\n原因：'+body.reason))return;
+  controlBusy=true;lock(true);controls();renderList();$('human-status').textContent='正在保存人工验收决定…';
+  try{
+   const reply=await request('/control/v1/tasks/'+encodeURIComponent(id)+'/workflow/decision',{method:'POST',headers:{'If-Match':data.etag},body:JSON.stringify(body)});
+   if(version!==epoch||serial!==detailSerial||id!==selected)return;
+   const result=humanValue(reply,data,project,body);
+   await loadTask(id,true);
+   if(version!==epoch||id!==selected||!taskData||!same(taskData.task,result.task))throw bad();
+   humanData=result;renderHuman();$('human-status').textContent=action==='accept'?'人工接受已记录，任务已完成。':'人工退回已记录，任务需要核对；未启动返工。';refreshList();
+  }catch(e){if(version===epoch&&id===selected){humanUncertain=true;humanData=null;renderHuman();$('human-status').textContent=(e.status===412?'任务或证据条件已变化。':readFailure(e))+'决定结果尚待核对，请重新读取；不自动重试。'}}
+  finally{controlBusy=false;lock(!!attempt||recoveryBlocked);controls();renderList()}
  }
  async function workflowWrite(action){
   const button={attach:'attach-workflow',design:'freeze-design',approve:'approve-design'}[action];if(!taskData||controlBusy||$(button).disabled)return;
@@ -463,6 +539,7 @@ export function createWorkbench({request,onLock,onNotice,onRestore}){
   if(reread)await readStartOriginal();
  }
  for(const action of ['attach','design','approve'])$({attach:'attach-workflow',design:'freeze-design',approve:'approve-design'}[action]).onclick=()=>workflowWrite(action);
+ $('read-decision').onclick=readHuman;$('human-reason').oninput=controls;$('human-accept').onclick=()=>decideHuman('accept');$('human-return').onclick=()=>decideHuman('return');
  $('workflow-kind').onchange=controls;for(const n of ['run','scope','constraints','interfaces','acceptance'])$('design-'+n).oninput=controls;$('execution-role').onchange=controls;
  $('refresh-start').onclick=()=>readStartOriginal();$('abandon-start').onclick=abandonStart;
  $('read-events').onclick=()=>readEvents();$('reset-events').onclick=()=>readEvents(true);

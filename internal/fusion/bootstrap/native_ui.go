@@ -130,7 +130,7 @@ func (b *NativeStageBridge) allowed(method, path string) bool {
 		return method == "POST" || method == "GET" && strings.HasSuffix(path, "/start-request")
 	}
 	if nativeWorkflowID(path) != "" {
-		return method == "POST" || method == "GET" && strings.HasSuffix(path, "/workflow")
+		return method == "POST" || method == "GET" && (strings.HasSuffix(path, "/workflow") || strings.HasSuffix(path, "/workflow/decision"))
 	}
 	if nativeTaskReadID(path) != "" {
 		return method == "GET"
@@ -211,7 +211,7 @@ func nativeWorkflowID(path string) string {
 		return ""
 	}
 	parts := strings.Split(strings.TrimPrefix(path, "/control/v1/tasks/"), "/")
-	if len(parts) >= 2 && opaque(parts[0]) && parts[1] == "workflow" && (len(parts) == 2 || len(parts) == 3 && (parts[2] == "design" || parts[2] == "approve")) {
+	if len(parts) >= 2 && opaque(parts[0]) && parts[1] == "workflow" && (len(parts) == 2 || len(parts) == 3 && (parts[2] == "design" || parts[2] == "approve" || parts[2] == "decision")) {
 		return parts[0]
 	}
 	return ""

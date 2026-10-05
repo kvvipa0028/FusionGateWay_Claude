@@ -8,4 +8,6 @@
 
 [HUMAN-DECISION-STORE-01](HUMAN-DECISION-STORE-01/summary.md) 完成独立的人工接受/退回持久记录、owned 当前证据/CAS/事务门与 schema11 迁移。
 
-未完成：人工最终接受 Management API/Native UI 消费、最多一个自动返工回合与阶段次数限制、项目强制独立性策略、UI 状态消费及完整端到端。没有 merge/deploy/flash。UI 继续复用 Magpie，只做必要扩展。
+[HUMAN-CONTROL-01](HUMAN-CONTROL-01/summary.md) 完成可信 Runtime 当前证据读者、管理 GET/POST、限定 Native bridge 和现有工作流面板人工接受/退回控件。原 Magpie 主资产与全部 CSS 不变；浏览器证据不代表真实 Wails 点击。
+
+未完成：原 Magpie 完整主导航接入、最多一个自动返工回合与阶段次数限制、项目强制独立性策略、完整 UI 状态消费及真实供应商端到端。没有 merge/deploy/flash。UI 继续复用 Magpie，只做必要扩展。

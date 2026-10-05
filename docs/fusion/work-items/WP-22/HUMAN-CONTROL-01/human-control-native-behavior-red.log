@@ -1,0 +1,9 @@
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/success
+    glm_handoff_native_test.go:565: actual released acceptance not readable through management decision endpoint 400 {"error":{"code":"invalid_request","message":"Bad Request"}}
+
+--- FAIL: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart (5.47s)
+    --- FAIL: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/success (5.47s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	6.127s
+FAIL

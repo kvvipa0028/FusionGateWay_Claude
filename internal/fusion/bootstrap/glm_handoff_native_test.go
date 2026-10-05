@@ -31,7 +31,7 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 	if *hostNativeGLM == "" {
 		t.Skip("explicit pinned Native fixture only")
 	}
-	for _, mode := range []string{"success", "testing_scope_violation", "parent_header_drift", "unscoped_external_write", "hard_test_failure", "malformed_test_report", "missing_verifier", "wrong_standard", "verifier_config_mutation", "review_changes", "review_malformed", "review_write", "review_standard_changed", "review_no_verifier", "review_parent_drift", "acceptance_rejected", "acceptance_unverified", "acceptance_malformed", "acceptance_missing_criteria", "acceptance_write", "acceptance_standard_changed", "acceptance_parent_drift"} {
+	for _, mode := range []string{"success", "testing_scope_violation", "parent_header_drift", "unscoped_external_write", "hard_test_failure", "malformed_test_report", "missing_verifier", "wrong_standard", "verifier_config_mutation", "review_changes", "review_malformed", "review_write", "review_standard_changed", "review_no_verifier", "review_parent_drift", "acceptance_rejected", "acceptance_unverified", "acceptance_malformed", "acceptance_missing_criteria", "acceptance_write", "acceptance_standard_changed", "acceptance_parent_drift", "human_standard_changed", "human_reader_revoked", "human_commit_revoked"} {
 		t.Run(mode, func(t *testing.T) {
 			path, d, c, _, _ := glmFactoryFixture(t, true)
 			c.Executable, _ = filepath.EvalSymlinks(*hostNativeGLM)
@@ -128,8 +128,24 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 				c.Verification.Acceptance[0] = "caller mutated"
 			}
 			c.TestingWritePaths[0] = "src" // Caller mutation must not broaden the frozen scope.
+			var humanGuard atomic.Bool
 			wrapped := func(ctx context.Context, e RuntimeEnvironment) (RuntimeRegistration, error) {
 				reg, err := factory(ctx, e)
+				readFinal := reg.FinalEvidence
+				reg.FinalEvidence = func(ctx context.Context, task store.Task, run store.StageRun) (store.FinalEvidence, func() bool, error) {
+					proof, current, err := readFinal(ctx, task, run)
+					var checks atomic.Int64
+					return proof, func() bool {
+						if humanGuard.Load() && checks.Add(1) == 3 {
+							if mode == "human_commit_revoked" {
+								e.Manager.RevokeManagement()
+								return current != nil && current()
+							}
+							return false
+						}
+						return current != nil && current()
+					}, err
+				}
 				resolve := reg.Resolve
 				reg.Resolve = func(ctx context.Context, task store.Task, role stageplan.Role, target stageplan.ExecutionTarget) (control.Launch, error) {
 					launch, err := resolve(ctx, task, role, target)
@@ -524,14 +540,10 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 				if current.State != "needs_review" || accepted.Acceptance.Document.Verdict == "accepted" {
 					t.Fatal("Native success overrode invalid/rejected/unverified acceptance", current)
 				}
-				permit, err := h.store.PrepareFinalEvidence(acceptance.Run.ID, d.Projects[0].Path, c.ExecutionRoot, expectedVerification.Spec)
-				if err != nil {
-					t.Fatal(err)
-				}
 				before := calls.Load()
-				decision, err := h.store.DecideHumanAcceptance(task.ID, store.TaskVersion{PlanRevision: current.PlanRevision, Generation: current.Generation, State: current.State}, permit, "return", "operator requires missing evidence or corrections", func() bool { return h.current() })
-				if err != nil || decision.Action != "return" || calls.Load() != before {
-					t.Fatal("human return started a Native or lost exact receipt", err)
+				decision := nativeHumanDecision(t, h, task.ID, "return", "operator requires missing evidence or corrections", mode == "acceptance_rejected")
+				if decision.Action != "return" || calls.Load() != before {
+					t.Fatal("human return started a Native or lost exact receipt")
 				}
 				return
 			}
@@ -560,22 +572,44 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 			if _, v, err := h.store.AcceptanceArtifact(acceptance.Run.ID, d.Projects[0].Path, c.ExecutionRoot, changed); err != nil || v.Status != evidence.Superseded {
 				t.Fatal("final decision reused obsolete test standard", err, v)
 			}
-			permit, err := h.store.PrepareFinalEvidence(acceptance.Run.ID, d.Projects[0].Path, c.ExecutionRoot, expectedVerification.Spec)
-			if err != nil {
-				t.Fatal(err)
+			if mode == "human_reader_revoked" || mode == "human_commit_revoked" {
+				verifyNativeHumanRevoked(t, h, task.ID, mode == "human_commit_revoked", func() { humanGuard.Store(true) })
+				return
+			}
+			action := "accept"
+			if mode == "human_standard_changed" {
+				if err := h.Close(); err != nil {
+					t.Fatal(err)
+				}
+				c.Verification = copyRuntimeValue(expectedVerification)
+				c.Verification.Spec = changed
+				factory, err = newGLMRuntimeFactory(c, upstream)
+				if err != nil {
+					t.Fatal(err)
+				}
+				h, err = OpenExecutionControl(context.Background(), path, root, "127.0.0.1:0", wrapped)
+				if err != nil {
+					t.Fatal(err)
+				}
+				serveExecutionHost(t, h)
+				action = "return"
 			}
 			before = calls.Load()
 			beforeBudget, _ := h.store.Budget(task.ID)
 			beforeRun, _ := h.store.Run(acceptance.Run.ID)
-			current, _ = h.store.Task(task.ID)
-			decision, err := h.store.DecideHumanAcceptance(task.ID, store.TaskVersion{PlanRevision: current.PlanRevision, Generation: current.Generation, State: current.State}, permit, "accept", "operator checked actual code and frozen criteria", func() bool { return h.current() })
-			if err != nil || decision.Action != "accept" || decision.RunID != acceptance.Run.ID || calls.Load() != before {
-				t.Fatal("explicit human decision lost actual released origin", err)
+			decision := nativeHumanDecision(t, h, task.ID, action, "operator checked actual code and frozen criteria", mode == "success" || mode == "human_standard_changed")
+			if decision.Action != action || decision.RunID != acceptance.Run.ID || calls.Load() != before {
+				t.Fatal("explicit human decision lost actual released origin")
 			}
+			current, _ = h.store.Task(task.ID)
 			current, _ = h.store.Task(task.ID)
 			afterBudget, _ := h.store.Budget(task.ID)
 			afterRun, _ := h.store.Run(acceptance.Run.ID)
-			if current.State != "completed" || beforeBudget != afterBudget || !reflect.DeepEqual(beforeRun, afterRun) {
+			wantState := "completed"
+			if action == "return" {
+				wantState = "needs_review"
+			}
+			if current.State != wantState || beforeBudget != afterBudget || !reflect.DeepEqual(beforeRun, afterRun) {
 				t.Fatal("human acceptance changed Native/budget or did not complete", current)
 			}
 			if err := h.Close(); err != nil {
@@ -589,6 +623,7 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 			if persisted, err := h.store.HumanDecision(task.ID); err != nil || persisted != decision {
 				t.Fatal("restart lost separate actual human decision", err)
 			}
+			verifyNativeHumanReadback(t, h, task.ID, decision)
 
 		})
 	}

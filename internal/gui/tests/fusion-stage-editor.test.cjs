@@ -1048,3 +1048,86 @@ test('workflow recovery: lost five-role submission restores its original plan wi
  const task=(await f.request('/control/v1/projects/synthetic-ui/tasks')).body.tasks[0];assert.equal(task.generation,0);assert.equal((await f.request('/control/v1/tasks/'+task.id+'/workflow')).body.workflow,null);assert.equal(await second.page.getByRole('button',{name:'启动所选阶段',exact:true}).isDisabled(),true);
  await second.page.locator('#workflow-panel summary').click();await second.page.getByLabel('附加流程').selectOption('bugfix');await second.page.getByRole('button',{name:'附加所选流程',exact:true}).click();await status(second.page,'流程已附加');assert.equal((await f.request('/control/v1/tasks/'+task.id+'/workflow')).body.workflow.definition.kind,'bugfix');assert.equal((await f.request('/agent/v1/tasks/'+task.id)).body.generation,0);assert.deepEqual(first.errors,[]);assert.deepEqual(second.errors,[]);
 });
+
+test('human decision UI: reuse workflow panel and refuse draft acceptance without executing',async t=>{
+ const {page,context,task,errors}=await savedWorkflow(t);let posts=0,starts=0;
+ assert.equal(await page.locator('#read-decision').count(),1,'existing workflow panel needs a current evidence reader');
+ await context.route('**/control/v1/tasks/*/workflow/decision',async r=>{if(r.request().method()==='POST')posts++;await r.continue()});
+ await context.route('**/control/v1/tasks/*/start',async r=>{starts++;await r.continue()});
+ await page.getByRole('button',{name:'读取验收证据',exact:true}).click();await page.locator('#human-status').filter({hasText:'尚无可核对的最终验收证据'}).waitFor();
+ assert.equal(await page.locator('#human-accept').isDisabled(),true);assert.equal(await page.locator('#human-return').isDisabled(),true);
+ assert.equal(posts,0);assert.equal(starts,0);assert.equal(await page.locator('#human-report').innerText(),'');assert.deepEqual(errors,[]);
+});
+
+// Presentation fixtures exercise the browser contract only. The owned Native
+// five-stage chain separately exercises current evidence and durable authority.
+async function humanView(t){
+ const v=await savedWorkflow(t);await freezeWorkflowDesign(v);v.page.once('dialog',d=>d.accept());await v.page.getByRole('button',{name:'批准当前方案',exact:true}).click();await status(v.page,'当前方案已批准');
+ const wf=(await v.f.request('/control/v1/tasks/'+v.task.id+'/workflow')).body;
+ wf.task.generation=5;wf.task.state='advisory_only';wf.workflow.blocker='workflow_complete';wf.workflow.next='';
+ const tag=()=>`"p${wf.task.plan_revision}-g${wf.task.generation}-${wf.task.state}"`;
+ await v.context.route('**/agent/v1/tasks/'+v.task.id,r=>r.fulfill({status:200,headers:{ETag:tag()},json:wf.task}));
+ await v.context.route('**/control/v1/tasks/'+v.task.id+'/workflow',r=>r.fulfill({status:200,headers:{ETag:tag()},json:wf}));
+ const report={run_id:'ui-acceptance',text_hash:'a'.repeat(64),tree_hash:'b'.repeat(64),spec_hash:'c'.repeat(64),design_hash:wf.workflow.design.snapshot.hash,acceptance_hash:wf.workflow.design.snapshot.acceptance_hash,model:{version:1,verdict:'accepted',criteria:[{index:0,status:'met',reason:'<img src=x onerror=window.uiInjected=true> 合成逐项意见'}]},model_valid:true,hard:{status:'passed',reason:'owned_execution_passed',tests:2,skipped:0}};
+ let decision=null,posts=[],reads=0,starts=0,edit=null,postReply=null;
+ await v.context.route('**/control/v1/tasks/*/start',async r=>{starts++;await r.continue()});
+ await v.context.route('**/control/v1/tasks/'+v.task.id+'/workflow/decision',async r=>{
+  if(r.request().method()==='POST'){
+   const in_=r.request().postDataJSON();posts.push({body:in_,tag:r.request().headers()['if-match']});
+   if(postReply){await postReply(r,in_);return}
+   wf.task.state=in_.action==='accept'?'completed':'needs_review';
+   decision={version:1,task_id:v.task.id,plan_revision:1,generation:5,...in_,authority:'management',at:'2026-10-05T00:00:00Z'};
+  }else reads++;
+  const body=structuredClone({task:wf.task,report,decision,unavailable:''});if(edit)edit(body);
+  await r.fulfill({status:200,headers:{ETag:tag()},json:body});
+ });
+ await v.page.getByRole('button',{name:'重新读取任务',exact:true}).click();await status(v.page,'已读取任务详情');
+ return {...v,wf,report,posts,get reads(){return reads},get starts(){return starts},set edit(f){edit=f},set postReply(f){postReply=f}};
+}
+test('human decision UI: explicit accept binds hashes and reason, escapes model text, keeps Magpie classes',async t=>{
+ const v=await humanView(t),{page}=v;
+ assert.equal(await page.locator('#human-accept').isDisabled(),true);await page.getByRole('button',{name:'读取验收证据',exact:true}).click();await page.locator('#human-status').filter({hasText:'已核对当前验收证据'}).waitFor();
+ assert.equal(v.reads,1);assert.equal(await page.locator('#human-report img').count(),0);assert.equal(await page.evaluate(()=>window.uiInjected),undefined);
+ assert.ok((await page.locator('#human-report').innerText()).includes('真实测试结果：通过'));assert.ok((await page.locator('#human-report').innerText()).includes('模型验收意见：建议接受'));
+ await page.getByLabel('验收决定原因').fill('我核对了当前交付和冻结标准');
+ assert.equal(await page.locator('#human-accept').getAttribute('class'),'text primary');assert.equal(await page.locator('#human-return').getAttribute('class'),'text action');
+ page.once('dialog',d=>d.dismiss());await page.getByRole('button',{name:'接受当前交付',exact:true}).click();assert.equal(v.posts.length,0);
+ page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'接受当前交付',exact:true}).click();await page.locator('#human-status').filter({hasText:'人工接受已记录'}).waitFor();
+ assert.equal(v.posts.length,1);assert.equal(v.posts[0].tag,'"p1-g5-advisory_only"');assert.deepEqual(v.posts[0].body,Object.fromEntries([...['run_id','text_hash','tree_hash','spec_hash','design_hash','acceptance_hash'].map(k=>[k,v.report[k]]),['action','accept'],['reason','我核对了当前交付和冻结标准']]));
+ assert.equal(await page.locator('#human-accept').isDisabled(),true);assert.equal(await page.locator('#human-return').isDisabled(),true);assert.equal(v.starts,0);assert.deepEqual(v.errors,[]);
+ if(process.env.FUSION_HUMAN_UI_SCREENSHOTS){
+  const folder=path.resolve(process.env.FUSION_HUMAN_UI_SCREENSHOTS);await fs.mkdir(folder,{recursive:true});await page.locator('#workflow-panel').screenshot({path:path.join(folder,'desktop.png')});
+  await page.setViewportSize({width:390,height:1000});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth));await page.locator('#human-panel').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(folder,'mobile.png')});
+ }
+});
+test('human decision UI: superseded evidence blocks accept but permits explicit return without starting rework',async t=>{
+ const v=await humanView(t),{page}=v;v.report.hard={status:'superseded',reason:'standard_changed',tests:0,skipped:0};
+ await page.getByRole('button',{name:'读取验收证据',exact:true}).click();await page.locator('#human-status').filter({hasText:'已核对当前验收证据'}).waitFor();await page.getByLabel('验收决定原因').fill('标准已修改，需要补充证据');assert.equal(await page.locator('#human-accept').isDisabled(),true);assert.equal(await page.locator('#human-return').isDisabled(),false);
+ page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'退回当前交付',exact:true}).click();await page.locator('#human-status').filter({hasText:'人工退回已记录'}).waitFor();assert.equal(v.posts[0].body.action,'return');assert.equal(v.starts,0);assert.deepEqual(v.errors,[]);
+});
+test('human decision UI: malformed evidence, mismatched criteria and foreign receipts never render or grant accept',async t=>{
+ const v=await humanView(t),{page}=v;await page.getByLabel('验收决定原因').fill('核对');
+ for(const edit of [b=>{b.report.passed=true},b=>{b.report.acceptance_hash='f'.repeat(64)},b=>{b.report.model.criteria[0].index=1},b=>{b.report.model.criteria[0].status='unverified'},b=>{b.report.model_valid=false},b=>{b.report.hard.tests=0},b=>{b.task.id='foreign-task'},b=>{b.decision={version:1,task_id:'foreign-task'}}]){
+  v.edit=edit;await page.getByRole('button',{name:'读取验收证据',exact:true}).click();await page.locator('#human-status').filter({hasText:'验收操作已停用'}).waitFor();assert.equal(await page.locator('#human-report').innerText(),'');assert.equal(await page.locator('#human-accept').isDisabled(),true);assert.equal(await page.locator('#human-return').isDisabled(),true);
+ }
+ assert.equal(v.posts.length,0);assert.equal(v.starts,0);assert.deepEqual(v.errors,[]);
+});
+test('human decision UI: lost or stale decision reply requires readback and never retries automatically',async t=>{
+ const v=await humanView(t),{page}=v;await page.getByLabel('验收决定原因').fill('核对');
+ for(const code of [503,412,401]){
+  v.postReply=(r)=>r.fulfill({status:code,json:{error:{code:code===412?'task_precondition_failed':code===401?'authorization_required':'reply_lost'}}});
+  await page.getByRole('button',{name:'读取验收证据',exact:true}).click();await page.locator('#human-status').filter({hasText:'已核对当前验收证据'}).waitFor();page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'接受当前交付',exact:true}).click();await page.locator('#human-status').filter({hasText:'决定结果尚待核对'}).waitFor();assert.equal(await page.locator('#human-accept').isDisabled(),true);assert.equal(await page.locator('#human-return').isDisabled(),true);assert.equal(await page.locator('#human-report').innerText(),'');
+ }
+ assert.equal(v.posts.length,3);assert.equal(v.starts,0);assert.deepEqual(v.errors,[]);
+});
+test('human decision UI: late old evidence cannot appear after switching tasks',async t=>{
+ const v=await humanView(t),{page,context}=v;let entered,release;
+ const preview=await v.f.request('/control/v1/tasks/preview','POST',{project_id:'synthetic-ui',goal:'other selected task',required_roles:['review']});assert.equal(preview.status,200);
+ const other=await v.f.request('/agent/v1/tasks','POST',{preview_id:preview.body.preview_id,plan_hash:preview.body.plan.hash},null,'human-other-task');assert.equal(other.status,201);
+ await page.getByRole('button',{name:'刷新任务列表',exact:true}).click();await status(page,'已读取 2 个任务');
+ const gate=new Promise(r=>{release=r}),started=new Promise(r=>{entered=r});
+ await context.route('**/control/v1/tasks/'+v.task.id+'/workflow/decision',async r=>{entered();await gate;await r.fallback()});t.after(()=>release());
+ await page.getByRole('button',{name:'读取验收证据',exact:true}).click();await started;
+ await page.getByRole('button',{name:'查看任务 '+other.body.id,exact:true}).click();await status(page,'已读取任务详情');assert.equal(await page.locator('#human-panel').isVisible(),false);const late=page.waitForResponse(r=>r.url().endsWith('/workflow/decision'));release();await late;
+ assert.equal(await page.locator('#human-report').innerText(),'');assert.equal(await page.locator('#human-accept').isDisabled(),true);assert.equal(v.posts.length,0);assert.deepEqual(v.errors,[]);
+});

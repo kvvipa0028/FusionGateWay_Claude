@@ -1,0 +1,59 @@
+{
+  "human-fusion-final": {
+    "PASS": {
+      "top": 703,
+      "sub": 1289
+    },
+    "SKIP": {
+      "top": 33,
+      "sub": 11
+    },
+    "FAIL": {
+      "top": 0,
+      "sub": 0
+    },
+    "packages": 19
+  },
+  "human-native-final": {
+    "PASS": {
+      "top": 10,
+      "sub": 57
+    },
+    "SKIP": {
+      "top": 0,
+      "sub": 0
+    },
+    "FAIL": {
+      "top": 0,
+      "sub": 0
+    },
+    "packages": 1
+  },
+  "human-api-final": {
+    "PASS": {
+      "top": 3,
+      "sub": 24
+    },
+    "SKIP": {
+      "top": 0,
+      "sub": 0
+    },
+    "FAIL": {
+      "top": 0,
+      "sub": 0
+    },
+    "packages": 1
+  },
+  "real_vendor_calls": 0,
+  "jev": "off",
+  "actual_native_version": "Claude Code 2.1.287",
+  "browser_product_scope": "presentation fixtures and actual controlled host; not Wails pixels",
+  "goal": "active",
+  "wp22": "in_progress",
+  "browser": {
+    "tests": 77,
+    "pass": 77,
+    "fail": 0,
+    "skip": 0
+  }
+}

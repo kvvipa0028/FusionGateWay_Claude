@@ -1,0 +1,14 @@
+✔ human decision UI: reuse workflow panel and refuse draft acceptance without executing (1819.087375ms)
+✔ human decision UI: explicit accept binds hashes and reason, escapes model text, keeps Magpie classes (1871.272916ms)
+✔ human decision UI: superseded evidence blocks accept but permits explicit return without starting rework (1589.333417ms)
+✔ human decision UI: malformed evidence, mismatched criteria and foreign receipts never render or grant accept (1888.592792ms)
+✔ human decision UI: lost or stale decision reply requires readback and never retries automatically (1802.460458ms)
+✔ human decision UI: late old evidence cannot appear after a task reload (1560.329708ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 10751.87275

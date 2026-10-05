@@ -97,6 +97,7 @@ type Server struct {
 	controller    *control.Controller
 	quotaProjects map[string]*quotaRegistration
 	quotaSlots    chan struct{}
+	finalEvidence FinalEvidenceReader
 }
 
 func New(st *store.Store, auth *policy.Manager) (*Server, error) {
@@ -337,6 +338,8 @@ func (s *Server) Handler() http.Handler {
 			s.submissionControl(w, r)
 		case startJournalPath(r.URL.Path):
 			s.startJournalControl(w, r)
+		case decisionPath(r.URL.Path):
+			s.decisionControl(w, r)
 		case workflowPath(r.URL.Path):
 			s.workflowControl(w, r)
 		case taskIndexPath(r.URL.Path):
