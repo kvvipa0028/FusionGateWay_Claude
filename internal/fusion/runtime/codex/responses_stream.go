@@ -295,7 +295,7 @@ func outputItem(raw []byte, terminal bool) (map[string]json.RawMessage, string, 
 	return m, id, v.Type, ok && valid && typ == "output_text" && textOK && emptyOptionalArrays(p, "annotations", "logprobs")
 }
 func responseObject(raw []byte, model, status string) (map[string]json.RawMessage, bool) {
-	m, ok := object(raw, "id", "object", "created_at", "status", "model", "output", "usage", "error", "incomplete_details", "instructions", "max_output_tokens", "parallel_tool_calls", "previous_response_id", "reasoning", "store", "temperature", "text", "tool_choice", "tools", "top_p", "truncation", "metadata", "service_tier", "user", "background", "safety_identifier", "prompt_cache_key", "prompt_cache_retention", "usage_metadata", "end_turn")
+	m, ok := object(raw, "id", "object", "created_at", "status", "model", "headers", "output", "usage", "error", "incomplete_details", "instructions", "max_output_tokens", "parallel_tool_calls", "previous_response_id", "reasoning", "store", "temperature", "text", "tool_choice", "tools", "top_p", "truncation", "metadata", "service_tier", "user", "background", "safety_identifier", "prompt_cache_key", "prompt_cache_retention", "usage_metadata", "end_turn")
 	if !ok {
 		return nil, false
 	}
@@ -306,6 +306,12 @@ func responseObject(raw []byte, model, status string) (map[string]json.RawMessag
 	if _, exists := m["model"]; exists {
 		v, ok := stringField(m, "model")
 		if !ok || v != model {
+			return nil, false
+		}
+	}
+	if headers, exists := m["headers"]; exists {
+		reported, ok := sseReportedModel(headers)
+		if !ok || reported != model {
 			return nil, false
 		}
 	}

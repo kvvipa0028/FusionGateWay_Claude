@@ -236,7 +236,7 @@ func (g *CallGate) call(w http.ResponseWriter, r *http.Request) {
 		secrets = append(secrets, []byte(marker))
 	}
 	for _, s := range secrets {
-		if len(s) == 0 || len(s) > 4096 || bytes.Contains(body, s) {
+		if len(s) == 0 || len(s) > 16<<10 || bytes.Contains(body, s) {
 			g.reject(w, 502)
 			return
 		}

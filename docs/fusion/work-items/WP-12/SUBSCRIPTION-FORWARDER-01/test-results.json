@@ -1,0 +1,272 @@
+{
+  "platform": "darwin/arm64",
+  "go_version": "1.26.3",
+  "environment": "allowlist, temporary HOME/XDG and synthetic private cache only",
+  "reports": [
+    {
+      "label": "targeted-green",
+      "exit_code": 1,
+      "counts": {
+        "package_fail": 1
+      },
+      "failures": [
+        "github.com/yetone/magpie/internal/fusion/runtime/codex:<package>"
+      ],
+      "raw_log_sha256": "e3341e83e3de5817cbf360e40b9b278df2c30ab1c3db7376835b59b45569b390",
+      "command": [
+        "go",
+        "test",
+        "-mod=readonly",
+        "-tags",
+        "fusion,nogui",
+        "-race",
+        "-count=1",
+        "-json",
+        "./internal/fusion/runtime/codex",
+        "-run",
+        "TestCodexSubscriptionForwarder"
+      ]
+    },
+    {
+      "label": "targeted-green",
+      "exit_code": 1,
+      "counts": {
+        "subtest_pass": 29,
+        "top_pass": 2,
+        "package_fail": 1
+      },
+      "failures": [
+        "github.com/yetone/magpie/internal/fusion/runtime/codex:<package>"
+      ],
+      "raw_log_sha256": "cfd49843b3a53ee181d7355d8d07a7295ee826f94234abb8c4cb0b588c7fb8c3",
+      "command": [
+        "go",
+        "test",
+        "-mod=readonly",
+        "-tags",
+        "fusion,nogui",
+        "-race",
+        "-count=1",
+        "-json",
+        "./internal/fusion/runtime/codex",
+        "-run",
+        "TestCodexSubscriptionForwarder"
+      ]
+    },
+    {
+      "label": "final-targeted",
+      "evidence_source": "dependent-race.jsonl",
+      "source_raw_sha256": "9adf4f2b6ad5c09c0dbf59e33dba444d6c2ec6a4088e042d7eb5ce64dbd34d9e",
+      "exit_code": 0,
+      "counts": {
+        "subtest_pass": 48,
+        "top_pass": 8
+      },
+      "failures": [],
+      "note": "Filtered from this final dependent-race event stream, not a separate execution"
+    },
+    {
+      "label": "dependent-race",
+      "exit_code": 0,
+      "counts": {
+        "top_skip": 15,
+        "subtest_pass": 631,
+        "top_pass": 188,
+        "package_pass": 4
+      },
+      "failures": [],
+      "raw_log_sha256": "9adf4f2b6ad5c09c0dbf59e33dba444d6c2ec6a4088e042d7eb5ce64dbd34d9e",
+      "command": [
+        "go",
+        "test",
+        "-mod=readonly",
+        "-tags",
+        "fusion,nogui",
+        "-race",
+        "-count=1",
+        "-timeout=60s",
+        "-json",
+        "./internal/fusion/runtime/codex",
+        "./internal/fusion/runtime/codexadapter",
+        "./internal/fusion/control",
+        "./internal/fusion/bootstrap"
+      ],
+      "skipped_tests": [
+        "TestCodexAdapterPinnedNative",
+        "TestCodexAdapterPinnedPrelaunchAdmission",
+        "TestExecutionHostPinnedCodexHTTP",
+        "TestExecutionHostPinnedNativeHTTP",
+        "TestControllerPinnedCodexNativeLifecycle",
+        "TestControllerPinnedNativeRunsOnceAndReleasesActualStopProof",
+        "TestControllerPinnedNativeSourceGuardLifecycle",
+        "TestControllerPinnedNativePauseStopsInFlightAndRequiresReview",
+        "TestControllerPinnedNativeTaskCancelStopsInFlightAndCloses",
+        "TestGLMFactoryPinnedNativeProductLifecycle",
+        "TestControllerPinnedGrokNativeLifecycle",
+        "TestControllerPinnedGrokSourceNativeLifecycle",
+        "TestControllerPinnedGrokCheckpointRestore",
+        "TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart",
+        "TestTaskUIFixtureProcess"
+      ]
+    },
+    {
+      "label": "native-model-headers",
+      "exit_code": 0,
+      "counts": {
+        "subtest_pass": 10,
+        "top_pass": 2,
+        "package_pass": 1
+      },
+      "failures": [],
+      "raw_log_sha256": "aa6ccda79aee4f7df7557d1a9e6bfcef72387c55d9a5a9435d9380b22b07733b",
+      "command": [
+        "go",
+        "test",
+        "-mod=readonly",
+        "-tags",
+        "fusion,nogui",
+        "-race",
+        "-count=1",
+        "-timeout=60s",
+        "-json",
+        "-timeout=150s",
+        "./internal/fusion/runtime",
+        "-run",
+        "TestManagedPinnedCodex(HTTPText|GatewayClient)$",
+        "-fusion-native-codex",
+        "/Users/zhaojianzhi/.codex/packages/standalone/releases/0.160.0-aarch64-apple-darwin/bin/codex"
+      ]
+    },
+    {
+      "label": "mutation-model-proof",
+      "exit_code": 1,
+      "counts": {
+        "subtest_fail": 1,
+        "top_fail": 1,
+        "package_fail": 1
+      },
+      "failures": [
+        "github.com/yetone/magpie/internal/fusion/runtime/codex:TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/missing-proof",
+        "github.com/yetone/magpie/internal/fusion/runtime/codex:TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel",
+        "github.com/yetone/magpie/internal/fusion/runtime/codex:<package>"
+      ],
+      "raw_log_sha256": "84fe292629c3215fee607d0b61c89ee4e2711c0985995e8388a38e98dd4fa70e",
+      "command": [
+        "go",
+        "test",
+        "-mod=readonly",
+        "-tags",
+        "fusion,nogui",
+        "-race",
+        "-count=1",
+        "-timeout=60s",
+        "-json",
+        "-overlay",
+        "<temporary-overlay>",
+        "./internal/fusion/runtime/codex",
+        "-run",
+        "TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/missing-proof$"
+      ]
+    },
+    {
+      "label": "mutation-redirect",
+      "exit_code": 1,
+      "counts": {
+        "subtest_fail": 1,
+        "top_fail": 1,
+        "package_fail": 1
+      },
+      "failures": [
+        "github.com/yetone/magpie/internal/fusion/runtime/codex:TestCodexSubscriptionForwarderSingleAttemptAndStaticErrors/redirect-303",
+        "github.com/yetone/magpie/internal/fusion/runtime/codex:TestCodexSubscriptionForwarderSingleAttemptAndStaticErrors",
+        "github.com/yetone/magpie/internal/fusion/runtime/codex:<package>"
+      ],
+      "raw_log_sha256": "30dada7d41d4182b62509aa46f6cd2cb165b365c6c3ae630da9223e969364d88",
+      "command": [
+        "go",
+        "test",
+        "-mod=readonly",
+        "-tags",
+        "fusion,nogui",
+        "-race",
+        "-count=1",
+        "-timeout=60s",
+        "-json",
+        "-overlay",
+        "<temporary-overlay>",
+        "./internal/fusion/runtime/codex",
+        "-run",
+        "TestCodexSubscriptionForwarderSingleAttemptAndStaticErrors/redirect-303$"
+      ]
+    },
+    {
+      "label": "mutation-delivery",
+      "exit_code": 1,
+      "counts": {
+        "subtest_fail": 1,
+        "top_fail": 1,
+        "package_fail": 1
+      },
+      "failures": [
+        "github.com/yetone/magpie/internal/fusion/runtime/codex:TestCodexSubscriptionForwarderRejectsBeforeDialAndAfterRotation/rotate-delivery",
+        "github.com/yetone/magpie/internal/fusion/runtime/codex:TestCodexSubscriptionForwarderRejectsBeforeDialAndAfterRotation",
+        "github.com/yetone/magpie/internal/fusion/runtime/codex:<package>"
+      ],
+      "raw_log_sha256": "334c28a7eb16ff102c6f918e6f4bd80b50b821e31222a249748971e2bdc4b025",
+      "command": [
+        "go",
+        "test",
+        "-mod=readonly",
+        "-tags",
+        "fusion,nogui",
+        "-race",
+        "-count=1",
+        "-timeout=60s",
+        "-json",
+        "-overlay",
+        "<temporary-overlay>",
+        "./internal/fusion/runtime/codex",
+        "-run",
+        "TestCodexSubscriptionForwarderRejectsBeforeDialAndAfterRotation/rotate-delivery$"
+      ]
+    },
+    {
+      "label": "mutation-marker-bound",
+      "exit_code": 1,
+      "counts": {
+        "subtest_fail": 1,
+        "top_fail": 1,
+        "package_fail": 1
+      },
+      "failures": [
+        "github.com/yetone/magpie/internal/fusion/runtime/codex:TestCodexCallGateLongCredentialMarkersRemainPrivate/valid-long-token",
+        "github.com/yetone/magpie/internal/fusion/runtime/codex:TestCodexCallGateLongCredentialMarkersRemainPrivate",
+        "github.com/yetone/magpie/internal/fusion/runtime/codex:<package>"
+      ],
+      "raw_log_sha256": "1a4a14c3e6ebbc60ba761577f50330b1964fec1850900c7f496c8b2c2b278096",
+      "command": [
+        "go",
+        "test",
+        "-mod=readonly",
+        "-tags",
+        "fusion,nogui",
+        "-race",
+        "-count=1",
+        "-timeout=60s",
+        "-json",
+        "-overlay",
+        "<temporary-overlay>",
+        "./internal/fusion/runtime/codex",
+        "-run",
+        "TestCodexCallGateLongCredentialMarkersRemainPrivate/valid-long-token$"
+      ]
+    }
+  ],
+  "real_vendor_model_calls": 0,
+  "real_vendor_quota_calls": 0,
+  "real_login_calls": 0,
+  "real_account_admitted": false,
+  "production_factory_registered": false,
+  "whole_goal_complete": false,
+  "production_sources_unchanged_by_overlay": true
+}

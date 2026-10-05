@@ -1,0 +1,468 @@
+=== RUN   TestCodexSubscriptionForwarderActualTLSHeadersAndModelProof
+=== RUN   TestCodexSubscriptionForwarderActualTLSHeadersAndModelProof/http
+--- PASS: TestCodexSubscriptionForwarderActualTLSHeadersAndModelProof/http (0.08s)
+=== RUN   TestCodexSubscriptionForwarderActualTLSHeadersAndModelProof/sse
+--- PASS: TestCodexSubscriptionForwarderActualTLSHeadersAndModelProof/sse (0.07s)
+=== RUN   TestCodexSubscriptionForwarderActualTLSHeadersAndModelProof/sse-lowercase
+--- PASS: TestCodexSubscriptionForwarderActualTLSHeadersAndModelProof/sse-lowercase (0.07s)
+=== RUN   TestCodexSubscriptionForwarderActualTLSHeadersAndModelProof/sse-x-alias
+--- PASS: TestCodexSubscriptionForwarderActualTLSHeadersAndModelProof/sse-x-alias (0.07s)
+=== RUN   TestCodexSubscriptionForwarderActualTLSHeadersAndModelProof/both
+--- PASS: TestCodexSubscriptionForwarderActualTLSHeadersAndModelProof/both (0.07s)
+--- PASS: TestCodexSubscriptionForwarderActualTLSHeadersAndModelProof (0.35s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/missing-proof
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/missing-proof (0.06s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/http-drift
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/http-drift (0.07s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/http-duplicate
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/http-duplicate (0.05s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/sse-drift
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/sse-drift (0.06s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/conflict
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/conflict (0.06s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/late-drift
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/late-drift (0.06s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/header-type
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/header-type (0.06s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/header-duplicate
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/header-duplicate (0.06s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/header-alias-conflict
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/header-alias-conflict (0.06s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/unknown-header
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/unknown-header (0.07s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/null-header
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/null-header (0.06s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/ordinary-model-drift
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/ordinary-model-drift (0.07s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/incomplete
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/incomplete (0.06s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/gzip
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/gzip (0.05s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/wrong-media
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/wrong-media (0.05s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/oversize
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/oversize (0.10s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/reflect-access
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/reflect-access (0.07s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/reflect-id
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/reflect-id (0.07s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/reflect-refresh
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/reflect-refresh (0.07s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/escaped-reflection
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/escaped-reflection (0.06s)
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel (1.30s)
+=== RUN   TestCodexSubscriptionForwarderSingleAttemptAndStaticErrors
+=== RUN   TestCodexSubscriptionForwarderSingleAttemptAndStaticErrors/redirect
+--- PASS: TestCodexSubscriptionForwarderSingleAttemptAndStaticErrors/redirect (0.05s)
+=== RUN   TestCodexSubscriptionForwarderSingleAttemptAndStaticErrors/rate-limit
+--- PASS: TestCodexSubscriptionForwarderSingleAttemptAndStaticErrors/rate-limit (0.05s)
+=== RUN   TestCodexSubscriptionForwarderSingleAttemptAndStaticErrors/unauthorized
+--- PASS: TestCodexSubscriptionForwarderSingleAttemptAndStaticErrors/unauthorized (0.05s)
+=== RUN   TestCodexSubscriptionForwarderSingleAttemptAndStaticErrors/closed-connection
+--- PASS: TestCodexSubscriptionForwarderSingleAttemptAndStaticErrors/closed-connection (0.04s)
+=== RUN   TestCodexSubscriptionForwarderSingleAttemptAndStaticErrors/cancel-after-headers
+2026/10/05 22:30:47 httptest.Server blocked in Close after 5 seconds, waiting for connections:
+  *tls.Conn 0xc0002d6008 127.0.0.1:59437 in state active
+SIGQUIT: quit
+PC=0x19117450c m=0 sigcode=0
+
+goroutine 0 gp=0x1055e1b20 m=0 mp=0x1055e2d60 [idle]:
+runtime.pthread_cond_wait(0x1055e32c8, 0x1055e3288)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/sys_darwin.go:488 +0x20 fp=0x16ba6ac60 sp=0x16ba6ac30 pc=0x104444b90
+runtime.semasleep(0xffffffffffffffff)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/os_darwin.go:77 +0x80 fp=0x16ba6acc0 sp=0x16ba6ac60 pc=0x10441eaf0
+runtime.notesleep(0x1055e2eb8)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/lock_sema.go:62 +0xac fp=0x16ba6acf0 sp=0x16ba6acc0 pc=0x1043f334c
+runtime.mPark(...)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:1967
+runtime.stopm()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:3008 +0x84 fp=0x16ba6ad20 sp=0x16ba6acf0 pc=0x1044291e4
+runtime.findRunnable()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:3796 +0xffc fp=0x16ba6aef0 sp=0x16ba6ad20 pc=0x10442af6c
+runtime.schedule()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:4164 +0x90 fp=0x16ba6af30 sp=0x16ba6aef0 pc=0x10442c2e0
+runtime.park_m(0xc0000052c0)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:4304 +0x244 fp=0x16ba6af90 sp=0x16ba6af30 pc=0x10442c764
+runtime.mcall()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/asm_arm64.s:339 +0x54 fp=0x16ba6afa0 sp=0x16ba6af90 pc=0x104460534
+
+goroutine 1 gp=0xc0000041e0 m=nil [chan receive, 2 minutes]:
+runtime.gopark(0x300198820?, 0x134eb37a8?, 0xf0?, 0xdb?, 0x18?)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:462 +0xbc fp=0xc000453630 sp=0xc000453610 pc=0x10445aafc
+runtime.chanrecv(0xc00025a780, 0xc00045373e, 0x1)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/chan.go:667 +0x410 fp=0xc0004536c0 sp=0xc000453630 pc=0x1043ed310
+runtime.chanrecv1(0x1054aae80?, 0x105472780?)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/chan.go:509 +0x14 fp=0xc0004536f0 sp=0xc0004536c0 pc=0x1043ecec4
+testing.(*T).Run(0xc000280248, {0x104ecda07, 0x3a}, 0x105548db8)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2109 +0x7dc fp=0xc000453840 sp=0xc0004536f0 pc=0x10451994c
+testing.runTests.func1(0xc000280248)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2585 +0x78 fp=0xc000453890 sp=0xc000453840 pc=0x10451cf28
+testing.tRunner(0xc000280248, 0xc000235ab8)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2036 +0x168 fp=0xc000453970 sp=0xc000453890 pc=0x1045184f8
+testing.runTests({0x104eba13f, 0x18}, {0x104ecc2e3, 0x36}, 0xc0001a8138, {0x1055db620, 0x43, 0x43}, {0xc0005d9e40?, 0xc000512240?, ...})
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2583 +0x7a4 fp=0xc000453ae0 sp=0xc000453970 pc=0x10451cdb4
+testing.(*M).Run(0xc000198640)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2443 +0xb3c fp=0xc000453e60 sp=0xc000453ae0 pc=0x10451acfc
+main.main()
+	_testmain.go:178 +0x104 fp=0xc000453f30 sp=0xc000453e60 pc=0x104e2afc4
+runtime.main()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:290 +0x2b4 fp=0xc000453fd0 sp=0xc000453f30 pc=0x104424434
+runtime.goexit({})
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc000453fd0 sp=0xc000453fd0 pc=0x1044625e4
+
+goroutine 17 gp=0xc0001043c0 m=nil [force gc (idle), 2 minutes]:
+runtime.gopark(0xf9e7f6378133?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:462 +0xbc fp=0xc00008df90 sp=0xc00008df70 pc=0x10445aafc
+runtime.goparkunlock(...)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:468
+runtime.forcegchelper()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:375 +0xb4 fp=0xc00008dfd0 sp=0xc00008df90 pc=0x104424754
+runtime.goexit({})
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc00008dfd0 sp=0xc00008dfd0 pc=0x1044625e4
+created by runtime.init.7 in goroutine 1
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:363 +0x24
+
+goroutine 18 gp=0xc0001045a0 m=nil [GC sweep wait]:
+runtime.gopark(0x1?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:462 +0xbc fp=0xc00008ff70 sp=0xc00008ff50 pc=0x10445aafc
+runtime.goparkunlock(...)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:468
+runtime.bgsweep(0xc000112000)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgcsweep.go:324 +0x178 fp=0xc00008ffb0 sp=0xc00008ff70 pc=0x10440d578
+runtime.gcenable.gowrap1()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:214 +0x20 fp=0xc00008ffd0 sp=0xc00008ffb0 pc=0x1043fe9b0
+runtime.goexit({})
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc00008ffd0 sp=0xc00008ffd0 pc=0x1044625e4
+created by runtime.gcenable in goroutine 1
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:214 +0x6c
+
+goroutine 19 gp=0xc000104780 m=nil [GC scavenge wait]:
+runtime.gopark(0x10000?, 0x6553f100?, 0x0?, 0x0?, 0x0?)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:462 +0xbc fp=0xc00008af60 sp=0xc00008af40 pc=0x10445aafc
+runtime.goparkunlock(...)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:468
+runtime.(*scavengerState).park(0x1055e14c0)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgcscavenge.go:425 +0x5c fp=0xc00008af90 sp=0xc00008af60 pc=0x10440b08c
+runtime.bgscavenge(0xc000112000)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgcscavenge.go:658 +0xac fp=0xc00008afb0 sp=0xc00008af90 pc=0x10440b62c
+runtime.gcenable.gowrap2()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:215 +0x20 fp=0xc00008afd0 sp=0xc00008afb0 pc=0x1043fe970
+runtime.goexit({})
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc00008afd0 sp=0xc00008afd0 pc=0x1044625e4
+created by runtime.gcenable in goroutine 1
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:215 +0xac
+
+goroutine 33 gp=0xc0001843c0 m=nil [GOMAXPROCS updater (idle), 2 minutes]:
+runtime.gopark(0x0?, 0xc000104780?, 0xa8?, 0x97?, 0x1043fe970?)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:462 +0xbc fp=0xc000079770 sp=0xc000079750 pc=0x10445aafc
+runtime.goparkunlock(...)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:468
+runtime.updateMaxProcsGoroutine()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:7095 +0xf4 fp=0xc0000797d0 sp=0xc000079770 pc=0x1044330b4
+runtime.goexit({})
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc0000797d0 sp=0xc0000797d0 pc=0x1044625e4
+created by runtime.defaultGOMAXPROCSUpdateEnable in goroutine 1
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:7083 +0x48
+
+goroutine 34 gp=0xc0001845a0 m=nil [finalizer wait, 2 minutes]:
+runtime.gopark(0x0?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:462 +0xbc fp=0xc000204d80 sp=0xc000204d60 pc=0x10445aafc
+runtime.runFinalizers()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mfinal.go:210 +0x120 fp=0xc000204fd0 sp=0xc000204d80 pc=0x1043fd9d0
+runtime.goexit({})
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc000204fd0 sp=0xc000204fd0 pc=0x1044625e4
+created by runtime.createfing in goroutine 1
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mfinal.go:172 +0x78
+
+goroutine 35 gp=0xc000184780 m=nil [GC worker (idle), 2 minutes]:
+runtime.gopark(0x0?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:462 +0xbc fp=0xc000203f20 sp=0xc000203f00 pc=0x10445aafc
+runtime.gcBgMarkWorker(0xc0001940e0)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1791 +0xe0 fp=0xc000203fb0 sp=0xc000203f20 pc=0x104401410
+runtime.gcBgMarkStartWorkers.gowrap1()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1695 +0x20 fp=0xc000203fd0 sp=0xc000203fb0 pc=0x104401310
+runtime.goexit({})
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc000203fd0 sp=0xc000203fd0 pc=0x1044625e4
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1695 +0x134
+
+goroutine 49 gp=0xc00020c000 m=nil [GC worker (idle), 2 minutes]:
+runtime.gopark(0x0?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:462 +0xbc fp=0xc000202f20 sp=0xc000202f00 pc=0x10445aafc
+runtime.gcBgMarkWorker(0xc0001940e0)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1791 +0xe0 fp=0xc000202fb0 sp=0xc000202f20 pc=0x104401410
+runtime.gcBgMarkStartWorkers.gowrap1()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1695 +0x20 fp=0xc000202fd0 sp=0xc000202fb0 pc=0x104401310
+runtime.goexit({})
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc000202fd0 sp=0xc000202fd0 pc=0x1044625e4
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1695 +0x134
+
+goroutine 2 gp=0xc000004f00 m=nil [GC worker (idle), 2 minutes]:
+runtime.gopark(0x0?, 0x0?, 0x68?, 0x8f?, 0x10440d478?)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:462 +0xbc fp=0xc000201f20 sp=0xc000201f00 pc=0x10445aafc
+runtime.gcBgMarkWorker(0xc0001940e0)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1791 +0xe0 fp=0xc000201fb0 sp=0xc000201f20 pc=0x104401410
+runtime.gcBgMarkStartWorkers.gowrap1()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1695 +0x20 fp=0xc000201fd0 sp=0xc000201fb0 pc=0x104401310
+runtime.goexit({})
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc000201fd0 sp=0xc000201fd0 pc=0x1044625e4
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1695 +0x134
+
+goroutine 36 gp=0xc000184960 m=nil [GC worker (idle), 2 minutes]:
+runtime.gopark(0x0?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:462 +0xbc fp=0xc000200f20 sp=0xc000200f00 pc=0x10445aafc
+runtime.gcBgMarkWorker(0xc0001940e0)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1791 +0xe0 fp=0xc000200fb0 sp=0xc000200f20 pc=0x104401410
+runtime.gcBgMarkStartWorkers.gowrap1()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1695 +0x20 fp=0xc000200fd0 sp=0xc000200fb0 pc=0x104401310
+runtime.goexit({})
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc000200fd0 sp=0xc000200fd0 pc=0x1044625e4
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1695 +0x134
+
+goroutine 50 gp=0xc00020c1e0 m=nil [GC worker (idle), 2 minutes]:
+runtime.gopark(0x0?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:462 +0xbc fp=0xc0000aff20 sp=0xc0000aff00 pc=0x10445aafc
+runtime.gcBgMarkWorker(0xc0001940e0)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1791 +0xe0 fp=0xc0000affb0 sp=0xc0000aff20 pc=0x104401410
+runtime.gcBgMarkStartWorkers.gowrap1()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1695 +0x20 fp=0xc0000affd0 sp=0xc0000affb0 pc=0x104401310
+runtime.goexit({})
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc0000affd0 sp=0xc0000affd0 pc=0x1044625e4
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1695 +0x134
+
+goroutine 3 gp=0xc0000050e0 m=nil [GC worker (idle), 2 minutes]:
+runtime.gopark(0x0?, 0x1044625e4?, 0x20?, 0x91?, 0x0?)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:462 +0xbc fp=0xc0000aef20 sp=0xc0000aef00 pc=0x10445aafc
+runtime.gcBgMarkWorker(0xc0001940e0)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1791 +0xe0 fp=0xc0000aefb0 sp=0xc0000aef20 pc=0x104401410
+runtime.gcBgMarkStartWorkers.gowrap1()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1695 +0x20 fp=0xc0000aefd0 sp=0xc0000aefb0 pc=0x104401310
+runtime.goexit({})
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc0000aefd0 sp=0xc0000aefd0 pc=0x1044625e4
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1695 +0x134
+
+goroutine 37 gp=0xc000184b40 m=nil [GC worker (idle), 2 minutes]:
+runtime.gopark(0x0?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:462 +0xbc fp=0xc0000adf20 sp=0xc0000adf00 pc=0x10445aafc
+runtime.gcBgMarkWorker(0xc0001940e0)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1791 +0xe0 fp=0xc0000adfb0 sp=0xc0000adf20 pc=0x104401410
+runtime.gcBgMarkStartWorkers.gowrap1()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1695 +0x20 fp=0xc0000adfd0 sp=0xc0000adfb0 pc=0x104401310
+runtime.goexit({})
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc0000adfd0 sp=0xc0000adfd0 pc=0x1044625e4
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1695 +0x134
+
+goroutine 38 gp=0xc000184d20 m=nil [GC worker (idle), 2 minutes]:
+runtime.gopark(0xf9e7f6620b2d?, 0x1?, 0x39?, 0x93?, 0x0?)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:462 +0xbc fp=0xc0000acf20 sp=0xc0000acf00 pc=0x10445aafc
+runtime.gcBgMarkWorker(0xc0001940e0)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1791 +0xe0 fp=0xc0000acfb0 sp=0xc0000acf20 pc=0x104401410
+runtime.gcBgMarkStartWorkers.gowrap1()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1695 +0x20 fp=0xc0000acfd0 sp=0xc0000acfb0 pc=0x104401310
+runtime.goexit({})
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc0000acfd0 sp=0xc0000acfd0 pc=0x1044625e4
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1695 +0x134
+
+goroutine 51 gp=0xc00020c3c0 m=nil [GC worker (idle), 2 minutes]:
+runtime.gopark(0xf9cacdb58974?, 0x1?, 0x49?, 0x4e?, 0x0?)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:462 +0xbc fp=0xc0000abf20 sp=0xc0000abf00 pc=0x10445aafc
+runtime.gcBgMarkWorker(0xc0001940e0)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1791 +0xe0 fp=0xc0000abfb0 sp=0xc0000abf20 pc=0x104401410
+runtime.gcBgMarkStartWorkers.gowrap1()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1695 +0x20 fp=0xc0000abfd0 sp=0xc0000abfb0 pc=0x104401310
+runtime.goexit({})
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc0000abfd0 sp=0xc0000abfd0 pc=0x1044625e4
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1695 +0x134
+
+goroutine 4 gp=0xc0000052c0 m=nil [GC worker (idle)]:
+runtime.gopark(0xf9e7f6454d44?, 0x1?, 0x82?, 0x98?, 0x0?)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:462 +0xbc fp=0xc0000aaf20 sp=0xc0000aaf00 pc=0x10445aafc
+runtime.gcBgMarkWorker(0xc0001940e0)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1791 +0xe0 fp=0xc0000aafb0 sp=0xc0000aaf20 pc=0x104401410
+runtime.gcBgMarkStartWorkers.gowrap1()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1695 +0x20 fp=0xc0000aafd0 sp=0xc0000aafb0 pc=0x104401310
+runtime.goexit({})
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc0000aafd0 sp=0xc0000aafd0 pc=0x1044625e4
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1695 +0x134
+
+goroutine 39 gp=0xc000184f00 m=nil [GC worker (idle), 2 minutes]:
+runtime.gopark(0xf9cac81d6315?, 0x1?, 0xd5?, 0x9f?, 0x0?)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:462 +0xbc fp=0xc0000a9f20 sp=0xc0000a9f00 pc=0x10445aafc
+runtime.gcBgMarkWorker(0xc0001940e0)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1791 +0xe0 fp=0xc0000a9fb0 sp=0xc0000a9f20 pc=0x104401410
+runtime.gcBgMarkStartWorkers.gowrap1()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1695 +0x20 fp=0xc0000a9fd0 sp=0xc0000a9fb0 pc=0x104401310
+runtime.goexit({})
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc0000a9fd0 sp=0xc0000a9fd0 pc=0x1044625e4
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1695 +0x134
+
+goroutine 40 gp=0xc0001850e0 m=nil [GC worker (idle)]:
+runtime.gopark(0xf9e7f6454b26?, 0x1?, 0x9?, 0x3d?, 0x0?)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:462 +0xbc fp=0xc0000a8f20 sp=0xc0000a8f00 pc=0x10445aafc
+runtime.gcBgMarkWorker(0xc0001940e0)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1791 +0xe0 fp=0xc0000a8fb0 sp=0xc0000a8f20 pc=0x104401410
+runtime.gcBgMarkStartWorkers.gowrap1()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1695 +0x20 fp=0xc0000a8fd0 sp=0xc0000a8fb0 pc=0x104401310
+runtime.goexit({})
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc0000a8fd0 sp=0xc0000a8fd0 pc=0x1044625e4
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1695 +0x134
+
+goroutine 41 gp=0xc0001852c0 m=nil [GC worker (idle)]:
+runtime.gopark(0xf9e7f6546d02?, 0x1?, 0xfd?, 0x27?, 0x0?)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:462 +0xbc fp=0xc000215f20 sp=0xc000215f00 pc=0x10445aafc
+runtime.gcBgMarkWorker(0xc0001940e0)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1791 +0xe0 fp=0xc000215fb0 sp=0xc000215f20 pc=0x104401410
+runtime.gcBgMarkStartWorkers.gowrap1()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1695 +0x20 fp=0xc000215fd0 sp=0xc000215fb0 pc=0x104401310
+runtime.goexit({})
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc000215fd0 sp=0xc000215fd0 pc=0x1044625e4
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1695 +0x134
+
+goroutine 52 gp=0xc00020c5a0 m=nil [GC worker (idle), 2 minutes]:
+runtime.gopark(0xf9cab2a835aa?, 0x1?, 0xde?, 0xb6?, 0x0?)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:462 +0xbc fp=0xc000214f20 sp=0xc000214f00 pc=0x10445aafc
+runtime.gcBgMarkWorker(0xc0001940e0)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1791 +0xe0 fp=0xc000214fb0 sp=0xc000214f20 pc=0x104401410
+runtime.gcBgMarkStartWorkers.gowrap1()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1695 +0x20 fp=0xc000214fd0 sp=0xc000214fb0 pc=0x104401310
+runtime.goexit({})
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc000214fd0 sp=0xc000214fd0 pc=0x1044625e4
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mgc.go:1695 +0x134
+
+goroutine 65 gp=0xc000104d20 m=nil [cleanup wait]:
+runtime.gopark(0x1000?, 0x135475a00?, 0x48?, 0x1f?, 0x1043fae70?)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:462 +0xbc fp=0xc000091f10 sp=0xc000091ef0 pc=0x10445aafc
+runtime.goparkunlock(...)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:468
+runtime.(*cleanupQueue).dequeue(0x1055e1960)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mcleanup.go:522 +0x160 fp=0xc000091f50 sp=0xc000091f10 pc=0x1043fa730
+runtime.runCleanups()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mcleanup.go:718 +0x3c fp=0xc000091fd0 sp=0xc000091f50 pc=0x1043fae7c
+runtime.goexit({})
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc000091fd0 sp=0xc000091fd0 pc=0x1044625e4
+created by runtime.(*cleanupQueue).createGs in goroutine 1
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/mcleanup.go:672 +0x108
+
+goroutine 202 gp=0xc000104f00 m=nil [chan receive, 2 minutes]:
+runtime.gopark(0x300198820?, 0x134eb37a8?, 0xd8?, 0x16?, 0x18?)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:462 +0xbc fp=0xc000169c00 sp=0xc000169be0 pc=0x10445aafc
+runtime.chanrecv(0xc0002d8000, 0xc000169d0e, 0x1)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/chan.go:667 +0x410 fp=0xc000169c90 sp=0xc000169c00 pc=0x1043ed310
+runtime.chanrecv1(0x1054aae80?, 0x105472780?)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/chan.go:509 +0x14 fp=0xc000169cc0 sp=0xc000169c90 pc=0x1043ecec4
+testing.(*T).Run(0xc000280908, {0x104eb763c, 0x14}, 0xc000632018)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2109 +0x7dc fp=0xc000169e10 sp=0xc000169cc0 pc=0x10451994c
+github.com/yetone/magpie/internal/fusion/runtime/codex.TestCodexSubscriptionForwarderSingleAttemptAndStaticErrors(0xc000280908)
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/runtime/codex/subscription_forwarder_test.go:164 +0xd0 fp=0xc000169ec0 sp=0xc000169e10 pc=0x104e25f40
+testing.tRunner(0xc000280908, 0x105548db8)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2036 +0x168 fp=0xc000169fa0 sp=0xc000169ec0 pc=0x1045184f8
+testing.(*T).Run.gowrap1()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2101 +0x38 fp=0xc000169fd0 sp=0xc000169fa0 pc=0x104519b28
+runtime.goexit({})
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc000169fd0 sp=0xc000169fd0 pc=0x1044625e4
+created by testing.(*T).Run in goroutine 1
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2101 +0x7c0
+
+goroutine 262 gp=0xc0001050e0 m=nil [sync.WaitGroup.Wait, 2 minutes]:
+runtime.gopark(0x1055f0480?, 0x104463498?, 0xf0?, 0x58?, 0x104464b38?)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:462 +0xbc fp=0xc0002179f0 sp=0xc0002179d0 pc=0x10445aafc
+runtime.goparkunlock(...)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:468
+runtime.semacquire1(0xc001845548, 0x0, 0x1, 0x0, 0x19)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/sema.go:192 +0x244 fp=0xc000217a40 sp=0xc0002179f0 pc=0x104439cd4
+sync.runtime_SemacquireWaitGroup(0x0?, 0x0?)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/sema.go:114 +0x38 fp=0xc000217a80 sp=0xc000217a40 pc=0x10445c3c8
+sync.(*WaitGroup).Wait(0xc001845540)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/sync/waitgroup.go:206 +0xb8 fp=0xc000217ac0 sp=0xc000217a80 pc=0x10446c0f8
+net/http/httptest.(*Server).Close(0xc001845500)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/net/http/httptest/server.go:279 +0x2e0 fp=0xc000217bf0 sp=0xc000217ac0 pc=0x104dd80e0
+net/http/httptest.(*Server).Close-fm()
+	<autogenerated>:1 +0x30 fp=0xc000217c20 sp=0xc000217bf0 pc=0x104e29d40
+testing.(*common).Cleanup.func1()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:1317 +0x128 fp=0xc000217cc0 sp=0xc000217c20 pc=0x104517208
+testing.(*common).runCleanup(0xc000300008, 0x0)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:1667 +0x170 fp=0xc000217e00 sp=0xc000217cc0 pc=0x104517db0
+testing.tRunner.func2()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2030 +0x4c fp=0xc000217e30 sp=0xc000217e00 pc=0x1045185ac
+runtime.deferreturn()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/panic.go:668 +0x60 fp=0xc000217ec0 sp=0xc000217e30 pc=0x10441ff40
+testing.tRunner(0xc000300008, 0xc000632018)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2042 +0x190 fp=0xc000217fa0 sp=0xc000217ec0 pc=0x104518520
+testing.(*T).Run.gowrap1()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2101 +0x38 fp=0xc000217fd0 sp=0xc000217fa0 pc=0x104519b28
+runtime.goexit({})
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc000217fd0 sp=0xc000217fd0 pc=0x1044625e4
+created by testing.(*T).Run in goroutine 202
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2101 +0x7c0
+
+goroutine 263 gp=0xc00020d2c0 m=nil [chan receive, 2 minutes]:
+runtime.gopark(0x0?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/proc.go:462 +0xbc fp=0xc000463860 sp=0xc000463840 pc=0x10445aafc
+runtime.chanrecv(0xc0000278f0, 0x0, 0x1)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/chan.go:667 +0x410 fp=0xc0004638f0 sp=0xc000463860 pc=0x1043ed310
+runtime.chanrecv1(0xc000236cd0?, 0x1055237e0?)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/chan.go:509 +0x14 fp=0xc000463920 sp=0xc0004638f0 pc=0x1043ecec4
+github.com/yetone/magpie/internal/fusion/runtime/codex.TestCodexSubscriptionForwarderSingleAttemptAndStaticErrors.func1.1({0x105553df0, 0xc0001580f0}, 0xc000001900)
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/runtime/codex/subscription_forwarder_test.go:190 +0x53c fp=0xc0004639d0 sp=0xc000463920 pc=0x104e26aec
+net/http.HandlerFunc.ServeHTTP(0xc00068c090, {0x105553df0, 0xc0001580f0}, 0xc000001900)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/net/http/server.go:2286 +0x4c fp=0xc000463a00 sp=0xc0004639d0 pc=0x10477ec3c
+net/http.serverHandler.ServeHTTP({0x1055525c0?}, {0x105553df0, 0xc0001580f0}, 0xc000001900)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/net/http/server.go:3311 +0x26c fp=0xc000463a60 sp=0xc000463a00 pc=0x1047a648c
+net/http.(*conn).serve(0xc0005ee240, {0x105554750, 0xc00028c0c0})
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/net/http/server.go:2073 +0x9b8 fp=0xc000463f90 sp=0xc000463a60 pc=0x10477c9c8
+net/http.(*Server).Serve.gowrap3()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/net/http/server.go:3464 +0x44 fp=0xc000463fd0 sp=0xc000463f90 pc=0x1047821c4
+runtime.goexit({})
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc000463fd0 sp=0xc000463fd0 pc=0x1044625e4
+created by net/http.(*Server).Serve in goroutine 252
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/net/http/server.go:3464 +0x5ec
+
+r0      0x104
+r1      0x0
+r2      0x1aa00
+r3      0x0
+r4      0x0
+r5      0xa0
+r6      0x0
+r7      0x0
+r8      0x16ba6ab48
+r9      0x0
+r10     0x100
+r11     0x10000000102
+r12     0x10000000102
+r13     0x100
+r14     0x0
+r15     0x10000000100
+r16     0x131
+r17     0x1f891b4d0
+r18     0x0
+r19     0x1055e3288
+r20     0x1055e32c8
+r21     0x1f6ce0060
+r22     0x0
+r23     0x0
+r24     0x1aa00
+r25     0x1ab00
+r26     0x1aa01
+r27     0x1055ca000
+r28     0x1055e1b20
+r29     0x16ba6abc0
+lr      0x1911b61d0
+sp      0x16ba6ab30
+pc      0x19117450c
+fault   0x19117450c
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/codex	151.112s

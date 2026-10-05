@@ -1,0 +1,16 @@
+=== RUN   TestCodexSubscriptionForwarderSingleAttemptAndStaticErrors
+=== RUN   TestCodexSubscriptionForwarderSingleAttemptAndStaticErrors/redirect-303
+    subscription_forwarder_test.go:47: subscription destination changed
+    subscription_forwarder_test.go:47: subscription destination changed
+    subscription_forwarder_test.go:47: subscription destination changed
+    subscription_forwarder_test.go:47: subscription destination changed
+    subscription_forwarder_test.go:47: subscription destination changed
+    subscription_forwarder_test.go:47: subscription destination changed
+    subscription_forwarder_test.go:47: subscription destination changed
+    subscription_forwarder_test.go:47: subscription destination changed
+    subscription_forwarder_test.go:47: subscription destination changed
+    subscription_forwarder_test.go:222: hidden retry/fallback
+--- FAIL: TestCodexSubscriptionForwarderSingleAttemptAndStaticErrors/redirect-303 (0.13s)
+--- FAIL: TestCodexSubscriptionForwarderSingleAttemptAndStaticErrors (0.13s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/codex	0.674s

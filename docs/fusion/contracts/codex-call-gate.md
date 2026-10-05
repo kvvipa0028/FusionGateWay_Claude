@@ -20,7 +20,7 @@ Current 必须核对全部冻结 Binding、当前登记凭据、来源工作区�
 
 `client_metadata` 只接受固定 Native 实测的七个观测键：root_turn_id、session_id、thread_id、turn_id、x-codex-installation-id、x-codex-turn-metadata、x-codex-window-id。每项必须是非空字符串，最多4096字节；未知账号键、null、类型错误、重复/case aliases 及凭据反射拒绝。观测字段不参与账号、路由、权限或预算授权。
 
-可信 NativeForwarder 只接收冻结 target 与请求正文副本，执行一次 context-bound 发送，独立核对订阅端点、账号、凭据身份与计费归属。ReportedModel 必须来自真实上游响应，不能从请求填造；上游 JSON 中若另有 model，同样必须匹配。真实凭据反射标记仅在可信进程内参与检查。包内没有实际订阅 Transport，生产 Factory 和 Native 私有配置的完整接线待实现。
+可信 NativeForwarder 只接收冻结 target 与请求正文副本，执行一次 context-bound 发送，独立核对订阅端点、账号、凭据身份与计费归属。ReportedModel 必须来自真实上游响应，不能从请求填造；上游 JSON 中若另有 model，同样必须匹配。真实凭据反射标记仅在可信进程内参与检查，单项上限 16 KiB 与 FileCredential token 一致。[订阅 Forwarder](codex-subscription-forwarder.md) 已实现固定端点、私有缓存、显式系统 CA 和单次 HTTPS；从 HTTP OpenAI-Model 或 SSE response.headers 取得实际模型，普通 response.model 不补造该证明。生产 Factory、真实身份/计费/额度与完整 Native 工程接线仍待实现。
 
 200 响应只接受无压缩 SSE、正确 ReportedModel。最多8MiB/4096帧/每帧1MiB，完整 UTF-8、JSON keys、事件名、响应 ID、输出项身份/类型、文字 delta/final 一致、completed output 与已完成输出一致、usage 数值均校验后才释放原文。拒绝未知事件、工具、summary、failed/incomplete、缺终态、未完成输出项、负数/矛盾 usage、模型漂移及 raw/JSON-decoded 凭据反射。拒绝时没有部分 SSE；没有上游 header/cookie/error 透传。429 只返回本地静态错误，后续实际发送仍逐次消费预算。固定0.160.0的 HTTP retry_429=false，不能声称它自动重试429；503等非本版支持的响应将 Gate 标为 uncertain。Native 后续重试只收到拒绝，不产生额外上游发送。
 

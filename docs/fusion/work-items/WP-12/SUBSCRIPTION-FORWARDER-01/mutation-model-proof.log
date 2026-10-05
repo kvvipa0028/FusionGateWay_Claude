@@ -1,0 +1,7 @@
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/missing-proof
+    subscription_forwarder_test.go:156: unproven/private response accepted
+--- FAIL: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/missing-proof (0.08s)
+--- FAIL: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel (0.08s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/codex	0.750s

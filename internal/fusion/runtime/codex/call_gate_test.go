@@ -608,6 +608,40 @@ func TestCodexForwardResponseCannotSerializePrivatePayload(t *testing.T) {
 		t.Fatal("private payload escaped DTO/format")
 	}
 }
+
+func TestCodexCallGateLongCredentialMarkersRemainPrivate(t *testing.T) {
+	for _, mode := range []string{"valid-long-token", "raw-reflection", "escaped-reflection", "beyond-token-limit"} {
+		t.Run(mode, func(t *testing.T) {
+			f := newGateFixture(t)
+			secret := "private-fixture-token-" + strings.Repeat("x", 8000)
+			if mode == "beyond-token-limit" {
+				secret = strings.Repeat("x", (16<<10)+1)
+			}
+			f.config.Forwarder = gateForward(func(context.Context, stageplan.ExecutionTarget, []byte) (ForwardResponse, error) {
+				body := gateSSE()
+				if mode == "raw-reflection" || mode == "escaped-reflection" {
+					text := secret
+					if mode == "escaped-reflection" {
+						text = `\u0070` + secret[1:]
+					}
+					body = strings.ReplaceAll(body, `"text":"fixture"`, `"text":"`+text+`"`)
+				}
+				r := gateResponse(body)
+				r.PrivateMarkers = [][]byte{[]byte(secret)}
+				return r, nil
+			})
+			g := newGate(t, f)
+			w := send(g, f, gateBody, "/responses")
+			if mode == "valid-long-token" {
+				if w.Code != 200 || !gateHealthy(g, f) {
+					t.Fatal("bounded opaque OAuth token rejected")
+				}
+			} else if w.Code != 502 || !g.Audit().Uncertain || strings.Contains(w.Body.String(), secret) {
+				t.Fatal("long credential reflection escaped")
+			}
+		})
+	}
+}
 func TestCodexCallGateRejectsTextDeltaAttachedToReasoning(t *testing.T) {
 	f := newGateFixture(t)
 	body := reasoningStream()

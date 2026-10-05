@@ -60,3 +60,7 @@ T01/T02/T14/T15/T25/T31/T32/T35/T44/T53/T59 的最终端到端状态继续为 `n
 ## 私有官方登录缓存服务
 
 [PRIVATE-CREDENTIAL-01](PRIVATE-CREDENTIAL-01/summary.md) 新增 `codex.FileCredential`：从 Git 外私有官方 auth.json 读取不透明 OAuth token，冻结路线/账号/workspace/credential identity、文件与目录身份，拒绝替换、模式混用、权限漂移及解析歧义。官方设备登录写入逻辑已核对；缺失账号不能从 JWT 补出或推定权益。6 个目标测试/75 子场景、受影响四模块 race 与 Go1.26.3 CLI/GUI/vet 通过，三项有效 mutation 均被断言捕获。合同见 [Codex 私有凭据](../../contracts/codex-private-credential.md)。本人真实登录缓存仍未产生，生产 Forwarder、可信账号/费用/额度、Factory 注册与完整父包/最终 Gate 尚未完成。
+
+## 固定订阅 Forwarder 与实际模型来源
+
+[SUBSCRIPTION-FORWARDER-01](SUBSCRIPTION-FORWARDER-01/summary.md) 已实现固定 ChatGPT 订阅端点的单次 HTTPS、FileCredential、受检系统 CA、无代理/redirect/retry/API fallback、有界取消及完整 SSE 后交付。官方实际模型来源为 HTTP OpenAI-Model 或 SSE response.headers，普通 response.model 不能作为证明；新增支持保留全部状态、模型漂移及秘密反射拒绝。TLS/Gate 合成回归、四种 mutation 和固定 Native 消费模型 header 的10场景实际停止均通过。合同见 [订阅 Forwarder](../../contracts/codex-subscription-forwarder.md)。真实账号登录、地区/费用/额度、Factory 注册、续期和完整工具/写入/恢复仍待完成；本组件不能升级路线准入、父包或最终验收。

@@ -32,7 +32,7 @@
 
 服务不刷新、不覆盖、不 logout，也不修改原缓存。凭据更新后，原服务停止接受它，需可信管理层重新核验账号、重新登记 credential identity 和对应配置/任务版本；不能让已冻结的任务静默使用新凭据。生产续期流程仍待实现，不能以重建本对象代替续期授权。
 
-后续 Forwarder 必须继续遵守[逐次 HTTP 控制](codex-call-gate.md)、冻结目标、独立权益/费用/额度证据和当前 grant。读取成功、JWT 声明或本地摘要都不能设置 Registry/Inspection 准入。当前没有真实缓存加载、模型调用、上游实际模型或完整工程 Smoke 证据。
+[订阅 Forwarder](codex-subscription-forwarder.md) 已提供单次固定 HTTPS 与实际模型 header 证明组件，仍必须遵守[逐次 HTTP 控制](codex-call-gate.md)、冻结目标、独立权益/费用/额度证据和当前 grant。读取成功、JWT 声明或本地摘要都不能设置 Registry/Inspection 准入。当前没有真实缓存加载、供应商模型调用、上游实际模型或完整工程 Smoke 证据。
 
 ## 验证与复现
 

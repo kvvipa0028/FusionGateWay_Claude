@@ -1,0 +1,7 @@
+=== RUN   TestCodexCallGateLongCredentialMarkersRemainPrivate
+=== RUN   TestCodexCallGateLongCredentialMarkersRemainPrivate/valid-long-token
+    call_gate_test.go:637: bounded opaque OAuth token rejected
+--- FAIL: TestCodexCallGateLongCredentialMarkersRemainPrivate/valid-long-token (0.00s)
+--- FAIL: TestCodexCallGateLongCredentialMarkersRemainPrivate (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/codex	0.475s

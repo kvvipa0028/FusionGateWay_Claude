@@ -1,0 +1,113 @@
+=== RUN   TestCodexCallGateLongCredentialMarkersRemainPrivate
+=== RUN   TestCodexCallGateLongCredentialMarkersRemainPrivate/valid-long-token
+--- PASS: TestCodexCallGateLongCredentialMarkersRemainPrivate/valid-long-token (0.00s)
+=== RUN   TestCodexCallGateLongCredentialMarkersRemainPrivate/raw-reflection
+--- PASS: TestCodexCallGateLongCredentialMarkersRemainPrivate/raw-reflection (0.00s)
+=== RUN   TestCodexCallGateLongCredentialMarkersRemainPrivate/escaped-reflection
+--- PASS: TestCodexCallGateLongCredentialMarkersRemainPrivate/escaped-reflection (0.00s)
+=== RUN   TestCodexCallGateLongCredentialMarkersRemainPrivate/beyond-token-limit
+--- PASS: TestCodexCallGateLongCredentialMarkersRemainPrivate/beyond-token-limit (0.00s)
+--- PASS: TestCodexCallGateLongCredentialMarkersRemainPrivate (0.01s)
+=== RUN   TestCodexSubscriptionForwarderActualTLSHeadersAndModelProof
+=== RUN   TestCodexSubscriptionForwarderActualTLSHeadersAndModelProof/http
+--- PASS: TestCodexSubscriptionForwarderActualTLSHeadersAndModelProof/http (0.09s)
+=== RUN   TestCodexSubscriptionForwarderActualTLSHeadersAndModelProof/sse
+--- PASS: TestCodexSubscriptionForwarderActualTLSHeadersAndModelProof/sse (0.08s)
+=== RUN   TestCodexSubscriptionForwarderActualTLSHeadersAndModelProof/sse-lowercase
+--- PASS: TestCodexSubscriptionForwarderActualTLSHeadersAndModelProof/sse-lowercase (0.08s)
+=== RUN   TestCodexSubscriptionForwarderActualTLSHeadersAndModelProof/sse-x-alias
+--- PASS: TestCodexSubscriptionForwarderActualTLSHeadersAndModelProof/sse-x-alias (0.09s)
+=== RUN   TestCodexSubscriptionForwarderActualTLSHeadersAndModelProof/both
+--- PASS: TestCodexSubscriptionForwarderActualTLSHeadersAndModelProof/both (0.08s)
+--- PASS: TestCodexSubscriptionForwarderActualTLSHeadersAndModelProof (0.43s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/missing-proof
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/missing-proof (0.08s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/http-drift
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/http-drift (0.08s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/http-duplicate
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/http-duplicate (0.06s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/sse-drift
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/sse-drift (0.08s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/conflict
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/conflict (0.08s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/late-drift
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/late-drift (0.08s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/header-type
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/header-type (0.08s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/header-duplicate
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/header-duplicate (0.12s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/header-alias-conflict
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/header-alias-conflict (0.08s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/unknown-header
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/unknown-header (0.08s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/null-header
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/null-header (0.08s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/ordinary-model-drift
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/ordinary-model-drift (0.08s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/incomplete
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/incomplete (0.09s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/gzip
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/gzip (0.07s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/wrong-media
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/wrong-media (0.07s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/oversize
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/oversize (0.11s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/reflect-access
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/reflect-access (0.08s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/reflect-id
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/reflect-id (0.08s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/reflect-refresh
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/reflect-refresh (0.08s)
+=== RUN   TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/escaped-reflection
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel/escaped-reflection (0.09s)
+--- PASS: TestCodexSubscriptionForwarderRejectsUnprovenOrDriftedModel (1.63s)
+=== RUN   TestCodexSubscriptionForwarderSingleAttemptAndStaticErrors
+=== RUN   TestCodexSubscriptionForwarderSingleAttemptAndStaticErrors/redirect-307
+--- PASS: TestCodexSubscriptionForwarderSingleAttemptAndStaticErrors/redirect-307 (0.06s)
+=== RUN   TestCodexSubscriptionForwarderSingleAttemptAndStaticErrors/redirect-303
+--- PASS: TestCodexSubscriptionForwarderSingleAttemptAndStaticErrors/redirect-303 (0.06s)
+=== RUN   TestCodexSubscriptionForwarderSingleAttemptAndStaticErrors/rate-limit
+--- PASS: TestCodexSubscriptionForwarderSingleAttemptAndStaticErrors/rate-limit (0.08s)
+=== RUN   TestCodexSubscriptionForwarderSingleAttemptAndStaticErrors/unauthorized
+--- PASS: TestCodexSubscriptionForwarderSingleAttemptAndStaticErrors/unauthorized (0.06s)
+=== RUN   TestCodexSubscriptionForwarderSingleAttemptAndStaticErrors/closed-connection
+--- PASS: TestCodexSubscriptionForwarderSingleAttemptAndStaticErrors/closed-connection (0.05s)
+=== RUN   TestCodexSubscriptionForwarderSingleAttemptAndStaticErrors/cancel-after-headers
+--- PASS: TestCodexSubscriptionForwarderSingleAttemptAndStaticErrors/cancel-after-headers (0.27s)
+--- PASS: TestCodexSubscriptionForwarderSingleAttemptAndStaticErrors (0.58s)
+=== RUN   TestCodexSubscriptionForwarderRejectsBeforeDialAndAfterRotation
+=== RUN   TestCodexSubscriptionForwarderRejectsBeforeDialAndAfterRotation/account
+--- PASS: TestCodexSubscriptionForwarderRejectsBeforeDialAndAfterRotation/account (0.01s)
+=== RUN   TestCodexSubscriptionForwarderRejectsBeforeDialAndAfterRotation/billing
+--- PASS: TestCodexSubscriptionForwarderRejectsBeforeDialAndAfterRotation/billing (0.01s)
+=== RUN   TestCodexSubscriptionForwarderRejectsBeforeDialAndAfterRotation/runtime
+--- PASS: TestCodexSubscriptionForwarderRejectsBeforeDialAndAfterRotation/runtime (0.01s)
+=== RUN   TestCodexSubscriptionForwarderRejectsBeforeDialAndAfterRotation/model
+--- PASS: TestCodexSubscriptionForwarderRejectsBeforeDialAndAfterRotation/model (0.03s)
+=== RUN   TestCodexSubscriptionForwarderRejectsBeforeDialAndAfterRotation/effort
+--- PASS: TestCodexSubscriptionForwarderRejectsBeforeDialAndAfterRotation/effort (0.03s)
+=== RUN   TestCodexSubscriptionForwarderRejectsBeforeDialAndAfterRotation/tools
+--- PASS: TestCodexSubscriptionForwarderRejectsBeforeDialAndAfterRotation/tools (0.03s)
+=== RUN   TestCodexSubscriptionForwarderRejectsBeforeDialAndAfterRotation/cancel
+--- PASS: TestCodexSubscriptionForwarderRejectsBeforeDialAndAfterRotation/cancel (0.02s)
+=== RUN   TestCodexSubscriptionForwarderRejectsBeforeDialAndAfterRotation/nil-context
+--- PASS: TestCodexSubscriptionForwarderRejectsBeforeDialAndAfterRotation/nil-context (0.01s)
+=== RUN   TestCodexSubscriptionForwarderRejectsBeforeDialAndAfterRotation/rotate-before
+--- PASS: TestCodexSubscriptionForwarderRejectsBeforeDialAndAfterRotation/rotate-before (0.01s)
+=== RUN   TestCodexSubscriptionForwarderRejectsBeforeDialAndAfterRotation/rotate-during
+--- PASS: TestCodexSubscriptionForwarderRejectsBeforeDialAndAfterRotation/rotate-during (0.05s)
+=== RUN   TestCodexSubscriptionForwarderRejectsBeforeDialAndAfterRotation/rotate-delivery
+--- PASS: TestCodexSubscriptionForwarderRejectsBeforeDialAndAfterRotation/rotate-delivery (0.08s)
+=== RUN   TestCodexSubscriptionForwarderRejectsBeforeDialAndAfterRotation/request-secret
+--- PASS: TestCodexSubscriptionForwarderRejectsBeforeDialAndAfterRotation/request-secret (0.03s)
+=== RUN   TestCodexSubscriptionForwarderRejectsBeforeDialAndAfterRotation/cache-key-control
+--- PASS: TestCodexSubscriptionForwarderRejectsBeforeDialAndAfterRotation/cache-key-control (0.03s)
+--- PASS: TestCodexSubscriptionForwarderRejectsBeforeDialAndAfterRotation (0.37s)
+=== RUN   TestCodexSubscriptionForwarderForeignTLSIsRejected
+2026/10/05 22:39:18 http: TLS handshake error from 127.0.0.1:61636: remote error: tls: bad certificate
+--- PASS: TestCodexSubscriptionForwarderForeignTLSIsRejected (0.05s)
+=== RUN   TestCodexSubscriptionForwarderGateSpendsEachActualAttempt
+--- PASS: TestCodexSubscriptionForwarderGateSpendsEachActualAttempt (0.13s)
+=== RUN   TestCodexSubscriptionForwarderIgnoresEnvironmentCAAndProxy
+--- PASS: TestCodexSubscriptionForwarderIgnoresEnvironmentCAAndProxy (0.09s)

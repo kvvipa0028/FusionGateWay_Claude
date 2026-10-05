@@ -1,0 +1,42 @@
+{
+  "codex_version": "0.160.0",
+  "public_sources": {
+    "codex-rs/model-provider-info/src/lib.rs": {
+      "url": "https://raw.githubusercontent.com/openai/codex/rust-v0.160.0/codex-rs/model-provider-info/src/lib.rs",
+      "sha256": "941a8ec0e8be4b45080cac3df3d052999a4cb104811575634b1a9ed510690958",
+      "bytes": 31061
+    },
+    "codex-rs/model-provider/src/bearer_auth_provider.rs": {
+      "url": "https://raw.githubusercontent.com/openai/codex/rust-v0.160.0/codex-rs/model-provider/src/bearer_auth_provider.rs",
+      "sha256": "8db9f8a849d0fee2c6c349af69f2335ef403b65a54a4e216eb9f5ea284aa4949",
+      "bytes": 3212
+    },
+    "codex-rs/model-provider/src/provider.rs": {
+      "url": "https://raw.githubusercontent.com/openai/codex/rust-v0.160.0/codex-rs/model-provider/src/provider.rs",
+      "sha256": "adabad97f59dbc593431a9c47911e74d1fd9d48648b874026a23db86b32ec5a1",
+      "bytes": 55121
+    },
+    "codex-rs/codex-api/src/auth.rs": {
+      "url": "https://raw.githubusercontent.com/openai/codex/rust-v0.160.0/codex-rs/codex-api/src/auth.rs",
+      "sha256": "261a57b4b00489057372e99704bd7e0f6d4a6532e3407343d29cb980ce0d6b05",
+      "bytes": 3672
+    },
+    "codex-rs/codex-api/src/endpoint/responses.rs": {
+      "url": "https://raw.githubusercontent.com/openai/codex/rust-v0.160.0/codex-rs/codex-api/src/endpoint/responses.rs",
+      "sha256": "4f2fff3da4ca3ca9fcfa40ada8e98a0229af296094e03febb4d823f32ef932c8",
+      "bytes": 4961
+    },
+    "codex-rs/codex-api/src/sse/responses.rs": {
+      "url": "https://raw.githubusercontent.com/openai/codex/rust-v0.160.0/codex-rs/codex-api/src/sse/responses.rs",
+      "sha256": "327127fb7e6886b0ffe73c74c753cc44b2c09e72c090600a861756334397cd2b",
+      "bytes": 69865
+    },
+    "codex-rs/login/src/auth/default_client.rs": {
+      "url": "https://raw.githubusercontent.com/openai/codex/rust-v0.160.0/codex-rs/login/src/auth/default_client.rs",
+      "sha256": "174e02e439013bf75cccdcfd36b9c23e31d9ee84835a0cc0b1f9d7a33391a064",
+      "bytes": 17919
+    }
+  },
+  "model_evidence": "HTTP OpenAI-Model or SSE response.headers; never ordinary response.model/request",
+  "real_auth_cache_read": false
+}
