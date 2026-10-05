@@ -1,0 +1,164 @@
+=== RUN   TestCodexPrivateCredentialExactBindingAndRedaction
+=== RUN   TestCodexPrivateCredentialExactBindingAndRedaction/account
+--- PASS: TestCodexPrivateCredentialExactBindingAndRedaction/account (0.00s)
+=== RUN   TestCodexPrivateCredentialExactBindingAndRedaction/workspace
+--- PASS: TestCodexPrivateCredentialExactBindingAndRedaction/workspace (0.00s)
+=== RUN   TestCodexPrivateCredentialExactBindingAndRedaction/identity
+--- PASS: TestCodexPrivateCredentialExactBindingAndRedaction/identity (0.00s)
+=== RUN   TestCodexPrivateCredentialExactBindingAndRedaction/route
+--- PASS: TestCodexPrivateCredentialExactBindingAndRedaction/route (0.00s)
+=== RUN   TestCodexPrivateCredentialExactBindingAndRedaction/revision
+--- PASS: TestCodexPrivateCredentialExactBindingAndRedaction/revision (0.00s)
+=== RUN   TestCodexPrivateCredentialExactBindingAndRedaction/billing
+--- PASS: TestCodexPrivateCredentialExactBindingAndRedaction/billing (0.00s)
+=== RUN   TestCodexPrivateCredentialExactBindingAndRedaction/runtime
+--- PASS: TestCodexPrivateCredentialExactBindingAndRedaction/runtime (0.00s)
+=== RUN   TestCodexPrivateCredentialExactBindingAndRedaction/plugin
+--- PASS: TestCodexPrivateCredentialExactBindingAndRedaction/plugin (0.00s)
+=== RUN   TestCodexPrivateCredentialExactBindingAndRedaction/cancel
+--- PASS: TestCodexPrivateCredentialExactBindingAndRedaction/cancel (0.00s)
+=== RUN   TestCodexPrivateCredentialExactBindingAndRedaction/nil-context
+--- PASS: TestCodexPrivateCredentialExactBindingAndRedaction/nil-context (0.00s)
+--- PASS: TestCodexPrivateCredentialExactBindingAndRedaction (0.00s)
+=== RUN   TestCodexPrivateCredentialOfficialDeviceCache
+=== RUN   TestCodexPrivateCredentialOfficialDeviceCache/pretty-device-cache
+--- PASS: TestCodexPrivateCredentialOfficialDeviceCache/pretty-device-cache (0.00s)
+=== RUN   TestCodexPrivateCredentialOfficialDeviceCache/nullable-alternatives
+--- PASS: TestCodexPrivateCredentialOfficialDeviceCache/nullable-alternatives (0.00s)
+=== RUN   TestCodexPrivateCredentialOfficialDeviceCache/missing-refresh-time
+--- PASS: TestCodexPrivateCredentialOfficialDeviceCache/missing-refresh-time (0.00s)
+--- PASS: TestCodexPrivateCredentialOfficialDeviceCache (0.01s)
+=== RUN   TestCodexPrivateCredentialIncompleteCacheCannotProveBinding
+=== RUN   TestCodexPrivateCredentialIncompleteCacheCannotProveBinding/null-mode
+--- PASS: TestCodexPrivateCredentialIncompleteCacheCannotProveBinding/null-mode (0.00s)
+=== RUN   TestCodexPrivateCredentialIncompleteCacheCannotProveBinding/mode-type
+--- PASS: TestCodexPrivateCredentialIncompleteCacheCannotProveBinding/mode-type (0.00s)
+=== RUN   TestCodexPrivateCredentialIncompleteCacheCannotProveBinding/null-account
+--- PASS: TestCodexPrivateCredentialIncompleteCacheCannotProveBinding/null-account (0.00s)
+=== RUN   TestCodexPrivateCredentialIncompleteCacheCannotProveBinding/missing-account
+--- PASS: TestCodexPrivateCredentialIncompleteCacheCannotProveBinding/missing-account (0.00s)
+=== RUN   TestCodexPrivateCredentialIncompleteCacheCannotProveBinding/account-type
+--- PASS: TestCodexPrivateCredentialIncompleteCacheCannotProveBinding/account-type (0.00s)
+=== RUN   TestCodexPrivateCredentialIncompleteCacheCannotProveBinding/null-tokens
+--- PASS: TestCodexPrivateCredentialIncompleteCacheCannotProveBinding/null-tokens (0.00s)
+=== RUN   TestCodexPrivateCredentialIncompleteCacheCannotProveBinding/token-type
+--- PASS: TestCodexPrivateCredentialIncompleteCacheCannotProveBinding/token-type (0.00s)
+=== RUN   TestCodexPrivateCredentialIncompleteCacheCannotProveBinding/null-refresh
+--- PASS: TestCodexPrivateCredentialIncompleteCacheCannotProveBinding/null-refresh (0.00s)
+=== RUN   TestCodexPrivateCredentialIncompleteCacheCannotProveBinding/token-control
+--- PASS: TestCodexPrivateCredentialIncompleteCacheCannotProveBinding/token-control (0.00s)
+=== RUN   TestCodexPrivateCredentialIncompleteCacheCannotProveBinding/token-oversize
+--- PASS: TestCodexPrivateCredentialIncompleteCacheCannotProveBinding/token-oversize (0.01s)
+=== RUN   TestCodexPrivateCredentialIncompleteCacheCannotProveBinding/timestamp-type
+--- PASS: TestCodexPrivateCredentialIncompleteCacheCannotProveBinding/timestamp-type (0.00s)
+=== RUN   TestCodexPrivateCredentialIncompleteCacheCannotProveBinding/timestamp-invalid
+--- PASS: TestCodexPrivateCredentialIncompleteCacheCannotProveBinding/timestamp-invalid (0.00s)
+=== RUN   TestCodexPrivateCredentialIncompleteCacheCannotProveBinding/bedrock-access
+--- PASS: TestCodexPrivateCredentialIncompleteCacheCannotProveBinding/bedrock-access (0.00s)
+=== RUN   TestCodexPrivateCredentialIncompleteCacheCannotProveBinding/top-alias
+--- PASS: TestCodexPrivateCredentialIncompleteCacheCannotProveBinding/top-alias (0.00s)
+=== RUN   TestCodexPrivateCredentialIncompleteCacheCannotProveBinding/token-case-duplicate
+--- PASS: TestCodexPrivateCredentialIncompleteCacheCannotProveBinding/token-case-duplicate (0.00s)
+--- PASS: TestCodexPrivateCredentialIncompleteCacheCannotProveBinding (0.03s)
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/apikey
+--- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/apikey (0.00s)
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/headers
+--- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/headers (0.00s)
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/chatgptAuthTokens
+--- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/chatgptAuthTokens (0.00s)
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/agentIdentity
+--- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/agentIdentity (0.00s)
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/personalAccessToken
+--- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/personalAccessToken (0.00s)
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/bedrockApiKey
+--- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/bedrockApiKey (0.00s)
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/bedrockAccessKeys
+--- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/bedrockAccessKeys (0.00s)
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/absent-mode
+--- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/absent-mode (0.00s)
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/api-key
+--- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/api-key (0.00s)
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/pat
+--- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/pat (0.00s)
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/agent
+--- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/agent (0.00s)
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/bedrock
+--- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/bedrock (0.00s)
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/account
+--- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/account (0.00s)
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/empty-token
+--- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/empty-token (0.00s)
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/token-space
+--- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/token-space (0.00s)
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/alias
+--- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/alias (0.00s)
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/duplicate
+--- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/duplicate (0.00s)
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/token-duplicate
+--- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/token-duplicate (0.00s)
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/unknown
+--- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/unknown (0.00s)
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/trailing
+--- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/trailing (0.00s)
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/null
+--- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/null (0.00s)
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/invalid-utf8
+--- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/invalid-utf8 (0.00s)
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/oversize
+--- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/oversize (0.00s)
+--- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON (0.03s)
+=== RUN   TestCodexPrivateCredentialRejectsFileAndDirectoryDrift
+=== RUN   TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/content
+--- PASS: TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/content (0.00s)
+=== RUN   TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/identical-inode-replacement
+--- PASS: TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/identical-inode-replacement (0.00s)
+=== RUN   TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/file-mode
+--- PASS: TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/file-mode (0.00s)
+=== RUN   TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/executable-cache
+--- PASS: TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/executable-cache (0.00s)
+=== RUN   TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/hardlink
+--- PASS: TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/hardlink (0.00s)
+=== RUN   TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/symlink
+--- PASS: TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/symlink (0.00s)
+=== RUN   TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/parent-replacement
+--- PASS: TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/parent-replacement (0.00s)
+=== RUN   TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/parent-mode
+--- PASS: TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/parent-mode (0.00s)
+=== RUN   TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/git-parent
+--- PASS: TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/git-parent (0.00s)
+=== RUN   TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/missing
+--- PASS: TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/missing (0.00s)
+--- PASS: TestCodexPrivateCredentialRejectsFileAndDirectoryDrift (0.01s)
+=== RUN   TestCodexPrivateCredentialRefusesUnsafeInitialSources
+=== RUN   TestCodexPrivateCredentialRefusesUnsafeInitialSources/relative
+--- PASS: TestCodexPrivateCredentialRefusesUnsafeInitialSources/relative (0.00s)
+=== RUN   TestCodexPrivateCredentialRefusesUnsafeInitialSources/wrong-name
+--- PASS: TestCodexPrivateCredentialRefusesUnsafeInitialSources/wrong-name (0.00s)
+=== RUN   TestCodexPrivateCredentialRefusesUnsafeInitialSources/daily-home
+--- PASS: TestCodexPrivateCredentialRefusesUnsafeInitialSources/daily-home (0.00s)
+=== RUN   TestCodexPrivateCredentialRefusesUnsafeInitialSources/file-mode
+--- PASS: TestCodexPrivateCredentialRefusesUnsafeInitialSources/file-mode (0.00s)
+=== RUN   TestCodexPrivateCredentialRefusesUnsafeInitialSources/executable-cache
+--- PASS: TestCodexPrivateCredentialRefusesUnsafeInitialSources/executable-cache (0.00s)
+=== RUN   TestCodexPrivateCredentialRefusesUnsafeInitialSources/parent-mode
+--- PASS: TestCodexPrivateCredentialRefusesUnsafeInitialSources/parent-mode (0.00s)
+=== RUN   TestCodexPrivateCredentialRefusesUnsafeInitialSources/hardlink
+--- PASS: TestCodexPrivateCredentialRefusesUnsafeInitialSources/hardlink (0.00s)
+=== RUN   TestCodexPrivateCredentialRefusesUnsafeInitialSources/symlink
+--- PASS: TestCodexPrivateCredentialRefusesUnsafeInitialSources/symlink (0.00s)
+=== RUN   TestCodexPrivateCredentialRefusesUnsafeInitialSources/fifo
+--- PASS: TestCodexPrivateCredentialRefusesUnsafeInitialSources/fifo (0.00s)
+=== RUN   TestCodexPrivateCredentialRefusesUnsafeInitialSources/git-ancestor
+--- PASS: TestCodexPrivateCredentialRefusesUnsafeInitialSources/git-ancestor (0.00s)
+=== RUN   TestCodexPrivateCredentialRefusesUnsafeInitialSources/route
+--- PASS: TestCodexPrivateCredentialRefusesUnsafeInitialSources/route (0.00s)
+=== RUN   TestCodexPrivateCredentialRefusesUnsafeInitialSources/revision
+--- PASS: TestCodexPrivateCredentialRefusesUnsafeInitialSources/revision (0.00s)
+=== RUN   TestCodexPrivateCredentialRefusesUnsafeInitialSources/identity
+--- PASS: TestCodexPrivateCredentialRefusesUnsafeInitialSources/identity (0.00s)
+=== RUN   TestCodexPrivateCredentialRefusesUnsafeInitialSources/empty
+--- PASS: TestCodexPrivateCredentialRefusesUnsafeInitialSources/empty (0.00s)
+--- PASS: TestCodexPrivateCredentialRefusesUnsafeInitialSources (0.01s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime/codex	1.559s

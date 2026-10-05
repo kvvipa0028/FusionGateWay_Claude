@@ -27,6 +27,8 @@
 
 `credential_file_present=true` 仅说明本人独立目录出现符合权限要求的缓存。工具不解析 token/JWT，不从缓存推断账号、workspace、权益、费用、额度或模型能力；验证标志保持 false。`official_login_process_succeeded=true` 需要官方进程 exit 0、文件/配置身份未变且私有缓存存在。下一步还需受控身份核验与生产服务接线，不能用此输出设置 Registry/Inspection true。
 
+Codex 后续读取已有[私有凭据服务](../contracts/codex-private-credential.md)：要求明确缓存账号与独立登记一致，不从 JWT 补账号或推定权益；缓存变更拒绝静默跟随。该服务未接生产 Forwarder/Factory，不能将本登录工具的文件存在结果作为生成授权。
+
 ## 隔离与执行合同
 
 - 使用 UID 数据库中的本机 HOME 定位固定 Runtime 和 `.local/share/fusion-gateway/auth/{codex,grok}`，不信任环境 HOME。认证位于 Git 外部，每路线独立；新建目录 0700、配置 0600，不复制日常认证。

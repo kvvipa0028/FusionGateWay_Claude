@@ -1,0 +1,7 @@
+=== RUN   TestCodexPrivateCredentialRejectsFileAndDirectoryDrift
+=== RUN   TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/content
+    file_credential_test.go:287: changed credential source accepted
+--- FAIL: TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/content (0.00s)
+--- FAIL: TestCodexPrivateCredentialRejectsFileAndDirectoryDrift (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/codex	0.437s

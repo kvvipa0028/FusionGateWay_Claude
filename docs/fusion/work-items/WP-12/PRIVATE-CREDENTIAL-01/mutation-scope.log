@@ -1,0 +1,7 @@
+=== RUN   TestCodexPrivateCredentialExactBindingAndRedaction
+=== RUN   TestCodexPrivateCredentialExactBindingAndRedaction/workspace
+    file_credential_test.go:97: wrong frozen scope accepted
+--- FAIL: TestCodexPrivateCredentialExactBindingAndRedaction/workspace (0.00s)
+--- FAIL: TestCodexPrivateCredentialExactBindingAndRedaction (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/codex	0.424s

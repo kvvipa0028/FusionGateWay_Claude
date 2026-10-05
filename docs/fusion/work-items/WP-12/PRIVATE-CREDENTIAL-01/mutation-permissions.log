@@ -1,0 +1,7 @@
+=== RUN   TestCodexPrivateCredentialRefusesUnsafeInitialSources
+=== RUN   TestCodexPrivateCredentialRefusesUnsafeInitialSources/executable-cache
+    file_credential_test.go:338: unsafe credential source accepted
+--- FAIL: TestCodexPrivateCredentialRefusesUnsafeInitialSources/executable-cache (0.00s)
+--- FAIL: TestCodexPrivateCredentialRefusesUnsafeInitialSources (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/codex	0.435s

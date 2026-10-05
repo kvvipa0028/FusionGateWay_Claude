@@ -1,0 +1,180 @@
+{
+  "go_version": "1.26.3",
+  "platform": "darwin/arm64",
+  "credential_environment": "allowlist and temporary HOME/XDG; synthetic caches only",
+  "production_sources_unchanged_by_mutations": true,
+  "reports": [
+    {
+      "label": "permissions-red",
+      "exit_code": 1,
+      "counts": {
+        "subtest_pass": 73,
+        "top_pass": 4,
+        "subtest_fail": 2,
+        "top_fail": 2,
+        "package_fail": 1
+      },
+      "raw_log_sha256": "111e307d08d120e090b46b4cc013bf6e23ae9e14661445258a53bece51f1fd41"
+    },
+    {
+      "label": "targeted-green",
+      "exit_code": 0,
+      "counts": {
+        "subtest_pass": 75,
+        "top_pass": 6,
+        "package_pass": 1
+      },
+      "failures": [],
+      "raw_log_sha256": "1d739a1a6c621ce1d2670cb1af436a7358afa6abf0425affc9819234017651cd",
+      "command": [
+        "go",
+        "test",
+        "-mod=readonly",
+        "-tags",
+        "fusion,nogui",
+        "-race",
+        "-count=1",
+        "-json",
+        "./internal/fusion/runtime/codex",
+        "-run",
+        "TestCodexPrivateCredential"
+      ]
+    },
+    {
+      "label": "dependent-race",
+      "exit_code": 0,
+      "counts": {
+        "top_pass": 180,
+        "subtest_pass": 583,
+        "top_skip": 15,
+        "package_pass": 4
+      },
+      "failures": [],
+      "raw_log_sha256": "627f85e9ed4859fc58c4d34c3c25c81dfac9dc4dc0b2edb594af20b100f6c8f0",
+      "command": [
+        "go",
+        "test",
+        "-mod=readonly",
+        "-tags",
+        "fusion,nogui",
+        "-race",
+        "-count=1",
+        "-json",
+        "./internal/fusion/runtime/codex",
+        "./internal/fusion/runtime/codexadapter",
+        "./internal/fusion/control",
+        "./internal/fusion/bootstrap"
+      ],
+      "skipped_tests": [
+        "TestCodexAdapterPinnedNative",
+        "TestCodexAdapterPinnedPrelaunchAdmission",
+        "TestExecutionHostPinnedCodexHTTP",
+        "TestExecutionHostPinnedNativeHTTP",
+        "TestControllerPinnedCodexNativeLifecycle",
+        "TestControllerPinnedNativeRunsOnceAndReleasesActualStopProof",
+        "TestControllerPinnedNativeSourceGuardLifecycle",
+        "TestControllerPinnedNativePauseStopsInFlightAndRequiresReview",
+        "TestControllerPinnedNativeTaskCancelStopsInFlightAndCloses",
+        "TestGLMFactoryPinnedNativeProductLifecycle",
+        "TestControllerPinnedGrokNativeLifecycle",
+        "TestControllerPinnedGrokSourceNativeLifecycle",
+        "TestControllerPinnedGrokCheckpointRestore",
+        "TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart",
+        "TestTaskUIFixtureProcess"
+      ]
+    },
+    {
+      "label": "mutation-digest",
+      "exit_code": 1,
+      "counts": {
+        "subtest_fail": 1,
+        "top_fail": 1,
+        "package_fail": 1
+      },
+      "failures": [
+        "github.com/yetone/magpie/internal/fusion/runtime/codex:TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/content",
+        "github.com/yetone/magpie/internal/fusion/runtime/codex:TestCodexPrivateCredentialRejectsFileAndDirectoryDrift",
+        "github.com/yetone/magpie/internal/fusion/runtime/codex:<package>"
+      ],
+      "raw_log_sha256": "51c3420d3ae7cc911e27bef706afe228f8c3c3e882244186247c3a00435b8094",
+      "command": [
+        "go",
+        "test",
+        "-mod=readonly",
+        "-tags",
+        "fusion,nogui",
+        "-race",
+        "-count=1",
+        "-json",
+        "-overlay",
+        "<temporary-overlay>",
+        "./internal/fusion/runtime/codex",
+        "-run",
+        "TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/content$"
+      ]
+    },
+    {
+      "label": "mutation-scope",
+      "exit_code": 1,
+      "counts": {
+        "subtest_fail": 1,
+        "top_fail": 1,
+        "package_fail": 1
+      },
+      "failures": [
+        "github.com/yetone/magpie/internal/fusion/runtime/codex:TestCodexPrivateCredentialExactBindingAndRedaction/workspace",
+        "github.com/yetone/magpie/internal/fusion/runtime/codex:TestCodexPrivateCredentialExactBindingAndRedaction",
+        "github.com/yetone/magpie/internal/fusion/runtime/codex:<package>"
+      ],
+      "raw_log_sha256": "7648ee57830c48478a844200ef8b8db0a4478b90b050049d1a289d825e3abe71",
+      "command": [
+        "go",
+        "test",
+        "-mod=readonly",
+        "-tags",
+        "fusion,nogui",
+        "-race",
+        "-count=1",
+        "-json",
+        "-overlay",
+        "<temporary-overlay>",
+        "./internal/fusion/runtime/codex",
+        "-run",
+        "TestCodexPrivateCredentialExactBindingAndRedaction/workspace$"
+      ]
+    },
+    {
+      "label": "mutation-permissions",
+      "exit_code": 1,
+      "counts": {
+        "subtest_fail": 1,
+        "top_fail": 1,
+        "package_fail": 1
+      },
+      "failures": [
+        "github.com/yetone/magpie/internal/fusion/runtime/codex:TestCodexPrivateCredentialRefusesUnsafeInitialSources/executable-cache",
+        "github.com/yetone/magpie/internal/fusion/runtime/codex:TestCodexPrivateCredentialRefusesUnsafeInitialSources",
+        "github.com/yetone/magpie/internal/fusion/runtime/codex:<package>"
+      ],
+      "raw_log_sha256": "8692b61a1e0b76bc63821852738d66113f9dad85fbd762ca1af02f64b6e101d1",
+      "command": [
+        "go",
+        "test",
+        "-mod=readonly",
+        "-tags",
+        "fusion,nogui",
+        "-race",
+        "-count=1",
+        "-json",
+        "-overlay",
+        "<temporary-overlay>",
+        "./internal/fusion/runtime/codex",
+        "-run",
+        "TestCodexPrivateCredentialRefusesUnsafeInitialSources/executable-cache$"
+      ]
+    }
+  ],
+  "whole_goal_complete": false,
+  "real_model_calls": 0,
+  "real_authentication_completed": false
+}

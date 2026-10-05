@@ -1,0 +1,47 @@
+{
+  "codex_version": "0.160.0",
+  "public_sources": {
+    "codex-rs/login/src/auth/storage.rs": {
+      "url": "https://raw.githubusercontent.com/openai/codex/rust-v0.160.0/codex-rs/login/src/auth/storage.rs",
+      "sha256": "2e95a8998687e926675d41b5d941c3c3546a652c03d9680e6c7385e59bf459af",
+      "bytes": 18076
+    },
+    "codex-rs/login/src/token_data.rs": {
+      "url": "https://raw.githubusercontent.com/openai/codex/rust-v0.160.0/codex-rs/login/src/token_data.rs",
+      "sha256": "106f67a299e800a4d1c7fac82a090a07ae5072f401494abe43433baf47152c36",
+      "bytes": 6694
+    },
+    "codex-rs/login/src/auth/mod.rs": {
+      "url": "https://raw.githubusercontent.com/openai/codex/rust-v0.160.0/codex-rs/login/src/auth/mod.rs",
+      "sha256": "5d72ae39f74e2ed944b13bab4dbaab03d5e0ae1a5ec908d14cf4513606fe7b83",
+      "bytes": 723
+    },
+    "codex-rs/protocol/src/auth.rs": {
+      "url": "https://raw.githubusercontent.com/openai/codex/rust-v0.160.0/codex-rs/protocol/src/auth.rs",
+      "sha256": "0ab901e92eaaa9ac87d1aa5ba94c1bdc72696e922062f318e2c8e308462a3856",
+      "bytes": 8690
+    },
+    "codex-rs/login/src/device_code_auth.rs": {
+      "url": "https://raw.githubusercontent.com/openai/codex/rust-v0.160.0/codex-rs/login/src/device_code_auth.rs",
+      "sha256": "a66f531d5cc5257ba99ec796f69e02f78bab1812bbde57b5aa809237910b3829",
+      "bytes": 7546
+    },
+    "codex-rs/login/src/oauth/mod.rs": {
+      "url": "https://raw.githubusercontent.com/openai/codex/rust-v0.160.0/codex-rs/login/src/oauth/mod.rs",
+      "sha256": "30f0336a79daef5370877f3bd2791bf3b26e373c15279e30f9efddc1944df360",
+      "bytes": 1050
+    },
+    "codex-rs/login/src/server.rs": {
+      "url": "https://raw.githubusercontent.com/openai/codex/rust-v0.160.0/codex-rs/login/src/server.rs",
+      "sha256": "17b49a6da8fb54ec6d43efa037fbd867291c804038329035929322e15de830c8",
+      "bytes": 40850
+    }
+  },
+  "observed_login_writer": {
+    "auth_mode": "chatgpt",
+    "account_id": "optional string, null when absent",
+    "openai_api_key": "null for device login",
+    "file_permissions": "0600"
+  },
+  "private_cache_read": false
+}

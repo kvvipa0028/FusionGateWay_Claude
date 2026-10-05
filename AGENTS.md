@@ -6,6 +6,7 @@
 - 实施文档位于 `docs/fusion/planning/`；WP-01–WP-11 已完成基线、隔离、fixtures、绑定编译、独立任务存储与入口鉴权，WP-12/WP-13/WP-14/WP-15/WP-16/WP-17/WP-19/WP-20/WP-21/WP-22 为 in_progress，其他工作包仍为 planned，60 类最终验收仍为 not_run。
 - WP-17 已真实核验固定 Codex0.160.0/Grok1.0.48/Claude2.1.287 的官方发布内容及 Apple Developer ID；独立工具只读公共发布源，不执行 Runtime/安装器或读取认证，不自动设置 Registry/Inspection 准入。原 inventory 的发布者未核验字段保留为历史记录；后续须读 docs/fusion/integration/runtime-publisher-verification.md。真实账号、费用、额度及工程 Smoke 仍未完成。
 - WP-17 PRIVATE-LOGIN-01 提供 Git 外私有 HOME 的固定官方设备登录入口，系统 Python -I、固定配置/argv/环境、受限 Seatbelt、owned 取消/wait；最终 profile 的两条真实设备挑战已观察并取消，未完成人登录。Codex 使用受检系统 CA 与固定直连，不接受环境 CA/代理，Keychain/fork/cwd 写权限保持拒绝。见 docs/fusion/integration/private-runtime-login.md；缓存存在不能升级账号/费用/额度或 Registry/Inspection true，不能把该认证 profile 当成生成 Worker。
+- WP-12 PRIVATE-CREDENTIAL-01 已实现 Codex0.160.0 私有 auth.json 的可信 FileCredential 服务：Git 外 nofollow FD 遍历、当前 UID/0600/单 hardlink、文件内容及目录身份冻结、精确 Target/订阅绑定、严格 chatgpt JSON 模式和不透明 token。缺失 account_id 不能从 JWT 补出，格式化/JSON/错误不导出秘密。见 docs/fusion/contracts/codex-private-credential.md；真实缓存、续期、生产 Forwarder/Factory、账号/费用/额度和工程 Smoke 尚未完成，本服务不授予生成准入。
 - Fusion 产品构建必须使用 `fusion` tag 和 `scripts/fusion/build-dev.py` / `run-dev.py`；无 tag 构建保留原版回归语义，不能作为 Fusion 产品交付。开发实例必须使用仓库外私有 HOME/XDG，不读取旧共享 Keychain。
 - 基础准备完成源码和文档导入、工具链准备及基线核验；2026-10-03 用户选择 OAuth 方案 A，Google 订阅路径改用私有外部客户端配置并校验身份。五角色绑定编译、快照与独立存储已完成；strict locked 出口已有离线验证；产品 API/GUI 和 Native Adapter 尚未完成；受管 Worker 单进程/无网络基础已验证；不要把原版 manual 模式当成 Fusion locked。
 - 后续按获分派工作包实施；保留内置/插件执行路径说明。插件迁移不代表获准安装插件、访问账号或发布。

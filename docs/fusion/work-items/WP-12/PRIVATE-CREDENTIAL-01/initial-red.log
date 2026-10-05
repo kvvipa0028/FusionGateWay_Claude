@@ -1,0 +1,9 @@
+# github.com/yetone/magpie/internal/fusion/runtime/codex [github.com/yetone/magpie/internal/fusion/runtime/codex.test]
+internal/fusion/runtime/codex/file_credential_test.go:20:52: undefined: FileCredentialScope
+internal/fusion/runtime/codex/file_credential_test.go:30:7: undefined: FileCredentialScope
+internal/fusion/runtime/codex/file_credential_test.go:37:9: undefined: NewFileCredential
+internal/fusion/runtime/codex/file_credential_test.go:95:14: undefined: NewFileCredential
+internal/fusion/runtime/codex/file_credential_test.go:103:51: undefined: NewFileCredential
+internal/fusion/runtime/codex/file_credential_test.go:142:14: undefined: NewFileCredential
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/codex [build failed]
+FAIL

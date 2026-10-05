@@ -1,0 +1,14 @@
+{
+  "component": "WP-12-PRIVATE-CREDENTIAL-01",
+  "owned_files": 28,
+  "local_doc_links_checked": 144,
+  "utf8_json_gofmt": "PASS",
+  "private_credential_exact_bytes_excluded": true,
+  "ui_store_dependencies_and_final_statuses_unchanged": true,
+  "primary_dirty_preserved": true,
+  "graph_nodes": 36410,
+  "graph_edges": 200824,
+  "real_model_calls": 0,
+  "production_registered": false,
+  "whole_goal_complete": false
+}

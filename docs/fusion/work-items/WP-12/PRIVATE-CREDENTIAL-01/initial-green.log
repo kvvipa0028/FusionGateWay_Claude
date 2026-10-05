@@ -1,0 +1,120 @@
+=== RUN   TestCodexPrivateCredentialExactBindingAndRedaction
+=== RUN   TestCodexPrivateCredentialExactBindingAndRedaction/account
+=== RUN   TestCodexPrivateCredentialExactBindingAndRedaction/workspace
+=== RUN   TestCodexPrivateCredentialExactBindingAndRedaction/identity
+=== RUN   TestCodexPrivateCredentialExactBindingAndRedaction/route
+=== RUN   TestCodexPrivateCredentialExactBindingAndRedaction/revision
+=== RUN   TestCodexPrivateCredentialExactBindingAndRedaction/billing
+=== RUN   TestCodexPrivateCredentialExactBindingAndRedaction/runtime
+=== RUN   TestCodexPrivateCredentialExactBindingAndRedaction/plugin
+=== RUN   TestCodexPrivateCredentialExactBindingAndRedaction/cancel
+=== RUN   TestCodexPrivateCredentialExactBindingAndRedaction/nil-context
+--- PASS: TestCodexPrivateCredentialExactBindingAndRedaction (0.00s)
+    --- PASS: TestCodexPrivateCredentialExactBindingAndRedaction/account (0.00s)
+    --- PASS: TestCodexPrivateCredentialExactBindingAndRedaction/workspace (0.00s)
+    --- PASS: TestCodexPrivateCredentialExactBindingAndRedaction/identity (0.00s)
+    --- PASS: TestCodexPrivateCredentialExactBindingAndRedaction/route (0.00s)
+    --- PASS: TestCodexPrivateCredentialExactBindingAndRedaction/revision (0.00s)
+    --- PASS: TestCodexPrivateCredentialExactBindingAndRedaction/billing (0.00s)
+    --- PASS: TestCodexPrivateCredentialExactBindingAndRedaction/runtime (0.00s)
+    --- PASS: TestCodexPrivateCredentialExactBindingAndRedaction/plugin (0.00s)
+    --- PASS: TestCodexPrivateCredentialExactBindingAndRedaction/cancel (0.00s)
+    --- PASS: TestCodexPrivateCredentialExactBindingAndRedaction/nil-context (0.00s)
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/apikey
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/headers
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/chatgptAuthTokens
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/agentIdentity
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/personalAccessToken
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/bedrockApiKey
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/bedrockAccessKeys
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/absent-mode
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/api-key
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/pat
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/agent
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/bedrock
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/account
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/empty-token
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/token-space
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/alias
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/duplicate
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/token-duplicate
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/unknown
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/trailing
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/null
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/invalid-utf8
+=== RUN   TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/oversize
+--- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON (0.03s)
+    --- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/apikey (0.00s)
+    --- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/headers (0.00s)
+    --- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/chatgptAuthTokens (0.00s)
+    --- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/agentIdentity (0.00s)
+    --- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/personalAccessToken (0.00s)
+    --- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/bedrockApiKey (0.00s)
+    --- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/bedrockAccessKeys (0.00s)
+    --- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/absent-mode (0.00s)
+    --- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/api-key (0.00s)
+    --- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/pat (0.00s)
+    --- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/agent (0.00s)
+    --- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/bedrock (0.00s)
+    --- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/account (0.00s)
+    --- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/empty-token (0.00s)
+    --- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/token-space (0.00s)
+    --- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/alias (0.00s)
+    --- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/duplicate (0.00s)
+    --- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/token-duplicate (0.00s)
+    --- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/unknown (0.00s)
+    --- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/trailing (0.00s)
+    --- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/null (0.00s)
+    --- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/invalid-utf8 (0.00s)
+    --- PASS: TestCodexPrivateCredentialRejectsAlternateModesAndAmbiguousJSON/oversize (0.00s)
+=== RUN   TestCodexPrivateCredentialRejectsFileAndDirectoryDrift
+=== RUN   TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/content
+=== RUN   TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/identical-inode-replacement
+=== RUN   TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/file-mode
+=== RUN   TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/hardlink
+=== RUN   TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/symlink
+=== RUN   TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/parent-replacement
+=== RUN   TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/parent-mode
+=== RUN   TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/git-parent
+=== RUN   TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/missing
+--- PASS: TestCodexPrivateCredentialRejectsFileAndDirectoryDrift (0.01s)
+    --- PASS: TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/content (0.00s)
+    --- PASS: TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/identical-inode-replacement (0.00s)
+    --- PASS: TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/file-mode (0.00s)
+    --- PASS: TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/hardlink (0.00s)
+    --- PASS: TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/symlink (0.00s)
+    --- PASS: TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/parent-replacement (0.00s)
+    --- PASS: TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/parent-mode (0.00s)
+    --- PASS: TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/git-parent (0.00s)
+    --- PASS: TestCodexPrivateCredentialRejectsFileAndDirectoryDrift/missing (0.00s)
+=== RUN   TestCodexPrivateCredentialRefusesUnsafeInitialSources
+=== RUN   TestCodexPrivateCredentialRefusesUnsafeInitialSources/relative
+=== RUN   TestCodexPrivateCredentialRefusesUnsafeInitialSources/wrong-name
+=== RUN   TestCodexPrivateCredentialRefusesUnsafeInitialSources/daily-home
+=== RUN   TestCodexPrivateCredentialRefusesUnsafeInitialSources/file-mode
+=== RUN   TestCodexPrivateCredentialRefusesUnsafeInitialSources/parent-mode
+=== RUN   TestCodexPrivateCredentialRefusesUnsafeInitialSources/hardlink
+=== RUN   TestCodexPrivateCredentialRefusesUnsafeInitialSources/symlink
+=== RUN   TestCodexPrivateCredentialRefusesUnsafeInitialSources/fifo
+=== RUN   TestCodexPrivateCredentialRefusesUnsafeInitialSources/git-ancestor
+=== RUN   TestCodexPrivateCredentialRefusesUnsafeInitialSources/route
+=== RUN   TestCodexPrivateCredentialRefusesUnsafeInitialSources/revision
+=== RUN   TestCodexPrivateCredentialRefusesUnsafeInitialSources/identity
+=== RUN   TestCodexPrivateCredentialRefusesUnsafeInitialSources/empty
+--- PASS: TestCodexPrivateCredentialRefusesUnsafeInitialSources (0.01s)
+    --- PASS: TestCodexPrivateCredentialRefusesUnsafeInitialSources/relative (0.00s)
+    --- PASS: TestCodexPrivateCredentialRefusesUnsafeInitialSources/wrong-name (0.00s)
+    --- PASS: TestCodexPrivateCredentialRefusesUnsafeInitialSources/daily-home (0.00s)
+    --- PASS: TestCodexPrivateCredentialRefusesUnsafeInitialSources/file-mode (0.00s)
+    --- PASS: TestCodexPrivateCredentialRefusesUnsafeInitialSources/parent-mode (0.00s)
+    --- PASS: TestCodexPrivateCredentialRefusesUnsafeInitialSources/hardlink (0.00s)
+    --- PASS: TestCodexPrivateCredentialRefusesUnsafeInitialSources/symlink (0.00s)
+    --- PASS: TestCodexPrivateCredentialRefusesUnsafeInitialSources/fifo (0.00s)
+    --- PASS: TestCodexPrivateCredentialRefusesUnsafeInitialSources/git-ancestor (0.00s)
+    --- PASS: TestCodexPrivateCredentialRefusesUnsafeInitialSources/route (0.00s)
+    --- PASS: TestCodexPrivateCredentialRefusesUnsafeInitialSources/revision (0.00s)
+    --- PASS: TestCodexPrivateCredentialRefusesUnsafeInitialSources/identity (0.00s)
+    --- PASS: TestCodexPrivateCredentialRefusesUnsafeInitialSources/empty (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime/codex	0.645s

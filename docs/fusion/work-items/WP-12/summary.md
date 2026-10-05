@@ -56,3 +56,7 @@ T01/T02/T14/T15/T25/T31/T32/T35/T44/T53/T59 的最终端到端状态继续为 `n
 后续 [WP-15-CODEX-01](../WP-15/CODEX-01/summary.md) 已验证 BindAdapter/Controller 的实际 Codex 生命周期，并将 ValidateLaunch 接到 intent 前检查；相同静态 Target 合同用于 NewGateway 与 Adapter preflight。13 次 Adapter 原生回归通过，真实账号/Forwarder/quota、产品 HTTP/Factory、写/工具/恢复与最终 Gate 仍待完成，父包状态保持。
 
 [WP-15-CODEX-HOST-01](../WP-15/CODEX-HOST-01/summary.md) 已补充 Codex authenticated loopback HTTP/Factory 的5个实际 Native 生命周期场景、2类 preintent 拒绝、鉴权和幂等及真实停止后 Store 重开。Grok 同路径5次进程回归通过；完整 Fusion race 514 PASS/30 SKIP/0 FAIL。现有生产代码无需修改，真实账号/Forwarder/quota/生产注册、CLI/GUI、写入/工具/恢复、工程闭环和最终Gate仍未完成；父包继续 in_progress。
+
+## 私有官方登录缓存服务
+
+[PRIVATE-CREDENTIAL-01](PRIVATE-CREDENTIAL-01/summary.md) 新增 `codex.FileCredential`：从 Git 外私有官方 auth.json 读取不透明 OAuth token，冻结路线/账号/workspace/credential identity、文件与目录身份，拒绝替换、模式混用、权限漂移及解析歧义。官方设备登录写入逻辑已核对；缺失账号不能从 JWT 补出或推定权益。6 个目标测试/75 子场景、受影响四模块 race 与 Go1.26.3 CLI/GUI/vet 通过，三项有效 mutation 均被断言捕获。合同见 [Codex 私有凭据](../../contracts/codex-private-credential.md)。本人真实登录缓存仍未产生，生产 Forwarder、可信账号/费用/额度、Factory 注册与完整父包/最终 Gate 尚未完成。
