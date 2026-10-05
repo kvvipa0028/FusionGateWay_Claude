@@ -1,0 +1,313 @@
+{
+  "type": "object",
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "binding": {
+      "$ref": "#/$defs/binding"
+    },
+    "task": {
+      "type": "object",
+      "properties": {
+        "goal": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 65536
+        }
+      },
+      "required": [
+        "goal"
+      ],
+      "additionalProperties": false
+    },
+    "artifact": {
+      "$ref": "#/$defs/manifest"
+    },
+    "decisions": {
+      "type": "array",
+      "maxItems": 0,
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidence": {
+      "$ref": "#/$defs/evidence"
+    },
+    "changes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/change"
+      },
+      "maxItems": 39998
+    },
+    "pending": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "design_decisions_not_extracted",
+          "engineering_tests_not_executed",
+          "independent_review_pending",
+          "acceptance_pending"
+        ]
+      }
+    }
+  },
+  "required": [
+    "version",
+    "binding",
+    "task",
+    "artifact",
+    "decisions",
+    "evidence",
+    "changes",
+    "pending"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fusion:handoff:v1",
+  "title": "Fusion frozen stage code handoff v1",
+  "$defs": {
+    "entry": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1,
+              "not": {
+                "pattern": "(^/)|(^|/)\\.\\.(/|$)|\\u0000"
+              }
+            },
+            "kind": {
+              "const": "file"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "bytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 20971520
+            },
+            "executable": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "path",
+            "kind",
+            "sha256"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1,
+              "not": {
+                "pattern": "(^/)|(^|/)\\.\\.(/|$)|\\u0000"
+              }
+            },
+            "kind": {
+              "const": "directory"
+            }
+          },
+          "required": [
+            "path",
+            "kind"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "change": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "not": {
+            "pattern": "(^/)|(^|/)\\.\\.(/|$)|\\u0000"
+          }
+        },
+        "before": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/entry"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "after": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/entry"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "path",
+        "before",
+        "after"
+      ],
+      "additionalProperties": false,
+      "not": {
+        "properties": {
+          "before": {
+            "type": "null"
+          },
+          "after": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    "manifest": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "const": 1
+        },
+        "base_commit": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^([0-9a-f]{40}|[0-9a-f]{64})$"
+            }
+          ]
+        },
+        "base_tree_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "tree_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "change_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "entries": {
+          "type": "array",
+          "maxItems": 19999,
+          "items": {
+            "$ref": "#/$defs/entry"
+          }
+        },
+        "changes": {
+          "type": "array",
+          "maxItems": 39998,
+          "items": {
+            "$ref": "#/$defs/change"
+          }
+        }
+      },
+      "required": [
+        "version",
+        "base_commit",
+        "base_tree_hash",
+        "tree_hash",
+        "change_hash",
+        "entries",
+        "changes"
+      ],
+      "additionalProperties": false
+    },
+    "binding": {
+      "type": "object",
+      "properties": {
+        "task_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[^/\\\\\\u0000\\r\\n\\t ]+$"
+        },
+        "plan_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "plan_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "run_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[^/\\\\\\u0000\\r\\n\\t ]+$"
+        },
+        "generation": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "role": {
+          "enum": [
+            "design",
+            "implementation",
+            "testing",
+            "review",
+            "acceptance"
+          ]
+        },
+        "target_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "task_id",
+        "plan_revision",
+        "plan_hash",
+        "run_id",
+        "generation",
+        "role",
+        "target_hash"
+      ],
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "object",
+      "properties": {
+        "output_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "stop_proof_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "status": {
+          "const": "unverified"
+        },
+        "tests_executed": {
+          "const": false
+        }
+      },
+      "required": [
+        "output_hash",
+        "stop_proof_hash",
+        "status",
+        "tests_executed"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

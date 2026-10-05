@@ -1,0 +1,8 @@
+=== RUN   TestGLMFactoryPinnedNativeProductLifecycle
+=== RUN   TestGLMFactoryPinnedNativeProductLifecycle/implementation
+    glm_execution_native_test.go:202: actual run handoff absent or wrong open /private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-bst6d1z5/TestGLMFactoryPinnedNativeProductLifecycleimplementation2275771632/004/launch-4243928728/handoff/handoff.json: no such file or directory
+--- FAIL: TestGLMFactoryPinnedNativeProductLifecycle (0.95s)
+    --- FAIL: TestGLMFactoryPinnedNativeProductLifecycle/implementation (0.95s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	1.451s
+FAIL

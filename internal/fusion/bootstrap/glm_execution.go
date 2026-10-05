@@ -8,10 +8,12 @@ import (
 	"path/filepath"
 	"reflect"
 	"strings"
+	"sync"
 	"sync/atomic"
 	"time"
 
 	"github.com/yetone/magpie/internal/fusion/control"
+	"github.com/yetone/magpie/internal/fusion/handoff"
 	"github.com/yetone/magpie/internal/fusion/policy"
 	"github.com/yetone/magpie/internal/fusion/routes"
 	managed "github.com/yetone/magpie/internal/fusion/runtime"
@@ -200,7 +202,71 @@ func newGLMRuntimeFactory(c GLMRuntimeConfig, transport http.RoundTripper) (Runt
 			if err != nil {
 				return control.Launch{}, control.ErrForbidden
 			}
-			return control.Launch{Backend: backend, Spec: managed.Spec{Root: worker, Workspace: snapshot.Path, Source: guard, Input: input, Timeout: c.Timeout, Writable: p.Write && (role == stageplan.Implementation || role == stageplan.Testing)}}, nil
+			// This backend owns one launch and one artifact, never a shared
+			// mutable last-workspace pointer across tasks or runs.
+			local := backend
+			var handle control.Execution
+			var handleMu, releaseMu sync.Mutex
+			var bundle handoff.Bundle
+			published := false
+			local.Start = func(ctx context.Context, run store.StageRun, spec managed.Spec) (control.Execution, error) {
+				if run.TaskID != task.ID || run.Role != role || run.PlanRevision != plan.Revision || !reflect.DeepEqual(run.Target, target) {
+					return nil, control.ErrIdentity
+				}
+				h, err := backend.Start(ctx, run, spec)
+				handleMu.Lock()
+				handle = h
+				handleMu.Unlock()
+				return h, err
+			}
+			local.Release = func(proof policy.StopProof) error {
+				releaseMu.Lock()
+				defer releaseMu.Unlock()
+				if !adapter.VerifyStop(proof) {
+					return control.ErrReconcile
+				}
+				handleMu.Lock()
+				h := handle
+				handleMu.Unlock()
+				if h == nil {
+					return control.ErrReconcile
+				}
+				result, err := h.Wait(context.Background())
+				run, runErr := e.Store.Run(proof.RunID)
+				if err != nil || runErr != nil || !result.StoppedVerified || result.Proof != proof || run.TaskID != task.ID || run.Role != role || run.PlanRevision != plan.Revision || run.Generation != proof.Generation || run.NativeSessionID != proof.NativeSessionID || !reflect.DeepEqual(run.Target, target) {
+					return control.ErrReconcile
+				}
+				if run.State != "succeeded" {
+					return backend.Release(proof)
+				}
+				identityCurrent := func() bool {
+					live, err := e.Store.Task(task.ID)
+					return err == nil && live.PlanRevision == plan.Revision && live.Generation == run.Generation && live.Goal == task.Goal && current(ctx, target) && guard.ValidFor(snapshot.Path)
+				}
+				if result.State != "succeeded" || !identityCurrent() {
+					return control.ErrReconcile
+				}
+				raw, _ := json.Marshal(target)
+				binding := handoff.Binding{TaskID: task.ID, PlanRevision: plan.Revision, PlanHash: plan.Hash, RunID: run.ID, Generation: run.Generation, Role: role, TargetHash: handoff.Hash(raw)}
+				if !published {
+					artifact, err := workspace.Freeze(snapshot, launchRoot, "handoff")
+					if err != nil {
+						return control.ErrReconcile
+					}
+					bundle, err = handoff.Publish(artifact, binding, task.Goal, handoff.Evidence{OutputHash: result.OutputHash, StopProofHash: proof.ReportHash})
+					if err != nil {
+						return control.ErrReconcile
+					}
+					published = true
+				}
+				if _, err := bundle.Read(binding); err != nil || !identityCurrent() {
+					return control.ErrReconcile
+				}
+				// Publication failure retains reservations for reconciliation.
+				// Durable artifact indexing/next-stage resolution is still pending.
+				return backend.Release(proof)
+			}
+			return control.Launch{Backend: local, Spec: managed.Spec{Root: worker, Workspace: snapshot.Path, Source: guard, Input: input, Timeout: c.Timeout, Writable: p.Write && (role == stageplan.Implementation || role == stageplan.Testing)}}, nil
 		}
 		return RuntimeRegistration{Routes: map[string][]stageplan.Route{p.ID: {route}}, Inspect: inspect, Resolve: resolve, Close: func(context.Context) error { closed.Store(true); return nil }}, nil
 	}, nil

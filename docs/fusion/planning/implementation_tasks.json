@@ -506,7 +506,7 @@
       "id": "WP-20",
       "title": "阶段产物、工作区交接与版本一致性",
       "milestone": "M3",
-      "status": "planned",
+      "status": "in_progress",
       "depends_on": [
         "WP-11",
         "WP-18"

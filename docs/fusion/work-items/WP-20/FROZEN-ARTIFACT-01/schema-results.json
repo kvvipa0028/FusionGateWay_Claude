@@ -1,0 +1,16 @@
+{
+  "schema": "handoff v1",
+  "serialized_producer_fixture": "passed",
+  "negative_cases": {
+    "version": "rejected",
+    "session": "rejected",
+    "tests": "rejected",
+    "success": "rejected",
+    "digest": "rejected",
+    "missing_run": "rejected",
+    "empty_change": "rejected",
+    "entry_path": "rejected",
+    "unknown_evidence": "rejected"
+  },
+  "provenance_and_supplier_admission": "not_proved_by_schema"
+}

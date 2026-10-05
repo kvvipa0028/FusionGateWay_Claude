@@ -63,10 +63,13 @@ func PrivateState(p string) error {
 func Copy(source, root, name string) (Snapshot, error) {
 	return copyWorkspace(source, root, name, nil)
 }
+func safeCopyName(name string) bool {
+	return name != "" && name != "." && name != ".." && !strings.ContainsAny(name, "/\\\x00\n\r")
+}
 
 func copyWorkspace(source, root, name string, beforePublish func()) (Snapshot, error) {
 	var result Snapshot
-	if CanonicalDirectory(source, false) != nil || PrivateState(root) != nil || name == "" || name == "." || name == ".." || strings.ContainsAny(name, "/\\\x00\n\r") {
+	if CanonicalDirectory(source, false) != nil || PrivateState(root) != nil || !safeCopyName(name) {
 		return result, ErrUnsafe
 	}
 	if root == source || strings.HasPrefix(root, source+"/") {
@@ -87,6 +90,10 @@ func copyWorkspace(source, root, name string, beforePublish func()) (Snapshot, e
 	}
 	defer sourceRoot.Close()
 	seal := &sourceSeal{path: source, entries: map[string]sourceEntry{}}
+	seal.baseCommit, e = gitBase(source)
+	if e != nil {
+		return Snapshot{}, e
+	}
 	e = walkSource(sourceRoot, nil, func(rel string, i os.FileInfo, b []byte) error {
 		hash := ""
 		if !i.IsDir() {
@@ -100,7 +107,7 @@ func copyWorkspace(source, root, name string, beforePublish func()) (Snapshot, e
 		if i.IsDir() {
 			return os.Mkdir(out, 0700)
 		}
-		if e := os.WriteFile(out, b, 0600); e != nil {
+		if e := os.WriteFile(out, b, 0600|i.Mode().Perm()&0100); e != nil {
 			return e
 		}
 		result.Files = append(result.Files, File{rel, hash, int64(len(b))})

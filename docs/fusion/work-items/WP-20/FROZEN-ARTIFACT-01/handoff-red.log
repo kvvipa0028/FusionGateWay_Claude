@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/handoff [github.com/yetone/magpie/internal/fusion/handoff.test]
+internal/fusion/handoff/bundle_test.go:13:62: undefined: Binding
+internal/fusion/handoff/bundle_test.go:13:71: undefined: Evidence
+internal/fusion/handoff/bundle_test.go:24:7: undefined: Binding
+internal/fusion/handoff/bundle_test.go:25:7: undefined: Evidence
+internal/fusion/handoff/bundle_test.go:31:12: undefined: Publish
+internal/fusion/handoff/bundle_test.go:50:12: undefined: Publish
+internal/fusion/handoff/bundle_test.go:57:11: undefined: Publish
+internal/fusion/handoff/bundle_test.go:84:12: undefined: Publish
+internal/fusion/handoff/bundle_test.go:85:12: undefined: Publish
+internal/fusion/handoff/bundle_test.go:86:13: undefined: Bundle
+internal/fusion/handoff/bundle_test.go:86:13: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/handoff [build failed]
+FAIL

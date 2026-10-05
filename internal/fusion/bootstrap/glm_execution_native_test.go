@@ -19,6 +19,7 @@ import (
 
 	"github.com/yetone/magpie/internal/fusion/api"
 	"github.com/yetone/magpie/internal/fusion/control"
+	"github.com/yetone/magpie/internal/fusion/handoff"
 	managed "github.com/yetone/magpie/internal/fusion/runtime"
 	"github.com/yetone/magpie/internal/fusion/stageplan"
 	"github.com/yetone/magpie/internal/fusion/store"
@@ -67,7 +68,7 @@ func TestGLMFactoryPinnedNativeProductLifecycle(t *testing.T) {
 	if *hostNativeGLM == "" {
 		t.Skip("explicit pinned Native fixture only")
 	}
-	for _, mode := range []string{"success", "implementation", "cancel", "registry_revocation", "credential_rotation", "source_revocation"} {
+	for _, mode := range []string{"success", "implementation", "handoff_collision", "cancel", "registry_revocation", "credential_rotation", "source_revocation"} {
 		t.Run(mode, func(t *testing.T) {
 			path, d, c, _, _ := glmFactoryFixture(t, mode == "implementation")
 			exe, err := filepath.EvalSymlinks(*hostNativeGLM)
@@ -81,6 +82,7 @@ func TestGLMFactoryPinnedNativeProductLifecycle(t *testing.T) {
 			var calls atomic.Int64
 			var mu sync.Mutex
 			var spec managed.Spec
+			var owned control.Execution
 			entered, ended := make(chan struct{}), make(chan struct{})
 			var enterOnce, endOnce sync.Once
 			upstream := glmHostUpstream(func(r *http.Request) (*http.Response, error) {
@@ -88,13 +90,24 @@ func TestGLMFactoryPinnedNativeProductLifecycle(t *testing.T) {
 				if r.URL.String() != "https://open.bigmodel.cn/api/anthropic/v1/messages?beta=true" || r.Header.Get("Authorization") != "Bearer fixture-controller-key" || r.Header.Get("X-Api-Key") != "fixture-controller-key" || r.GetBody != nil {
 					t.Error("factory credential/route drift")
 				}
-				if mode != "success" && mode != "implementation" {
+				if mode != "success" && mode != "implementation" && mode != "handoff_collision" {
 					enterOnce.Do(func() { close(entered) })
 					<-r.Context().Done()
 					endOnce.Do(func() { close(ended) })
 					return nil, r.Context().Err()
 				}
 				write := ""
+				if mode == "handoff_collision" && n == 1 {
+					mu.Lock()
+					path := filepath.Join(filepath.Dir(spec.Workspace), "handoff")
+					mu.Unlock()
+					if err := os.Mkdir(path, 0700); err != nil {
+						t.Error(err)
+					}
+					if err := os.WriteFile(filepath.Join(path, "foreign"), []byte("preserve"), 0600); err != nil {
+						t.Error(err)
+					}
+				}
 				if mode == "implementation" && n == 1 {
 					mu.Lock()
 					write = filepath.Join(spec.Workspace, "created.txt")
@@ -114,6 +127,14 @@ func TestGLMFactoryPinnedNativeProductLifecycle(t *testing.T) {
 					mu.Lock()
 					spec = launch.Spec
 					mu.Unlock()
+					start := launch.Backend.Start
+					launch.Backend.Start = func(ctx context.Context, run store.StageRun, spec managed.Spec) (control.Execution, error) {
+						h, err := start(ctx, run, spec)
+						mu.Lock()
+						owned = h
+						mu.Unlock()
+						return h, err
+					}
 					return launch, err
 				}
 				return reg, err
@@ -149,7 +170,7 @@ func TestGLMFactoryPinnedNativeProductLifecycle(t *testing.T) {
 			if code != 202 || json.Unmarshal(b, &receipt) != nil || receipt.Run.ID == "" {
 				t.Fatal("factory Native start", code, string(b))
 			}
-			if mode != "success" && mode != "implementation" {
+			if mode != "success" && mode != "implementation" && mode != "handoff_collision" {
 				select {
 				case <-entered:
 				case <-time.After(8 * time.Second):
@@ -185,11 +206,54 @@ func TestGLMFactoryPinnedNativeProductLifecycle(t *testing.T) {
 			defer cancel()
 			done, err := h.controller.Wait(wait, receipt.Run.ID)
 			want := "cancelled"
-			if mode == "success" || mode == "implementation" {
+			if mode == "success" || mode == "implementation" || mode == "handoff_collision" {
 				want = "succeeded"
 			}
-			if err != nil || done.State != want || !done.StoppedVerified || !done.Released {
+			if err != nil || done.State != want || done.StoppedVerified != (mode != "handoff_collision") || done.Released != (mode != "handoff_collision") {
 				t.Fatal("factory Native stop/release", done, err)
+			}
+			mu.Lock()
+			artifactPath := filepath.Join(filepath.Dir(spec.Workspace), "handoff")
+			actualHandle := owned
+			mu.Unlock()
+			if mode == "handoff_collision" {
+				result, err := actualHandle.Wait(wait)
+				if err != nil || !result.StoppedVerified || !result.Proof.DescendantsStopped {
+					t.Fatal("collision lost actual stop proof", err)
+				}
+				if _, err := h.store.Reservation(receipt.Run.ID); err != nil {
+					t.Fatal("capture failure released reservation", err)
+				}
+				b, err := os.ReadFile(filepath.Join(artifactPath, "foreign"))
+				if err != nil || string(b) != "preserve" {
+					t.Fatal("capture overwrote foreign directory", err)
+				}
+				if _, err := os.Stat(filepath.Join(artifactPath, "handoff.json")); !os.IsNotExist(err) {
+					t.Fatal("failed capture published handoff", err)
+				}
+			} else if want == "succeeded" {
+				raw, err := os.ReadFile(filepath.Join(artifactPath, "handoff.json"))
+				var doc handoff.Document
+				if err != nil || json.Unmarshal(raw, &doc) != nil || doc.Binding.TaskID != task.ID || doc.Binding.RunID != receipt.Run.ID || doc.Binding.Role != role || doc.Binding.PlanHash != preview.Plan.Hash || doc.Evidence.TestsExecuted || doc.Evidence.Status != "unverified" {
+					t.Fatal("actual run handoff absent or wrong", err)
+				}
+				entries, _ := json.Marshal(doc.Artifact.Entries)
+				changes, _ := json.Marshal(doc.Changes)
+				result, err := actualHandle.Wait(wait)
+				if err != nil || handoff.Hash(entries) != doc.Artifact.TreeHash || handoff.Hash(changes) != doc.Artifact.ChangeHash || doc.Evidence.OutputHash != result.OutputHash || doc.Evidence.StopProofHash != result.Proof.ReportHash {
+					t.Fatal("handoff hash binding lost", err)
+				}
+				if mode == "implementation" {
+					b, err := os.ReadFile(filepath.Join(artifactPath, "code", "created.txt"))
+					if err != nil || string(b) != "synthetic factory file\n" || len(doc.Changes) != 1 || doc.Artifact.BaseTreeHash == doc.Artifact.TreeHash {
+						t.Fatal("actual Edit artifact lost", err)
+					}
+				}
+				if strings.Contains(string(raw), "native_session") || strings.Contains(string(raw), "fixture-controller-key") {
+					t.Fatal("session or credential entered handoff")
+				}
+			} else if _, err := os.Stat(artifactPath); !os.IsNotExist(err) {
+				t.Fatal("cancelled run published successful artifact", err)
 			}
 			budget, err := h.store.Budget(task.ID)
 			if err != nil || int64(budget.UsedCalls) != calls.Load() || calls.Load() < 1 {
@@ -211,7 +275,7 @@ func TestGLMFactoryPinnedNativeProductLifecycle(t *testing.T) {
 			if err != nil || string(raw) != "original\n" {
 				t.Fatal("original content changed", err)
 			}
-			t.Logf("production factory -> HTTP/Controller/Store -> GLMAdapter -> fixed Native -> %d synthetic calls; verified stop/release; no real account/quota/billing admission", calls.Load())
+			t.Logf("production factory -> HTTP/Controller/Store -> GLMAdapter -> fixed Native -> %d synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission", calls.Load())
 		})
 	}
 }

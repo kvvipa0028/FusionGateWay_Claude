@@ -37,6 +37,8 @@ Timeout 默认 2 分钟，可由可信宿主配置为不超过 4 分钟的正值
 
 ## 工程闭环边界
 
+[阶段代码交接](stage-handoff.md)已在实际成功且停止核验通过后发布独立代码副本、变化清单、Task/Plan/Run/target 绑定及 advisory evidence；交接失败不释放资源预留。取消/失败阶段不发布成功交接包。
+
 多阶段任务需要传递已验证实施副本、设计合同、测试和审查产物；重新复制原项目会丢失上一阶段修改。因此本 Factory 暂时返回 unsupported，而不是把独立单阶段复制伪装成五阶段 Handoff。完整工程交接仍属于必须实现的后续工作，不缩减 WP-19–WP-22 或最终 T01–T60。
 
 本组件没有登记真实账号/publisher/计费/物理池报告，没有打开产品 CLI 执行，也没有新增 quota reader。真实 CN quota-only 查询保持独立；其 unverified 快照仍不能放行 Scheduler。OpenAI/X 登录、实际供应商 Gate A、完整原 Magpie 主界面整合与实际 Native UI 点击仍未完成。

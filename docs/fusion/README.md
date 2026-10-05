@@ -24,7 +24,7 @@
 4. [验收矩阵](planning/Fusion_Magpie_Fork_验收矩阵_v1.0.md)：T01–T60；当前均为 `not_run`。
 5. [源码与工具链锁](upstream-lock.json)、[基线报告](baseline/baseline-report.md)：本轮实际准备与验证证据。
 
-`planning/implementation_tasks.json` 和 `planning/acceptance_tests.json` 由本地三份 Markdown 提取，已核对编号、引用及依赖无环；它们不是原 ZIP 的恢复副本。WP-01–WP-11 为 `done`，WP-12–WP-16 与 WP-19 为 `in_progress`，其余包为 `planned`；最终验收仍为 `not_run`。
+`planning/implementation_tasks.json` 和 `planning/acceptance_tests.json` 由本地三份 Markdown 提取，已核对编号、引用及依赖无环；它们不是原 ZIP 的恢复副本。WP-01–WP-11 为 `done`，WP-12–WP-16、WP-19 与 WP-20 为 `in_progress`，其余包为 `planned`；最终验收仍为 `not_run`。
 
 ## 源码与 Git
 
@@ -91,3 +91,5 @@ Grok 固定 Native 的 headless 观察器、逐 HTTP Gate 和可选受控文本R
 Grok受管生命周期组件：[CHANNEL-01证据](work-items/WP-13/CHANNEL-01/summary.md)、[channel合同](contracts/grok-managed-channel.md)。实际固定Native合成8场景与StopProof已验证；完整Adapter/真实X路线与产品执行仍未准入。
 
 Grok只读Runtime Adapter：[ADAPTER-01证据](work-items/WP-13/ADAPTER-01/summary.md)、[Adapter合同](contracts/grok-adapter.md)。实际固定Native/private prompt/read/取消/停止已验证；真实X准入、Resume/write/工程闭环与final Gate继续待完成。
+
+[阶段代码冻结与交接](contracts/stage-handoff.md)完成私有代码快照、基线/tree/change hash、来源链校验和 GLM 成功运行产物发布。持久产物索引、下一阶段 resolver、真实测试/审查/验收仍未接入，多角色执行继续拒绝；原 Magpie UI 不改。

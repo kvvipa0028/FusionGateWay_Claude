@@ -1,0 +1,10 @@
+# github.com/yetone/magpie/internal/fusion/workspace [github.com/yetone/magpie/internal/fusion/workspace.test]
+internal/fusion/workspace/artifact_test.go:33:12: undefined: Freeze
+internal/fusion/workspace/artifact_test.go:51:13: undefined: Freeze
+internal/fusion/workspace/artifact_test.go:64:14: undefined: Freeze
+internal/fusion/workspace/artifact_test.go:93:17: undefined: Freeze
+internal/fusion/workspace/artifact_test.go:96:6: undefined: FrozenArtifact
+internal/fusion/workspace/artifact_test.go:111:17: undefined: Freeze
+internal/fusion/workspace/artifact_test.go:131:12: undefined: Freeze
+FAIL	github.com/yetone/magpie/internal/fusion/workspace [build failed]
+FAIL

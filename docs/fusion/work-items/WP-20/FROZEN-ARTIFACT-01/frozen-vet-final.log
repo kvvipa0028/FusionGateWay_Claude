@@ -1,0 +1,2 @@
+# github.com/yetone/magpie/internal/gui [github.com/yetone/magpie/internal/gui.test]
+internal/gui/trayimage_darwin.go:105:67: warning: implicit conversion from enumeration type 'enum CGImageAlphaInfo' to different enumeration type 'CGBitmapInfo' (aka 'enum CGBitmapInfo') [-Wimplicit-enum-enum-cast]

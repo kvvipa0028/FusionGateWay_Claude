@@ -6,6 +6,7 @@ import (
 	"io"
 	"io/fs"
 	"os"
+	"reflect"
 	"syscall"
 )
 
@@ -14,10 +15,12 @@ type sourceEntry struct {
 	hash string
 }
 type sourceSeal struct {
-	path     string
-	entries  map[string]sourceEntry
-	copyPath string
-	copyInfo os.FileInfo
+	path       string
+	entries    map[string]sourceEntry
+	copyPath   string
+	copyInfo   os.FileInfo
+	baseCommit *string
+	anchors    []*artifactSeal
 }
 
 // SourceGuard is trusted in-memory provenance, never a serialized authority.
@@ -151,6 +154,15 @@ func (s Snapshot) SourceCurrent() bool {
 	seal := s.source
 	if seal == nil || len(seal.entries) == 0 || CanonicalDirectory(seal.path, false) != nil {
 		return false
+	}
+	base, err := gitBase(seal.path)
+	if err != nil || !reflect.DeepEqual(base, seal.baseCommit) {
+		return false
+	}
+	for _, a := range seal.anchors {
+		if !a.current() {
+			return false
+		}
 	}
 	root, e := os.OpenRoot(seal.path)
 	if e != nil {

@@ -1,0 +1,160 @@
+{
+  "component": "WP-20-FROZEN-ARTIFACT-01",
+  "base": "b3b14922348b5b20bc5b53dabab2b6f76322ff75",
+  "component_status": "complete",
+  "parent_status": "in_progress",
+  "goal_status": "active",
+  "go_version": "1.26.3",
+  "counts": {
+    "artifact-red.log": {
+      "PASS": 0,
+      "subpass": 0,
+      "FAIL": 0,
+      "subfail": 0,
+      "SKIP": 0,
+      "subskip": 0,
+      "packages": 0
+    },
+    "artifact-initial.log": {
+      "PASS": 11,
+      "subpass": 27,
+      "FAIL": 2,
+      "subfail": 0,
+      "SKIP": 0,
+      "subskip": 0,
+      "packages": 0
+    },
+    "handoff-red.log": {
+      "PASS": 0,
+      "subpass": 0,
+      "FAIL": 0,
+      "subfail": 0,
+      "SKIP": 0,
+      "subskip": 0,
+      "packages": 0
+    },
+    "handoff-library-green.log": {
+      "PASS": 1,
+      "subpass": 0,
+      "FAIL": 2,
+      "subfail": 4,
+      "SKIP": 0,
+      "subskip": 0,
+      "packages": 0
+    },
+    "handoff-native-red.log": {
+      "PASS": 0,
+      "subpass": 0,
+      "FAIL": 1,
+      "subfail": 1,
+      "SKIP": 0,
+      "subskip": 0,
+      "packages": 0
+    },
+    "handoff-targeted-final.log": {
+      "PASS": 7,
+      "subpass": 32,
+      "FAIL": 0,
+      "subfail": 0,
+      "SKIP": 0,
+      "subskip": 0,
+      "packages": 1
+    },
+    "frozen-fusion-apfs-fixture-failure.log": {
+      "PASS": 654,
+      "subpass": 1198,
+      "FAIL": 1,
+      "subfail": 1,
+      "SKIP": 32,
+      "subskip": 10,
+      "packages": 17
+    },
+    "frozen-fusion-final.log": {
+      "PASS": 655,
+      "subpass": 1198,
+      "FAIL": 0,
+      "subfail": 0,
+      "SKIP": 32,
+      "subskip": 11,
+      "packages": 18
+    },
+    "frozen-vet-final.log": {
+      "PASS": 0,
+      "subpass": 0,
+      "FAIL": 0,
+      "subfail": 0,
+      "SKIP": 0,
+      "subskip": 0,
+      "packages": 0
+    },
+    "handoff-schema-capture.log": {
+      "PASS": 0,
+      "subpass": 0,
+      "FAIL": 0,
+      "subfail": 0,
+      "SKIP": 0,
+      "subskip": 0,
+      "packages": 0
+    }
+  },
+  "logs": {
+    "artifact-red.log": {
+      "raw_sha256": "06f482f4dff7fcdafb136170b8007a7f91e42cb649d0da31edb43658553feeca",
+      "archived_sha256": "06f482f4dff7fcdafb136170b8007a7f91e42cb649d0da31edb43658553feeca"
+    },
+    "artifact-initial.log": {
+      "raw_sha256": "55148ee3e1f9de64da329e46396f1bacf6cdc3c2d7195e7aeffa3d1031fa575b",
+      "archived_sha256": "55148ee3e1f9de64da329e46396f1bacf6cdc3c2d7195e7aeffa3d1031fa575b"
+    },
+    "handoff-red.log": {
+      "raw_sha256": "a2d98907bdb25a10ef150ccb26d57469e41d1767e072b619b2ab7a860ae0a26b",
+      "archived_sha256": "a2d98907bdb25a10ef150ccb26d57469e41d1767e072b619b2ab7a860ae0a26b"
+    },
+    "handoff-library-green.log": {
+      "raw_sha256": "d90218941ec58153d3aaea24ee456c38525e1117411b68a8d06fd4ac76de0fd3",
+      "archived_sha256": "d90218941ec58153d3aaea24ee456c38525e1117411b68a8d06fd4ac76de0fd3"
+    },
+    "handoff-native-red.log": {
+      "raw_sha256": "c890941bd001eb5ee0365ec8450da1d72eaf2c5ee5ed1d33135638b479c70cc4",
+      "archived_sha256": "c890941bd001eb5ee0365ec8450da1d72eaf2c5ee5ed1d33135638b479c70cc4"
+    },
+    "handoff-targeted-final.log": {
+      "raw_sha256": "f5493226fe3326ffbbcb796f08cd899a0d736579c6f068029343aad6bc3f1e57",
+      "archived_sha256": "f5493226fe3326ffbbcb796f08cd899a0d736579c6f068029343aad6bc3f1e57"
+    },
+    "frozen-fusion-apfs-fixture-failure.log": {
+      "raw_sha256": "df6414b9e3513306647c10c28534e8184f50a6381cbcd3ad69b21861065617b1",
+      "archived_sha256": "df6414b9e3513306647c10c28534e8184f50a6381cbcd3ad69b21861065617b1"
+    },
+    "frozen-fusion-final.log": {
+      "raw_sha256": "c6f40ecfa5de65f8ce7a7ee2351d60190db92c302e0be5ffea997a5364e9da26",
+      "archived_sha256": "c6f40ecfa5de65f8ce7a7ee2351d60190db92c302e0be5ffea997a5364e9da26"
+    },
+    "frozen-vet-final.log": {
+      "raw_sha256": "2ae7fee2c4abe30020c41a313fd03201d4ab9a16acc8dc4c50ea1f5f9d2aa3b6",
+      "archived_sha256": "2ae7fee2c4abe30020c41a313fd03201d4ab9a16acc8dc4c50ea1f5f9d2aa3b6"
+    },
+    "handoff-schema-capture.log": {
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "archived_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    }
+  },
+  "native_process_scenarios": 7,
+  "native_synthetic_model_requests": 8,
+  "supplier_model_calls": 0,
+  "supplier_quota_calls": 0,
+  "jev": "off",
+  "ui_files_changed": 0,
+  "actual_native_window": "not_run",
+  "final_T01_T60": "not_run",
+  "graph": {
+    "nodes": 14320,
+    "edges": 128653
+  },
+  "limitations": [
+    "durable artifact index and controlled rehydrate pending",
+    "next-stage parent-bound resolver pending; single-role guard retained",
+    "engineering tests/review/acceptance pending",
+    "invalid UTF8 filename fixture skipped only for APFS EILSEQ; production guard retained"
+  ]
+}

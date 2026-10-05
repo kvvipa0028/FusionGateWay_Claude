@@ -1,0 +1,22 @@
+=== RUN   TestHandoffCopiesCodeOnlyForExactBinding
+    bundle_test.go:44: invalid stage handoff
+--- FAIL: TestHandoffCopiesCodeOnlyForExactBinding (0.01s)
+=== RUN   TestHandoffRejectsHeaderAndCodeCorruption
+=== RUN   TestHandoffRejectsHeaderAndCodeCorruption/header
+    bundle_test.go:102: invalid stage handoff
+=== RUN   TestHandoffRejectsHeaderAndCodeCorruption/code
+    bundle_test.go:102: invalid stage handoff
+=== RUN   TestHandoffRejectsHeaderAndCodeCorruption/header_link
+    bundle_test.go:102: invalid stage handoff
+=== RUN   TestHandoffRejectsHeaderAndCodeCorruption/source
+    bundle_test.go:102: invalid stage handoff
+--- FAIL: TestHandoffRejectsHeaderAndCodeCorruption (0.04s)
+    --- FAIL: TestHandoffRejectsHeaderAndCodeCorruption/header (0.01s)
+    --- FAIL: TestHandoffRejectsHeaderAndCodeCorruption/code (0.01s)
+    --- FAIL: TestHandoffRejectsHeaderAndCodeCorruption/header_link (0.01s)
+    --- FAIL: TestHandoffRejectsHeaderAndCodeCorruption/source (0.01s)
+=== RUN   TestHandoffCannotInventSuccessOrAcceptUnownedArtifact
+--- PASS: TestHandoffCannotInventSuccessOrAcceptUnownedArtifact (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/handoff	0.558s
+FAIL

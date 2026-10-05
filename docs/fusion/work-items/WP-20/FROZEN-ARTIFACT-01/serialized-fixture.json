@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "binding": {
+    "task_id": "task-schema-fixture",
+    "plan_revision": 1,
+    "plan_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "run_id": "run-schema-fixture",
+    "generation": 1,
+    "role": "implementation",
+    "target_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+  },
+  "task": {
+    "goal": "synthetic schema goal"
+  },
+  "artifact": {
+    "version": 1,
+    "base_commit": null,
+    "base_tree_hash": "cdd2e5b887605a6f0eb688d4bba869d9ce1b857be327af23f9fde8ad416e0040",
+    "tree_hash": "3a414be9f9a3373a958deb5c7110620e1dfd2303538346fad7a7d67718dc7472",
+    "change_hash": "1fd940b4b212bf21330a6dd7e9aefc493afaac39b12aa74a9ec47abc67a673b8",
+    "entries": [
+      {
+        "path": "code",
+        "kind": "file",
+        "sha256": "55d59c46fde53c7ea3587709fa889cbbe6320d1b2d8feee657e4638b03eea88a",
+        "bytes": 25
+      }
+    ],
+    "changes": [
+      {
+        "path": "code",
+        "before": {
+          "path": "code",
+          "kind": "file",
+          "sha256": "4b719c7f0b479b99af8c0ab963051c2f347506f267cac154017664a8531cd094",
+          "bytes": 15
+        },
+        "after": {
+          "path": "code",
+          "kind": "file",
+          "sha256": "55d59c46fde53c7ea3587709fa889cbbe6320d1b2d8feee657e4638b03eea88a",
+          "bytes": 25
+        }
+      }
+    ]
+  },
+  "decisions": [],
+  "evidence": {
+    "output_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "stop_proof_hash": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "status": "unverified",
+    "tests_executed": false
+  },
+  "changes": [
+    {
+      "path": "code",
+      "before": {
+        "path": "code",
+        "kind": "file",
+        "sha256": "4b719c7f0b479b99af8c0ab963051c2f347506f267cac154017664a8531cd094",
+        "bytes": 15
+      },
+      "after": {
+        "path": "code",
+        "kind": "file",
+        "sha256": "55d59c46fde53c7ea3587709fa889cbbe6320d1b2d8feee657e4638b03eea88a",
+        "bytes": 25
+      }
+    }
+  ],
+  "pending": [
+    "design_decisions_not_extracted",
+    "engineering_tests_not_executed",
+    "independent_review_pending",
+    "acceptance_pending"
+  ]
+}
