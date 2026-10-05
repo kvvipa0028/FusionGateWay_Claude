@@ -91,7 +91,8 @@ type Store struct {
 }
 
 // An observed lease expiry must commit its fence even though the worker call
-// fails. Other transaction errors always roll back.
+// fails. Exhausted stage intents have their own private fence sentinel.
+// Other transaction errors always roll back.
 var errExpiredFence = errors.New("commit observed lease expiry")
 
 func opaque(v string) bool {
@@ -356,9 +357,13 @@ func (s *Store) transaction(fn func(*sql.Tx) error) error {
 	}
 	defer tx.Rollback()
 	if e = fn(tx); e != nil {
-		if e == errExpiredFence {
+		if e == errExpiredFence || e == errStageLimitFence {
+			fence := e
 			if e = tx.Commit(); e != nil {
 				return e
+			}
+			if fence == errStageLimitFence {
+				return ErrStageLimit
 			}
 			return ErrFenced
 		}

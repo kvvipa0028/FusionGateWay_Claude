@@ -199,7 +199,9 @@ func (c *Controller) start(request context.Context, key string, in store.StartId
 	if task.State != "ready" || task.PlanRevision != in.PlanRevision || task.Generation != in.Generation {
 		return c.retryOrError(key, in, store.ErrConflict)
 	}
-	if e = c.config.Scheduler.Store.ValidateWorkflowStart(in); e != nil {
+	if e = c.config.Scheduler.Store.ValidateStageStartAuthorized(in, func() bool {
+		return request.Err() == nil && c.lifetime.Err() == nil && (current == nil || current(request))
+	}); e != nil {
 		return c.retryOrError(key, in, e)
 	}
 	plan, e := c.config.Scheduler.Store.Plan(in.TaskID, in.PlanRevision)

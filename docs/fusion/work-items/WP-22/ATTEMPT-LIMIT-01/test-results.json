@@ -1,0 +1,82 @@
+{
+  "base": "499ddb62d51ba0dd40ded7166fb65ed16bc3dcf6",
+  "tests": {
+    "full-fusion": {
+      "top_pass": 711,
+      "sub_pass": 1294,
+      "top_skip": 33,
+      "sub_skip": 11,
+      "top_fail": 0,
+      "sub_fail": 0,
+      "packages": 19
+    },
+    "native": {
+      "top_pass": 10,
+      "sub_pass": 57,
+      "top_skip": 0,
+      "sub_skip": 0,
+      "top_fail": 0,
+      "sub_fail": 0,
+      "packages": 1
+    },
+    "targeted-final": {
+      "top_pass": 9,
+      "sub_pass": 5,
+      "top_skip": 0,
+      "sub_skip": 0,
+      "top_fail": 0,
+      "sub_fail": 0,
+      "packages": 3
+    },
+    "api": {
+      "top_pass": 2,
+      "sub_pass": 0,
+      "top_skip": 0,
+      "sub_skip": 0,
+      "top_fail": 0,
+      "sub_fail": 0,
+      "packages": 1
+    },
+    "mutation": {
+      "top_pass": 0,
+      "sub_pass": 0,
+      "top_skip": 0,
+      "sub_skip": 0,
+      "top_fail": 1,
+      "sub_fail": 3,
+      "packages": 0
+    },
+    "store-red": {
+      "top_pass": 0,
+      "sub_pass": 0,
+      "top_skip": 0,
+      "sub_skip": 0,
+      "top_fail": 1,
+      "sub_fail": 3,
+      "packages": 0
+    }
+  },
+  "effective_mutation": {
+    "mutation": "maxStageAttempts 2 -> 3",
+    "exit_code": 1,
+    "restored_exact_source": true
+  },
+  "raw_log_sha256": {
+    "store-red.log": "68690e02467e434c65f32e1b2b45005138f1d95721f9061a4d27388c8fbb01dd",
+    "targeted-green.log": "436eca4082915255d4b7bda87412fdcaff8cae0bf7d41708a271f47844883cfd",
+    "full-fusion.log": "f535ab9ce3843179a42f477afb5fefd2e6e1a05d98de33a57d84fcba403e9c9d",
+    "native.log": "05668f994edbb9c96ce26b3213d553ff24e1580a205ee9423a910d99e69f687a",
+    "api.log": "64ceef55170276aa899fe069bdc2d92c31ffe770d79d9fbd8fd4c3da49803212",
+    "mutation.log": "593cbf2d5f5030315ef1afe80643887953226480b2bf49b2f3ef3e86ec880997",
+    "targeted-final.log": "d330fed3f4f08fc5e62befbe7c97838b3eac8b123f64da227e5a8912599c83a5",
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "80ef6a0fc0a9eae95dd7df52be8f636e4c401f608d6e2280f370f61277fe80b6",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "public_log_processing": "only trim trailing line whitespace; raw scratch retained",
+  "go": "1.26.3",
+  "ui_changed": false,
+  "browser_rerun": false,
+  "real_vendor_calls": 0,
+  "jev": "off"
+}

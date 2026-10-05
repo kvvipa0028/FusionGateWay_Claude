@@ -1,0 +1,34 @@
+=== RUN   TestStageAttemptLimitRejectsThirdIntentAndPreservesReleasedHistory
+=== RUN   TestStageAttemptLimitRejectsThirdIntentAndPreservesReleasedHistory/reserved-once
+=== RUN   TestStageAttemptLimitRejectsThirdIntentAndPreservesReleasedHistory/reserved
+=== RUN   TestStageAttemptLimitRejectsThirdIntentAndPreservesReleasedHistory/intent
+--- PASS: TestStageAttemptLimitRejectsThirdIntentAndPreservesReleasedHistory (0.35s)
+    --- PASS: TestStageAttemptLimitRejectsThirdIntentAndPreservesReleasedHistory/reserved-once (0.13s)
+    --- PASS: TestStageAttemptLimitRejectsThirdIntentAndPreservesReleasedHistory/reserved (0.11s)
+    --- PASS: TestStageAttemptLimitRejectsThirdIntentAndPreservesReleasedHistory/intent (0.11s)
+=== RUN   TestStageAttemptLimitRevisionRestartAndReplayCannotResetCount
+--- PASS: TestStageAttemptLimitRevisionRestartAndReplayCannotResetCount (0.12s)
+=== RUN   TestStageAttemptLimitAuthorityCASAndInvalidRoleCannotFenceTask
+--- PASS: TestStageAttemptLimitAuthorityCASAndInvalidRoleCannotFenceTask (0.11s)
+=== RUN   TestStageAttemptLimitRestoreSharesCapAndCannotOverflowGeneration
+=== RUN   TestStageAttemptLimitRestoreSharesCapAndCannotOverflowGeneration/restore
+=== RUN   TestStageAttemptLimitRestoreSharesCapAndCannotOverflowGeneration/overflow
+--- PASS: TestStageAttemptLimitRestoreSharesCapAndCannotOverflowGeneration (0.21s)
+    --- PASS: TestStageAttemptLimitRestoreSharesCapAndCannotOverflowGeneration/restore (0.10s)
+    --- PASS: TestStageAttemptLimitRestoreSharesCapAndCannotOverflowGeneration/overflow (0.10s)
+=== RUN   TestStageAttemptLimitEventFailureRollsBackFenceAndConcurrentRequestsFenceOnce
+--- PASS: TestStageAttemptLimitEventFailureRollsBackFenceAndConcurrentRequestsFenceOnce (0.13s)
+=== RUN   TestStageAttemptLimitHeldProcessAndInvalidTargetCannotFenceOrFreeReservations
+--- PASS: TestStageAttemptLimitHeldProcessAndInvalidTargetCannotFenceOrFreeReservations (0.11s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/store	2.480s
+=== RUN   TestControllerStageAttemptLimitStopsBeforeResolverAndRuntimeAndAllowsReplay
+--- PASS: TestControllerStageAttemptLimitStopsBeforeResolverAndRuntimeAndAllowsReplay (0.13s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/control	1.735s
+=== RUN   TestStageAttemptLimitUsesExistingReviewRequiredErrorContract
+--- PASS: TestStageAttemptLimitUsesExistingReviewRequiredErrorContract (0.00s)
+=== RUN   TestStageAttemptLimitAuthenticatedStartFencesTaskAndKeepsOriginalReplay
+--- PASS: TestStageAttemptLimitAuthenticatedStartFencesTaskAndKeepsOriginalReplay (0.14s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/api	1.413s

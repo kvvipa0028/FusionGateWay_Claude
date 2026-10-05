@@ -1,0 +1,14 @@
+{
+  "ui_changed": false,
+  "pinned_main_assets_unchanged": [
+    "internal/gui/assets/index.html",
+    "internal/gui/assets/app.js",
+    "internal/gui/assets/i18n.js"
+  ],
+  "pinned_css_files_unchanged": 6,
+  "schema": "11 unchanged; SQL001-011 unchanged",
+  "graph_nodes": 14604,
+  "graph_edges": 131580,
+  "private_vendor_calls": 0,
+  "jev": "off"
+}

@@ -644,7 +644,7 @@
 
 **阶段：**M3　**负责人角色：**工作流 Agent　**状态：**in_progress
 
-**当前组件证据：**[REVIEW-ASSESSMENT-01](../work-items/WP-22/REVIEW-ASSESSMENT-01/summary.md) 已接入真实当前测试证据的只读 review、结构化模型意见及需要修改时的阻断。[ACCEPTANCE-DECISION-01](../work-items/WP-22/ACCEPTANCE-DECISION-01/summary.md) 已接入只读验收模型建议并保持等待人工接受。[HUMAN-DECISION-STORE-01](../work-items/WP-22/HUMAN-DECISION-STORE-01/summary.md) 已保存独立人工接受/退回记录并验证当前证据与迁移。[HUMAN-CONTROL-01](../work-items/WP-22/HUMAN-CONTROL-01/summary.md) 已接入可信当前证据的管理 API、限定 Native bridge 与现有工作流人工控件；原主导航、有限返工、独立性策略和真实供应商端到端仍须完成，不将组件通过等同整个工作包通过。
+**当前组件证据：**[REVIEW-ASSESSMENT-01](../work-items/WP-22/REVIEW-ASSESSMENT-01/summary.md) 已接入真实当前测试证据的只读 review、结构化模型意见及需要修改时的阻断。[ACCEPTANCE-DECISION-01](../work-items/WP-22/ACCEPTANCE-DECISION-01/summary.md) 已接入只读验收模型建议并保持等待人工接受。[HUMAN-DECISION-STORE-01](../work-items/WP-22/HUMAN-DECISION-STORE-01/summary.md) 已保存独立人工接受/退回记录并验证当前证据与迁移。[HUMAN-CONTROL-01](../work-items/WP-22/HUMAN-CONTROL-01/summary.md) 已接入可信当前证据的管理 API、限定 Native bridge 与现有工作流人工控件；[ATTEMPT-LIMIT-01](../work-items/WP-22/ATTEMPT-LIMIT-01/summary.md) 落实按 task/role 累计的两次 intent 上限与超限 needs_review，不能用计划修订、重启或 checkpoint 重置；原主导航、实际有限返工链、独立性策略和真实供应商端到端仍须完成，不将组件通过等同整个工作包通过。
 
 **输入/前置：**WP-19, WP-20, WP-21。同时读取这些前置包的合同、测试日志、阻断项与当前仓库 HEAD。
 

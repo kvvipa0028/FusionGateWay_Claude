@@ -1,0 +1,26 @@
+=== RUN   TestStageAttemptLimitRejectsThirdIntentAndPreservesReleasedHistory
+=== RUN   TestStageAttemptLimitRejectsThirdIntentAndPreservesReleasedHistory/reserved-once
+=== RUN   TestStageAttemptLimitRejectsThirdIntentAndPreservesReleasedHistory/reserved
+=== RUN   TestStageAttemptLimitRejectsThirdIntentAndPreservesReleasedHistory/intent
+--- PASS: TestStageAttemptLimitRejectsThirdIntentAndPreservesReleasedHistory (0.34s)
+    --- PASS: TestStageAttemptLimitRejectsThirdIntentAndPreservesReleasedHistory/reserved-once (0.13s)
+    --- PASS: TestStageAttemptLimitRejectsThirdIntentAndPreservesReleasedHistory/reserved (0.11s)
+    --- PASS: TestStageAttemptLimitRejectsThirdIntentAndPreservesReleasedHistory/intent (0.11s)
+=== RUN   TestStageAttemptLimitRevisionRestartAndReplayCannotResetCount
+--- PASS: TestStageAttemptLimitRevisionRestartAndReplayCannotResetCount (0.13s)
+=== RUN   TestStageAttemptLimitAuthorityCASAndInvalidRoleCannotFenceTask
+--- PASS: TestStageAttemptLimitAuthorityCASAndInvalidRoleCannotFenceTask (0.11s)
+=== RUN   TestStageAttemptLimitEventFailureRollsBackFenceAndConcurrentRequestsFenceOnce
+--- PASS: TestStageAttemptLimitEventFailureRollsBackFenceAndConcurrentRequestsFenceOnce (0.13s)
+=== RUN   TestStageAttemptLimitHeldProcessAndInvalidTargetCannotFenceOrFreeReservations
+--- PASS: TestStageAttemptLimitHeldProcessAndInvalidTargetCannotFenceOrFreeReservations (0.11s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/store	2.455s
+=== RUN   TestControllerStageAttemptLimitStopsBeforeResolverAndRuntimeAndAllowsReplay
+--- PASS: TestControllerStageAttemptLimitStopsBeforeResolverAndRuntimeAndAllowsReplay (0.12s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/control	1.719s
+=== RUN   TestStageAttemptLimitUsesExistingReviewRequiredErrorContract
+--- PASS: TestStageAttemptLimitUsesExistingReviewRequiredErrorContract (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/api	1.492s

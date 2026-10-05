@@ -1,0 +1,14 @@
+=== RUN   TestStageAttemptLimitRejectsThirdIntentAndPreservesReleasedHistory
+=== RUN   TestStageAttemptLimitRejectsThirdIntentAndPreservesReleasedHistory/reserved-once
+    attempt_limit_test.go:58: third stage attempt created a new intent
+=== RUN   TestStageAttemptLimitRejectsThirdIntentAndPreservesReleasedHistory/reserved
+    attempt_limit_test.go:58: third stage attempt created a new intent
+=== RUN   TestStageAttemptLimitRejectsThirdIntentAndPreservesReleasedHistory/intent
+    attempt_limit_test.go:58: third stage attempt created a new intent
+--- FAIL: TestStageAttemptLimitRejectsThirdIntentAndPreservesReleasedHistory (0.04s)
+    --- FAIL: TestStageAttemptLimitRejectsThirdIntentAndPreservesReleasedHistory/reserved-once (0.02s)
+    --- FAIL: TestStageAttemptLimitRejectsThirdIntentAndPreservesReleasedHistory/reserved (0.01s)
+    --- FAIL: TestStageAttemptLimitRejectsThirdIntentAndPreservesReleasedHistory/intent (0.01s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/store	0.631s
+FAIL

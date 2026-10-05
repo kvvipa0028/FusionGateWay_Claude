@@ -1,0 +1,14 @@
+=== RUN   TestStageAttemptLimitRejectsThirdIntentAndPreservesReleasedHistory
+=== RUN   TestStageAttemptLimitRejectsThirdIntentAndPreservesReleasedHistory/reserved-once
+    attempt_limit_test.go:77: third stage attempt was not rejected by the cap <nil>
+=== RUN   TestStageAttemptLimitRejectsThirdIntentAndPreservesReleasedHistory/reserved
+    attempt_limit_test.go:77: third stage attempt was not rejected by the cap <nil>
+=== RUN   TestStageAttemptLimitRejectsThirdIntentAndPreservesReleasedHistory/intent
+    attempt_limit_test.go:77: third stage attempt was not rejected by the cap <nil>
+--- FAIL: TestStageAttemptLimitRejectsThirdIntentAndPreservesReleasedHistory (0.03s)
+    --- FAIL: TestStageAttemptLimitRejectsThirdIntentAndPreservesReleasedHistory/reserved-once (0.01s)
+    --- FAIL: TestStageAttemptLimitRejectsThirdIntentAndPreservesReleasedHistory/reserved (0.01s)
+    --- FAIL: TestStageAttemptLimitRejectsThirdIntentAndPreservesReleasedHistory/intent (0.01s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/store	0.611s
+FAIL

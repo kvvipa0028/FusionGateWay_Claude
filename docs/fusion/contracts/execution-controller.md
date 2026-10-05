@@ -8,6 +8,8 @@
 
 Start 先读取持久启动映射，已有请求直接返回 Created=false，不再解析 Runtime、探测能力或调用准入服务。新请求核对任务当前状态、版本和 generation，locked 直接采用 exact frozen Target；auto 需要可信 SelectAuto，选择结果必须与原冻结 candidates 中一项完全相同。传入选择器/Resolver 的 Target、候选及实际 launch input 使用独立副本，不能改写冻结授权。
 
+新启动在目标选择与 Resolver 前经过[阶段次数上限](stage-attempt-limit.md)的当前权限与 Task 条件检查；每个 task/role 最多两个持久 intent。第三次允许请求的阶段启动会原子停在 needs_review，实际 intent 插入事务重复检查；原 key 重读和已批准工作流顺序保持原合同。
+
 Resolver 返回的 Backend/Spec 只来自服务器配置。控制器在写 intent 前拒绝 caller argv/executable/env/session/validator/channel（包含 ClaudeChannel、GrokChannel 和 CodexChannel）、非法路径/UTF-8/input/time limit 和只读角色写权限。泛用 controller 时限最多十分钟，具体 Adapter 仍独立限制范围，服务端 resolver 必须使用该路线支持的范围。当前仅接受 Probe/Start/Events/Cancel 且无任意 network/child_processes 的能力；可信 Claude/Grok/Codex channel 的局部通信由 Adapter/Supervisor 控制，不据此开放泛用网络。
 
 Backend 可提供可信 `ValidateLaunch(ctx, role, target, spec)`；BindAdapter 自动保留实现该方法的 Adapter。新请求在 probe 和 intent 前调用它，传入独立 Target/prompt 副本。它用于拒绝 Adapter 已知的输入/路线约束，不能提供 RPC/grant、替代 Inspection/CheckPrepared/Permit 或证明实际停止。检查后仍重核管理/来源，Adapter.Start 在 intent 后重复约束检查。已有不提供此方法的 Backend 保留原行为；自定义 Factory 不得把该 callback 作为可由请求体指定的授权。已提交 key 重读继续直接读取原 receipt，不重做 preflight 或启动。

@@ -124,10 +124,14 @@ func (s *Store) startIntentIn(tx *sql.Tx, in StartRequest, result *StageRun) err
 	if active > 0 {
 		return ErrConflict
 	}
-	var attempt int64
-	if e = tx.QueryRow("SELECT COALESCE(MAX(attempt),0)+1 FROM stage_runs WHERE task_id=? AND role=?", t.ID, in.Role).Scan(&attempt); e != nil {
+	if e = stageLimitIn(tx, t, in.Role); e != nil {
 		return e
 	}
+	attempt, e := stageAttemptIn(tx, t.ID, in.Role)
+	if e != nil {
+		return e
+	}
+	attempt++
 	runID, e := id("run-")
 	if e != nil {
 		return e
