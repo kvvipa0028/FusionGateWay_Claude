@@ -1,0 +1,75 @@
+{
+  "component": "WP-22-REVIEW-ASSESSMENT-01",
+  "base": "e180b4f2c739f58dc719d78569a2a337db3ca6d0",
+  "files_sha256": {
+    "AGENTS.md": "fa6456e348d9c5f8eb6f17e5e70014c4680c85b5e451fba7333a3f00da334901",
+    "docs/fusion/README.md": "565fe8aba760f3a7ab146dbef4e76acf3e6f6366c04a526d4a6d7a46a7c79406",
+    "docs/fusion/contracts/durable-stage-artifact.md": "8f100c219ac74d3f5d0301d35105c9b969e6d81955abd8fdca0c43fa8bf38226",
+    "docs/fusion/contracts/glm-execution-factory.md": "4497fb7de38fb90c83f46ece13d74a08c8553a6efd07c26807c71a6d8992ab5c",
+    "docs/fusion/contracts/glm-stage-handoff.md": "eb27ab8879cee725d6caf395a627ca02366634ed62293859ed72168e54666c2a",
+    "docs/fusion/contracts/review-assessment.md": "75bef0242b7b567c2bd7e946f86433c981b1ca405e4ac0f89cb24262ede60f2c",
+    "docs/fusion/contracts/review.schema.json": "247909cb74eaed8b42b4cdb32182432a8444afc5ccca6410d4281bf858fd129a",
+    "docs/fusion/contracts/stage-handoff.md": "c97aed61e68ff4a9d985cae154c7143898942698a77c1573b776bbaac873cd36",
+    "docs/fusion/contracts/verification-runner.md": "0d5eb728fad05f11289003fc3be55dc25d0525d5c17724bf39b34cbbccfdba2c",
+    "docs/fusion/planning/Fusion_Magpie_Fork_Agent工作包_v1.0.md": "0318b9eea3cb62f1ed16a53d38b453df61795ae3b3dff3acdac0ff1dc1e7e938",
+    "docs/fusion/planning/implementation_tasks.json": "5eff4b3abbce77761f427f4c497165eba66821b8c61090db3960b27a3c5854b8",
+    "docs/fusion/work-items/WP-21/summary.md": "a65d72b9d4f314f654a3ffe6dcb9d82a00949862e72f92442677b85c66e32732",
+    "docs/fusion/work-items/WP-22/REVIEW-ASSESSMENT-01/actual-review-capture.json": "74cfcfec82dd7476404a7d19ca123e8718bc1c4e7a4fb9ca3924f37aa22d64ed",
+    "docs/fusion/work-items/WP-22/REVIEW-ASSESSMENT-01/build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/fusion/work-items/WP-22/REVIEW-ASSESSMENT-01/build-gui.log": "a10c8799c78ed2f48e92cf21bb7d11e11599fa44dc9972f8ec2b1a3933981222",
+    "docs/fusion/work-items/WP-22/REVIEW-ASSESSMENT-01/build-results.json": "527964ef155409d0bec599b52c9a01bf276bcfffa80384755d342bae7dbd8c15",
+    "docs/fusion/work-items/WP-22/REVIEW-ASSESSMENT-01/build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/fusion/work-items/WP-22/REVIEW-ASSESSMENT-01/check-schema.py": "f7e71eeccbb8581ec629c1f5e08c6e390e41cd458d6ea44c5eab23309df81231",
+    "docs/fusion/work-items/WP-22/REVIEW-ASSESSMENT-01/review-evidence-mutation.log": "361ec2e3faa1ce27296c98a8fb6c5c983793a91e56ff3b6b782f019aff811f18",
+    "docs/fusion/work-items/WP-22/REVIEW-ASSESSMENT-01/review-fusion-final.log": "6cc5f449389a13f58d97adfdb016588546fde3383305384cd93af30019418224",
+    "docs/fusion/work-items/WP-22/REVIEW-ASSESSMENT-01/review-native-expanded.log": "93d089cf6f62c525e474324c2864443a250ed2170fdabe87a8b29a7ebdc8ef2b",
+    "docs/fusion/work-items/WP-22/REVIEW-ASSESSMENT-01/review-native-final.log": "acc619325f55e9f5e7873ea8609528918d29ec590c50e7fa51a8416555340643",
+    "docs/fusion/work-items/WP-22/REVIEW-ASSESSMENT-01/review-native-first.log": "4001810102a4003104d2f7b6aead3a1f78eddbcce9427afd5527c156b799c334",
+    "docs/fusion/work-items/WP-22/REVIEW-ASSESSMENT-01/review-native-red.log": "4c3b1a5fc93eefd1b4a4dce78543bc1986b1da1738a77d026801f3b8c0f2068c",
+    "docs/fusion/work-items/WP-22/REVIEW-ASSESSMENT-01/review-parser-green.log": "87dd500d1716f5aeaac0231afb51ef5c32b0f534016fbae687882c8da079e37f",
+    "docs/fusion/work-items/WP-22/REVIEW-ASSESSMENT-01/review-parser-red.log": "4d80421b68a1c1d598f61588de8e6e0d1f99cba373e9d9a87eb265f62050efda",
+    "docs/fusion/work-items/WP-22/REVIEW-ASSESSMENT-01/review-store-final.log": "1e17d971cf9441e6905723806f2e922b4cb9e561f4f2fcda6fabe1b6530898af",
+    "docs/fusion/work-items/WP-22/REVIEW-ASSESSMENT-01/review-store-initial.log": "3e0ace92f825caa4f208b3dea0604e4ec85c229bb4b8d711730742c9fababa9b",
+    "docs/fusion/work-items/WP-22/REVIEW-ASSESSMENT-01/schema-results.json": "d1d3032e37311312dd917fbafa69866765651b3111f347a4f4d3c9134e04bebd",
+    "docs/fusion/work-items/WP-22/REVIEW-ASSESSMENT-01/summary.md": "e8d2ded16aec726340499eb33c242d13851c1566969c98265527c01e3f199abd",
+    "docs/fusion/work-items/WP-22/REVIEW-ASSESSMENT-01/test-results.json": "77a2aa0af52718898dfff30077d961914b9189e7e8ee60efc795a61eb0dd113e",
+    "docs/fusion/work-items/WP-22/summary.md": "2a0f4b02a89722b6bd847b70aaba27b64b7d38a3e5a7ef2733c4693178db2fb2",
+    "internal/fusion/bootstrap/glm_execution.go": "20a936e36dfeda7800da35bfed7c1b1fec30faaa313898d4f83470c37ffe5b87",
+    "internal/fusion/bootstrap/glm_execution_native_test.go": "4a66ac10d2799af0a57d7e7a319fd751e5383a80dc6bef719b870416f0757529",
+    "internal/fusion/bootstrap/glm_handoff.go": "9bd4b801e1d98f786a394653b79baf0342793fa078e98abad1a442a1e89b3c31",
+    "internal/fusion/bootstrap/glm_handoff_native_test.go": "95521f19d9a6dca8cbbda4ecbb6f5dfff0f1c798703af972a642a40aedd84a5d",
+    "internal/fusion/store/artifacts.go": "5a20169d8dc98886ed0f72b4b5265ae453b555b94d990dfd2c2f26446ded9301",
+    "internal/fusion/store/review.go": "08bbb74d7d8d787073e2d04b80b1b132b9851e1b21b521f3c182da8f6c80fb2a",
+    "internal/fusion/store/review_test.go": "ccff74450d8759324e39764d63638c2a778e3e8ce6b1c5c05741db1cff9b8ebe",
+    "internal/fusion/store/verification.go": "5815eda80a4392996c7d446d8252496d486c7258a5bf6c54f17386567a51f569",
+    "internal/fusion/workflow/review.go": "d6aad972850ca3ef47b0dfe82756405a2d5e0739312dbd046473194f04d7d77b",
+    "internal/fusion/workflow/review_test.go": "b008a7daf0ef13788582bab267a1bab6a43c1f2fe1b59c611017ea840ad7df05"
+  },
+  "scope_integrity_checks": {
+    "all_gui_unchanged": [
+      "internal/gui"
+    ],
+    "api_controller_runtime_policy_sql_unchanged": [
+      "internal/fusion/api",
+      "internal/fusion/control",
+      "internal/fusion/runtime",
+      "internal/fusion/policy",
+      "internal/fusion/store/migrations"
+    ],
+    "handoff_schema_openapi_unchanged": [
+      "docs/fusion/contracts/handoff.schema.json",
+      "docs/fusion/contracts/openapi.yaml"
+    ]
+  },
+  "private_credential_bytes_excluded": true,
+  "ui_files_changed": 0,
+  "ui_main_assets_equal_pinned_upstream": true,
+  "pinned_upstream": "1a50db1a8afd0849df2853f92a47da9d5e2f2cc9",
+  "local_doc_links_checked": 136,
+  "graph": {
+    "project": "fusion-development",
+    "nodes": 14514,
+    "edges": 130521
+  },
+  "current_binary_hashes_verified": true
+}

@@ -32,9 +32,13 @@ type glmHostUpstream func(*http.Request) (*http.Response, error)
 func (f glmHostUpstream) RoundTrip(r *http.Request) (*http.Response, error) { return f(r) }
 
 func glmHostSSE(t *testing.T, n int64, writePath string) string {
+	return glmHostSSEWithText(t, n, writePath, "Synthetic factory result.")
+}
+
+func glmHostSSEWithText(t *testing.T, n int64, writePath, text string) string {
 	t.Helper()
 	block := map[string]any{"type": "text", "text": ""}
-	delta := map[string]any{"type": "text_delta", "text": "Synthetic factory result."}
+	delta := map[string]any{"type": "text_delta", "text": text}
 	stop := "end_turn"
 	if writePath != "" {
 		block = map[string]any{"type": "tool_use", "id": "fixture-edit", "name": "Edit", "input": map[string]any{}}

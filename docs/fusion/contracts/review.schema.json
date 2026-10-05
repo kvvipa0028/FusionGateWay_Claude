@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fusion:review:v1",
+  "title": "Advisory model review v1",
+  "type": "object",
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "verdict": {
+      "enum": [
+        "approve",
+        "changes_required",
+        "unverified"
+      ]
+    },
+    "findings": {
+      "type": "array",
+      "maxItems": 128,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "severity": {
+            "enum": [
+              "blocking",
+              "nonblocking"
+            ]
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 8192
+          }
+        },
+        "required": [
+          "id",
+          "severity",
+          "summary"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "version",
+    "verdict",
+    "findings"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "verdict": {
+            "const": "approve"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "findings": {
+            "items": {
+              "properties": {
+                "severity": {
+                  "const": "nonblocking"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "verdict": {
+            "const": "changes_required"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "findings": {
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ]
+}

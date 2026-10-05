@@ -1,0 +1,10 @@
+=== RUN   TestReviewReceiptKeepsHardModelAndHumanDecisionsSeparateAcrossRestart
+--- PASS: TestReviewReceiptKeepsHardModelAndHumanDecisionsSeparateAcrossRestart (0.57s)
+=== RUN   TestReviewBlockingOpinionRollsBackWithEventAndInvalidOpinionStopsWorkflow
+=== RUN   TestReviewBlockingOpinionRollsBackWithEventAndInvalidOpinionStopsWorkflow/{"version":1,"verdict":"changes_required","findings":[{"id":"R1","severity":"blocking","summary":"fix_in_implementation"}]}
+=== RUN   TestReviewBlockingOpinionRollsBackWithEventAndInvalidOpinionStopsWorkflow/{"verdict":"accepted"}
+--- PASS: TestReviewBlockingOpinionRollsBackWithEventAndInvalidOpinionStopsWorkflow (0.93s)
+    --- PASS: TestReviewBlockingOpinionRollsBackWithEventAndInvalidOpinionStopsWorkflow/{"version":1,"verdict":"changes_required","findings":[{"id":"R1","severity":"blocking","summary":"fix_in_implementation"}]} (0.47s)
+    --- PASS: TestReviewBlockingOpinionRollsBackWithEventAndInvalidOpinionStopsWorkflow/{"verdict":"accepted"} (0.46s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/store	3.067s

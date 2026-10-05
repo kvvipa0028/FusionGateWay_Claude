@@ -42,7 +42,7 @@ Timeout 默认 2 分钟，可由可信宿主配置为不超过 4 分钟的正值
 
 多阶段 design → 人工冻结与批准 → implementation → testing 已接通真实代码交接，包括宿主重启后的实施文件恢复、独立 Native 会话和精确父产物索引。Store 的 StageArtifactInput 必须验证完整 Task condition、工作流顺序、批准设计和前一阶段 released receipt；启动与发布前再次检查上下文。详细合同及负向证据见 [GLM 阶段消费者](glm-stage-handoff.md)和 [HANDOFF-RESOLVER-01](../work-items/WP-20/HANDOFF-RESOLVER-01/summary.md)。
 
-testing 已接入[直接执行器和持久证据门](verification-runner.md)。多角色 testing 必须提供可信 Verification，且 Acceptance 与已批准设计一致；实际 Native 停止后才运行固定命令，硬失败/报告无效使 Task needs_review，重启核验仍绑定原产物和标准。Native 成功不能证明测试通过。多阶段 review/acceptance 仍返回 unsupported，直到其受控证据消费者与闭环实现。完整测试、审查、验收与有限返工仍必须实现，不缩减 WP-19–WP-22 或最终 T01–T60。
+testing 已接入[直接执行器和持久证据门](verification-runner.md)。多角色 testing 必须提供可信 Verification，且 Acceptance 与已批准设计一致；实际 Native 停止后才运行固定命令，硬失败/报告无效使 Task needs_review，重启核验仍绑定原产物和标准。Native 成功不能证明测试通过。[多阶段只读 review](review-assessment.md)已接入 exact released testing 证据、当前 Spec/批准标准和实际 Native 结构化意见；不通过/无效意见进入 needs_review。acceptance 仍返回 unsupported，直到其受控消费者与闭环实现。完整测试、审查、验收与有限返工仍必须实现，不缩减 WP-19–WP-22 或最终 T01–T60。
 
 本组件没有登记真实账号/publisher/计费/物理池报告，没有打开产品 CLI 执行，也没有新增 quota reader。真实 CN quota-only 查询保持独立；其 unverified 快照仍不能放行 Scheduler。OpenAI/X 登录、实际供应商 Gate A、完整原 Magpie 主界面整合与实际 Native UI 点击仍未完成。
 

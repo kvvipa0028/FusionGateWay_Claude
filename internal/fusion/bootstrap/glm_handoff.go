@@ -21,11 +21,26 @@ type glmStageParent struct {
 }
 
 type glmStagePrompt struct {
-	Role       stageplan.Role      `json:"role"`
-	Goal       string              `json:"goal"`
-	Workflow   *store.WorkflowView `json:"workflow,omitempty"`
-	Parent     *glmStageParent     `json:"parent,omitempty"`
-	WritePaths []string            `json:"write_paths,omitempty"`
+	Role                   stageplan.Role         `json:"role"`
+	Goal                   string                 `json:"goal"`
+	Workflow               *store.WorkflowView    `json:"workflow,omitempty"`
+	Parent                 *glmStageParent        `json:"parent,omitempty"`
+	WritePaths             []string               `json:"write_paths,omitempty"`
+	Verification           *glmReviewVerification `json:"verification,omitempty"`
+	ReviewResponseContract string                 `json:"review_response_contract,omitempty"`
+}
+
+type glmReviewVerification struct {
+	TestingRunID   string `json:"testing_run_id"`
+	ArtifactHash   string `json:"artifact_hash"`
+	SuiteHash      string `json:"suite_hash"`
+	SpecHash       string `json:"spec_hash"`
+	AcceptanceHash string `json:"acceptance_hash"`
+	ReportHash     string `json:"report_hash"`
+	ToolVersion    string `json:"tool_version"`
+	ExitCode       int    `json:"exit_code"`
+	Tests          int    `json:"tests"`
+	Skipped        int    `json:"skipped"`
 }
 
 func glmTestingPathsValid(paths []string) bool {

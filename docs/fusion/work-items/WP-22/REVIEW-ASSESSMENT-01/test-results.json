@@ -1,0 +1,118 @@
+{
+  "component": "WP-22-REVIEW-ASSESSMENT-01",
+  "base": "e180b4f2c739f58dc719d78569a2a337db3ca6d0",
+  "go_version": "1.26.3",
+  "fusion_final": {
+    "pass_top": 689,
+    "pass_sub": 1244,
+    "skip_top": 33,
+    "skip_sub": 11,
+    "fail_top": 0,
+    "fail_sub": 0,
+    "packages": 19
+  },
+  "native_final": {
+    "pass_top": 10,
+    "pass_sub": 47,
+    "skip_top": 0,
+    "skip_sub": 0,
+    "fail_top": 0,
+    "fail_sub": 0,
+    "packages": 1
+  },
+  "store_final": {
+    "pass_top": 3,
+    "pass_sub": 6,
+    "skip_top": 0,
+    "skip_sub": 0,
+    "fail_top": 0,
+    "fail_sub": 0,
+    "packages": 1
+  },
+  "log_archives": {
+    "review-parser-red.log": {
+      "raw_log": ".fusion-dev/implementation/review-parser-red.log",
+      "raw_sha256": "4d80421b68a1c1d598f61588de8e6e0d1f99cba373e9d9a87eb265f62050efda",
+      "archive_sha256": "4d80421b68a1c1d598f61588de8e6e0d1f99cba373e9d9a87eb265f62050efda"
+    },
+    "review-parser-green.log": {
+      "raw_log": ".fusion-dev/implementation/review-parser-green.log",
+      "raw_sha256": "87dd500d1716f5aeaac0231afb51ef5c32b0f534016fbae687882c8da079e37f",
+      "archive_sha256": "87dd500d1716f5aeaac0231afb51ef5c32b0f534016fbae687882c8da079e37f"
+    },
+    "review-native-red.log": {
+      "raw_log": ".fusion-dev/implementation/review-native-red.log",
+      "raw_sha256": "a0bb73e195bf7315ecd99efbeb0ee1d8cc05e4083522f736b765ed663b72c2b6",
+      "archive_sha256": "4c3b1a5fc93eefd1b4a4dce78543bc1986b1da1738a77d026801f3b8c0f2068c"
+    },
+    "review-native-first.log": {
+      "raw_log": ".fusion-dev/implementation/review-native-first.log",
+      "raw_sha256": "4001810102a4003104d2f7b6aead3a1f78eddbcce9427afd5527c156b799c334",
+      "archive_sha256": "4001810102a4003104d2f7b6aead3a1f78eddbcce9427afd5527c156b799c334"
+    },
+    "review-native-expanded.log": {
+      "raw_log": ".fusion-dev/implementation/review-native-expanded.log",
+      "raw_sha256": "93d089cf6f62c525e474324c2864443a250ed2170fdabe87a8b29a7ebdc8ef2b",
+      "archive_sha256": "93d089cf6f62c525e474324c2864443a250ed2170fdabe87a8b29a7ebdc8ef2b"
+    },
+    "review-store-initial.log": {
+      "raw_log": ".fusion-dev/implementation/review-store-initial.log",
+      "raw_sha256": "3e0ace92f825caa4f208b3dea0604e4ec85c229bb4b8d711730742c9fababa9b",
+      "archive_sha256": "3e0ace92f825caa4f208b3dea0604e4ec85c229bb4b8d711730742c9fababa9b"
+    },
+    "review-evidence-mutation.log": {
+      "raw_log": ".fusion-dev/implementation/review-evidence-mutation.log",
+      "raw_sha256": "361ec2e3faa1ce27296c98a8fb6c5c983793a91e56ff3b6b782f019aff811f18",
+      "archive_sha256": "361ec2e3faa1ce27296c98a8fb6c5c983793a91e56ff3b6b782f019aff811f18"
+    },
+    "review-native-final.log": {
+      "raw_log": ".fusion-dev/implementation/review-native-final.log",
+      "raw_sha256": "acc619325f55e9f5e7873ea8609528918d29ec590c50e7fa51a8416555340643",
+      "archive_sha256": "acc619325f55e9f5e7873ea8609528918d29ec590c50e7fa51a8416555340643"
+    },
+    "review-fusion-final.log": {
+      "raw_log": ".fusion-dev/implementation/review-fusion-final.log",
+      "raw_sha256": "6cc5f449389a13f58d97adfdb016588546fde3383305384cd93af30019418224",
+      "archive_sha256": "6cc5f449389a13f58d97adfdb016588546fde3383305384cd93af30019418224"
+    },
+    "review-store-final.log": {
+      "raw_log": ".fusion-dev/implementation/review-store-final.log",
+      "raw_sha256": "1e17d971cf9441e6905723806f2e922b4cb9e561f4f2fcda6fabe1b6530898af",
+      "archive_sha256": "1e17d971cf9441e6905723806f2e922b4cb9e561f4f2fcda6fabe1b6530898af"
+    },
+    "build-cli.log": {
+      "raw_log": ".fusion-dev/build-dev/cli.log",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "archive_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "build-gui.log": {
+      "raw_log": ".fusion-dev/build-dev/gui.log",
+      "raw_sha256": "a10c8799c78ed2f48e92cf21bb7d11e11599fa44dc9972f8ec2b1a3933981222",
+      "archive_sha256": "a10c8799c78ed2f48e92cf21bb7d11e11599fa44dc9972f8ec2b1a3933981222"
+    },
+    "build-vet.log": {
+      "raw_log": ".fusion-dev/build-dev/vet.log",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "archive_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "effective_mutation": "Removing hard.Status != passed check allowed actual review after current standard changed: 202/new generation instead of pre-intent refusal; test FAIL. Production bytes restored exactly; final pinned Native/fullFusion green.",
+  "mutation_source_restored_exactly": true,
+  "initial_failures": [
+    "Missing parser APIs compile RED.",
+    "Actual approved pipeline review returned runtime_unsupported 503, genuine behavioral RED before integration."
+  ],
+  "scope": {
+    "ui_changes": 0,
+    "jev": "off",
+    "real_supplier_calls": 0,
+    "native": "pinned actual Claude Code 2.1.287 with synthetic upstream/key/admission",
+    "schema": 10,
+    "review": "readonly_actual_consumer_and_advisory_receipt",
+    "acceptance": "not_implemented",
+    "rework_and_independence_policy": "not_implemented",
+    "child_toolchain_backend": "not_implemented",
+    "whole_WP22": "in_progress",
+    "final_T01_T60": "not_run"
+  }
+}

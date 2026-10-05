@@ -1,0 +1,20 @@
+=== RUN   TestReviewReceiptKeepsHardModelAndHumanDecisionsSeparateAcrossRestart
+--- PASS: TestReviewReceiptKeepsHardModelAndHumanDecisionsSeparateAcrossRestart (0.64s)
+=== RUN   TestReviewRegistrationRejectsWrongParentTreeAndRevokedCommitWithoutSideEffects
+=== RUN   TestReviewRegistrationRejectsWrongParentTreeAndRevokedCommitWithoutSideEffects/foreign_parent
+=== RUN   TestReviewRegistrationRejectsWrongParentTreeAndRevokedCommitWithoutSideEffects/changed_tree
+=== RUN   TestReviewRegistrationRejectsWrongParentTreeAndRevokedCommitWithoutSideEffects/changed_input
+=== RUN   TestReviewRegistrationRejectsWrongParentTreeAndRevokedCommitWithoutSideEffects/revoked_commit
+--- PASS: TestReviewRegistrationRejectsWrongParentTreeAndRevokedCommitWithoutSideEffects (0.49s)
+    --- PASS: TestReviewRegistrationRejectsWrongParentTreeAndRevokedCommitWithoutSideEffects/foreign_parent (0.00s)
+    --- PASS: TestReviewRegistrationRejectsWrongParentTreeAndRevokedCommitWithoutSideEffects/changed_tree (0.01s)
+    --- PASS: TestReviewRegistrationRejectsWrongParentTreeAndRevokedCommitWithoutSideEffects/changed_input (0.01s)
+    --- PASS: TestReviewRegistrationRejectsWrongParentTreeAndRevokedCommitWithoutSideEffects/revoked_commit (0.01s)
+=== RUN   TestReviewBlockingOpinionRollsBackWithEventAndInvalidOpinionStopsWorkflow
+=== RUN   TestReviewBlockingOpinionRollsBackWithEventAndInvalidOpinionStopsWorkflow/{"version":1,"verdict":"changes_required","findings":[{"id":"R1","severity":"blocking","summary":"fix_in_implementation"}]}
+=== RUN   TestReviewBlockingOpinionRollsBackWithEventAndInvalidOpinionStopsWorkflow/{"verdict":"accepted"}
+--- PASS: TestReviewBlockingOpinionRollsBackWithEventAndInvalidOpinionStopsWorkflow (1.06s)
+    --- PASS: TestReviewBlockingOpinionRollsBackWithEventAndInvalidOpinionStopsWorkflow/{"version":1,"verdict":"changes_required","findings":[{"id":"R1","severity":"blocking","summary":"fix_in_implementation"}]} (0.53s)
+    --- PASS: TestReviewBlockingOpinionRollsBackWithEventAndInvalidOpinionStopsWorkflow/{"verdict":"accepted"} (0.53s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/store	3.878s

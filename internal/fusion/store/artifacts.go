@@ -19,6 +19,7 @@ type ArtifactRecord struct {
 	ParentRunID   string                `json:"parent_run_id"`
 	InputTreeHash string                `json:"input_tree_hash"`
 	Verification  *ArtifactVerification `json:"verification,omitempty"`
+	Review        *ArtifactReview       `json:"review,omitempty"`
 }
 
 func (ArtifactRecord) String() string   { return "stored stage artifact (redacted)" }
@@ -38,6 +39,9 @@ func artifactRecordIn(q queryRow, runID string) (ArtifactRecord, error) {
 		return ArtifactRecord{}, ErrInvalid
 	}
 	if a.Verification != nil && !validArtifactVerification(a) {
+		return ArtifactRecord{}, ErrInvalid
+	}
+	if a.Review != nil && !validArtifactReview(a) {
 		return ArtifactRecord{}, ErrInvalid
 	}
 	b, err := json.Marshal(a)
@@ -113,7 +117,7 @@ func (s *Store) RecordArtifact(a ArtifactRecord) error {
 // The producer must verify actual Supervisor stop and current filesystem bytes
 // independently before calling; a caller-declared boolean/hash is insufficient.
 func (s *Store) RecordArtifactAuthorized(a ArtifactRecord, current func() bool) error {
-	if a.Verification != nil {
+	if a.Verification != nil || a.Review != nil {
 		return ErrInvalid
 	}
 	return s.recordArtifactAuthorized(a, current)
@@ -154,6 +158,9 @@ func (s *Store) recordArtifactAuthorized(a ArtifactRecord, current func() bool) 
 			if a.Verification != nil && !verificationContextIn(tx, t, a.Verification) {
 				return ErrConflict
 			}
+			if a.Review != nil && !reviewContextIn(tx, t, a) {
+				return ErrConflict
+			}
 			if _, err := tx.Exec("INSERT INTO stage_artifacts VALUES(?,?,?,?)", r.ID, r.TaskID, string(raw), hash(raw)); err != nil {
 				return err
 			}
@@ -165,6 +172,14 @@ func (s *Store) recordArtifactAuthorized(a ArtifactRecord, current func() bool) 
 					return err
 				}
 				if err := event(tx, r.TaskID, "verification_requires_review", r.ID, r.Generation); err != nil {
+					return err
+				}
+			}
+			if a.Review != nil && (!a.Review.Valid || a.Review.Document.Verdict != "approve") {
+				if _, err := tx.Exec("UPDATE tasks SET state='needs_review' WHERE id=?", r.TaskID); err != nil {
+					return err
+				}
+				if err := event(tx, r.TaskID, "review_requires_review", r.ID, r.Generation); err != nil {
 					return err
 				}
 			}

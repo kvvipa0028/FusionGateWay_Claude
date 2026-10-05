@@ -1,0 +1,471 @@
+{
+  "artifact": {
+    "reference": {
+      "version": 1,
+      "binding": {
+        "task_id": "task-748304f15542b7dfef185f9e28cee88f",
+        "plan_revision": 1,
+        "plan_hash": "74b2e16f7db6ddc3153750e760279e0be254977809b065bd97fdbe5e2c5c37b4",
+        "run_id": "run-fbfbebd8daa114f95c836e3f55ad3bf9",
+        "generation": 4,
+        "role": "review",
+        "target_hash": "48337d1da8b1b2448dc8cdb5f275ea2b3aef73d420e5e5c04fe137f4f38044f2"
+      },
+      "path": "/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-x8g08q7o/TestReviewReceiptKeepsHardModelAndHumanDecisionsSeparateAcrossRe1566855486/003/review-artifact",
+      "tree_hash": "c99b0b430b095cbfd285734fcd12d7cc0cc84f0e3732a856881fea108ac1151e",
+      "base_tree_hash": "c99b0b430b095cbfd285734fcd12d7cc0cc84f0e3732a856881fea108ac1151e",
+      "stop_proof_hash": "bd283a96617a114f534303ad81b561ba9e99291a911b0ba8013ae6dd4191de0e",
+      "header_hash": "24ae87fdaab1614bc546c188e493acfd9f920dcfee19fede0bfa14c0f12b21fa",
+      "header_info": {
+        "device": 16777230,
+        "inode": 233508177,
+        "mode": 256,
+        "uid": 501,
+        "gid": 20,
+        "links": 1,
+        "bytes": 1178,
+        "modified": 1791178472478056413
+      },
+      "witness": {
+        "version": 1,
+        "state_root": "/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-x8g08q7o/TestReviewReceiptKeepsHardModelAndHumanDecisionsSeparateAcrossRe1566855486/003",
+        "state_info": {
+          "device": 16777230,
+          "inode": 233508062,
+          "mode": 2147484096,
+          "uid": 501,
+          "gid": 20,
+          "links": 11,
+          "bytes": 0,
+          "modified": 0
+        },
+        "source": {
+          "path": "/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-x8g08q7o/TestReviewReceiptKeepsHardModelAndHumanDecisionsSeparateAcrossRe1566855486/002",
+          "commit": null,
+          "entries": [
+            {
+              "path": ".",
+              "info": {
+                "device": 16777230,
+                "inode": 233508061,
+                "mode": 2147484141,
+                "uid": 501,
+                "gid": 20,
+                "links": 3,
+                "bytes": 0,
+                "modified": 0
+              },
+              "sha256": ""
+            },
+            {
+              "path": "tests.txt",
+              "info": {
+                "device": 16777230,
+                "inode": 233508063,
+                "mode": 384,
+                "uid": 501,
+                "gid": 20,
+                "links": 1,
+                "bytes": 17,
+                "modified": 1791178472119271525
+              },
+              "sha256": "d7cc681d8b53607c48b9a792b06b45950b0db02b12964ed05953c54b12e619ec"
+            }
+          ]
+        },
+        "artifacts": [
+          {
+            "path": "/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-x8g08q7o/TestReviewReceiptKeepsHardModelAndHumanDecisionsSeparateAcrossRe1566855486/003/design-artifact",
+            "info": {
+              "device": 16777230,
+              "inode": 233508067,
+              "mode": 2147484096,
+              "uid": 501,
+              "gid": 20,
+              "links": 0,
+              "bytes": 0,
+              "modified": 0
+            },
+            "code": {
+              "path": "/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-x8g08q7o/TestReviewReceiptKeepsHardModelAndHumanDecisionsSeparateAcrossRe1566855486/003/design-artifact/code",
+              "commit": null,
+              "entries": [
+                {
+                  "path": ".",
+                  "info": {
+                    "device": 16777230,
+                    "inode": 233508068,
+                    "mode": 2147484096,
+                    "uid": 501,
+                    "gid": 20,
+                    "links": 3,
+                    "bytes": 0,
+                    "modified": 0
+                  },
+                  "sha256": ""
+                },
+                {
+                  "path": "tests.txt",
+                  "info": {
+                    "device": 16777230,
+                    "inode": 233508069,
+                    "mode": 256,
+                    "uid": 501,
+                    "gid": 20,
+                    "links": 1,
+                    "bytes": 17,
+                    "modified": 1791178472143846378
+                  },
+                  "sha256": "d7cc681d8b53607c48b9a792b06b45950b0db02b12964ed05953c54b12e619ec"
+                }
+              ]
+            },
+            "manifest": {
+              "path": "manifest.json",
+              "info": {
+                "device": 16777230,
+                "inode": 233508070,
+                "mode": 256,
+                "uid": 501,
+                "gid": 20,
+                "links": 1,
+                "bytes": 423,
+                "modified": 1791178472144533920
+              },
+              "sha256": "07ab064d909a46e49f562d0375f9bb7e5ad2962445249a2c34305d35dc6911db"
+            },
+            "header": {
+              "path": "handoff.json",
+              "info": {
+                "device": 16777230,
+                "inode": 233508071,
+                "mode": 256,
+                "uid": 501,
+                "gid": 20,
+                "links": 1,
+                "bytes": 1178,
+                "modified": 1791178472146886709
+              },
+              "sha256": "75ee4773b859b076477e1d6c50b3e5d7ebb57ec142194d94832a11e63e935666"
+            }
+          },
+          {
+            "path": "/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-x8g08q7o/TestReviewReceiptKeepsHardModelAndHumanDecisionsSeparateAcrossRe1566855486/003/implementation-artifact",
+            "info": {
+              "device": 16777230,
+              "inode": 233508098,
+              "mode": 2147484096,
+              "uid": 501,
+              "gid": 20,
+              "links": 0,
+              "bytes": 0,
+              "modified": 0
+            },
+            "code": {
+              "path": "/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-x8g08q7o/TestReviewReceiptKeepsHardModelAndHumanDecisionsSeparateAcrossRe1566855486/003/implementation-artifact/code",
+              "commit": null,
+              "entries": [
+                {
+                  "path": ".",
+                  "info": {
+                    "device": 16777230,
+                    "inode": 233508099,
+                    "mode": 2147484096,
+                    "uid": 501,
+                    "gid": 20,
+                    "links": 3,
+                    "bytes": 0,
+                    "modified": 0
+                  },
+                  "sha256": ""
+                },
+                {
+                  "path": "tests.txt",
+                  "info": {
+                    "device": 16777230,
+                    "inode": 233508100,
+                    "mode": 256,
+                    "uid": 501,
+                    "gid": 20,
+                    "links": 1,
+                    "bytes": 17,
+                    "modified": 1791178472217352604
+                  },
+                  "sha256": "d7cc681d8b53607c48b9a792b06b45950b0db02b12964ed05953c54b12e619ec"
+                }
+              ]
+            },
+            "manifest": {
+              "path": "manifest.json",
+              "info": {
+                "device": 16777230,
+                "inode": 233508101,
+                "mode": 256,
+                "uid": 501,
+                "gid": 20,
+                "links": 1,
+                "bytes": 423,
+                "modified": 1791178472218204354
+              },
+              "sha256": "07ab064d909a46e49f562d0375f9bb7e5ad2962445249a2c34305d35dc6911db"
+            },
+            "header": {
+              "path": "handoff.json",
+              "info": {
+                "device": 16777230,
+                "inode": 233508102,
+                "mode": 256,
+                "uid": 501,
+                "gid": 20,
+                "links": 1,
+                "bytes": 1186,
+                "modified": 1791178472221635934
+              },
+              "sha256": "41e5bd60b5048c243f1523b0d5aabbebaf8be5e52625b9aeebcb28df3eb8dda9"
+            }
+          },
+          {
+            "path": "/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-x8g08q7o/TestReviewReceiptKeepsHardModelAndHumanDecisionsSeparateAcrossRe1566855486/003/testing-artifact",
+            "info": {
+              "device": 16777230,
+              "inode": 233508107,
+              "mode": 2147484096,
+              "uid": 501,
+              "gid": 20,
+              "links": 0,
+              "bytes": 0,
+              "modified": 0
+            },
+            "code": {
+              "path": "/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-x8g08q7o/TestReviewReceiptKeepsHardModelAndHumanDecisionsSeparateAcrossRe1566855486/003/testing-artifact/code",
+              "commit": null,
+              "entries": [
+                {
+                  "path": ".",
+                  "info": {
+                    "device": 16777230,
+                    "inode": 233508108,
+                    "mode": 2147484096,
+                    "uid": 501,
+                    "gid": 20,
+                    "links": 3,
+                    "bytes": 0,
+                    "modified": 0
+                  },
+                  "sha256": ""
+                },
+                {
+                  "path": "tests.txt",
+                  "info": {
+                    "device": 16777230,
+                    "inode": 233508109,
+                    "mode": 256,
+                    "uid": 501,
+                    "gid": 20,
+                    "links": 1,
+                    "bytes": 17,
+                    "modified": 1791178472280530464
+                  },
+                  "sha256": "d7cc681d8b53607c48b9a792b06b45950b0db02b12964ed05953c54b12e619ec"
+                }
+              ]
+            },
+            "manifest": {
+              "path": "manifest.json",
+              "info": {
+                "device": 16777230,
+                "inode": 233508110,
+                "mode": 256,
+                "uid": 501,
+                "gid": 20,
+                "links": 1,
+                "bytes": 423,
+                "modified": 1791178472281233880
+              },
+              "sha256": "07ab064d909a46e49f562d0375f9bb7e5ad2962445249a2c34305d35dc6911db"
+            },
+            "header": {
+              "path": "handoff.json",
+              "info": {
+                "device": 16777230,
+                "inode": 233508149,
+                "mode": 256,
+                "uid": 501,
+                "gid": 20,
+                "links": 1,
+                "bytes": 1141,
+                "modified": 1791178472393279363
+              },
+              "sha256": "a80fc5f6d9a417b93d0dbbf16d47a969776104cb60c58f42d4a11e6d4242d5f2"
+            }
+          },
+          {
+            "path": "/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-x8g08q7o/TestReviewReceiptKeepsHardModelAndHumanDecisionsSeparateAcrossRe1566855486/003/review-artifact",
+            "info": {
+              "device": 16777230,
+              "inode": 233508173,
+              "mode": 2147484096,
+              "uid": 501,
+              "gid": 20,
+              "links": 0,
+              "bytes": 0,
+              "modified": 0
+            },
+            "code": {
+              "path": "/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-x8g08q7o/TestReviewReceiptKeepsHardModelAndHumanDecisionsSeparateAcrossRe1566855486/003/review-artifact/code",
+              "commit": null,
+              "entries": [
+                {
+                  "path": ".",
+                  "info": {
+                    "device": 16777230,
+                    "inode": 233508174,
+                    "mode": 2147484096,
+                    "uid": 501,
+                    "gid": 20,
+                    "links": 3,
+                    "bytes": 0,
+                    "modified": 0
+                  },
+                  "sha256": ""
+                },
+                {
+                  "path": "tests.txt",
+                  "info": {
+                    "device": 16777230,
+                    "inode": 233508175,
+                    "mode": 256,
+                    "uid": 501,
+                    "gid": 20,
+                    "links": 1,
+                    "bytes": 17,
+                    "modified": 1791178472472552709
+                  },
+                  "sha256": "d7cc681d8b53607c48b9a792b06b45950b0db02b12964ed05953c54b12e619ec"
+                }
+              ]
+            },
+            "manifest": {
+              "path": "manifest.json",
+              "info": {
+                "device": 16777230,
+                "inode": 233508176,
+                "mode": 256,
+                "uid": 501,
+                "gid": 20,
+                "links": 1,
+                "bytes": 423,
+                "modified": 1791178472473179125
+              },
+              "sha256": "07ab064d909a46e49f562d0375f9bb7e5ad2962445249a2c34305d35dc6911db"
+            },
+            "header": {
+              "path": "handoff.json",
+              "info": {
+                "device": 16777230,
+                "inode": 233508177,
+                "mode": 256,
+                "uid": 501,
+                "gid": 20,
+                "links": 1,
+                "bytes": 1178,
+                "modified": 1791178472478056413
+              },
+              "sha256": "24ae87fdaab1614bc546c188e493acfd9f920dcfee19fede0bfa14c0f12b21fa"
+            }
+          }
+        ],
+        "manifest": {
+          "version": 1,
+          "base_commit": null,
+          "base_tree_hash": "c99b0b430b095cbfd285734fcd12d7cc0cc84f0e3732a856881fea108ac1151e",
+          "tree_hash": "c99b0b430b095cbfd285734fcd12d7cc0cc84f0e3732a856881fea108ac1151e",
+          "change_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "entries": [
+            {
+              "path": "tests.txt",
+              "kind": "file",
+              "sha256": "d7cc681d8b53607c48b9a792b06b45950b0db02b12964ed05953c54b12e619ec",
+              "bytes": 17
+            }
+          ],
+          "changes": []
+        }
+      },
+      "witness_hash": "18542ee42e59782a276dd23a4aee0bbf196ab7199221b563a85f1c2a204efa23"
+    },
+    "parent_run_id": "run-999dac889bc359bb881599b4a2d87b77",
+    "input_tree_hash": "c99b0b430b095cbfd285734fcd12d7cc0cc84f0e3732a856881fea108ac1151e",
+    "review": {
+      "text": "{\"version\":1,\"verdict\":\"approve\",\"findings\":[]}",
+      "text_hash": "577679b8639611a3c163c6e8232e96d4377707e824537b3da350a187d5ddf42e",
+      "document": {
+        "version": 1,
+        "verdict": "approve",
+        "findings": []
+      },
+      "valid": true,
+      "testing_run_id": "run-999dac889bc359bb881599b4a2d87b77",
+      "tree_hash": "c99b0b430b095cbfd285734fcd12d7cc0cc84f0e3732a856881fea108ac1151e",
+      "spec_hash": "19be4e095571e86dd3b27fc6363d37bc3677d9859fcb8dcc8c0ade982d9cf52b",
+      "design_hash": "c45e199469e4fb9d3ecce7b077c4b455e6346814610d4aa9250710674837a532",
+      "acceptance_hash": "ad55c0b6c1e329cc0546752641debfa7d998b180e16cbe7033d7943abe75e904"
+    }
+  },
+  "hard_verdict": {
+    "status": "passed",
+    "reason": "",
+    "tests": 1,
+    "skipped": 0
+  },
+  "workflow": {
+    "task_id": "task-748304f15542b7dfef185f9e28cee88f",
+    "definition": {
+      "schema_version": 1,
+      "kind": "change",
+      "required_roles": [
+        "design",
+        "implementation",
+        "testing",
+        "review",
+        "acceptance"
+      ],
+      "hash": "4a3d405f552e318a23a711493e17a38e562b7ce07a5ae81299a610db01ab9f28"
+    },
+    "design": {
+      "run_id": "run-cf3c91cebae1ce7d1d105792c3f6424a",
+      "plan_revision": 1,
+      "plan_hash": "74b2e16f7db6ddc3153750e760279e0be254977809b065bd97fdbe5e2c5c37b4",
+      "generation": 1,
+      "snapshot": {
+        "schema_version": 1,
+        "document": {
+          "goal": "fixture goal",
+          "scope": [
+            "tests.txt"
+          ],
+          "constraints": [
+            "readonly review"
+          ],
+          "interfaces": [
+            "typed opinions"
+          ],
+          "acceptance": [
+            "real tests"
+          ]
+        },
+        "hash": "c45e199469e4fb9d3ecce7b077c4b455e6346814610d4aa9250710674837a532",
+        "acceptance_hash": "ad55c0b6c1e329cc0546752641debfa7d998b180e16cbe7033d7943abe75e904"
+      }
+    },
+    "approval": {
+      "plan_revision": 1,
+      "plan_hash": "74b2e16f7db6ddc3153750e760279e0be254977809b065bd97fdbe5e2c5c37b4",
+      "generation": 1,
+      "design_hash": "c45e199469e4fb9d3ecce7b077c4b455e6346814610d4aa9250710674837a532",
+      "acceptance_hash": "ad55c0b6c1e329cc0546752641debfa7d998b180e16cbe7033d7943abe75e904"
+    },
+    "next": "acceptance",
+    "blocker": ""
+  }
+}

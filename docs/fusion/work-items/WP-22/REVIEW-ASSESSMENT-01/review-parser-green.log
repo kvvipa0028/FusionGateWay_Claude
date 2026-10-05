@@ -1,0 +1,10 @@
+=== RUN   TestDefinitionsKeepOnlyNecessaryRolesAndRejectUnversionedChanges
+--- PASS: TestDefinitionsKeepOnlyNecessaryRolesAndRejectUnversionedChanges (0.00s)
+=== RUN   TestFrozenDesignKeepsIndependentAcceptanceHashAndRejectsChangedFields
+--- PASS: TestFrozenDesignKeepsIndependentAcceptanceHashAndRejectsChangedFields (0.00s)
+=== RUN   TestDesignRejectsMissingContractAndEscapingWriteScope
+--- PASS: TestDesignRejectsMissingContractAndEscapingWriteScope (0.00s)
+=== RUN   TestReviewDocumentRequiresExplicitBoundedConsistentModelOpinion
+--- PASS: TestReviewDocumentRequiresExplicitBoundedConsistentModelOpinion (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/workflow	1.505s

@@ -1,0 +1,6 @@
+# github.com/yetone/magpie/internal/fusion/workflow [github.com/yetone/magpie/internal/fusion/workflow.test]
+internal/fusion/workflow/review_test.go:10:14: undefined: ParseReview
+internal/fusion/workflow/review_test.go:26:16: undefined: ParseReview
+internal/fusion/workflow/review_test.go:35:16: undefined: ParseReview
+FAIL	github.com/yetone/magpie/internal/fusion/workflow [build failed]
+FAIL

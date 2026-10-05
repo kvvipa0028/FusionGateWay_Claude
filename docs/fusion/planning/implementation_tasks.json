@@ -548,7 +548,7 @@
       "id": "WP-22",
       "title": "审查、返工与验收闭环",
       "milestone": "M3",
-      "status": "planned",
+      "status": "in_progress",
       "depends_on": [
         "WP-19",
         "WP-20",

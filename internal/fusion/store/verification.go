@@ -31,7 +31,7 @@ func verificationContextIn(q workflowQuery, t Task, v *ArtifactVerification) boo
 // Native stop/Task/Plan/parent/source fences remain independent requirements.
 // current must not reenter Store; registration never releases a reservation.
 func (s *Store) RecordVerifiedArtifactAuthorized(a ArtifactRecord, r evidence.Result, frozen workspace.FrozenArtifact, spec evidence.Spec, current func() bool) error {
-	if a.Verification != nil || current == nil || !current() {
+	if a.Verification != nil || a.Review != nil || current == nil || !current() {
 		return ErrInvalid
 	}
 	v, err := evidence.Export(r, frozen, spec)

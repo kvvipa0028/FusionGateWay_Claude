@@ -24,7 +24,7 @@
 4. [验收矩阵](planning/Fusion_Magpie_Fork_验收矩阵_v1.0.md)：T01–T60；当前均为 `not_run`。
 5. [源码与工具链锁](upstream-lock.json)、[基线报告](baseline/baseline-report.md)：本轮实际准备与验证证据。
 
-`planning/implementation_tasks.json` 和 `planning/acceptance_tests.json` 由本地三份 Markdown 提取，已核对编号、引用及依赖无环；它们不是原 ZIP 的恢复副本。WP-01–WP-11 为 `done`，WP-12–WP-16、WP-19 与 WP-20 为 `in_progress`，其余包为 `planned`；最终验收仍为 `not_run`。
+`planning/implementation_tasks.json` 和 `planning/acceptance_tests.json` 由本地三份 Markdown 提取，已核对编号、引用及依赖无环；它们不是原 ZIP 的恢复副本。WP-01–WP-11 为 `done`，WP-12–WP-16、WP-19–WP-22 为 `in_progress`，其余包为 `planned`；最终验收仍为 `not_run`。
 
 ## 源码与 Git
 
@@ -92,6 +92,6 @@ Grok受管生命周期组件：[CHANNEL-01证据](work-items/WP-13/CHANNEL-01/su
 
 Grok只读Runtime Adapter：[ADAPTER-01证据](work-items/WP-13/ADAPTER-01/summary.md)、[Adapter合同](contracts/grok-adapter.md)。实际固定Native/private prompt/read/取消/停止已验证；真实X准入、Resume/write/工程闭环与final Gate继续待完成。
 
-[阶段代码冻结与交接](contracts/stage-handoff.md)完成私有代码快照、基线/tree/change hash、来源链校验和 GLM 成功运行产物发布。[持久产物索引与受控重启恢复](contracts/durable-stage-artifact.md)已接入实际 GLM producer。[下一阶段 resolver](contracts/glm-stage-handoff.md)已接入 design/implementation/testing，宿主重启后继续实际代码，按已批准范围写入并核验最终变化。实际 GLM testing 已接入直接执行器、持久证据及硬失败阻断；完整审查/验收和子进程工具链仍未完成，多角色 review/acceptance 保持阻断；界面沿用原 Magpie，只做必要的小范围扩展。
+[阶段代码冻结与交接](contracts/stage-handoff.md)完成私有代码快照、基线/tree/change hash、来源链校验和 GLM 成功运行产物发布。[持久产物索引与受控重启恢复](contracts/durable-stage-artifact.md)已接入实际 GLM producer。[下一阶段 resolver](contracts/glm-stage-handoff.md)已接入 design/implementation/testing，宿主重启后继续实际代码，按已批准范围写入并核验最终变化。实际 GLM testing 已接入直接执行器、持久证据及硬失败阻断；只读 review 已接入当前硬证据和持久模型意见；完整验收、有界返工和子进程工具链仍未完成，多角色 acceptance 保持阻断；界面沿用原 Magpie，只做必要的小范围扩展。
 
-[WP-21 真实验证](work-items/WP-21/summary.md)已完成[直接命令执行器与 owned EvidenceGate](contracts/verification-runner.md)。实际版本/exit/report、产物/测试集合/标准绑定及 kernel 隔离已有本机验证；[实际 testing 发布与重启证据核验](work-items/WP-21/VERIFIED-TESTING-01/summary.md)已接入。后续 review/acceptance 消费和需要子进程的工具链仍待完成，不将独立组件通过当成五阶段验收完成。
+[WP-21 真实验证](work-items/WP-21/summary.md)已完成[直接命令执行器与 owned EvidenceGate](contracts/verification-runner.md)。实际版本/exit/report、产物/测试集合/标准绑定及 kernel 隔离已有本机验证；[实际 testing 发布与重启证据核验](work-items/WP-21/VERIFIED-TESTING-01/summary.md)已接入。[审查证据消费](contracts/review-assessment.md)已接入；后续 acceptance/返工和需要子进程的工具链仍待完成，不将独立组件通过当成五阶段验收完成。

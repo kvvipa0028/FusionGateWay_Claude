@@ -616,7 +616,7 @@
 
 **阶段：**M3　**负责人角色：**验证工程 Agent　**状态：**in_progress
 
-**当前组件证据：**[VERIFICATION-RUNNER-01](../work-items/WP-21/VERIFICATION-RUNNER-01/summary.md) 已完成直接命令的真实只读执行、版本/代码/测试集合/标准绑定和 owned EvidenceGate。持久证据与阶段消费者、子进程工具链和最终端到端断言仍须完成，不将组件通过等同整个工作包通过。
+**当前组件证据：**[VERIFICATION-RUNNER-01](../work-items/WP-21/VERIFICATION-RUNNER-01/summary.md) 已完成直接命令的真实只读执行、版本/代码/测试集合/标准绑定和 owned EvidenceGate。实际 testing 的持久证据与只读 review 消费已接入；acceptance、子进程工具链和最终端到端断言仍须完成，不将组件通过等同整个工作包通过。
 
 **输入/前置：**WP-19, WP-20。同时读取这些前置包的合同、测试日志、阻断项与当前仓库 HEAD。
 
@@ -642,7 +642,9 @@
 
 ### WP-22 · 审查、返工与验收闭环
 
-**阶段：**M3　**负责人角色：**工作流 Agent　**状态：**planned
+**阶段：**M3　**负责人角色：**工作流 Agent　**状态：**in_progress
+
+**当前组件证据：**[REVIEW-ASSESSMENT-01](../work-items/WP-22/REVIEW-ASSESSMENT-01/summary.md) 已接入真实当前测试证据的只读 review、结构化模型意见及需要修改时的阻断。acceptance、有限返工、独立性策略和完整端到端仍须完成，不将组件通过等同整个工作包通过。
 
 **输入/前置：**WP-19, WP-20, WP-21。同时读取这些前置包的合同、测试日志、阻断项与当前仓库 HEAD。
 

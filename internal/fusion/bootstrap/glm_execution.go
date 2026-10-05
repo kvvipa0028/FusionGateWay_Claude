@@ -190,7 +190,7 @@ func newGLMRuntimeFactory(c GLMRuntimeConfig, transport http.RoundTripper) (Runt
 				return control.Launch{}, control.ErrIdentity
 			}
 			stage, err := e.Store.StageArtifactInput(task.ID, store.TaskVersion{PlanRevision: task.PlanRevision, Generation: task.Generation, State: task.State}, role)
-			if err != nil || glmHasMultipleRoles(stage) && (role == stageplan.Review || role == stageplan.Acceptance || !p.Write && (role == stageplan.Implementation || role == stageplan.Testing)) {
+			if err != nil || glmHasMultipleRoles(stage) && (role == stageplan.Acceptance || !p.Write && (role == stageplan.Implementation || role == stageplan.Testing)) {
 				return control.Launch{}, control.ErrUnsupported
 			}
 			if role == stageplan.Testing && glmHasMultipleRoles(stage) && !glmVerificationMatches(c.Verification, stage) {
@@ -210,6 +210,18 @@ func newGLMRuntimeFactory(c GLMRuntimeConfig, transport http.RoundTripper) (Runt
 				return control.Launch{}, control.ErrForbidden
 			}
 			prompt := glmStagePrompt{Role: role, Goal: task.Goal, Workflow: stage.Workflow, WritePaths: writePaths}
+			if role == stageplan.Review && glmHasMultipleRoles(stage) {
+				if !glmVerificationMatches(c.Verification, stage) || stage.Parent == nil || stage.Parent.Reference.Binding.Role != stageplan.Testing {
+					return control.Launch{}, control.ErrUnsupported
+				}
+				testing, hard, err := e.Store.VerifiedArtifact(stage.Parent.Reference.Binding.RunID, p.Path, c.ExecutionRoot, c.Verification.Spec)
+				if err != nil || hard.Status != evidence.Passed || !reflect.DeepEqual(testing, *stage.Parent) {
+					return control.Launch{}, control.ErrUnsupported
+				}
+				v := testing.Verification.Data.Record
+				prompt.Verification = &glmReviewVerification{TestingRunID: testing.Reference.Binding.RunID, ArtifactHash: v.ArtifactHash, SuiteHash: v.SuiteHash, SpecHash: v.SpecHash, AcceptanceHash: testing.Verification.AcceptanceHash, ReportHash: v.ReportHash, ToolVersion: v.ToolVersion, ExitCode: v.ExitCode, Tests: hard.Tests, Skipped: hard.Skipped}
+				prompt.ReviewResponseContract = `Return only one JSON object, at most 64 KiB: {"version":1,"verdict":"approve|changes_required|unverified","findings":[{"id":"unique finding id","severity":"blocking|nonblocking","summary":"concrete issue and required correction"}]}. No unknown keys. approve cannot include blocking findings; changes_required requires findings. Review the frozen code, approved design and actual test summary. Your opinion is advisory and cannot change hard test results, criteria, permissions, or human acceptance. Do not edit files.`
+			}
 			var parent handoff.Bundle
 			var inputEntries []workspace.ArtifactEntry
 			if stage.Parent != nil {
@@ -345,6 +357,12 @@ func newGLMRuntimeFactory(c GLMRuntimeConfig, transport http.RoundTripper) (Runt
 						return control.ErrReconcile
 					}
 					err = e.Store.RecordVerifiedArtifactAuthorized(record, verification, frozen, c.Verification.Spec, storeCurrent)
+				} else if role == stageplan.Review && glmHasMultipleRoles(stage) {
+					observed, raw, observeErr := adapter.Observation(run.ID, run.Generation)
+					if observeErr != nil || observed.State != "succeeded" || observed.SessionID != run.NativeSessionID || prompt.Verification == nil {
+						return control.ErrReconcile
+					}
+					err = e.Store.RecordReviewedArtifactAuthorized(record, raw, storeCurrent)
 				} else {
 					err = e.Store.RecordArtifactAuthorized(record, storeCurrent)
 				}

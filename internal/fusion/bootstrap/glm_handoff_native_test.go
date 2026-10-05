@@ -30,7 +30,7 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 	if *hostNativeGLM == "" {
 		t.Skip("explicit pinned Native fixture only")
 	}
-	for _, mode := range []string{"success", "testing_scope_violation", "parent_header_drift", "unscoped_external_write", "hard_test_failure", "malformed_test_report", "missing_verifier", "wrong_standard", "verifier_config_mutation"} {
+	for _, mode := range []string{"success", "testing_scope_violation", "parent_header_drift", "unscoped_external_write", "hard_test_failure", "malformed_test_report", "missing_verifier", "wrong_standard", "verifier_config_mutation", "review_changes", "review_malformed", "review_write", "review_standard_changed", "review_no_verifier", "review_parent_drift"} {
 		t.Run(mode, func(t *testing.T) {
 			path, d, c, _, _ := glmFactoryFixture(t, true)
 			c.Executable, _ = filepath.EvalSymlinks(*hostNativeGLM)
@@ -85,6 +85,19 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 						t.Error(err)
 					}
 				}
+				if role == stageplan.Review {
+					text := `{"version":1,"verdict":"approve","findings":[]}`
+					if mode == "review_changes" {
+						text = `{"version":1,"verdict":"changes_required","findings":[{"id":"R1","severity":"blocking","summary":"synthetic defect requires implementation repair"}]}`
+					}
+					if mode == "review_malformed" {
+						text = "model says accepted but no structured review"
+					}
+					if mode == "review_write" && n == 1 {
+						write = filepath.Join(work, "src/reviewer-write.txt")
+					}
+					return &http.Response{StatusCode: 200, Header: http.Header{"Content-Type": []string{"text/event-stream"}}, Body: io.NopCloser(strings.NewReader(glmHostSSEWithText(t, int64(n), write, text)))}, nil
+				}
 				return &http.Response{StatusCode: 200, Header: http.Header{"Content-Type": []string{"text/event-stream"}}, Body: io.NopCloser(strings.NewReader(glmHostSSE(t, int64(n), write)))}, nil
 			})
 			factory, err := newGLMRuntimeFactory(c, upstream)
@@ -106,6 +119,12 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 							var prompt glmStagePrompt
 							if json.Unmarshal(launch.Spec.Input, &prompt) != nil || prompt.Role != role || prompt.Workflow == nil || prompt.Workflow.Design == nil || prompt.Workflow.Approval == nil || prompt.Parent == nil || prompt.Parent.Binding.TaskID != task.ID || prompt.Workflow.Approval.DesignHash != prompt.Workflow.Design.Snapshot.Hash || prompt.Parent.Evidence != "unverified" {
 								t.Error("Native prompt lost exact approved context or promoted evidence")
+							}
+						}
+						if role == stageplan.Review {
+							var prompt glmStagePrompt
+							if json.Unmarshal(launch.Spec.Input, &prompt) != nil || launch.Spec.Writable || len(launch.Spec.WritePaths) != 0 || prompt.Verification == nil || prompt.Verification.Tests != 2 || prompt.Verification.ExitCode != 0 || prompt.Parent == nil || prompt.Parent.Evidence != "passed" || prompt.Parent.TreeHash != prompt.Verification.ArtifactHash || prompt.ReviewResponseContract == "" {
+								t.Error("review lost readonly current hard-evidence contract")
 							}
 						}
 						mu.Lock()
@@ -283,6 +302,12 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 				if err != nil || v.Status != want || stored.Verification == nil {
 					t.Fatal("hard failure not recorded", err, v)
 				}
+				before = calls.Load()
+				etag := fmt.Sprintf(`"p1-g3-%s"`, current.State)
+				code, _, _ = hostHTTP(t, h, "POST", baseURL+"/start", `{"role":"review"}`, "hard-failed-review", etag)
+				if code == 202 || calls.Load() != before {
+					t.Fatal("hard failure allowed review start", code)
+				}
 				return
 			}
 			result, err := h.store.Artifact(testingRun.Run.ID)
@@ -321,6 +346,20 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 			if err = h.Close(); err != nil {
 				t.Fatal(err)
 			}
+			if mode == "review_standard_changed" || mode == "review_no_verifier" {
+				updated := c
+				updated.TestingWritePaths = []string{"tests"}
+				updated.Verification = copyRuntimeValue(expectedVerification)
+				if mode == "review_standard_changed" {
+					updated.Verification.Spec.Rules.MinTests = 3
+				} else {
+					updated.Verification = nil
+				}
+				factory, err = newGLMRuntimeFactory(updated, upstream)
+				if err != nil {
+					t.Fatal(err)
+				}
+			}
 			h, err = OpenExecutionControl(context.Background(), path, root, "127.0.0.1:0", wrapped)
 			if err != nil {
 				t.Fatal("verified host restart", err)
@@ -335,10 +374,75 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 			if _, v, err := h.store.VerifiedArtifact(testingRun.Run.ID, d.Projects[0].Path, c.ExecutionRoot, changed); err != nil || v.Status != evidence.Superseded {
 				t.Fatal("changed standard reused result", err, v)
 			}
+			if mode == "review_parent_drift" {
+				name := filepath.Join(result.Reference.Path, "handoff.json")
+				if err := os.Chmod(name, 0600); err != nil {
+					t.Fatal(err)
+				}
+				if err := os.WriteFile(name, []byte("changed testing header"), 0400); err != nil {
+					t.Fatal(err)
+				}
+			}
+			if mode == "review_standard_changed" || mode == "review_no_verifier" || mode == "review_parent_drift" {
+				before = calls.Load()
+				code, _, _ = hostHTTP(t, h, "POST", baseURL+"/start", `{"role":"review"}`, "refused-review", `"p1-g3-ready"`)
+				current, _ := h.store.Task(task.ID)
+				if code == 202 || calls.Load() != before || current.Generation != 3 || current.State != "ready" {
+					t.Fatal("invalid review inputs spawned Native or wrote intent", code, current)
+				}
+				return
+			}
+			review := start(stageplan.Review)
+			wait(review, mode != "review_write")
+			if mode == "review_write" {
+				mu.Lock()
+				reviewSpec := spec
+				mu.Unlock()
+				if _, err := os.Stat(filepath.Join(reviewSpec.Workspace, "src/reviewer-write.txt")); !os.IsNotExist(err) {
+					t.Fatal("reviewer acquired write authority", err)
+				}
+				if _, err := h.store.Artifact(review.Run.ID); err == nil {
+					t.Fatal("failed review write published artifact")
+				}
+				return
+			}
+			reviewed, hard, err := h.store.ReviewedArtifact(review.Run.ID, d.Projects[0].Path, c.ExecutionRoot, expectedVerification.Spec)
+			if err != nil || hard.Status != evidence.Passed || reviewed.Review == nil || reviewed.Review.TestingRunID != testingRun.Run.ID || reviewed.Reference.TreeHash != result.Reference.TreeHash {
+				t.Fatal("review lost exact released testing evidence", err, hard)
+			}
+			current, _ := h.store.Task(task.ID)
+			if mode == "review_changes" || mode == "review_malformed" {
+				if current.State != "needs_review" || (mode == "review_malformed") == reviewed.Review.Valid || reviewed.Review.Document.Verdict == "approve" {
+					t.Fatal("Native success overrode blocking/invalid model review", current, reviewed.Review)
+				}
+				return
+			}
+			if !reviewed.Review.Valid || reviewed.Review.Document.Verdict != "approve" || current.State != "ready" {
+				t.Fatal("advisory approval lost or falsely completed task", current)
+			}
+			reviewRun, _ := h.store.Run(review.Run.ID)
+			if seen[reviewRun.NativeSessionID] || reviewRun.NativeSessionID == "" {
+				t.Fatal("same model reused earlier stage session")
+			}
+			budget, _ = h.store.Budget(task.ID)
+			if int64(budget.UsedCalls) != calls.Load() || calls.Load() != 6 {
+				t.Fatal("review reset task budget", calls.Load(), budget)
+			}
+			if err := h.Close(); err != nil {
+				t.Fatal(err)
+			}
+			h, err = OpenExecutionControl(context.Background(), path, root, "127.0.0.1:0", wrapped)
+			if err != nil {
+				t.Fatal(err)
+			}
+			serveExecutionHost(t, h)
+			if _, v, err := h.store.ReviewedArtifact(review.Run.ID, d.Projects[0].Path, c.ExecutionRoot, expectedVerification.Spec); err != nil || v.Status != evidence.Passed {
+				t.Fatal("review restart lost bound evidence", err, v)
+			}
 			before = calls.Load()
-			code, _, _ = hostHTTP(t, h, "POST", baseURL+"/start", `{"role":"review"}`, "review-consumer-pending", `"p1-g3-ready"`)
+			code, _, _ = hostHTTP(t, h, "POST", baseURL+"/start", `{"role":"acceptance"}`, "acceptance-consumer-pending", `"p1-g4-ready"`)
 			if code == 202 || calls.Load() != before {
-				t.Fatal("missing review consumer allowed later workflow", code)
+				t.Fatal("advisory review approved final acceptance", code)
 			}
 		})
 	}

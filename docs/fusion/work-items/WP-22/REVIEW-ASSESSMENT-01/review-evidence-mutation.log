@@ -1,0 +1,9 @@
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/review_standard_changed
+    glm_handoff_native_test.go:127: review lost readonly current hard-evidence contract
+    glm_handoff_native_test.go:391: invalid review inputs spawned Native or wrote intent 202 {task-d4b225e4ae4fc449638b36030f2dd6f7 fixture-project synthetic pipeline goal running 1 4}
+--- FAIL: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart (3.89s)
+    --- FAIL: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/review_standard_changed (3.88s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	4.544s
+FAIL

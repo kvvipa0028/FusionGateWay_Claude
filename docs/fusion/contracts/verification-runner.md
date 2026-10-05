@@ -1,6 +1,6 @@
 # 真实测试执行器与 EvidenceGate
 
-`internal/fusion/evidence.Run` 执行可信宿主冻结的直接可执行测试命令，返回私有 owned Result。`Evaluate` 只接受这个结果；导出的 Record、任意 JUnit 文件、hash 或模型“通过”意见不能构造执行授权。GLM testing 已接入 owned 执行和持久 Store receipt，详见下文；多角色 review/acceptance 继续阻断，完整 WP-21/22 和最终验收仍需完成。
+`internal/fusion/evidence.Run` 执行可信宿主冻结的直接可执行测试命令，返回私有 owned Result。`Evaluate` 只接受这个结果；导出的 Record、任意 JUnit 文件、hash 或模型“通过”意见不能构造执行授权。GLM testing 已接入 owned 执行和持久 Store receipt，详见下文；只读 review 已接入当前证据，acceptance 继续阻断，完整 WP-21/22 和最终验收仍需完成。
 
 ## 输入和隔离
 
@@ -36,7 +36,7 @@ Native 实际成功停止后，Factory 冻结测试阶段产物，再运行本�
 
 普通 RecordArtifact/RecordArtifactAuthorized 拒绝调用者声明 Verification。可信写入从 owned Result 导出数据，在原 Task/Plan/Run/target/parent/current transaction 内登记 DesignHash/AcceptanceHash；failed/unverified 同时写 needs_review 与独立事件，事件失败回滚全部修改。Native succeeded 仍表示协议执行成功，不改写进程历史。登记不释放预留，只有实际停止、登记和原 Adapter Release 完成后才允许受控读取。
 
-`VerifiedArtifact` 先读取 exact released-run receipt，再用宿主独立登记的 source/ExecutionRoot 恢复真实 frozen artifact，核验 header 与实际判定、当前批准设计/标准和产物/测试/spec。代码或标准变化返回 superseded。导出的 Stored JSON、ValidStored 的结构检查及 EvaluateStored 的数据检查本身均不能证明来源，也不能授权启动后续阶段；可信来源只由这个私有 Store 消费路径建立。review/acceptance 与有限返工消费者仍需实现。
+`VerifiedArtifact` 先读取 exact released-run receipt，再用宿主独立登记的 source/ExecutionRoot 恢复真实 frozen artifact，核验 header 与实际判定、当前批准设计/标准和产物/测试/spec。代码或标准变化返回 superseded。导出的 Stored JSON、ValidStored 的结构检查及 EvaluateStored 的数据检查本身均不能证明来源，也不能授权启动后续阶段；可信来源只由这个私有 Store 消费路径建立。[只读 review](review-assessment.md)已接入当前证据；acceptance 与有限返工消费者仍需实现。
 
 ## 复现与回退
 
