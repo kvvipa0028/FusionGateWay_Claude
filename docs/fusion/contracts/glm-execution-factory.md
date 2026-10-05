@@ -1,4 +1,4 @@
-# GLM 单阶段生产 Factory
+# GLM 生产 Factory 与阶段代码交接
 
 `bootstrap.NewGLMRuntimeFactory(GLMRuntimeConfig)` 将既有 GLM Adapter、FileCredential、固定 CNTransport、可信 Scheduler/Manager 和私有工作副本接到 [OpenExecutionControl](execution-host.md)。这次交付完成实际后端组装，不自动授予真实账号准入，也没有向项目 JSON、任务 HTTP 或 CLI 开放 `admitted` 开关。默认产品 CLI/GUI 仍不启动模型，Jev off。
 
@@ -20,6 +20,7 @@ factory, err := bootstrap.NewGLMRuntimeFactory(bootstrap.GLMRuntimeConfig{
     Executable: pinnedClaudeExecutable,
     CredentialPath: privateCredentialPath,
     ExecutionRoot: privateExecutionRoot,
+    TestingWritePaths: []string{"tests"}, // 可信宿主明确登记，并受已批准设计范围约束
 })
 // 处理 err 后，在原管理鉴权和私有登记边界内：
 host, err := bootstrap.OpenExecutionControl(ctx, sourcePath, stateRoot, addr, factory)
@@ -29,9 +30,9 @@ Timeout 默认 2 分钟，可由可信宿主配置为不超过 4 分钟的正值
 
 ## 执行与撤销
 
-只接受已经冻结的单角色计划。角色和目标从 Store/Controller 取得；模型、账号、effort、计费路径、Runtime、capabilities 必须匹配 Registry 当前不可变路线。JSON prompt 保留实际 Task goal 和 role，目标文本作为字段传递，不作为 argv。每次 Resolve 创建独立 `launch-*` 目录，分别放置 workspace 副本和 worker root；Copy/SourceGuard 必须对应原登记目录，原项目不由 Native 修改。
+接受冻结的单角色计划，以及已有工作流中 design、implementation、testing 的受控执行。角色和目标从 Store/Controller 取得；模型、账号、effort、计费路径、Runtime、capabilities 必须匹配 Registry 当前不可变路线。JSON prompt 保留实际 Task goal 和 role，后续阶段携带已批准设计与精确父产物身份，目标文本作为字段传递，不作为 argv。每次 Resolve 创建独立 `launch-*` 目录，分别放置 workspace 副本和 worker root。第一阶段复制登记原项目，后续阶段只恢复和复制上一阶段匹配 released StopProof 的持久产物；原项目不由 Native 修改。
 
-只有项目显式授权 write 且角色为 implementation/testing 时才生成 Writable Spec，并要求 Inspector 提供 writer 预留。design/review/acceptance 和只读项目不能获得写权限。复制前核验 DataAllowed；权限、原来源、凭据、路线或执行根变化时拒绝。
+只有项目显式授权 write 且角色为 implementation/testing 时才生成 Writable Spec，并要求 Inspector 提供 writer 预留。多阶段 implementation 只能写已批准设计的 Scope；testing 只能写可信 TestingWritePaths 与设计 Scope 的交集，缺少明确测试路径或交集为空均拒绝。Seatbelt 在实际进程中限制写入路径，停止后冻结产物时再次核对真实变化范围。design/review/acceptance 和只读项目不能获得写权限。复制前核验 DataAllowed；权限、原来源、凭据、路线或执行根变化时拒绝。
 
 每个实际 Start 使用 owned context，并以 100ms 间隔检查当前路线、私有登记、凭据和执行根。撤销会取消真实 Adapter/Native 进程及其在途模型请求；已知 Handle 即使同时返回错误也保留。只有实际 Handle 终态 Wait 才结束 watcher，Controller 继续负责真实 StopProof 和 Release；不凭“已请求取消”提前释放容量，不退款、不重放。此检查是有界观察，不构成外部文件树的原子写锁。
 
@@ -39,7 +40,9 @@ Timeout 默认 2 分钟，可由可信宿主配置为不超过 4 分钟的正值
 
 [阶段代码交接](stage-handoff.md)已在实际成功且停止核验通过后发布独立代码副本、变化清单、Task/Plan/Run/target 绑定及 advisory evidence；交接失败不释放资源预留。成功包经私有 Store 持久索引，只有原 run 的 released StopProof 与 receipt 匹配才可供受控恢复；见 [持久产物合同](durable-stage-artifact.md)。取消/失败阶段不发布成功交接包。
 
-多阶段任务需要传递已验证实施副本、设计合同、测试和审查产物；重新复制原项目会丢失上一阶段修改。因此本 Factory 暂时返回 unsupported，而不是把独立单阶段复制伪装成五阶段 Handoff。完整工程交接仍属于必须实现的后续工作，不缩减 WP-19–WP-22 或最终 T01–T60。
+多阶段 design → 人工冻结与批准 → implementation → testing 已接通真实代码交接，包括宿主重启后的实施文件恢复、独立 Native 会话和精确父产物索引。Store 的 StageArtifactInput 必须验证完整 Task condition、工作流顺序、批准设计和前一阶段 released receipt；启动与发布前再次检查上下文。详细合同及负向证据见 [GLM 阶段消费者](glm-stage-handoff.md)和 [HANDOFF-RESOLVER-01](../work-items/WP-20/HANDOFF-RESOLVER-01/summary.md)。
+
+testing 当前只完成限定范围内的模型测试工作及产物交接，尚未接入真正的 TestExecutor/EvidenceGate；Native 成功不能证明测试通过。多阶段 review/acceptance 仍返回 unsupported，直到硬测试证据门接通。完整测试、审查、验收与有限返工仍必须实现，不缩减 WP-19–WP-22 或最终 T01–T60。
 
 本组件没有登记真实账号/publisher/计费/物理池报告，没有打开产品 CLI 执行，也没有新增 quota reader。真实 CN quota-only 查询保持独立；其 unverified 快照仍不能放行 Scheduler。OpenAI/X 登录、实际供应商 Gate A、完整原 Magpie 主界面整合与实际 Native UI 点击仍未完成。
 
@@ -52,7 +55,7 @@ Timeout 默认 2 分钟，可由可信宿主配置为不超过 4 分钟的正值
 ```sh
 PATH="$HOME/.local/bin:$PATH" python3 docs/fusion/work-items/WP-13/CALLS-01/run-go.py \
   .fusion-dev/glm-factory-check.log test -mod=readonly -tags fusion,nogui \
-  -race -count=1 -timeout=75s -run '^TestGLMFactory' -v ./internal/fusion/bootstrap \
+  -race -count=1 -timeout=150s -run '^TestGLM(Factory|StageWritePaths)' -v ./internal/fusion/bootstrap \
   -fusion-host-native-claude /Users/zhaojianzhi/.local/share/claude/versions/2.1.287
 ```
 

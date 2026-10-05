@@ -1,0 +1,9 @@
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/success
+    glm_handoff_native_test.go:130: start design 503 {"error":{"code":"runtime_unsupported","message":"Service Unavailable"}}
+
+--- FAIL: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart (0.13s)
+    --- FAIL: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/success (0.13s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	0.785s
+FAIL

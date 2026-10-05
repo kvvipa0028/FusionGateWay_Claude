@@ -82,6 +82,8 @@ func glmFactoryFixture(t *testing.T, writable bool) (string, Document, GLMRuntim
 		}
 		return in, nil
 	}}
+	// Writable testing now requires an independently registered test subtree.
+	c.TestingWritePaths = []string{"tests"}
 	return path, d, c, route, &inspections
 }
 

@@ -87,7 +87,8 @@ func (a *Adapter) Release(p policy.StopProof) error {
 // scope. The adapter generates all Native argv, identity, env, channel and
 // outcome validation. Caller-provided launch controls are always refused.
 func (a *Adapter) Start(ctx context.Context, r store.StageRun, in managed.Spec) (*managed.Handle, error) {
-	if !in.SourceCurrent() {
+	in.WritePaths = append([]string(nil), in.WritePaths...)
+	if !in.SourceCurrent() || !in.ValidWriteScope() {
 		return nil, ErrIdentity
 	}
 	if a == nil || ctx.Err() != nil || in.Executable != "" || in.ExecutableHash != "" || len(in.Args) != 0 || len(in.FixtureEnvironment) != 0 || in.NativeSessionID != "" || in.ClaudeChannel != nil || in.GrokChannel != nil || in.CodexChannel != nil || in.ValidateOutcome != nil || in.Timeout <= 0 || in.Timeout > 4*time.Minute || len(in.Input) == 0 || len(in.Input) > 64<<10 || !utf8.Valid(in.Input) || in.Writable && r.Role != stageplan.Implementation && r.Role != stageplan.Testing {
@@ -194,7 +195,7 @@ func (a *Adapter) Start(ctx context.Context, r store.StageRun, in managed.Spec) 
 	a.observations[r.ID] = nativeObservation{generation: r.Generation, outcome: Outcome{State: "execution_uncertain"}}
 	a.mu.Unlock()
 	args := []string{"--bare", "--restricted", "--strict-mcp-config", "--setting-sources", "", "--tools", strings.Join(tools, ","), "--allowedTools", strings.Join(tools, ","), "--disable-slash-commands", "--no-chrome", "--no-session-persistence", "--permission-mode", "dontAsk", "--model", b.Target.ResolvedModel, "--effort", *b.Target.Effort.Value, "--session-id", sid, "--system-prompt", "Execute only the assigned engineering stage in the approved working directory. Do not spawn agents or change models.", "-p", "--output-format", "stream-json", "--verbose", "--include-partial-messages"}
-	spec := managed.Spec{Source: in.Source, Executable: a.config.Executable, ExecutableHash: NativeExecutableSHA256, Args: args, Root: in.Root, Workspace: in.Workspace, Writable: in.Writable, Timeout: in.Timeout, Input: append([]byte(nil), in.Input...), NativeSessionID: sid, ClaudeChannel: channel, ValidateOutcome: func(raw []byte) bool {
+	spec := managed.Spec{Source: in.Source, Executable: a.config.Executable, ExecutableHash: NativeExecutableSHA256, Args: args, Root: in.Root, Workspace: in.Workspace, Writable: in.Writable, WritePaths: append([]string(nil), in.WritePaths...), Timeout: in.Timeout, Input: append([]byte(nil), in.Input...), NativeSessionID: sid, ClaudeChannel: channel, ValidateOutcome: func(raw []byte) bool {
 		if bytes.Contains(raw, []byte(key.Key)) || bytes.Contains(raw, []byte(secret)) {
 			return false
 		}

@@ -1,0 +1,14 @@
+=== RUN   TestStageArtifactInputUsesExactCurrentWorkflowAndReleasedReceipt
+--- PASS: TestStageArtifactInputUsesExactCurrentWorkflowAndReleasedReceipt (0.22s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/store	2.036s
+=== RUN   TestWriteScopeValidatesPathsAndKeepsPrefixBoundaries
+--- PASS: TestWriteScopeValidatesPathsAndKeepsPrefixBoundaries (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/workspace	1.564s
+=== RUN   TestScopedWritesHaveActualKernelPositiveAndNegativeControls
+    supervisor_test.go:435: kernel write scope failed {interrupted 92 true e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 0 {run-05be99f4d39843de32ad8e7a0c171d55 1 fixture-session 0b1be79cb9a3954794315730055108cbfbee6644716722a9ee15bd06960ea26c 8ea7f7a926369352e8355da00797fe9984cbd58d86403fd634c16552f8e0a2d5 true}}
+--- FAIL: TestScopedWritesHaveActualKernelPositiveAndNegativeControls (0.18s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime	1.006s
+FAIL

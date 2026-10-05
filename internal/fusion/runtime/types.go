@@ -35,6 +35,7 @@ type Spec struct {
 	Args                       []string
 	Root, Workspace            string
 	Writable                   bool
+	WritePaths                 []string // Optional trusted relative subtrees; never an HTTP input.
 	Timeout                    time.Duration
 	NativeSessionID            string
 	FixtureEnvironment         map[string]string
@@ -47,6 +48,10 @@ type Spec struct {
 
 // Absence preserves legacy diagnostic semantics, never verified provenance.
 func (s Spec) SourceCurrent() bool { return !s.Source.Present() || s.Source.ValidFor(s.Workspace) }
+
+func (s Spec) ValidWriteScope() bool {
+	return workspace.ValidWritePaths(s.WritePaths) && (s.Writable || len(s.WritePaths) == 0)
+}
 
 type Identity struct {
 	PID         int   `json:"pid"`

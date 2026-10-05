@@ -1,0 +1,80 @@
+{
+  "component": "WP-20-HANDOFF-RESOLVER-01",
+  "base": "dae84761640f1cebbcc4bdfe10d19586e7b02913",
+  "files_sha256": {
+    "AGENTS.md": "c3675701bdae18ede2b956128ef1e862e97f173365ba44832f366b88458efad8",
+    "docs/fusion/README.md": "15861223cf95657d39684cbc53f2d93739713f48d051e4cc98217a3e5311a486",
+    "docs/fusion/contracts/durable-stage-artifact.md": "9f9d9967fb97e79e264db5eefc1efaf992b5ee8c09035e5f3e4688473d2bd1de",
+    "docs/fusion/contracts/glm-execution-factory.md": "69f74f6a2113ab2ce93cd42896aad97fa28109f87aa3d5538e9bc7cecec84e27",
+    "docs/fusion/contracts/glm-stage-handoff.md": "4e4ceccd2d1cdbdc7cba47088100e5ad798ea915272347f2104a2cc0b374c14a",
+    "docs/fusion/contracts/stage-handoff.md": "5c07b633071cf3c0945b39a7b078c5895f5938dfd6c0669cf8e73437777a7456",
+    "docs/fusion/work-items/WP-20/HANDOFF-RESOLVER-01/build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/fusion/work-items/WP-20/HANDOFF-RESOLVER-01/build-gui.log": "f6217a2409fd7fc56375ccd4186b12dac20cf7887b61f8f533a14c8c2e6bcc70",
+    "docs/fusion/work-items/WP-20/HANDOFF-RESOLVER-01/build-results.json": "ff1c7a84aaf51aedaa9513729349336324936693dbe13341272fcdd2761252ca",
+    "docs/fusion/work-items/WP-20/HANDOFF-RESOLVER-01/build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/fusion/work-items/WP-20/HANDOFF-RESOLVER-01/resolver-apis-red.log": "0f507c2cf0f3060be29b2b4b8d279c00551ee5817eb0aec921be65ae123ec739",
+    "docs/fusion/work-items/WP-20/HANDOFF-RESOLVER-01/resolver-delta-mutation-effective.log": "c87bb2707df96b39d453b0a8121924f3d0d43e994aee9e3e862ac12476101428",
+    "docs/fusion/work-items/WP-20/HANDOFF-RESOLVER-01/resolver-delta-mutation.log": "67ab755d73e040aa8f38d223b9e5f46cfe0f6aab65521637d54cb1f23b9ec731",
+    "docs/fusion/work-items/WP-20/HANDOFF-RESOLVER-01/resolver-fusion-final-current.log": "4d162d554b2f124e6ee1a63b2ef94a44d404766bdf72d38131cdbf2add1c203e",
+    "docs/fusion/work-items/WP-20/HANDOFF-RESOLVER-01/resolver-kernel-red.log": "2b699b824df407c983ef61565e3cb630c93dda9b45216cf418ee2d5638b70a0b",
+    "docs/fusion/work-items/WP-20/HANDOFF-RESOLVER-01/resolver-native-final-all.log": "0afd5b252f2f87f53812cf5a1449b723936fc3a48b741236afaff69a0bf2fe61",
+    "docs/fusion/work-items/WP-20/HANDOFF-RESOLVER-01/resolver-native-initial.log": "4f8fc94c917d461ed1d25ad4ed54ee62a7a11570226efe0ac2b36ae9c55dbf79",
+    "docs/fusion/work-items/WP-20/HANDOFF-RESOLVER-01/resolver-native-red.log": "3b6fb8140b3e35458b81e3f732caa28f9741a6ebc3c7bb87f647e458df8b4a77",
+    "docs/fusion/work-items/WP-20/HANDOFF-RESOLVER-01/summary.md": "dda182c855168b0010efe20fd770d508087b75aeae2d315198d77ac7411d9a88",
+    "docs/fusion/work-items/WP-20/HANDOFF-RESOLVER-01/test-results.json": "8957bc0f236f82e4d6c6be3cbde0ca5912cd5601fad489dab727f090be5c5a0c",
+    "docs/fusion/work-items/WP-20/summary.md": "36a74746ef74d0273911734df6fed5421b753f890054f16cda4b7c3c74f49e5f",
+    "internal/fusion/bootstrap/execution.go": "2e4b7510b4f63f43ea2185c49f295c9ff4fbf00df84a529fc5a81413626711c2",
+    "internal/fusion/bootstrap/glm_execution.go": "084eb07c9997b62803e78651225b34881f970bbf9821185e3084ce9fb94403f5",
+    "internal/fusion/bootstrap/glm_execution_test.go": "35f9709e579fb67038c8c32ea1de3d45f427ca0e1b6018f79b242d2c4aae8a4e",
+    "internal/fusion/bootstrap/glm_handoff.go": "f54fdb02bf2294f3834f864f05bbd60cccedc45c48aaf448c64957e073ed7514",
+    "internal/fusion/bootstrap/glm_handoff_native_test.go": "5aee78949d611f3d151cce8229dff9b909bd69814b091f9e2572c30fd9e4ed2b",
+    "internal/fusion/bootstrap/glm_handoff_test.go": "d1fab2aa5780ce9842d1f3069383bfd3b331d7cfe5f6a09e39a0ef3750475a1f",
+    "internal/fusion/control/controller.go": "378e21b4ff3e326aff6ce60838467ab959f5f15ee22ec4b90669e186450f47e8",
+    "internal/fusion/control/write_scope_test.go": "7c06bff5bc9258915da355c72079340183bf98703504a43989d5b7384e82d381",
+    "internal/fusion/runtime/codexadapter/adapter.go": "eee2b4c19176b0876e4ecde64c618d9ab6f9d4e5594622fb2a3939a8f429a506",
+    "internal/fusion/runtime/glm/adapter.go": "a124ff8156f182e75102edbef4e8094963ae999cc2b9c8ca8708de4389c146c5",
+    "internal/fusion/runtime/grok/adapter.go": "589d8d90bacbc506473d75a67f8686ebb437169e9e72dca9f9b4f9929095bd8e",
+    "internal/fusion/runtime/sandbox_darwin.go": "2daa8854eba60f107c8ca60bf10ab4007541558fef4e3a3c89072d6423d3db64",
+    "internal/fusion/runtime/supervisor.go": "9356120176953bdce2bff4b51e5071c465e58ed8cfe2eb1370d40bc65f361e62",
+    "internal/fusion/runtime/supervisor_test.go": "a80d3de113533eb9cd5618a15abe1b4a6744814455b21ff9e1db67cf350263d0",
+    "internal/fusion/runtime/types.go": "b6918c2d11aec29b4b7557ca552c02a8bc036dae536ecb36fb1868a02511603a",
+    "internal/fusion/store/stage_input.go": "490abfb13d0a8c5c77c16ed6e1e14b9764ae4cf9e5622c50036e745ffe556d50",
+    "internal/fusion/store/stage_input_test.go": "f0f84ac0e38d5ae8e7b9a663b9abb0d7d970603afea01b337b978f15b2391f04",
+    "internal/fusion/workspace/write_scope.go": "5f556a16de7cf0fdcec9a1e0b4826e9181bfb32edc5d984105d4dd4e9b3ef136",
+    "internal/fusion/workspace/write_scope_test.go": "21b4ce123f0546acca1d0f5660ef30c950685f3c825e08ecd27c62db4ae8b281"
+  },
+  "scope_integrity_checks": {
+    "all_gui_unchanged": [
+      "internal/gui"
+    ],
+    "api_policy_handoff_unchanged": [
+      "internal/fusion/api",
+      "internal/fusion/policy",
+      "internal/fusion/handoff",
+      "docs/fusion/contracts/openapi.yaml",
+      "docs/fusion/contracts/handoff.schema.json"
+    ],
+    "old_sql_001_010_unchanged": [
+      "internal/fusion/store/migrations/001.sql",
+      "internal/fusion/store/migrations/002.sql",
+      "internal/fusion/store/migrations/003.sql",
+      "internal/fusion/store/migrations/004.sql",
+      "internal/fusion/store/migrations/005.sql",
+      "internal/fusion/store/migrations/006.sql",
+      "internal/fusion/store/migrations/007.sql",
+      "internal/fusion/store/migrations/008.sql",
+      "internal/fusion/store/migrations/009.sql",
+      "internal/fusion/store/migrations/010.sql"
+    ]
+  },
+  "private_credential_bytes_excluded": true,
+  "ui_files_changed": 0,
+  "ui_main_assets_equal_pinned_upstream": true,
+  "local_doc_links_checked": 98,
+  "graph": {
+    "project": "fusion-development",
+    "nodes": 14398,
+    "edges": 129502
+  },
+  "runtime_changes": "Trusted WritePaths validation/copy, kernel scope and final artifact delta only; adapters gain no readonly permissions."
+}

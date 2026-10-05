@@ -68,6 +68,16 @@ func TestWorkerFixture(t *testing.T) {
 			os.Exit(84)
 		}
 		os.Stdout.WriteString("fixture-completed\n")
+	case "scoped_write":
+		if e := os.WriteFile("tests/allowed.txt", []byte("allowed test"), 0600); e != nil {
+			os.Exit(91)
+		}
+		for _, path := range []string{"src/blocked.txt", "tests2/blocked.txt", "blocked.txt"} {
+			if e := os.WriteFile(path, []byte("forbidden"), 0600); e == nil {
+				os.Exit(92)
+			}
+		}
+		os.Stdout.WriteString("fixture-completed\n")
 	case "network":
 		c, e := net.DialTimeout("tcp", os.Getenv("FUSION_FIXTURE_NETWORK"), time.Second)
 		if e == nil {
@@ -408,6 +418,29 @@ func TestSandboxRejectsManagementReadAndOutsideWrite(t *testing.T) {
 	}
 	if b, e := os.ReadFile(filepath.Join(spec.Root, "launch.json")); e != nil || strings.Contains(string(b), "fixture-management-secret") {
 		t.Fatal("private environment in journal")
+	}
+}
+
+func TestScopedWritesHaveActualKernelPositiveAndNegativeControls(t *testing.T) {
+	_, h, _, _, spec, _ := setupWithSpec(t, "scoped_write", true, func(s *Spec) {
+		s.WritePaths = []string{"tests"}
+		for _, p := range []string{"tests", "tests2", "src"} {
+			if err := os.Mkdir(filepath.Join(s.Workspace, p), 0700); err != nil {
+				t.Fatal(err)
+			}
+		}
+	})
+	got := wait(t, h)
+	if got.State != "succeeded" || !got.StoppedVerified {
+		t.Fatal("kernel write scope failed", got)
+	}
+	if b, err := os.ReadFile(filepath.Join(spec.Workspace, "tests/allowed.txt")); err != nil || string(b) != "allowed test" {
+		t.Fatal("positive write missing", err)
+	}
+	for _, p := range []string{"src/blocked.txt", "tests2/blocked.txt", "blocked.txt"} {
+		if _, err := os.Stat(filepath.Join(spec.Workspace, p)); !os.IsNotExist(err) {
+			t.Fatal("scope escaped", p, err)
+		}
 	}
 }
 

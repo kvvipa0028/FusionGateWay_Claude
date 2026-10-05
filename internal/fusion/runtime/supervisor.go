@@ -88,7 +88,7 @@ func (s *Supervisor) Start(ctx context.Context, r store.StageRun, in Spec) (*Han
 	if s == nil || s.store == nil || ctx.Err() != nil || in.ValidateOutcome == nil || in.Timeout <= 0 || in.Timeout > 10*time.Minute || in.NativeSessionID == "" || len(in.Input) > 64<<10 || !filepath.IsAbs(in.Executable) || strings.ContainsRune(in.NativeSessionID, 0) {
 		return nil, ErrLaunch
 	}
-	if !in.SourceCurrent() {
+	if !in.SourceCurrent() || !in.ValidWriteScope() {
 		return nil, ErrLaunch
 	}
 	channel, e := in.modelChannel()
@@ -145,6 +145,7 @@ func (s *Supervisor) Start(ctx context.Context, r store.StageRun, in Spec) (*Han
 	spec := in
 	spec.Args = append([]string(nil), in.Args...)
 	spec.Input = append([]byte(nil), in.Input...)
+	spec.WritePaths = append([]string(nil), in.WritePaths...)
 	spec.FixtureEnvironment = map[string]string{}
 	for k, v := range in.FixtureEnvironment {
 		spec.FixtureEnvironment[k] = v

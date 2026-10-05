@@ -1,0 +1,17 @@
+# github.com/yetone/magpie/internal/fusion/workspace [github.com/yetone/magpie/internal/fusion/workspace.test]
+internal/fusion/workspace/write_scope_test.go:10:7: undefined: ValidWritePaths
+internal/fusion/workspace/write_scope_test.go:15:6: undefined: ValidWritePaths
+internal/fusion/workspace/write_scope_test.go:19:6: undefined: WritePathAllowed
+internal/fusion/workspace/write_scope_test.go:25:6: undefined: ChangesWithin
+internal/fusion/workspace/write_scope_test.go:29:5: undefined: ChangesWithin
+# github.com/yetone/magpie/internal/fusion/runtime [github.com/yetone/magpie/internal/fusion/runtime.test]
+internal/fusion/runtime/supervisor_test.go:426:5: s.WritePaths undefined (type *Spec has no field or method WritePaths)
+# github.com/yetone/magpie/internal/fusion/store [github.com/yetone/magpie/internal/fusion/store.test]
+internal/fusion/store/stage_input_test.go:14:15: s.StageArtifactInput undefined (type *Store has no field or method StageArtifactInput)
+internal/fusion/store/stage_input_test.go:18:17: s.StageArtifactInput undefined (type *Store has no field or method StageArtifactInput)
+internal/fusion/store/stage_input_test.go:22:17: s.StageArtifactInput undefined (type *Store has no field or method StageArtifactInput)
+internal/fusion/store/stage_input_test.go:32:18: s2.StageArtifactInput undefined (type *Store has no field or method StageArtifactInput)
+FAIL	github.com/yetone/magpie/internal/fusion/store [build failed]
+FAIL	github.com/yetone/magpie/internal/fusion/workspace [build failed]
+FAIL	github.com/yetone/magpie/internal/fusion/runtime [build failed]
+FAIL

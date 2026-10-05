@@ -1,0 +1,98 @@
+{
+  "component": "WP-20-HANDOFF-RESOLVER-01",
+  "base": "dae84761640f1cebbcc4bdfe10d19586e7b02913",
+  "go_version": "1.26.3",
+  "fusion_final_current": {
+    "pass_top": 670,
+    "pass_sub": 1223,
+    "skip_top": 33,
+    "skip_sub": 11,
+    "fail_top": 0,
+    "fail_sub": 0,
+    "packages": 18
+  },
+  "fixed_native_final_all": {
+    "pass_top": 10,
+    "pass_sub": 36,
+    "skip_top": 0,
+    "skip_sub": 0,
+    "fail_top": 0,
+    "fail_sub": 0,
+    "packages": 1
+  },
+  "fixed_claude_executions": 18,
+  "synthetic_upstream_requests": 26,
+  "real_supplier_model_or_quota_calls": 0,
+  "jev": "off",
+  "ui_changed": false,
+  "initial_failures": {
+    "resolver-apis-red.log": "Missing new trusted APIs and Spec field: compile RED.",
+    "resolver-kernel-red.log": "Actual worker escaped tests scope and exited 92: effective kernel RED.",
+    "resolver-native-red.log": "Actual product design start rejected by old single-role restriction: effective consumer RED.",
+    "resolver-native-initial.log": "New pipeline passed; existing single-testing fixture omitted newly required explicit test paths. Fixture registered tests, preserving original assertions.",
+    "resolver-delta-mutation-effective.log": "Temporarily widened final delta validation to dot; actual Native external-write scenario caught publish/release. Exact source restored before final all.",
+    "resolver-delta-mutation.log": "First mutation failed compilation with unused variable; not counted as an effective mutation test."
+  },
+  "log_archives": {
+    "resolver-apis-red.log": {
+      "raw_log": ".fusion-dev/implementation/resolver-apis-red.log",
+      "raw_sha256": "0f507c2cf0f3060be29b2b4b8d279c00551ee5817eb0aec921be65ae123ec739",
+      "archive_sha256": "0f507c2cf0f3060be29b2b4b8d279c00551ee5817eb0aec921be65ae123ec739"
+    },
+    "resolver-kernel-red.log": {
+      "raw_log": ".fusion-dev/implementation/resolver-kernel-red.log",
+      "raw_sha256": "2b699b824df407c983ef61565e3cb630c93dda9b45216cf418ee2d5638b70a0b",
+      "archive_sha256": "2b699b824df407c983ef61565e3cb630c93dda9b45216cf418ee2d5638b70a0b"
+    },
+    "resolver-native-red.log": {
+      "raw_log": ".fusion-dev/implementation/resolver-native-red.log",
+      "raw_sha256": "651ca2397746e18d308828025eed2df11843b8a703d079df5918395d44a49112",
+      "archive_sha256": "3b6fb8140b3e35458b81e3f732caa28f9741a6ebc3c7bb87f647e458df8b4a77"
+    },
+    "resolver-native-initial.log": {
+      "raw_log": ".fusion-dev/implementation/resolver-native-initial.log",
+      "raw_sha256": "4f8fc94c917d461ed1d25ad4ed54ee62a7a11570226efe0ac2b36ae9c55dbf79",
+      "archive_sha256": "4f8fc94c917d461ed1d25ad4ed54ee62a7a11570226efe0ac2b36ae9c55dbf79"
+    },
+    "resolver-delta-mutation-effective.log": {
+      "raw_log": ".fusion-dev/implementation/resolver-delta-mutation-effective.log",
+      "raw_sha256": "c87bb2707df96b39d453b0a8121924f3d0d43e994aee9e3e862ac12476101428",
+      "archive_sha256": "c87bb2707df96b39d453b0a8121924f3d0d43e994aee9e3e862ac12476101428"
+    },
+    "resolver-delta-mutation.log": {
+      "raw_log": ".fusion-dev/implementation/resolver-delta-mutation.log",
+      "raw_sha256": "67ab755d73e040aa8f38d223b9e5f46cfe0f6aab65521637d54cb1f23b9ec731",
+      "archive_sha256": "67ab755d73e040aa8f38d223b9e5f46cfe0f6aab65521637d54cb1f23b9ec731"
+    },
+    "resolver-fusion-final-current.log": {
+      "raw_log": ".fusion-dev/implementation/resolver-fusion-final-current.log",
+      "raw_sha256": "4d162d554b2f124e6ee1a63b2ef94a44d404766bdf72d38131cdbf2add1c203e",
+      "archive_sha256": "4d162d554b2f124e6ee1a63b2ef94a44d404766bdf72d38131cdbf2add1c203e"
+    },
+    "resolver-native-final-all.log": {
+      "raw_log": ".fusion-dev/implementation/resolver-native-final-all.log",
+      "raw_sha256": "0afd5b252f2f87f53812cf5a1449b723936fc3a48b741236afaff69a0bf2fe61",
+      "archive_sha256": "0afd5b252f2f87f53812cf5a1449b723936fc3a48b741236afaff69a0bf2fe61"
+    },
+    "build-cli.log": {
+      "raw_log": ".fusion-dev/build-dev/cli.log",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "archive_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "build-gui.log": {
+      "raw_log": ".fusion-dev/build-dev/gui.log",
+      "raw_sha256": "f6217a2409fd7fc56375ccd4186b12dac20cf7887b61f8f533a14c8c2e6bcc70",
+      "archive_sha256": "f6217a2409fd7fc56375ccd4186b12dac20cf7887b61f8f533a14c8c2e6bcc70"
+    },
+    "build-vet.log": {
+      "raw_log": ".fusion-dev/build-dev/vet.log",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "archive_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "limitations": [
+    "Testing model generation and handoff are not TestExecutor/EvidenceGate.",
+    "Multi-role review/acceptance remain unsupported pending genuine hard evidence.",
+    "Real supplier admission, original main UI integration, actual Native UI clicks, bounded rework and final T01-T60 remain required."
+  ]
+}

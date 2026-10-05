@@ -237,9 +237,11 @@ func (c *Controller) start(request context.Context, key string, in store.StartId
 		return c.retryOrError(key, in, ErrUnsupported)
 	}
 	launch.Spec.Input = append([]byte(nil), launch.Spec.Input...)
+	launch.Spec.WritePaths = append([]string(nil), launch.Spec.WritePaths...)
 	if validate := launch.Backend.ValidateLaunch; validate != nil {
 		spec := launch.Spec
 		spec.Input = append([]byte(nil), spec.Input...)
+		spec.WritePaths = append([]string(nil), spec.WritePaths...)
 		if e := validate(request, in.Role, clone(target), spec); e != nil {
 			return c.retryOrError(key, in, ErrUnsupported)
 		}
@@ -247,6 +249,7 @@ func (c *Controller) start(request context.Context, key string, in store.StartId
 	if in.Restore != nil {
 		spec := launch.Spec
 		spec.Input = append([]byte(nil), spec.Input...)
+		spec.WritePaths = append([]string(nil), spec.WritePaths...)
 		if e = launch.Backend.CheckRestore(request, clone(origin), clone(target), spec, *in.Restore); e != nil {
 			return c.retryOrError(key, in, ErrIdentity)
 		}
@@ -395,7 +398,7 @@ func (c *Controller) target(ctx context.Context, task store.Task, role stageplan
 func validLaunch(l Launch, role stageplan.Role) bool {
 	s := l.Spec
 	return l.Backend.Probe != nil && l.Backend.Start != nil && l.Backend.Release != nil &&
-		s.SourceCurrent() &&
+		s.SourceCurrent() && s.ValidWriteScope() &&
 		filepath.IsAbs(s.Root) && filepath.Clean(s.Root) == s.Root && filepath.IsAbs(s.Workspace) && filepath.Clean(s.Workspace) == s.Workspace &&
 		!strings.ContainsRune(s.Root, 0) && !strings.ContainsRune(s.Workspace, 0) && s.Root != s.Workspace &&
 		s.Timeout > 0 && s.Timeout <= 10*time.Minute && len(s.Input) > 0 && len(s.Input) <= 64<<10 && utf8.Valid(s.Input) &&

@@ -115,6 +115,7 @@ func (h *ControlHost) resolveExecution(ctx context.Context, t store.Task, role s
 		}
 	}
 	l.Spec.Input = append([]byte(nil), l.Spec.Input...)
+	l.Spec.WritePaths = append([]string(nil), l.Spec.WritePaths...)
 	return l, nil
 }
 func (h *ControlHost) installRuntime(parent context.Context, s *api.Server, f RuntimeFactory, queryOnly bool) error {

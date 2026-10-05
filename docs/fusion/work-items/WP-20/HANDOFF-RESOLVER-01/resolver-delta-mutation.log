@@ -1,0 +1,4 @@
+# github.com/yetone/magpie/internal/fusion/workspace
+internal/fusion/workspace/write_scope.go:50:9: declared and not used: c
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap [build failed]
+FAIL

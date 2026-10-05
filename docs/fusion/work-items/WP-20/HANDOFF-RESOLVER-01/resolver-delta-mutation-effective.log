@@ -1,0 +1,8 @@
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/unscoped_external_write
+    glm_handoff_native_test.go:212: unapproved delta published/released {succeeded true true} <nil>
+--- FAIL: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart (2.93s)
+    --- FAIL: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/unscoped_external_write (2.93s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	3.563s
+FAIL

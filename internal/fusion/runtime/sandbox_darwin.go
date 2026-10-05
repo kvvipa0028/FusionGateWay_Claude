@@ -39,7 +39,7 @@ func sandbox(spec Spec) (string, []string, error) {
 	if channelErr != nil || channel != nil && len(spec.FixtureEnvironment) != 0 {
 		return "", nil, ErrLaunch
 	}
-	if workspace.PrivateState(spec.Root) != nil || workspace.PrivateState(spec.Workspace) != nil || spec.Root == spec.Workspace || strings.HasPrefix(spec.Workspace, spec.Root+"/") || strings.HasPrefix(spec.Root, spec.Workspace+"/") {
+	if !spec.ValidWriteScope() || workspace.PrivateState(spec.Root) != nil || workspace.PrivateState(spec.Workspace) != nil || spec.Root == spec.Workspace || strings.HasPrefix(spec.Workspace, spec.Root+"/") || strings.HasPrefix(spec.Root, spec.Workspace+"/") {
 		return "", nil, ErrLaunch
 	}
 	// Default deny includes network, Mach services (Keychain/launchd), IPC,
@@ -62,7 +62,13 @@ func sandbox(spec Spec) (string, []string, error) {
 		profile += fmt.Sprintf("(allow file-write* (subpath %s))\n", strconv.Quote(filepath.Join(spec.Root, p)))
 	}
 	if spec.Writable {
-		profile += fmt.Sprintf("(allow file-write* (subpath %s))\n", strconv.Quote(spec.Workspace))
+		paths := spec.WritePaths
+		if len(paths) == 0 {
+			paths = []string{"."} // Existing trusted diagnostic/manual semantics.
+		}
+		for _, p := range paths {
+			profile += fmt.Sprintf("(allow file-write* (subpath %s))\n", strconv.Quote(filepath.Join(spec.Workspace, p)))
+		}
 	}
 	env := []string{"PATH=/usr/bin:/bin", "HOME=" + filepath.Join(spec.Root, "home"), "XDG_CONFIG_HOME=" + filepath.Join(spec.Root, "config"), "XDG_CACHE_HOME=" + filepath.Join(spec.Root, "cache"), "XDG_DATA_HOME=" + filepath.Join(spec.Root, "data"), "TMPDIR=" + filepath.Join(spec.Root, "tmp")}
 	for _, p := range []string{"home", "config", "cache", "data", "tmp"} {

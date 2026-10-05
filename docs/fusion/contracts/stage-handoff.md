@@ -34,7 +34,7 @@ Changes 按 Path 排序，每项为 before/after 条目，null 表示新增/删�
 
 handoff.json 包含 version/binding/task/artifact/decisions/evidence/changes/pending。完整格式见 [schema](handoff.schema.json)。本版本 task 保留实际冻结 goal；design decisions 尚未提取，数组为空且 pending 明示。evidence 仅记录原 Runtime output hash 和实际 StopProof report hash，status 固定 unverified，tests_executed 固定 false。没有原始 stdout、凭据、原 Native session 或账号授权；消费者使用新 Runtime/session。Schema 只验证结构，不能证明 hash 内容、停止或供应商准入。
 
-当前真实 GLM producer 发布前后核对 Store 和原来源，成功包需真实停止与资源释放才能用于后续工作。私有 Store 的 durable artifact index 与重启后受控 rehydrate 已实现，并校验 Task/Plan/Run/target、实际 released StopProof 与父包来源链。尚缺 **Task/Plan/parent-run 绑定的产品下一阶段 resolver**。因此多角色 Factory 仍返回 unsupported。磁盘上的包不是自动派单许可，也不是测试执行、审查、验收或 Gate A 通过；WP-20 继续 in_progress，完整 WP-19–WP-23 与 T01–T60 保持要求。
+当前真实 GLM producer 发布前后核对 Store 和原来源，成功包需真实停止与资源释放才能用于后续工作。私有 Store 的 durable artifact index 与重启后受控 rehydrate 已实现，并校验 Task/Plan/Run/target、实际 released StopProof 与父包来源链。[产品下一阶段 resolver](glm-stage-handoff.md)已接入 design/implementation/testing，使用已核验的父包，按批准范围写入并生成新版本。多角色 review/acceptance 仍因真实硬证据与闭环未接入而返回 unsupported。磁盘上的包不是自动派单许可，也不是测试执行、审查、验收或 Gate A 通过；WP-20 继续 in_progress，完整 WP-19–WP-23 与 T01–T60 保持要求。
 
 ## 复现、故障与回退
 
