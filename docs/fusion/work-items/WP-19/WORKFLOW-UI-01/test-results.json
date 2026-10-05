@@ -1,0 +1,124 @@
+{
+  "component": "WP-19-WORKFLOW-UI-01",
+  "base": "6cce720ab85db6fdc0d06da8ad6f54e485b1ab95",
+  "component_status": "complete",
+  "parent_status": "in_progress",
+  "goal_status": "active",
+  "go_version": "1.26.3",
+  "browser_unique_tests": 71,
+  "full_browser_suite_tests": 70,
+  "additional_recovery_tests": 1,
+  "new_browser_tests": 12,
+  "supplier_model_calls": 0,
+  "supplier_quota_calls": 0,
+  "jev": "off",
+  "actual_native_window": "not_run",
+  "final_T01_T60": "not_run",
+  "graph": "Go symbols unchanged; UI excluded from graph and verified against actual source",
+  "counts": {
+    "wp19-workflow-ui-red.log": {
+      "tests": 1,
+      "pass": 0,
+      "fail": 1,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "wp19-workflow-ui-unattached-red.log": {
+      "tests": 1,
+      "pass": 0,
+      "fail": 1,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "wp19-workflow-ui-browser-before-final-gates.log": {
+      "tests": 69,
+      "pass": 68,
+      "fail": 1,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "wp19-workflow-ui-browser-final.log": {
+      "tests": 70,
+      "pass": 70,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "wp19-workflow-ui-recovery-final.log": {
+      "tests": 1,
+      "pass": 1,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "wp19-workflow-ui-fixture-build-final.log": {
+      "PASS": 0,
+      "FAIL": 0,
+      "SKIP": 0,
+      "subpass": 0,
+      "subfail": 0,
+      "subskip": 0,
+      "packages": 0
+    },
+    "wp19-workflow-ui-native-final.log": {
+      "PASS": 11,
+      "FAIL": 0,
+      "SKIP": 0,
+      "subpass": 22,
+      "subfail": 0,
+      "subskip": 0,
+      "packages": 1
+    },
+    "wp19-workflow-ui-gui-final.log": {
+      "PASS": 3,
+      "FAIL": 0,
+      "SKIP": 0,
+      "subpass": 0,
+      "subfail": 0,
+      "subskip": 0,
+      "packages": 1
+    }
+  },
+  "log_provenance": {
+    "wp19-workflow-ui-red.log": {
+      "scratch_raw_sha256": "77648b9bae66017732549fd0279fbfe00563bfa7d85ebfe783767d88610f2861",
+      "packet_sha256": "139545798b3f18cef2ef1d4246299dd87911d7d40ac728e2c2402d4d1609c89c",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp19-workflow-ui-unattached-red.log": {
+      "scratch_raw_sha256": "4e46003b878fe0258f45978233a1cb596c70709c84d8100ad9220b5116d581b0",
+      "packet_sha256": "ea68f36e1fffc15d4422946c09e8ad78a9c6e2619b2016d1294ad102dae39309",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp19-workflow-ui-browser-before-final-gates.log": {
+      "scratch_raw_sha256": "19435ac7a7ac72f0d131662eecd2bade909e2ecc8b5bac06fb65cfb38a84cc7f",
+      "packet_sha256": "a969db8ea9172168e2ff2d3073170f40d48c188edf12e7b1201150d5f7fe3ec4",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp19-workflow-ui-browser-final.log": {
+      "scratch_raw_sha256": "b6bba4b3b4f6514cc7a2af1b88251c5b9b2f6dc86e51b6aebd9f060f3d87caac",
+      "packet_sha256": "b6bba4b3b4f6514cc7a2af1b88251c5b9b2f6dc86e51b6aebd9f060f3d87caac",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp19-workflow-ui-recovery-final.log": {
+      "scratch_raw_sha256": "ff487ba52923d1f7ffc49b9e4f42c22250cd4d07d6b9ec4529d7c6e0fc6b6ed5",
+      "packet_sha256": "ff487ba52923d1f7ffc49b9e4f42c22250cd4d07d6b9ec4529d7c6e0fc6b6ed5",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp19-workflow-ui-fixture-build-final.log": {
+      "scratch_raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "packet_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp19-workflow-ui-native-final.log": {
+      "scratch_raw_sha256": "b670253bf8d342adaca242f8ee480a25f9014ab4c8bd63e41c5c48122347bfee",
+      "packet_sha256": "b670253bf8d342adaca242f8ee480a25f9014ab4c8bd63e41c5c48122347bfee",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp19-workflow-ui-gui-final.log": {
+      "scratch_raw_sha256": "9716c2c3611255c46906a302e90b3f0fc1849c6697780919451cc0bec4c167c0",
+      "packet_sha256": "9716c2c3611255c46906a302e90b3f0fc1849c6697780919451cc0bec4c167c0",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    }
+  }
+}

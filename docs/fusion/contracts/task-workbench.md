@@ -51,3 +51,5 @@ PATH="$HOME/.local/bin:$PATH" python3 docs/fusion/work-items/WP-13/CALLS-01/run-
 当前恢复 UI 的最终回归与截图见 [SUBMISSION-UI-01](../work-items/WP-16/SUBMISSION-UI-01/summary.md)。Go/API/Native DTO 与样式未在本 UI 组件修改。
 
 后续 [EVENT-PAGE-01](task-event-page.md)新增精确事件分页 GET 及原 UI 默认折叠记录区；仅持久状态元数据回读，原 SSE 不开放到 Native 桥，不修改运行回执或自动推进 Task。CSS 未改，实际 Native 事件按钮未验证。
+
+后续[工作流与设计检查点](workflow-ui.md)在同一原样式任务表单/详情区接入四种有限类型、多角色预览、明确附加/设计冻结/当前计划批准；原手动单阶段仍为默认。批准不自动启动下一阶段，普通 continue 不批准。CSS、主资源和导航未改，实际 Native 工作流操作未验证。

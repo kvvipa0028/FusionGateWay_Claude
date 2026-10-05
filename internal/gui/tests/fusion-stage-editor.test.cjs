@@ -10,13 +10,14 @@ const repo=path.resolve(__dirname,"../../..");
 const binary=path.join(repo,".fusion-dev/fusion-gateway-cli");
 const models={a:"fixture-model-a",b:"fixture-model-b",c:"<svg>"};
 const key=id=>JSON.stringify(["fixture-"+id,1,models[id]]);
-async function fixture(t,admitted=false,withSecondProject=false,executionMode="",withQuota=false){
+async function fixture(t,admitted=false,withSecondProject=false,executionMode="",withQuota=false,withWorkflow=false){
  const root=await fs.realpath(await fs.mkdtemp(path.join(os.tmpdir(),"fusion-stage-ui-")));
  await fs.chmod(root,0o700);
  for(const name of ["workspace","private","private/config"])await fs.mkdir(path.join(root,name),{mode:0o700});
  const doc={schema_version:1,revision:1,global:{roles:{design:{mode:"locked",route:{id:"fixture-a",revision:1},model:models.a,effort:{mode:"none"}}}},
  routes:Object.entries(models).filter(([id])=>!admitted||id!=="c").map(([id,model])=>({id:"fixture-"+id,revision:1,native_route:"glm-cn-claude",model,account:"fixture-account-"+id,workspace:"fixture-workspace",credential_identity:"fixture-identity-"+id,runtime_version:"fixture-runtime",no_effort:true})),
  projects:[{id:"synthetic-ui",name:"界面验证项目",path:path.join(root,"workspace"),read:true,write:false,routes:Object.keys(models).filter(id=>!admitted||id!=="c").map(id=>({id:"fixture-"+id,revision:1})),layer:{}}]};
+ if(withWorkflow)for(const role of ["implementation","testing","review","acceptance"])doc.global.roles[role]=structuredClone(doc.global.roles.design);
  if(withSecondProject){await fs.mkdir(path.join(root,"workspace-other"),{mode:0o700});doc.projects.push({...doc.projects[0],id:"synthetic-ui-other",name:"另一个界面验证项目",path:path.join(root,"workspace-other")})}
  const source=path.join(root,"private/config/projects.json");await fs.writeFile(source,JSON.stringify(doc),{mode:0o600});
  const go=execFileSync("which",["go"],{encoding:"utf8"}).trim();
@@ -923,4 +924,127 @@ test('start recovery: independent run failure cannot acknowledge or clear the or
  assert.equal((await f.request('/control/v1/projects/synthetic-ui/start-request')).body.request.state,'committed');assert.equal(await page.getByRole('button',{name:'启动所选阶段',exact:true}).isDisabled(),true);
  await context.unroute('**/agent/v1/tasks/*/runs/*',failure);await page.getByRole('button',{name:'重试原运行请求',exact:true}).click();await page.waitForFunction(()=>document.getElementById('start-recovery').hidden);
  assert.equal(starts,1);assert.equal(acks,1);assert.equal((await f.request('/agent/v1/tasks/'+task.id)).body.generation,1);assert.deepEqual(errors,[]);
+});
+
+async function savedWorkflow(t,kind='change'){
+ const f=await fixture(t,true,false,'success',false,true),view=await f.newPage(),{page}=view;
+ await page.getByLabel('配置范围').selectOption('task');
+ assert.equal(await page.getByLabel('任务类型',{exact:true}).count(),1,'finite workflow selector must be present in original task form');
+ await page.getByLabel('任务类型',{exact:true}).selectOption(kind);await page.getByLabel('任务目标').fill('<svg> 工作流方案核对');
+ await page.getByRole('button',{name:'预览工作流任务',exact:true}).click();await status(page,'已核对冻结阶段计划');
+ await page.getByRole('button',{name:'冻结提交任务',exact:true}).click();await status(page,'任务已保存');await status(page,'已读取任务详情');
+ const task=(await f.request('/control/v1/projects/synthetic-ui/tasks')).body.tasks[0];await page.locator('#workflow-panel summary').click();return {...view,f,task};
+}
+test('workflow UI: original task form freezes five roles and explicit approval never starts the next stage',async t=>{
+ const {f,page,context,task,errors}=await savedWorkflow(t);let starts=0;const writes=[];
+ await context.route('**/control/v1/tasks/*/start',async r=>{starts++;await r.continue()});
+ await context.route(/\/control\/v1\/tasks\/[^/]+\/workflow(?:\/.*)?$/,async r=>{if(r.request().method()==='POST')writes.push({url:r.request().url(),body:r.request().postDataJSON(),tag:r.request().headers()['if-match']});await r.continue()});
+ assert.deepEqual((await f.request('/control/v1/tasks/'+task.id+'/plan')).body.required_roles,['design','implementation','testing','review','acceptance']);
+ assert.equal((await f.request('/control/v1/tasks/'+task.id+'/workflow')).body.workflow,null);
+ await page.getByLabel('附加流程',{exact:true}).selectOption('change');await page.getByRole('button',{name:'附加所选流程',exact:true}).click();await status(page,'流程已附加');
+ assert.equal(starts,0);assert.equal(writes[0].tag,'"p1-g0-ready"');assert.equal(await page.getByLabel('运行阶段').inputValue(),'design');
+ await page.getByRole('button',{name:'启动所选阶段',exact:true}).click();await page.locator('#run-record').filter({hasText:'已知阶段执行'}).waitFor();
+ for(let i=0;i<12;i++){await page.getByRole('button',{name:'重新读取任务',exact:true}).click();await status(page,'已读取任务详情');if((await page.locator('#run-record').innerText()).includes('succeeded')&&(await page.locator('#workflow-record').innerText()).includes('等待冻结完整设计'))break}assert.ok((await page.locator('#workflow-record').innerText()).includes('等待冻结完整设计'));assert.ok(await page.getByLabel('设计运行 ID').inputValue());
+ assert.equal(await page.getByRole('button',{name:'启动所选阶段',exact:true}).isDisabled(),true);assert.equal(await page.getByRole('button',{name:'批准当前方案',exact:true}).isDisabled(),true);
+ for(const [label,value] of [['方案范围','.'],['方案约束','保持公开接口'],['方案接口','<img src=x onerror=alert(1)> 接口'],['验收标准','针对性回归通过']])await page.getByLabel(label,{exact:true}).fill(value);
+ await page.getByRole('button',{name:'冻结当前设计',exact:true}).click();await status(page,'设计已冻结');
+ const frozen=(await f.request('/control/v1/tasks/'+task.id+'/workflow')).body.workflow;assert.ok(frozen.design);assert.equal(frozen.approval,null);assert.equal(starts,1);
+ assert.equal(await page.locator('#workflow-record img,#workflow-record svg').count(),0);assert.ok((await page.locator('#workflow-record').innerText()).includes(frozen.design.snapshot.acceptance_hash));
+ page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'批准当前方案',exact:true}).click();await status(page,'当前方案已批准');
+ const approved=(await f.request('/control/v1/tasks/'+task.id+'/workflow')).body.workflow;assert.equal(approved.approval.design_hash,frozen.design.snapshot.hash);assert.equal(approved.approval.plan_revision,1);assert.equal(starts,1);assert.equal((await f.request('/agent/v1/tasks/'+task.id)).body.generation,1);
+ assert.deepEqual(writes.at(-1).body,{design_hash:frozen.design.snapshot.hash,acceptance_hash:frozen.design.snapshot.acceptance_hash});assert.equal(writes.at(-1).tag,'"p1-g1-ready"');
+ assert.equal(await page.getByLabel('运行阶段').inputValue(),'implementation');assert.equal(await page.getByRole('button',{name:'启动所选阶段',exact:true}).isDisabled(),false);
+ await page.locator('#workflow-panel').scrollIntoViewIfNeeded();await page.locator('#workflow-panel').screenshot({path:path.join(repo,'.fusion-dev/implementation/workflow-ui-desktop.png')});
+ await page.setViewportSize({width:390,height:844});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await page.locator('#workflow-panel').screenshot({path:path.join(repo,'.fusion-dev/implementation/workflow-ui-mobile.png')});
+ await page.reload();await page.getByRole('button',{name:'查看任务 '+task.id,exact:true}).click();await status(page,'已读取任务详情');await page.locator('#workflow-panel summary').click();assert.ok((await page.locator('#workflow-record').innerText()).includes('当前计划已批准'));assert.equal(starts,1);
+ assert.deepEqual(await page.evaluate(()=>[localStorage.length,sessionStorage.length]),[0,0]);assert.deepEqual(errors,[]);
+});
+
+for(const kind of ['investigate','review','bugfix'])test('workflow UI: explicit '+kind+' uses only its frozen finite roles',async t=>{
+ const {f,page,task,errors}=await savedWorkflow(t,kind);
+ const expected=kind==='investigate'?['design']:kind==='review'?['review']:['design','implementation','testing','review','acceptance'];
+ assert.deepEqual((await f.request('/control/v1/tasks/'+task.id+'/plan')).body.required_roles,expected);
+ await page.getByLabel('附加流程',{exact:true}).selectOption(kind);await page.getByRole('button',{name:'附加所选流程',exact:true}).click();await status(page,'流程已附加');
+ const v=(await f.request('/control/v1/tasks/'+task.id+'/workflow')).body.workflow;assert.equal(v.definition.kind,kind);assert.deepEqual(v.definition.required_roles,expected);assert.equal(v.next,expected[0]);assert.equal((await f.request('/agent/v1/tasks/'+task.id)).body.generation,0);
+ if(kind==='review'){assert.equal(await page.locator('#workflow-design-form').isVisible(),false);assert.equal(await page.getByRole('button',{name:'批准当前方案',exact:true}).isDisabled(),true)}
+ assert.deepEqual(errors,[]);
+});
+async function freezeWorkflowDesign(view){
+ const {page}=view;await page.getByLabel('附加流程').selectOption('change');await page.getByRole('button',{name:'附加所选流程',exact:true}).click();await status(page,'流程已附加');
+ await page.getByRole('button',{name:'启动所选阶段',exact:true}).click();await page.locator('#run-record').filter({hasText:'已知阶段执行'}).waitFor();
+ for(let i=0;i<12;i++){await page.getByRole('button',{name:'重新读取任务',exact:true}).click();await status(page,'已读取任务详情');if((await page.locator('#run-record').innerText()).includes('succeeded')&&(await page.locator('#workflow-record').innerText()).includes('等待冻结完整设计'))break}assert.ok((await page.locator('#workflow-record').innerText()).includes('等待冻结完整设计'));assert.ok(await page.getByLabel('设计运行 ID').inputValue());
+ for(const label of ['方案范围','方案约束','方案接口','验收标准'])await page.getByLabel(label,{exact:true}).fill(label==='方案范围'?'.':label+' fixture');
+ await page.getByRole('button',{name:'冻结当前设计',exact:true}).click();await status(page,'设计已冻结');
+}
+test('workflow UI: lost committed approval reply blocks writes and start until an explicit current read',async t=>{
+ const view=await savedWorkflow(t),{f,page,context,task,errors}=view;await freezeWorkflowDesign(view);let approvals=0,starts=0;
+ await context.route('**/control/v1/tasks/*/start',async r=>{starts++;await r.continue()});
+ await context.route('**/control/v1/tasks/*/workflow/approve',async r=>{approvals++;await r.fetch();await r.fulfill({status:503,json:{error:{code:'lost_workflow_reply'}}})});
+ page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'批准当前方案',exact:true}).click();await status(page,'决定结果尚待核对');
+ assert.ok((await f.request('/control/v1/tasks/'+task.id+'/workflow')).body.workflow.approval);assert.equal(await page.getByRole('button',{name:'批准当前方案',exact:true}).isDisabled(),true);assert.equal(await page.getByRole('button',{name:'启动所选阶段',exact:true}).isDisabled(),true);
+ await page.getByRole('button',{name:'重新读取任务',exact:true}).click();await status(page,'已读取任务详情');assert.ok((await page.locator('#workflow-record').innerText()).includes('当前计划已批准'));assert.equal(await page.getByRole('button',{name:'启动所选阶段',exact:true}).isDisabled(),false);assert.equal(approvals,1);assert.equal(starts,0);assert.deepEqual(errors,[]);
+});
+test('workflow UI: changed Task condition cannot approve the previous display or start a stage',async t=>{
+ const view=await savedWorkflow(t),{f,page,task,errors}=view;await freezeWorkflowDesign(view);
+ const current=await f.request('/agent/v1/tasks/'+task.id);assert.equal((await f.request('/control/v1/tasks/'+task.id+'/pause','POST',{},current.etag)).status,200);
+ page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'批准当前方案',exact:true}).click();await status(page,'任务条件已变化');
+ assert.equal((await f.request('/control/v1/tasks/'+task.id+'/workflow')).body.workflow.approval,null);assert.equal(await page.getByRole('button',{name:'启动所选阶段',exact:true}).isDisabled(),true);
+ await page.getByRole('button',{name:'重新读取任务',exact:true}).click();await status(page,'已读取任务详情');assert.equal(await page.getByRole('button',{name:'批准当前方案',exact:true}).isDisabled(),true);assert.deepEqual(errors,[]);
+});
+test('workflow UI: malformed cross-plan approval and extra private fields never render or enable execution',async t=>{
+ const view=await savedWorkflow(t),{f,page,context,task,errors}=view;await freezeWorkflowDesign(view);
+ const wfpath='**/control/v1/tasks/*/workflow';
+ for(const edit of [body=>{body.workflow.approval={plan_revision:2,plan_hash:body.workflow.design.plan_hash,generation:1,design_hash:body.workflow.design.snapshot.hash,acceptance_hash:body.workflow.design.snapshot.acceptance_hash}},body=>{body.workflow.token='forbidden-private-value'}]){
+  await context.route(wfpath,async r=>{const actual=await r.fetch(),body=await actual.json();edit(body);await r.fulfill({response:actual,json:body})});
+  await page.getByRole('button',{name:'重新读取任务',exact:true}).click();await page.locator('#task-detail-status').filter({hasText:'读取失败'}).waitFor();assert.equal(await page.getByRole('button',{name:'启动所选阶段',exact:true}).isDisabled(),true);assert.equal(await page.getByRole('button',{name:'批准当前方案',exact:true}).isDisabled(),true);assert.equal(await page.locator('#workflow-record').innerText(),'');await context.unroute(wfpath);
+ }
+ assert.equal((await f.request('/control/v1/tasks/'+task.id+'/workflow')).body.workflow.approval,null);assert.deepEqual(errors,[]);
+});
+
+test('workflow UI: denied management approval preserves the original form and never enables start',async t=>{
+ const view=await savedWorkflow(t),{f,page,context,task,errors}=view;await freezeWorkflowDesign(view);let denied=0;
+ await context.route('**/control/v1/tasks/*/workflow/approve',async r=>{denied++;await r.fulfill({status:401,json:{error:{code:'authorization_required'}}})});
+ page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'批准当前方案',exact:true}).click();await status(page,'管理授权已失效');
+ assert.equal(denied,1);assert.equal((await f.request('/control/v1/tasks/'+task.id+'/workflow')).body.workflow.approval,null);assert.equal(await page.getByRole('button',{name:'启动所选阶段',exact:true}).isDisabled(),true);assert.equal(await page.getByRole('button',{name:'批准当前方案',exact:true}).isDisabled(),true);assert.deepEqual(errors,[]);
+});
+test('workflow UI: late original task workflow cannot replace a newly selected task',async t=>{
+ const {f,page,context,task,errors}=await savedWorkflow(t);
+ const preview=await f.request('/control/v1/tasks/preview','POST',{project_id:'synthetic-ui',goal:'另一个独立审查任务',required_roles:['review']});assert.equal(preview.status,200);
+ const other=await f.request('/agent/v1/tasks','POST',{preview_id:preview.body.preview_id,plan_hash:preview.body.plan.hash},null,'workflow-other-task');assert.equal(other.status,201);
+ await page.getByRole('button',{name:'刷新任务列表',exact:true}).click();await status(page,'已读取 2 个任务');
+ let release,entered;const gate=new Promise(r=>{release=r}),started=new Promise(r=>{entered=r});let first=true;
+ await context.route('**/control/v1/tasks/'+task.id+'/workflow',async r=>{const actual=await r.fetch();if(first){first=false;entered();await gate}await r.fulfill({response:actual})});
+ t.after(()=>release());await page.getByRole('button',{name:'重新读取任务',exact:true}).click();await started;
+ await page.getByRole('button',{name:'查看任务 '+other.body.id,exact:true}).click();await status(page,'已读取任务详情');const late=page.waitForResponse(r=>r.url().endsWith('/'+task.id+'/workflow'));release();await late;
+ assert.ok((await page.locator('#task-detail').innerText()).includes(other.body.goal));assert.equal(await page.getByLabel('运行阶段').inputValue(),'review');assert.equal(await page.locator('#approve-design').isDisabled(),true);assert.deepEqual(errors,[]);
+});
+
+test('workflow UI: idle pause and continue cannot retroactively attach a workflow',async t=>{
+ const {f,page,task,errors}=await savedWorkflow(t);let current=await f.request('/agent/v1/tasks/'+task.id);
+ assert.equal((await f.request('/control/v1/tasks/'+task.id+'/pause','POST',{},current.etag)).status,200);current=await f.request('/agent/v1/tasks/'+task.id);
+ assert.equal((await f.request('/control/v1/tasks/'+task.id+'/continue','POST',{},current.etag)).status,200);current=await f.request('/agent/v1/tasks/'+task.id);assert.ok(current.body.generation>0);assert.equal(current.body.state,'ready');
+ await page.getByRole('button',{name:'重新读取任务',exact:true}).click();await status(page,'已读取任务详情');await page.getByLabel('附加流程').selectOption('change');
+ assert.equal(await page.getByRole('button',{name:'附加所选流程',exact:true}).isDisabled(),true,'workflow attachment requires the original generation zero condition');
+ assert.equal((await f.request('/control/v1/tasks/'+task.id+'/workflow','POST',{kind:'change'},current.etag)).status,409);assert.equal((await f.request('/control/v1/tasks/'+task.id+'/workflow')).body.workflow,null);assert.equal((await f.request('/agent/v1/tasks/'+task.id)).body.generation,current.body.generation);assert.deepEqual(errors,[]);
+});
+
+test('workflow UI: multiple-role task cannot start before explicitly attaching its finite flow',async t=>{
+ const {f,page,context,task,errors}=await savedWorkflow(t);let starts=0;
+ await context.route('**/control/v1/tasks/*/start',async r=>{starts++;await r.continue()});
+ assert.equal(await page.getByRole('button',{name:'启动所选阶段',exact:true}).isDisabled(),true,'multiple-role UI tasks require explicit workflow attachment before start');
+ assert.equal((await f.request('/control/v1/tasks/'+task.id+'/workflow')).body.workflow,null);assert.equal(starts,0);assert.deepEqual(errors,[]);
+});
+
+test('workflow recovery: lost five-role submission restores its original plan without guessing or starting a flow',async t=>{
+ const f=await fixture(t,true,false,'success',false,true),first=await f.newPage();let original;
+ await first.page.getByLabel('配置范围').selectOption('task');await first.page.getByLabel('任务类型').selectOption('bugfix');await first.page.getByLabel('任务目标').fill('关闭后恢复原五角色修复任务');
+ await first.page.getByRole('button',{name:'预览工作流任务',exact:true}).click();await status(first.page,'已核对冻结阶段计划');
+ await first.context.route('**/agent/v1/tasks',async r=>{original={body:r.request().postDataJSON(),key:r.request().headers()['idempotency-key']};await r.fetch();await r.fulfill({status:503,json:{error:{code:'lost_five_role_submission'}}})});
+ await first.page.getByRole('button',{name:'冻结提交任务',exact:true}).click();await status(first.page,'提交结果未确认');await first.context.close();await f.restart();
+ const second=await f.newPage();await status(second.page,'已恢复原任务请求');const record=(await f.request('/control/v1/projects/synthetic-ui/submission')).body.submission;
+ assert.deepEqual(record.preview.plan.required_roles,['design','implementation','testing','review','acceptance']);assert.equal(await second.page.getByLabel('任务类型').isDisabled(),true);
+ let retried;await second.context.route('**/agent/v1/tasks',async r=>{retried={body:r.request().postDataJSON(),key:r.request().headers()['idempotency-key']};await r.continue()});
+ await second.page.getByRole('button',{name:'重试同一任务提交',exact:true}).click();await status(second.page,'任务已保存');await status(second.page,'已读取任务详情');assert.deepEqual(retried,original);
+ const task=(await f.request('/control/v1/projects/synthetic-ui/tasks')).body.tasks[0];assert.equal(task.generation,0);assert.equal((await f.request('/control/v1/tasks/'+task.id+'/workflow')).body.workflow,null);assert.equal(await second.page.getByRole('button',{name:'启动所选阶段',exact:true}).isDisabled(),true);
+ await second.page.locator('#workflow-panel summary').click();await second.page.getByLabel('附加流程').selectOption('bugfix');await second.page.getByRole('button',{name:'附加所选流程',exact:true}).click();await status(second.page,'流程已附加');assert.equal((await f.request('/control/v1/tasks/'+task.id+'/workflow')).body.workflow.definition.kind,'bugfix');assert.equal((await f.request('/agent/v1/tasks/'+task.id)).body.generation,0);assert.deepEqual(first.errors,[]);assert.deepEqual(second.errors,[]);
 });

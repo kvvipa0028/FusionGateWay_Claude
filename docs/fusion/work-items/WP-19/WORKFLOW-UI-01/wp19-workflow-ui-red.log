@@ -1,0 +1,29 @@
+✖ workflow UI: original task form freezes five roles and explicit approval never starts the next stage (1094.251125ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1279.795375
+
+✖ failing tests:
+
+test at internal/gui/tests/fusion-stage-editor.test.cjs:938:1
+✖ workflow UI: original task form freezes five roles and explicit approval never starts the next stage (1094.251125ms)
+  AssertionError [ERR_ASSERTION]: finite workflow selector must be present in original task form
+
+  0 !== 1
+
+      at savedWorkflow (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:932:9)
+      at async TestContext.<anonymous> (/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/gui/tests/fusion-stage-editor.test.cjs:939:37)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,5 +1,5 @@
 import {roles,labels,groups,copy,expandLayer,groupShared,shareGroup,exactRoute,targetFor,routeKey,layerIssues,sameBinding} from "./model.mjs";
-import {createWorkbench} from "./workbench.mjs";
+import {createWorkbench,workflowRoles} from "./workbench.mjs";
 import {createQuotaView} from "./quota.mjs";
 const $=id=>document.getElementById(id);
 const state={project:"",scope:"project",routes:[],layers:{},tags:{},config:{},presets:[],preset:null,editingPreset:null,presetNameDirty:false,expanded:new Set(),dirty:new Set(),loading:true,saving:false,taskPending:false,uncertain:null,notice:"正在读取本机配置…"};
@@ -47,7 +47,7 @@ function errorText(e,saving=false){
  if(e.status===0)return saving?"保存状态未确认。请重试同一保存，或重新载入核对。":"本机配置读取失败，请重新载入。";
  return"请求未完成，请检查配置并重新载入。";
 }
-const workbench=createWorkbench({request,onLock:value=>{state.taskPending=value;render()},onRestore:record=>{state.scope="task";$("scope").value="task";$("goal").value=record.goal;$("task-role").value=record.preview.plan.required_roles[0]},onNotice:(message,error=false)=>{state.notice=message;state.error=error;render()}});
+const workbench=createWorkbench({request,onLock:value=>{state.taskPending=value;render()},onRestore:record=>{state.scope="task";$("scope").value="task";$("goal").value=record.goal;$("task-kind").value="manual";$("task-role").value=record.preview.plan.required_roles[0]},onNotice:(message,error=false)=>{state.notice=message;state.error=error;render()}});
 const disabled=()=>state.loading||state.saving||state.taskPending||!!state.uncertain;
 const quotaView=createQuotaView({request,onChange:()=>render()});
 function clearPreview(){workbench.invalidate();$("preview").hidden=true}
@@ -134,8 +134,8 @@ function render(){
  }
  $("scope").disabled=disabled();$("project").disabled=disabled();$("reload").disabled=state.loading||state.saving||state.taskPending;
  $("preset").disabled=disabled();$("preset-version").disabled=disabled();$("apply-preset").disabled=disabled()||!$("preset").value;
- $("task").hidden=state.scope!=="task";$("goal").disabled=disabled();$("task-role").disabled=disabled();
- $("save").textContent=state.uncertain&&state.uncertain.kind!=="preset"?"重试同一保存":state.scope==="task"?"预览单阶段任务":state.scope==="global"?"保存全局默认":"保存项目配置";
+ $("task").hidden=state.scope!=="task";$("goal").disabled=disabled();$("task-role").disabled=disabled();$("task-kind").disabled=disabled();$("task-role-label").hidden=$("task-kind").value!=="manual";
+ $("save").textContent=state.uncertain&&state.uncertain.kind!=="preset"?"重试同一保存":state.scope==="task"?($("task-kind").value==="manual"?"预览单阶段任务":"预览工作流任务"):state.scope==="global"?"保存全局默认":"保存项目配置";
  $("save").disabled=state.loading||state.saving||state.taskPending||state.uncertain?.kind==="preset"||!state.project||(!state.uncertain&&layerIssues(activeLayer(),state.routes).length>0);
  const canSavePreset=!disabled()&&!!state.project&&presetNameValid($("preset-name").value)&&layerIssues(activeLayer(),state.routes).length===0;
  $("preset-name").disabled=disabled();$("create-preset").disabled=!canSavePreset;
@@ -181,15 +181,18 @@ $("save").onclick=async()=>{
  if(scope==="task"){
   clearPreview();
   try{const goal=$("goal").value.trim();if(!goal){state.notice="请填写任务目标。";return}
-   const body={project_id:id,goal,required_roles:[$("task-role").value],task:activeLayer()};if(state.preset)body.preset=state.preset;
+   const body={project_id:id,goal,required_roles:workflowRoles[$("task-kind").value]||[$("task-role").value],task:activeLayer()};if(state.preset)body.preset=state.preset;
    const preview=await request("/control/v1/tasks/preview",{method:"POST",body:JSON.stringify(body)});
-   const plan=preview.body?.plan,role=body.required_roles[0];
-   if(!Array.isArray(plan?.required_roles)||plan.required_roles.length!==1||plan.required_roles[0]!==role||!plan.bindings||Array.isArray(plan.bindings)||Object.keys(plan.bindings).length!==1)throw new RequestError(200,"response_unavailable");
-   const b=plan.bindings[role];let description;
-   if(b?.mode==="locked"&&typeof b.target?.resolved_model==="string"&&b.target.resolved_model.length>0)description=b.target.resolved_model;
-   else if(b?.mode==="auto"&&Array.isArray(b.candidates)&&b.candidates.length>0&&b.candidates.every(c=>typeof c.resolved_model==="string"&&c.resolved_model.length>0))description="批准候选："+b.candidates.map(c=>c.resolved_model).join("、");
-   else throw new RequestError(200,"response_unavailable");
-   $("preview").replaceChildren(el("h2","服务端计划预览"),el("p",labels[role]+"："+description));
+   const plan=preview.body?.plan;
+   if(!Array.isArray(plan?.required_roles)||JSON.stringify(plan.required_roles)!==JSON.stringify(body.required_roles)||!plan.bindings||Array.isArray(plan.bindings)||Object.keys(plan.bindings).length!==body.required_roles.length)throw new RequestError(200,"response_unavailable");
+   $("preview").replaceChildren(el("h2","服务端计划预览"));
+   for(const role of body.required_roles){
+    const b=plan.bindings[role];let description;
+    if(b?.mode==="locked"&&typeof b.target?.resolved_model==="string"&&b.target.resolved_model.length>0)description=b.target.resolved_model;
+    else if(b?.mode==="auto"&&Array.isArray(b.candidates)&&b.candidates.length>0&&b.candidates.every(c=>typeof c.resolved_model==="string"&&c.resolved_model.length>0))description="批准候选："+b.candidates.map(c=>c.resolved_model).join("、");
+    else throw new RequestError(200,"response_unavailable");
+    $("preview").append(el("p",labels[role]+"："+description));
+   }
    const current=workbench.setPreview(preview.body,body);$("preview").hidden=false;state.notice=current?"已核对冻结阶段计划，尚未提交或启动任务。":"预览已到期，请重新预览；未提交任务。";
   }catch(e){state.error=true;state.notice=errorText(e)}
   finally{state.saving=false;render()}
@@ -205,7 +208,7 @@ $("save").onclick=async()=>{
  state.saving=false;render();
 };
 function invalidatePreview(){if(!$("preview").hidden){clearPreview();state.notice="目标或阶段已改变，请重新预览。";render()}}
-$("goal").oninput=invalidatePreview;$("task-role").onchange=invalidatePreview;
+$("goal").oninput=invalidatePreview;$("task-role").onchange=invalidatePreview;$("task-kind").onchange=()=>{invalidatePreview();render()};
 $("preset-name").oninput=()=>{state.presetNameDirty=true;render()};
 async function savePreset(attempt){
  state.saving=true;state.error=false;render();

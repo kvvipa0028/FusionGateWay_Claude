@@ -1,6 +1,6 @@
 # 工作流 Management API 与 Native 通路
 
-对应 WP-19-WORKFLOW-API-01。仅管理权限可附加流程、冻结方案或明确批准；Worker/stage bearer、模型结果和普通 continue 均无此权限。这些操作只写元数据，不调用模型/额度、不改变来源的 read/write 声明、不启动或恢复 Runtime。生产三路线 Gate A、实际写范围执行与工程闭环仍未完成。UI 消费尚未接入，后续只扩展原 Magpie 任务详情区，不改整体样式。
+对应 WP-19-WORKFLOW-API-01。仅管理权限可附加流程、冻结方案或明确批准；Worker/stage bearer、模型结果和普通 continue 均无此权限。这些操作只写元数据，不调用模型/额度、不改变来源的 read/write 声明、不启动或恢复 Runtime。生产三路线 Gate A、实际写范围执行与工程闭环仍未完成。[页面消费者](workflow-ui.md)已在原 Magpie 样式任务详情区接入，不改整体样式；原主界面全部页面整合和实际 Native 工作流操作仍未完成。
 
 ## 固定端点
 

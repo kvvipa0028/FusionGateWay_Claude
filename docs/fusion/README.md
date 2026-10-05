@@ -16,7 +16,7 @@
 
 ## 阅读顺序
 
-[有限工作流与设计检查点](contracts/workflow-design-gate.md)已有核心定义、不可变方案/当前计划批准及启动约束；[Management API 与 Native 通路](contracts/workflow-api.md)已支持附加、完整设计冻结和明确批准。核心与通路[证据](work-items/WP-19/summary.md)分别记录，原 Magpie 界面消费仍待完成，Gate A 未通过，不启用自动闭环。原主资源和全部 UI/CSS 本组件未改。
+[有限工作流与设计检查点](contracts/workflow-design-gate.md)已有核心定义、不可变方案/当前计划批准及启动约束；[Management API 与 Native 通路](contracts/workflow-api.md)已支持附加、完整设计冻结和明确批准。核心与通路[证据](work-items/WP-19/summary.md)分别记录，[工作流页面](contracts/workflow-ui.md)已接入原样式任务表单/详情区的有限类型、设计冻结与明确批准。Gate A 未通过，不启用自动闭环；原主资源与全部 CSS 未改，主界面完整整合和实际 Native 工作流操作仍未完成。
 
 1. [当前需求摘录](requirements-summary.md)：已知目标与未取得的原始需求文档。
 2. [实施计划](planning/Fusion_Magpie_Fork_实施计划_v1.0.md)：M0–M5 的范围和退出条件。

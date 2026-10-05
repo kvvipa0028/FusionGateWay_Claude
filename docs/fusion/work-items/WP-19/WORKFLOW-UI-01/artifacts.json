@@ -1,0 +1,50 @@
+{
+  "base": "6cce720ab85db6fdc0d06da8ad6f54e485b1ab95",
+  "sources": {
+    "docs/fusion/README.md": "a666a47407e0f7ae12a556bd5121a7e3ef001b2593c48f7861b8344f20ecaa06",
+    "docs/fusion/contracts/task-execution-ui.md": "fda8c54b9375d084f6db5da10ae81a46583980d6a8e108d2ceec8f6017590138",
+    "docs/fusion/contracts/task-workbench.md": "e0a5afc6bf2b3b6f0a7a8ee5500a080bc15fc7de38c63004c8f50c7ced452bb3",
+    "docs/fusion/contracts/workflow-api.md": "d22b1b029584b1a24215132c80cfaee3a2d6e652f35c73e3a3abdb1bb4a955fa",
+    "docs/fusion/contracts/workflow-design-gate.md": "d005e94eae9c2db16af45ebf999bcc70134d06e44d3066ff8ccede31ea7c28bf",
+    "docs/fusion/contracts/workflow-ui.md": "c77addbca485c24b262221c6db4a4d9317c86d4cf9389556ca97460aacd3eab3",
+    "docs/fusion/work-items/WP-19/summary.md": "052146188f09a9028c84358543c529c998a62231f69de8c89d833503f08ca0fa",
+    "internal/gui/assets/fusion/editor.mjs": "88968bcc0e998b265ec84e9b3461f3c48b5b0fdf50cbef76bffb1eccdec2fe79",
+    "internal/gui/assets/fusion/index.html": "568ce1b9d043af8fb297cecdda4c014d96f9c39f09ce2267335f6a1e7bd6a658",
+    "internal/gui/assets/fusion/workbench.mjs": "fa40e2e8aa1ab455a34f70560d8fcd87749602b33b0009374170ed6c07e662ff",
+    "internal/gui/tests/fusion-stage-editor.test.cjs": "3572e596fc3f7390eab7a92881bd58586d05c3549a0069bf39becfab88ffebe1"
+  },
+  "files": {
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "e0fdd80f41e43006aa6b5235e12599a81a1c46703b70284367421b20cc37f8d3",
+    "build-results.json": "160fb861de00a791013f541cb0f34b28ccb2d1357aa77a814e23987be45df7d4",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "summary.md": "f97e6c9b5403769b108706138575fb552ff42671aa8e0643ef58ffdc714845ea",
+    "test-results.json": "845a74543a88a09bc8eebe826684304ae3e27ac2cf0cad35ff493f2ce1a2bff0",
+    "workflow-ui-desktop.png": "96d5ae4322800b4d13dad43907c65081f900f48a247333bc6aa4a433cb394595",
+    "workflow-ui-mobile.png": "a56003bf310565f3fefda8084ce7f78aec3ac9b1938595d19a0aaf521f2319a3",
+    "wp19-workflow-ui-browser-before-final-gates.log": "a969db8ea9172168e2ff2d3073170f40d48c188edf12e7b1201150d5f7fe3ec4",
+    "wp19-workflow-ui-browser-final.log": "b6bba4b3b4f6514cc7a2af1b88251c5b9b2f6dc86e51b6aebd9f060f3d87caac",
+    "wp19-workflow-ui-fixture-build-final.log": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "wp19-workflow-ui-gui-final.log": "9716c2c3611255c46906a302e90b3f0fc1849c6697780919451cc0bec4c167c0",
+    "wp19-workflow-ui-native-final.log": "b670253bf8d342adaca242f8ee480a25f9014ab4c8bd63e41c5c48122347bfee",
+    "wp19-workflow-ui-recovery-final.log": "ff487ba52923d1f7ffc49b9e4f42c22250cd4d07d6b9ec4529d7c6e0fc6b6ed5",
+    "wp19-workflow-ui-red.log": "139545798b3f18cef2ef1d4246299dd87911d7d40ac728e2c2402d4d1609c89c",
+    "wp19-workflow-ui-unattached-red.log": "ea68f36e1fffc15d4422946c09e8ad78a9c6e2619b2016d1294ad102dae39309"
+  },
+  "binary_sha256": {
+    "fusion-gateway-cli": "dcf13fd0aa8d6ccedc08423e37f87f12e2f7b8005dbccd8946179a579cadb167",
+    "fusion-gateway-gui": "662b0e72dfd7a18cdaaafbe6e08856dc5c2b4ad11ddf51bd7b34cad9b3a5ea07"
+  },
+  "unchanged_original_magpie_assets": 3,
+  "changed_ui_files": [
+    "internal/gui/assets/fusion/editor.mjs",
+    "internal/gui/assets/fusion/index.html",
+    "internal/gui/assets/fusion/workbench.mjs",
+    "internal/gui/tests/fusion-stage-editor.test.cjs"
+  ],
+  "unchanged_ui_files": 471,
+  "all_css_unchanged": true,
+  "backend_go_modules_migrations_unchanged": true,
+  "local_links_checked": 109,
+  "secret_byte_exclusion": "pass"
+}

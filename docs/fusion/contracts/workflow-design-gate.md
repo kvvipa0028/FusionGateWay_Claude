@@ -1,6 +1,6 @@
 # 有限工作流与设计批准合同
 
-本合同对应 WP-19-DESIGN-GATE-01，提供版本 1 的核心定义、私有 Store 持久记录与启动约束。后续[Management API 与 Native 通路](workflow-api.md)已接入附加、方案提交与明确批准；WP-19 仍为 in_progress，原 Magpie 界面消费尚未交付。生产入口不会自动附加工作流，也不会自动推进下一阶段。三路线真实准入 Gate A 尚未通过，不能据此启用自动工程闭环。
+本合同对应 WP-19-DESIGN-GATE-01，提供版本 1 的核心定义、私有 Store 持久记录与启动约束。后续[Management API 与 Native 通路](workflow-api.md)已接入附加、方案提交与明确批准；WP-19 仍为 in_progress，[工作流页面](workflow-ui.md)已在原 Magpie 样式任务详情区接入，实际 Native 工作流操作仍未验证。生产入口不会自动附加工作流，也不会自动推进下一阶段。三路线真实准入 Gate A 尚未通过，不能据此启用自动工程闭环。
 
 ## 固定角色与条件
 
@@ -20,7 +20,7 @@
 
 `FreezeDesign` 深拷贝列表，分别冻结整份方案与验收标准 hash。目标须等于原 Task 目标。`SaveWorkflowDesign` 只接受同 Task 的 design run：真实状态记录为 succeeded、有启动意图和确认、租约已清除、reservation 已释放且有合法停止证明摘要。存储层消费受信 Controller/Runtime 留下的停止记录，本身不证明外部进程已退出。未释放、失败、unknown 或其他角色都不能冻结成功设计。暂停/继续只改变 Task 条件，不丢弃原已完成的设计 run；提交仍必须用当前 Task 条件。
 
-`ApproveWorkflowDesign` 是可信人类决策操作，必须同时匹配当前 Task 条件、当前计划及原方案/验收标准 hash。模型输出、Worker grant、任意一句“继续”和普通 Task continue 均不能替代批准，也不能自动调用该方法。批准记入不可变的当前计划版本记录；修订未来阶段形成新计划后，旧批准仍保留但不授权新计划，需要重新明确批准。Management/Native 当前使用带事务内权限复核的 Authorized 入口；没有向 Worker/模型暴露批准入口，原 UI 消费仍待实现。
+`ApproveWorkflowDesign` 是可信人类决策操作，必须同时匹配当前 Task 条件、当前计划及原方案/验收标准 hash。模型输出、Worker grant、任意一句“继续”和普通 Task continue 均不能替代批准，也不能自动调用该方法。批准记入不可变的当前计划版本记录；修订未来阶段形成新计划后，旧批准仍保留但不授权新计划，需要重新明确批准。Management/Native 当前使用带事务内权限复核的 Authorized 入口；没有向 Worker/模型暴露批准入口，原样式任务详情的[明确批准操作](workflow-ui.md)已接入。
 
 ## 阶段启动与终止
 

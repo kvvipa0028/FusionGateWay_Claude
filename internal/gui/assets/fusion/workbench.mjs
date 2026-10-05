@@ -1,4 +1,5 @@
 import {labels,roles} from './model.mjs';
+export const workflowRoles=Object.freeze({investigate:['design'],review:['review'],change:roles,bugfix:roles});
 const $=id=>document.getElementById(id);
 const integer=(n,min=0)=>Number.isSafeInteger(n)&&n>=min;
 const opaque=s=>typeof s==='string'&&s.length>0&&new TextEncoder().encode(s).length<=256&&!/[\s\p{Cc}/\\]/u.test(s);
@@ -45,9 +46,28 @@ function startJournalValue(body,scope,original){
  const run=original?.runId||original?.journal?.run_id;if(run&&v.run_id!==run)throw bad();
  return v;
 }
+const hash=s=>typeof s==='string'&&/^[0-9a-f]{64}$/.test(s);
+const fields=(v,names)=>v&&typeof v==='object'&&!Array.isArray(v)&&Object.keys(v).length===names.length&&names.every(n=>Object.hasOwn(v,n));
+const same=(a,b)=>JSON.stringify(canonical(a))===JSON.stringify(canonical(b));
+function workflowValue(reply,data,scope){
+ const body=reply?.body;if(reply.status!==200||!fields(body,['task','workflow']))throw bad();
+ taskValue(body.task,scope,reply.etag);if(!same(body.task,data.task))throw bad();
+ const v=body.workflow;if(v===null)return null;
+ const d=v?.definition;
+ if(!fields(v,['task_id','definition','design','approval','next','blocker'])||v.task_id!==data.task.id||!fields(d,['schema_version','kind','required_roles','hash'])||d.schema_version!==1||!hash(d.hash)||!workflowRoles[d.kind]||!same(d.required_roles,workflowRoles[d.kind])||!same([...d.required_roles].sort(),[...data.plan.required_roles].sort())||!(v.next===''||d.required_roles.includes(v.next))||!['','stage_active','stop_unverified','stage_unverified','stage_failed','design_required','approval_required','workflow_complete','task_not_ready'].includes(v.blocker))throw bad();
+ if(v.design!==null){
+  const design=v.design,snapshot=design?.snapshot,doc=snapshot?.document;
+  if(!fields(design,['run_id','plan_revision','plan_hash','generation','snapshot'])||!opaque(design.run_id)||!integer(design.plan_revision,1)||design.plan_revision>data.task.plan_revision||!hash(design.plan_hash)||!integer(design.generation,1)||design.generation>data.task.generation||!fields(snapshot,['schema_version','document','hash','acceptance_hash'])||snapshot.schema_version!==1||!hash(snapshot.hash)||!hash(snapshot.acceptance_hash)||!fields(doc,['goal','scope','constraints','interfaces','acceptance'])||doc.goal!==data.task.goal||new TextEncoder().encode(JSON.stringify(doc)).length>65536||['scope','constraints','interfaces','acceptance'].some(n=>!Array.isArray(doc[n])||!doc[n].length||doc[n].length>128||doc[n].some(x=>typeof x!=='string'||!x.trim()||x.includes('\0'))))throw bad();
+ }
+ if(v.approval!==null){
+  const a=v.approval;if(!v.design||!fields(a,['plan_revision','plan_hash','generation','design_hash','acceptance_hash'])||a.plan_revision!==data.plan.revision||a.plan_hash!==data.plan.hash||!integer(a.generation,1)||a.generation>data.task.generation||a.design_hash!==v.design.snapshot.hash||a.acceptance_hash!==v.design.snapshot.acceptance_hash)throw bad();
+ }
+ if(v.blocker==='approval_required'&&(!v.design||v.approval)||v.blocker==='design_required'&&v.design)throw bad();
+ return v;
+}
 function readFailure(e){return e.status===401||e.status===403?'管理授权已失效，请重新连接。':e.status===503?'本机服务不可用或已撤销。':'读取失败，请重新读取。'}
 export function createWorkbench({request,onLock,onNotice,onRestore}){
- let project='',preview=null,attempt=null,expiry=null,epoch=0,listSerial=0,detailSerial=0,listBusy=false,detailBusy=false,next='',items=[],selected='',busy=false,recoveryBlocked=false,taskData=null,controlAttempt=null,controlBusy=false,knownRun=null;
+ let project='',preview=null,attempt=null,expiry=null,epoch=0,listSerial=0,detailSerial=0,listBusy=false,detailBusy=false,next='',items=[],selected='',busy=false,recoveryBlocked=false,taskData=null,controlAttempt=null,controlBusy=false,knownRun=null,workflowUncertain=false;
  let eventTask='',eventSerial=0,eventCursor=0,eventRows=[],eventBusy=false,startBlocked=false,startSerial=0;
  function clearEvents(id=''){
   eventTask=id;eventSerial++;eventCursor=0;eventRows=[];eventBusy=false;$('event-history').replaceChildren();$('task-events').open=false;$('events-status').textContent=id?'尚未读取任务事件。':'选择任务后读取事件。';
@@ -91,7 +111,8 @@ export function createWorkbench({request,onLock,onNotice,onRestore}){
   const unavailable=busy||!!attempt||recoveryBlocked||startBlocked||controlBusy||!!controlAttempt||detailBusy||!taskData;
   $('execution-controls').hidden=!selected;
   $('execution-role').disabled=unavailable;
-  $('start-role').disabled=unavailable||taskData?.task.state!=='ready'||taskData.budget.used_calls>=taskData.budget.max_calls;
+  $('start-role').disabled=workflowUncertain||!!taskData&&taskData.workflow===null&&taskData.plan.required_roles.length>1||!!taskData?.workflow&&(!!taskData.workflow.blocker||$('execution-role').value!==taskData.workflow.next)||unavailable||taskData?.task.state!=='ready'||taskData.budget.used_calls>=taskData.budget.max_calls;
+  workflowControls(unavailable);
   $('pause-task').disabled=unavailable||!['ready','running','paused','pausing'].includes(taskData?.task.state);
   $('continue-task').disabled=unavailable||taskData?.task.state!=='paused';
   $('cancel-task').disabled=unavailable||!['ready','running','paused','pausing','cancelling','failed','advisory_only'].includes(taskData?.task.state);
@@ -131,7 +152,7 @@ export function createWorkbench({request,onLock,onNotice,onRestore}){
  async function loadTask(id,internal=false){
   if(!project||!opaque(id)||controlBusy&&!internal||controlAttempt&&controlAttempt.task.id!==id)return;
   if(eventTask!==id)clearEvents(id);
-  const scope=project,version=epoch,serial=++detailSerial;if(selected!==id){knownRun=null;$('run-record').replaceChildren();executionNotice('')}selected=id;taskData=null;detailBusy=true;$('task-detail').replaceChildren();$('task-detail-status').textContent='正在读取任务详情…';controls();
+  const scope=project,version=epoch,serial=++detailSerial;if(selected!==id){knownRun=null;$('run-record').replaceChildren();executionNotice('')}selected=id;taskData=null;detailBusy=true;clearWorkflow(id);$('task-detail').replaceChildren();$('task-detail-status').textContent='正在读取任务详情…';controls();
   try{
    let data;
    for(let retry=0;retry<2;retry++){
@@ -140,11 +161,11 @@ export function createWorkbench({request,onLock,onNotice,onRestore}){
     const last=await request('/agent/v1/tasks/'+encodeURIComponent(id));taskValue(last.body,scope,last.etag);if(last.body.id!==id)throw bad();
     if(first.etag!==last.etag){if(retry===0)continue;throw bad()}
     planValue(plan.body,last.body.plan_revision);if(plan.etag!=='"'+plan.body.revision+'"')throw bad();budgetValue(budget.body);
-    data={task:last.body,plan:plan.body,budget:budget.body};break;
+    data={task:last.body,plan:plan.body,budget:budget.body};const flow=await request('/control/v1/tasks/'+encodeURIComponent(id)+'/workflow');data.workflow=workflowValue(flow,data,scope);break;
    }
    if(version!==epoch||serial!==detailSerial)return;
-   taskData={...data,etag:'"p'+data.task.plan_revision+'-g'+data.task.generation+'-'+data.task.state+'"'};
-   const choices=$('execution-role'),picked=choices.value;choices.replaceChildren();for(const role of data.plan.required_roles){const option=node('option',labels[role]);option.value=role;choices.append(option)}if(data.plan.required_roles.includes(picked))choices.value=picked;
+   workflowUncertain=false;taskData={...data,etag:'"p'+data.task.plan_revision+'-g'+data.task.generation+'-'+data.task.state+'"'};
+   const choices=$('execution-role'),picked=choices.value;choices.replaceChildren();for(const role of data.plan.required_roles){const option=node('option',labels[role]);option.value=role;option.disabled=!!data.workflow&&role!==data.workflow.next;choices.append(option)}if(data.workflow?.next)choices.value=data.workflow.next;else if(data.plan.required_roles.includes(picked))choices.value=picked;
    const root=$('task-detail'),{task,plan,budget}=data;
    root.append(node('p',task.id+' · '+stateName(task.state)+' ('+task.state+') · 计划 '+task.plan_revision+' · generation '+task.generation),node('p',task.goal,'task-goal'));
    for(const role of plan.required_roles){
@@ -154,12 +175,53 @@ export function createWorkbench({request,onLock,onNotice,onRestore}){
     }
    }
    root.append(node('p','调用预算：'+budget.used_calls+' / '+budget.max_calls+'；返工预算：'+budget.used_reworks+' / '+budget.max_reworks+'。'),node('p','计划 hash：'+plan.hash,'details'));
-   $('task-detail-status').textContent='已读取任务详情。预算为本次单独读取的服务端计数；保存任务不等于阶段执行成功。';
+   renderWorkflow();$('task-detail-status').textContent='已读取任务详情。预算为本次单独读取的服务端计数；保存任务不等于阶段执行成功。';
    if(controlAttempt?.action!=='start'&&controlAttempt&&taskData.etag!==controlAttempt.etag){controlAttempt=null;lock(!!attempt||recoveryBlocked);executionNotice('已读取当前任务条件；原控制条件已失效。请核对实际状态，不自动重试。');renderList()}
-   if(knownRun){try{const receipt=await request('/agent/v1/tasks/'+encodeURIComponent(id)+'/runs/'+encodeURIComponent(knownRun.run.id));if(version!==epoch||serial!==detailSerial)return;knownRun.run=runValue(receipt,knownRun.origin,false,true);renderRun()}catch(e){if(version!==epoch||serial!==detailSerial)return;$('run-record').replaceChildren();executionNotice('任务条件已读取；阶段执行回读失败或版本已变化，请重新读取核对。')}}
+   if(knownRun){try{const receipt=await request('/agent/v1/tasks/'+encodeURIComponent(id)+'/runs/'+encodeURIComponent(knownRun.run.id));if(version!==epoch||serial!==detailSerial)return;knownRun.run=runValue(receipt,knownRun.origin,false,true);renderRun();if(knownRun.run.role==='design'&&knownRun.run.state==='succeeded'&&!taskData.workflow?.design)$('design-run').value=knownRun.run.id}catch(e){if(version!==epoch||serial!==detailSerial)return;$('run-record').replaceChildren();executionNotice('任务条件已读取；阶段执行回读失败或版本已变化，请重新读取核对。')}}
 
   }catch(e){if(version===epoch&&serial===detailSerial){taskData=null;$('task-detail').replaceChildren();$('run-record').replaceChildren();$('task-detail-status').textContent=readFailure(e)}}
   finally{if(version===epoch&&serial===detailSerial){detailBusy=false;controls()}}
+ }
+ let workflowTask='';
+ function clearWorkflow(id=''){
+  if(workflowTask!==id){workflowTask=id;$('workflow-panel').open=false;for(const n of ['run','scope','constraints','interfaces','acceptance'])$('design-'+n).value='';$('workflow-kind').value=''}
+  $('workflow-record').replaceChildren();$('workflow-status').textContent='';
+ }
+ function workflowControls(unavailable){
+  const v=taskData?.workflow,off=unavailable||workflowUncertain;
+  $('workflow-panel').hidden=!selected;$('workflow-attach').hidden=!taskData||v!==null;
+  $('workflow-kind').disabled=off;for(const opt of $('workflow-kind').options)if(opt.value)opt.disabled=!taskData||!same([...workflowRoles[opt.value]].sort(),[...taskData.plan.required_roles].sort());
+  $('attach-workflow').disabled=off||v!==null||!workflowRoles[$('workflow-kind').value]||!same([...workflowRoles[$('workflow-kind').value]].sort(),[...taskData.plan.required_roles].sort())||taskData.task.state!=='ready'||taskData.task.generation!==0;
+  $('workflow-design-form').hidden=!v||!v.definition.required_roles.includes('design')||!!v.design;
+  for(const n of ['run','scope','constraints','interfaces','acceptance'])$('design-'+n).disabled=off;
+  $('freeze-design').disabled=off||v?.blocker!=='design_required'||taskData.task.state!=='ready'||!opaque($('design-run').value)||['scope','constraints','interfaces','acceptance'].some(n=>!$('design-'+n).value.trim());
+  $('approve-design').disabled=off||v?.blocker!=='approval_required'||!v.design||!!v.approval||taskData.task.state!=='ready';
+ }
+ function renderWorkflow(){
+  const root=$('workflow-record'),v=taskData.workflow;root.replaceChildren();
+  if(!v){root.append(node('p','尚未附加流程。新任务须在状态操作前明确附加；多角色任务须先附加再启动。此操作不改变权限或启动阶段。'));return}
+  const names={investigate:'调查与规划',review:'独立审查',change:'工程变更',bugfix:'问题修复'};
+  const blockers={stage_active:'阶段仍在运行',stop_unverified:'停止释放待核对',stage_unverified:'阶段结果待核对',stage_failed:'前序阶段失败',design_required:'等待冻结完整设计',approval_required:'等待明确批准当前计划',workflow_complete:'有限阶段已结束，仍需工程验收',task_not_ready:'任务当前不可派单'};
+  root.append(node('p',names[v.definition.kind]+' · '+v.definition.required_roles.map(r=>labels[r]).join(' → ')),node('p',v.blocker?blockers[v.blocker]:'下一阶段：'+labels[v.next]),node('p','附加、冻结和批准均不自动启动阶段。范围声明不改变文件权限。','details'));
+  if(v.design){const d=v.design.snapshot;root.append(node('p',d.document.goal,'task-goal'));for(const [key,label] of [['scope','范围'],['constraints','约束'],['interfaces','接口'],['acceptance','验收标准']]){root.append(node('h3',label));for(const value of d.document[key])root.append(node('p',value,'task-goal'))}root.append(node('p','设计 hash：'+d.hash,'details'),node('p','验收标准 hash：'+d.acceptance_hash,'details'),node('p','设计运行：'+v.design.run_id,'details'))}
+  if(v.approval)root.append(node('p','当前计划已批准 · 计划 '+v.approval.plan_revision+'。批准不替代 Runtime、预算或写权限准入。'));
+ }
+ async function workflowWrite(action){
+  const button={attach:'attach-workflow',design:'freeze-design',approve:'approve-design'}[action];if(!taskData||controlBusy||$(button).disabled)return;
+  const data=taskData,version=epoch,serial=detailSerial,id=data.task.id,v=data.workflow;
+  let body;
+  if(action==='attach')body={kind:$('workflow-kind').value};
+  else if(action==='design'){body={run_id:$('design-run').value,document:{goal:data.task.goal}};for(const n of ['scope','constraints','interfaces','acceptance'])body.document[n]=$('design-'+n).value.split(/\r?\n/).map(s=>s.trim()).filter(Boolean)}
+  else{body={design_hash:v.design.snapshot.hash,acceptance_hash:v.design.snapshot.acceptance_hash};if(!window.confirm('批准任务 '+id+' 的当前计划 '+data.task.plan_revision+'？\n设计 hash：'+body.design_hash+'\n验收标准 hash：'+body.acceptance_hash+'\n此批准不自动启动阶段。'))return}
+  controlBusy=true;lock(true);controls();renderList();$('workflow-status').textContent='正在核对工作流决定…';
+  try{
+   const reply=await request('/control/v1/tasks/'+encodeURIComponent(id)+'/workflow'+(action==='attach'?'':'/'+action),{method:'POST',headers:{'If-Match':data.etag},body:JSON.stringify(body)});
+   if(version!==epoch||serial!==detailSerial||id!==selected)return;
+   const result=workflowValue(reply,data,project);if(!result||action==='attach'&&result.definition.kind!==body.kind||action==='design'&&(result.design?.run_id!==body.run_id||!same(result.design.snapshot.document,body.document))||action==='approve'&&(!result.approval||result.approval.design_hash!==body.design_hash||result.approval.acceptance_hash!==body.acceptance_hash))throw bad();
+   data.workflow=result;renderWorkflow();if(result.next)$('execution-role').value=result.next;for(const opt of $('execution-role').options)opt.disabled=opt.value!==result.next;
+   $('workflow-status').textContent=({attach:'流程已附加',design:'设计已冻结',approve:'当前方案已批准'})[action]+'，未启动任何阶段。';
+  }catch(e){if(version===epoch&&serial===detailSerial&&id===selected){workflowUncertain=true;$('workflow-status').textContent=(e.status===412?'任务条件已变化。':readFailure(e))+'决定结果尚待核对；请重新读取任务后审阅，不自动重试或启动。'}}
+  finally{controlBusy=false;lock(!!attempt||recoveryBlocked);controls();renderList()}
  }
  const submissionPath=id=>'/control/v1/projects/'+encodeURIComponent(id)+'/submission';
  function renderSubmission(){
@@ -208,12 +270,12 @@ export function createWorkbench({request,onLock,onNotice,onRestore}){
  }
  async function setProject(id){
   if(attempt||recoveryBlocked||controlAttempt||controlBusy||startBlocked)return;
-  clearEvents();
+  clearWorkflow();workflowUncertain=false;clearEvents();
   project=id;taskData=null;knownRun=null;startSerial++;$('start-record').replaceChildren();$('run-record').replaceChildren();executionNotice('');epoch++;listSerial++;detailSerial++;items=[];next='';selected='';listBusy=false;detailBusy=false;invalidate();renderList();$('task-detail').replaceChildren();$('task-detail-status').textContent='选择任务读取完整目标、冻结计划和预算。';controls();if(project){refreshList();await readOriginal(true);await readStartOriginal(true)}
  }
  function setPreview(value,context){
   if(attempt||recoveryBlocked)throw bad();const frozen=previewValue(value),expires=frozen.expires;
-  if(context.project_id!==project||value.plan.required_roles.length!==1||value.plan.required_roles[0]!==context.required_roles[0])throw bad();
+  if(context.project_id!==project||!same(value.plan.required_roles,context.required_roles))throw bad();
   invalidate();preview={...frozen,project:context.project_id,goal:context.goal};
   $('preview').append(node('p','计划 '+value.plan.revision+' · hash '+value.plan.hash,'details'),node('p','调用上限：'+value.budget.max_calls+'；返工上限：'+value.budget.max_reworks+'；预览有效至：'+new Date(expires).toLocaleString(),'details'));
   for(const role of value.plan.required_roles){const b=value.plan.bindings[role];for(const t of b.mode==='locked'?[b.target]:b.candidates)$('preview').append(node('p',labels[role]+' · '+t.route.id+'@'+t.route.revision+' · effort：'+t.effort.requested_mode+(t.effort.value?' / '+t.effort.value:'')+' · 账号：'+t.account+' · 计费：'+t.billing_path+' · 锁定：'+t.lock_enforcement,'details'))}
@@ -400,6 +462,8 @@ export function createWorkbench({request,onLock,onNotice,onRestore}){
   }finally{controlBusy=false;renderStart();lock(!!attempt||recoveryBlocked);controls();renderList()}
   if(reread)await readStartOriginal();
  }
+ for(const action of ['attach','design','approve'])$({attach:'attach-workflow',design:'freeze-design',approve:'approve-design'}[action]).onclick=()=>workflowWrite(action);
+ $('workflow-kind').onchange=controls;for(const n of ['run','scope','constraints','interfaces','acceptance'])$('design-'+n).oninput=controls;$('execution-role').onchange=controls;
  $('refresh-start').onclick=()=>readStartOriginal();$('abandon-start').onclick=abandonStart;
  $('read-events').onclick=()=>readEvents();$('reset-events').onclick=()=>readEvents(true);
  $('start-role').onclick=()=>execute('start');$('pause-task').onclick=()=>execute('pause');$('continue-task').onclick=()=>execute('continue');$('cancel-task').onclick=()=>execute('cancel');$('retry-execution').onclick=()=>execute('',true);
