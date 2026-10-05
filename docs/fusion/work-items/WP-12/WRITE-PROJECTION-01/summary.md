@@ -14,6 +14,8 @@
 
 ## 未决（如实声明）
 
-**固定 Native 0.160.0 的 writable turn 端到端未通过**（`TestCodexFactoryPinnedNativeProductLifecycle` 的 implementation/writer_launch 两场景显式 Skip）。独立探查证明：同一 Native 在**无外层 Seatbelt** 时接受 workspace-write thread/turn 并发出模型请求（body 全部字段通过 CallGate 白名单）；在外层 Seatbelt 内 turn failed。已排除：config 播种、fileChange 事件白名单、process-fork、process-exec、CallGate 校验（模型端口未收到请求）。下一步是对 Native 开 debug 日志做外层沙箱差分，定位所需的具体 seatbelt 资源后再放开。**在差分完成前不宣称 Codex 写入端到端可用**；上述协议层开放不影响 readonly 路线（全回归绿）。
+**固定 Native 0.160.0 的 writable turn 端到端未通过**（`TestCodexFactoryPinnedNativeProductLifecycle` 的 implementation/writer_launch 两场景显式 Skip）。外层沙箱差分已完成并定位为**机制性互斥**：同一 Native 在无外层 Seatbelt 时接受 workspace-write thread/turn 并发出模型请求（body 全部字段通过 CallGate 白名单）；在外层 Seatbelt 内启动即以 `Error: Operation not permitted` 退出（stderr：PATH aliases 警告后致命错）。逐块放开实验证明与权限无关——`mach-lookup` 全开、`process-info`、全局 `file-write*`、`ipc*`、`file-ioctl`/`vnode-attribute`、`process-exec`/`process-fork` 全开乃至 **`(allow default)` 全允许**下依然失败；`sandbox_backend = "none"` 亦被 strict-config 拒绝。结论：codex 0.160 的 workspace-write 会话依赖其自身的 Seatbelt 子沙箱机制（seatbelt daemon/helper，见官方 `sandboxing/src/seatbelt_daemon.rs`），**不能在另一个 Seatbelt 实例内运行**。
+
+候选出路（需要架构决策，未在本组件擅自变更安全边界）：A. 按 codex 官方 daemon 设计把 seatbelt daemon 外置到外层沙箱之外并通过受限 socket 接入；B. writable Native 不套外层 Seatbelt、改用替代隔离（产品边界降级，需重新评估）；C. 等待/请求官方嵌套支持。**在此之前不宣称 Codex 写入端到端可用**；协议层开放不影响 readonly 路线（全回归绿）。
 
 调查过程记录（假设-排除链、探查脚本、四层 debug 位置）见 ledger；探查脚本不入库（临时件）。
