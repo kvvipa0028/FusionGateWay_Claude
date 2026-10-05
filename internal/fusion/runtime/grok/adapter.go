@@ -85,6 +85,22 @@ func (a *Adapter) Release(p policy.StopProof) error {
 	return nil
 }
 
+// ValidateLaunch refuses a writer launch before intent. This surface is
+// readonly (single approved read_file); resume needs a sealed checkpoint and
+// is not a writer path. Silent readonly downgrade of a writer is forbidden.
+func (a *Adapter) ValidateLaunch(ctx context.Context, role stageplan.Role, target stageplan.ExecutionTarget, in managed.Spec) error {
+	if a == nil || in.Timeout <= 0 || in.Timeout > 4*time.Minute {
+		return ErrUnverified
+	}
+	if ctx.Err() != nil {
+		return ErrUnverified
+	}
+	if in.Writable {
+		return ErrUnsupported
+	}
+	return nil
+}
+
 // Start accepts only private paths, a UTF-8 prompt and a bounded timeout. All
 // executable/argv/env/session/channel/validator authority belongs to Adapter.
 // This version supports single approved text read_file and readonly execution.

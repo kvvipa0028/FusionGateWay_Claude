@@ -39,3 +39,7 @@ Parent 关联 T01/T02/T14/T15/T25/T31/T32/T35/T44/T56/T59 只新增了组件级�
 ## 固定订阅 Forwarder
 
 [SUBSCRIPTION-FORWARDER-01](SUBSCRIPTION-FORWARDER-01/summary.md) 实现固定官方 CLI chat proxy 端点的单次 HTTPS、FileCredential Bearer、官方三必需 header、受检系统 CA、无代理/redirect/retry/API fallback、有界取消与完整 SSE 后交付。模型证明为 chunk `model` 回显全等校验（回显一致性，非独立 header 证明）；反射按 data 帧逐帧 JSON 检测。真实 TLS 回环 16 子场景、三项有效 mutation、grok/bootstrap/control 三包 race 与 Go1.26.3 CLI/GUI/vet 通过。合同见 [订阅 Forwarder](../../contracts/grok-subscription-forwarder.md)。真实登录、tier/费用/额度、Factory 注册与工具/写入/恢复仍待完成；本组件不能升级路线准入、父包或最终验收。
+
+## 生产执行 Factory
+
+[FACTORY-01](FACTORY-01/summary.md) 已实现可信 `GrokRuntimeConfig`/`NewGrokRuntimeFactory`：绑定 admitted Registry、私有官方 issuer 缓存、固定 SubscriptionForwarder 与私有执行根；Grok 无独立账号 epoch，身份靠 route 声明加文件身份钉住。共享阶段执行合同与 Codex 工厂一致（含锁内有界 registrationCurrent）。能力边界如实收窄：no-effort 只读面、writable 启动经新增 `Adapter.ValidateLaunch` 在 intent 前拒绝。固定 1.0.48 Native 生命周期 6 场景（含三类撤销实际终止与 durable handoff/Store 重开）、合成 targeted 28 子场景、preintent mutation、三包 race 与 CLI/GUI/vet 通过。合同见 [执行 Factory](../../contracts/grok-execution-factory.md)。真实登录、tier/费用/额度、effort/写入/恢复与最终 Gate 仍待完成；父包保持 in_progress。

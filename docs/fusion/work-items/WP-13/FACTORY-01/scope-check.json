@@ -1,0 +1,14 @@
+{
+  "component": "WP-13-FACTORY-01",
+  "owned_files": 12,
+  "local_doc_links_checked": 8,
+  "utf8_json_gofmt": "PASS",
+  "private_credential_exact_bytes_excluded": true,
+  "private_key_file_present": false,
+  "daily_grok_cache_read": false,
+  "ui_store_dependencies_and_final_statuses_unchanged": true,
+  "primary_dirty_preserved": true,
+  "real_model_calls": 0,
+  "real_account_admission": false,
+  "whole_goal_complete": false
+}

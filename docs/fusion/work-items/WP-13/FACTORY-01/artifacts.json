@@ -1,0 +1,18 @@
+{
+  "docs/fusion/README.md": "affd93713598d44f95a4a18985805bf0d50510035ba391fe2bbe689c0c67aa08",
+  "docs/fusion/contracts/grok-execution-factory.md": "bc44136c1dd618323b87aaae1010dc95b814cb5b5cddd63ca97d24bece9da6f7",
+  "docs/fusion/work-items/WP-13/FACTORY-01/grok-factory-build.log": "ee5843ba8efa1fc8bd85d79079ecd1a564c46c02021ed3bf2844076b9f3dcfe2",
+  "docs/fusion/work-items/WP-13/FACTORY-01/grok-factory-green.log": "11fb4bb6c6f789f8f870368a6727d8f22543c8803015223fea9a78e862ed50bf",
+  "docs/fusion/work-items/WP-13/FACTORY-01/grok-factory-mutation.log": "410a17e56f3b6a419ce1bc11fc947d2e895d320020c02ab0781be1af4a29d1e6",
+  "docs/fusion/work-items/WP-13/FACTORY-01/grok-factory-native.log": "c830d91b4de419c7f2b11b5ad3bb2edf475cb2963a78e83c27e2c5db29579f17",
+  "docs/fusion/work-items/WP-13/FACTORY-01/grok-factory-package.log": "aba340469c05b50364d969f8303a9365a16a76f3128d5902def22f1171afdeba",
+  "docs/fusion/work-items/WP-13/FACTORY-01/grok-factory-red.log": "c55169f79eeb0c9dc11daf01dcb928f6c76c63dca1909083d03e98af14c88286",
+  "docs/fusion/work-items/WP-13/FACTORY-01/scope-check.json": "a0abbb165acc12112d52f332dab1ee5629100f08aee23b32bb96465c287842db",
+  "docs/fusion/work-items/WP-13/FACTORY-01/summary.md": "08d65b618e41c4258ffe0b437d08ffc942e54f8ca2155a96656b33188393bdbf",
+  "docs/fusion/work-items/WP-13/FACTORY-01/test-results.json": "944446e6357e4f673f63784a56b1da876d03cd543639ac66f4376a3969d53967",
+  "docs/fusion/work-items/WP-13/summary.md": "be20e7b8c1754c1348a38c8430cea4e9f9beda76702ab56e93a5ac73434df936",
+  "internal/fusion/bootstrap/grok_execution.go": "ce0e7a9ffacdfb2402ca416f6a156a2dc3a6f273ba682c24f48b576f67081fd7",
+  "internal/fusion/bootstrap/grok_execution_native_test.go": "359bb605e63f3cd2b1a6250ef568efee7ce9be63391b8954febacc466a149f4e",
+  "internal/fusion/bootstrap/grok_execution_test.go": "656db46d1a4a69ef52150040f7ae2f7090f95640b6f91071afc25cc63251d409",
+  "internal/fusion/runtime/grok/adapter.go": "09fe091440b9ee04fb6723abff2de3cb46a4080b9438c47e0fa21158018c16df"
+}

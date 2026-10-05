@@ -1,0 +1,6 @@
+--- FAIL: TestGrokFactoryExactCopiesAndRoles (0.08s)
+    --- FAIL: TestGrokFactoryExactCopiesAndRoles/writers (0.03s)
+        grok_execution_test.go:201: unsupported writer silently downgraded
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	0.750s
+FAIL

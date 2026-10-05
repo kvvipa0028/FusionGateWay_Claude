@@ -1,0 +1,8 @@
+# github.com/yetone/magpie/internal/fusion/bootstrap [github.com/yetone/magpie/internal/fusion/bootstrap.test]
+internal/fusion/bootstrap/grok_execution_test.go:25:73: undefined: GrokRuntimeConfig
+internal/fusion/bootstrap/grok_execution_test.go:74:12: undefined: GrokRuntimeConfig
+internal/fusion/bootstrap/grok_execution_test.go:130:14: undefined: NewGrokRuntimeFactory
+internal/fusion/bootstrap/grok_execution_test.go:171:14: undefined: NewGrokRuntimeFactory
+internal/fusion/bootstrap/grok_execution_test.go:238:12: undefined: NewGrokRuntimeFactory
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap [build failed]
+FAIL

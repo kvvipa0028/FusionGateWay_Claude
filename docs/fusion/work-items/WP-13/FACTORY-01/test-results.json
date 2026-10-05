@@ -1,0 +1,21 @@
+{
+  "component": "WP-13-FACTORY-01",
+  "go_version": "1.26.3",
+  "runner": ".fusion-dev/codex-factory/run.py (isolated HOME/XDG, environment whitelist, GOPROXY/GOSUMDB off, race)",
+  "native_fixture": {
+    "grok": "/Users/zhaojianzhi/.grok/downloads/grok-1.0.48-macos-aarch64",
+    "sha256": "1ed292eb62206b1a2ec3d17dc69c9c8406a07f5ff414305f953baee5b72a4a05"
+  },
+  "runs": [
+    {"name": "initial-red", "command": "bootstrap (pre-implementation)", "exit": 1, "failure": "GrokRuntimeConfig/NewGrokRuntimeFactory undefined", "evidence": "grok-factory-red.log"},
+    {"name": "target-green", "command": "bootstrap TestGrokFactory(PrivateRegistration|ExactCopiesAndRoles|CurrentBeforeCopy), race", "exit": 0, "subtests": 28, "evidence": "grok-factory-green.log"},
+    {"name": "native-lifecycle", "command": "bootstrap TestGrokFactoryPinnedNativeProductLifecycle + pinned Native 1.0.48, race", "exit": 0, "subtests": 6, "modes": ["success", "cancel", "registry_revocation", "credential_rotation", "source_revocation", "writer_preintent"], "evidence": "grok-factory-native.log"},
+    {"name": "affected-race", "command": "bootstrap grok control, race", "exit": 0, "packages": 3, "evidence": "grok-factory-package.log"},
+    {"name": "mutation-preintent", "command": "overlay: Adapter.ValidateLaunch writer refusal removed", "exit": 1, "failed_subtest": "ExactCopiesAndRoles/writers", "evidence": "grok-factory-mutation.log"},
+    {"name": "build-dev", "command": "python3 scripts/fusion/build-dev.py", "exit": 0, "checks": ["cli", "gui", "vet"], "evidence": "grok-factory-build.log"}
+  ],
+  "capability_boundary": "managed adapter supports no-effort readonly surface only; factory requires NoEffort route and refuses any effort tier until support lands",
+  "synthetic_only": true,
+  "real_vendor_calls": 0,
+  "real_account_admission": false
+}
