@@ -14,6 +14,7 @@ import (
 	"time"
 
 	"github.com/yetone/magpie/internal/fusion/control"
+	"github.com/yetone/magpie/internal/fusion/evidence"
 	"github.com/yetone/magpie/internal/fusion/handoff"
 	"github.com/yetone/magpie/internal/fusion/policy"
 	"github.com/yetone/magpie/internal/fusion/routes"
@@ -35,7 +36,8 @@ type GLMRuntimeConfig struct {
 	Executable        string
 	CredentialPath    string
 	ExecutionRoot     string
-	TestingWritePaths []string // Trusted project test subtrees, frozen at construction.
+	TestingWritePaths []string               // Trusted project test subtrees, frozen at construction.
+	Verification      *GLMVerificationConfig // Independently approved test command and standard.
 	Timeout           time.Duration
 	Inspect           func(context.Context, store.Task, stageplan.Role, stageplan.ExecutionTarget) (policy.Inspection, error)
 }
@@ -53,6 +55,10 @@ func NewGLMRuntimeFactory(c GLMRuntimeConfig) (RuntimeFactory, error) {
 // NewGLMRuntimeFactory, which always selects the fixed native CN transport.
 func newGLMRuntimeFactory(c GLMRuntimeConfig, transport http.RoundTripper) (RuntimeFactory, error) {
 	c.TestingWritePaths = append([]string(nil), c.TestingWritePaths...)
+	c.Verification = copyRuntimeValue(c.Verification)
+	if !glmVerificationValid(c.Verification) {
+		return nil, ErrControlHost
+	}
 	if !glmTestingPathsValid(c.TestingWritePaths) || !declared(c.ProjectID) || !declared(c.Route.ID) || c.Route.Revision < 1 || c.Registry == nil || c.Inspect == nil || transport == nil || !filepath.IsAbs(c.Executable) || filepath.Clean(c.Executable) != c.Executable || strings.ContainsRune(c.Executable, 0) || workspace.PrivateState(c.ExecutionRoot) != nil || overlaps(c.ExecutionRoot, c.CredentialPath) || overlaps(c.CredentialPath, c.ExecutionRoot) || c.Timeout < 0 || c.Timeout > 4*time.Minute {
 		return nil, ErrControlHost
 	}
@@ -187,6 +193,9 @@ func newGLMRuntimeFactory(c GLMRuntimeConfig, transport http.RoundTripper) (Runt
 			if err != nil || glmHasMultipleRoles(stage) && (role == stageplan.Review || role == stageplan.Acceptance || !p.Write && (role == stageplan.Implementation || role == stageplan.Testing)) {
 				return control.Launch{}, control.ErrUnsupported
 			}
+			if role == stageplan.Testing && glmHasMultipleRoles(stage) && !glmVerificationMatches(c.Verification, stage) {
+				return control.Launch{}, control.ErrUnsupported
+			}
 			write := p.Write && (role == stageplan.Implementation || role == stageplan.Testing)
 			var writePaths []string
 			if write {
@@ -248,6 +257,7 @@ func newGLMRuntimeFactory(c GLMRuntimeConfig, transport http.RoundTripper) (Runt
 			var handle control.Execution
 			var handleMu, releaseMu sync.Mutex
 			var bundle handoff.Bundle
+			var verification evidence.Result
 			published := false
 			local.Start = func(ctx context.Context, run store.StageRun, spec managed.Spec) (control.Execution, error) {
 				if run.TaskID != task.ID || run.Role != role || run.PlanRevision != plan.Revision || run.Generation != task.Generation+1 || !reflect.DeepEqual(run.Target, target) || spec.Root != worker || spec.Workspace != snapshot.Path || spec.Writable != write || !reflect.DeepEqual(spec.WritePaths, writePaths) || !bytes.Equal(spec.Input, input) || !current(ctx, target) || !guard.ValidFor(snapshot.Path) || !glmStageContextCurrent(e.Store, task, stage) {
@@ -296,7 +306,20 @@ func newGLMRuntimeFactory(c GLMRuntimeConfig, transport http.RoundTripper) (Runt
 					if stage.Parent != nil && (write && len(writePaths) > 0 && !workspace.ChangesWithin(inputEntries, artifact.Manifest().Entries, writePaths) || !write && artifact.Manifest().TreeHash != stage.Parent.Reference.TreeHash) {
 						return control.ErrReconcile
 					}
-					bundle, err = handoff.Publish(artifact, binding, task.Goal, handoff.Evidence{OutputHash: result.OutputHash, StopProofHash: proof.ReportHash})
+					nativeEvidence := handoff.Evidence{OutputHash: result.OutputHash, StopProofHash: proof.ReportHash}
+					if role == stageplan.Testing && c.Verification != nil {
+						verificationCurrent := func() bool {
+							live, err := e.Store.Task(task.ID)
+							return err == nil && live.State == "ready" && identityCurrent()
+						}
+						verification, err = glmRunVerification(ctx, artifact, c.ExecutionRoot, c.Verification.Spec, verificationCurrent)
+						if err != nil || !verification.Record().Stopped || !identityCurrent() {
+							return control.ErrReconcile
+						}
+						bundle, err = handoff.PublishVerified(artifact, binding, task.Goal, nativeEvidence, verification, c.Verification.Spec)
+					} else {
+						bundle, err = handoff.Publish(artifact, binding, task.Goal, nativeEvidence)
+					}
 					if err != nil {
 						return control.ErrReconcile
 					}
@@ -315,7 +338,17 @@ func newGLMRuntimeFactory(c GLMRuntimeConfig, transport http.RoundTripper) (Runt
 				if stage.Parent != nil {
 					record.ParentRunID, record.InputTreeHash = stage.Parent.Reference.Binding.RunID, stage.Parent.Reference.TreeHash
 				}
-				if err := e.Store.RecordArtifactAuthorized(record, func() bool { return ctx.Err() == nil && !closed.Load() && e.Current(c.ProjectID) }); err != nil || !identityCurrent() {
+				storeCurrent := func() bool { return ctx.Err() == nil && !closed.Load() && e.Current(c.ProjectID) }
+				if role == stageplan.Testing && c.Verification != nil {
+					frozen, getErr := bundle.Artifact(binding)
+					if getErr != nil {
+						return control.ErrReconcile
+					}
+					err = e.Store.RecordVerifiedArtifactAuthorized(record, verification, frozen, c.Verification.Spec, storeCurrent)
+				} else {
+					err = e.Store.RecordArtifactAuthorized(record, storeCurrent)
+				}
+				if err != nil || !identityCurrent() {
 					return control.ErrReconcile
 				}
 				// Indexed metadata is still pending until the exact released

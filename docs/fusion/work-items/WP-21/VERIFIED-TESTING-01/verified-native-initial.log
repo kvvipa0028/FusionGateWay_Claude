@@ -1,0 +1,16 @@
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/success
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/testing_scope_violation
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/parent_header_drift
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/unscoped_external_write
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/hard_test_failure
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/malformed_test_report
+--- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart (18.65s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/success (3.40s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/testing_scope_violation (2.91s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/parent_header_drift (2.06s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/unscoped_external_write (3.15s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/hard_test_failure (3.50s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/malformed_test_report (3.62s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	20.322s

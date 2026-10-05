@@ -1,0 +1,499 @@
+=== RUN   TestJUnitRejectsForgedAggregatesHiddenFailuresAndTruncatedReports
+--- PASS: TestJUnitRejectsForgedAggregatesHiddenFailuresAndTruncatedReports (0.00s)
+=== RUN   TestJUnitAggregatesActualNestedCasesWithoutRequiringWrapperCounters
+--- PASS: TestJUnitAggregatesActualNestedCasesWithoutRequiringWrapperCounters (0.00s)
+=== RUN   TestEvidenceWorker
+--- PASS: TestEvidenceWorker (0.00s)
+=== RUN   TestRunnerActualProcessBindsCodeSuiteCommandAndVersion
+--- PASS: TestRunnerActualProcessBindsCodeSuiteCommandAndVersion (0.09s)
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/exit
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/failed
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/zero
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/skipped
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/malformed
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/inconsistent
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/truncated
+--- PASS: TestRunnerActualReportFailuresCannotBecomePassed (0.48s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/exit (0.07s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/failed (0.07s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/zero (0.06s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/skipped (0.07s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/malformed (0.07s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/inconsistent (0.06s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/truncated (0.08s)
+=== RUN   TestRunnerActualKernelBoundariesAndPositiveScratch
+--- PASS: TestRunnerActualKernelBoundariesAndPositiveScratch (0.07s)
+=== RUN   TestRunnerStopsActualTimeoutAndSourceRevocation
+=== RUN   TestRunnerStopsActualTimeoutAndSourceRevocation/timeout
+=== RUN   TestRunnerStopsActualTimeoutAndSourceRevocation/revoke
+=== RUN   TestRunnerStopsActualTimeoutAndSourceRevocation/cancel
+--- PASS: TestRunnerStopsActualTimeoutAndSourceRevocation (0.59s)
+    --- PASS: TestRunnerStopsActualTimeoutAndSourceRevocation/timeout (0.23s)
+    --- PASS: TestRunnerStopsActualTimeoutAndSourceRevocation/revoke (0.20s)
+    --- PASS: TestRunnerStopsActualTimeoutAndSourceRevocation/cancel (0.17s)
+=== RUN   TestRunnerZeroTestsRequireExplicitFrozenProjectRule
+--- PASS: TestRunnerZeroTestsRequireExplicitFrozenProjectRule (0.07s)
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/hash
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/missing
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/version
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/suite
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/timeout
+--- PASS: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite (0.09s)
+    --- PASS: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/hash (0.01s)
+    --- PASS: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/missing (0.01s)
+    --- PASS: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/version (0.04s)
+    --- PASS: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/suite (0.01s)
+    --- PASS: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/timeout (0.01s)
+=== RUN   TestStoredVerificationRequiresOwnedExportAndExactRestoredSource
+--- PASS: TestStoredVerificationRequiresOwnedExportAndExactRestoredSource (0.08s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/evidence	2.821s
+=== RUN   TestArtifactMigrationTenPreservesLegacyAndRejectsDrift
+--- PASS: TestArtifactMigrationTenPreservesLegacyAndRejectsDrift (0.18s)
+=== RUN   TestArtifactMigrationFailureRollsBackAndRetries
+--- PASS: TestArtifactMigrationFailureRollsBackAndRetries (0.22s)
+=== RUN   TestArtifactWorkflowRequiresExactReleasedParentAndInheritedCode
+=== RUN   TestArtifactWorkflowRequiresExactReleasedParentAndInheritedCode/missing_parent
+=== RUN   TestArtifactWorkflowRequiresExactReleasedParentAndInheritedCode/wrong_parent
+=== RUN   TestArtifactWorkflowRequiresExactReleasedParentAndInheritedCode/wrong_input
+=== RUN   TestArtifactWorkflowRequiresExactReleasedParentAndInheritedCode/fresh_original_copy
+--- PASS: TestArtifactWorkflowRequiresExactReleasedParentAndInheritedCode (0.27s)
+    --- PASS: TestArtifactWorkflowRequiresExactReleasedParentAndInheritedCode/missing_parent (0.01s)
+    --- PASS: TestArtifactWorkflowRequiresExactReleasedParentAndInheritedCode/wrong_parent (0.01s)
+    --- PASS: TestArtifactWorkflowRequiresExactReleasedParentAndInheritedCode/wrong_input (0.01s)
+    --- PASS: TestArtifactWorkflowRequiresExactReleasedParentAndInheritedCode/fresh_original_copy (0.02s)
+=== RUN   TestArtifactIndexRequiresReleasedProofAndSurvivesRestart
+--- PASS: TestArtifactIndexRequiresReleasedProofAndSurvivesRestart (0.14s)
+=== RUN   TestArtifactIndexIsIdempotentConcurrentAndImmutable
+--- PASS: TestArtifactIndexIsIdempotentConcurrentAndImmutable (0.13s)
+=== RUN   TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation
+=== RUN   TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/task
+=== RUN   TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/run
+=== RUN   TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/plan
+=== RUN   TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/generation
+=== RUN   TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/role
+=== RUN   TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/target
+=== RUN   TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/input
+=== RUN   TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/parent
+=== RUN   TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/proof
+=== RUN   TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/witness
+=== RUN   TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/current
+--- PASS: TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation (1.24s)
+    --- PASS: TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/task (0.11s)
+    --- PASS: TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/run (0.11s)
+    --- PASS: TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/plan (0.11s)
+    --- PASS: TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/generation (0.11s)
+    --- PASS: TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/role (0.11s)
+    --- PASS: TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/target (0.11s)
+    --- PASS: TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/input (0.11s)
+    --- PASS: TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/parent (0.11s)
+    --- PASS: TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/proof (0.11s)
+    --- PASS: TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/witness (0.13s)
+    --- PASS: TestArtifactIndexRejectsFalseBindingsAndCurrentRevocation/current (0.12s)
+=== RUN   TestArtifactIndexEventFailureAndRevocationRollBack
+--- PASS: TestArtifactIndexEventFailureAndRevocationRollBack (0.14s)
+=== RUN   TestCancelIntentChecksCurrentTaskRevisionBeforeMutation
+--- PASS: TestCancelIntentChecksCurrentTaskRevisionBeforeMutation (0.10s)
+=== RUN   TestTaskCancelIdleAndPausedPreservesSnapshotAndBudget
+=== RUN   TestTaskCancelIdleAndPausedPreservesSnapshotAndBudget/ready
+=== RUN   TestTaskCancelIdleAndPausedPreservesSnapshotAndBudget/paused
+--- PASS: TestTaskCancelIdleAndPausedPreservesSnapshotAndBudget (0.18s)
+    --- PASS: TestTaskCancelIdleAndPausedPreservesSnapshotAndBudget/ready (0.09s)
+    --- PASS: TestTaskCancelIdleAndPausedPreservesSnapshotAndBudget/paused (0.09s)
+=== RUN   TestTaskCancelRunningRequiresProofAndDoesNotRefund
+--- PASS: TestTaskCancelRunningRequiresProofAndDoesNotRefund (0.11s)
+=== RUN   TestTaskCancelFinishedHeldAndPausingWaitForProof
+=== RUN   TestTaskCancelFinishedHeldAndPausingWaitForProof/finished-success
+=== RUN   TestTaskCancelFinishedHeldAndPausingWaitForProof/finished-failure
+=== RUN   TestTaskCancelFinishedHeldAndPausingWaitForProof/finished-cancelled
+=== RUN   TestTaskCancelFinishedHeldAndPausingWaitForProof/pausing
+--- PASS: TestTaskCancelFinishedHeldAndPausingWaitForProof (0.40s)
+    --- PASS: TestTaskCancelFinishedHeldAndPausingWaitForProof/finished-success (0.10s)
+    --- PASS: TestTaskCancelFinishedHeldAndPausingWaitForProof/finished-failure (0.10s)
+    --- PASS: TestTaskCancelFinishedHeldAndPausingWaitForProof/finished-cancelled (0.10s)
+    --- PASS: TestTaskCancelFinishedHeldAndPausingWaitForProof/pausing (0.10s)
+=== RUN   TestTaskCancelFencesForeignExpiredAndStaleConditions
+--- PASS: TestTaskCancelFencesForeignExpiredAndStaleConditions (0.10s)
+=== RUN   TestTaskCancelAndStartRaceHaveOneDurableWinner
+--- PASS: TestTaskCancelAndStartRaceHaveOneDurableWinner (1.08s)
+=== RUN   TestTaskCancelIntentAndSettlementFailureRollback
+--- PASS: TestTaskCancelIntentAndSettlementFailureRollback (0.11s)
+=== RUN   TestTaskCancelRestartKeepsIdleTerminalAndActiveUnknown
+=== RUN   TestTaskCancelRestartKeepsIdleTerminalAndActiveUnknown/idle
+=== RUN   TestTaskCancelRestartKeepsIdleTerminalAndActiveUnknown/active
+--- PASS: TestTaskCancelRestartKeepsIdleTerminalAndActiveUnknown (0.23s)
+    --- PASS: TestTaskCancelRestartKeepsIdleTerminalAndActiveUnknown/idle (0.10s)
+    --- PASS: TestTaskCancelRestartKeepsIdleTerminalAndActiveUnknown/active (0.12s)
+=== RUN   TestTaskCancelCannotInventLegacyStopAndInterruptedNeedsReview
+=== RUN   TestTaskCancelCannotInventLegacyStopAndInterruptedNeedsReview/legacy
+=== RUN   TestTaskCancelCannotInventLegacyStopAndInterruptedNeedsReview/interrupted
+--- PASS: TestTaskCancelCannotInventLegacyStopAndInterruptedNeedsReview (0.19s)
+    --- PASS: TestTaskCancelCannotInventLegacyStopAndInterruptedNeedsReview/legacy (0.09s)
+    --- PASS: TestTaskCancelCannotInventLegacyStopAndInterruptedNeedsReview/interrupted (0.10s)
+=== RUN   TestTaskCancelCurrentProofCannotProveEarlierLegacyStopped
+--- PASS: TestTaskCancelCurrentProofCannotProveEarlierLegacyStopped (0.11s)
+=== RUN   TestTaskCancelInvalidOverflowAndStartingStayFenced
+--- PASS: TestTaskCancelInvalidOverflowAndStartingStayFenced (0.10s)
+=== RUN   TestDefaultsMigrationFivePreservesPresetReferencesAndRejectsChecksumDrift
+--- PASS: TestDefaultsMigrationFivePreservesPresetReferencesAndRejectsChecksumDrift (0.12s)
+=== RUN   TestDefaultsMigrationFailureRollsBackTablesVersionAndLeavesSchemaFourData
+--- PASS: TestDefaultsMigrationFailureRollsBackTablesVersionAndLeavesSchemaFourData (0.12s)
+=== RUN   TestCreationLookupIsExactScopedReadOnly
+--- PASS: TestCreationLookupIsExactScopedReadOnly (0.08s)
+=== RUN   TestDefaultsCapacityAndSubjectBoundsKeepExistingRevisionsAvailable
+--- PASS: TestDefaultsCapacityAndSubjectBoundsKeepExistingRevisionsAvailable (0.27s)
+=== RUN   TestDefaultsVersionsCanonicalScopedImmutableAndRestartSafe
+--- PASS: TestDefaultsVersionsCanonicalScopedImmutableAndRestartSafe (0.11s)
+=== RUN   TestDefaultsConcurrentSaveAndHeadFailureAreAtomic
+--- PASS: TestDefaultsConcurrentSaveAndHeadFailureAreAtomic (0.10s)
+=== RUN   TestDefaultsStampFencesNewTaskInTransactionWithoutChangingOldPayloadHash
+--- PASS: TestDefaultsStampFencesNewTaskInTransactionWithoutChangingOldPayloadHash (0.09s)
+=== RUN   TestDefaultsStampFencesPlanRevisionAndCommittedRetryIsReadOnly
+--- PASS: TestDefaultsStampFencesPlanRevisionAndCommittedRetryIsReadOnly (0.09s)
+=== RUN   TestEventsPageIsBoundedOrderedAndTaskScoped
+--- PASS: TestEventsPageIsBoundedOrderedAndTaskScoped (0.09s)
+=== RUN   TestEventsPageRejectsMissingDurableTail
+--- PASS: TestEventsPageRejectsMissingDurableTail (0.09s)
+=== RUN   TestTaskPauseContinueIdleIsAtomicAndFencesOldGeneration
+--- PASS: TestTaskPauseContinueIdleIsAtomicAndFencesOldGeneration (0.09s)
+=== RUN   TestTaskPauseRunningBlocksCallsAndCannotContinueUntilProof
+--- PASS: TestTaskPauseRunningBlocksCallsAndCannotContinueUntilProof (0.10s)
+=== RUN   TestTaskPauseFinishedSuccessRequiresReleasedProofBeforeBecomingPaused
+--- PASS: TestTaskPauseFinishedSuccessRequiresReleasedProofBeforeBecomingPaused (0.10s)
+=== RUN   TestTaskPauseExpiryUnknownOwnerAndStalePlanStayFenced
+--- PASS: TestTaskPauseExpiryUnknownOwnerAndStalePlanStayFenced (0.09s)
+=== RUN   TestTaskPauseAndStartRaceHaveOneDurableWinner
+--- PASS: TestTaskPauseAndStartRaceHaveOneDurableWinner (1.04s)
+=== RUN   TestTaskPauseEventFailureRollsBackCancellationAndState
+--- PASS: TestTaskPauseEventFailureRollsBackCancellationAndState (0.09s)
+=== RUN   TestTaskPauseReleaseSettlementFailureIsAtomicAndRetryHasOneEvent
+--- PASS: TestTaskPauseReleaseSettlementFailureIsAtomicAndRetryHasOneEvent (0.10s)
+=== RUN   TestTaskPauseRestartRetainsPauseOrUnknownWithoutReplay
+=== RUN   TestTaskPauseRestartRetainsPauseOrUnknownWithoutReplay/idle
+=== RUN   TestTaskPauseRestartRetainsPauseOrUnknownWithoutReplay/active
+--- PASS: TestTaskPauseRestartRetainsPauseOrUnknownWithoutReplay (0.19s)
+    --- PASS: TestTaskPauseRestartRetainsPauseOrUnknownWithoutReplay/idle (0.09s)
+    --- PASS: TestTaskPauseRestartRetainsPauseOrUnknownWithoutReplay/active (0.10s)
+=== RUN   TestTaskPauseLegacyWithoutStopProofAndOverflowCannotContinue
+--- PASS: TestTaskPauseLegacyWithoutStopProofAndOverflowCannotContinue (0.09s)
+=== RUN   TestTaskPauseInterruptedWithoutHandleRequiresReviewBeforeRelease
+--- PASS: TestTaskPauseInterruptedWithoutHandleRequiresReviewBeforeRelease (0.09s)
+=== RUN   TestTaskPauseCurrentStopCannotProveEarlierLegacyExecutionStopped
+--- PASS: TestTaskPauseCurrentStopCannotProveEarlierLegacyExecutionStopped (0.10s)
+=== RUN   TestPresetMigrationFourPreservesSchemaThreeReceiptsBudgetsAndHistory
+--- PASS: TestPresetMigrationFourPreservesSchemaThreeReceiptsBudgetsAndHistory (0.11s)
+=== RUN   TestPresetFutureSchemaIsRejectedWithoutDowngrade
+--- PASS: TestPresetFutureSchemaIsRejectedWithoutDowngrade (0.09s)
+=== RUN   TestPresetVersionsAreImmutableScopedAndRetriesReadExactHistory
+--- PASS: TestPresetVersionsAreImmutableScopedAndRetriesReadExactHistory (0.09s)
+=== RUN   TestConcurrentPresetSaveHasOneCreatedVersion
+--- PASS: TestConcurrentPresetSaveHasOneCreatedVersion (0.08s)
+=== RUN   TestPresetHeadFailureRollsBackRevisionAndRetry
+--- PASS: TestPresetHeadFailureRollsBackRevisionAndRetry (0.08s)
+=== RUN   TestTaskPresetProvenanceIsAtomicAndIndependentOfLatest
+--- PASS: TestTaskPresetProvenanceIsAtomicAndIndependentOfLatest (0.09s)
+=== RUN   TestPresetCapacityKeepsExistingVersionUpdatesAvailable
+--- PASS: TestPresetCapacityKeepsExistingVersionUpdatesAvailable (0.35s)
+=== RUN   TestRestoreIdentityKeepsLegacyStartHash
+--- PASS: TestRestoreIdentityKeepsLegacyStartHash (0.08s)
+=== RUN   TestRestoreOncePayloadAndScopeAreAtomic
+=== RUN   TestRestoreOncePayloadAndScopeAreAtomic/missing
+=== RUN   TestRestoreOncePayloadAndScopeAreAtomic/uppercase
+=== RUN   TestRestoreOncePayloadAndScopeAreAtomic/digest
+=== RUN   TestRestoreOncePayloadAndScopeAreAtomic/origin
+=== RUN   TestRestoreOncePayloadAndScopeAreAtomic/foreign_role
+=== RUN   TestRestoreOncePayloadAndScopeAreAtomic/foreign_target
+=== RUN   TestRestoreOncePayloadAndScopeAreAtomic/held
+=== RUN   TestRestoreOncePayloadAndScopeAreAtomic/not_success
+--- PASS: TestRestoreOncePayloadAndScopeAreAtomic (0.72s)
+    --- PASS: TestRestoreOncePayloadAndScopeAreAtomic/missing (0.09s)
+    --- PASS: TestRestoreOncePayloadAndScopeAreAtomic/uppercase (0.09s)
+    --- PASS: TestRestoreOncePayloadAndScopeAreAtomic/digest (0.09s)
+    --- PASS: TestRestoreOncePayloadAndScopeAreAtomic/origin (0.09s)
+    --- PASS: TestRestoreOncePayloadAndScopeAreAtomic/foreign_role (0.09s)
+    --- PASS: TestRestoreOncePayloadAndScopeAreAtomic/foreign_target (0.09s)
+    --- PASS: TestRestoreOncePayloadAndScopeAreAtomic/held (0.09s)
+    --- PASS: TestRestoreOncePayloadAndScopeAreAtomic/not_success (0.09s)
+=== RUN   TestRestoreOnceRetryCannotBecomeStartOrAnotherCheckpoint
+--- PASS: TestRestoreOnceRetryCannotBecomeStartOrAnotherCheckpoint (0.10s)
+=== RUN   TestOrdinaryRevisionCannotRewriteAlreadyFinishedRole
+--- PASS: TestOrdinaryRevisionCannotRewriteAlreadyFinishedRole (0.08s)
+=== RUN   TestRevisionValidationHasNoEventsOrSnapshotEffects
+--- PASS: TestRevisionValidationHasNoEventsOrSnapshotEffects (0.08s)
+=== RUN   TestRevisionEventFailureRollsBackSnapshotAndTaskVersion
+--- PASS: TestRevisionEventFailureRollsBackSnapshotAndTaskVersion (0.08s)
+=== RUN   TestOrdinaryRevisionCannotReplaceRequiredRoles
+--- PASS: TestOrdinaryRevisionCannotReplaceRequiredRoles (0.07s)
+=== RUN   TestScheduledPoolGlobalAndWriterReservationsAreAtomic
+--- PASS: TestScheduledPoolGlobalAndWriterReservationsAreAtomic (0.10s)
+=== RUN   TestSharedCallAndReworkBudgetDoesNotResetAtAttempt
+--- PASS: TestSharedCallAndReworkBudgetDoesNotResetAtAttempt (0.09s)
+=== RUN   TestConcurrentPoolStartsAndBudgetCallsHaveOneWinner
+--- PASS: TestConcurrentPoolStartsAndBudgetCallsHaveOneWinner (0.10s)
+=== RUN   TestReservationAndBudgetSurviveUnknownRecovery
+--- PASS: TestReservationAndBudgetSurviveUnknownRecovery (0.11s)
+=== RUN   TestMigrationTwoPreservesVerifiedVersionOneDatabase
+--- PASS: TestMigrationTwoPreservesVerifiedVersionOneDatabase (0.08s)
+=== RUN   TestFinishedProtocolCannotFreeSameTaskBeforeProcessStop
+--- PASS: TestFinishedProtocolCannotFreeSameTaskBeforeProcessStop (0.08s)
+=== RUN   TestAdvisoryAndInterruptedTerminalsCanReleaseWithStopProof
+=== RUN   TestAdvisoryAndInterruptedTerminalsCanReleaseWithStopProof/advisory_only
+=== RUN   TestAdvisoryAndInterruptedTerminalsCanReleaseWithStopProof/interrupted
+--- PASS: TestAdvisoryAndInterruptedTerminalsCanReleaseWithStopProof (0.16s)
+    --- PASS: TestAdvisoryAndInterruptedTerminalsCanReleaseWithStopProof/advisory_only (0.08s)
+    --- PASS: TestAdvisoryAndInterruptedTerminalsCanReleaseWithStopProof/interrupted (0.08s)
+=== RUN   TestReservationAndCallEventFailuresRollbackAllEffects
+--- PASS: TestReservationAndCallEventFailuresRollbackAllEffects (0.09s)
+=== RUN   TestCapacityCannotChangeWithHeldOrUnknownExecutions
+--- PASS: TestCapacityCannotChangeWithHeldOrUnknownExecutions (0.08s)
+=== RUN   TestStageArtifactInputUsesExactCurrentWorkflowAndReleasedReceipt
+--- PASS: TestStageArtifactInputUsesExactCurrentWorkflowAndReleasedReceipt (0.20s)
+=== RUN   TestStartJournalMigrationEightPreservesLegacyDataWithoutGuessingStarts
+--- PASS: TestStartJournalMigrationEightPreservesLegacyDataWithoutGuessingStarts (0.14s)
+=== RUN   TestStartJournalMigrationEightFailureKeepsSevenAndRetries
+--- PASS: TestStartJournalMigrationEightFailureKeepsSevenAndRetries (0.17s)
+=== RUN   TestStartJournalCommitFailureRollsBackEveryDurableSideEffect
+--- PASS: TestStartJournalCommitFailureRollsBackEveryDurableSideEffect (0.10s)
+=== RUN   TestStartJournalCorruptionCannotAuthorizeStartOrResolve
+--- PASS: TestStartJournalCorruptionCannotAuthorizeStartOrResolve (0.08s)
+=== RUN   TestStartJournalMissingLinkedTaskIsCorruptionRatherThanAbsentDraft
+--- PASS: TestStartJournalMissingLinkedTaskIsCorruptionRatherThanAbsentDraft (0.09s)
+=== RUN   TestStartJournalPreparedRowWithCommittedMappingCannotBeSealed
+--- PASS: TestStartJournalPreparedRowWithCommittedMappingCannotBeSealed (0.09s)
+=== RUN   TestStartJournalPreparesOnlyExactLivePhaseAndPreservesOriginalAfterChanges
+--- PASS: TestStartJournalPreparesOnlyExactLivePhaseAndPreservesOriginalAfterChanges (0.09s)
+=== RUN   TestStartJournalPrepareFreezesOriginalBeforeDispatchAndReopens
+--- PASS: TestStartJournalPrepareFreezesOriginalBeforeDispatchAndReopens (0.10s)
+=== RUN   TestStartJournalRunReceiptCommitsAtomicallyAndAcknowledgesExactRun
+--- PASS: TestStartJournalRunReceiptCommitsAtomicallyAndAcknowledgesExactRun (0.12s)
+=== RUN   TestStartJournalAbandonSealsLateStartAndPreservesHistory
+--- PASS: TestStartJournalAbandonSealsLateStartAndPreservesHistory (0.10s)
+=== RUN   TestStartJournalOnlyOnePendingPerProjectAndRejectsChangedIdentity
+--- PASS: TestStartJournalOnlyOnePendingPerProjectAndRejectsChangedIdentity (0.09s)
+=== RUN   TestStartJournalAbandonAndStartHaveOneDurableWinner
+--- PASS: TestStartJournalAbandonAndStartHaveOneDurableWinner (1.00s)
+=== RUN   TestStartOnceConcurrentRetriesCreateOneIntentAndReservation
+--- PASS: TestStartOnceConcurrentRetriesCreateOneIntentAndReservation (0.09s)
+=== RUN   TestStartOnceReplayNeverReservesAgainOrRefundsConsumedBudget
+--- PASS: TestStartOnceReplayNeverReservesAgainOrRefundsConsumedBudget (0.09s)
+=== RUN   TestStartOnceGenerationAndPayloadConflictAreAtomic
+--- PASS: TestStartOnceGenerationAndPayloadConflictAreAtomic (0.09s)
+=== RUN   TestStartOnceRecoveryReturnsUnknownWithoutExecution
+--- PASS: TestStartOnceRecoveryReturnsUnknownWithoutExecution (0.10s)
+=== RUN   TestStartOnceStaleNewKeyCannotRestartCompletedTask
+--- PASS: TestStartOnceStaleNewKeyCannotRestartCompletedTask (0.09s)
+=== RUN   TestStartOnceMappingCannotBeRetargetedAndClosedLookupRefuses
+--- PASS: TestStartOnceMappingCannotBeRetargetedAndClosedLookupRefuses (0.09s)
+=== RUN   TestStartOnceMappingFailureRollsBackEverything
+--- PASS: TestStartOnceMappingFailureRollsBackEverything (0.09s)
+=== RUN   TestMigrationThreePreservesVersionTwoAndRejectsChecksumDrift
+--- PASS: TestMigrationThreePreservesVersionTwoAndRejectsChecksumDrift (0.10s)
+=== RUN   TestTaskIdempotencyAndPayloadConflict
+--- PASS: TestTaskIdempotencyAndPayloadConflict (0.07s)
+=== RUN   TestSnapshotRevisionsAndIfMatch
+--- PASS: TestSnapshotRevisionsAndIfMatch (0.07s)
+=== RUN   TestUniqueActiveAttemptAndOrderedEvents
+--- PASS: TestUniqueActiveAttemptAndOrderedEvents (0.08s)
+=== RUN   TestLeaseGenerationFencesLateEvents
+--- PASS: TestLeaseGenerationFencesLateEvents (0.08s)
+=== RUN   TestRestartPreservesIntentAndBlocksBlindRerun
+--- PASS: TestRestartPreservesIntentAndBlocksBlindRerun (0.10s)
+=== RUN   TestCancellationCompletionRaceIsSingleTerminal
+--- PASS: TestCancellationCompletionRaceIsSingleTerminal (0.08s)
+=== RUN   TestControllerAndPathIsolation
+--- PASS: TestControllerAndPathIsolation (0.07s)
+=== RUN   TestForgedExecutionTargetAndSnapshotRefused
+--- PASS: TestForgedExecutionTargetAndSnapshotRefused (0.07s)
+=== RUN   TestImmutableRoutesAndEvidenceRefs
+--- PASS: TestImmutableRoutesAndEvidenceRefs (0.08s)
+=== RUN   TestConcurrentDuplicateSubmissionCreatesOneTask
+--- PASS: TestConcurrentDuplicateSubmissionCreatesOneTask (0.08s)
+=== RUN   TestStartupIntentWriteFailureRollsBackAllState
+--- PASS: TestStartupIntentWriteFailureRollsBackAllState (0.08s)
+=== RUN   TestStoreCrashHelper
+    store_test.go:295: isolated helper child only
+--- SKIP: TestStoreCrashHelper (0.00s)
+=== RUN   TestNativeControllerCrashIsUnknownWithoutEffectReplay
+--- PASS: TestNativeControllerCrashIsUnknownWithoutEffectReplay (0.12s)
+=== RUN   TestExpiredLeaseIsDurablyFencedAcrossClockRollback
+--- PASS: TestExpiredLeaseIsDurablyFencedAcrossClockRollback (0.09s)
+=== RUN   TestSuccessfulStageIsNotTaskAcceptance
+--- PASS: TestSuccessfulStageIsNotTaskAcceptance (0.08s)
+=== RUN   TestPrivateSidecarsAndUnrelatedDatabaseAreRefused
+--- PASS: TestPrivateSidecarsAndUnrelatedDatabaseAreRefused (0.01s)
+=== RUN   TestSubmissionJournalLookupExactOriginalAndTerminalHistory
+--- PASS: TestSubmissionJournalLookupExactOriginalAndTerminalHistory (0.10s)
+=== RUN   TestSubmissionJournalMigrationSevenPreservesReceiptsAndLegacyHistory
+--- PASS: TestSubmissionJournalMigrationSevenPreservesReceiptsAndLegacyHistory (0.13s)
+=== RUN   TestSubmissionJournalMigrationFailureLeavesSchemaSixReceiptAndRetries
+--- PASS: TestSubmissionJournalMigrationFailureLeavesSchemaSixReceiptAndRetries (0.14s)
+=== RUN   TestSubmissionJournalPreparePersistsOriginalRequestBeforeTask
+--- PASS: TestSubmissionJournalPreparePersistsOriginalRequestBeforeTask (0.09s)
+=== RUN   TestSubmissionJournalAbandonSealsLateOriginalCommit
+--- PASS: TestSubmissionJournalAbandonSealsLateOriginalCommit (0.08s)
+=== RUN   TestSubmissionJournalCommitAndAcknowledgeAreExactAndAtomic
+--- PASS: TestSubmissionJournalCommitAndAcknowledgeAreExactAndAtomic (0.09s)
+=== RUN   TestSubmissionJournalAbandonCreationRaceHasOneDurableWinner
+--- PASS: TestSubmissionJournalAbandonCreationRaceHasOneDurableWinner (0.64s)
+=== RUN   TestSubmissionJournalCommitFailureRollsBackTaskAndRetainsPreparedRequest
+--- PASS: TestSubmissionJournalCommitFailureRollsBackTaskAndRetainsPreparedRequest (0.09s)
+=== RUN   TestSubmissionJournalScopesImmutableIdentityAndTerminalHistory
+=== RUN   TestSubmissionJournalScopesImmutableIdentityAndTerminalHistory/key
+=== RUN   TestSubmissionJournalScopesImmutableIdentityAndTerminalHistory/project
+=== RUN   TestSubmissionJournalScopesImmutableIdentityAndTerminalHistory/goal
+=== RUN   TestSubmissionJournalScopesImmutableIdentityAndTerminalHistory/budget
+=== RUN   TestSubmissionJournalScopesImmutableIdentityAndTerminalHistory/revision
+=== RUN   TestSubmissionJournalScopesImmutableIdentityAndTerminalHistory/expiry
+--- PASS: TestSubmissionJournalScopesImmutableIdentityAndTerminalHistory (0.09s)
+    --- PASS: TestSubmissionJournalScopesImmutableIdentityAndTerminalHistory/key (0.00s)
+    --- PASS: TestSubmissionJournalScopesImmutableIdentityAndTerminalHistory/project (0.00s)
+    --- PASS: TestSubmissionJournalScopesImmutableIdentityAndTerminalHistory/goal (0.00s)
+    --- PASS: TestSubmissionJournalScopesImmutableIdentityAndTerminalHistory/budget (0.00s)
+    --- PASS: TestSubmissionJournalScopesImmutableIdentityAndTerminalHistory/revision (0.00s)
+    --- PASS: TestSubmissionJournalScopesImmutableIdentityAndTerminalHistory/expiry (0.00s)
+=== RUN   TestSubmissionJournalNewPrepareRequiresCurrentDefaultsAndValidFrozenRequest
+--- PASS: TestSubmissionJournalNewPrepareRequiresCurrentDefaultsAndValidFrozenRequest (0.08s)
+=== RUN   TestSubmissionJournalPeerReceiptAndConsumedTaskRemainSameAfterReopen
+--- PASS: TestSubmissionJournalPeerReceiptAndConsumedTaskRemainSameAfterReopen (0.12s)
+=== RUN   TestSubmissionJournalCorruptFrozenRequestCannotCommit
+--- PASS: TestSubmissionJournalCorruptFrozenRequestCannotCommit (0.08s)
+=== RUN   TestSubmissionJournalResolutionFailureKeepsOriginalPendingAndThenRetries
+--- PASS: TestSubmissionJournalResolutionFailureKeepsOriginalPendingAndThenRetries (0.08s)
+=== RUN   TestSubmissionJournalPrepareRecognizesProvedCommittedReceipt
+--- PASS: TestSubmissionJournalPrepareRecognizesProvedCommittedReceipt (0.08s)
+=== RUN   TestSubmissionMigrationSixPreservesLegacyDataWithoutInventingPreview
+--- PASS: TestSubmissionMigrationSixPreservesLegacyDataWithoutInventingPreview (0.12s)
+=== RUN   TestSubmissionMigrationSixFailureRollsBackAndRetries
+--- PASS: TestSubmissionMigrationSixFailureRollsBackAndRetries (0.12s)
+=== RUN   TestSubmissionReceiptFailureRollsBackWholeCreation
+--- PASS: TestSubmissionReceiptFailureRollsBackWholeCreation (0.10s)
+=== RUN   TestSubmissionReceiptKeepsProjectKeyScopeAndRejectsRebinding
+=== RUN   TestSubmissionReceiptKeepsProjectKeyScopeAndRejectsRebinding/project
+=== RUN   TestSubmissionReceiptKeepsProjectKeyScopeAndRejectsRebinding/key
+=== RUN   TestSubmissionReceiptKeepsProjectKeyScopeAndRejectsRebinding/payload
+=== RUN   TestSubmissionReceiptKeepsProjectKeyScopeAndRejectsRebinding/key-payload
+--- PASS: TestSubmissionReceiptKeepsProjectKeyScopeAndRejectsRebinding (0.09s)
+    --- PASS: TestSubmissionReceiptKeepsProjectKeyScopeAndRejectsRebinding/project (0.00s)
+    --- PASS: TestSubmissionReceiptKeepsProjectKeyScopeAndRejectsRebinding/key (0.00s)
+    --- PASS: TestSubmissionReceiptKeepsProjectKeyScopeAndRejectsRebinding/payload (0.00s)
+    --- PASS: TestSubmissionReceiptKeepsProjectKeyScopeAndRejectsRebinding/key-payload (0.00s)
+=== RUN   TestSubmissionReceiptReadsCurrentTaskWithoutResettingHistoryOrBudget
+--- PASS: TestSubmissionReceiptReadsCurrentTaskWithoutResettingHistoryOrBudget (0.09s)
+=== RUN   TestSubmissionReceiptConcurrentSameIdentityCommitsOnce
+--- PASS: TestSubmissionReceiptConcurrentSameIdentityCommitsOnce (0.08s)
+=== RUN   TestSubmissionBudgetIsAtomicWithTaskSnapshotAndIdempotency
+--- PASS: TestSubmissionBudgetIsAtomicWithTaskSnapshotAndIdempotency (0.08s)
+=== RUN   TestSubmissionBudgetRejectsUsedCountersAndInvalidLimits
+--- PASS: TestSubmissionBudgetRejectsUsedCountersAndInvalidLimits (0.07s)
+=== RUN   TestSubmissionRetryNeverResetsAlreadyConsumedBudget
+--- PASS: TestSubmissionRetryNeverResetsAlreadyConsumedBudget (0.09s)
+=== RUN   TestProjectTasksPagesRemainProjectBoundAndDurable
+--- PASS: TestProjectTasksPagesRemainProjectBoundAndDurable (0.30s)
+=== RUN   TestProjectTasksRejectsForeignCursorAndStorageFailure
+--- PASS: TestProjectTasksRejectsForeignCursorAndStorageFailure (0.08s)
+=== RUN   TestProjectTasksExactPageBoundaryAndCurrentVersion
+--- PASS: TestProjectTasksExactPageBoundaryAndCurrentVersion (0.13s)
+=== RUN   TestStoredVerifierWorker
+--- PASS: TestStoredVerifierWorker (0.00s)
+=== RUN   TestVerificationOwnedRegistrationSurvivesRestartAndCannotBeForged
+--- PASS: TestVerificationOwnedRegistrationSurvivesRestartAndCannotBeForged (0.24s)
+=== RUN   TestVerificationFailureNeedsReviewAndEventRollbackPreservesTask
+--- PASS: TestVerificationFailureNeedsReviewAndEventRollbackPreservesTask (0.23s)
+=== RUN   TestWorkflowAuthorityIsRecheckedInsideWriteAndRollsBackEveryMetadataDecision
+=== RUN   TestWorkflowAuthorityIsRecheckedInsideWriteAndRollsBackEveryMetadataDecision/attach
+=== RUN   TestWorkflowAuthorityIsRecheckedInsideWriteAndRollsBackEveryMetadataDecision/design
+=== RUN   TestWorkflowAuthorityIsRecheckedInsideWriteAndRollsBackEveryMetadataDecision/approve
+--- PASS: TestWorkflowAuthorityIsRecheckedInsideWriteAndRollsBackEveryMetadataDecision (0.32s)
+    --- PASS: TestWorkflowAuthorityIsRecheckedInsideWriteAndRollsBackEveryMetadataDecision/attach (0.09s)
+    --- PASS: TestWorkflowAuthorityIsRecheckedInsideWriteAndRollsBackEveryMetadataDecision/design (0.11s)
+    --- PASS: TestWorkflowAuthorityIsRecheckedInsideWriteAndRollsBackEveryMetadataDecision/approve (0.12s)
+=== RUN   TestWorkflowAuthorityLossDuringStoreMutexWaitCannotAttach
+--- PASS: TestWorkflowAuthorityLossDuringStoreMutexWaitCannotAttach (0.08s)
+=== RUN   TestWorkflowMigrationNinePreservesLegacyAndRejectsChecksumDrift
+--- PASS: TestWorkflowMigrationNinePreservesLegacyAndRejectsChecksumDrift (0.15s)
+=== RUN   TestWorkflowMigrationNineFailureRollsBackAndRetries
+--- PASS: TestWorkflowMigrationNineFailureRollsBackAndRetries (0.18s)
+=== RUN   TestWorkflowAttachAndDesignEventFailureRollBackWithoutPartialAuthorization
+--- PASS: TestWorkflowAttachAndDesignEventFailureRollBackWithoutPartialAuthorization (0.11s)
+=== RUN   TestWorkflowFailedDesignNeverPermitsApprovalOrAnotherStage
+--- PASS: TestWorkflowFailedDesignNeverPermitsApprovalOrAnotherStage (0.10s)
+=== RUN   TestWorkflowDesignCanBeFrozenAfterIdlePauseContinueWithCurrentCondition
+--- PASS: TestWorkflowDesignCanBeFrozenAfterIdlePauseContinueWithCurrentCondition (0.11s)
+=== RUN   TestWorkflowRequiresFrozenHumanDesignApprovalBeforeAnyImplementationIntent
+--- PASS: TestWorkflowRequiresFrozenHumanDesignApprovalBeforeAnyImplementationIntent (0.15s)
+=== RUN   TestWorkflowBlocksAllStartEntrypointsAndPreservesBudgetAndEvents
+--- PASS: TestWorkflowBlocksAllStartEntrypointsAndPreservesBudgetAndEvents (0.12s)
+=== RUN   TestWorkflowFiniteFiveRolesCannotSkipRepeatOrDeclareWholeTaskAcceptance
+--- PASS: TestWorkflowFiniteFiveRolesCannotSkipRepeatOrDeclareWholeTaskAcceptance (0.25s)
+=== RUN   TestWorkflowInvestigateAndStandaloneReviewNeverStartUnusedRoles
+=== RUN   TestWorkflowInvestigateAndStandaloneReviewNeverStartUnusedRoles/investigate
+=== RUN   TestWorkflowInvestigateAndStandaloneReviewNeverStartUnusedRoles/review
+--- PASS: TestWorkflowInvestigateAndStandaloneReviewNeverStartUnusedRoles (0.20s)
+    --- PASS: TestWorkflowInvestigateAndStandaloneReviewNeverStartUnusedRoles/investigate (0.10s)
+    --- PASS: TestWorkflowInvestigateAndStandaloneReviewNeverStartUnusedRoles/review (0.09s)
+=== RUN   TestWorkflowFrozenDesignRejectsReplacementStaleConditionAndMutableRead
+--- PASS: TestWorkflowFrozenDesignRejectsReplacementStaleConditionAndMutableRead (0.11s)
+=== RUN   TestWorkflowNewPlanRequiresNewApprovalAndKeepsOldDecision
+--- PASS: TestWorkflowNewPlanRequiresNewApprovalAndKeepsOldDecision (0.14s)
+=== RUN   TestWorkflowApprovalFailureRollsBackAndConcurrentRetriesHaveOneDecision
+--- PASS: TestWorkflowApprovalFailureRollsBackAndConcurrentRetriesHaveOneDecision (0.16s)
+=== RUN   TestWorkflowAttachmentCannotRewritePreparedOrStartedManualRequest
+--- PASS: TestWorkflowAttachmentCannotRewritePreparedOrStartedManualRequest (0.09s)
+=== RUN   TestWorkflowDamagedFrozenDesignCannotAuthorizeNewIntent
+--- PASS: TestWorkflowDamagedFrozenDesignCannotAuthorizeNewIntent (0.11s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/store	23.052s
+=== RUN   TestHandoffCopiesCodeOnlyForExactBinding
+=== RUN   TestHandoffCopiesCodeOnlyForExactBinding/task
+=== RUN   TestHandoffCopiesCodeOnlyForExactBinding/run
+=== RUN   TestHandoffCopiesCodeOnlyForExactBinding/plan
+=== RUN   TestHandoffCopiesCodeOnlyForExactBinding/generation
+=== RUN   TestHandoffCopiesCodeOnlyForExactBinding/role
+=== RUN   TestHandoffCopiesCodeOnlyForExactBinding/target
+--- PASS: TestHandoffCopiesCodeOnlyForExactBinding (0.02s)
+    --- PASS: TestHandoffCopiesCodeOnlyForExactBinding/task (0.00s)
+    --- PASS: TestHandoffCopiesCodeOnlyForExactBinding/run (0.00s)
+    --- PASS: TestHandoffCopiesCodeOnlyForExactBinding/plan (0.00s)
+    --- PASS: TestHandoffCopiesCodeOnlyForExactBinding/generation (0.00s)
+    --- PASS: TestHandoffCopiesCodeOnlyForExactBinding/role (0.00s)
+    --- PASS: TestHandoffCopiesCodeOnlyForExactBinding/target (0.00s)
+=== RUN   TestHandoffRejectsHeaderAndCodeCorruption
+=== RUN   TestHandoffRejectsHeaderAndCodeCorruption/header
+=== RUN   TestHandoffRejectsHeaderAndCodeCorruption/code
+=== RUN   TestHandoffRejectsHeaderAndCodeCorruption/header_link
+=== RUN   TestHandoffRejectsHeaderAndCodeCorruption/source
+--- PASS: TestHandoffRejectsHeaderAndCodeCorruption (0.07s)
+    --- PASS: TestHandoffRejectsHeaderAndCodeCorruption/header (0.01s)
+    --- PASS: TestHandoffRejectsHeaderAndCodeCorruption/code (0.03s)
+    --- PASS: TestHandoffRejectsHeaderAndCodeCorruption/header_link (0.01s)
+    --- PASS: TestHandoffRejectsHeaderAndCodeCorruption/source (0.01s)
+=== RUN   TestHandoffCannotInventSuccessOrAcceptUnownedArtifact
+--- PASS: TestHandoffCannotInventSuccessOrAcceptUnownedArtifact (0.01s)
+=== RUN   TestHandoffReferenceRehydratesExactCopyWithAllAncestors
+--- PASS: TestHandoffReferenceRehydratesExactCopyWithAllAncestors (0.06s)
+=== RUN   TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope
+=== RUN   TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/witness
+=== RUN   TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/header
+=== RUN   TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/code
+=== RUN   TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/original_replacement
+=== RUN   TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/root_replacement
+=== RUN   TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/source
+=== RUN   TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/root
+=== RUN   TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/binding
+=== RUN   TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/tree
+=== RUN   TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/version
+--- PASS: TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope (0.18s)
+    --- PASS: TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/witness (0.02s)
+    --- PASS: TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/header (0.02s)
+    --- PASS: TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/code (0.02s)
+    --- PASS: TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/original_replacement (0.02s)
+    --- PASS: TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/root_replacement (0.02s)
+    --- PASS: TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/source (0.02s)
+    --- PASS: TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/root (0.02s)
+    --- PASS: TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/binding (0.02s)
+    --- PASS: TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/tree (0.02s)
+    --- PASS: TestHandoffReferenceRejectsChangedIdentityAndUntrustedScope/version (0.02s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/handoff	1.686s

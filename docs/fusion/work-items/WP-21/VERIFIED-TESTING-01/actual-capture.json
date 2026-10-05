@@ -1,0 +1,116 @@
+{
+  "handoff": {
+    "version": 1,
+    "binding": {
+      "task_id": "task-a3c78dd34c116414aa15e4d76db25846",
+      "plan_revision": 1,
+      "plan_hash": "ded0a561f45d9224280857ecbd4ae4cfbba5b6d0983b924512d5ed3d1cf42635",
+      "run_id": "run-fcb37a132aec97316e8a0ca88456d4cc",
+      "generation": 1,
+      "role": "testing",
+      "target_hash": "7d6e0f7c42937294534de5eb4216dad3a4f883951425ac219673c1b3ccda4976"
+    },
+    "task": {
+      "goal": "real tests"
+    },
+    "artifact": {
+      "version": 1,
+      "base_commit": null,
+      "base_tree_hash": "ff2767478ab5030d8e28474f0b00d54834a4967a24917461d45512d0d489a6f6",
+      "tree_hash": "ff2767478ab5030d8e28474f0b00d54834a4967a24917461d45512d0d489a6f6",
+      "change_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "entries": [
+        {
+          "path": "tests.txt",
+          "kind": "file",
+          "sha256": "79dd6c9c5e93e11b13127659ee746e31a24cfc783dfb689dd2fd2236f1e3de57",
+          "bytes": 12
+        }
+      ],
+      "changes": []
+    },
+    "decisions": [],
+    "evidence": {
+      "output_hash": "9c59eb5f018133b5d402e38d3ff3acbc65703ff785853e531735f6525c7b944b",
+      "stop_proof_hash": "cf8e41b18117530e70d48b1302282b365c9ba3721f2757bb24393c9e6d03ea1f",
+      "status": "passed",
+      "tests_executed": true
+    },
+    "changes": [],
+    "pending": [
+      "design_decisions_not_extracted",
+      "independent_review_pending",
+      "acceptance_pending"
+    ]
+  },
+  "verification": {
+    "data": {
+      "record": {
+        "version": 1,
+        "spec": {
+          "tool": {
+            "executable": "/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-hags0gjn/go-build2244209279/b001/store.test",
+            "sha256": "6cafb64e3f07bd8f405d742323c5fd8d02c7f96e0a8583265fb0c958b9c3640b",
+            "version": "stored-verifier 1",
+            "version_args": [
+              "-test.run=^TestStoredVerifierWorker$",
+              "--",
+              "version"
+            ]
+          },
+          "args": [
+            "-test.run=^TestStoredVerifierWorker$",
+            "--",
+            "pass"
+          ],
+          "suite_paths": [
+            "tests.txt"
+          ],
+          "rules": {
+            "min_tests": 1,
+            "allow_zero": false,
+            "allow_skipped": false
+          },
+          "timeout_ns": 2000000000
+        },
+        "environment": [
+          "PATH=/usr/bin:/bin",
+          "HOME=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-hags0gjn/TestVerificationOwnedRegistrationSurvivesRestartAndCannotBeForge3733414655/002/verify-2201852960/scratch/home",
+          "XDG_CONFIG_HOME=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-hags0gjn/TestVerificationOwnedRegistrationSurvivesRestartAndCannotBeForge3733414655/002/verify-2201852960/scratch/config",
+          "XDG_CACHE_HOME=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-hags0gjn/TestVerificationOwnedRegistrationSurvivesRestartAndCannotBeForge3733414655/002/verify-2201852960/scratch/cache",
+          "XDG_DATA_HOME=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-hags0gjn/TestVerificationOwnedRegistrationSurvivesRestartAndCannotBeForge3733414655/002/verify-2201852960/scratch/data",
+          "TMPDIR=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-hags0gjn/TestVerificationOwnedRegistrationSurvivesRestartAndCannotBeForge3733414655/002/verify-2201852960/scratch/tmp",
+          "LANG=C",
+          "TZ=UTC",
+          "GORACE=atexit_sleep_ms=0"
+        ],
+        "artifact_hash": "ff2767478ab5030d8e28474f0b00d54834a4967a24917461d45512d0d489a6f6",
+        "suite_hash": "ff2767478ab5030d8e28474f0b00d54834a4967a24917461d45512d0d489a6f6",
+        "spec_hash": "58fb6d2f78bc94764efa79b288afe25084d0bf3efa604757d9f087044b0fb974",
+        "environment_hash": "717961e28a28ec6c02d8f250884ade7eee35c0a7a63125f97cad2596ceb23f90",
+        "tool_version": "stored-verifier 1",
+        "report_hash": "6cb570459abc8f41731bd7d9ce549f0adffbd48b6144c931efdc7bb721f926a4",
+        "stderr_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "started_at": "2026-10-05T05:09:44.767752Z",
+        "finished_at": "2026-10-05T05:09:44.782213Z",
+        "exit_code": 0,
+        "executed": true,
+        "stopped": true,
+        "truncated": false,
+        "interrupted": false,
+        "input_changed": false
+      },
+      "report": "PHRlc3RzdWl0ZSB0ZXN0cz0iMSI+PHRlc3RjYXNlIG5hbWU9ImFjdHVhbCIvPjwvdGVzdHN1aXRlPg==",
+      "stderr": null,
+      "verdict": {
+        "status": "passed",
+        "reason": "",
+        "tests": 1,
+        "skipped": 0
+      },
+      "artifact_path": "/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-hags0gjn/TestVerificationOwnedRegistrationSurvivesRestartAndCannotBeForge3733414655/002/artifact"
+    },
+    "design_hash": "",
+    "acceptance_hash": ""
+  }
+}

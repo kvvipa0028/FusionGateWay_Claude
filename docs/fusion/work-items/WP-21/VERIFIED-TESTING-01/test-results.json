@@ -1,0 +1,138 @@
+{
+  "component": "WP-21-VERIFIED-TESTING-01",
+  "base": "a46de1137abd38ed284a73a056c50f282cbbfe3b",
+  "go_version": "1.26.3",
+  "fusion_final": {
+    "pass_top": 685,
+    "pass_sub": 1238,
+    "skip_top": 33,
+    "skip_sub": 11,
+    "fail_top": 0,
+    "fail_sub": 0,
+    "packages": 19
+  },
+  "native_final": {
+    "pass_top": 10,
+    "pass_sub": 41,
+    "skip_top": 0,
+    "skip_sub": 0,
+    "fail_top": 0,
+    "fail_sub": 0,
+    "packages": 1
+  },
+  "store_final": {
+    "pass_top": 3,
+    "pass_sub": 0,
+    "skip_top": 0,
+    "skip_sub": 0,
+    "fail_top": 0,
+    "fail_sub": 0,
+    "packages": 1
+  },
+  "hardgate_restored": {
+    "pass_top": 1,
+    "pass_sub": 1,
+    "skip_top": 0,
+    "skip_sub": 0,
+    "fail_top": 0,
+    "fail_sub": 0,
+    "packages": 1
+  },
+  "log_archives": {
+    "verified-export-red.log": {
+      "raw_log": ".fusion-dev/implementation/verified-export-red.log",
+      "raw_sha256": "beeeed175fe243bd740152e739e3f357ed854ed83858668be1fc9f61ae397cf9",
+      "archive_sha256": "beeeed175fe243bd740152e739e3f357ed854ed83858668be1fc9f61ae397cf9"
+    },
+    "verified-export-green.log": {
+      "raw_log": ".fusion-dev/implementation/verified-export-green.log",
+      "raw_sha256": "a54716e023c25368a37cf83277b800754b62a13f7c6a94eca9d6c1f2994c10f1",
+      "archive_sha256": "a54716e023c25368a37cf83277b800754b62a13f7c6a94eca9d6c1f2994c10f1"
+    },
+    "verified-store-red.log": {
+      "raw_log": ".fusion-dev/implementation/verified-store-red.log",
+      "raw_sha256": "8d4ef28d917f5ffdefd41d7816ca2b8332ae27714260b8cf3da37c2cffb79ea3",
+      "archive_sha256": "8d4ef28d917f5ffdefd41d7816ca2b8332ae27714260b8cf3da37c2cffb79ea3"
+    },
+    "verified-store-initial.log": {
+      "raw_log": ".fusion-dev/implementation/verified-store-initial.log",
+      "raw_sha256": "c15c108dc96f43a10acb9d996f1c6d60fd34070b65454f913f8d2570c6006c8f",
+      "archive_sha256": "c15c108dc96f43a10acb9d996f1c6d60fd34070b65454f913f8d2570c6006c8f"
+    },
+    "verified-native-red.log": {
+      "raw_log": ".fusion-dev/implementation/verified-native-red.log",
+      "raw_sha256": "365a2013008005a29994987928eb84a377ca2bd66fca569a9a970b08eb6834d0",
+      "archive_sha256": "365a2013008005a29994987928eb84a377ca2bd66fca569a9a970b08eb6834d0"
+    },
+    "verified-native-initial.log": {
+      "raw_log": ".fusion-dev/implementation/verified-native-initial.log",
+      "raw_sha256": "5e88e4f72c9d48b6e4b13c6bbc6aee05aeb50af29bb54c4109b4d24a26be138a",
+      "archive_sha256": "5e88e4f72c9d48b6e4b13c6bbc6aee05aeb50af29bb54c4109b4d24a26be138a"
+    },
+    "verified-core-initial.log": {
+      "raw_log": ".fusion-dev/implementation/verified-core-initial.log",
+      "raw_sha256": "56fd82039beadde7fb88683912f2a7b95a9e97f193f4a86d8311064b9164530c",
+      "archive_sha256": "56fd82039beadde7fb88683912f2a7b95a9e97f193f4a86d8311064b9164530c"
+    },
+    "verified-native-final.log": {
+      "raw_log": ".fusion-dev/implementation/verified-native-final.log",
+      "raw_sha256": "601424f28f0afd581d2086765495b9c2647323a04b6c7528ee2939ba53dba47b",
+      "archive_sha256": "601424f28f0afd581d2086765495b9c2647323a04b6c7528ee2939ba53dba47b"
+    },
+    "verified-fusion-final.log": {
+      "raw_log": ".fusion-dev/implementation/verified-fusion-final.log",
+      "raw_sha256": "0875eb78c12ad021e297a157a8c862cd7481ff2404e8a4c7782ec5260a9896f0",
+      "archive_sha256": "0875eb78c12ad021e297a157a8c862cd7481ff2404e8a4c7782ec5260a9896f0"
+    },
+    "verified-hardgate-mutation.log": {
+      "raw_log": ".fusion-dev/implementation/verified-hardgate-mutation.log",
+      "raw_sha256": "3ccea68f37039a8a75bb6548f066b5dc40850f97eb2a279aa5638a2b3b592c81",
+      "archive_sha256": "3ccea68f37039a8a75bb6548f066b5dc40850f97eb2a279aa5638a2b3b592c81"
+    },
+    "verified-native-restored.log": {
+      "raw_log": ".fusion-dev/implementation/verified-native-restored.log",
+      "raw_sha256": "f6de255209e94a41e8d8b9d991bb914409a27288b9f03de5c8e73586a410d1f1",
+      "archive_sha256": "f6de255209e94a41e8d8b9d991bb914409a27288b9f03de5c8e73586a410d1f1"
+    },
+    "verified-store-final.log": {
+      "raw_log": ".fusion-dev/implementation/verified-store-final.log",
+      "raw_sha256": "28c5e1566c8b7d7601dff5d3c09f33b8eade4e17a5c8ba43afe05312203653b3",
+      "archive_sha256": "28c5e1566c8b7d7601dff5d3c09f33b8eade4e17a5c8ba43afe05312203653b3"
+    },
+    "build-cli.log": {
+      "raw_log": ".fusion-dev/build-dev/cli.log",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "archive_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "build-gui.log": {
+      "raw_log": ".fusion-dev/build-dev/gui.log",
+      "raw_sha256": "ded8d25b33aeaaf69ea3d88907b91b7af7eeda140341b6e1df6e568e0779a2f0",
+      "archive_sha256": "ded8d25b33aeaaf69ea3d88907b91b7af7eeda140341b6e1df6e568e0779a2f0"
+    },
+    "build-vet.log": {
+      "raw_log": ".fusion-dev/build-dev/vet.log",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "archive_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "effective_mutations": [
+    "Removing verification needs_review transition: actual pinned Native hard_test_failure failed because Task stayed ready. Exact production bytes restored; actual test passed."
+  ],
+  "mutation_source_restored_exactly": true,
+  "initial_failures": [
+    "Missing export/Store/Factory APIs compile RED retained; not runtime mutation proof.",
+    "Archive script initially treated nil stderr as base64 text; corrected to empty bytes and confirmed actual hash, no production change."
+  ],
+  "scope": {
+    "real_supplier_calls": 0,
+    "native": "actual pinned Claude Code 2.1.287 with synthetic upstream/key/admission",
+    "jev": "off",
+    "ui_changes": 0,
+    "store_schema": 10,
+    "testing_executor_and_durable_receipt": "integrated_direct_executable",
+    "review_acceptance_consumer": "not_implemented",
+    "child_process_toolchain_backend": "not_implemented",
+    "whole_WP21": "in_progress",
+    "final_T01_T60": "not_run"
+  }
+}

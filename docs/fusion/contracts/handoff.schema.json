@@ -43,7 +43,7 @@
     },
     "pending": {
       "type": "array",
-      "minItems": 4,
+      "minItems": 3,
       "maxItems": 4,
       "uniqueItems": true,
       "items": {
@@ -295,10 +295,14 @@
           "pattern": "^[0-9a-f]{64}$"
         },
         "status": {
-          "const": "unverified"
+          "enum": [
+            "unverified",
+            "passed",
+            "failed"
+          ]
         },
         "tests_executed": {
-          "const": false
+          "type": "boolean"
         }
       },
       "required": [
@@ -309,5 +313,55 @@
       ],
       "additionalProperties": false
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "evidence": {
+            "properties": {
+              "tests_executed": {
+                "const": true
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "binding": {
+            "properties": {
+              "role": {
+                "const": "testing"
+              }
+            }
+          },
+          "pending": {
+            "minItems": 3,
+            "maxItems": 3,
+            "not": {
+              "contains": {
+                "const": "engineering_tests_not_executed"
+              }
+            }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "evidence": {
+            "properties": {
+              "status": {
+                "const": "unverified"
+              }
+            }
+          },
+          "pending": {
+            "minItems": 4,
+            "maxItems": 4
+          }
+        }
+      }
+    }
+  ]
 }

@@ -1,6 +1,6 @@
 # 真实测试执行器与 EvidenceGate
 
-`internal/fusion/evidence.Run` 执行可信宿主冻结的直接可执行测试命令，返回私有 owned Result。`Evaluate` 只接受这个结果；导出的 Record、任意 JUnit 文件、hash 或模型“通过”意见不能构造执行授权。当前为 WP-21 的执行器组件，尚未登记持久 Store receipt 或接入 GLM 阶段发布；多角色 review/acceptance 继续阻断，完整 WP-21/22 和最终验收仍需完成。
+`internal/fusion/evidence.Run` 执行可信宿主冻结的直接可执行测试命令，返回私有 owned Result。`Evaluate` 只接受这个结果；导出的 Record、任意 JUnit 文件、hash 或模型“通过”意见不能构造执行授权。GLM testing 已接入 owned 执行和持久 Store receipt，详见下文；多角色 review/acceptance 继续阻断，完整 WP-21/22 和最终验收仍需完成。
 
 ## 输入和隔离
 
@@ -23,10 +23,20 @@ JUnit 严格解析 testsuite/testsuites 与实际 testcase，核对声明计数�
 - `failed`：实际非零 exit，或报告中真实 failure/error；模型意见无法覆盖。
 - `unverified`：未执行/未停止、中断、截断、解析失败或执行数量不足；默认零测试和全跳过不算通过。
 - `superseded`：当前代码、测试子树、冻结命令/工具/规则变化，或原产物/来源失效。
-- 来源身份也必须匹配 owned 的原冻结产物；另一个项目/目录即使代码 TreeHash 相同，也不能复用该执行证据。Task/Run 的持久绑定仍由后续私有 Store receipt 完成，导出 hash 不授予该权限。
+- 来源身份也必须匹配 owned 的原冻结产物；另一个项目/目录即使代码 TreeHash 相同，也不能复用该执行证据。Task/Run 的持久绑定由私有 Store receipt 完成，导出 hash 不授予该权限。
 - `passed`：owned 执行与停止、零 exit、完整解析以及明确数量/跳过规则均满足。零测试只在冻结项目规则 AllowZero 且 MinTests=0 时允许。
 
 通过证明限于这份命令、工具、代码与标准；不能代表全部需求通过，也不自动完成 Task、派单、提交/合入项目或释放模型 reservation。现有 Store.EvidenceRef 仍只是不可变引用。
+
+## GLM 阶段接线与持久来源
+
+可信宿主通过 `GLMRuntimeConfig.Verification` 注册独立的命令 Spec 和 Acceptance 列表，Factory 构造时深复制并检查工具 pin。多角色 testing 的 Acceptance 必须与已批准设计逐项一致；缺少配置或不一致时在 Native 启动意图前拒绝。配置没有 HTTP 或模型赋权入口。原独立单角色未注册验证器的模式继续发布 unverified，不宣称测试通过。
+
+Native 实际成功停止后，Factory 冻结测试阶段产物，再运行本执行器；撤销、Task 暂停/取消及来源变化取消实际 owned 命令。只有真实执行并停止的 owned Result 才能用于 `PublishVerified` 和 `RecordVerifiedArtifactAuthorized`。handoff 摘要显示真实 passed/failed/unverified 和 tests_executed，保留 Native output/StopProof；模型文字不能设置这些字段。实际报告/stderr 与完整 Record 保存在私有 immutable stage_artifacts receipt，而非模型输入。
+
+普通 RecordArtifact/RecordArtifactAuthorized 拒绝调用者声明 Verification。可信写入从 owned Result 导出数据，在原 Task/Plan/Run/target/parent/current transaction 内登记 DesignHash/AcceptanceHash；failed/unverified 同时写 needs_review 与独立事件，事件失败回滚全部修改。Native succeeded 仍表示协议执行成功，不改写进程历史。登记不释放预留，只有实际停止、登记和原 Adapter Release 完成后才允许受控读取。
+
+`VerifiedArtifact` 先读取 exact released-run receipt，再用宿主独立登记的 source/ExecutionRoot 恢复真实 frozen artifact，核验 header 与实际判定、当前批准设计/标准和产物/测试/spec。代码或标准变化返回 superseded。导出的 Stored JSON、ValidStored 的结构检查及 EvaluateStored 的数据检查本身均不能证明来源，也不能授权启动后续阶段；可信来源只由这个私有 Store 消费路径建立。review/acceptance 与有限返工消费者仍需实现。
 
 ## 复现与回退
 
@@ -42,4 +52,6 @@ PATH="$HOME/.local/bin:$PATH" python3 scripts/fusion/build-dev.py
 
 有效 mutation 分别移除退出码判定、为输入副本加入可写权限，实际进程负向测试均捕获错误；精确恢复生产代码后回归通过。初始 fixture 的 macOS `/var` 路径规范化和误改只读冻结产物问题均记录，不弱化生产 guard；新版本产物改由合法 Copy→修改→Freeze 生成。
 
-[组件交付证据](../work-items/WP-21/VERIFICATION-RUNNER-01/summary.md)。停用此组件不更改 schema10、不回滚数据库或自动重放测试。执行根由宿主保留用于核验，清理须先确认所有 owned 命令停止。本组件不改 Magpie/Fusion UI、API、模型 Adapter 或 SQL，Jev off。
+[组件交付证据](../work-items/WP-21/VERIFICATION-RUNNER-01/summary.md)。停用此组件不更改 schema10、不回滚数据库或自动重放测试。执行根由宿主保留用于核验，清理须先确认所有 owned 命令停止。本次接线不改 Magpie/Fusion UI、HTTP API、模型 Adapter 或 SQL，Jev off。
+
+新 Verification 是 ArtifactRecord 的 optional omitempty 字段，schema10 的 SQL001–010 不变；旧 receipt 的 canonical bytes 不变。新增 verified receipt 和 tests_executed=true 的 handoff 需要本版本消费者，旧二进制/旧严格 schema 会安全拒绝，不能视为完整向后读取兼容。回退须在 owned 进程真实停止后恢复同一检查点的数据库与 artifact/ExecutionRoot 备份；仅替换旧二进制不支持读取新证据，也不得删掉 Verification 伪装兼容。[本次接线证据](../work-items/WP-21/VERIFIED-TESTING-01/summary.md)。

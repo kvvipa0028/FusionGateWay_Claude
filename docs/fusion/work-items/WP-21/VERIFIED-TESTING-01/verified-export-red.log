@@ -1,0 +1,12 @@
+# github.com/yetone/magpie/internal/fusion/evidence [github.com/yetone/magpie/internal/fusion/evidence.test]
+internal/fusion/evidence/stored_test.go:14:9: undefined: Export
+internal/fusion/evidence/stored_test.go:15:39: undefined: Stored
+internal/fusion/evidence/stored_test.go:16:42: undefined: EvaluateStored
+internal/fusion/evidence/stored_test.go:17:12: undefined: Export
+internal/fusion/evidence/stored_test.go:19:5: undefined: EvaluateStored
+internal/fusion/evidence/stored_test.go:20:30: undefined: Stored
+internal/fusion/evidence/stored_test.go:21:11: undefined: Stored
+internal/fusion/evidence/stored_test.go:22:6: undefined: EvaluateStored
+internal/fusion/evidence/stored_test.go:25:5: undefined: EvaluateStored
+FAIL	github.com/yetone/magpie/internal/fusion/evidence [build failed]
+FAIL

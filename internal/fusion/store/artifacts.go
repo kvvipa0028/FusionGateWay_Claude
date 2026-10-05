@@ -15,9 +15,10 @@ var ErrArtifactAuthority = errors.New("artifact producer authority unavailable")
 // ArtifactRecord is internal trusted producer data, never an HTTP task input.
 // Registration precedes release; reads independently require the released proof.
 type ArtifactRecord struct {
-	Reference     handoff.Reference `json:"reference"`
-	ParentRunID   string            `json:"parent_run_id"`
-	InputTreeHash string            `json:"input_tree_hash"`
+	Reference     handoff.Reference     `json:"reference"`
+	ParentRunID   string                `json:"parent_run_id"`
+	InputTreeHash string                `json:"input_tree_hash"`
+	Verification  *ArtifactVerification `json:"verification,omitempty"`
 }
 
 func (ArtifactRecord) String() string   { return "stored stage artifact (redacted)" }
@@ -34,6 +35,9 @@ func artifactRecordIn(q queryRow, runID string) (ArtifactRecord, error) {
 		return a, err
 	}
 	if hash([]byte(raw)) != checksum || json.Unmarshal([]byte(raw), &a) != nil || !handoff.ValidReference(a.Reference) || a.Reference.Binding.RunID != runID || a.Reference.Binding.TaskID != taskID || !validHash(a.InputTreeHash) {
+		return ArtifactRecord{}, ErrInvalid
+	}
+	if a.Verification != nil && !validArtifactVerification(a) {
 		return ArtifactRecord{}, ErrInvalid
 	}
 	b, err := json.Marshal(a)
@@ -109,6 +113,13 @@ func (s *Store) RecordArtifact(a ArtifactRecord) error {
 // The producer must verify actual Supervisor stop and current filesystem bytes
 // independently before calling; a caller-declared boolean/hash is insufficient.
 func (s *Store) RecordArtifactAuthorized(a ArtifactRecord, current func() bool) error {
+	if a.Verification != nil {
+		return ErrInvalid
+	}
+	return s.recordArtifactAuthorized(a, current)
+}
+
+func (s *Store) recordArtifactAuthorized(a ArtifactRecord, current func() bool) error {
 	if current == nil || !current() {
 		return ErrArtifactAuthority
 	}
@@ -140,11 +151,22 @@ func (s *Store) RecordArtifactAuthorized(a ArtifactRecord, current func() bool) 
 			if err := artifactParentIn(tx, t, r, a); err != nil {
 				return err
 			}
+			if a.Verification != nil && !verificationContextIn(tx, t, a.Verification) {
+				return ErrConflict
+			}
 			if _, err := tx.Exec("INSERT INTO stage_artifacts VALUES(?,?,?,?)", r.ID, r.TaskID, string(raw), hash(raw)); err != nil {
 				return err
 			}
 			if err := event(tx, r.TaskID, "artifact_recorded", r.ID, r.Generation); err != nil {
 				return err
+			}
+			if a.Verification != nil && a.Verification.Data.Verdict.Status != "passed" {
+				if _, err := tx.Exec("UPDATE tasks SET state='needs_review' WHERE id=?", r.TaskID); err != nil {
+					return err
+				}
+				if err := event(tx, r.TaskID, "verification_requires_review", r.ID, r.Generation); err != nil {
+					return err
+				}
 			}
 		} else {
 			return err

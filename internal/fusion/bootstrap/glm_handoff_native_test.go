@@ -18,6 +18,7 @@ import (
 
 	"github.com/yetone/magpie/internal/fusion/api"
 	"github.com/yetone/magpie/internal/fusion/control"
+	"github.com/yetone/magpie/internal/fusion/evidence"
 	"github.com/yetone/magpie/internal/fusion/handoff"
 	managed "github.com/yetone/magpie/internal/fusion/runtime"
 	"github.com/yetone/magpie/internal/fusion/stageplan"
@@ -29,11 +30,26 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 	if *hostNativeGLM == "" {
 		t.Skip("explicit pinned Native fixture only")
 	}
-	for _, mode := range []string{"success", "testing_scope_violation", "parent_header_drift", "unscoped_external_write"} {
+	for _, mode := range []string{"success", "testing_scope_violation", "parent_header_drift", "unscoped_external_write", "hard_test_failure", "malformed_test_report", "missing_verifier", "wrong_standard", "verifier_config_mutation"} {
 		t.Run(mode, func(t *testing.T) {
 			path, d, c, _, _ := glmFactoryFixture(t, true)
 			c.Executable, _ = filepath.EvalSymlinks(*hostNativeGLM)
 			c.TestingWritePaths = []string{"tests"}
+			verifierMode := "pass"
+			if mode == "hard_test_failure" {
+				verifierMode = "fail"
+			}
+			if mode == "malformed_test_report" {
+				verifierMode = "malformed"
+			}
+			c.Verification = glmVerificationFixture(t, verifierMode)
+			if mode == "missing_verifier" {
+				c.Verification = nil
+			}
+			if mode == "wrong_standard" {
+				c.Verification.Acceptance[0] = "other approved standard"
+			}
+			expectedVerification := copyRuntimeValue(c.Verification)
 			for _, dir := range []string{"src", "tests", "tests2"} {
 				if err := os.Mkdir(filepath.Join(d.Projects[0].Path, dir), 0700); err != nil {
 					t.Fatal(err)
@@ -74,6 +90,10 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 			factory, err := newGLMRuntimeFactory(c, upstream)
 			if err != nil {
 				t.Fatal(err)
+			}
+			if mode == "verifier_config_mutation" {
+				c.Verification.Spec.Args[len(c.Verification.Spec.Args)-1] = "fail"
+				c.Verification.Acceptance[0] = "caller mutated"
 			}
 			c.TestingWritePaths[0] = "src" // Caller mutation must not broaden the frozen scope.
 			wrapped := func(ctx context.Context, e RuntimeEnvironment) (RuntimeRegistration, error) {
@@ -196,6 +216,18 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 				}
 				return
 			}
+			if mode == "missing_verifier" || mode == "wrong_standard" {
+				before := calls.Load()
+				code, _, _ := hostHTTP(t, h, "POST", baseURL+"/start", `{"role":"testing"}`, "no-registered-verifier", `"p1-g2-ready"`)
+				if code == 202 || calls.Load() != before {
+					t.Fatal("missing/mismatched trusted verifier launched", code)
+				}
+				current, err := h.store.Task(task.ID)
+				if err != nil || current.Generation != 2 || current.State != "ready" {
+					t.Fatal("verifier rejection wrote intent", err)
+				}
+				return
+			}
 			testingRun := start(stageplan.Testing)
 			mu.Lock()
 			testingSpec := spec
@@ -223,7 +255,7 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 				}
 				return
 			}
-			wait(testingRun, mode == "success")
+			wait(testingRun, mode != "testing_scope_violation")
 			if mode == "testing_scope_violation" {
 				if _, err := os.Stat(filepath.Join(testingSpec.Workspace, "src/forbidden.txt")); !os.IsNotExist(err) {
 					t.Fatal("kernel allowed testing to edit product", err)
@@ -234,6 +266,22 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 				current, _ := h.store.Task(task.ID)
 				if current.State != "needs_review" {
 					t.Fatal("write violation did not stop workflow", current.State)
+				}
+				return
+			}
+
+			if mode == "hard_test_failure" || mode == "malformed_test_report" {
+				current, err := h.store.Task(task.ID)
+				if err != nil || current.State != "needs_review" {
+					t.Fatal("Native success overrode hard verification failure", err, current.State)
+				}
+				stored, v, err := h.store.VerifiedArtifact(testingRun.Run.ID, d.Projects[0].Path, c.ExecutionRoot, expectedVerification.Spec)
+				want := evidence.Failed
+				if mode == "malformed_test_report" {
+					want = evidence.Unverified
+				}
+				if err != nil || v.Status != want || stored.Verification == nil {
+					t.Fatal("hard failure not recorded", err, v)
 				}
 				return
 			}
@@ -269,10 +317,28 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 			if err != nil || int64(budget.UsedCalls) != calls.Load() || calls.Load() != 5 {
 				t.Fatal("stage budget reset/bypass", err, calls.Load())
 			}
+
+			if err = h.Close(); err != nil {
+				t.Fatal(err)
+			}
+			h, err = OpenExecutionControl(context.Background(), path, root, "127.0.0.1:0", wrapped)
+			if err != nil {
+				t.Fatal("verified host restart", err)
+			}
+			serveExecutionHost(t, h)
+			_, verified, err := h.store.VerifiedArtifact(testingRun.Run.ID, d.Projects[0].Path, c.ExecutionRoot, expectedVerification.Spec)
+			if err != nil || verified.Status != evidence.Passed || verified.Tests != 2 {
+				t.Fatal("restart lost actual verification", err, verified)
+			}
+			changed := expectedVerification.Spec
+			changed.Rules.MinTests = 3
+			if _, v, err := h.store.VerifiedArtifact(testingRun.Run.ID, d.Projects[0].Path, c.ExecutionRoot, changed); err != nil || v.Status != evidence.Superseded {
+				t.Fatal("changed standard reused result", err, v)
+			}
 			before = calls.Load()
-			code, _, _ = hostHTTP(t, h, "POST", baseURL+"/start", `{"role":"review"}`, "no-hard-evidence", `"p1-g3-ready"`)
+			code, _, _ = hostHTTP(t, h, "POST", baseURL+"/start", `{"role":"review"}`, "review-consumer-pending", `"p1-g3-ready"`)
 			if code == 202 || calls.Load() != before {
-				t.Fatal("missing hard evidence allowed later workflow", code)
+				t.Fatal("missing review consumer allowed later workflow", code)
 			}
 		})
 	}

@@ -1,0 +1,111 @@
+=== RUN   TestGLMFactoryPinnedNativeProductLifecycle
+=== RUN   TestGLMFactoryPinnedNativeProductLifecycle/success
+    glm_execution_native_test.go:313: production factory -> HTTP/Controller/Store -> GLMAdapter -> fixed Native -> 1 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+=== RUN   TestGLMFactoryPinnedNativeProductLifecycle/implementation
+    glm_execution_native_test.go:313: production factory -> HTTP/Controller/Store -> GLMAdapter -> fixed Native -> 2 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+=== RUN   TestGLMFactoryPinnedNativeProductLifecycle/handoff_collision
+    glm_execution_native_test.go:313: production factory -> HTTP/Controller/Store -> GLMAdapter -> fixed Native -> 1 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+=== RUN   TestGLMFactoryPinnedNativeProductLifecycle/cancel
+    glm_execution_native_test.go:313: production factory -> HTTP/Controller/Store -> GLMAdapter -> fixed Native -> 1 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+=== RUN   TestGLMFactoryPinnedNativeProductLifecycle/registry_revocation
+    glm_execution_native_test.go:313: production factory -> HTTP/Controller/Store -> GLMAdapter -> fixed Native -> 1 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+=== RUN   TestGLMFactoryPinnedNativeProductLifecycle/credential_rotation
+    glm_execution_native_test.go:313: production factory -> HTTP/Controller/Store -> GLMAdapter -> fixed Native -> 1 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+=== RUN   TestGLMFactoryPinnedNativeProductLifecycle/source_revocation
+    glm_execution_native_test.go:313: production factory -> HTTP/Controller/Store -> GLMAdapter -> fixed Native -> 1 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+--- PASS: TestGLMFactoryPinnedNativeProductLifecycle (6.78s)
+    --- PASS: TestGLMFactoryPinnedNativeProductLifecycle/success (1.01s)
+    --- PASS: TestGLMFactoryPinnedNativeProductLifecycle/implementation (1.11s)
+    --- PASS: TestGLMFactoryPinnedNativeProductLifecycle/handoff_collision (0.96s)
+    --- PASS: TestGLMFactoryPinnedNativeProductLifecycle/cancel (0.91s)
+    --- PASS: TestGLMFactoryPinnedNativeProductLifecycle/registry_revocation (0.93s)
+    --- PASS: TestGLMFactoryPinnedNativeProductLifecycle/credential_rotation (0.94s)
+    --- PASS: TestGLMFactoryPinnedNativeProductLifecycle/source_revocation (0.93s)
+=== RUN   TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration
+=== RUN   TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/nil_registry
+=== RUN   TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/unadmitted
+=== RUN   TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/nil_inspector
+=== RUN   TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/route
+=== RUN   TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/revision
+=== RUN   TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/relative_executable
+=== RUN   TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/relative_root
+=== RUN   TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/shared_root
+=== RUN   TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/project_root
+=== RUN   TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/credential_root
+=== RUN   TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/key_in_project
+=== RUN   TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/key_permissions
+=== RUN   TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/no_read
+=== RUN   TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/model
+=== RUN   TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/account
+=== RUN   TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/runtime
+=== RUN   TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/no_effort
+--- PASS: TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration (0.96s)
+    --- PASS: TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/nil_registry (0.00s)
+    --- PASS: TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/unadmitted (0.09s)
+    --- PASS: TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/nil_inspector (0.00s)
+    --- PASS: TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/route (0.09s)
+    --- PASS: TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/revision (0.12s)
+    --- PASS: TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/relative_executable (0.00s)
+    --- PASS: TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/relative_root (0.00s)
+    --- PASS: TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/shared_root (0.00s)
+    --- PASS: TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/project_root (0.09s)
+    --- PASS: TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/credential_root (0.00s)
+    --- PASS: TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/key_in_project (0.09s)
+    --- PASS: TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/key_permissions (0.09s)
+    --- PASS: TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/no_read (0.00s)
+    --- PASS: TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/model (0.09s)
+    --- PASS: TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/account (0.09s)
+    --- PASS: TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/runtime (0.09s)
+    --- PASS: TestGLMFactoryRequiresIndependentAdmissionAndPrivateRegistration/no_effort (0.09s)
+=== RUN   TestGLMFactoryResolvesOwnedCopyAndPreservesFrozenPrompt
+--- PASS: TestGLMFactoryResolvesOwnedCopyAndPreservesFrozenPrompt (0.30s)
+=== RUN   TestGLMFactoryRechecksRegistryCredentialSourceAndRoot
+=== RUN   TestGLMFactoryRechecksRegistryCredentialSourceAndRoot/registry
+=== RUN   TestGLMFactoryRechecksRegistryCredentialSourceAndRoot/credential
+=== RUN   TestGLMFactoryRechecksRegistryCredentialSourceAndRoot/source
+=== RUN   TestGLMFactoryRechecksRegistryCredentialSourceAndRoot/root
+=== RUN   TestGLMFactoryRechecksRegistryCredentialSourceAndRoot/target
+=== RUN   TestGLMFactoryRechecksRegistryCredentialSourceAndRoot/other_project
+=== RUN   TestGLMFactoryRechecksRegistryCredentialSourceAndRoot/inspector_route
+=== RUN   TestGLMFactoryRechecksRegistryCredentialSourceAndRoot/inspector_provider
+--- PASS: TestGLMFactoryRechecksRegistryCredentialSourceAndRoot (0.81s)
+    --- PASS: TestGLMFactoryRechecksRegistryCredentialSourceAndRoot/registry (0.10s)
+    --- PASS: TestGLMFactoryRechecksRegistryCredentialSourceAndRoot/credential (0.10s)
+    --- PASS: TestGLMFactoryRechecksRegistryCredentialSourceAndRoot/source (0.10s)
+    --- PASS: TestGLMFactoryRechecksRegistryCredentialSourceAndRoot/root (0.10s)
+    --- PASS: TestGLMFactoryRechecksRegistryCredentialSourceAndRoot/target (0.11s)
+    --- PASS: TestGLMFactoryRechecksRegistryCredentialSourceAndRoot/other_project (0.10s)
+    --- PASS: TestGLMFactoryRechecksRegistryCredentialSourceAndRoot/inspector_route (0.10s)
+    --- PASS: TestGLMFactoryRechecksRegistryCredentialSourceAndRoot/inspector_provider (0.11s)
+=== RUN   TestGLMFactoryPreservesDefaultEffortWithResolvedValue
+--- PASS: TestGLMFactoryPreservesDefaultEffortWithResolvedValue (0.11s)
+=== RUN   TestGLMFactoryRejectsReplacedRootBeforeRegistration
+--- PASS: TestGLMFactoryRejectsReplacedRootBeforeRegistration (0.09s)
+=== RUN   TestGLMFactoryDoesNotDiscardChangesThroughFreshMultistageCopies
+--- PASS: TestGLMFactoryDoesNotDiscardChangesThroughFreshMultistageCopies (0.10s)
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/success
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/testing_scope_violation
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/parent_header_drift
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/unscoped_external_write
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/hard_test_failure
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/malformed_test_report
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/missing_verifier
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/wrong_standard
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/verifier_config_mutation
+--- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart (27.30s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/success (3.60s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/testing_scope_violation (3.11s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/parent_header_drift (2.25s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/unscoped_external_write (3.34s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/hard_test_failure (3.53s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/malformed_test_report (3.46s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/missing_verifier (2.22s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/wrong_standard (2.24s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/verifier_config_mutation (3.56s)
+=== RUN   TestGLMStageWritePathsNarrowApprovedScopeWithoutFallback
+--- PASS: TestGLMStageWritePathsNarrowApprovedScopeWithoutFallback (0.00s)
+=== RUN   TestGLMFactoryRejectsUnsafeTestingRootsAndRefusesMissingScope
+--- PASS: TestGLMFactoryRejectsUnsafeTestingRootsAndRefusesMissingScope (0.11s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	38.942s

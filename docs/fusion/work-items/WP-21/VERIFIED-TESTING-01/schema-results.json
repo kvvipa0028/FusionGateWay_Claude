@@ -1,0 +1,7 @@
+{
+  "actual_owned_header_and_record": "pass",
+  "report_and_stderr_hashes": "pass",
+  "legacy_advisory_header": "pass",
+  "negative_headers": 6,
+  "origin_or_next_stage_grant": "not_proved_by_schema"
+}

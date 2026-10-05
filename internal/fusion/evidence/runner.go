@@ -244,28 +244,7 @@ func Evaluate(r Result, current workspace.FrozenArtifact, s Spec) Verdict {
 	if !ok || current.Path() != v.artifact.Path() || !v.artifact.Current() || rec.InputChanged || current.Manifest().TreeHash != rec.ArtifactHash || suite != rec.SuiteHash || !reflect.DeepEqual(clone(s), v.spec) {
 		return Verdict{Status: Superseded, Reason: "artifact_suite_or_standard_changed"}
 	}
-	if !rec.Executed || !rec.Stopped || rec.Interrupted {
-		return Verdict{Status: Unverified, Reason: "execution_not_completed"}
-	}
-	if rec.ExitCode != 0 {
-		return Verdict{Status: Failed, Reason: "nonzero_exit"}
-	}
-	if rec.Truncated {
-		return Verdict{Status: Unverified, Reason: "truncated_report"}
-	}
-	c, err := parseJUnit(v.stdout)
-	if err != nil {
-		return Verdict{Status: Unverified, Reason: "report_parse_failed"}
-	}
-	verdict := Verdict{Status: Passed, Tests: c.tests, Skipped: c.skipped}
-	if c.failures+c.errors > 0 {
-		verdict.Status = Failed
-		verdict.Reason = "test_failure"
-	} else if c.tests < c.skipped+s.Rules.MinTests || c.tests == 0 && !s.Rules.AllowZero || c.skipped > 0 && !s.Rules.AllowSkipped {
-		verdict.Status = Unverified
-		verdict.Reason = "insufficient_executed_tests"
-	}
-	return verdict
+	return evaluateReport(rec, v.stdout, s.Rules)
 }
 
 type bounded struct {

@@ -1,0 +1,75 @@
+{
+  "component": "WP-21-VERIFIED-TESTING-01",
+  "base": "a46de1137abd38ed284a73a056c50f282cbbfe3b",
+  "files_sha256": {
+    "AGENTS.md": "e7c8d7cf0af33003bac88724c9ef0423e90245d5fd8a236808c8d4633a356523",
+    "docs/fusion/README.md": "e5ae7034bac8dd296e794f7daa6c1a5379dfe603353ca13930c377844da53ebe",
+    "docs/fusion/contracts/durable-stage-artifact.md": "c67ac537a7b775ade2a1ecb1e5ed4e1e31592bab3614572a7d1e399376775698",
+    "docs/fusion/contracts/glm-execution-factory.md": "65947bb61b83ab5ee981f49764bf81d42b0fb3dc20b940b58b16e54334e64308",
+    "docs/fusion/contracts/glm-stage-handoff.md": "4b8b8318fc729f47ab339942bc9201f1e8ca311fa429d7bfd8e01cd11b3db552",
+    "docs/fusion/contracts/handoff.schema.json": "4719add63f90f2c608c235d1c08e4cc349a96617224937e96e75066353be887b",
+    "docs/fusion/contracts/stage-handoff.md": "096cf7af0c7ce0ecd5ba4ee69a84d6dacb4d5717d5d50dbb805acb70a2588804",
+    "docs/fusion/contracts/verification-runner.md": "2f0ff3bb556168420c9686d10811f2cb9ef057de8667baa3d415820cb3f0b839",
+    "docs/fusion/work-items/WP-21/VERIFIED-TESTING-01/actual-capture.json": "ed464e885b5ab0eb78c25b3b5e985c93040849d7d0b69a03b1136a50d1c44985",
+    "docs/fusion/work-items/WP-21/VERIFIED-TESTING-01/actual-report.xml": "6cb570459abc8f41731bd7d9ce549f0adffbd48b6144c931efdc7bb721f926a4",
+    "docs/fusion/work-items/WP-21/VERIFIED-TESTING-01/actual-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/fusion/work-items/WP-21/VERIFIED-TESTING-01/build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/fusion/work-items/WP-21/VERIFIED-TESTING-01/build-gui.log": "ded8d25b33aeaaf69ea3d88907b91b7af7eeda140341b6e1df6e568e0779a2f0",
+    "docs/fusion/work-items/WP-21/VERIFIED-TESTING-01/build-results.json": "24b6b266fdd19ef691a8166bf74d8a2fdabe9b7c136ab37a16150ad417fd61a7",
+    "docs/fusion/work-items/WP-21/VERIFIED-TESTING-01/build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/fusion/work-items/WP-21/VERIFIED-TESTING-01/check-schema.py": "62bf0d3fc47a71cf9400b9303abe34ddb240122c16eb7c43ddd9ae49d02a5b00",
+    "docs/fusion/work-items/WP-21/VERIFIED-TESTING-01/schema-results.json": "d60ff669ef9eb6668bae04fc7bb3c3fb25f93f37956c2cb2bc5b2f9e40ab2129",
+    "docs/fusion/work-items/WP-21/VERIFIED-TESTING-01/summary.md": "ebfdecc87e8ab7f86684986ace9a5d5fa6aa26c3c3609622be763ce0ab8893a2",
+    "docs/fusion/work-items/WP-21/VERIFIED-TESTING-01/test-results.json": "89e9921bd587fe87e450da67dbc829662b259ccd25e3b3fe450c9afd5a0b9a7e",
+    "docs/fusion/work-items/WP-21/VERIFIED-TESTING-01/verified-core-initial.log": "56fd82039beadde7fb88683912f2a7b95a9e97f193f4a86d8311064b9164530c",
+    "docs/fusion/work-items/WP-21/VERIFIED-TESTING-01/verified-export-green.log": "a54716e023c25368a37cf83277b800754b62a13f7c6a94eca9d6c1f2994c10f1",
+    "docs/fusion/work-items/WP-21/VERIFIED-TESTING-01/verified-export-red.log": "beeeed175fe243bd740152e739e3f357ed854ed83858668be1fc9f61ae397cf9",
+    "docs/fusion/work-items/WP-21/VERIFIED-TESTING-01/verified-fusion-final.log": "0875eb78c12ad021e297a157a8c862cd7481ff2404e8a4c7782ec5260a9896f0",
+    "docs/fusion/work-items/WP-21/VERIFIED-TESTING-01/verified-hardgate-mutation.log": "3ccea68f37039a8a75bb6548f066b5dc40850f97eb2a279aa5638a2b3b592c81",
+    "docs/fusion/work-items/WP-21/VERIFIED-TESTING-01/verified-native-final.log": "601424f28f0afd581d2086765495b9c2647323a04b6c7528ee2939ba53dba47b",
+    "docs/fusion/work-items/WP-21/VERIFIED-TESTING-01/verified-native-initial.log": "5e88e4f72c9d48b6e4b13c6bbc6aee05aeb50af29bb54c4109b4d24a26be138a",
+    "docs/fusion/work-items/WP-21/VERIFIED-TESTING-01/verified-native-red.log": "365a2013008005a29994987928eb84a377ca2bd66fca569a9a970b08eb6834d0",
+    "docs/fusion/work-items/WP-21/VERIFIED-TESTING-01/verified-native-restored.log": "f6de255209e94a41e8d8b9d991bb914409a27288b9f03de5c8e73586a410d1f1",
+    "docs/fusion/work-items/WP-21/VERIFIED-TESTING-01/verified-store-final.log": "28c5e1566c8b7d7601dff5d3c09f33b8eade4e17a5c8ba43afe05312203653b3",
+    "docs/fusion/work-items/WP-21/VERIFIED-TESTING-01/verified-store-initial.log": "c15c108dc96f43a10acb9d996f1c6d60fd34070b65454f913f8d2570c6006c8f",
+    "docs/fusion/work-items/WP-21/VERIFIED-TESTING-01/verified-store-red.log": "8d4ef28d917f5ffdefd41d7816ca2b8332ae27714260b8cf3da37c2cffb79ea3",
+    "docs/fusion/work-items/WP-21/summary.md": "ec3f35f61aaf646cb29e507e275bed8a7766edaf4d651ed75fee3426ef466ff1",
+    "internal/fusion/bootstrap/glm_execution.go": "4daaaf0019d376f552e0b36b11bbbeedaf6e096c734b74b41894185f008a1c5d",
+    "internal/fusion/bootstrap/glm_handoff_native_test.go": "1ea6bc4ffdac30000ea3cf7b735afcf9c899aa769b1701856747d6bd882aa77a",
+    "internal/fusion/bootstrap/glm_verification.go": "8f1f1e6226be06a16ff82f2ba6dbe94b1567e6730e376018f372669088c5de00",
+    "internal/fusion/bootstrap/glm_verification_native_test.go": "64043700862362d59506f400f7b3a1577aed0c2db543ba8324004adebe982c46",
+    "internal/fusion/evidence/runner.go": "bd54dff707ab5ba04b6da1f3f8a5727a07bbfe07c679a22bf76803f43e1ea9b6",
+    "internal/fusion/evidence/stored.go": "b76a4add1ae6b6ee4a9e763b94ffc6892c5d4b1e0a74f82a825a51a039814378",
+    "internal/fusion/evidence/stored_test.go": "d23cbfdc148e46d2a22167bcbff851343966898c35451de742ab05afb9529a7c",
+    "internal/fusion/handoff/bundle.go": "5fb8aa3c3b416441b5813bf19f68271adf60723e1d9e360fa8885adab603ad97",
+    "internal/fusion/store/artifacts.go": "a7fe6d907715ae946fef66ca59736903f3b056eae68f1e95fddb9d916ce12401",
+    "internal/fusion/store/verification.go": "d285e5c6994f833591d5cc00c6e3729dbcd8c66b5654c1b73a131882a56aca97",
+    "internal/fusion/store/verification_test.go": "151715044d6604e5e36c04c54ff72d30648b698d519dd4a5f18aa4e45f5ca878"
+  },
+  "scope_integrity_checks": {
+    "all_gui_unchanged": [
+      "internal/gui"
+    ],
+    "api_controller_runtime_policy_sql_unchanged": [
+      "internal/fusion/api",
+      "internal/fusion/control",
+      "internal/fusion/runtime",
+      "internal/fusion/policy",
+      "internal/fusion/store/migrations"
+    ],
+    "openapi_unchanged": [
+      "docs/fusion/contracts/openapi.yaml"
+    ]
+  },
+  "private_credential_bytes_excluded": true,
+  "ui_files_changed": 0,
+  "ui_main_assets_equal_pinned_upstream": true,
+  "pinned_upstream": "1a50db1a8afd0849df2853f92a47da9d5e2f2cc9",
+  "local_doc_links_checked": 104,
+  "graph": {
+    "project": "fusion-development",
+    "nodes": 14492,
+    "edges": 130258
+  },
+  "current_binary_hashes_verified": true
+}

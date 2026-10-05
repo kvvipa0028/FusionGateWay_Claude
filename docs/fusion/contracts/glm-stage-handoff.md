@@ -1,6 +1,6 @@
 # GLM 阶段 resolver 与写范围
 
-本合同接续[持久产物](durable-stage-artifact.md)与[Factory](glm-execution-factory.md)。当前实际接入 design→人工批准→implementation→testing。完整目标仍包含真实测试 Executor/EvidenceGate、审查、验收和有限返工；多角色 review/acceptance 在硬证据接入前保持 unsupported。原 Magpie UI/CSS 不改，Jev off。
+本合同接续[持久产物](durable-stage-artifact.md)与[Factory](glm-execution-factory.md)。当前实际接入 design→人工批准→implementation→testing。实际 testing 已接入直接执行器、硬证据和重启回读。完整目标仍包含受控子进程工具链、审查、验收和有限返工；多角色 review/acceptance 在其受控消费者完成前保持 unsupported。原 Magpie UI/CSS 不改，Jev off。
 
 ## 精确输入与执行
 
@@ -48,6 +48,6 @@ PATH="$HOME/.local/bin:$PATH" python3 docs/fusion/work-items/WP-13/CALLS-01/run-
 PATH="$HOME/.local/bin:$PATH" python3 scripts/fusion/build-dev.py
 ```
 
-固定真实 Claude Code 使用合成模型/key/准入。新增链验证未批准实施不启动、批准后实际 Edit、真实关闭/reopen 宿主、testing 继续实施代码、新测试生成新 revision、独立 sessions、累计预算和无硬证据时阻断 review。另验证 Native 越界 Edit 失败、父 header 漂移无新 intent/模型请求，以及宿主越界改码虽 Native 文本成功仍无法发布。真实供应商 key/模型/额度调用为 0；缺少固定 pin 明确 skip，不算通过。
+固定真实 Claude Code 使用合成模型/key/准入。新增链验证未批准实施不启动、批准后实际 Edit、真实关闭/reopen 宿主、testing 继续实施代码、新测试生成新 revision、独立 sessions、累计预算及 review 消费者尚未实现时的启动阻断。实际硬失败/无效报告导致 needs_review、缺失验证器/标准不符在启动前拒绝，配置深复制及重启读取硬证据见 [WP-21](../work-items/WP-21/VERIFIED-TESTING-01/summary.md)。另验证 Native 越界 Edit 失败、父 header 漂移无新 intent/模型请求，以及宿主越界改码虽 Native 文本成功仍无法发布。真实供应商 key/模型/额度调用为 0；缺少固定 pin 明确 skip，不算通过。
 
 [交付证据](../work-items/WP-20/HANDOFF-RESOLVER-01/summary.md)。本组件没有改 SQL001–010、public HTTP/OpenAPI DTO 或 UI。缺少 scope/parent/当前批准、坏 hash/来源漂移都应修正原对象或显式对账，不换 run/模型/来源绕过。回退先停止派单，核验 owned 进程、reservation、产物状态，再停用多阶段 resolver；不能回退为每阶段重新复制原项目，不回滚 schema10，不删未经核验目录，不自动 commit/merge 用户项目。

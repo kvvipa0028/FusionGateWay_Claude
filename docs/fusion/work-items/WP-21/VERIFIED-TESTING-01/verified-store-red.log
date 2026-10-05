@@ -1,0 +1,11 @@
+# github.com/yetone/magpie/internal/fusion/store [github.com/yetone/magpie/internal/fusion/store.test]
+internal/fusion/store/verification_test.go:54:12: s.RecordVerifiedArtifactAuthorized undefined (type *Store has no field or method RecordVerifiedArtifactAuthorized)
+internal/fusion/store/verification_test.go:55:16: s.VerifiedArtifact undefined (type *Store has no field or method VerifiedArtifact)
+internal/fusion/store/verification_test.go:57:21: s.VerifiedArtifact undefined (type *Store has no field or method VerifiedArtifact)
+internal/fusion/store/verification_test.go:61:16: s.VerifiedArtifact undefined (type *Store has no field or method VerifiedArtifact)
+internal/fusion/store/verification_test.go:63:16: s.VerifiedArtifact undefined (type *Store has no field or method VerifiedArtifact)
+internal/fusion/store/verification_test.go:69:12: s.RecordVerifiedArtifactAuthorized undefined (type *Store has no field or method RecordVerifiedArtifactAuthorized)
+internal/fusion/store/verification_test.go:73:11: s.RecordVerifiedArtifactAuthorized undefined (type *Store has no field or method RecordVerifiedArtifactAuthorized)
+internal/fusion/store/verification_test.go:75:11: s.RecordVerifiedArtifactAuthorized undefined (type *Store has no field or method RecordVerifiedArtifactAuthorized)
+FAIL	github.com/yetone/magpie/internal/fusion/store [build failed]
+FAIL

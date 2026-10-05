@@ -1,0 +1,6 @@
+=== RUN   TestVerificationOwnedRegistrationSurvivesRestartAndCannotBeForged
+--- PASS: TestVerificationOwnedRegistrationSurvivesRestartAndCannotBeForged (0.25s)
+=== RUN   TestVerificationFailureNeedsReviewAndEventRollbackPreservesTask
+--- PASS: TestVerificationFailureNeedsReviewAndEventRollbackPreservesTask (0.20s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/store	2.111s

@@ -14,6 +14,7 @@ import (
 	"syscall"
 	"unicode/utf8"
 
+	"github.com/yetone/magpie/internal/fusion/evidence"
 	"github.com/yetone/magpie/internal/fusion/stageplan"
 	"github.com/yetone/magpie/internal/fusion/workspace"
 )
@@ -66,12 +67,34 @@ func (Bundle) GoString() string { return "Bundle(<redacted>)" }
 // actual stopped process and persisted Task/Plan/Run; hashes do not prove that.
 // Model output remains advisory, never tests_executed or acceptance evidence.
 func Publish(a workspace.FrozenArtifact, binding Binding, goal string, evidence Evidence) (Bundle, error) {
+	return publish(a, binding, goal, evidence, nil)
+}
+
+// PublishVerified derives engineering status exclusively from an owned stopped
+// verifier, never from Native model text or a caller-declared JSON summary.
+func PublishVerified(a workspace.FrozenArtifact, binding Binding, goal string, native Evidence, result evidence.Result, spec evidence.Spec) (Bundle, error) {
+	if binding.Role != stageplan.Testing {
+		return Bundle{}, ErrInvalid
+	}
+	v, err := evidence.Export(result, a, spec)
+	if err != nil {
+		return Bundle{}, ErrInvalid
+	}
+	return publish(a, binding, goal, native, &v)
+}
+
+func publish(a workspace.FrozenArtifact, binding Binding, goal string, evidence Evidence, verified *evidence.Stored) (Bundle, error) {
 	if !validBinding(binding) || !a.Current() || !utf8.ValidString(goal) || strings.TrimSpace(goal) == "" || len(goal) > 64<<10 || !digest(evidence.OutputHash) || !digest(evidence.StopProofHash) {
 		return Bundle{}, ErrInvalid
 	}
 	doc := Document{Version: 1, Binding: binding, Artifact: a.Manifest(), Decisions: []string{}, Pending: []string{"design_decisions_not_extracted", "engineering_tests_not_executed", "independent_review_pending", "acceptance_pending"}}
 	doc.Task.Goal = goal
 	doc.Evidence.Evidence, doc.Evidence.Status = evidence, "unverified"
+	if verified != nil {
+		doc.Evidence.Status = string(verified.Verdict.Status)
+		doc.Evidence.TestsExecuted = verified.Record.Executed
+		doc.Pending = []string{"design_decisions_not_extracted", "independent_review_pending", "acceptance_pending"}
+	}
 	doc.Changes = doc.Artifact.Changes
 	raw, err := json.Marshal(doc)
 	if err != nil || len(raw) > 8<<20 {
@@ -142,6 +165,15 @@ func (h Bundle) Copy(expected Binding, root, name string) (workspace.Snapshot, e
 		return workspace.Snapshot{}, err
 	}
 	return s, nil
+}
+
+// Artifact exposes owned frozen provenance only after the exact bundle and
+// header check. Public JSON metadata cannot construct a FrozenArtifact.
+func (h Bundle) Artifact(expected Binding) (workspace.FrozenArtifact, error) {
+	if _, err := h.Read(expected); err != nil {
+		return workspace.FrozenArtifact{}, err
+	}
+	return h.artifact, nil
 }
 func validBinding(b Binding) bool {
 	role := false

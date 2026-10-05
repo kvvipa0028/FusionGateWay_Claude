@@ -1,0 +1,8 @@
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/hard_test_failure
+    glm_handoff_native_test.go:276: Native success overrode hard verification failure <nil> ready
+--- FAIL: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart (3.15s)
+    --- FAIL: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/hard_test_failure (3.15s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	3.832s
+FAIL

@@ -1,0 +1,6 @@
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/hard_test_failure
+--- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart (3.22s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/hard_test_failure (3.21s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	4.858s
