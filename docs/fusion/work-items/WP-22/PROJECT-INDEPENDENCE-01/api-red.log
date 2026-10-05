@@ -1,0 +1,14 @@
+# github.com/yetone/magpie/internal/fusion/stageplan [github.com/yetone/magpie/internal/fusion/stageplan.test]
+internal/fusion/stageplan/independence_test.go:14:14: undefined: CompileWithIndependence
+internal/fusion/stageplan/independence_test.go:16:12: undefined: CompileWithIndependence
+internal/fusion/stageplan/independence_test.go:16:102: undefined: RolePair
+internal/fusion/stageplan/independence_test.go:18:13: undefined: RolePair
+internal/fusion/stageplan/independence_test.go:19:10: undefined: CompileWithIndependence
+internal/fusion/stageplan/independence_test.go:20:82: undefined: RolePair
+internal/fusion/stageplan/independence_test.go:30:28: undefined: RolePair
+internal/fusion/stageplan/independence_test.go:31:14: undefined: CanonicalIndependence
+internal/fusion/stageplan/independence_test.go:37:9: undefined: CompileWithIndependence
+internal/fusion/stageplan/independence_test.go:37:94: undefined: RolePair
+internal/fusion/stageplan/independence_test.go:37:94: too many errors
+FAIL	github.com/yetone/magpie/internal/fusion/stageplan [build failed]
+FAIL

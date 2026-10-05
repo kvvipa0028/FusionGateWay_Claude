@@ -150,6 +150,9 @@ func (s *Scheduler) prepareReservation(ctx context.Context, in store.StartReques
 	if !allowed {
 		return store.ReservationRequest{}, blocked("target_not_approved")
 	}
+	if e = s.Store.ValidateStageTargetAuthorized(store.StartIdentity{TaskID: t.ID, Role: in.Role, PlanRevision: in.PlanRevision, Generation: t.Generation, Restore: in.Restore}, in.Target, func() bool { return ctx != nil && ctx.Err() == nil }); e != nil {
+		return store.ReservationRequest{}, e
+	}
 	inspection, e := s.inspect(ctx, t, in.Role, in.Target)
 	if e != nil {
 		return store.ReservationRequest{}, e

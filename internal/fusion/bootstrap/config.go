@@ -48,15 +48,16 @@ type RouteDeclaration struct {
 	NoEffort           bool     `json:"no_effort"`
 }
 type ProjectDeclaration struct {
-	ID         string               `json:"id"`
-	Name       string               `json:"name"`
-	Path       string               `json:"path"`
-	Read       bool                 `json:"read"`
-	Write      bool                 `json:"write"`
-	Routes     []stageplan.RouteRef `json:"routes"`
-	Layer      stageplan.Layer      `json:"layer"`
-	MaxCalls   *int                 `json:"max_calls,omitempty"`
-	MaxReworks *int                 `json:"max_reworks,omitempty"`
+	ID           string               `json:"id"`
+	Name         string               `json:"name"`
+	Path         string               `json:"path"`
+	Read         bool                 `json:"read"`
+	Write        bool                 `json:"write"`
+	Routes       []stageplan.RouteRef `json:"routes"`
+	Layer        stageplan.Layer      `json:"layer"`
+	MaxCalls     *int                 `json:"max_calls,omitempty"`
+	MaxReworks   *int                 `json:"max_reworks,omitempty"`
+	Independence []stageplan.RolePair `json:"independence,omitempty"`
 }
 
 // Project is an internal copied registration. Path/grants must not be accepted
@@ -200,7 +201,11 @@ func Load(path string) (*Loaded, error) {
 		if calls < 1 || calls > 1000 || reworks < 0 || reworks > 1 {
 			return nil, ErrRegistration
 		}
-		p := Project{ID: entry.ID, Name: entry.Name, Path: entry.Path, Read: entry.Read, Write: entry.Write, Configuration: api.ProjectConfiguration{Global: global, Project: layer, Routes: available, DefaultBudget: &api.BudgetLimits{MaxCalls: calls, MaxReworks: reworks}}}
+		pairs, e := stageplan.CanonicalIndependence(entry.Independence)
+		if e != nil {
+			return nil, ErrRegistration
+		}
+		p := Project{ID: entry.ID, Name: entry.Name, Path: entry.Path, Read: entry.Read, Write: entry.Write, Configuration: api.ProjectConfiguration{Global: global, Project: layer, Routes: available, DefaultBudget: &api.BudgetLimits{MaxCalls: calls, MaxReworks: reworks}, Independence: pairs}}
 		s.projects[entry.ID] = registeredProject{project: p, folder: folder}
 	}
 	return s, nil

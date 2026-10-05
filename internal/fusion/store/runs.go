@@ -94,6 +94,9 @@ func (s *Store) startIntentIn(tx *sql.Tx, in StartRequest, result *StageRun) err
 	if !admitted {
 		return ErrInvalid
 	}
+	if e = independenceTargetIn(tx, t, p, in.Role, in.Target); e != nil {
+		return e
+	}
 	if in.Restore != nil {
 		if in.IdempotencyKey == "" || !validRestoreIdentity(in.Restore) {
 			return ErrInvalid

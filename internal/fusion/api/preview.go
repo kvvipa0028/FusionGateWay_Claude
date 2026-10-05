@@ -33,10 +33,11 @@ var errCapacity = errors.New("task preview capacity reached")
 // controller. HTTP callers can persist separate global/project binding layers,
 // but cannot supply this whole object or change its route authority.
 type ProjectConfiguration struct {
-	Global        stageplan.Layer   `json:"global"`
-	Project       stageplan.Layer   `json:"project"`
-	Routes        []stageplan.Route `json:"routes"`
-	DefaultBudget *BudgetLimits     `json:"default_budget,omitempty"`
+	Global        stageplan.Layer      `json:"global"`
+	Project       stageplan.Layer      `json:"project"`
+	Routes        []stageplan.Route    `json:"routes"`
+	DefaultBudget *BudgetLimits        `json:"default_budget,omitempty"`
+	Independence  []stageplan.RolePair `json:"independence,omitempty"`
 }
 
 // BudgetLimits accepts limits only. Used counters belong to the persistent
@@ -130,6 +131,10 @@ func (s *Server) SetProject(id string, c ProjectConfiguration) error {
 	if !validLimits(*copied.DefaultBudget) {
 		return errInvalid
 	}
+	copied.Independence, e = stageplan.CanonicalIndependence(copied.Independence)
+	if e != nil {
+		return errInvalid
+	}
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	old := s.projects[id]
@@ -192,7 +197,7 @@ func (s *Server) preview(in PreviewRequest) (Preview, error) {
 	if e != nil {
 		return Preview{}, errInvalid
 	}
-	plan, e := stageplan.Compile(1, validated.RequiredRoles, validated.Global, validated.Project, validated.Task, p.configuration.Routes)
+	plan, e := stageplan.CompileWithIndependence(1, validated.RequiredRoles, validated.Global, validated.Project, validated.Task, p.configuration.Routes, p.configuration.Independence)
 	if e != nil {
 		return Preview{}, e
 	}
@@ -299,7 +304,7 @@ func failure(w http.ResponseWriter, e error) {
 		// arbitrary error text of a store, Runtime or injected dependency.
 		candidate := strings.TrimPrefix(e.Error(), stageplan.ErrInvalidPlan.Error()+": ")
 		switch candidate {
-		case "route_revision_not_admitted", "route_identity_or_version_unknown", "billing_or_model_unverified", "call_lock_scope_insufficient", "required_capability_missing", "none_not_admitted", "default_effort_undisclosed", "effort_unsupported", "plugin_version_unknown":
+		case "route_revision_not_admitted", "route_identity_or_version_unknown", "billing_or_model_unverified", "call_lock_scope_insufficient", "required_capability_missing", "none_not_admitted", "default_effort_undisclosed", "effort_unsupported", "plugin_version_unknown", "independence_conflict", "independence_invalid":
 			reason = candidate
 		}
 	case errors.Is(e, errCapacity):

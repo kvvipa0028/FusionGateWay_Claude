@@ -3696,6 +3696,8 @@ components:
               items:
                 $ref: '#/components/schemas/RegistryRoute'
               maxItems: 256
+            independence:
+              $ref: '#/components/schemas/Independence'
             default_budget:
               $ref: '#/components/schemas/BudgetLimits'
     PreviewRequest:
@@ -4149,6 +4151,33 @@ components:
           properties:
             candidates:
               minItems: 1
+    RolePair:
+      type: object
+      additionalProperties: false
+      required: [first, second]
+      properties:
+        first:
+          $ref: '#/components/schemas/Role'
+        second:
+          $ref: '#/components/schemas/Role'
+      enum:
+      - {first: design, second: implementation}
+      - {first: design, second: testing}
+      - {first: design, second: review}
+      - {first: design, second: acceptance}
+      - {first: implementation, second: testing}
+      - {first: implementation, second: review}
+      - {first: implementation, second: acceptance}
+      - {first: testing, second: review}
+      - {first: testing, second: acceptance}
+      - {first: review, second: acceptance}
+    Independence:
+      type: array
+      minItems: 1
+      maxItems: 10
+      uniqueItems: true
+      items:
+        $ref: '#/components/schemas/RolePair'
     Snapshot:
       type: object
       additionalProperties: false
@@ -4179,6 +4208,8 @@ components:
           maxProperties: 5
           additionalProperties:
             $ref: '#/components/schemas/FrozenBinding'
+        independence:
+          $ref: '#/components/schemas/Independence'
         hash:
           type: string
           pattern: ^[a-f0-9]{64}$

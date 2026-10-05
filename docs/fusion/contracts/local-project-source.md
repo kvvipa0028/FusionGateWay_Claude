@@ -23,6 +23,7 @@ macOS/Linux 使用上述 FD 检查；本次仅验证 macOS/arm64。其他平台�
 | model / account / workspace / credential_identity / runtime_version | 有界、无空白/控制符/路径分隔符的明确声明；拒绝 unknown、undisclosed、default；credential_identity 是非密钥标识，不能填 API key |
 | efforts / default_effort / no_effort | 至多16个不重复声明；默认档位必须在列表中；no_effort=true 不得同时声明 effort/default |
 | global / project.layer | 沿用阶段 Layer 合同，展开三个分组为五角色；绑定只能引用本项目登记的精确模型与路线版本 |
+| independence | 可选角色对列表，每对 first/second 为已知且不同的角色；至多10对，拒绝重复（含反向）；canonical 顺序输出。只约束具体 ResolvedModel，默认无模型独立性硬约束；规则随任务冻结，不能由任务 body 覆盖，详见 [项目独立性](project-independence.md) |
 | max_calls / max_reworks | 省略默认 50 / 1；明确填写分别为 1–1000 / 0–1，calls=0 拒绝 |
 
 所有 route 均导出为 `Admitted=false`、`BillingKnown=false`、`LockEnforcement=unverified`，不携带 capabilities/plugin 准入。BillingPath 仅由内置路线目录派生为候选计费路径，不证明账号订阅有效。配置不接受 admitted、billing_known、证据、StopProof、API key、URL 或 argv。具体声明也不能证明上游 account/workspace/模型/推理档位可用。

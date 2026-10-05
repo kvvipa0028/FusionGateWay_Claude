@@ -32,7 +32,7 @@ func revisionIn(tx *sql.Tx, taskID string, ifMatch int64, p stageplan.Snapshot) 
 	if e != nil {
 		return Task{}, e
 	}
-	if old.SchemaVersion != p.SchemaVersion || !reflect.DeepEqual(old.RequiredRoles, p.RequiredRoles) || len(old.Bindings) != len(p.Bindings) {
+	if old.SchemaVersion != p.SchemaVersion || !reflect.DeepEqual(old.RequiredRoles, p.RequiredRoles) || !reflect.DeepEqual(old.Independence, p.Independence) || len(old.Bindings) != len(p.Bindings) {
 		return Task{}, ErrConflict
 	}
 	for r := range old.Bindings {

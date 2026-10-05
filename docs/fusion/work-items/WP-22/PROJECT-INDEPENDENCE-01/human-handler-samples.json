@@ -1,0 +1,124 @@
+[
+  {
+    "method": "GET",
+    "path": "/control/v1/tasks/task-cee06bbd5f2aced411d31fd4f5076bb2/workflow/decision",
+    "status": 200,
+    "media_type": "application/json",
+    "body": {
+      "decision": null,
+      "report": {
+        "acceptance_hash": "a6d63acea6bb7ee5062c0c3ffd8a4130294f1cdaa49992ad20874ce206b73caa",
+        "design_hash": "06cf4e9215245761f98f1759ae69c3df06331b996102d5bf665ce287ec25a57b",
+        "hard": {
+          "reason": "",
+          "skipped": 0,
+          "status": "passed",
+          "tests": 2
+        },
+        "model": {
+          "criteria": [
+            {
+              "index": 0,
+              "reason": "actual frozen code, passed pinned verifier and review checked",
+              "status": "met"
+            }
+          ],
+          "verdict": "accepted",
+          "version": 1
+        },
+        "model_valid": true,
+        "run_id": "run-4f2c8cda4cb48d483aa2712cda608abe",
+        "spec_hash": "a97f77b21fb9b2814b8e4af364b9252caa24215d86227496c164d7d71b13ae04",
+        "text_hash": "75ff89dc4d4025aab83f5b5043203a1f8efd4300b12d33d82f0704d5aefeb96d",
+        "tree_hash": "69ddfed85c2c33bc6b19ce09b31ef78361f0401bc5b8257a37acc553dc441ee3"
+      },
+      "task": {
+        "generation": 5,
+        "goal": "synthetic pipeline goal",
+        "id": "task-cee06bbd5f2aced411d31fd4f5076bb2",
+        "plan_revision": 1,
+        "project_id": "fixture-project",
+        "state": "advisory_only"
+      },
+      "unavailable": ""
+    },
+    "headers": {
+      "ETag": "\"p1-g5-advisory_only\""
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/control/v1/tasks/task-cee06bbd5f2aced411d31fd4f5076bb2/workflow/decision",
+    "status": 200,
+    "media_type": "application/json",
+    "body": {
+      "decision": {
+        "acceptance_hash": "a6d63acea6bb7ee5062c0c3ffd8a4130294f1cdaa49992ad20874ce206b73caa",
+        "action": "accept",
+        "at": "2026-10-05T09:35:29.380586Z",
+        "authority": "management",
+        "design_hash": "06cf4e9215245761f98f1759ae69c3df06331b996102d5bf665ce287ec25a57b",
+        "generation": 5,
+        "plan_revision": 1,
+        "reason": "operator checked actual code and frozen criteria",
+        "run_id": "run-4f2c8cda4cb48d483aa2712cda608abe",
+        "spec_hash": "a97f77b21fb9b2814b8e4af364b9252caa24215d86227496c164d7d71b13ae04",
+        "task_id": "task-cee06bbd5f2aced411d31fd4f5076bb2",
+        "text_hash": "75ff89dc4d4025aab83f5b5043203a1f8efd4300b12d33d82f0704d5aefeb96d",
+        "tree_hash": "69ddfed85c2c33bc6b19ce09b31ef78361f0401bc5b8257a37acc553dc441ee3",
+        "version": 1
+      },
+      "report": {
+        "acceptance_hash": "a6d63acea6bb7ee5062c0c3ffd8a4130294f1cdaa49992ad20874ce206b73caa",
+        "design_hash": "06cf4e9215245761f98f1759ae69c3df06331b996102d5bf665ce287ec25a57b",
+        "hard": {
+          "reason": "",
+          "skipped": 0,
+          "status": "passed",
+          "tests": 2
+        },
+        "model": {
+          "criteria": [
+            {
+              "index": 0,
+              "reason": "actual frozen code, passed pinned verifier and review checked",
+              "status": "met"
+            }
+          ],
+          "verdict": "accepted",
+          "version": 1
+        },
+        "model_valid": true,
+        "run_id": "run-4f2c8cda4cb48d483aa2712cda608abe",
+        "spec_hash": "a97f77b21fb9b2814b8e4af364b9252caa24215d86227496c164d7d71b13ae04",
+        "text_hash": "75ff89dc4d4025aab83f5b5043203a1f8efd4300b12d33d82f0704d5aefeb96d",
+        "tree_hash": "69ddfed85c2c33bc6b19ce09b31ef78361f0401bc5b8257a37acc553dc441ee3"
+      },
+      "task": {
+        "generation": 5,
+        "goal": "synthetic pipeline goal",
+        "id": "task-cee06bbd5f2aced411d31fd4f5076bb2",
+        "plan_revision": 1,
+        "project_id": "fixture-project",
+        "state": "completed"
+      },
+      "unavailable": ""
+    },
+    "request": {
+      "acceptance_hash": "a6d63acea6bb7ee5062c0c3ffd8a4130294f1cdaa49992ad20874ce206b73caa",
+      "action": "accept",
+      "design_hash": "06cf4e9215245761f98f1759ae69c3df06331b996102d5bf665ce287ec25a57b",
+      "reason": "operator checked actual code and frozen criteria",
+      "run_id": "run-4f2c8cda4cb48d483aa2712cda608abe",
+      "spec_hash": "a97f77b21fb9b2814b8e4af364b9252caa24215d86227496c164d7d71b13ae04",
+      "text_hash": "75ff89dc4d4025aab83f5b5043203a1f8efd4300b12d33d82f0704d5aefeb96d",
+      "tree_hash": "69ddfed85c2c33bc6b19ce09b31ef78361f0401bc5b8257a37acc553dc441ee3"
+    },
+    "headers": {
+      "ETag": "\"p1-g5-completed\""
+    },
+    "request_headers": {
+      "If-Match": "\"p1-g5-advisory_only\""
+    }
+  }
+]

@@ -278,7 +278,18 @@ def verify(contract, official, samples):
     valid_request=next(s["request"] for s in json.loads(samples.read_text()) if s["path"].endswith("/workflow/decision") and s["method"] == "POST" and s["status"] == 200)
     for modify in [lambda v:v.update(spec={}),lambda v:v.update(reason=" "),lambda v:v.update(action="auto"),lambda v:v.update(tree_hash=None)]:
         value=copy.deepcopy(valid_request);modify(value);assert not human_request.is_valid(value)
-    return {"official_openapi_document_schema": "3.1/2022-10-07", "paths": len(EXPECTED), "operations": len(operations), "handler_samples": count, "covered_operations": len(covered), "negative_schema_cases": len(negative), "negative_project_response_cases": len(invalid_inventory), "negative_task_response_cases": len(invalid_tasks), "negative_submission_response_cases": len(invalid_submissions), "negative_event_page_cases":len(invalid_pages), "negative_start_response_cases":len(invalid_starts)+1, "negative_workflow_response_cases":len(invalid_workflows), "negative_human_response_cases":len(invalid_humans), "negative_human_request_cases":4, "offline": True, "production_registered": False}
+    independence_cases = [[], [{"first":"design","second":"design"}], [{"first":"unknown","second":"acceptance"}], [{"first":"acceptance","second":"design"}], [{"first":"design","second":"acceptance","allow_same_model":True}], [{"first":"design","second":"acceptance"}]*2]
+    independence_validator = validator({"$ref":"#/components/schemas/Independence"})
+    for value in independence_cases:
+        assert not independence_validator.is_valid(value), "malformed independence policy accepted"
+    valid_policy = [{"first":"design","second":"acceptance"}]
+    independence_validator.validate(valid_policy)
+    for name in ["PreviewRequest", "RevisionRequest"]:
+        # Task request DTOs cannot change project-owned policy.
+        dto=validator({"$ref":"#/components/schemas/"+name})
+        value = {"task":{},"independence":valid_policy} if name=="RevisionRequest" else {"project_id":"fixture","goal":"fixture","required_roles":["design"],"independence":valid_policy}
+        assert not dto.is_valid(value)
+    return {"official_openapi_document_schema": "3.1/2022-10-07", "paths": len(EXPECTED), "operations": len(operations), "handler_samples": count, "covered_operations": len(covered), "negative_schema_cases": len(negative), "negative_project_response_cases": len(invalid_inventory), "negative_task_response_cases": len(invalid_tasks), "negative_submission_response_cases": len(invalid_submissions), "negative_event_page_cases":len(invalid_pages), "negative_start_response_cases":len(invalid_starts)+1, "negative_workflow_response_cases":len(invalid_workflows), "negative_human_response_cases":len(invalid_humans), "negative_human_request_cases":4, "negative_independence_cases":len(independence_cases)+2, "offline": True, "production_registered": False}
 
 
 if __name__ == "__main__":

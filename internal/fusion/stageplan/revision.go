@@ -54,6 +54,9 @@ func CompileRevision(current Snapshot, changes Layer, global, project Layer, rou
 	for r, b := range updated.Bindings {
 		next.Bindings[r] = b
 	}
+	if e = checkIndependence(next); e != nil {
+		return Snapshot{}, e
+	}
 	next.Hash, e = snapshotHash(next)
 	return next, e
 }

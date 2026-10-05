@@ -37,4 +37,4 @@ PATH="$HOME/.local/bin:$PATH" python3 docs/fusion/work-items/WP-13/CALLS-01/run-
   -fusion-host-native-claude /Users/zhaojianzhi/.local/share/claude/versions/2.1.287
 ```
 
-[组件证据](../work-items/WP-22/REWORK-LOOP-01/summary.md)区分真实 Native 进程/代码/测试执行与合成供应商/准入输入。未带 pin 的 opt-in Native 测试明确 skip，不能计为真实验证。7个新增场景中的 rework_cancel 是生成继续记录后撤销管理权限；Controller Close 生命周期另有单元验证，不冒充实际 Native UI 取消。项目强制独立性策略、真实供应商 Gate A、子进程工具链、原主导航完整整合和最终60类验收仍待完成。UI 沿用 Magpie 原布局/组件/变量/交互，本工作项无 UI/CSS 修改，Jev off。
+[组件证据](../work-items/WP-22/REWORK-LOOP-01/summary.md)区分真实 Native 进程/代码/测试执行与合成供应商/准入输入。未带 pin 的 opt-in Native 测试明确 skip，不能计为真实验证。7个新增场景中的 rework_cancel 是生成继续记录后撤销管理权限；Controller Close 生命周期另有单元验证，不冒充实际 Native UI 取消。[项目强制独立性策略](project-independence.md)已接入；真实供应商 Gate A、子进程工具链、原主导航完整整合和最终60类验收仍待完成。UI 沿用 Magpie 原布局/组件/变量/交互，本工作项无 UI/CSS 修改，Jev off。

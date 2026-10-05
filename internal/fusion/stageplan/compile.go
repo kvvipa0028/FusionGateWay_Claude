@@ -279,6 +279,9 @@ func snapshotHash(s Snapshot) (string, error) {
 
 // VerifySnapshot checks integrity, not issuer authenticity or current admission.
 func VerifySnapshot(s Snapshot) error {
+	if e := checkIndependence(s); e != nil {
+		return e
+	}
 	h, e := snapshotHash(s)
 	if e != nil || len(s.Hash) != 64 || h != s.Hash {
 		return invalid("snapshot_hash_mismatch")

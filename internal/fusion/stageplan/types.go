@@ -133,5 +133,6 @@ type Snapshot struct {
 	Revision      int64                  `json:"revision"`
 	RequiredRoles []Role                 `json:"required_roles"`
 	Bindings      map[Role]FrozenBinding `json:"bindings"`
+	Independence  []RolePair             `json:"independence,omitempty"`
 	Hash          string                 `json:"hash,omitempty"`
 }

@@ -223,6 +223,11 @@ func (c *Controller) start(request context.Context, key string, in store.StartId
 	if e != nil {
 		return c.retryOrError(key, in, e)
 	}
+	if e = c.config.Scheduler.Store.ValidateStageTargetAuthorized(in, target, func() bool {
+		return request.Err() == nil && c.lifetime.Err() == nil && (current == nil || current(request))
+	}); e != nil {
+		return c.retryOrError(key, in, e)
+	}
 	var origin store.StageRun
 	if in.Restore != nil {
 		origin, e = c.config.Scheduler.Store.Run(in.Restore.OriginRunID)

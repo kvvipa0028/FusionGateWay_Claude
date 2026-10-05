@@ -13,6 +13,7 @@ import (
 	"testing"
 
 	"github.com/yetone/magpie/internal/fusion/policy"
+	"github.com/yetone/magpie/internal/fusion/stageplan"
 	"github.com/yetone/magpie/internal/fusion/store"
 )
 
@@ -332,6 +333,31 @@ func TestImplementedAPIContractSamples(t *testing.T) {
 	resp.Body.Close()
 	if !found {
 		t.Fatal("missing durable event", scanner.Err())
+	}
+
+	independent, _, independentHandler := setup(t)
+	independentConfig := configuration()
+	independentConfig.Independence = []stageplan.RolePair{{First: stageplan.Design, Second: stageplan.Acceptance}}
+	distinct := independentConfig.Routes[0]
+	distinct.ID = "independent-route"
+	distinct.Model = "independent-model"
+	independentConfig.Routes = append(independentConfig.Routes, distinct)
+	bound := independentConfig.Global.Roles[stageplan.Design]
+	bound.Route = &stageplan.RouteRef{ID: distinct.ID, Revision: 1}
+	bound.Model = distinct.Model
+	independentConfig.Global.Roles[stageplan.Acceptance] = bound
+	if e := independent.SetProject("fixture-project", independentConfig); e != nil {
+		t.Fatal(e)
+	}
+	independencePath := "/control/v1/projects/fixture-project/configuration"
+	add("GET", independencePath, "", 200, request(independentHandler, "GET", independencePath, "", "", "fixture-management"), nil)
+	independentBody := `{"project_id":"fixture-project","goal":"independent fixture","required_roles":["design","acceptance"]}`
+	independencePath = "/control/v1/tasks/preview"
+	independentReply := request(independentHandler, "POST", independencePath, independentBody, "", "fixture-management")
+	add("POST", independencePath, independentBody, 200, independentReply, nil)
+	var independentPreview Preview
+	if json.Unmarshal(independentReply.Body.Bytes(), &independentPreview) != nil || len(independentPreview.Plan.Independence) != 1 {
+		t.Fatal("missing actual policy sample")
 	}
 	if *contractOutput != "" {
 		if !filepath.IsAbs(*contractOutput) {

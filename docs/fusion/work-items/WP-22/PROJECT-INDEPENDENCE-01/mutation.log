@@ -1,0 +1,6 @@
+=== RUN   TestProjectIndependenceBlocksSameModelAcrossAccountsBeforeIntent
+    independence_test.go:69: same model on another account launched despite frozen project independence
+--- FAIL: TestProjectIndependenceBlocksSameModelAcrossAccountsBeforeIntent (0.13s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/store	0.760s
+FAIL

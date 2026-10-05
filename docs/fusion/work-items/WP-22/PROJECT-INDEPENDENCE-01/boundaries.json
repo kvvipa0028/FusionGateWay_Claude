@@ -1,0 +1,17 @@
+{
+  "ui_changed": false,
+  "original_main_assets_equal": 3,
+  "original_css_equal": 6,
+  "sql001_012_equal": true,
+  "schema": 12,
+  "graph_nodes": 14655,
+  "graph_edges": 132287,
+  "optional_public_fields": [
+    "ProjectConfiguration.independence",
+    "Snapshot.independence"
+  ],
+  "task_override_permitted": false,
+  "whole_wp22": "in_progress",
+  "real_vendor_calls": 0,
+  "jev": "off"
+}

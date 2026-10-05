@@ -1,0 +1,57 @@
+{
+  "go_version": "1.26.3",
+  "platform": "macOS/arm64 pilot",
+  "credential_environment": "allowlist and temporary HOME/XDG",
+  "checks": [
+    {
+      "check": "cli",
+      "command": [
+        "go",
+        "build",
+        "-mod=readonly",
+        "-tags",
+        "fusion,nogui",
+        "-o",
+        "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/.fusion-dev/fusion-gateway-cli",
+        "."
+      ],
+      "exit_code": 0,
+      "log": ".fusion-dev/build-dev/cli.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "check": "gui",
+      "command": [
+        "go",
+        "build",
+        "-mod=readonly",
+        "-tags",
+        "fusion",
+        "-o",
+        "/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/.fusion-dev/fusion-gateway-gui",
+        "."
+      ],
+      "exit_code": 0,
+      "log": ".fusion-dev/build-dev/gui.log",
+      "log_sha256": "5dfccc6f57c30663feaf9d5866ea35d6fb13cd2fdeb2dbbb69a265ef5f23d08b"
+    },
+    {
+      "check": "vet",
+      "command": [
+        "go",
+        "vet",
+        "-mod=readonly",
+        "-tags",
+        "fusion,nogui",
+        "./..."
+      ],
+      "exit_code": 0,
+      "log": ".fusion-dev/build-dev/vet.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "artifacts_sha256": {
+    "fusion-gateway-cli": "e50d59f86b1ec9f23b13aa494aaccd282577294b0aad9a25d210be11596fcebe",
+    "fusion-gateway-gui": "c31d7392987f4f5a02d7bfea664e28a4fdc51703b4858b208696e201c30439c9"
+  }
+}

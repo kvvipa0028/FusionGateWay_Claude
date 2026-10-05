@@ -1,0 +1,31 @@
+=== RUN   TestProjectIndependenceBlocksSameModelAcrossAccountsBeforeIntent
+--- PASS: TestProjectIndependenceBlocksSameModelAcrossAccountsBeforeIntent (0.12s)
+=== RUN   TestProjectIndependenceRestartViableAutoAndRevisionCannotRemovePolicy
+--- PASS: TestProjectIndependenceRestartViableAutoAndRevisionCannotRemovePolicy (0.13s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/store	2.461s
+=== RUN   TestProjectIndependenceDefaultAndCanonicalFrozenPairs
+--- PASS: TestProjectIndependenceDefaultAndCanonicalFrozenPairs (0.00s)
+=== RUN   TestProjectIndependenceRejectsInvalidPairsAndKeepsViableAutoCandidates
+--- PASS: TestProjectIndependenceRejectsInvalidPairsAndKeepsViableAutoCandidates (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/stageplan	1.341s
+=== RUN   TestProjectIndependenceTrustedPreviewFreezeAndNoTaskOverride
+--- PASS: TestProjectIndependenceTrustedPreviewFreezeAndNoTaskOverride (0.11s)
+=== RUN   TestImplementedAPIContractSamples
+    openapi_samples_test.go:374: captured 124 actual Handler response samples, including real loopback SSE; real models/quota 0
+--- PASS: TestImplementedAPIContractSamples (1.99s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/api	3.588s
+=== RUN   TestControllerProjectIndependenceBeforeRuntimeAndInspection
+=== RUN   TestControllerProjectIndependenceBeforeRuntimeAndInspection/default_same_model
+=== RUN   TestControllerProjectIndependenceBeforeRuntimeAndInspection/required_distinct_model
+--- PASS: TestControllerProjectIndependenceBeforeRuntimeAndInspection (0.21s)
+    --- PASS: TestControllerProjectIndependenceBeforeRuntimeAndInspection/default_same_model (0.10s)
+    --- PASS: TestControllerProjectIndependenceBeforeRuntimeAndInspection/required_distinct_model (0.10s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/control	1.445s
+=== RUN   TestProjectRegistrationIndependenceIsCanonicalCopiedAndRejectsInvalidRules
+--- PASS: TestProjectRegistrationIndependenceIsCanonicalCopiedAndRejectsInvalidRules (0.01s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	1.499s

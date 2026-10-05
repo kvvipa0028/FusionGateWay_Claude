@@ -31,11 +31,15 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 	if *hostNativeGLM == "" {
 		t.Skip("explicit pinned Native fixture only")
 	}
-	for _, mode := range []string{"rework_success", "rework_exhausted", "rework_retest_failure", "rework_budget", "rework_revoked", "rework_parent_drift", "rework_cancel", "success", "testing_scope_violation", "parent_header_drift", "unscoped_external_write", "hard_test_failure", "malformed_test_report", "missing_verifier", "wrong_standard", "verifier_config_mutation", "review_changes", "review_malformed", "review_write", "review_standard_changed", "review_no_verifier", "review_parent_drift", "acceptance_rejected", "acceptance_unverified", "acceptance_malformed", "acceptance_missing_criteria", "acceptance_write", "acceptance_standard_changed", "acceptance_parent_drift", "human_standard_changed", "human_reader_revoked", "human_commit_revoked"} {
+	for _, mode := range []string{"independence_conflict", "rework_success", "rework_exhausted", "rework_retest_failure", "rework_budget", "rework_revoked", "rework_parent_drift", "rework_cancel", "success", "testing_scope_violation", "parent_header_drift", "unscoped_external_write", "hard_test_failure", "malformed_test_report", "missing_verifier", "wrong_standard", "verifier_config_mutation", "review_changes", "review_malformed", "review_write", "review_standard_changed", "review_no_verifier", "review_parent_drift", "acceptance_rejected", "acceptance_unverified", "acceptance_malformed", "acceptance_missing_criteria", "acceptance_write", "acceptance_standard_changed", "acceptance_parent_drift", "human_standard_changed", "human_reader_revoked", "human_commit_revoked"} {
 		t.Run(mode, func(t *testing.T) {
 			path, d, c, _, _ := glmFactoryFixture(t, true)
 			c.Executable, _ = filepath.EvalSymlinks(*hostNativeGLM)
 			c.TestingWritePaths = []string{"tests"}
+			if mode == "independence_conflict" {
+				d.Projects[0].Independence = []stageplan.RolePair{{First: stageplan.Design, Second: stageplan.Acceptance}}
+				writeSource(t, path, d)
+			}
 			if mode == "review_changes" {
 				zero := 0
 				d.Projects[0].MaxReworks = &zero
@@ -247,6 +251,12 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 			}
 			serveExecutionHost(t, h)
 			code, raw, _ := hostHTTP(t, h, "POST", "/control/v1/tasks/preview", `{"project_id":"fixture-project","goal":"synthetic pipeline goal","required_roles":["design","implementation","testing","review","acceptance"]}`, "", "")
+			if mode == "independence_conflict" {
+				if code != 422 || !strings.Contains(string(raw), "independence_conflict") || calls.Load() != 0 || owned != nil {
+					t.Fatal("hard project conflict launched Native or failed implicitly", code)
+				}
+				return
+			}
 			var preview api.Preview
 			if code != 200 || json.Unmarshal(raw, &preview) != nil {
 				t.Fatal("preview", code)

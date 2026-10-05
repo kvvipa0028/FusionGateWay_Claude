@@ -48,7 +48,7 @@ func (s *Scheduler) PrepareOnce(ctx context.Context, in store.StartRequest) (sto
 	if errors.Is(e, store.ErrBudget) {
 		return store.StartReceipt{}, blocked("budget_exhausted")
 	}
-	if errors.Is(e, store.ErrStageLimit) {
+	if errors.Is(e, store.ErrStageLimit) || errors.Is(e, store.ErrIndependence) {
 		return store.StartReceipt{}, e
 	}
 	if errors.Is(e, store.ErrInvalid) {

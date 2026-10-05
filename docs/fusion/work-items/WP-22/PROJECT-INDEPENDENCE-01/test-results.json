@@ -1,0 +1,145 @@
+{
+  "base": "05f79351d8af375e49c3aa68d7a4729a12999174",
+  "tests": {
+    "api-capture": {
+      "top_pass": 1,
+      "sub_pass": 0,
+      "top_fail": 0,
+      "sub_fail": 0,
+      "top_skip": 0,
+      "sub_skip": 0,
+      "packages": 1
+    },
+    "api-red": {
+      "top_pass": 0,
+      "sub_pass": 0,
+      "top_fail": 0,
+      "sub_fail": 0,
+      "top_skip": 0,
+      "sub_skip": 0,
+      "packages": 0
+    },
+    "compile-green": {
+      "top_pass": 2,
+      "sub_pass": 0,
+      "top_fail": 0,
+      "sub_fail": 0,
+      "top_skip": 0,
+      "sub_skip": 0,
+      "packages": 1
+    },
+    "full-fusion": {
+      "top_pass": 729,
+      "sub_pass": 1305,
+      "top_fail": 0,
+      "sub_fail": 0,
+      "top_skip": 33,
+      "sub_skip": 11,
+      "packages": 19
+    },
+    "human-native-capture": {
+      "top_pass": 1,
+      "sub_pass": 2,
+      "top_fail": 0,
+      "sub_fail": 0,
+      "top_skip": 0,
+      "sub_skip": 0,
+      "packages": 1
+    },
+    "mutation": {
+      "top_pass": 0,
+      "sub_pass": 0,
+      "top_fail": 1,
+      "sub_fail": 0,
+      "top_skip": 0,
+      "sub_skip": 0,
+      "packages": 0
+    },
+    "native": {
+      "top_pass": 10,
+      "sub_pass": 65,
+      "top_fail": 0,
+      "sub_fail": 0,
+      "top_skip": 0,
+      "sub_skip": 0,
+      "packages": 1
+    },
+    "store-green": {
+      "top_pass": 3,
+      "sub_pass": 0,
+      "top_fail": 0,
+      "sub_fail": 0,
+      "top_skip": 0,
+      "sub_skip": 0,
+      "packages": 2
+    },
+    "store-red": {
+      "top_pass": 0,
+      "sub_pass": 0,
+      "top_fail": 1,
+      "sub_fail": 0,
+      "top_skip": 0,
+      "sub_skip": 0,
+      "packages": 0
+    },
+    "targeted-final": {
+      "top_pass": 8,
+      "sub_pass": 2,
+      "top_fail": 0,
+      "sub_fail": 0,
+      "top_skip": 0,
+      "sub_skip": 0,
+      "packages": 5
+    },
+    "targeted": {
+      "top_pass": 7,
+      "sub_pass": 2,
+      "top_fail": 0,
+      "sub_fail": 0,
+      "top_skip": 0,
+      "sub_skip": 0,
+      "packages": 5
+    }
+  },
+  "raw_log_sha256": {
+    "api-capture.log": "6412ebe19228f50be556faea73568c850b87d997ae1b9924383ca9fdddfa6a1e",
+    "api-red.log": "1f3fda1b883a62da2d5aff7d04629782809e0848500d49f1c394b904808dbb43",
+    "compile-green.log": "c01247ef400a539fc5258476a5925212103fe3d7897132fbe82451072178cc43",
+    "full-fusion.log": "eced12a833e98210c11a035fa3395a18af7fb4ddda6b7f1fe2c682c234a43ca5",
+    "human-native-capture.log": "341270ac7ba70ea81f1b57c3c340ff2414af352d3c238f9d5fe8ee4d31020782",
+    "mutation.log": "674b26b920bfb7ffa9a81d03f0df02dc0d68c4747f0b960021d1d819710e10cd",
+    "native.log": "093b71ccfbd7bca3cdd26b6f0ed709188efe10b248c37edacd817ded1ac66405",
+    "store-green.log": "1bf24331fc7e5f1641f8afc3de0c3ec739b34611384469e1c672fd0d3c57b04f",
+    "store-red.log": "d056774158b4f778f8e61eb80490ab2623f04a2b0666c7222a17635fecf68029",
+    "targeted-final.log": "074165e61378021593c8f29d40bce48e102da98d887f199d4ecfcb6308b8359f",
+    "targeted.log": "cec846def18b8fa7152982d36c5d1cb8e5ae5ccf2176fca1bb3eb49ef32231f4",
+    "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-gui.log": "5dfccc6f57c30663feaf9d5866ea35d6fb13cd2fdeb2dbbb69a265ef5f23d08b",
+    "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "go": "1.26.3",
+  "effective_mutation": {
+    "disabled": "comparison to historical opposite-role ResolvedModel",
+    "exit_code": 1,
+    "exact_source_restored": true
+  },
+  "initial_openapi_check": {
+    "exit_code": 1,
+    "missing_successful_samples": [
+      "GET workflow/decision",
+      "POST workflow/decision"
+    ],
+    "resolution": "current pinned Native capture merged, all49 operations covered; assertions retained"
+  },
+  "supplemental_capture": {
+    "actual_subcases": [
+      "rework_success",
+      "success"
+    ],
+    "note": "Go subpattern success$ also selected rework_success; both passed"
+  },
+  "ui_changed": false,
+  "real_vendor_calls": 0,
+  "jev": "off",
+  "public_logs": "trim trailing whitespace only; raw scratch retained"
+}
