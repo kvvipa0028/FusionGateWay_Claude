@@ -130,7 +130,7 @@ func runFusion(parent context.Context, source, root string, out io.Writer, quota
 	}
 	defer shutdown()
 	app := application.New(application.Options{
-		Name: isolation.Title, Description: "Fusion stage configuration", Icon: appIconFor(),
+		Name: isolation.Title, Description: "Magpie main UI with Fusion stages", Icon: appIconFor(),
 		Mac:          application.MacOptions{ActivationPolicy: application.ActivationPolicyRegular},
 		Logger:       slog.New(slog.NewTextHandler(io.Discard, nil)),
 		Assets:       application.AssetOptions{Handler: bridge, Middleware: func(_ http.Handler) http.Handler { return bridge }, DisableLogging: true},
@@ -138,7 +138,7 @@ func runFusion(parent context.Context, source, root string, out io.Writer, quota
 		ErrorHandler: func(error) { cancel() },
 	})
 	window := app.Window.NewWithOptions(application.WebviewWindowOptions{
-		Name: "fusion-stage-editor", Title: isolation.Title + " · 阶段模型配置", URL: "about:blank",
+		Name: "fusion-stage-editor", Title: isolation.Title + " · Magpie", URL: "about:blank",
 		Width: 1060, Height: 820, MinWidth: 760, MinHeight: 600,
 		DevToolsEnabled: false, DefaultContextMenuDisabled: true,
 	})

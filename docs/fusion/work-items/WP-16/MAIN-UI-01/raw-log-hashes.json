@@ -1,0 +1,21 @@
+{
+  "main-red.log": "e395ed3ce02915d628aced889613db4fd37e09ff6cdb4fccc98fc03535d52a0c",
+  "main-green.log": "445e7830135117c6a04b50fe41a80d8587befa2273c71b369fdb1e58a5d7feb9",
+  "targeted.log": "2038747ca31cab31d7d4a686a98ec2064b4055f68d71b6ad5eb713e695d98b7e",
+  "bootstrap-regression.log": "4ebb7112580f76a98ed96eed3fb34c540d9f19bee28a3ac5c3f9acf1658e06e2",
+  "native-navigation.log": "111fdbf800ef107f6f71971cc12c0dc9111b6c9058450d79b02e1706a5025303",
+  "gui-regression.log": "1ee46d87a041ea4b3efd19f1b4439583b185146b84d89a9c15e44893db4ab3d6",
+  "gui-baseline.log": "8ad218eba2e9a636a6206f17e5e65ad67797325f027144eb2575d1bd37975779",
+  "gui-baseline-exit.txt": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+  "fixture-build.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "browser-stale-fixture.log": "9a6ef99b5bf7691fb996e84f9a3200eece784dab959e8124e63795e1806be308",
+  "browser-main.log": "9f64d95423239ce6c4857c86ff65e56288085598ccb4328878fb155d1b9feb1a",
+  "browser-main2.log": "a48aa6c06453c7fd2201fe6777dde4fecefcecd7b165851956dac14a36db94f3",
+  "browser-final.log": "c625322c17c7957845e29e4a8a8b7cac7aefbf1d12cd5e02b641eb17b315862d",
+  "browser-main-stable.log": "bb5e4f37c792ada769bee73a90257a33906821ac446585793115da928fa8f17e",
+  "test-results.json": "ff0bb3baa43cbea8da345955e284485d915ed6ec0d9c389dae7a18f927116483",
+  "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "build-gui.log": "cc75cb82e8dfe6522647c3e14529851014326299a3f6ab94f135a000ba93aa9c",
+  "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "build-results.json": "5cc6075a7e25e25660f5feaca988ef28b614178a7485aaa5639f8b4f93accec7"
+}

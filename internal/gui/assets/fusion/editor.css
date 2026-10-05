@@ -56,3 +56,7 @@
 .fusion-stage #task-workbench .row { flex-wrap: wrap; }
 .fusion-stage #task-workbench .who { min-width: 120px; }
 .fusion-stage .row .name, .fusion-stage .task-goal, .fusion-stage .task-model { color: var(--fg); }
+
+/* Original Magpie header drag rules moved out of inline style for CSP. */
+.fusion-stage .top { --wails-draggable: drag; }
+.fusion-stage .top .seg, .fusion-stage .top .actions { --wails-draggable: no-drag; }

@@ -47,11 +47,15 @@ async function fixture(t,admitted=false,withSecondProject=false,executionMode=""
  if(admitted){assert.equal(announcement.synthetic_fixture,true);assert.equal(announcement.execution_supported,!!executionMode)}else assert.equal(announcement.execution_enabled,false);
  assert.equal(announcement.jev,"off");
  token=(await fs.readFile(path.join(root,"state/data/fusion-gateway/control/management.token"),"utf8")).trim();
- for(const name of ["index.html","editor.mjs","model.mjs","workbench.mjs","quota.mjs","editor.css","app.css"]){
+ for(const name of ["index.html","main.mjs","editor.mjs","model.mjs","workbench.mjs","quota.mjs","editor.css","app.css"]){
   const response=await fetch(origin+"/fusion/"+name,{headers:{Authorization:"Bearer "+token},redirect:"error"});
   assert.equal(response.status,200);
   const actual=await response.text(),expected=await fs.readFile(path.join(repo,"internal/gui/assets",name==="app.css"?name:path.join("fusion",name)),"utf8");
-  assert.ok(actual===expected,"stage bundle differs from current source");
+  if(name==="index.html"){
+   const parts=expected.split("<!-- MAGPIE_HEADER -->");assert.equal(parts.length,2);
+   assert.ok(actual.startsWith(parts[0])&&actual.endsWith(parts[1]),"integrated stage panel differs from current source");
+   assert.ok(actual.includes('data-view="fusion"')&&actual.includes('class="logo"'),"original main shell missing");
+  }else assert.ok(actual===expected,"stage bundle differs from current source");
  }
  browser=await chromium.launch({channel:"chrome",headless:true});
  const newPage=async(beforeLoad=null,viewport={width:1140,height:1000})=>{
@@ -1130,4 +1134,52 @@ test('human decision UI: late old evidence cannot appear after switching tasks',
  await page.getByRole('button',{name:'读取验收证据',exact:true}).click();await started;
  await page.getByRole('button',{name:'查看任务 '+other.body.id,exact:true}).click();await status(page,'已读取任务详情');assert.equal(await page.locator('#human-panel').isVisible(),false);const late=page.waitForResponse(r=>r.url().endsWith('/workflow/decision'));release();await late;
  assert.equal(await page.locator('#human-report').innerText(),'');assert.equal(await page.locator('#human-accept').isDisabled(),true);assert.equal(v.posts.length,0);assert.deepEqual(v.errors,[]);
+});
+
+
+test('Magpie main navigation reuses original header and preserves unsaved Fusion choices without legacy requests',async t=>{
+ const f=await fixture(t,true),{page,context,errors}=await f.newPage();
+ const calls=[];page.on("request",r=>calls.push(new URL(r.url()).pathname));
+ assert.equal(await page.locator('#nav button[data-view]').count(),9);
+ assert.equal(await page.locator('.logo svg #bird').count(),1);
+ await choose(page,"设计","b");
+ const original=await page.getByLabel("设计模型",{exact:true}).inputValue();
+ for(const view of ["agents","providers","gateway","routing","usage","sessions","library","plugins"]){
+  await page.locator(`#nav [data-view="${view}"]`).click();
+  assert.equal(await page.locator('#view-fusion').isVisible(),false);
+  assert.equal(await page.locator('#view-unavailable').isVisible(),true);
+  assert.match(await page.locator('#view-unavailable').innerText(),/尚未/);
+  assert.equal(await page.locator(`#nav [data-view="${view}"]`).getAttribute('aria-current'),'page');
+  assert.equal(new URL(page.url()).search,'');assert.equal(new URL(page.url()).hash,'');
+ }
+ await page.locator('#prefs').click();assert.equal(await page.locator('#unavailable-title').innerText(),'Settings');
+ for(const id of ['sync','open','winclose','update','updateHide'])assert.equal(await page.locator('#'+id).isDisabled(),true);
+ await page.getByRole('button',{name:'返回阶段模型配置',exact:true}).click();
+ assert.equal(await page.locator('#view-fusion').isVisible(),true);
+ assert.equal(await page.getByLabel("设计模型",{exact:true}).inputValue(),original);
+ assert.match(await page.locator('#status').innerText(),/尚未保存/);
+ assert.ok(!calls.some(p=>p.startsWith('/api/')||p==='/boot.js'||p.includes('/wails/')));
+ assert.ok(!calls.some(p=>p.includes('/defaults')),'navigation must not save');
+ assert.deepEqual(errors,[]);await context.close();
+});
+
+test('Magpie original main shell fits desktop and mobile in both original color modes',async t=>{
+ const f=await fixture(t,false);
+ await fs.mkdir(path.join(repo,'.fusion-dev/main-ui'),{recursive:true});
+ for(const [name,width,height]of [['desktop',1140,900],['mobile',390,844]]){
+  const {page,context,errors}=await f.newPage(null,{width,height});
+  for(const theme of ['light','dark']){
+   await page.evaluate(theme=>document.documentElement.dataset.theme=theme,theme);
+   await page.locator('#nav [data-view="providers"]').click();
+   await page.locator('#nav [data-view="fusion"]').click();
+   const bounds=await page.evaluate(()=>({paneHeight:document.querySelector("#view-fusion").getBoundingClientRect().height,groupsVisible:document.querySelector("#groups").getBoundingClientRect().height,scrollTop:document.body.scrollTop,htmlTop:document.documentElement.scrollTop,hidden:document.querySelector("#view-fusion").hidden,display:getComputedStyle(document.querySelector("#view-fusion")).display,body:document.body.scrollWidth,width:innerWidth,view:document.querySelector('#view-fusion').getBoundingClientRect().right,nav:document.querySelector('#nav').getBoundingClientRect().right}));
+   await fs.writeFile(path.join(repo,".fusion-dev/main-ui",name+"-"+theme+"-layout.json"),JSON.stringify(bounds));
+   assert.ok(bounds.paneHeight>300&&bounds.groupsVisible>0&&!bounds.hidden,JSON.stringify(bounds));
+   assert.ok(bounds.body<=bounds.width+1,JSON.stringify(bounds));assert.ok(bounds.view<=width+1);assert.ok(bounds.nav<=width+1);
+   await page.locator('#view-fusion').evaluate(async node=>{await Promise.all(node.getAnimations().map(a=>a.finished))});
+   assert.equal(await page.locator('#view-fusion').evaluate(node=>getComputedStyle(node).opacity),'1');
+   await page.screenshot({path:path.join(repo,'.fusion-dev/main-ui',name+'-'+theme+'.png')});
+  }
+  assert.deepEqual(errors,[]);await context.close();
+ }
 });

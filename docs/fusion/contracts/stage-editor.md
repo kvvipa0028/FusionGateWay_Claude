@@ -1,18 +1,18 @@
 # 阶段配置界面合同
 
-组件：WP-16-EDITOR-01，后续增补 MAGPIE-UI-01、TASK-UI-01、SUBMISSION-UI-01、CONTROL-UI-01、QUOTA-UI-01。五角色绑定合同、Store 与 Management API 保持不变；页面只编辑完整选择及请求服务端预览，不作执行准入判断。
+组件：WP-16-EDITOR-01，后续增补 MAGPIE-UI-01、TASK-UI-01、SUBMISSION-UI-01、CONTROL-UI-01、QUOTA-UI-01、MAIN-UI-01。五角色绑定合同、Store 与 Management API 保持不变；页面只编辑完整选择及请求服务端预览，不作执行准入判断。
 
 ## 页面与权限
 
-现有私有 loopback ControlHost 提供 `/fusion/` 和 `/fusion/index.html`、`editor.mjs`、`model.mjs`、`workbench.mjs`、`editor.css`、`app.css`。每项资源经过同一个 Management middleware，以及 Host、Origin、Sec-Fetch-Site、可信私有来源和 token 文件核验。Stage Bearer 不能访问；无管理授权返回 401。来源或私有凭据权限改变后返回 503。只允许 GET/HEAD；未知资源 404、一般查询参数 400、含凭据的查询参数由既有 middleware 返回 403。响应 no-store、nosniff、no-referrer，并限定 CSP 的脚本、样式和连接来源。
+现有私有 loopback ControlHost 提供 `/fusion/` 和 `/fusion/index.html`、`main.mjs`、`editor.mjs`、`model.mjs`、`workbench.mjs`、`editor.css`、`app.css`。每项资源经过同一个 Management middleware，以及 Host、Origin、Sec-Fetch-Site、可信私有来源和 token 文件核验。Stage Bearer 不能访问；无管理授权返回 401。来源或私有凭据权限改变后返回 503。只允许 GET/HEAD；未知资源 404、一般查询参数 400、含凭据的查询参数由既有 middleware 返回 403。响应 no-store、nosniff、no-referrer，并限定 CSP 的脚本、样式和连接来源。
 
 页面不接收 key/token 输入，不使用 URL/cookie/localStorage 保存授权。JavaScript fetch 使用同源、credentials=omit、redirect=error。测试中由隔离浏览器 context 注入临时 Management Authorization header；产品 Native GUI 已有[受限鉴权桥](native-stage-ui.md)，基本窗口保存/载入/退出已验收。因此普通浏览器直接打开地址会得到 401，不能通过把 token 放进地址栏来操作。
 
 ## 复用 Magpie UI
 
-按用户要求，直接使用原 `internal/gui/assets/app.css`，通过仅含该文件的 `magpieassets` embed 包提供 `/fusion/app.css`；浏览器验证服务内容与原源文件逐字一致。沿用 `.top`、`.brand`、`.seg`、`.view`、`.profiles`、`.list`、`.row`、`.field` 和 `.text` 控件及原深浅色变量；`editor.css` 仅补 `.fusion-stage` 范围内的五角色表单布局和窄窗口排布，不再定义另一套配色、字体或页面框架。
+按用户要求，直接使用原 `internal/gui/assets/app.css`，通过 `magpieassets.Styles` embed 包提供 `/fusion/app.css`；浏览器验证服务内容与原源文件逐字一致。沿用 `.top`、`.brand`、`.seg`、`.view`、`.profiles`、`.list`、`.row`、`.field` 和 `.text` 控件及原深浅色变量；`editor.css` 仅补 `.fusion-stage` 范围内的五角色表单布局和窄窗口排布，不再定义另一套配色、字体或页面框架。
 
-原 Magpie 的 `index.html`、`app.js`、`app.css` 保持原内容。Fusion 继续使用受限 Native 入口提供新增阶段视图，避免原客户端初始化过程读取日常账号；这不是原有所有 Magpie 页面已接入 Fusion ControlHost 的声明。后续工作台沿用这些原 UI 组件，按需增加入口与内容，禁止另做整体重设计。
+原 Magpie 的 `index.html`、`app.js`、`app.css` 保持原内容。Fusion 通过[原主界面接入](magpie-main-ui.md)直接从原首页源文件提取页头和导航，只增加一个阶段入口；原页的未适配功能显示明确未开放状态。受限 Native 入口及隔离保持不变，不执行原 app.js 的客户端/账号初始化。这不是原有所有 Magpie 页面数据与操作已接入 Fusion ControlHost 的声明。
 
 ## 配置行为
 

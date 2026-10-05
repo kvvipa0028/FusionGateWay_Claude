@@ -10,9 +10,9 @@
 - 离线验证使用临时 HOME、XDG 目录和环境变量白名单，不继承真实认证。用户另行授权的真实连接使用登记的私有凭据与隔离宿主，证据单独记录；Jev 保持 off，不启动真实 Jev 调用。
 - 运行应用、导入凭据、提交、推送和发布均按当前用户授权范围判断；仅阅读这些文档不产生授权。
 - 新增模块优先放在 internal/fusion/，沿用现有 Go module path；避免全仓改名和无关重构。
-- Store 当前 schema12：stage artifact receipt 为私有、不可变索引；原实际 released StopProof 与 receipt 匹配才允许受控恢复。不能把 JSON/hash 或持久索引当作派单、模型准入、工程测试或验收证明。GLM 已接入五角色父产物 resolver；review/acceptance 只读消费当前真实测试证据并保留独立结构化模型意见，模型 accepted 仅进入 advisory_only 等待人工接受；人工接受/退回持久记录已有 Store 验证；Management API/限定 Native bridge/现有工作流面板的人工控件已接入，按 task/role 累计的两次 intent 上限已实施，超限需人工处理；实际一轮返工链已接入，原五角色定义保持不变；项目声明的角色模型独立性已随任务冻结并在实际启动前/事务内阻断冲突；完整原主导航仍未完成。testing 可写范围由可信 TestingWritePaths 与已批准 design scope 交集限定，缺少范围不回退到整个项目。升级/回退见 docs/fusion/contracts/durable-stage-artifact.md。
-- evidence.Run/Evaluate 已有直接可执行命令的真实只读测试 backend 和 owned 证据判定，不接受 JSON/LLM 报告作为执行来源。实际 GLM testing 已接入持久 owned receipt 和硬失败 needs_review；人工最终接受 API/限定窗口/工作流控件已接入，需要子进程的工具链、完整主导航及受控子进程工具链尚未完成；review/acceptance 仅在当前真实证据通过后启动，不把模型意见当成人工接受；见 docs/fusion/contracts/verification-runner.md。
-- UI 沿用 Magpie 原界面、布局组件、样式变量和交互习惯，只为 Fusion 功能做必要的小范围扩展；不重新设计整体布局、配色或导航，不引入另一套 UI 框架。当前 Fusion 补充页面复用原样式，不等于已经整合原主界面的全部页面与导航；后续接入须保留现有鉴权和账号隔离。
+- Store 当前 schema12：stage artifact receipt 为私有、不可变索引；原实际 released StopProof 与 receipt 匹配才允许受控恢复。不能把 JSON/hash 或持久索引当作派单、模型准入、工程测试或验收证明。GLM 已接入五角色父产物 resolver；review/acceptance 只读消费当前真实测试证据并保留独立结构化模型意见，模型 accepted 仅进入 advisory_only 等待人工接受；人工接受/退回持久记录已有 Store 验证；Management API/限定 Native bridge/现有工作流面板的人工控件已接入，按 task/role 累计的两次 intent 上限已实施，超限需人工处理；实际一轮返工链已接入，原五角色定义保持不变；项目声明的角色模型独立性已随任务冻结并在实际启动前/事务内阻断冲突；原主导航框架已接入，原各页数据与操作仍未接通。testing 可写范围由可信 TestingWritePaths 与已批准 design scope 交集限定，缺少范围不回退到整个项目。升级/回退见 docs/fusion/contracts/durable-stage-artifact.md。
+- evidence.Run/Evaluate 已有直接可执行命令的真实只读测试 backend 和 owned 证据判定，不接受 JSON/LLM 报告作为执行来源。实际 GLM testing 已接入持久 owned receipt 和硬失败 needs_review；人工最终接受 API/限定窗口/工作流控件已接入，需要子进程的工具链、原各页数据与操作及受控子进程工具链尚未完成；review/acceptance 仅在当前真实证据通过后启动，不把模型意见当成人工接受；见 docs/fusion/contracts/verification-runner.md。
+- UI 沿用 Magpie 原界面、布局组件、样式变量和交互习惯，只为 Fusion 功能做必要的小范围扩展；不重新设计整体布局、配色或导航，不引入另一套 UI 框架。当前 Fusion 已从原首页源文件提取主导航框架并接入现有面板；原未适配页面明确关闭，不等于已经功能接通原主界面的全部页面。后续接入须保留现有鉴权和账号隔离。
 - 上游发布、Docker 推送与付费 UI preview workflow 已限定只能在 yetone/magpie 运行。
 
 以下保留上游的代码路径说明。

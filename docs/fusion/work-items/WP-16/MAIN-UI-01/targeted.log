@@ -1,0 +1,172 @@
+=== RUN   TestMainPageUsesOriginalMagpieHeaderWithOneFusionTab
+--- PASS: TestMainPageUsesOriginalMagpieHeaderWithOneFusionTab (0.00s)
+=== RUN   TestMainIntegrationFailsClosedOnUpstreamOrPanelDrift
+--- PASS: TestMainIntegrationFailsClosedOnUpstreamOrPanelDrift (0.00s)
+=== RUN   TestMainScriptStaysInFixedAssetAuthority
+--- PASS: TestMainScriptStaysInFixedAssetAuthority (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/gui/assets/fusion	1.514s
+=== RUN   TestNativeStageBridgeAcceptsSDKWindowHeaders
+--- PASS: TestNativeStageBridgeAcceptsSDKWindowHeaders (0.11s)
+=== RUN   TestNativeStageBridgeFreezesOwnedWindow
+=== RUN   TestNativeStageBridgeFreezesOwnedWindow/missing-id
+=== RUN   TestNativeStageBridgeFreezesOwnedWindow/other-id
+=== RUN   TestNativeStageBridgeFreezesOwnedWindow/missing-name
+=== RUN   TestNativeStageBridgeFreezesOwnedWindow/other-name
+=== RUN   TestNativeStageBridgeFreezesOwnedWindow/duplicate-id
+=== RUN   TestNativeStageBridgeFreezesOwnedWindow/duplicate-name
+--- PASS: TestNativeStageBridgeFreezesOwnedWindow (0.09s)
+    --- PASS: TestNativeStageBridgeFreezesOwnedWindow/missing-id (0.00s)
+    --- PASS: TestNativeStageBridgeFreezesOwnedWindow/other-id (0.00s)
+    --- PASS: TestNativeStageBridgeFreezesOwnedWindow/missing-name (0.00s)
+    --- PASS: TestNativeStageBridgeFreezesOwnedWindow/other-name (0.00s)
+    --- PASS: TestNativeStageBridgeFreezesOwnedWindow/duplicate-id (0.00s)
+    --- PASS: TestNativeStageBridgeFreezesOwnedWindow/duplicate-name (0.00s)
+=== RUN   TestNativeStageBridgeCloseCancelsAnUnfinishedBody
+--- PASS: TestNativeStageBridgeCloseCancelsAnUnfinishedBody (0.10s)
+=== RUN   TestNativeStageBridgeUsesOwnedAuthenticatedHost
+--- PASS: TestNativeStageBridgeUsesOwnedAuthenticatedHost (0.12s)
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/real-network-peer
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/foreign-host
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/foreign-origin
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/null-origin
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/foreign-referer
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/cross-site
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/authority
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/cookie
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/forwarding
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/query
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/escaped-path
+=== RUN   TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/absolute-request
+--- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion (0.10s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/real-network-peer (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/foreign-host (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/foreign-origin (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/null-origin (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/foreign-referer (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/cross-site (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/authority (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/cookie (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/forwarding (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/query (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/escaped-path (0.00s)
+    --- PASS: TestNativeStageBridgeRejectsNetworkAndAuthorityExpansion/absolute-request (0.00s)
+=== RUN   TestNativeStageBridgeSavesVersionedPresetOnly
+--- PASS: TestNativeStageBridgeSavesVersionedPresetOnly (0.10s)
+=== RUN   TestNativeStageBridgeRevocationAndClose
+=== RUN   TestNativeStageBridgeRevocationAndClose/source
+=== RUN   TestNativeStageBridgeRevocationAndClose/token
+=== RUN   TestNativeStageBridgeRevocationAndClose/bridge-close
+=== RUN   TestNativeStageBridgeRevocationAndClose/host-close
+--- PASS: TestNativeStageBridgeRevocationAndClose (0.38s)
+    --- PASS: TestNativeStageBridgeRevocationAndClose/source (0.10s)
+    --- PASS: TestNativeStageBridgeRevocationAndClose/token (0.09s)
+    --- PASS: TestNativeStageBridgeRevocationAndClose/bridge-close (0.09s)
+    --- PASS: TestNativeStageBridgeRevocationAndClose/host-close (0.10s)
+=== RUN   TestNativeStageBridgeTaskIndexReadOnlyAndSourceBound
+--- PASS: TestNativeStageBridgeTaskIndexReadOnlyAndSourceBound (0.10s)
+=== RUN   TestControlHostStageUIAssetsAreManagementProtected
+--- PASS: TestControlHostStageUIAssetsAreManagementProtected (0.10s)
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion//missing
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion//wrong
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion//stage
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion//host
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion//origin
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion//fetch-site
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/main.mjs/missing
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/main.mjs/wrong
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/main.mjs/stage
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/main.mjs/host
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/main.mjs/origin
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/main.mjs/fetch-site
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/missing
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/wrong
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/stage
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/host
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/origin
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/fetch-site
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/workbench.mjs/missing
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/workbench.mjs/wrong
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/workbench.mjs/stage
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/workbench.mjs/host
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/workbench.mjs/origin
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/workbench.mjs/fetch-site
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/missing
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/wrong
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/stage
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/host
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/origin
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/fetch-site
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/missing
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/wrong
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/stage
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/host
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/origin
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/fetch-site
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/app.css/missing
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/app.css/wrong
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/app.css/stage
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/app.css/host
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/app.css/origin
+=== RUN   TestControlHostStageUIRejectsOtherAuthorities//fusion/app.css/fetch-site
+--- PASS: TestControlHostStageUIRejectsOtherAuthorities (0.12s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion//missing (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion//wrong (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion//stage (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion//host (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion//origin (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion//fetch-site (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/main.mjs/missing (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/main.mjs/wrong (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/main.mjs/stage (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/main.mjs/host (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/main.mjs/origin (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/main.mjs/fetch-site (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/missing (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/wrong (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/stage (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/host (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/origin (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.mjs/fetch-site (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/workbench.mjs/missing (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/workbench.mjs/wrong (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/workbench.mjs/stage (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/workbench.mjs/host (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/workbench.mjs/origin (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/workbench.mjs/fetch-site (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/missing (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/wrong (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/stage (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/host (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/origin (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/model.mjs/fetch-site (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/missing (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/wrong (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/stage (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/host (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/origin (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/editor.css/fetch-site (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/app.css/missing (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/app.css/wrong (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/app.css/stage (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/app.css/host (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/app.css/origin (0.00s)
+    --- PASS: TestControlHostStageUIRejectsOtherAuthorities//fusion/app.css/fetch-site (0.00s)
+=== RUN   TestControlHostStageUIRevokesPrivateSource
+=== RUN   TestControlHostStageUIRevokesPrivateSource/source
+=== RUN   TestControlHostStageUIRevokesPrivateSource/token-permissions
+--- PASS: TestControlHostStageUIRevokesPrivateSource (0.19s)
+    --- PASS: TestControlHostStageUIRevokesPrivateSource/source (0.10s)
+    --- PASS: TestControlHostStageUIRevokesPrivateSource/token-permissions (0.09s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	3.015s
+# github.com/yetone/magpie/internal/gui [github.com/yetone/magpie/internal/gui.test]
+internal/gui/trayimage_darwin.go:105:67: warning: implicit conversion from enumeration type 'enum CGImageAlphaInfo' to different enumeration type 'CGBitmapInfo' (aka 'enum CGBitmapInfo') [-Wimplicit-enum-enum-cast]
+=== RUN   TestMainURL
+--- PASS: TestMainURL (0.00s)
+=== RUN   TestMainView
+--- PASS: TestMainView (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/gui	1.568s

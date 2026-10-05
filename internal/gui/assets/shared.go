@@ -1,5 +1,5 @@
-// Package magpieassets makes the original Magpie stylesheet available to the
-// isolated Fusion view without importing the desktop GUI or its legacy APIs.
+// Package magpieassets shares the original Magpie stylesheet and main shell
+// without importing the desktop GUI or executing its legacy APIs.
 package magpieassets
 
 import "embed"
@@ -8,3 +8,8 @@ import "embed"
 //
 //go:embed app.css
 var Styles embed.FS
+
+// MainShell is the original homepage source; Fusion derives its header from it.
+//
+//go:embed index.html
+var MainShell embed.FS

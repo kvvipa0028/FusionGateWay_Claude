@@ -1,0 +1,10 @@
+✔ Magpie main navigation reuses original header and preserves unsaved Fusion choices without legacy requests (995.284042ms)
+✔ Magpie original main shell fits desktop and mobile in both original color modes (1196.928416ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2378.164167

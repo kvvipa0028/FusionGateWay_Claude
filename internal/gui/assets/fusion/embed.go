@@ -10,7 +10,7 @@ import (
 	magpieassets "github.com/yetone/magpie/internal/gui/assets"
 )
 
-//go:embed index.html editor.mjs model.mjs workbench.mjs quota.mjs editor.css
+//go:embed index.html main.mjs editor.mjs model.mjs workbench.mjs quota.mjs editor.css
 var assets embed.FS
 
 func Handler() http.Handler {
@@ -28,6 +28,8 @@ func Handler() http.Handler {
 		switch r.URL.Path {
 		case "/fusion/", "/fusion/index.html":
 			name = "index.html"
+		case "/fusion/main.mjs":
+			name = "main.mjs"
 		case "/fusion/editor.mjs":
 			name = "editor.mjs"
 		case "/fusion/model.mjs":
@@ -49,6 +51,9 @@ func Handler() http.Handler {
 			files = magpieassets.Styles
 		}
 		b, err := files.ReadFile(name)
+		if err == nil && name == "index.html" {
+			b, err = mainPage(b)
+		}
 		if err != nil {
 			http.Error(w, "Service Unavailable", 503)
 			return

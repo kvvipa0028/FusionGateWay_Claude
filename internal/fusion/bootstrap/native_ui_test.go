@@ -176,7 +176,7 @@ func TestNativeStageBridgeUsesOwnedAuthenticatedHost(t *testing.T) {
 	if e != nil {
 		t.Fatal(e)
 	}
-	for _, path := range []string{"/fusion/", "/fusion/editor.mjs", "/fusion/app.css", "/control/v1/projects", "/control/v1/projects/fixture-project/configuration", "/control/v1/defaults/global", "/control/v1/projects/fixture-project/presets"} {
+	for _, path := range []string{"/fusion/", "/fusion/main.mjs", "/fusion/editor.mjs", "/fusion/app.css", "/control/v1/projects", "/control/v1/projects/fixture-project/configuration", "/control/v1/defaults/global", "/control/v1/projects/fixture-project/presets"} {
 		r := nativeRequest("GET", path, "")
 		w := httptest.NewRecorder()
 		bridge.ServeHTTP(w, r)
