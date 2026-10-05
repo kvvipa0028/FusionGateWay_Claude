@@ -1,0 +1,9 @@
+# github.com/yetone/magpie/internal/fusion/runtime/grok [github.com/yetone/magpie/internal/fusion/runtime/grok.test]
+internal/fusion/runtime/grok/file_credential_test.go:21:51: undefined: FileCredentialScope
+internal/fusion/runtime/grok/file_credential_test.go:39:7: undefined: FileCredentialScope
+internal/fusion/runtime/grok/file_credential_test.go:46:10: undefined: NewFileCredential
+internal/fusion/runtime/grok/file_credential_test.go:158:12: undefined: NewFileCredential
+internal/fusion/runtime/grok/file_credential_test.go:176:13: undefined: NewFileCredential
+internal/fusion/runtime/grok/file_credential_test.go:226:12: undefined: NewFileCredential
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/grok [build failed]
+FAIL

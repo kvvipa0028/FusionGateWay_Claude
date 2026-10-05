@@ -1,0 +1,22 @@
+{
+  "component": "WP-13-PRIVATE-CREDENTIAL-01",
+  "go_version": "1.26.3",
+  "runner": ".fusion-dev/codex-factory/run.py (isolated HOME/XDG, environment whitelist, GOPROXY/GOSUMDB off, race)",
+  "runs": [
+    {"name": "initial-red", "command": "grok package (pre-implementation)", "exit": 1, "failure": "FileCredentialScope/NewFileCredential undefined", "evidence": "grok-cred-red.log"},
+    {"name": "target-green", "command": "go test -race ./internal/fusion/runtime/grok (full package)", "exit": 0, "subtests": 281, "evidence": "grok-cred-green.log"},
+    {"name": "mutation-rotation", "command": "overlay: digest recheck removed on Load", "exit": 1, "failed_subtest": "FileSafety/rotated", "evidence": "mutation-rotation.log"},
+    {"name": "mutation-binding", "command": "overlay: workspace identity binding removed on Load", "exit": 1, "failed_subtest": "ExactBindingAndRedaction/workspace", "evidence": "mutation-binding.log"},
+    {"name": "mutation-permissions", "command": "overlay: 0600 requirement relaxed to 0640/0644", "exit": 1, "failed_subtest": "FileSafety/file-permissions", "evidence": "mutation-permissions.log"},
+    {"name": "build-dev", "command": "python3 scripts/fusion/build-dev.py", "exit": 0, "checks": ["cli", "gui", "vet"], "evidence": "grok-build-dev.log"}
+  ],
+  "official_evidence": {
+    "binary": "grok 1.0.48 macos-aarch64",
+    "sha256": "1ed292eb62206b1a2ec3d17dc69c9c8406a07f5ff414305f953baee5b72a4a05",
+    "sources": ["embedded official curl/jq examples in fixed binary", "embedded issuer/device-flow constants"],
+    "daily_cache_read": false
+  },
+  "synthetic_only": true,
+  "real_vendor_calls": 0,
+  "real_account_admission": false
+}

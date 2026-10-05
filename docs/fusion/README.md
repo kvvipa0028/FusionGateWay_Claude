@@ -94,7 +94,7 @@ Grok 固定 Native 的 headless 观察器、逐 HTTP Gate 和可选受控文本R
 
 Grok受管生命周期组件：[CHANNEL-01证据](work-items/WP-13/CHANNEL-01/summary.md)、[channel合同](contracts/grok-managed-channel.md)。实际固定Native合成8场景与StopProof已验证；完整Adapter/真实X路线与产品执行仍未准入。
 
-Grok只读Runtime Adapter：[ADAPTER-01证据](work-items/WP-13/ADAPTER-01/summary.md)、[Adapter合同](contracts/grok-adapter.md)。实际固定Native/private prompt/read/取消/停止已验证；真实X准入、Resume/write/工程闭环与final Gate继续待完成。
+Grok只读Runtime Adapter：[ADAPTER-01证据](work-items/WP-13/ADAPTER-01/summary.md)、[Adapter合同](contracts/grok-adapter.md)。实际固定Native/private prompt/read/取消/停止已验证；[私有官方登录缓存服务](contracts/grok-private-credential.md)已按固定二进制官方格式完成冻结读取与漂移拒绝。真实X准入、订阅Forwarder、Factory注册、Resume/write/工程闭环与final Gate继续待完成。
 
 [阶段代码冻结与交接](contracts/stage-handoff.md)完成私有代码快照、基线/tree/change hash、来源链校验和 GLM 成功运行产物发布。[持久产物索引与受控重启恢复](contracts/durable-stage-artifact.md)已接入实际 GLM producer。[下一阶段 resolver](contracts/glm-stage-handoff.md)已接入 design/implementation/testing，宿主重启后继续实际代码，按已批准范围写入并核验最终变化。实际 GLM testing 已接入直接执行器、持久证据及硬失败阻断；只读 review 已接入当前硬证据和持久模型意见；[只读 acceptance 建议](contracts/acceptance-decision.md)已接入，模型 accepted 保持 advisory_only；[人工决定 Store](contracts/human-acceptance.md)已接入；[人工管理 API/限定窗口/现有工作流控件](work-items/WP-22/HUMAN-CONTROL-01/summary.md)已接入；[一次有限返工链](contracts/rework-policy.md)已接入；[项目强制独立性](contracts/project-independence.md)已接入；原导航框架已接入，原各页数据/操作及其他子进程工具链仍未完成；固定 Go1.26.3 的单 package 标准库/冻结 vendor backend 已接入；界面沿用原 Magpie，只做必要的小范围扩展。
 

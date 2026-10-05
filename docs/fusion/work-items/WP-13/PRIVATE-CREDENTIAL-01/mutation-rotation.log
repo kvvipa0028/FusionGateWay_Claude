@@ -1,0 +1,6 @@
+--- FAIL: TestGrokPrivateCredentialFileSafety (0.01s)
+    --- FAIL: TestGrokPrivateCredentialFileSafety/rotated (0.00s)
+        file_credential_test.go:184: rotated credential accepted <nil>
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/grok	0.615s
+FAIL

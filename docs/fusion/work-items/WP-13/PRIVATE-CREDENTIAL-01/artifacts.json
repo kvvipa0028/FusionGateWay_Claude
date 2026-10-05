@@ -1,0 +1,18 @@
+{
+  "docs/fusion/README.md": "4f5a77fc425f780919e4b6c76a51eabb25a83ce673d7895556711c776b2c5b4a",
+  "docs/fusion/contracts/grok-private-credential.md": "1d27df8753abb6cab12eab5608628c89dd3bd22c760dc14ae8e467730ada1afc",
+  "docs/fusion/work-items/WP-13/PRIVATE-CREDENTIAL-01/grok-build-dev.log": "ee5843ba8efa1fc8bd85d79079ecd1a564c46c02021ed3bf2844076b9f3dcfe2",
+  "docs/fusion/work-items/WP-13/PRIVATE-CREDENTIAL-01/grok-cred-green.log": "92500839a9d50b647378bc3c8751a0c16c7ea84908c29421819c9458a6841f4e",
+  "docs/fusion/work-items/WP-13/PRIVATE-CREDENTIAL-01/grok-cred-red.log": "b1fbe661cb4a7e1d986541d0d52d72203d050ed3afc0a3109380bf679ba8f1b5",
+  "docs/fusion/work-items/WP-13/PRIVATE-CREDENTIAL-01/mutation-binding.log": "2c7c8646ebb83b871894b0b5d0541eca505cc1db664e7faabaa0ab82edda3683",
+  "docs/fusion/work-items/WP-13/PRIVATE-CREDENTIAL-01/mutation-permissions.log": "a6199fa8fb3813974608a6dadadc9e9b2e66e1a284c96b0c0d875a5b0e557742",
+  "docs/fusion/work-items/WP-13/PRIVATE-CREDENTIAL-01/mutation-rotation.log": "be832285576b9a6ee5082d7539e8cfa9078f93a4eb45193f08bfa43d70e61ecb",
+  "docs/fusion/work-items/WP-13/PRIVATE-CREDENTIAL-01/scope-check.json": "1ca66aa8f9519c6abc0029040ef8651046fdb179757c3f5c273f2a52f888c989",
+  "docs/fusion/work-items/WP-13/PRIVATE-CREDENTIAL-01/summary.md": "f2fae0294abb06eb367194d3d3adf13ad6cfe9600df311bc4bcdebdcc851fa68",
+  "docs/fusion/work-items/WP-13/PRIVATE-CREDENTIAL-01/test-results.json": "e15e22377fe58a5cfb83a9354246c0593702140eda108d755e0c83da10daef53",
+  "docs/fusion/work-items/WP-13/summary.md": "ac774b508c8a2c5ae53bcf06c19c7e4009004d6d9a1bd58ed4b1a97032c3add7",
+  "internal/fusion/runtime/grok/file_credential.go": "f3afcca7516a9fd7e5da4b9c20a86813eaeb679b5b19805be0e270c45a11c06d",
+  "internal/fusion/runtime/grok/file_credential_other.go": "6761578a38a9ac8fca773738cab2f205551ede1c6af30592da6c2f3e8c2a1064",
+  "internal/fusion/runtime/grok/file_credential_test.go": "cd6d6a3ea1989fa3975ca1256e78b242fb508d252f3001e4498576c369cc398b",
+  "internal/fusion/runtime/grok/file_credential_unix.go": "b0b72a2b1aec3bbcd557f82d18ec62255b1eaaa4eb6906af6a222a20c741b066"
+}

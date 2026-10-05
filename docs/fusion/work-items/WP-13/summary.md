@@ -31,3 +31,7 @@ Parent 关联 T01/T02/T14/T15/T25/T31/T32/T35/T44/T56/T59 只新增了组件级�
 [WP-15-CHECKPOINT-API-01](../WP-15/CHECKPOINT-API-01/summary.md) 已把同Adapter成功归档接到owned Controller/Management生产入口，取得stable opaque reference后再调用明确恢复；真实Native的批准Read、取消及断线回归通过。进程重启不通过producer重造停止证明，产品注册/真实准入/整个Source仍待完成。
 
 后续 [WP-15-SOURCE-GUARD-01](../WP-15/SOURCE-GUARD-01/summary.md) 完成私有来源记录接入执行/归档边界，固定Grok/Claude Native源漂移拒绝成功并实际停止/释放通过。完整Fusion460PASS22SKIP0FAIL，Native7顶层/17子测试通过；整体产品登记/真实路线/最终Gate仍未完成。
+
+## 私有官方登录缓存服务
+
+[PRIVATE-CREDENTIAL-01](PRIVATE-CREDENTIAL-01/summary.md) 新增 `grok.FileCredential`：从 Git 外私有官方 auth.json 读取不透明订阅 Bearer，冻结路线/账号/workspace/credential identity/官方 issuer、文件与目录身份，拒绝轮换、权限漂移、symlink、硬链接与 API key 形态混入。格式证据来自固定 1.0.48 二进制内嵌官方文档（issuer 键控 `.key`、cli-chat-proxy 三 header 协议），本机日常缓存未被读取。grok 包 281 子场景 race、三项有效 mutation 与 Go1.26.3 CLI/GUI/vet 通过。合同见 [Grok 私有凭据](../../contracts/grok-private-credential.md)。真实登录、订阅 Forwarder、tier/费用/额度、Factory 注册与工具/写入/恢复仍待完成；父包保持 in_progress。

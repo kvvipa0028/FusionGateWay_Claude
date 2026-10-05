@@ -1,0 +1,8 @@
+--- FAIL: TestGrokPrivateCredentialFileSafety (0.01s)
+    --- FAIL: TestGrokPrivateCredentialFileSafety/file-permissions (0.00s)
+        file_credential_test.go:229: unsafe file accepted file-permissions
+    --- FAIL: TestGrokPrivateCredentialFileSafety/hardlink (0.00s)
+        file_credential_test.go:229: unsafe file accepted hardlink
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/grok	0.418s
+FAIL

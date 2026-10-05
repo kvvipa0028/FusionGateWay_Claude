@@ -1,0 +1,6 @@
+--- FAIL: TestGrokPrivateCredentialExactBindingAndRedaction (0.00s)
+    --- FAIL: TestGrokPrivateCredentialExactBindingAndRedaction/workspace (0.00s)
+        file_credential_test.go:98: drifted target accepted workspace <nil>
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/grok	0.413s
+FAIL
