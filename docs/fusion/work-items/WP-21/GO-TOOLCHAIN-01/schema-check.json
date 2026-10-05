@@ -1,0 +1,75 @@
+{
+  "schema_valid": true,
+  "checks": [
+    {
+      "name": "actual-go",
+      "expected": "valid",
+      "passed": true
+    },
+    {
+      "name": "prior-direct",
+      "expected": "valid",
+      "passed": true
+    },
+    {
+      "name": "missing-go-commands",
+      "expected": "invalid",
+      "passed": true
+    },
+    {
+      "name": "foreign-toolchain-field",
+      "expected": "invalid",
+      "passed": true
+    },
+    {
+      "name": "invalid-sdk-hash",
+      "expected": "invalid",
+      "passed": true
+    },
+    {
+      "name": "missing-vendor-mode",
+      "expected": "invalid",
+      "passed": true
+    },
+    {
+      "name": "incomplete-chain",
+      "expected": "invalid",
+      "passed": true
+    },
+    {
+      "name": "unbounded-chain",
+      "expected": "invalid",
+      "passed": true
+    },
+    {
+      "name": "foreign-command-grant",
+      "expected": "invalid",
+      "passed": true
+    },
+    {
+      "name": "invalid-phase-image",
+      "expected": "invalid",
+      "passed": true
+    },
+    {
+      "name": "invalid-phase-time",
+      "expected": "invalid",
+      "passed": true
+    },
+    {
+      "name": "unbounded-phase-environment",
+      "expected": "invalid",
+      "passed": true
+    },
+    {
+      "name": "direct-imported-go-commands",
+      "expected": "invalid",
+      "passed": true
+    },
+    {
+      "name": "direct-expanded-environment",
+      "expected": "invalid",
+      "passed": true
+    }
+  ]
+}

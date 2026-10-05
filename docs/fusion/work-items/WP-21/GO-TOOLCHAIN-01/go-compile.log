@@ -1,0 +1,6 @@
+=== RUN   TestGoRunnerActuallyBuildsAndRunsCurrentArtifact
+    go_runner_test.go:50: real compiled Go test did not pass {failed nonzero_exit 0 0} 1
+--- FAIL: TestGoRunnerActuallyBuildsAndRunsCurrentArtifact (0.13s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/evidence	0.646s
+FAIL

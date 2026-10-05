@@ -10,13 +10,13 @@
 
 macOS Seatbelt deny default，读取限于输入、独立 scratch、精确 executable 和必要系统动态库；只写 scratch。无供应商 key、Management Key 或继承父环境；HOME/XDG/TMPDIR 指向独立私有目录，LANG=C、TZ=UTC，GORACE 固定为 `atexit_sleep_ms=0`。禁用网络、子进程创建、Keychain/Mach 服务和设备访问。实际 argv 与完整固定环境各有独立 hash 并可私有回读。
 
-首个 backend 支持直接运行的测试 harness，**不支持需要子进程的 shell、Go test 或编译器流水线**。不通过放宽沙箱伪装支持；这些工具链的受控 backend、许可证与停止边界仍须实现/验证。非 macOS 环境返回不可用，不以 host 结果声称 HIL/WCET 或硬件通过。
+直接命令 backend 继续禁止 fork。新增[固定 Go 1.26.3 backend](go-verification-backend.md)，将可信编译器子进程与不可信项目测试分开；支持一个明确 package 的标准库或冻结 vendor 依赖，不支持 shell、CGO、在线依赖或项目测试自行创建子进程。其他工具链及其许可证/停止边界仍须分别实现和验证。非 macOS 环境返回不可用，不以 host 结果声称 HIL/WCET 或硬件通过。
 
 ## 记录和判定
 
 实际进程使用专用 process group；由于内核禁止 fork，实际 wait/reap 与 PID starttime 核验是本 backend 的停止依据。超时、请求取消或来源撤销触发 owned PID 的 SIGKILL，并等待实际终态；没有真实停止就不能判通过。版本查询及测试共用整个超时，最长十分钟。
 
-Record version1 记录命令/工具 pin、实际版本、规则、环境、产物/测试集合/spec/environment/report/stderr SHA256、UTC 起止时间、实际 exit code、执行/停止/截断/中断/输入变化状态。Record/Logs getter 都深复制；JSON schema 只定义导出记录形状，不是可信导入通路。stdout 是本次进程直接捕获的 JUnit，stderr 独立保留；每条流最多 1 MiB，版本查询最多 4096 bytes，截断不能通过。
+Record version1 记录命令/工具 pin、实际版本、规则、环境、产物/测试集合/spec/environment/report/stderr SHA256、UTC 起止时间、实际 exit code、执行/停止/截断/中断/输入变化状态。Record/Logs getter 都深复制；JSON schema 只定义导出记录形状，不是可信导入通路。直接命令 stdout 是本次进程捕获的 JUnit；Go backend 使用固定 SDK 的官方 test2json 转换实际测试输出，并记录实际五段命令。stderr 独立保留；每条流最多 1 MiB，版本查询最多 4096 bytes，截断不能通过。
 
 JUnit 严格解析 testsuite/testsuites 与实际 testcase，核对声明计数、重复案例、失败/错误/跳过；拒绝未知隐藏节点、重复属性、DTD/实体、foreign namespace、尾随第二份报告、负计数和截断 XML。根 testsuites 可以省略汇总属性；每个 testsuite 必须声明与实际案例一致的 tests。支持 properties/system-out/system-err；不静默忽略未知报告结构。
 
@@ -32,11 +32,11 @@ JUnit 严格解析 testsuite/testsuites 与实际 testcase，核对声明计数�
 
 可信宿主通过 `GLMRuntimeConfig.Verification` 注册独立的命令 Spec 和 Acceptance 列表，Factory 构造时深复制并检查工具 pin。多角色 testing 的 Acceptance 必须与已批准设计逐项一致；缺少配置或不一致时在 Native 启动意图前拒绝。配置没有 HTTP 或模型赋权入口。原独立单角色未注册验证器的模式继续发布 unverified，不宣称测试通过。
 
-Native 实际成功停止后，Factory 冻结测试阶段产物，再运行本执行器；撤销、Task 暂停/取消及来源变化取消实际 owned 命令。只有真实执行并停止的 owned Result 才能用于 `PublishVerified` 和 `RecordVerifiedArtifactAuthorized`。handoff 摘要显示真实 passed/failed/unverified 和 tests_executed，保留 Native output/StopProof；模型文字不能设置这些字段。实际报告/stderr 与完整 Record 保存在私有 immutable stage_artifacts receipt，而非模型输入。
+Native 实际成功停止后，Factory 冻结测试阶段产物，再运行本执行器；撤销、Task 暂停/取消及来源变化取消实际 owned 命令。只有真实执行并停止的 owned Result 才能用于 `PublishVerified` 和 `RecordVerifiedArtifactAuthorized`。handoff 摘要显示真实 passed/failed/unverified 和 tests_executed；Go 编译失败保留 failed 的 owned receipt，但 tests_executed=false，不把编译器启动当成测试已运行。摘要保留 Native output/StopProof；模型文字不能设置这些字段。实际报告/stderr 与完整 Record 保存在私有 immutable stage_artifacts receipt，而非模型输入。
 
 普通 RecordArtifact/RecordArtifactAuthorized 拒绝调用者声明 Verification。可信写入从 owned Result 导出数据，在原 Task/Plan/Run/target/parent/current transaction 内登记 DesignHash/AcceptanceHash；failed/unverified 同时写 needs_review 与独立事件，事件失败回滚全部修改。Native succeeded 仍表示协议执行成功，不改写进程历史。登记不释放预留，只有实际停止、登记和原 Adapter Release 完成后才允许受控读取。
 
-`VerifiedArtifact` 先读取 exact released-run receipt，再用宿主独立登记的 source/ExecutionRoot 恢复真实 frozen artifact，核验 header 与实际判定、当前批准设计/标准和产物/测试/spec。代码或标准变化返回 superseded。导出的 Stored JSON、ValidStored 的结构检查及 EvaluateStored 的数据检查本身均不能证明来源，也不能授权启动后续阶段；可信来源只由这个私有 Store 消费路径建立。[只读 review](review-assessment.md)已接入当前证据；[只读模型 acceptance](acceptance-decision.md)已接入；[人工接受/退回 Store](human-acceptance.md)已接入；[人工管理 API/限定窗口/现有面板](human-acceptance.md)已接入；完整原主导航与有限返工仍需实现。
+`VerifiedArtifact` 先读取 exact released-run receipt，再用宿主独立登记的 source/ExecutionRoot 恢复真实 frozen artifact，核验 header 与实际判定、当前批准设计/标准和产物/测试/spec。代码或标准变化返回 superseded。导出的 Stored JSON、ValidStored 的结构检查及 EvaluateStored 的数据检查本身均不能证明来源，也不能授权启动后续阶段；可信来源只由这个私有 Store 消费路径建立。[只读 review](review-assessment.md)已接入当前证据；[只读模型 acceptance](acceptance-decision.md)已接入；[人工接受/退回 Store](human-acceptance.md)已接入；[人工管理 API/限定窗口/现有面板](human-acceptance.md)已接入；原 Magpie 主导航框架及一次有限返工已接入；原各页数据/操作和真实工程最终验收仍待完成。
 
 ## 复现与回退
 
@@ -45,7 +45,7 @@ Go1.26.3，在 implementation 根执行隔离 runner，使用合成测试二进�
 ```sh
 PATH="$HOME/.local/bin:$PATH" python3 docs/fusion/work-items/WP-13/CALLS-01/run-go.py \
   .fusion-dev/evidence-check.log test -mod=readonly -tags fusion,nogui \
-  -race -count=1 -timeout=90s -v ./internal/fusion/evidence
+  -race -count=1 -timeout=360s -v ./internal/fusion/evidence
 
 PATH="$HOME/.local/bin:$PATH" python3 scripts/fusion/build-dev.py
 ```

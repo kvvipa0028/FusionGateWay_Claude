@@ -1,0 +1,14 @@
+=== RUN   TestGoRunnerFrozenVendorDependencyActuallyRunsOffline
+--- PASS: TestGoRunnerFrozenVendorDependencyActuallyRunsOffline (15.27s)
+=== RUN   TestGoRunnerActualCompiledTestStopsOnCancelAndSourceRevocation
+=== RUN   TestGoRunnerActualCompiledTestStopsOnCancelAndSourceRevocation/cancel
+=== RUN   TestGoRunnerActualCompiledTestStopsOnCancelAndSourceRevocation/source
+--- PASS: TestGoRunnerActualCompiledTestStopsOnCancelAndSourceRevocation (17.48s)
+    --- PASS: TestGoRunnerActualCompiledTestStopsOnCancelAndSourceRevocation/cancel (8.61s)
+    --- PASS: TestGoRunnerActualCompiledTestStopsOnCancelAndSourceRevocation/source (8.87s)
+=== RUN   TestGoRunnerActualOutputTruncationCannotPass
+--- PASS: TestGoRunnerActualOutputTruncationCannotPass (11.71s)
+=== RUN   TestGoSDKFreezeRejectsSymlinksPermissionsAndContentDrift
+--- PASS: TestGoSDKFreezeRejectsSymlinksPermissionsAndContentDrift (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/evidence	46.002s

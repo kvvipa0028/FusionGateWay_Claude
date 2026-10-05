@@ -1,0 +1,18 @@
+{
+  "child-stop-green.log": "f97c68aa9b170eecc39d3b2b1f90f89d6c572c467793819f1c038ec5b48e90cf",
+  "child-stop.log": "e9173e7be7ea42dd7738b08130021726e22707cdefa0d66eab2e3d319c1fe5bb",
+  "fork-mutation.log": "231b8e69a47e55876cdaa762851a0edcdb9d6e1d3ecc4c96875727c404191a91",
+  "fusion-final.log": "a8d70dab4c67805293e49b6508581840b19d4ffe0eff653ef2636938d9fb766e",
+  "fusion-regression.log": "fba4f690a79e2b6fab40489f84ed5141fcb192fb8b12496e0905666772c2de76",
+  "go-compile.log": "467dd0c48e8bb600376b4fc909578cde2353511356f8550c54b9e72c7a09b8ee",
+  "go-extra.log": "40617e08705ba2de8baab8d2dbc61f0cf35dd3c68742520e5fab9fc2ac5fdca3",
+  "go-final-target.log": "9a77ee420392eb2223e3afdcc380e81d5ac707ebee4fb4a7856aa26e3da18133",
+  "go-native-pipeline.log": "3d1740938f8a0d92ff657ec39aed8ba244c3a1dfc5d0a2085243d3ab08f41182",
+  "go-native.log": "74b90c3f407056082db767ee0c61895fab3a64d7cf02cf98743abf3abd0f8ea0",
+  "go-red.log": "d377b5dd2df6ea587b40967777cd957915fae8e76d4f2a815694f8953be0b948",
+  "go-target.log": "afded2794cc2dd51f875b978cd35d759574acbae51b840962ef461b292fa8674",
+  "native-final.log": "6e57cffdb0b23502d3862dca7d3a4adbf5f4c531e83ef4c91e594c24da418530",
+  "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "build-gui.log": "be0c97ee56a54ebe80e234337d7b3bca592ebbbd038b1e478891e641a75832a5",
+  "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

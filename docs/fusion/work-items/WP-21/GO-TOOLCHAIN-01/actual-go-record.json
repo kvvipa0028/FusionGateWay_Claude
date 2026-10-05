@@ -1,0 +1,241 @@
+{
+  "version": 1,
+  "spec": {
+    "tool": {
+      "executable": "/Users/zhaojianzhi/.local/share/go/1.26.3/bin/go",
+      "sha256": "0bdc5a1cfc9067e050f875767547064a2da19c33fec6662a520ab89fcf73ac88",
+      "version": "go version go1.26.3 darwin/arm64",
+      "version_args": [
+        "version"
+      ]
+    },
+    "args": [
+      "test",
+      "-count=1",
+      "-json",
+      "-vet=off",
+      "-p=2",
+      "-buildvcs=false",
+      "-pgo=off",
+      "-mod=readonly",
+      "."
+    ],
+    "suite_paths": [
+      "example_test.go"
+    ],
+    "rules": {
+      "min_tests": 1,
+      "allow_zero": false,
+      "allow_skipped": false
+    },
+    "timeout_ns": 120000000000,
+    "go_toolchain": {
+      "root": "/Users/zhaojianzhi/.local/share/go/1.26.3",
+      "root_hash": "ee930f92179dfb6ca7ac74954a93a52efcbcd5c09ba35fd81e49aa9c830d3208",
+      "package": ".",
+      "vendor": false
+    }
+  },
+  "environment": [
+    "PATH=/usr/bin:/bin",
+    "HOME=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/test/home",
+    "XDG_CONFIG_HOME=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/test/config",
+    "XDG_CACHE_HOME=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/test/cache",
+    "XDG_DATA_HOME=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/test/data",
+    "TMPDIR=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/test/tmp",
+    "LANG=C",
+    "TZ=UTC",
+    "GORACE=atexit_sleep_ms=0"
+  ],
+  "artifact_hash": "f33fe41fff62a4205782067ed001938374a69aff16b419f64cda40db0417b424",
+  "suite_hash": "aaf08f6086f7dbbeae2d80d73a092b236f468a3a11283dfd6c234e7bbec77239",
+  "spec_hash": "adf30e26f52bd71659b815acbc443caa66372664772dcd7e4447e08ca7df78d0",
+  "environment_hash": "41b75dd2d0b91bfffc4924113f051650cb2cc9e86169dd1f331b986e8378a2c0",
+  "tool_version": "go version go1.26.3 darwin/arm64",
+  "report_hash": "1a502bb9e8a6b99f54217050ec2ae675f62572072a6417dc6f3f643d8ea8dfb9",
+  "stderr_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "started_at": "2026-10-05T10:38:08.998345Z",
+  "finished_at": "2026-10-05T10:38:15.210096Z",
+  "exit_code": 0,
+  "executed": true,
+  "stopped": true,
+  "truncated": false,
+  "interrupted": false,
+  "input_changed": false,
+  "go_commands": [
+    {
+      "executable": "/Users/zhaojianzhi/.local/share/go/1.26.3/bin/go",
+      "image_hash": "0bdc5a1cfc9067e050f875767547064a2da19c33fec6662a520ab89fcf73ac88",
+      "args": [
+        "version"
+      ],
+      "environment": [
+        "PATH=/usr/bin:/bin",
+        "HOME=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/test/home",
+        "XDG_CONFIG_HOME=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/test/config",
+        "XDG_CACHE_HOME=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/test/cache",
+        "XDG_DATA_HOME=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/test/data",
+        "TMPDIR=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/test/tmp",
+        "LANG=C",
+        "TZ=UTC",
+        "GORACE=atexit_sleep_ms=0"
+      ],
+      "started_at": "2026-10-05T10:38:08.998345Z",
+      "finished_at": "2026-10-05T10:38:09.014444Z",
+      "exit_code": 0,
+      "executed": true,
+      "stopped": true,
+      "interrupted": false,
+      "truncated": false,
+      "stdout_hash": "b2fdffd04ae5a836eca9bfdd1d3d10c524b2920dcd5aca393f80258a93a3f0f4",
+      "stderr_hash": "c483975611eb510b9d99b28c4befeb9827bd7c69a5137eecb31ea50c5992c547"
+    },
+    {
+      "executable": "/Users/zhaojianzhi/.local/share/go/1.26.3/bin/go",
+      "image_hash": "0bdc5a1cfc9067e050f875767547064a2da19c33fec6662a520ab89fcf73ac88",
+      "args": [
+        "test",
+        "-c",
+        "-p=2",
+        "-vet=off",
+        "-buildvcs=false",
+        "-pgo=off",
+        "-mod=readonly",
+        "-o",
+        "/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/build/package.test",
+        "."
+      ],
+      "environment": [
+        "PATH=/usr/bin:/bin",
+        "HOME=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/build/home",
+        "XDG_CONFIG_HOME=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/build/config",
+        "XDG_CACHE_HOME=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/build/cache",
+        "XDG_DATA_HOME=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/build/data",
+        "TMPDIR=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/build/tmp",
+        "LANG=C",
+        "TZ=UTC",
+        "GORACE=atexit_sleep_ms=0",
+        "GOROOT=/Users/zhaojianzhi/.local/share/go/1.26.3",
+        "GOENV=off",
+        "GOTOOLCHAIN=local",
+        "GOPROXY=off",
+        "GOSUMDB=off",
+        "GOVCS=off",
+        "GOWORK=off",
+        "CGO_ENABLED=0",
+        "GOTELEMETRY=off",
+        "GOCACHE=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/build/cache",
+        "GOMODCACHE=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/build/modules"
+      ],
+      "started_at": "2026-10-05T10:38:09.438079Z",
+      "finished_at": "2026-10-05T10:38:13.496213Z",
+      "exit_code": 0,
+      "executed": true,
+      "stopped": true,
+      "interrupted": false,
+      "truncated": false,
+      "stdout_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "executable": "/Users/zhaojianzhi/.local/share/go/1.26.3/bin/go",
+      "image_hash": "0bdc5a1cfc9067e050f875767547064a2da19c33fec6662a520ab89fcf73ac88",
+      "args": [
+        "build",
+        "-p=2",
+        "-buildvcs=false",
+        "-pgo=off",
+        "-o",
+        "/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/build/test2json",
+        "cmd/test2json"
+      ],
+      "environment": [
+        "PATH=/usr/bin:/bin",
+        "HOME=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/build/home",
+        "XDG_CONFIG_HOME=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/build/config",
+        "XDG_CACHE_HOME=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/build/cache",
+        "XDG_DATA_HOME=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/build/data",
+        "TMPDIR=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/build/tmp",
+        "LANG=C",
+        "TZ=UTC",
+        "GORACE=atexit_sleep_ms=0",
+        "GOROOT=/Users/zhaojianzhi/.local/share/go/1.26.3",
+        "GOENV=off",
+        "GOTOOLCHAIN=local",
+        "GOPROXY=off",
+        "GOSUMDB=off",
+        "GOVCS=off",
+        "GOWORK=off",
+        "CGO_ENABLED=0",
+        "GOTELEMETRY=off",
+        "GOCACHE=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/build/cache",
+        "GOMODCACHE=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/build/modules"
+      ],
+      "started_at": "2026-10-05T10:38:13.711721Z",
+      "finished_at": "2026-10-05T10:38:13.981273Z",
+      "exit_code": 0,
+      "executed": true,
+      "stopped": true,
+      "interrupted": false,
+      "truncated": false,
+      "stdout_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "executable": "/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/build/package.test",
+      "image_hash": "86b5a73a2c9c0316fc95e2612b0a694e1366960869a2817c62c203cbff91516a",
+      "args": [
+        "-test.v=test2json",
+        "-test.count=1"
+      ],
+      "environment": [
+        "PATH=/usr/bin:/bin",
+        "HOME=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/test/home",
+        "XDG_CONFIG_HOME=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/test/config",
+        "XDG_CACHE_HOME=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/test/cache",
+        "XDG_DATA_HOME=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/test/data",
+        "TMPDIR=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/test/tmp",
+        "LANG=C",
+        "TZ=UTC",
+        "GORACE=atexit_sleep_ms=0"
+      ],
+      "started_at": "2026-10-05T10:38:14.202128Z",
+      "finished_at": "2026-10-05T10:38:14.711975Z",
+      "exit_code": 0,
+      "executed": true,
+      "stopped": true,
+      "interrupted": false,
+      "truncated": false,
+      "stdout_hash": "2edf524a7a9623e87d3dc1d2bdd520c35a2a1b5b7b9d3fd6ef2f7d06951c4652",
+      "stderr_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "executable": "/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/build/test2json",
+      "image_hash": "5b112a87cc44a25d8293a504722ed3be033fb67eaef85286c17ddb42c3d50847",
+      "args": [
+        "-p",
+        "."
+      ],
+      "environment": [
+        "PATH=/usr/bin:/bin",
+        "HOME=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/test/home",
+        "XDG_CONFIG_HOME=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/test/config",
+        "XDG_CACHE_HOME=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/test/cache",
+        "XDG_DATA_HOME=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/test/data",
+        "TMPDIR=/private/var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/TestGoRunnerActuallyBuildsAndRunsCurrentArtifact1968216590/003/go-verify-361466030/test/tmp",
+        "LANG=C",
+        "TZ=UTC",
+        "GORACE=atexit_sleep_ms=0"
+      ],
+      "started_at": "2026-10-05T10:38:14.931624Z",
+      "finished_at": "2026-10-05T10:38:15.210096Z",
+      "exit_code": 0,
+      "executed": true,
+      "stopped": true,
+      "interrupted": false,
+      "truncated": false,
+      "stdout_hash": "1a502bb9e8a6b99f54217050ec2ae675f62572072a6417dc6f3f643d8ea8dfb9",
+      "stderr_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

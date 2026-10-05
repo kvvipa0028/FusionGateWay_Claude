@@ -18,7 +18,7 @@ type Stored struct {
 }
 
 func ValidateSpec(s Spec) error {
-	if !available() || !validSpec(s) || !toolCurrent(s.Tool) {
+	if !available() || !validSpec(s) || !toolCurrent(s.Tool) || s.Go != nil && !goRootCurrent(s.Go) {
 		return ErrInvalid
 	}
 	return nil
@@ -42,7 +42,7 @@ func Export(r Result, a workspace.FrozenArtifact, s Spec) (Stored, error) {
 
 func ValidStored(v Stored) bool {
 	r := v.Record
-	if r.Version != 1 || !validSpec(r.Spec) || !filepath.IsAbs(v.ArtifactPath) || filepath.Clean(v.ArtifactPath) != v.ArtifactPath || r.SpecHash != jsonHash(clone(r.Spec)) || r.ToolVersion != r.Spec.Tool.Version || r.EnvironmentHash != jsonHash(r.Environment) || len(r.Environment) != 9 || r.StartedAt.IsZero() || r.FinishedAt.Before(r.StartedAt) || !r.Executed || !r.Stopped || len(v.Report) > 1<<20 || len(v.Stderr) > 1<<20 || r.ReportHash != digest(v.Report) || r.StderrHash != digest(v.Stderr) {
+	if r.Version != 1 || !validSpec(r.Spec) || !filepath.IsAbs(v.ArtifactPath) || filepath.Clean(v.ArtifactPath) != v.ArtifactPath || r.SpecHash != jsonHash(clone(r.Spec)) || r.ToolVersion != r.Spec.Tool.Version || !validGoCommands(r) || r.EnvironmentHash != jsonHash(r.Environment) || (r.Spec.Go == nil && len(r.Environment) != 9 || r.Spec.Go != nil && (len(r.Environment) < 9 || len(r.Environment) > 32)) || r.StartedAt.IsZero() || r.FinishedAt.Before(r.StartedAt) || !r.Executed || !r.Stopped || len(v.Report) > 1<<20 || len(v.Stderr) > 1<<20 || r.ReportHash != digest(v.Report) || r.StderrHash != digest(v.Stderr) {
 		return false
 	}
 	for _, h := range []string{r.ArtifactHash, r.SuiteHash, r.SpecHash, r.EnvironmentHash, r.ReportHash, r.StderrHash} {
@@ -70,6 +70,9 @@ func EvaluateStored(v Stored, a workspace.FrozenArtifact, s Spec) Verdict {
 	if !ok || a.Path() != v.ArtifactPath || a.Manifest().TreeHash != v.Record.ArtifactHash || suite != v.Record.SuiteHash || !reflect.DeepEqual(clone(s), v.Record.Spec) || v.Record.InputChanged {
 		return Verdict{Status: Superseded, Reason: "artifact_suite_or_standard_changed"}
 	}
+	if s.Go != nil && !goRootCurrent(s.Go) {
+		return Verdict{Status: Superseded, Reason: "toolchain_changed"}
+	}
 	return evaluateReport(v.Record, v.Report, s.Rules)
 }
 
@@ -84,6 +87,9 @@ func evaluateReport(rec Record, report []byte, rules Rules) Verdict {
 		return Verdict{Status: Unverified, Reason: "truncated_report"}
 	}
 	c, err := parseJUnit(report)
+	if rec.Spec.Go != nil {
+		c, err = parseGoReport(report, rec.Spec.Go.Package)
+	}
 	if err != nil {
 		return Verdict{Status: Unverified, Reason: "report_parse_failed"}
 	}

@@ -6,4 +6,4 @@
 
 [VERIFIED-TESTING-01](VERIFIED-TESTING-01/summary.md) 完成实际 GLM testing 执行、持久可信 evidence receipt、硬失败 needs_review 和重启受控核验。
 
-[只读 review 消费](../WP-22/REVIEW-ASSESSMENT-01/summary.md)已接入。[acceptance 消费](../WP-22/ACCEPTANCE-DECISION-01/summary.md)已接入。未完成：人工最终接受；需要子进程的受控 toolchain backend；真实项目/供应商端到端和最终 T22/T38/T39/T57。没有 HIL/WCET/许可证或工具的条件保持 unverified。UI 按原 Magpie 做必要小范围扩展，本组件不改 UI。
+[只读 review 消费](../WP-22/REVIEW-ASSESSMENT-01/summary.md)已接入。[acceptance 消费](../WP-22/ACCEPTANCE-DECISION-01/summary.md)已接入。人工最终接受、原主导航框架和一次有限返工已接入。[GO-TOOLCHAIN-01](GO-TOOLCHAIN-01/summary.md) 增加固定 Go1.26.3 的真实编译/测试，隔离可信编译器子进程与禁止 fork 的项目测试。未完成：CGO/在线依赖/项目测试子进程及其他受控 toolchain backend；真实项目/供应商端到端和最终 T22/T38/T39/T57。没有 HIL/WCET/许可证或工具的条件保持 unverified。UI 按原 Magpie 做必要小范围扩展，本组件不改 UI。

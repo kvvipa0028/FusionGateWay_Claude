@@ -1,0 +1,10 @@
+=== RUN   TestCompilerTreeCancellationAndRevocationReapActualChildren
+=== RUN   TestCompilerTreeCancellationAndRevocationReapActualChildren/cancel
+=== RUN   TestCompilerTreeCancellationAndRevocationReapActualChildren/revocation
+--- PASS: TestCompilerTreeCancellationAndRevocationReapActualChildren (0.09s)
+    --- PASS: TestCompilerTreeCancellationAndRevocationReapActualChildren/cancel (0.04s)
+    --- PASS: TestCompilerTreeCancellationAndRevocationReapActualChildren/revocation (0.06s)
+=== RUN   TestCompilerSandboxOnlyAllowsPinnedSDKTools
+--- PASS: TestCompilerSandboxOnlyAllowsPinnedSDKTools (0.00s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/evidence	1.610s

@@ -42,26 +42,28 @@ type Spec struct {
 	SuitePaths []string      `json:"suite_paths"`
 	Rules      Rules         `json:"rules"`
 	Timeout    time.Duration `json:"timeout_ns"`
+	Go         *GoToolchain  `json:"go_toolchain,omitempty"`
 }
 type Record struct {
-	Version         int       `json:"version"`
-	Spec            Spec      `json:"spec"`
-	Environment     []string  `json:"environment"`
-	ArtifactHash    string    `json:"artifact_hash"`
-	SuiteHash       string    `json:"suite_hash"`
-	SpecHash        string    `json:"spec_hash"`
-	EnvironmentHash string    `json:"environment_hash"`
-	ToolVersion     string    `json:"tool_version"`
-	ReportHash      string    `json:"report_hash"`
-	StderrHash      string    `json:"stderr_hash"`
-	StartedAt       time.Time `json:"started_at"`
-	FinishedAt      time.Time `json:"finished_at"`
-	ExitCode        int       `json:"exit_code"`
-	Executed        bool      `json:"executed"`
-	Stopped         bool      `json:"stopped"`
-	Truncated       bool      `json:"truncated"`
-	Interrupted     bool      `json:"interrupted"`
-	InputChanged    bool      `json:"input_changed"`
+	Version         int         `json:"version"`
+	Spec            Spec        `json:"spec"`
+	Environment     []string    `json:"environment"`
+	ArtifactHash    string      `json:"artifact_hash"`
+	SuiteHash       string      `json:"suite_hash"`
+	SpecHash        string      `json:"spec_hash"`
+	EnvironmentHash string      `json:"environment_hash"`
+	ToolVersion     string      `json:"tool_version"`
+	ReportHash      string      `json:"report_hash"`
+	StderrHash      string      `json:"stderr_hash"`
+	StartedAt       time.Time   `json:"started_at"`
+	FinishedAt      time.Time   `json:"finished_at"`
+	ExitCode        int         `json:"exit_code"`
+	Executed        bool        `json:"executed"`
+	Stopped         bool        `json:"stopped"`
+	Truncated       bool        `json:"truncated"`
+	Interrupted     bool        `json:"interrupted"`
+	InputChanged    bool        `json:"input_changed"`
+	GoCommands      []GoCommand `json:"go_commands,omitempty"`
 }
 type receipt struct {
 	record         Record
@@ -78,6 +80,7 @@ func (r Result) Record() Record {
 	v := r.owned.record
 	v.Spec = clone(v.Spec)
 	v.Environment = append([]string(nil), v.Environment...)
+	v.GoCommands = cloneGoCommands(v.GoCommands)
 	return v
 }
 func (r Result) Logs() (stdout, stderr []byte) {
@@ -95,6 +98,10 @@ func clone(s Spec) Spec {
 	s.Args = append([]string(nil), s.Args...)
 	s.SuitePaths = append([]string(nil), s.SuitePaths...)
 	s.Tool.VersionArgs = append([]string(nil), s.Tool.VersionArgs...)
+	if s.Go != nil {
+		v := *s.Go
+		s.Go = &v
+	}
 	return s
 }
 func validArgs(args []string) bool {
@@ -109,6 +116,9 @@ func validArgs(args []string) bool {
 	return true
 }
 func validSpec(s Spec) bool {
+	if !validGoSpec(s) {
+		return false
+	}
 	return filepath.IsAbs(s.Tool.Executable) && filepath.Clean(s.Tool.Executable) == s.Tool.Executable && len(s.Tool.SHA256) == 64 && s.Tool.Version != "" && len(s.Tool.Version) <= 4096 && !strings.ContainsAny(s.Tool.Version, "\r\n\x00") && validArgs(s.Tool.VersionArgs) && len(s.Tool.VersionArgs) > 0 && validArgs(s.Args) && workspace.ValidWritePaths(s.SuitePaths) && len(s.SuitePaths) > 0 && s.Rules.MinTests >= 0 && s.Rules.MinTests <= 100000 && (s.Rules.MinTests > 0 || s.Rules.AllowZero) && s.Timeout > 0 && s.Timeout <= 10*time.Minute
 }
 func toolCurrent(tool Tool) bool {
@@ -166,6 +176,9 @@ func suiteHash(a workspace.FrozenArtifact, paths []string) (string, bool) {
 // for a process execution. The artifact and its copied input remain read-only.
 func Run(ctx context.Context, a workspace.FrozenArtifact, root string, in Spec) (Result, error) {
 	s := clone(in)
+	if s.Go != nil {
+		return runGo(ctx, a, root, s)
+	}
 	if ctx == nil || ctx.Err() != nil || !available() || !validSpec(s) || !toolCurrent(s.Tool) || workspace.PrivateState(root) != nil {
 		return Result{}, ErrInvalid
 	}
@@ -243,6 +256,9 @@ func Evaluate(r Result, current workspace.FrozenArtifact, s Spec) Verdict {
 	suite, ok := suiteHash(current, s.SuitePaths)
 	if !ok || current.Path() != v.artifact.Path() || !v.artifact.Current() || rec.InputChanged || current.Manifest().TreeHash != rec.ArtifactHash || suite != rec.SuiteHash || !reflect.DeepEqual(clone(s), v.spec) {
 		return Verdict{Status: Superseded, Reason: "artifact_suite_or_standard_changed"}
+	}
+	if s.Go != nil && !goRootCurrent(s.Go) {
+		return Verdict{Status: Superseded, Reason: "toolchain_changed"}
 	}
 	return evaluateReport(rec, v.stdout, s.Rules)
 }

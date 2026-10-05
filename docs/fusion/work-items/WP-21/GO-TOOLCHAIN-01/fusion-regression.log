@@ -1,0 +1,1417 @@
+flag provided but not defined: -fusion-go-evidence-record
+Usage of /var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/go-build3715974188/b259/api.test:
+  -fusion-api-contract-out string
+        optional absolute JSON output for offline OpenAPI contract verification
+  -test.artifacts
+        store test artifacts in test.,outputdir
+  -test.bench regexp
+        run only benchmarks matching regexp
+  -test.benchmem
+        print memory allocations for benchmarks
+  -test.benchtime d
+        run each benchmark for duration d or N times if `d` is of the form Nx (default 1s)
+  -test.blockprofile file
+        write a goroutine blocking profile to file
+  -test.blockprofilerate rate
+        set blocking profile rate (see runtime.SetBlockProfileRate) (default 1)
+  -test.count n
+        run tests and benchmarks n times (default 1)
+  -test.coverprofile file
+        write a coverage profile to file
+  -test.cpu list
+        comma-separated list of cpu counts to run each test with
+  -test.cpuprofile file
+        write a cpu profile to file
+  -test.failfast
+        do not start new tests after the first test failure
+  -test.fullpath
+        show full file names in error messages
+  -test.fuzz regexp
+        run the fuzz test matching regexp
+  -test.fuzzcachedir string
+        directory where interesting fuzzing inputs are stored (for use only by cmd/go)
+  -test.fuzzminimizetime value
+        time to spend minimizing a value after finding a failing input (default 1m0s)
+  -test.fuzztime value
+        time to spend fuzzing; default is to run indefinitely
+  -test.fuzzworker
+        coordinate with the parent process to fuzz random values (for use only by cmd/go)
+  -test.gocoverdir string
+        write coverage intermediate files to this directory
+  -test.list regexp
+        list tests, examples, and benchmarks matching regexp then exit
+  -test.memprofile file
+        write an allocation profile to file
+  -test.memprofilerate rate
+        set memory allocation profiling rate (see runtime.MemProfileRate)
+  -test.mutexprofile string
+        write a mutex contention profile to the named file after execution
+  -test.mutexprofilefraction int
+        if >= 0, calls runtime.SetMutexProfileFraction() (default 1)
+  -test.outputdir dir
+        write profiles to dir
+  -test.paniconexit0
+        panic on call to os.Exit(0)
+  -test.parallel n
+        run at most n tests in parallel (default 14)
+  -test.run regexp
+        run only tests and examples matching regexp
+  -test.short
+        run smaller test suite to save time
+  -test.shuffle string
+        randomize the execution order of tests and benchmarks (default "off")
+  -test.skip regexp
+        do not list or run tests matching regexp
+  -test.testlogfile file
+        write test action log to file (for use only by cmd/go)
+  -test.timeout d
+        panic test binary after duration d (default 0, timeout disabled)
+  -test.trace file
+        write an execution trace to file
+  -test.v
+        verbose: print additional output
+FAIL	github.com/yetone/magpie/internal/fusion/api	0.616s
+flag provided but not defined: -fusion-go-evidence-record
+Usage of /var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/go-build3715974188/b271/bootstrap.test:
+  -fusion-host-native-claude string
+        explicit pinned Claude for production GLM factory; synthetic upstream/admission only
+  -fusion-host-native-codex string
+        explicit pinned Codex HTTP host fixture; synthetic identity/model/quota only
+  -fusion-host-native-grok string
+        explicit pinned Native HTTP host fixture; synthetic model/quota only
+  -fusion-human-control-capture string
+        optional absolute actual Native bridge contract sample output
+  -fusion-ui-fixture-execution string
+        synthetic hold/success execution; test binary only
+  -fusion-ui-fixture-quota
+        synthetic quota only; no supplier calls
+  -fusion-ui-fixture-root string
+        explicit private UI fixture state; test binary only
+  -fusion-ui-fixture-source string
+        explicit synthetic UI fixture source; test binary only
+  -test.artifacts
+        store test artifacts in test.,outputdir
+  -test.bench regexp
+        run only benchmarks matching regexp
+  -test.benchmem
+        print memory allocations for benchmarks
+  -test.benchtime d
+        run each benchmark for duration d or N times if `d` is of the form Nx (default 1s)
+  -test.blockprofile file
+        write a goroutine blocking profile to file
+  -test.blockprofilerate rate
+        set blocking profile rate (see runtime.SetBlockProfileRate) (default 1)
+  -test.count n
+        run tests and benchmarks n times (default 1)
+  -test.coverprofile file
+        write a coverage profile to file
+  -test.cpu list
+        comma-separated list of cpu counts to run each test with
+  -test.cpuprofile file
+        write a cpu profile to file
+  -test.failfast
+        do not start new tests after the first test failure
+  -test.fullpath
+        show full file names in error messages
+  -test.fuzz regexp
+        run the fuzz test matching regexp
+  -test.fuzzcachedir string
+        directory where interesting fuzzing inputs are stored (for use only by cmd/go)
+  -test.fuzzminimizetime value
+        time to spend minimizing a value after finding a failing input (default 1m0s)
+  -test.fuzztime value
+        time to spend fuzzing; default is to run indefinitely
+  -test.fuzzworker
+        coordinate with the parent process to fuzz random values (for use only by cmd/go)
+  -test.gocoverdir string
+        write coverage intermediate files to this directory
+  -test.list regexp
+        list tests, examples, and benchmarks matching regexp then exit
+  -test.memprofile file
+        write an allocation profile to file
+  -test.memprofilerate rate
+        set memory allocation profiling rate (see runtime.MemProfileRate)
+  -test.mutexprofile string
+        write a mutex contention profile to the named file after execution
+  -test.mutexprofilefraction int
+        if >= 0, calls runtime.SetMutexProfileFraction() (default 1)
+  -test.outputdir dir
+        write profiles to dir
+  -test.paniconexit0
+        panic on call to os.Exit(0)
+  -test.parallel n
+        run at most n tests in parallel (default 14)
+  -test.run regexp
+        run only tests and examples matching regexp
+  -test.short
+        run smaller test suite to save time
+  -test.shuffle string
+        randomize the execution order of tests and benchmarks (default "off")
+  -test.skip regexp
+        do not list or run tests matching regexp
+  -test.testlogfile file
+        write test action log to file (for use only by cmd/go)
+  -test.timeout d
+        panic test binary after duration d (default 0, timeout disabled)
+  -test.trace file
+        write an execution trace to file
+  -test.v
+        verbose: print additional output
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	0.767s
+flag provided but not defined: -fusion-go-evidence-record
+Usage of /var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/go-build3715974188/b279/control.test:
+  -fusion-control-native-claude string
+        explicit pinned Claude CLI for synthetic Controller/Adapter lifecycle; no real credentials
+  -fusion-control-native-codex string
+        explicit pinned private Codex Controller; synthetic upstream/identity/quota
+  -fusion-control-native-grok string
+        explicit pinned Grok CLI for synthetic Controller/Adapter lifecycle; no real credentials
+  -test.artifacts
+        store test artifacts in test.,outputdir
+  -test.bench regexp
+        run only benchmarks matching regexp
+  -test.benchmem
+        print memory allocations for benchmarks
+  -test.benchtime d
+        run each benchmark for duration d or N times if `d` is of the form Nx (default 1s)
+  -test.blockprofile file
+        write a goroutine blocking profile to file
+  -test.blockprofilerate rate
+        set blocking profile rate (see runtime.SetBlockProfileRate) (default 1)
+  -test.count n
+        run tests and benchmarks n times (default 1)
+  -test.coverprofile file
+        write a coverage profile to file
+  -test.cpu list
+        comma-separated list of cpu counts to run each test with
+  -test.cpuprofile file
+        write a cpu profile to file
+  -test.failfast
+        do not start new tests after the first test failure
+  -test.fullpath
+        show full file names in error messages
+  -test.fuzz regexp
+        run the fuzz test matching regexp
+  -test.fuzzcachedir string
+        directory where interesting fuzzing inputs are stored (for use only by cmd/go)
+  -test.fuzzminimizetime value
+        time to spend minimizing a value after finding a failing input (default 1m0s)
+  -test.fuzztime value
+        time to spend fuzzing; default is to run indefinitely
+  -test.fuzzworker
+        coordinate with the parent process to fuzz random values (for use only by cmd/go)
+  -test.gocoverdir string
+        write coverage intermediate files to this directory
+  -test.list regexp
+        list tests, examples, and benchmarks matching regexp then exit
+  -test.memprofile file
+        write an allocation profile to file
+  -test.memprofilerate rate
+        set memory allocation profiling rate (see runtime.MemProfileRate)
+  -test.mutexprofile string
+        write a mutex contention profile to the named file after execution
+  -test.mutexprofilefraction int
+        if >= 0, calls runtime.SetMutexProfileFraction() (default 1)
+  -test.outputdir dir
+        write profiles to dir
+  -test.paniconexit0
+        panic on call to os.Exit(0)
+  -test.parallel n
+        run at most n tests in parallel (default 14)
+  -test.run regexp
+        run only tests and examples matching regexp
+  -test.short
+        run smaller test suite to save time
+  -test.shuffle string
+        randomize the execution order of tests and benchmarks (default "off")
+  -test.skip regexp
+        do not list or run tests matching regexp
+  -test.testlogfile file
+        write test action log to file (for use only by cmd/go)
+  -test.timeout d
+        panic test binary after duration d (default 0, timeout disabled)
+  -test.trace file
+        write an execution trace to file
+  -test.v
+        verbose: print additional output
+FAIL	github.com/yetone/magpie/internal/fusion/control	0.433s
+=== RUN   TestPinnedCompilerFixtureWorker
+--- PASS: TestPinnedCompilerFixtureWorker (0.00s)
+=== RUN   TestCompilerTreeCancellationAndRevocationReapActualChildren
+=== RUN   TestCompilerTreeCancellationAndRevocationReapActualChildren/cancel
+=== RUN   TestCompilerTreeCancellationAndRevocationReapActualChildren/revocation
+--- PASS: TestCompilerTreeCancellationAndRevocationReapActualChildren (0.08s)
+    --- PASS: TestCompilerTreeCancellationAndRevocationReapActualChildren/cancel (0.02s)
+    --- PASS: TestCompilerTreeCancellationAndRevocationReapActualChildren/revocation (0.06s)
+=== RUN   TestCompilerSandboxOnlyAllowsPinnedSDKTools
+--- PASS: TestCompilerSandboxOnlyAllowsPinnedSDKTools (0.00s)
+=== RUN   TestGoReportRequiresCompleteBalancedActualCases
+--- PASS: TestGoReportRequiresCompleteBalancedActualCases (0.00s)
+=== RUN   TestGoRunnerActuallyBuildsAndRunsCurrentArtifact
+--- PASS: TestGoRunnerActuallyBuildsAndRunsCurrentArtifact (12.04s)
+=== RUN   TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies
+=== RUN   TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies/failure
+=== RUN   TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies/zero
+=== RUN   TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies/skipped
+=== RUN   TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies/compile
+=== RUN   TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies/missingdependency
+--- PASS: TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies (60.05s)
+    --- PASS: TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies/failure (13.77s)
+    --- PASS: TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies/zero (13.82s)
+    --- PASS: TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies/skipped (14.23s)
+    --- PASS: TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies/compile (9.21s)
+    --- PASS: TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies/missingdependency (9.03s)
+=== RUN   TestGoRunnerKernelBoundariesAndActualOwnedReceipt
+--- PASS: TestGoRunnerKernelBoundariesAndActualOwnedReceipt (13.94s)
+=== RUN   TestGoSpecNoFlagsEnvironmentShellOrEscapingPackage
+--- PASS: TestGoSpecNoFlagsEnvironmentShellOrEscapingPackage (2.46s)
+=== RUN   TestGoRunnerFrozenVendorDependencyActuallyRunsOffline
+--- PASS: TestGoRunnerFrozenVendorDependencyActuallyRunsOffline (12.52s)
+=== RUN   TestGoRunnerActualCompiledTestStopsOnCancelAndSourceRevocation
+=== RUN   TestGoRunnerActualCompiledTestStopsOnCancelAndSourceRevocation/cancel
+=== RUN   TestGoRunnerActualCompiledTestStopsOnCancelAndSourceRevocation/source
+--- PASS: TestGoRunnerActualCompiledTestStopsOnCancelAndSourceRevocation (17.76s)
+    --- PASS: TestGoRunnerActualCompiledTestStopsOnCancelAndSourceRevocation/cancel (9.43s)
+    --- PASS: TestGoRunnerActualCompiledTestStopsOnCancelAndSourceRevocation/source (8.33s)
+=== RUN   TestGoRunnerActualOutputTruncationCannotPass
+--- PASS: TestGoRunnerActualOutputTruncationCannotPass (10.95s)
+=== RUN   TestGoSDKFreezeRejectsSymlinksPermissionsAndContentDrift
+--- PASS: TestGoSDKFreezeRejectsSymlinksPermissionsAndContentDrift (0.00s)
+=== RUN   TestJUnitRejectsForgedAggregatesHiddenFailuresAndTruncatedReports
+--- PASS: TestJUnitRejectsForgedAggregatesHiddenFailuresAndTruncatedReports (0.00s)
+=== RUN   TestJUnitAggregatesActualNestedCasesWithoutRequiringWrapperCounters
+--- PASS: TestJUnitAggregatesActualNestedCasesWithoutRequiringWrapperCounters (0.00s)
+=== RUN   TestEvidenceWorker
+--- PASS: TestEvidenceWorker (0.00s)
+=== RUN   TestRunnerActualProcessBindsCodeSuiteCommandAndVersion
+--- PASS: TestRunnerActualProcessBindsCodeSuiteCommandAndVersion (0.09s)
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/exit
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/failed
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/zero
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/skipped
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/malformed
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/inconsistent
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/truncated
+--- PASS: TestRunnerActualReportFailuresCannotBecomePassed (0.52s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/exit (0.08s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/failed (0.08s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/zero (0.07s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/skipped (0.07s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/malformed (0.07s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/inconsistent (0.07s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/truncated (0.07s)
+=== RUN   TestRunnerActualKernelBoundariesAndPositiveScratch
+--- PASS: TestRunnerActualKernelBoundariesAndPositiveScratch (0.07s)
+=== RUN   TestRunnerStopsActualTimeoutAndSourceRevocation
+=== RUN   TestRunnerStopsActualTimeoutAndSourceRevocation/timeout
+=== RUN   TestRunnerStopsActualTimeoutAndSourceRevocation/revoke
+=== RUN   TestRunnerStopsActualTimeoutAndSourceRevocation/cancel
+--- PASS: TestRunnerStopsActualTimeoutAndSourceRevocation (0.61s)
+    --- PASS: TestRunnerStopsActualTimeoutAndSourceRevocation/timeout (0.23s)
+    --- PASS: TestRunnerStopsActualTimeoutAndSourceRevocation/revoke (0.20s)
+    --- PASS: TestRunnerStopsActualTimeoutAndSourceRevocation/cancel (0.18s)
+=== RUN   TestRunnerZeroTestsRequireExplicitFrozenProjectRule
+--- PASS: TestRunnerZeroTestsRequireExplicitFrozenProjectRule (0.08s)
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/hash
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/missing
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/version
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/suite
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/timeout
+--- PASS: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite (0.09s)
+    --- PASS: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/hash (0.01s)
+    --- PASS: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/missing (0.01s)
+    --- PASS: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/version (0.04s)
+    --- PASS: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/suite (0.02s)
+    --- PASS: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/timeout (0.01s)
+=== RUN   TestStoredVerificationRequiresOwnedExportAndExactRestoredSource
+--- PASS: TestStoredVerificationRequiresOwnedExportAndExactRestoredSource (0.08s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/evidence	132.698s
+flag provided but not defined: -fusion-go-evidence-record
+Usage of /var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/go-build3715974188/b283/handoff.test:
+  -test.artifacts
+        store test artifacts in test.,outputdir
+  -test.bench regexp
+        run only benchmarks matching regexp
+  -test.benchmem
+        print memory allocations for benchmarks
+  -test.benchtime d
+        run each benchmark for duration d or N times if `d` is of the form Nx (default 1s)
+  -test.blockprofile file
+        write a goroutine blocking profile to file
+  -test.blockprofilerate rate
+        set blocking profile rate (see runtime.SetBlockProfileRate) (default 1)
+  -test.count n
+        run tests and benchmarks n times (default 1)
+  -test.coverprofile file
+        write a coverage profile to file
+  -test.cpu list
+        comma-separated list of cpu counts to run each test with
+  -test.cpuprofile file
+        write a cpu profile to file
+  -test.failfast
+        do not start new tests after the first test failure
+  -test.fullpath
+        show full file names in error messages
+  -test.fuzz regexp
+        run the fuzz test matching regexp
+  -test.fuzzcachedir string
+        directory where interesting fuzzing inputs are stored (for use only by cmd/go)
+  -test.fuzzminimizetime value
+        time to spend minimizing a value after finding a failing input (default 1m0s)
+  -test.fuzztime value
+        time to spend fuzzing; default is to run indefinitely
+  -test.fuzzworker
+        coordinate with the parent process to fuzz random values (for use only by cmd/go)
+  -test.gocoverdir string
+        write coverage intermediate files to this directory
+  -test.list regexp
+        list tests, examples, and benchmarks matching regexp then exit
+  -test.memprofile file
+        write an allocation profile to file
+  -test.memprofilerate rate
+        set memory allocation profiling rate (see runtime.MemProfileRate)
+  -test.mutexprofile string
+        write a mutex contention profile to the named file after execution
+  -test.mutexprofilefraction int
+        if >= 0, calls runtime.SetMutexProfileFraction() (default 1)
+  -test.outputdir dir
+        write profiles to dir
+  -test.paniconexit0
+        panic on call to os.Exit(0)
+  -test.parallel n
+        run at most n tests in parallel (default 14)
+  -test.run regexp
+        run only tests and examples matching regexp
+  -test.short
+        run smaller test suite to save time
+  -test.shuffle string
+        randomize the execution order of tests and benchmarks (default "off")
+  -test.skip regexp
+        do not list or run tests matching regexp
+  -test.testlogfile file
+        write test action log to file (for use only by cmd/go)
+  -test.timeout d
+        panic test binary after duration d (default 0, timeout disabled)
+  -test.trace file
+        write an execution trace to file
+  -test.v
+        verbose: print additional output
+FAIL	github.com/yetone/magpie/internal/fusion/handoff	0.338s
+flag provided but not defined: -fusion-go-evidence-record
+Usage of /var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/go-build3715974188/b284/isolation.test:
+  -test.artifacts
+        store test artifacts in test.,outputdir
+  -test.bench regexp
+        run only benchmarks matching regexp
+  -test.benchmem
+        print memory allocations for benchmarks
+  -test.benchtime d
+        run each benchmark for duration d or N times if `d` is of the form Nx (default 1s)
+  -test.blockprofile file
+        write a goroutine blocking profile to file
+  -test.blockprofilerate rate
+        set blocking profile rate (see runtime.SetBlockProfileRate) (default 1)
+  -test.count n
+        run tests and benchmarks n times (default 1)
+  -test.coverprofile file
+        write a coverage profile to file
+  -test.cpu list
+        comma-separated list of cpu counts to run each test with
+  -test.cpuprofile file
+        write a cpu profile to file
+  -test.failfast
+        do not start new tests after the first test failure
+  -test.fullpath
+        show full file names in error messages
+  -test.fuzz regexp
+        run the fuzz test matching regexp
+  -test.fuzzcachedir string
+        directory where interesting fuzzing inputs are stored (for use only by cmd/go)
+  -test.fuzzminimizetime value
+        time to spend minimizing a value after finding a failing input (default 1m0s)
+  -test.fuzztime value
+        time to spend fuzzing; default is to run indefinitely
+  -test.fuzzworker
+        coordinate with the parent process to fuzz random values (for use only by cmd/go)
+  -test.gocoverdir string
+        write coverage intermediate files to this directory
+  -test.list regexp
+        list tests, examples, and benchmarks matching regexp then exit
+  -test.memprofile file
+        write an allocation profile to file
+  -test.memprofilerate rate
+        set memory allocation profiling rate (see runtime.MemProfileRate)
+  -test.mutexprofile string
+        write a mutex contention profile to the named file after execution
+  -test.mutexprofilefraction int
+        if >= 0, calls runtime.SetMutexProfileFraction() (default 1)
+  -test.outputdir dir
+        write profiles to dir
+  -test.paniconexit0
+        panic on call to os.Exit(0)
+  -test.parallel n
+        run at most n tests in parallel (default 14)
+  -test.run regexp
+        run only tests and examples matching regexp
+  -test.short
+        run smaller test suite to save time
+  -test.shuffle string
+        randomize the execution order of tests and benchmarks (default "off")
+  -test.skip regexp
+        do not list or run tests matching regexp
+  -test.testlogfile file
+        write test action log to file (for use only by cmd/go)
+  -test.timeout d
+        panic test binary after duration d (default 0, timeout disabled)
+  -test.trace file
+        write an execution trace to file
+  -test.v
+        verbose: print additional output
+FAIL	github.com/yetone/magpie/internal/fusion/isolation	0.341s
+flag provided but not defined: -fusion-go-evidence-record
+Usage of /var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/go-build3715974188/b288/policy.test:
+  -test.artifacts
+        store test artifacts in test.,outputdir
+  -test.bench regexp
+        run only benchmarks matching regexp
+  -test.benchmem
+        print memory allocations for benchmarks
+  -test.benchtime d
+        run each benchmark for duration d or N times if `d` is of the form Nx (default 1s)
+  -test.blockprofile file
+        write a goroutine blocking profile to file
+  -test.blockprofilerate rate
+        set blocking profile rate (see runtime.SetBlockProfileRate) (default 1)
+  -test.count n
+        run tests and benchmarks n times (default 1)
+  -test.coverprofile file
+        write a coverage profile to file
+  -test.cpu list
+        comma-separated list of cpu counts to run each test with
+  -test.cpuprofile file
+        write a cpu profile to file
+  -test.failfast
+        do not start new tests after the first test failure
+  -test.fullpath
+        show full file names in error messages
+  -test.fuzz regexp
+        run the fuzz test matching regexp
+  -test.fuzzcachedir string
+        directory where interesting fuzzing inputs are stored (for use only by cmd/go)
+  -test.fuzzminimizetime value
+        time to spend minimizing a value after finding a failing input (default 1m0s)
+  -test.fuzztime value
+        time to spend fuzzing; default is to run indefinitely
+  -test.fuzzworker
+        coordinate with the parent process to fuzz random values (for use only by cmd/go)
+  -test.gocoverdir string
+        write coverage intermediate files to this directory
+  -test.list regexp
+        list tests, examples, and benchmarks matching regexp then exit
+  -test.memprofile file
+        write an allocation profile to file
+  -test.memprofilerate rate
+        set memory allocation profiling rate (see runtime.MemProfileRate)
+  -test.mutexprofile string
+        write a mutex contention profile to the named file after execution
+  -test.mutexprofilefraction int
+        if >= 0, calls runtime.SetMutexProfileFraction() (default 1)
+  -test.outputdir dir
+        write profiles to dir
+  -test.paniconexit0
+        panic on call to os.Exit(0)
+  -test.parallel n
+        run at most n tests in parallel (default 14)
+  -test.run regexp
+        run only tests and examples matching regexp
+  -test.short
+        run smaller test suite to save time
+  -test.shuffle string
+        randomize the execution order of tests and benchmarks (default "off")
+  -test.skip regexp
+        do not list or run tests matching regexp
+  -test.testlogfile file
+        write test action log to file (for use only by cmd/go)
+  -test.timeout d
+        panic test binary after duration d (default 0, timeout disabled)
+  -test.trace file
+        write an execution trace to file
+  -test.v
+        verbose: print additional output
+FAIL	github.com/yetone/magpie/internal/fusion/policy	0.431s
+flag provided but not defined: -fusion-go-evidence-record
+Usage of /var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/go-build3715974188/b290/quota.test:
+  -test.artifacts
+        store test artifacts in test.,outputdir
+  -test.bench regexp
+        run only benchmarks matching regexp
+  -test.benchmem
+        print memory allocations for benchmarks
+  -test.benchtime d
+        run each benchmark for duration d or N times if `d` is of the form Nx (default 1s)
+  -test.blockprofile file
+        write a goroutine blocking profile to file
+  -test.blockprofilerate rate
+        set blocking profile rate (see runtime.SetBlockProfileRate) (default 1)
+  -test.count n
+        run tests and benchmarks n times (default 1)
+  -test.coverprofile file
+        write a coverage profile to file
+  -test.cpu list
+        comma-separated list of cpu counts to run each test with
+  -test.cpuprofile file
+        write a cpu profile to file
+  -test.failfast
+        do not start new tests after the first test failure
+  -test.fullpath
+        show full file names in error messages
+  -test.fuzz regexp
+        run the fuzz test matching regexp
+  -test.fuzzcachedir string
+        directory where interesting fuzzing inputs are stored (for use only by cmd/go)
+  -test.fuzzminimizetime value
+        time to spend minimizing a value after finding a failing input (default 1m0s)
+  -test.fuzztime value
+        time to spend fuzzing; default is to run indefinitely
+  -test.fuzzworker
+        coordinate with the parent process to fuzz random values (for use only by cmd/go)
+  -test.gocoverdir string
+        write coverage intermediate files to this directory
+  -test.list regexp
+        list tests, examples, and benchmarks matching regexp then exit
+  -test.memprofile file
+        write an allocation profile to file
+  -test.memprofilerate rate
+        set memory allocation profiling rate (see runtime.MemProfileRate)
+  -test.mutexprofile string
+        write a mutex contention profile to the named file after execution
+  -test.mutexprofilefraction int
+        if >= 0, calls runtime.SetMutexProfileFraction() (default 1)
+  -test.outputdir dir
+        write profiles to dir
+  -test.paniconexit0
+        panic on call to os.Exit(0)
+  -test.parallel n
+        run at most n tests in parallel (default 14)
+  -test.run regexp
+        run only tests and examples matching regexp
+  -test.short
+        run smaller test suite to save time
+  -test.shuffle string
+        randomize the execution order of tests and benchmarks (default "off")
+  -test.skip regexp
+        do not list or run tests matching regexp
+  -test.testlogfile file
+        write test action log to file (for use only by cmd/go)
+  -test.timeout d
+        panic test binary after duration d (default 0, timeout disabled)
+  -test.trace file
+        write an execution trace to file
+  -test.v
+        verbose: print additional output
+FAIL	github.com/yetone/magpie/internal/fusion/quota	0.331s
+flag provided but not defined: -fusion-go-evidence-record
+Usage of /var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/go-build3715974188/b292/routes.test:
+  -test.artifacts
+        store test artifacts in test.,outputdir
+  -test.bench regexp
+        run only benchmarks matching regexp
+  -test.benchmem
+        print memory allocations for benchmarks
+  -test.benchtime d
+        run each benchmark for duration d or N times if `d` is of the form Nx (default 1s)
+  -test.blockprofile file
+        write a goroutine blocking profile to file
+  -test.blockprofilerate rate
+        set blocking profile rate (see runtime.SetBlockProfileRate) (default 1)
+  -test.count n
+        run tests and benchmarks n times (default 1)
+  -test.coverprofile file
+        write a coverage profile to file
+  -test.cpu list
+        comma-separated list of cpu counts to run each test with
+  -test.cpuprofile file
+        write a cpu profile to file
+  -test.failfast
+        do not start new tests after the first test failure
+  -test.fullpath
+        show full file names in error messages
+  -test.fuzz regexp
+        run the fuzz test matching regexp
+  -test.fuzzcachedir string
+        directory where interesting fuzzing inputs are stored (for use only by cmd/go)
+  -test.fuzzminimizetime value
+        time to spend minimizing a value after finding a failing input (default 1m0s)
+  -test.fuzztime value
+        time to spend fuzzing; default is to run indefinitely
+  -test.fuzzworker
+        coordinate with the parent process to fuzz random values (for use only by cmd/go)
+  -test.gocoverdir string
+        write coverage intermediate files to this directory
+  -test.list regexp
+        list tests, examples, and benchmarks matching regexp then exit
+  -test.memprofile file
+        write an allocation profile to file
+  -test.memprofilerate rate
+        set memory allocation profiling rate (see runtime.MemProfileRate)
+  -test.mutexprofile string
+        write a mutex contention profile to the named file after execution
+  -test.mutexprofilefraction int
+        if >= 0, calls runtime.SetMutexProfileFraction() (default 1)
+  -test.outputdir dir
+        write profiles to dir
+  -test.paniconexit0
+        panic on call to os.Exit(0)
+  -test.parallel n
+        run at most n tests in parallel (default 14)
+  -test.run regexp
+        run only tests and examples matching regexp
+  -test.short
+        run smaller test suite to save time
+  -test.shuffle string
+        randomize the execution order of tests and benchmarks (default "off")
+  -test.skip regexp
+        do not list or run tests matching regexp
+  -test.testlogfile file
+        write test action log to file (for use only by cmd/go)
+  -test.timeout d
+        panic test binary after duration d (default 0, timeout disabled)
+  -test.trace file
+        write an execution trace to file
+  -test.v
+        verbose: print additional output
+FAIL	github.com/yetone/magpie/internal/fusion/routes	0.340s
+flag provided but not defined: -fusion-go-evidence-record
+Usage of /var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/go-build3715974188/b294/runtime.test:
+  -fusion-native-codex string
+        explicit pinned private Codex bootstrap test; no login/model
+  -test.artifacts
+        store test artifacts in test.,outputdir
+  -test.bench regexp
+        run only benchmarks matching regexp
+  -test.benchmem
+        print memory allocations for benchmarks
+  -test.benchtime d
+        run each benchmark for duration d or N times if `d` is of the form Nx (default 1s)
+  -test.blockprofile file
+        write a goroutine blocking profile to file
+  -test.blockprofilerate rate
+        set blocking profile rate (see runtime.SetBlockProfileRate) (default 1)
+  -test.count n
+        run tests and benchmarks n times (default 1)
+  -test.coverprofile file
+        write a coverage profile to file
+  -test.cpu list
+        comma-separated list of cpu counts to run each test with
+  -test.cpuprofile file
+        write a cpu profile to file
+  -test.failfast
+        do not start new tests after the first test failure
+  -test.fullpath
+        show full file names in error messages
+  -test.fuzz regexp
+        run the fuzz test matching regexp
+  -test.fuzzcachedir string
+        directory where interesting fuzzing inputs are stored (for use only by cmd/go)
+  -test.fuzzminimizetime value
+        time to spend minimizing a value after finding a failing input (default 1m0s)
+  -test.fuzztime value
+        time to spend fuzzing; default is to run indefinitely
+  -test.fuzzworker
+        coordinate with the parent process to fuzz random values (for use only by cmd/go)
+  -test.gocoverdir string
+        write coverage intermediate files to this directory
+  -test.list regexp
+        list tests, examples, and benchmarks matching regexp then exit
+  -test.memprofile file
+        write an allocation profile to file
+  -test.memprofilerate rate
+        set memory allocation profiling rate (see runtime.MemProfileRate)
+  -test.mutexprofile string
+        write a mutex contention profile to the named file after execution
+  -test.mutexprofilefraction int
+        if >= 0, calls runtime.SetMutexProfileFraction() (default 1)
+  -test.outputdir dir
+        write profiles to dir
+  -test.paniconexit0
+        panic on call to os.Exit(0)
+  -test.parallel n
+        run at most n tests in parallel (default 14)
+  -test.run regexp
+        run only tests and examples matching regexp
+  -test.short
+        run smaller test suite to save time
+  -test.shuffle string
+        randomize the execution order of tests and benchmarks (default "off")
+  -test.skip regexp
+        do not list or run tests matching regexp
+  -test.testlogfile file
+        write test action log to file (for use only by cmd/go)
+  -test.timeout d
+        panic test binary after duration d (default 0, timeout disabled)
+  -test.trace file
+        write an execution trace to file
+  -test.v
+        verbose: print additional output
+FAIL	github.com/yetone/magpie/internal/fusion/runtime	0.445s
+flag provided but not defined: -fusion-go-evidence-record
+Usage of /var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/go-build3715974188/b297/codex.test:
+  -test.artifacts
+        store test artifacts in test.,outputdir
+  -test.bench regexp
+        run only benchmarks matching regexp
+  -test.benchmem
+        print memory allocations for benchmarks
+  -test.benchtime d
+        run each benchmark for duration d or N times if `d` is of the form Nx (default 1s)
+  -test.blockprofile file
+        write a goroutine blocking profile to file
+  -test.blockprofilerate rate
+        set blocking profile rate (see runtime.SetBlockProfileRate) (default 1)
+  -test.count n
+        run tests and benchmarks n times (default 1)
+  -test.coverprofile file
+        write a coverage profile to file
+  -test.cpu list
+        comma-separated list of cpu counts to run each test with
+  -test.cpuprofile file
+        write a cpu profile to file
+  -test.failfast
+        do not start new tests after the first test failure
+  -test.fullpath
+        show full file names in error messages
+  -test.fuzz regexp
+        run the fuzz test matching regexp
+  -test.fuzzcachedir string
+        directory where interesting fuzzing inputs are stored (for use only by cmd/go)
+  -test.fuzzminimizetime value
+        time to spend minimizing a value after finding a failing input (default 1m0s)
+  -test.fuzztime value
+        time to spend fuzzing; default is to run indefinitely
+  -test.fuzzworker
+        coordinate with the parent process to fuzz random values (for use only by cmd/go)
+  -test.gocoverdir string
+        write coverage intermediate files to this directory
+  -test.list regexp
+        list tests, examples, and benchmarks matching regexp then exit
+  -test.memprofile file
+        write an allocation profile to file
+  -test.memprofilerate rate
+        set memory allocation profiling rate (see runtime.MemProfileRate)
+  -test.mutexprofile string
+        write a mutex contention profile to the named file after execution
+  -test.mutexprofilefraction int
+        if >= 0, calls runtime.SetMutexProfileFraction() (default 1)
+  -test.outputdir dir
+        write profiles to dir
+  -test.paniconexit0
+        panic on call to os.Exit(0)
+  -test.parallel n
+        run at most n tests in parallel (default 14)
+  -test.run regexp
+        run only tests and examples matching regexp
+  -test.short
+        run smaller test suite to save time
+  -test.shuffle string
+        randomize the execution order of tests and benchmarks (default "off")
+  -test.skip regexp
+        do not list or run tests matching regexp
+  -test.testlogfile file
+        write test action log to file (for use only by cmd/go)
+  -test.timeout d
+        panic test binary after duration d (default 0, timeout disabled)
+  -test.trace file
+        write an execution trace to file
+  -test.v
+        verbose: print additional output
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/codex	0.474s
+flag provided but not defined: -fusion-go-evidence-record
+Usage of /var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/go-build3715974188/b298/codexadapter.test:
+  -fusion-native-codex-adapter string
+        explicit pinned private Codex Adapter; synthetic upstream/identity/quota
+  -test.artifacts
+        store test artifacts in test.,outputdir
+  -test.bench regexp
+        run only benchmarks matching regexp
+  -test.benchmem
+        print memory allocations for benchmarks
+  -test.benchtime d
+        run each benchmark for duration d or N times if `d` is of the form Nx (default 1s)
+  -test.blockprofile file
+        write a goroutine blocking profile to file
+  -test.blockprofilerate rate
+        set blocking profile rate (see runtime.SetBlockProfileRate) (default 1)
+  -test.count n
+        run tests and benchmarks n times (default 1)
+  -test.coverprofile file
+        write a coverage profile to file
+  -test.cpu list
+        comma-separated list of cpu counts to run each test with
+  -test.cpuprofile file
+        write a cpu profile to file
+  -test.failfast
+        do not start new tests after the first test failure
+  -test.fullpath
+        show full file names in error messages
+  -test.fuzz regexp
+        run the fuzz test matching regexp
+  -test.fuzzcachedir string
+        directory where interesting fuzzing inputs are stored (for use only by cmd/go)
+  -test.fuzzminimizetime value
+        time to spend minimizing a value after finding a failing input (default 1m0s)
+  -test.fuzztime value
+        time to spend fuzzing; default is to run indefinitely
+  -test.fuzzworker
+        coordinate with the parent process to fuzz random values (for use only by cmd/go)
+  -test.gocoverdir string
+        write coverage intermediate files to this directory
+  -test.list regexp
+        list tests, examples, and benchmarks matching regexp then exit
+  -test.memprofile file
+        write an allocation profile to file
+  -test.memprofilerate rate
+        set memory allocation profiling rate (see runtime.MemProfileRate)
+  -test.mutexprofile string
+        write a mutex contention profile to the named file after execution
+  -test.mutexprofilefraction int
+        if >= 0, calls runtime.SetMutexProfileFraction() (default 1)
+  -test.outputdir dir
+        write profiles to dir
+  -test.paniconexit0
+        panic on call to os.Exit(0)
+  -test.parallel n
+        run at most n tests in parallel (default 14)
+  -test.run regexp
+        run only tests and examples matching regexp
+  -test.short
+        run smaller test suite to save time
+  -test.shuffle string
+        randomize the execution order of tests and benchmarks (default "off")
+  -test.skip regexp
+        do not list or run tests matching regexp
+  -test.testlogfile file
+        write test action log to file (for use only by cmd/go)
+  -test.timeout d
+        panic test binary after duration d (default 0, timeout disabled)
+  -test.trace file
+        write an execution trace to file
+  -test.v
+        verbose: print additional output
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/codexadapter	0.486s
+flag provided but not defined: -fusion-go-evidence-record
+Usage of /var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/go-build3715974188/b301/glm.test:
+  -fusion-live-glm-quota-key string
+        explicit private CN key file for a single read-only live quota diagnostic; no model request
+  -fusion-native-claude string
+        explicit pinned CLI for synthetic Native loopback diagnostic
+  -test.artifacts
+        store test artifacts in test.,outputdir
+  -test.bench regexp
+        run only benchmarks matching regexp
+  -test.benchmem
+        print memory allocations for benchmarks
+  -test.benchtime d
+        run each benchmark for duration d or N times if `d` is of the form Nx (default 1s)
+  -test.blockprofile file
+        write a goroutine blocking profile to file
+  -test.blockprofilerate rate
+        set blocking profile rate (see runtime.SetBlockProfileRate) (default 1)
+  -test.count n
+        run tests and benchmarks n times (default 1)
+  -test.coverprofile file
+        write a coverage profile to file
+  -test.cpu list
+        comma-separated list of cpu counts to run each test with
+  -test.cpuprofile file
+        write a cpu profile to file
+  -test.failfast
+        do not start new tests after the first test failure
+  -test.fullpath
+        show full file names in error messages
+  -test.fuzz regexp
+        run the fuzz test matching regexp
+  -test.fuzzcachedir string
+        directory where interesting fuzzing inputs are stored (for use only by cmd/go)
+  -test.fuzzminimizetime value
+        time to spend minimizing a value after finding a failing input (default 1m0s)
+  -test.fuzztime value
+        time to spend fuzzing; default is to run indefinitely
+  -test.fuzzworker
+        coordinate with the parent process to fuzz random values (for use only by cmd/go)
+  -test.gocoverdir string
+        write coverage intermediate files to this directory
+  -test.list regexp
+        list tests, examples, and benchmarks matching regexp then exit
+  -test.memprofile file
+        write an allocation profile to file
+  -test.memprofilerate rate
+        set memory allocation profiling rate (see runtime.MemProfileRate)
+  -test.mutexprofile string
+        write a mutex contention profile to the named file after execution
+  -test.mutexprofilefraction int
+        if >= 0, calls runtime.SetMutexProfileFraction() (default 1)
+  -test.outputdir dir
+        write profiles to dir
+  -test.paniconexit0
+        panic on call to os.Exit(0)
+  -test.parallel n
+        run at most n tests in parallel (default 14)
+  -test.run regexp
+        run only tests and examples matching regexp
+  -test.short
+        run smaller test suite to save time
+  -test.shuffle string
+        randomize the execution order of tests and benchmarks (default "off")
+  -test.skip regexp
+        do not list or run tests matching regexp
+  -test.testlogfile file
+        write test action log to file (for use only by cmd/go)
+  -test.timeout d
+        panic test binary after duration d (default 0, timeout disabled)
+  -test.trace file
+        write an execution trace to file
+  -test.v
+        verbose: print additional output
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/glm	0.455s
+flag provided but not defined: -fusion-go-evidence-record
+Usage of /var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/go-build3715974188/b303/grok.test:
+  -fusion-native-grok string
+        explicit pinned Grok CLI for synthetic private loopback diagnostic
+  -test.artifacts
+        store test artifacts in test.,outputdir
+  -test.bench regexp
+        run only benchmarks matching regexp
+  -test.benchmem
+        print memory allocations for benchmarks
+  -test.benchtime d
+        run each benchmark for duration d or N times if `d` is of the form Nx (default 1s)
+  -test.blockprofile file
+        write a goroutine blocking profile to file
+  -test.blockprofilerate rate
+        set blocking profile rate (see runtime.SetBlockProfileRate) (default 1)
+  -test.count n
+        run tests and benchmarks n times (default 1)
+  -test.coverprofile file
+        write a coverage profile to file
+  -test.cpu list
+        comma-separated list of cpu counts to run each test with
+  -test.cpuprofile file
+        write a cpu profile to file
+  -test.failfast
+        do not start new tests after the first test failure
+  -test.fullpath
+        show full file names in error messages
+  -test.fuzz regexp
+        run the fuzz test matching regexp
+  -test.fuzzcachedir string
+        directory where interesting fuzzing inputs are stored (for use only by cmd/go)
+  -test.fuzzminimizetime value
+        time to spend minimizing a value after finding a failing input (default 1m0s)
+  -test.fuzztime value
+        time to spend fuzzing; default is to run indefinitely
+  -test.fuzzworker
+        coordinate with the parent process to fuzz random values (for use only by cmd/go)
+  -test.gocoverdir string
+        write coverage intermediate files to this directory
+  -test.list regexp
+        list tests, examples, and benchmarks matching regexp then exit
+  -test.memprofile file
+        write an allocation profile to file
+  -test.memprofilerate rate
+        set memory allocation profiling rate (see runtime.MemProfileRate)
+  -test.mutexprofile string
+        write a mutex contention profile to the named file after execution
+  -test.mutexprofilefraction int
+        if >= 0, calls runtime.SetMutexProfileFraction() (default 1)
+  -test.outputdir dir
+        write profiles to dir
+  -test.paniconexit0
+        panic on call to os.Exit(0)
+  -test.parallel n
+        run at most n tests in parallel (default 14)
+  -test.run regexp
+        run only tests and examples matching regexp
+  -test.short
+        run smaller test suite to save time
+  -test.shuffle string
+        randomize the execution order of tests and benchmarks (default "off")
+  -test.skip regexp
+        do not list or run tests matching regexp
+  -test.testlogfile file
+        write test action log to file (for use only by cmd/go)
+  -test.timeout d
+        panic test binary after duration d (default 0, timeout disabled)
+  -test.trace file
+        write an execution trace to file
+  -test.v
+        verbose: print additional output
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/grok	0.446s
+flag provided but not defined: -fusion-go-evidence-record
+Usage of /var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/go-build3715974188/b305/stageplan.test:
+  -test.artifacts
+        store test artifacts in test.,outputdir
+  -test.bench regexp
+        run only benchmarks matching regexp
+  -test.benchmem
+        print memory allocations for benchmarks
+  -test.benchtime d
+        run each benchmark for duration d or N times if `d` is of the form Nx (default 1s)
+  -test.blockprofile file
+        write a goroutine blocking profile to file
+  -test.blockprofilerate rate
+        set blocking profile rate (see runtime.SetBlockProfileRate) (default 1)
+  -test.count n
+        run tests and benchmarks n times (default 1)
+  -test.coverprofile file
+        write a coverage profile to file
+  -test.cpu list
+        comma-separated list of cpu counts to run each test with
+  -test.cpuprofile file
+        write a cpu profile to file
+  -test.failfast
+        do not start new tests after the first test failure
+  -test.fullpath
+        show full file names in error messages
+  -test.fuzz regexp
+        run the fuzz test matching regexp
+  -test.fuzzcachedir string
+        directory where interesting fuzzing inputs are stored (for use only by cmd/go)
+  -test.fuzzminimizetime value
+        time to spend minimizing a value after finding a failing input (default 1m0s)
+  -test.fuzztime value
+        time to spend fuzzing; default is to run indefinitely
+  -test.fuzzworker
+        coordinate with the parent process to fuzz random values (for use only by cmd/go)
+  -test.gocoverdir string
+        write coverage intermediate files to this directory
+  -test.list regexp
+        list tests, examples, and benchmarks matching regexp then exit
+  -test.memprofile file
+        write an allocation profile to file
+  -test.memprofilerate rate
+        set memory allocation profiling rate (see runtime.MemProfileRate)
+  -test.mutexprofile string
+        write a mutex contention profile to the named file after execution
+  -test.mutexprofilefraction int
+        if >= 0, calls runtime.SetMutexProfileFraction() (default 1)
+  -test.outputdir dir
+        write profiles to dir
+  -test.paniconexit0
+        panic on call to os.Exit(0)
+  -test.parallel n
+        run at most n tests in parallel (default 14)
+  -test.run regexp
+        run only tests and examples matching regexp
+  -test.short
+        run smaller test suite to save time
+  -test.shuffle string
+        randomize the execution order of tests and benchmarks (default "off")
+  -test.skip regexp
+        do not list or run tests matching regexp
+  -test.testlogfile file
+        write test action log to file (for use only by cmd/go)
+  -test.timeout d
+        panic test binary after duration d (default 0, timeout disabled)
+  -test.trace file
+        write an execution trace to file
+  -test.v
+        verbose: print additional output
+FAIL	github.com/yetone/magpie/internal/fusion/stageplan	0.340s
+flag provided but not defined: -fusion-go-evidence-record
+Usage of /var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/go-build3715974188/b307/store.test:
+  -fusion-acceptance-capture string
+        capture synthetic Store decision with actual verifier for offline checks
+  -fusion-human-decision-capture string
+        capture actual verifier with synthetic Native human fixture
+  -fusion-review-capture string
+        capture synthetic released Native review receipt for offline schema checks
+  -fusion-verification-capture string
+        write synthetic owned verification and handoff schema evidence
+  -test.artifacts
+        store test artifacts in test.,outputdir
+  -test.bench regexp
+        run only benchmarks matching regexp
+  -test.benchmem
+        print memory allocations for benchmarks
+  -test.benchtime d
+        run each benchmark for duration d or N times if `d` is of the form Nx (default 1s)
+  -test.blockprofile file
+        write a goroutine blocking profile to file
+  -test.blockprofilerate rate
+        set blocking profile rate (see runtime.SetBlockProfileRate) (default 1)
+  -test.count n
+        run tests and benchmarks n times (default 1)
+  -test.coverprofile file
+        write a coverage profile to file
+  -test.cpu list
+        comma-separated list of cpu counts to run each test with
+  -test.cpuprofile file
+        write a cpu profile to file
+  -test.failfast
+        do not start new tests after the first test failure
+  -test.fullpath
+        show full file names in error messages
+  -test.fuzz regexp
+        run the fuzz test matching regexp
+  -test.fuzzcachedir string
+        directory where interesting fuzzing inputs are stored (for use only by cmd/go)
+  -test.fuzzminimizetime value
+        time to spend minimizing a value after finding a failing input (default 1m0s)
+  -test.fuzztime value
+        time to spend fuzzing; default is to run indefinitely
+  -test.fuzzworker
+        coordinate with the parent process to fuzz random values (for use only by cmd/go)
+  -test.gocoverdir string
+        write coverage intermediate files to this directory
+  -test.list regexp
+        list tests, examples, and benchmarks matching regexp then exit
+  -test.memprofile file
+        write an allocation profile to file
+  -test.memprofilerate rate
+        set memory allocation profiling rate (see runtime.MemProfileRate)
+  -test.mutexprofile string
+        write a mutex contention profile to the named file after execution
+  -test.mutexprofilefraction int
+        if >= 0, calls runtime.SetMutexProfileFraction() (default 1)
+  -test.outputdir dir
+        write profiles to dir
+  -test.paniconexit0
+        panic on call to os.Exit(0)
+  -test.parallel n
+        run at most n tests in parallel (default 14)
+  -test.run regexp
+        run only tests and examples matching regexp
+  -test.short
+        run smaller test suite to save time
+  -test.shuffle string
+        randomize the execution order of tests and benchmarks (default "off")
+  -test.skip regexp
+        do not list or run tests matching regexp
+  -test.testlogfile file
+        write test action log to file (for use only by cmd/go)
+  -test.timeout d
+        panic test binary after duration d (default 0, timeout disabled)
+  -test.trace file
+        write an execution trace to file
+  -test.v
+        verbose: print additional output
+FAIL	github.com/yetone/magpie/internal/fusion/store	0.428s
+?   	github.com/yetone/magpie/internal/fusion/task	[no test files]
+flag provided but not defined: -fusion-go-evidence-record
+Usage of /var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/go-build3715974188/b310/testsupport.test:
+  -test.artifacts
+        store test artifacts in test.,outputdir
+  -test.bench regexp
+        run only benchmarks matching regexp
+  -test.benchmem
+        print memory allocations for benchmarks
+  -test.benchtime d
+        run each benchmark for duration d or N times if `d` is of the form Nx (default 1s)
+  -test.blockprofile file
+        write a goroutine blocking profile to file
+  -test.blockprofilerate rate
+        set blocking profile rate (see runtime.SetBlockProfileRate) (default 1)
+  -test.count n
+        run tests and benchmarks n times (default 1)
+  -test.coverprofile file
+        write a coverage profile to file
+  -test.cpu list
+        comma-separated list of cpu counts to run each test with
+  -test.cpuprofile file
+        write a cpu profile to file
+  -test.failfast
+        do not start new tests after the first test failure
+  -test.fullpath
+        show full file names in error messages
+  -test.fuzz regexp
+        run the fuzz test matching regexp
+  -test.fuzzcachedir string
+        directory where interesting fuzzing inputs are stored (for use only by cmd/go)
+  -test.fuzzminimizetime value
+        time to spend minimizing a value after finding a failing input (default 1m0s)
+  -test.fuzztime value
+        time to spend fuzzing; default is to run indefinitely
+  -test.fuzzworker
+        coordinate with the parent process to fuzz random values (for use only by cmd/go)
+  -test.gocoverdir string
+        write coverage intermediate files to this directory
+  -test.list regexp
+        list tests, examples, and benchmarks matching regexp then exit
+  -test.memprofile file
+        write an allocation profile to file
+  -test.memprofilerate rate
+        set memory allocation profiling rate (see runtime.MemProfileRate)
+  -test.mutexprofile string
+        write a mutex contention profile to the named file after execution
+  -test.mutexprofilefraction int
+        if >= 0, calls runtime.SetMutexProfileFraction() (default 1)
+  -test.outputdir dir
+        write profiles to dir
+  -test.paniconexit0
+        panic on call to os.Exit(0)
+  -test.parallel n
+        run at most n tests in parallel (default 14)
+  -test.run regexp
+        run only tests and examples matching regexp
+  -test.short
+        run smaller test suite to save time
+  -test.shuffle string
+        randomize the execution order of tests and benchmarks (default "off")
+  -test.skip regexp
+        do not list or run tests matching regexp
+  -test.testlogfile file
+        write test action log to file (for use only by cmd/go)
+  -test.timeout d
+        panic test binary after duration d (default 0, timeout disabled)
+  -test.trace file
+        write an execution trace to file
+  -test.v
+        verbose: print additional output
+FAIL	github.com/yetone/magpie/internal/fusion/testsupport	0.375s
+?   	github.com/yetone/magpie/internal/fusion/testsupport/cmd/fake-runtime	[no test files]
+flag provided but not defined: -fusion-go-evidence-record
+Usage of /var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/go-build3715974188/b314/workflow.test:
+  -test.artifacts
+        store test artifacts in test.,outputdir
+  -test.bench regexp
+        run only benchmarks matching regexp
+  -test.benchmem
+        print memory allocations for benchmarks
+  -test.benchtime d
+        run each benchmark for duration d or N times if `d` is of the form Nx (default 1s)
+  -test.blockprofile file
+        write a goroutine blocking profile to file
+  -test.blockprofilerate rate
+        set blocking profile rate (see runtime.SetBlockProfileRate) (default 1)
+  -test.count n
+        run tests and benchmarks n times (default 1)
+  -test.coverprofile file
+        write a coverage profile to file
+  -test.cpu list
+        comma-separated list of cpu counts to run each test with
+  -test.cpuprofile file
+        write a cpu profile to file
+  -test.failfast
+        do not start new tests after the first test failure
+  -test.fullpath
+        show full file names in error messages
+  -test.fuzz regexp
+        run the fuzz test matching regexp
+  -test.fuzzcachedir string
+        directory where interesting fuzzing inputs are stored (for use only by cmd/go)
+  -test.fuzzminimizetime value
+        time to spend minimizing a value after finding a failing input (default 1m0s)
+  -test.fuzztime value
+        time to spend fuzzing; default is to run indefinitely
+  -test.fuzzworker
+        coordinate with the parent process to fuzz random values (for use only by cmd/go)
+  -test.gocoverdir string
+        write coverage intermediate files to this directory
+  -test.list regexp
+        list tests, examples, and benchmarks matching regexp then exit
+  -test.memprofile file
+        write an allocation profile to file
+  -test.memprofilerate rate
+        set memory allocation profiling rate (see runtime.MemProfileRate)
+  -test.mutexprofile string
+        write a mutex contention profile to the named file after execution
+  -test.mutexprofilefraction int
+        if >= 0, calls runtime.SetMutexProfileFraction() (default 1)
+  -test.outputdir dir
+        write profiles to dir
+  -test.paniconexit0
+        panic on call to os.Exit(0)
+  -test.parallel n
+        run at most n tests in parallel (default 14)
+  -test.run regexp
+        run only tests and examples matching regexp
+  -test.short
+        run smaller test suite to save time
+  -test.shuffle string
+        randomize the execution order of tests and benchmarks (default "off")
+  -test.skip regexp
+        do not list or run tests matching regexp
+  -test.testlogfile file
+        write test action log to file (for use only by cmd/go)
+  -test.timeout d
+        panic test binary after duration d (default 0, timeout disabled)
+  -test.trace file
+        write an execution trace to file
+  -test.v
+        verbose: print additional output
+FAIL	github.com/yetone/magpie/internal/fusion/workflow	0.334s
+flag provided but not defined: -fusion-go-evidence-record
+Usage of /var/folders/dp/6jvrb4px4d7dssqmfrcqspnc0000gn/T/fusion-check-i9lcuqg7/go-build3715974188/b316/workspace.test:
+  -test.artifacts
+        store test artifacts in test.,outputdir
+  -test.bench regexp
+        run only benchmarks matching regexp
+  -test.benchmem
+        print memory allocations for benchmarks
+  -test.benchtime d
+        run each benchmark for duration d or N times if `d` is of the form Nx (default 1s)
+  -test.blockprofile file
+        write a goroutine blocking profile to file
+  -test.blockprofilerate rate
+        set blocking profile rate (see runtime.SetBlockProfileRate) (default 1)
+  -test.count n
+        run tests and benchmarks n times (default 1)
+  -test.coverprofile file
+        write a coverage profile to file
+  -test.cpu list
+        comma-separated list of cpu counts to run each test with
+  -test.cpuprofile file
+        write a cpu profile to file
+  -test.failfast
+        do not start new tests after the first test failure
+  -test.fullpath
+        show full file names in error messages
+  -test.fuzz regexp
+        run the fuzz test matching regexp
+  -test.fuzzcachedir string
+        directory where interesting fuzzing inputs are stored (for use only by cmd/go)
+  -test.fuzzminimizetime value
+        time to spend minimizing a value after finding a failing input (default 1m0s)
+  -test.fuzztime value
+        time to spend fuzzing; default is to run indefinitely
+  -test.fuzzworker
+        coordinate with the parent process to fuzz random values (for use only by cmd/go)
+  -test.gocoverdir string
+        write coverage intermediate files to this directory
+  -test.list regexp
+        list tests, examples, and benchmarks matching regexp then exit
+  -test.memprofile file
+        write an allocation profile to file
+  -test.memprofilerate rate
+        set memory allocation profiling rate (see runtime.MemProfileRate)
+  -test.mutexprofile string
+        write a mutex contention profile to the named file after execution
+  -test.mutexprofilefraction int
+        if >= 0, calls runtime.SetMutexProfileFraction() (default 1)
+  -test.outputdir dir
+        write profiles to dir
+  -test.paniconexit0
+        panic on call to os.Exit(0)
+  -test.parallel n
+        run at most n tests in parallel (default 14)
+  -test.run regexp
+        run only tests and examples matching regexp
+  -test.short
+        run smaller test suite to save time
+  -test.shuffle string
+        randomize the execution order of tests and benchmarks (default "off")
+  -test.skip regexp
+        do not list or run tests matching regexp
+  -test.testlogfile file
+        write test action log to file (for use only by cmd/go)
+  -test.timeout d
+        panic test binary after duration d (default 0, timeout disabled)
+  -test.trace file
+        write an execution trace to file
+  -test.v
+        verbose: print additional output
+FAIL	github.com/yetone/magpie/internal/fusion/workspace	0.347s
+FAIL

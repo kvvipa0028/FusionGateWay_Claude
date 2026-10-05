@@ -1,0 +1,4 @@
+=== RUN   TestGoRunnerActuallyBuildsAndRunsCurrentArtifact
+--- PASS: TestGoRunnerActuallyBuildsAndRunsCurrentArtifact (8.78s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/evidence	9.136s

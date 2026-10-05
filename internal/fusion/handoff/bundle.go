@@ -83,17 +83,20 @@ func PublishVerified(a workspace.FrozenArtifact, binding Binding, goal string, n
 	return publish(a, binding, goal, native, &v)
 }
 
-func publish(a workspace.FrozenArtifact, binding Binding, goal string, evidence Evidence, verified *evidence.Stored) (Bundle, error) {
-	if !validBinding(binding) || !a.Current() || !utf8.ValidString(goal) || strings.TrimSpace(goal) == "" || len(goal) > 64<<10 || !digest(evidence.OutputHash) || !digest(evidence.StopProofHash) {
+func publish(a workspace.FrozenArtifact, binding Binding, goal string, nativeEvidence Evidence, verified *evidence.Stored) (Bundle, error) {
+	if !validBinding(binding) || !a.Current() || !utf8.ValidString(goal) || strings.TrimSpace(goal) == "" || len(goal) > 64<<10 || !digest(nativeEvidence.OutputHash) || !digest(nativeEvidence.StopProofHash) {
 		return Bundle{}, ErrInvalid
 	}
 	doc := Document{Version: 1, Binding: binding, Artifact: a.Manifest(), Decisions: []string{}, Pending: []string{"design_decisions_not_extracted", "engineering_tests_not_executed", "independent_review_pending", "acceptance_pending"}}
 	doc.Task.Goal = goal
-	doc.Evidence.Evidence, doc.Evidence.Status = evidence, "unverified"
+	doc.Evidence.Evidence, doc.Evidence.Status = nativeEvidence, "unverified"
 	if verified != nil {
 		doc.Evidence.Status = string(verified.Verdict.Status)
-		doc.Evidence.TestsExecuted = verified.Record.Executed
+		doc.Evidence.TestsExecuted = evidence.TestsExecuted(verified.Record)
 		doc.Pending = []string{"design_decisions_not_extracted", "independent_review_pending", "acceptance_pending"}
+		if !doc.Evidence.TestsExecuted {
+			doc.Pending = append(doc.Pending, "engineering_tests_not_executed")
+		}
 	}
 	doc.Changes = doc.Artifact.Changes
 	raw, err := json.Marshal(doc)

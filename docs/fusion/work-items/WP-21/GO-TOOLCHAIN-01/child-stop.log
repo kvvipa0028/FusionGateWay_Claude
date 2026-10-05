@@ -1,0 +1,13 @@
+=== RUN   TestCompilerTreeCancellationAndRevocationReapActualChildren
+=== RUN   TestCompilerTreeCancellationAndRevocationReapActualChildren/cancel
+    compiler_process_test.go:77: real child not started
+=== RUN   TestCompilerTreeCancellationAndRevocationReapActualChildren/revocation
+    compiler_process_test.go:77: real child not started
+--- FAIL: TestCompilerTreeCancellationAndRevocationReapActualChildren (10.02s)
+    --- FAIL: TestCompilerTreeCancellationAndRevocationReapActualChildren/cancel (5.01s)
+    --- FAIL: TestCompilerTreeCancellationAndRevocationReapActualChildren/revocation (5.01s)
+=== RUN   TestCompilerSandboxOnlyAllowsPinnedSDKTools
+--- PASS: TestCompilerSandboxOnlyAllowsPinnedSDKTools (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/evidence	10.527s
+FAIL

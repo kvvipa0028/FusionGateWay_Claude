@@ -3,6 +3,7 @@
 package evidence
 
 import (
+	"bytes"
 	"context"
 	"fmt"
 	"os"
@@ -40,12 +41,22 @@ func identity(pid int) int64 {
 	return k.Proc.P_starttime.Sec*1000000 + int64(k.Proc.P_starttime.Usec)
 }
 func execute(ctx context.Context, exe string, args []string, dir, profile string, env []string, limit int, current func() bool) execution {
+	return executeOwned(ctx, exe, args, dir, profile, env, limit, current, nil, false)
+}
+
+func executeOwned(ctx context.Context, exe string, args []string, dir, profile string, env []string, limit int, current func() bool, stdin []byte, tree bool) execution {
 	r := execution{exit: -1}
 	if ctx.Err() != nil || !current() {
 		r.interrupted = true
 		return r
 	}
 	cmd := exec.Command("/usr/bin/sandbox-exec", append([]string{"-p", profile, exe}, args...)...)
+	if stdin != nil {
+		cmd.Stdin = bytes.NewReader(stdin)
+	}
+	if tree {
+		cmd.WaitDelay = time.Second
+	}
 	cmd.Dir = dir
 	cmd.Env = append([]string(nil), env...)
 	cmd.SysProcAttr = &syscall.SysProcAttr{Setpgid: true}
@@ -72,13 +83,25 @@ func execute(ctx context.Context, exe string, args []string, dir, profile string
 	interrupt := func() {
 		r.interrupted = true
 		if identity(cmd.Process.Pid) == id {
-			_ = syscall.Kill(cmd.Process.Pid, syscall.SIGKILL)
+			if tree {
+				_ = syscall.Kill(-cmd.Process.Pid, syscall.SIGKILL)
+			} else {
+				_ = syscall.Kill(cmd.Process.Pid, syscall.SIGKILL)
+			}
 		}
 	}
 	ctxDone := ctx.Done()
 	for {
 		select {
 		case <-done:
+			if tree && !compilerGroupEmpty(cmd.Process.Pid) {
+				r.interrupted = true
+				_ = syscall.Kill(-cmd.Process.Pid, syscall.SIGKILL)
+				deadline := time.Now().Add(3 * time.Second)
+				for !compilerGroupEmpty(cmd.Process.Pid) && time.Now().Before(deadline) {
+					time.Sleep(10 * time.Millisecond)
+				}
+			}
 			r.finished = time.Now().UTC()
 			r.stdout = append([]byte(nil), out.data...)
 			r.stderr = append([]byte(nil), errout.data...)
@@ -86,7 +109,7 @@ func execute(ctx context.Context, exe string, args []string, dir, profile string
 			if cmd.ProcessState != nil {
 				r.exit = cmd.ProcessState.ExitCode()
 				w, ok := cmd.ProcessState.Sys().(syscall.WaitStatus)
-				r.stopped = ok && (w.Exited() || w.Signaled()) && identity(cmd.Process.Pid) != id
+				r.stopped = ok && (w.Exited() || w.Signaled()) && identity(cmd.Process.Pid) != id && (!tree || compilerGroupEmpty(cmd.Process.Pid))
 			}
 			return r
 		case <-ctxDone:
@@ -98,4 +121,22 @@ func execute(ctx context.Context, exe string, args []string, dir, profile string
 			}
 		}
 	}
+}
+
+// Only pinned compiler tools can run in this group. Generated project code is
+// executed separately with fork denied. Lookup failure never proves stopped.
+func compilerGroupEmpty(group int) bool {
+	rows, err := unix.SysctlKinfoProcSlice("kern.proc.pgrp", group)
+	return err == nil && len(rows) == 0
+}
+func goCompilerSandbox(s Spec, input, scratch string) (string, []string) {
+	p, e := sandbox(s.Tool.Executable, input, scratch)
+	p += "(allow process-fork)\n(allow signal (target children))\n"
+	p += fmt.Sprintf("(allow file-read* file-map-executable (subpath %s))\n", strconv.Quote(s.Go.Root))
+	for _, name := range []string{"compile", "asm", "link", "vet"} {
+		tool := filepath.Join(s.Go.Root, "pkg/tool/darwin_arm64", name)
+		p += fmt.Sprintf("(allow process-exec (literal %s))\n", strconv.Quote(tool))
+	}
+	e = append(e, "GOROOT="+s.Go.Root, "GOENV=off", "GOTOOLCHAIN=local", "GOPROXY=off", "GOSUMDB=off", "GOVCS=off", "GOWORK=off", "CGO_ENABLED=0", "GOTELEMETRY=off", "GOCACHE="+filepath.Join(scratch, "cache"), "GOMODCACHE="+filepath.Join(scratch, "modules"))
+	return p, e
 }

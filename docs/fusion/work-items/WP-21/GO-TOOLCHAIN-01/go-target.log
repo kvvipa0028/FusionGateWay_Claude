@@ -1,0 +1,22 @@
+=== RUN   TestGoReportRequiresCompleteBalancedActualCases
+--- PASS: TestGoReportRequiresCompleteBalancedActualCases (0.00s)
+=== RUN   TestGoRunnerActuallyBuildsAndRunsCurrentArtifact
+--- PASS: TestGoRunnerActuallyBuildsAndRunsCurrentArtifact (10.46s)
+=== RUN   TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies
+=== RUN   TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies/failure
+=== RUN   TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies/zero
+=== RUN   TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies/skipped
+=== RUN   TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies/compile
+=== RUN   TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies/missingdependency
+--- PASS: TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies (52.09s)
+    --- PASS: TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies/failure (12.09s)
+    --- PASS: TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies/zero (11.19s)
+    --- PASS: TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies/skipped (12.32s)
+    --- PASS: TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies/compile (7.60s)
+    --- PASS: TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies/missingdependency (8.89s)
+=== RUN   TestGoRunnerKernelBoundariesAndActualOwnedReceipt
+--- PASS: TestGoRunnerKernelBoundariesAndActualOwnedReceipt (18.41s)
+=== RUN   TestGoSpecNoFlagsEnvironmentShellOrEscapingPackage
+--- PASS: TestGoSpecNoFlagsEnvironmentShellOrEscapingPackage (2.37s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/evidence	84.906s

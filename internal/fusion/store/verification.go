@@ -95,7 +95,7 @@ func (s *Store) VerifiedArtifact(runID, source, stateRoot string, spec evidence.
 		return ArtifactRecord{}, evidence.Verdict{}, ErrInvalid
 	}
 	doc, err := bundle.Read(a.Reference.Binding)
-	if err != nil || !doc.Evidence.TestsExecuted || doc.Evidence.Status != string(a.Verification.Data.Verdict.Status) {
+	if err != nil || doc.Evidence.TestsExecuted != evidence.TestsExecuted(a.Verification.Data.Record) || doc.Evidence.Status != string(a.Verification.Data.Verdict.Status) {
 		return ArtifactRecord{}, evidence.Verdict{}, ErrInvalid
 	}
 	frozen, err := bundle.Artifact(a.Reference.Binding)

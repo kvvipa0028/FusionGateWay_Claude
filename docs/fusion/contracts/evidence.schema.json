@@ -122,14 +122,46 @@
           "type": "integer",
           "minimum": 1,
           "maximum": 600000000000
+        },
+        "go_toolchain": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "root",
+            "root_hash",
+            "package",
+            "vendor"
+          ],
+          "properties": {
+            "root": {
+              "type": "string",
+              "pattern": "^/",
+              "maxLength": 4096
+            },
+            "root_hash": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "package": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "vendor": {
+              "type": "boolean"
+            }
+          }
         }
       }
     },
     "environment": {
       "type": "array",
       "items": {
-        "type": "string"
-      }
+        "type": "string",
+        "maxLength": 8192
+      },
+      "maxItems": 32,
+      "minItems": 9
     },
     "artifact_hash": {
       "type": "string",
@@ -185,6 +217,119 @@
     },
     "input_changed": {
       "type": "boolean"
+    },
+    "go_commands": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "executable",
+          "image_hash",
+          "args",
+          "environment",
+          "started_at",
+          "finished_at",
+          "exit_code",
+          "executed",
+          "stopped",
+          "interrupted",
+          "truncated",
+          "stdout_hash",
+          "stderr_hash"
+        ],
+        "properties": {
+          "executable": {
+            "type": "string",
+            "pattern": "^/",
+            "maxLength": 4096
+          },
+          "image_hash": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "stdout_hash": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "stderr_hash": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "args": {
+            "type": "array",
+            "maxItems": 128,
+            "items": {
+              "type": "string",
+              "maxLength": 8192
+            }
+          },
+          "environment": {
+            "type": "array",
+            "minItems": 9,
+            "maxItems": 32,
+            "items": {
+              "type": "string",
+              "maxLength": 8192
+            }
+          },
+          "started_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "finished_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "exit_code": {
+            "type": "integer"
+          },
+          "executed": {
+            "type": "boolean"
+          },
+          "stopped": {
+            "type": "boolean"
+          },
+          "interrupted": {
+            "type": "boolean"
+          },
+          "truncated": {
+            "type": "boolean"
+          }
+        }
+      }
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "spec": {
+            "required": [
+              "go_toolchain"
+            ]
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "go_commands"
+        ]
+      },
+      "else": {
+        "not": {
+          "required": [
+            "go_commands"
+          ]
+        },
+        "properties": {
+          "environment": {
+            "maxItems": 9
+          }
+        }
+      }
+    }
+  ]
 }

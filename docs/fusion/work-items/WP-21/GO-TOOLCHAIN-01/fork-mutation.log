@@ -1,0 +1,18 @@
+=== RUN   TestGoRunnerKernelBoundariesAndActualOwnedReceipt
+    go_runner_test.go:153: {failed nonzero_exit 0 0} {"Action":"start","Package":"."}
+        {"Action":"run","Package":".","Test":"TestChild"}
+        {"Action":"output","Package":".","Test":"TestChild","Output":"=== RUN   TestChild\n"}
+        {"Action":"output","Package":".","Test":"TestChild","Output":"--- PASS: TestChild (0.00s)\n"}
+        {"Action":"pass","Package":".","Test":"TestChild"}
+        {"Action":"run","Package":".","Test":"TestBoundary"}
+        {"Action":"output","Package":".","Test":"TestBoundary","Output":"=== RUN   TestBoundary\n"}
+        {"Action":"output","Package":".","Test":"TestBoundary","Output":"    example_test.go:9: untrusted fork\n"}
+        {"Action":"output","Package":".","Test":"TestBoundary","Output":"--- FAIL: TestBoundary (0.00s)\n"}
+        {"Action":"fail","Package":".","Test":"TestBoundary"}
+        {"Action":"output","Package":".","Output":"FAIL\n"}
+        {"Action":"fail","Package":"."}
+
+--- FAIL: TestGoRunnerKernelBoundariesAndActualOwnedReceipt (11.96s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/evidence	12.490s
+FAIL

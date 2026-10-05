@@ -1,0 +1,74 @@
+=== RUN   TestCompilerTreeCancellationAndRevocationReapActualChildren
+=== RUN   TestCompilerTreeCancellationAndRevocationReapActualChildren/cancel
+=== RUN   TestCompilerTreeCancellationAndRevocationReapActualChildren/revocation
+--- PASS: TestCompilerTreeCancellationAndRevocationReapActualChildren (0.08s)
+    --- PASS: TestCompilerTreeCancellationAndRevocationReapActualChildren/cancel (0.02s)
+    --- PASS: TestCompilerTreeCancellationAndRevocationReapActualChildren/revocation (0.06s)
+=== RUN   TestCompilerSandboxOnlyAllowsPinnedSDKTools
+--- PASS: TestCompilerSandboxOnlyAllowsPinnedSDKTools (0.00s)
+=== RUN   TestGoReportRequiresCompleteBalancedActualCases
+--- PASS: TestGoReportRequiresCompleteBalancedActualCases (0.00s)
+=== RUN   TestGoRunnerActuallyBuildsAndRunsCurrentArtifact
+--- PASS: TestGoRunnerActuallyBuildsAndRunsCurrentArtifact (12.87s)
+=== RUN   TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies
+=== RUN   TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies/failure
+=== RUN   TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies/zero
+=== RUN   TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies/skipped
+=== RUN   TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies/compile
+=== RUN   TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies/missingdependency
+--- PASS: TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies (67.51s)
+    --- PASS: TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies/failure (16.94s)
+    --- PASS: TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies/zero (17.58s)
+    --- PASS: TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies/skipped (14.49s)
+    --- PASS: TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies/compile (9.30s)
+    --- PASS: TestGoRunnerActualFailuresZeroSkipCompileAndMissingDependencies/missingdependency (9.20s)
+=== RUN   TestGoRunnerKernelBoundariesAndActualOwnedReceipt
+--- PASS: TestGoRunnerKernelBoundariesAndActualOwnedReceipt (15.54s)
+=== RUN   TestGoSpecNoFlagsEnvironmentShellOrEscapingPackage
+--- PASS: TestGoSpecNoFlagsEnvironmentShellOrEscapingPackage (2.96s)
+=== RUN   TestRunnerActualProcessBindsCodeSuiteCommandAndVersion
+--- PASS: TestRunnerActualProcessBindsCodeSuiteCommandAndVersion (0.10s)
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/exit
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/failed
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/zero
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/skipped
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/malformed
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/inconsistent
+=== RUN   TestRunnerActualReportFailuresCannotBecomePassed/truncated
+--- PASS: TestRunnerActualReportFailuresCannotBecomePassed (0.55s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/exit (0.08s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/failed (0.08s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/zero (0.08s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/skipped (0.08s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/malformed (0.08s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/inconsistent (0.07s)
+    --- PASS: TestRunnerActualReportFailuresCannotBecomePassed/truncated (0.09s)
+=== RUN   TestRunnerActualKernelBoundariesAndPositiveScratch
+--- PASS: TestRunnerActualKernelBoundariesAndPositiveScratch (0.08s)
+=== RUN   TestRunnerStopsActualTimeoutAndSourceRevocation
+=== RUN   TestRunnerStopsActualTimeoutAndSourceRevocation/timeout
+=== RUN   TestRunnerStopsActualTimeoutAndSourceRevocation/revoke
+=== RUN   TestRunnerStopsActualTimeoutAndSourceRevocation/cancel
+--- PASS: TestRunnerStopsActualTimeoutAndSourceRevocation (0.61s)
+    --- PASS: TestRunnerStopsActualTimeoutAndSourceRevocation/timeout (0.23s)
+    --- PASS: TestRunnerStopsActualTimeoutAndSourceRevocation/revoke (0.20s)
+    --- PASS: TestRunnerStopsActualTimeoutAndSourceRevocation/cancel (0.18s)
+=== RUN   TestRunnerZeroTestsRequireExplicitFrozenProjectRule
+--- PASS: TestRunnerZeroTestsRequireExplicitFrozenProjectRule (0.08s)
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/hash
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/missing
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/version
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/suite
+=== RUN   TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/timeout
+--- PASS: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite (0.09s)
+    --- PASS: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/hash (0.01s)
+    --- PASS: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/missing (0.01s)
+    --- PASS: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/version (0.04s)
+    --- PASS: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/suite (0.02s)
+    --- PASS: TestRunnerRejectsBeforeExecutionMissingToolsVersionsAndSuite/timeout (0.01s)
+=== RUN   TestStoredVerificationRequiresOwnedExportAndExactRestoredSource
+--- PASS: TestStoredVerificationRequiresOwnedExportAndExactRestoredSource (0.09s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/evidence	101.943s

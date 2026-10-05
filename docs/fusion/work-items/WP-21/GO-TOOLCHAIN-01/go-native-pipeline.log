@@ -1,0 +1,8 @@
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/go_backend_success
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/go_backend_compile_failure
+--- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart (60.65s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/go_backend_success (43.15s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/go_backend_compile_failure (17.50s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	62.379s

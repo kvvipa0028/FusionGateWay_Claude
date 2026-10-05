@@ -31,7 +31,7 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 	if *hostNativeGLM == "" {
 		t.Skip("explicit pinned Native fixture only")
 	}
-	for _, mode := range []string{"independence_conflict", "rework_success", "rework_exhausted", "rework_retest_failure", "rework_budget", "rework_revoked", "rework_parent_drift", "rework_cancel", "success", "testing_scope_violation", "parent_header_drift", "unscoped_external_write", "hard_test_failure", "malformed_test_report", "missing_verifier", "wrong_standard", "verifier_config_mutation", "review_changes", "review_malformed", "review_write", "review_standard_changed", "review_no_verifier", "review_parent_drift", "acceptance_rejected", "acceptance_unverified", "acceptance_malformed", "acceptance_missing_criteria", "acceptance_write", "acceptance_standard_changed", "acceptance_parent_drift", "human_standard_changed", "human_reader_revoked", "human_commit_revoked"} {
+	for _, mode := range []string{"go_backend_success", "go_backend_compile_failure", "independence_conflict", "rework_success", "rework_exhausted", "rework_retest_failure", "rework_budget", "rework_revoked", "rework_parent_drift", "rework_cancel", "success", "testing_scope_violation", "parent_header_drift", "unscoped_external_write", "hard_test_failure", "malformed_test_report", "missing_verifier", "wrong_standard", "verifier_config_mutation", "review_changes", "review_malformed", "review_write", "review_standard_changed", "review_no_verifier", "review_parent_drift", "acceptance_rejected", "acceptance_unverified", "acceptance_malformed", "acceptance_missing_criteria", "acceptance_write", "acceptance_standard_changed", "acceptance_parent_drift", "human_standard_changed", "human_reader_revoked", "human_commit_revoked"} {
 		t.Run(mode, func(t *testing.T) {
 			path, d, c, _, _ := glmFactoryFixture(t, true)
 			c.Executable, _ = filepath.EvalSymlinks(*hostNativeGLM)
@@ -73,6 +73,31 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 					t.Fatal(err)
 				}
 			}
+
+			if strings.HasPrefix(mode, "go_backend_") {
+				goRoot := "/Users/zhaojianzhi/.local/share/go/1.26.3"
+				rootHash, e := evidence.GoRootHash(goRoot)
+				if e != nil {
+					t.Fatal(e)
+				}
+				goExe := filepath.Join(goRoot, "bin/go")
+				raw, e := os.ReadFile(goExe)
+				if e != nil {
+					t.Fatal(e)
+				}
+				code := `package pipeline;import "testing";func TestOne(t *testing.T){if 2+2!=4{t.Fatal("bad")}};func TestTwo(t *testing.T){if 3+3!=6{t.Fatal("bad")}}`
+				if mode == "go_backend_compile_failure" {
+					code = `package pipeline;not valid Go source`
+				}
+				for name, content := range map[string]string{"go.mod": "module fusion.test/pipeline\n\ngo 1.26.3\n", "tests/pipeline_test.go": code} {
+					if e := os.WriteFile(filepath.Join(d.Projects[0].Path, name), []byte(content), 0600); e != nil {
+						t.Fatal(e)
+					}
+				}
+				c.Verification = &GLMVerificationConfig{Acceptance: []string{"genuine tests required"}, Spec: evidence.Spec{Tool: evidence.Tool{Executable: goExe, SHA256: handoff.Hash(raw), Version: "go version go1.26.3 darwin/arm64", VersionArgs: []string{"version"}}, Args: []string{"test", "-count=1", "-json", "-vet=off", "-p=2", "-buildvcs=false", "-pgo=off", "-mod=readonly", "./tests"}, SuitePaths: []string{"tests"}, Rules: evidence.Rules{MinTests: 2}, Timeout: 120 * time.Second, Go: &evidence.GoToolchain{Root: goRoot, RootHash: rootHash, Package: "./tests"}}}
+				expectedVerification = copyRuntimeValue(c.Verification)
+			}
+
 			var mu sync.Mutex
 			var activeRole stageplan.Role
 			var activeAttempt int64
@@ -146,6 +171,9 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 			factory, err := newGLMRuntimeFactory(c, upstream)
 			if err != nil {
 				t.Fatal(err)
+			}
+			if mode == "go_backend_success" {
+				c.Verification.Spec.Go.Root = "/caller-mutation-must-not-change-factory"
 			}
 			if mode == "verifier_config_mutation" {
 				c.Verification.Spec.Args[len(c.Verification.Spec.Args)-1] = "fail"
@@ -288,7 +316,11 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 			}
 			wait := func(reply api.ExecutionReply, success bool) {
 				t.Helper()
-				ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+				timeout := 10 * time.Second
+				if strings.HasPrefix(mode, "go_backend_") {
+					timeout = 60 * time.Second
+				}
+				ctx, cancel := context.WithTimeout(context.Background(), timeout)
 				defer cancel()
 				done, err := h.controller.Wait(ctx, reply.Run.ID)
 				if err != nil || !done.StoppedVerified || !done.Released || (done.State == "succeeded") != success {
@@ -396,7 +428,7 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 				return
 			}
 
-			if mode == "hard_test_failure" || mode == "malformed_test_report" {
+			if mode == "hard_test_failure" || mode == "malformed_test_report" || mode == "go_backend_compile_failure" {
 				current, err := h.store.Task(task.ID)
 				if err != nil || current.State != "needs_review" {
 					t.Fatal("Native success overrode hard verification failure", err, current.State)
@@ -409,6 +441,17 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 				if err != nil || v.Status != want || stored.Verification == nil {
 					t.Fatal("hard failure not recorded", err, v)
 				}
+				if mode == "go_backend_compile_failure" {
+					b, e := handoff.Restore(stored.Reference, d.Projects[0].Path, c.ExecutionRoot)
+					if e != nil {
+						t.Fatal(e)
+					}
+					doc, e := b.Read(stored.Reference.Binding)
+					if e != nil || doc.Evidence.TestsExecuted || evidence.TestsExecuted(stored.Verification.Data.Record) || v.Tests != 0 {
+						t.Fatal("compiler failure mislabeled as executed tests", e)
+					}
+				}
+
 				before = calls.Load()
 				etag := fmt.Sprintf(`"p1-g3-%s"`, current.State)
 				code, _, _ = hostHTTP(t, h, "POST", baseURL+"/start", `{"role":"review"}`, "hard-failed-review", etag)
@@ -788,7 +831,7 @@ func TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart(t *testing.T)
 			before = calls.Load()
 			beforeBudget, _ := h.store.Budget(task.ID)
 			beforeRun, _ := h.store.Run(acceptance.Run.ID)
-			decision := nativeHumanDecision(t, h, task.ID, action, "operator checked actual code and frozen criteria", mode == "success" || mode == "human_standard_changed")
+			decision := nativeHumanDecision(t, h, task.ID, action, "operator checked actual code and frozen criteria", mode == "success" || mode == "go_backend_success" || mode == "human_standard_changed")
 			if decision.Action != action || decision.RunID != acceptance.Run.ID || calls.Load() != before {
 				t.Fatal("explicit human decision lost actual released origin")
 			}
