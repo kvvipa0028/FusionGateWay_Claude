@@ -1,0 +1,19 @@
+{
+  "component": "WP-13-SUBSCRIPTION-FORWARDER-01",
+  "go_version": "1.26.3",
+  "runner": ".fusion-dev/codex-factory/run.py (isolated HOME/XDG, environment whitelist, GOPROXY/GOSUMDB off, race)",
+  "runs": [
+    {"name": "initial-red", "command": "grok package (pre-implementation)", "exit": 1, "failure": "SubscriptionForwarder/NewSubscriptionForwarder/ErrSubscriptionTransport undefined", "evidence": "grok-fwd-red.log"},
+    {"name": "target-green", "command": "go test -race ./internal/fusion/runtime/grok -run TestGrokSubscriptionForwarder", "exit": 0, "top_level": 2, "subtests": 16, "evidence": "grok-fwd-green.log"},
+    {"name": "affected-race", "command": "go test -race grok bootstrap control", "exit": 0, "packages": 3, "evidence": "grok-fwd-package.log"},
+    {"name": "mutation-echo", "command": "overlay: chunk model equality removed", "exit": 1, "failed_subtest": "FailClosed/model-drift", "evidence": "fwd-mutation-echo.log"},
+    {"name": "mutation-reflect", "command": "overlay: per-frame credential reflection removed", "exit": 1, "failed_subtest": "FailClosed/secret-reflection", "evidence": "fwd-mutation-reflect.log"},
+    {"name": "mutation-429", "command": "overlay: 429 drains and forwards upstream body", "exit": 1, "failed_subtest": "FailClosed/429", "evidence": "fwd-mutation-429.log"},
+    {"name": "build-dev", "command": "python3 scripts/fusion/build-dev.py", "exit": 0, "checks": ["cli", "gui", "vet"], "evidence": "grok-fwd-build.log"}
+  ],
+  "endpoint": "https://cli-chat-proxy.grok.com/v1/chat/completions",
+  "model_proof": "chunk model echo equality (documented as echo consistency, not independent header proof)",
+  "synthetic_only": true,
+  "real_vendor_calls": 0,
+  "real_account_admission": false
+}

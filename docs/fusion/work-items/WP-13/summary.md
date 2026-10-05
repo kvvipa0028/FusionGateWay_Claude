@@ -35,3 +35,7 @@ Parent 关联 T01/T02/T14/T15/T25/T31/T32/T35/T44/T56/T59 只新增了组件级�
 ## 私有官方登录缓存服务
 
 [PRIVATE-CREDENTIAL-01](PRIVATE-CREDENTIAL-01/summary.md) 新增 `grok.FileCredential`：从 Git 外私有官方 auth.json 读取不透明订阅 Bearer，冻结路线/账号/workspace/credential identity/官方 issuer、文件与目录身份，拒绝轮换、权限漂移、symlink、硬链接与 API key 形态混入。格式证据来自固定 1.0.48 二进制内嵌官方文档（issuer 键控 `.key`、cli-chat-proxy 三 header 协议），本机日常缓存未被读取。grok 包 281 子场景 race、三项有效 mutation 与 Go1.26.3 CLI/GUI/vet 通过。合同见 [Grok 私有凭据](../../contracts/grok-private-credential.md)。真实登录、订阅 Forwarder、tier/费用/额度、Factory 注册与工具/写入/恢复仍待完成；父包保持 in_progress。
+
+## 固定订阅 Forwarder
+
+[SUBSCRIPTION-FORWARDER-01](SUBSCRIPTION-FORWARDER-01/summary.md) 实现固定官方 CLI chat proxy 端点的单次 HTTPS、FileCredential Bearer、官方三必需 header、受检系统 CA、无代理/redirect/retry/API fallback、有界取消与完整 SSE 后交付。模型证明为 chunk `model` 回显全等校验（回显一致性，非独立 header 证明）；反射按 data 帧逐帧 JSON 检测。真实 TLS 回环 16 子场景、三项有效 mutation、grok/bootstrap/control 三包 race 与 Go1.26.3 CLI/GUI/vet 通过。合同见 [订阅 Forwarder](../../contracts/grok-subscription-forwarder.md)。真实登录、tier/费用/额度、Factory 注册与工具/写入/恢复仍待完成；本组件不能升级路线准入、父包或最终验收。

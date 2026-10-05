@@ -1,0 +1,7 @@
+# github.com/yetone/magpie/internal/fusion/runtime/grok [github.com/yetone/magpie/internal/fusion/runtime/grok.test]
+internal/fusion/runtime/grok/subscription_forwarder_test.go:22:62: undefined: SubscriptionForwarder
+internal/fusion/runtime/grok/subscription_forwarder_test.go:29:10: undefined: NewSubscriptionForwarder
+internal/fusion/runtime/grok/subscription_forwarder_test.go:174:33: undefined: ErrSubscriptionTransport
+internal/fusion/runtime/grok/subscription_forwarder_test.go:177:12: undefined: json
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/grok [build failed]
+FAIL

@@ -1,0 +1,34 @@
+=== RUN   TestGrokSubscriptionForwarderActualTLSAndModelEcho
+--- PASS: TestGrokSubscriptionForwarderActualTLSAndModelEcho (0.08s)
+=== RUN   TestGrokSubscriptionForwarderFailClosed
+=== RUN   TestGrokSubscriptionForwarderFailClosed/status-500
+=== RUN   TestGrokSubscriptionForwarderFailClosed/wrong-media
+=== RUN   TestGrokSubscriptionForwarderFailClosed/compressed
+=== RUN   TestGrokSubscriptionForwarderFailClosed/no-model-echo
+=== RUN   TestGrokSubscriptionForwarderFailClosed/model-drift
+=== RUN   TestGrokSubscriptionForwarderFailClosed/secret-reflection
+=== RUN   TestGrokSubscriptionForwarderFailClosed/request-secret
+=== RUN   TestGrokSubscriptionForwarderFailClosed/nonstream
+=== RUN   TestGrokSubscriptionForwarderFailClosed/model-substituted
+=== RUN   TestGrokSubscriptionForwarderFailClosed/redirect
+=== RUN   TestGrokSubscriptionForwarderFailClosed/429
+=== RUN   TestGrokSubscriptionForwarderFailClosed/credential-rotated
+=== RUN   TestGrokSubscriptionForwarderFailClosed/cancelled
+=== RUN   TestGrokSubscriptionForwarderFailClosed/oversize-body
+--- PASS: TestGrokSubscriptionForwarderFailClosed (0.76s)
+    --- PASS: TestGrokSubscriptionForwarderFailClosed/status-500 (0.06s)
+    --- PASS: TestGrokSubscriptionForwarderFailClosed/wrong-media (0.06s)
+    --- PASS: TestGrokSubscriptionForwarderFailClosed/compressed (0.06s)
+    --- PASS: TestGrokSubscriptionForwarderFailClosed/no-model-echo (0.07s)
+    --- PASS: TestGrokSubscriptionForwarderFailClosed/model-drift (0.08s)
+    --- PASS: TestGrokSubscriptionForwarderFailClosed/secret-reflection (0.08s)
+    --- PASS: TestGrokSubscriptionForwarderFailClosed/request-secret (0.03s)
+    --- PASS: TestGrokSubscriptionForwarderFailClosed/nonstream (0.03s)
+    --- PASS: TestGrokSubscriptionForwarderFailClosed/model-substituted (0.03s)
+    --- PASS: TestGrokSubscriptionForwarderFailClosed/redirect (0.06s)
+    --- PASS: TestGrokSubscriptionForwarderFailClosed/429 (0.06s)
+    --- PASS: TestGrokSubscriptionForwarderFailClosed/credential-rotated (0.01s)
+    --- PASS: TestGrokSubscriptionForwarderFailClosed/cancelled (0.01s)
+    --- PASS: TestGrokSubscriptionForwarderFailClosed/oversize-body (0.12s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/runtime/grok	2.314s

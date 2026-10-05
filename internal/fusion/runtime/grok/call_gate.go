@@ -35,7 +35,10 @@ type NativeForwarder interface {
 type ForwardResponse struct {
 	StatusCode                   int
 	ContentType, ContentEncoding string
-	Body                         io.ReadCloser
+	// ReportedModel is the subscription forwarder's verified model echo, never
+	// a caller-supplied claim.
+	ReportedModel string `json:"-"`
+	Body          io.ReadCloser
 	// The private forwarder must include its credential markers for reflection
 	// checks. They are never passed to Native or retained in audit metadata.
 	PrivateMarkers [][]byte `json:"-"`

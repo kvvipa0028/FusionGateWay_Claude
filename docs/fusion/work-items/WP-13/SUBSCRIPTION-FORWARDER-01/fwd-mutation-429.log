@@ -1,0 +1,6 @@
+--- FAIL: TestGrokSubscriptionForwarderFailClosed (0.01s)
+    --- FAIL: TestGrokSubscriptionForwarderFailClosed/429 (0.01s)
+        subscription_forwarder_test.go:162: 429 leaked upstream body
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/runtime/grok	0.429s
+FAIL

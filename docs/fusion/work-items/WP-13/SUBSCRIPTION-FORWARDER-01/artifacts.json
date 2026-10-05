@@ -1,0 +1,20 @@
+{
+  "docs/fusion/README.md": "b65087637c2bd556e9e8acaffcdbe29c8a6e28cc2082254f1f3743e342d9985c",
+  "docs/fusion/contracts/grok-subscription-forwarder.md": "76c3a6861e4fc906f6330ef0c20db99d01e10954f19ac6e4c67ee518c03472ad",
+  "docs/fusion/work-items/WP-13/SUBSCRIPTION-FORWARDER-01/fwd-mutation-429.log": "52597aab5d270b4cf4db46bd395d96a216f88dcdc3fee4d10c304fae49046560",
+  "docs/fusion/work-items/WP-13/SUBSCRIPTION-FORWARDER-01/fwd-mutation-echo.log": "f93763aeec79399bff0633798675684b65061933d5079448eda949b96708f1ca",
+  "docs/fusion/work-items/WP-13/SUBSCRIPTION-FORWARDER-01/fwd-mutation-reflect.log": "2c7cc6cc71a359a895b801f6760b8d250cbecb48bcca340d657d5011a05fd760",
+  "docs/fusion/work-items/WP-13/SUBSCRIPTION-FORWARDER-01/grok-fwd-build.log": "ee5843ba8efa1fc8bd85d79079ecd1a564c46c02021ed3bf2844076b9f3dcfe2",
+  "docs/fusion/work-items/WP-13/SUBSCRIPTION-FORWARDER-01/grok-fwd-green.log": "e6d34070ed444614933bc8d071cc61a7038c98e386c6b3c111b61a8296739443",
+  "docs/fusion/work-items/WP-13/SUBSCRIPTION-FORWARDER-01/grok-fwd-package.log": "681cd0ff6e9ed699384ace80a51a1a71cd017e59dfb32c4d971ca3c48749c348",
+  "docs/fusion/work-items/WP-13/SUBSCRIPTION-FORWARDER-01/grok-fwd-red.log": "93b31f15352332e4e8efaee78a6d31116aba9666e258ae9e6d71a273e3067f18",
+  "docs/fusion/work-items/WP-13/SUBSCRIPTION-FORWARDER-01/scope-check.json": "d83578114dfe3f7288f31a33c54b13c31f962fe626793a9d4932a856c2e18a06",
+  "docs/fusion/work-items/WP-13/SUBSCRIPTION-FORWARDER-01/summary.md": "ec42773d964589f65ccb59d7e9e1a6313649cdf60f79df13daca165236499c08",
+  "docs/fusion/work-items/WP-13/SUBSCRIPTION-FORWARDER-01/test-results.json": "71e3c55e1e0ca271658c9b6f5fade87edf9c843723235ba2eb19564b2a52befe",
+  "docs/fusion/work-items/WP-13/summary.md": "da0f124ca71cbe146a9c38543b559840013c0a779ef7ac78d23e386aef6f987d",
+  "internal/fusion/runtime/grok/call_gate.go": "b40bc065af6cc490a8c37e0cbefe1188a75824c677baddde3f66a57f2a58d7c1",
+  "internal/fusion/runtime/grok/subscription_ca_darwin.go": "1cc45d06bcb367e4ea5285a151e34e12f11b64211742cfa12160db1702495a8c",
+  "internal/fusion/runtime/grok/subscription_ca_other.go": "04af00aede545d506de13c239f578e0172cc8797a4420fa3d5635b453899e28c",
+  "internal/fusion/runtime/grok/subscription_forwarder.go": "ceec025cde1d530d9819e4ee8dbe891deeb585b7c7ac2681c0d0d6b3437bf9af",
+  "internal/fusion/runtime/grok/subscription_forwarder_test.go": "bc8de3c5d0805ef2a3dfef8be7ef1cc447fdda570483a9cc0e76433f86c022c3"
+}
