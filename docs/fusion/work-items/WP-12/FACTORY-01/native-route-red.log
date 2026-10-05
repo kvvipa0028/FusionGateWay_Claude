@@ -1,0 +1,8 @@
+=== RUN   TestCodexFactoryPrivateRegistration
+=== RUN   TestCodexFactoryPrivateRegistration/native_route
+    codex_execution_test.go:161: invalid registration accepted
+--- FAIL: TestCodexFactoryPrivateRegistration (0.13s)
+    --- FAIL: TestCodexFactoryPrivateRegistration/native_route (0.13s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	0.792s
+FAIL

@@ -1,0 +1,10 @@
+=== RUN   TestCodexFactoryAdmittedEfforts
+=== RUN   TestCodexFactoryAdmittedEfforts/xhigh
+=== RUN   TestCodexFactoryAdmittedEfforts/minimal
+=== RUN   TestCodexFactoryAdmittedEfforts/undeclared
+--- PASS: TestCodexFactoryAdmittedEfforts (0.39s)
+    --- PASS: TestCodexFactoryAdmittedEfforts/xhigh (0.14s)
+    --- PASS: TestCodexFactoryAdmittedEfforts/minimal (0.12s)
+    --- PASS: TestCodexFactoryAdmittedEfforts/undeclared (0.13s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	1.688s

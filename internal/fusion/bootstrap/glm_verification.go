@@ -12,12 +12,15 @@ import (
 	"github.com/yetone/magpie/internal/fusion/workspace"
 )
 
-// GLMVerificationConfig is an independently registered host command/standard,
+// StageVerificationConfig is an independently registered host command/standard,
 // not model-generated instructions or a task HTTP configuration.
-type GLMVerificationConfig struct {
+type StageVerificationConfig struct {
 	Spec       evidence.Spec
 	Acceptance []string
 }
+
+// GLMVerificationConfig keeps existing GLM wiring source-compatible.
+type GLMVerificationConfig = StageVerificationConfig
 
 func glmVerificationValid(v *GLMVerificationConfig) bool {
 	if v == nil {

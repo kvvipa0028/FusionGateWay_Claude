@@ -37,9 +37,10 @@ type AdapterConfig struct {
 }
 
 type Outcome struct {
-	State    string `json:"state"`
-	ThreadID string `json:"thread_id"`
-	TurnID   string `json:"turn_id"`
+	State     string `json:"state"`
+	SessionID string `json:"session_id"`
+	ThreadID  string `json:"thread_id"`
+	TurnID    string `json:"turn_id"`
 }
 type observation struct {
 	generation int64
@@ -256,7 +257,7 @@ func (a *Adapter) Start(ctx context.Context, inputRun store.StageRun, in managed
 		if e = client.ReadAccount(ctx); e != nil {
 			return e
 		}
-		out := Outcome{State: "execution_uncertain"}
+		out := Outcome{State: "execution_uncertain", SessionID: sid}
 		if out.ThreadID, e = client.StartThread(ctx); e != nil {
 			return e
 		}

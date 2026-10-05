@@ -1,0 +1,6 @@
+=== RUN   TestCodexFactoryPrivateRegistration
+=== RUN   TestCodexFactoryPrivateRegistration/native_route
+--- PASS: TestCodexFactoryPrivateRegistration (0.12s)
+    --- PASS: TestCodexFactoryPrivateRegistration/native_route (0.12s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	1.621s

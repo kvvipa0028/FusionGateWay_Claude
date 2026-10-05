@@ -1,0 +1,141 @@
+=== RUN   TestCodexFactoryPinnedNativeProductLifecycle
+=== RUN   TestCodexFactoryPinnedNativeProductLifecycle/success
+    codex_execution_native_test.go:201: factory Native stop/release { false false} context deadline exceeded
+panic: test timed out after 45s
+	running tests:
+		TestCodexFactoryPinnedNativeProductLifecycle (45s)
+		TestCodexFactoryPinnedNativeProductLifecycle/success (45s)
+
+goroutine 1252 [running]:
+testing.(*M).startAlarm.func1()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2802 +0x498
+created by time.goFunc
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/time/sleep.go:215 +0x44
+
+goroutine 1 [chan receive]:
+testing.(*T).Run(0xc0000f6248, {0x105855538, 0x2c}, 0x10603bf18)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2109 +0x7dc
+testing.runTests.func1(0xc0000f6248)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2585 +0x78
+testing.tRunner(0xc0000f6248, 0xc00022fab8)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2036 +0x168
+testing.runTests({0x105845be8, 0x18}, {0x105858b8d, 0x32}, 0xc000010150, {0x1060d3f60, 0x4f, 0x4f}, {0xc0002784c0?, 0xc0003cb680?, ...})
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2583 +0x7a4
+testing.(*M).Run(0xc0000a6fa0)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2443 +0xb3c
+main.main()
+	_testmain.go:202 +0x104
+
+goroutine 50 [chan receive]:
+testing.(*T).Run(0xc0000f6488, {0x10583900c, 0x7}, 0xc0000101c8)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2109 +0x7dc
+github.com/yetone/magpie/internal/fusion/bootstrap.TestCodexFactoryPinnedNativeProductLifecycle(0xc0000f6488)
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/bootstrap/codex_execution_native_test.go:35 +0x16c
+testing.tRunner(0xc0000f6488, 0x10603bf18)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2036 +0x168
+created by testing.(*T).Run in goroutine 1
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2101 +0x7c0
+
+goroutine 51 [select]:
+github.com/yetone/magpie/internal/fusion/bootstrap.(*ControlHost).CloseContext(0xc000024b40, {0x1060495b8, 0xc000114af0})
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/bootstrap/host.go:262 +0xf8
+github.com/yetone/magpie/internal/fusion/bootstrap.(*ControlHost).Close(0xc000024b40)
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/bootstrap/host.go:249 +0x70
+github.com/yetone/magpie/internal/fusion/bootstrap.serveExecutionHost.func2()
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/bootstrap/execution_test.go:206 +0x50
+testing.(*common).Cleanup.func1()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:1317 +0x128
+testing.(*common).runCleanup(0xc0000f66c8, 0x0)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:1667 +0x170
+testing.tRunner.func2()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2030 +0x4c
+runtime.Goexit()
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/panic.go:694 +0x60
+testing.(*common).FailNow(0xc0000f66c8)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:1022 +0x70
+testing.(*common).Fatal(0xc0000f66c8, {0xc0005afde8, 0x3, 0x3})
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:1221 +0x78
+github.com/yetone/magpie/internal/fusion/bootstrap.TestCodexFactoryPinnedNativeProductLifecycle.func1(0xc0000f66c8)
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/bootstrap/codex_execution_native_test.go:201 +0x1cb4
+testing.tRunner(0xc0000f66c8, 0xc0000101c8)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2036 +0x168
+created by testing.(*T).Run in goroutine 50
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/testing/testing.go:2101 +0x7c0
+
+goroutine 52 [select]:
+database/sql.(*DB).connectionOpener(0xc0004c3520, {0x106049548, 0xc000636820})
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/database/sql/sql.go:1261 +0xbc
+created by database/sql.OpenDB in goroutine 51
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/database/sql/sql.go:841 +0x250
+
+goroutine 1251 [sync.WaitGroup.Wait]:
+sync.runtime_SemacquireWaitGroup(0x0?, 0xb1?)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/sema.go:114 +0x38
+sync.(*WaitGroup).Wait(0xc0000a7e90)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/sync/waitgroup.go:206 +0xb8
+github.com/yetone/magpie/internal/fusion/control.(*Controller).Close.func1()
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/control/controller.go:590 +0x38
+created by github.com/yetone/magpie/internal/fusion/control.(*Controller).Close in goroutine 972
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/control/controller.go:590 +0xf4
+
+goroutine 972 [select]:
+github.com/yetone/magpie/internal/fusion/control.(*Controller).Close(0xc0000a7e00, {0x106049388, 0x106101d60})
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/control/controller.go:593 +0x170
+github.com/yetone/magpie/internal/fusion/bootstrap.(*ControlHost).CloseContext.(*ControlHost).beginClose.func1.1()
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/bootstrap/host.go:287 +0xd0
+created by github.com/yetone/magpie/internal/fusion/bootstrap.(*ControlHost).CloseContext.(*ControlHost).beginClose.func1 in goroutine 51
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/bootstrap/host.go:284 +0x104
+
+goroutine 69 [select]:
+github.com/yetone/magpie/internal/fusion/bootstrap.(*ControlHost).CloseContext(0xc000024b40, {0x1060495b8, 0xc00064a310})
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/bootstrap/host.go:262 +0xf8
+github.com/yetone/magpie/internal/fusion/bootstrap.(*ControlHost).Close(0xc000024b40)
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/bootstrap/host.go:249 +0x70
+github.com/yetone/magpie/internal/fusion/bootstrap.(*ControlHost).Serve(0xc000024b40, {0x106049548, 0xc000636eb0})
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/bootstrap/host.go:240 +0x2f4
+github.com/yetone/magpie/internal/fusion/bootstrap.serveExecutionHost.func1()
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/bootstrap/execution_test.go:203 +0x48
+created by github.com/yetone/magpie/internal/fusion/bootstrap.serveExecutionHost in goroutine 51
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/bootstrap/execution_test.go:203 +0x13c
+
+goroutine 195 [sync.Mutex.Lock]:
+internal/sync.runtime_SemacquireMutex(0xc00036ef28?, 0x18?, 0xc00036ef58?)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/runtime/sema.go:95 +0x28
+internal/sync.(*Mutex).lockSlow(0xc0003cc920)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/internal/sync/mutex.go:149 +0x1e4
+internal/sync.(*Mutex).Lock(0xc0003cc920)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/internal/sync/mutex.go:70 +0x4c
+sync.(*Mutex).Lock(0xc000118ba0?)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/sync/mutex.go:46 +0x20
+github.com/yetone/magpie/internal/fusion/store.(*Store).Task(0xc0003cc920, {0x10583d4dc, 0xe})
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/store/store.go:418 +0x5c
+github.com/yetone/magpie/internal/fusion/bootstrap.TestCodexFactoryPinnedNativeProductLifecycle.func1.1({0x106049548, 0xc000636c30})
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/bootstrap/codex_execution_native_test.go:56 +0x74
+github.com/yetone/magpie/internal/fusion/bootstrap.newCodexRuntimeFactory.func2.3({0x106049548, 0xc000636c30}, {{{0xc00025a7a5, 0xb}, 0x1}, {0xc00025a7b3, 0xd}, {0xc00025a7c3, 0xd}, 0x0, ...})
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/bootstrap/codex_execution.go:123 +0x3cc
+github.com/yetone/magpie/internal/fusion/bootstrap.newCodexRuntimeFactory.func2.stageExecutionRegistration.11.2.3()
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/bootstrap/stage_execution.go:238 +0xcc
+github.com/yetone/magpie/internal/fusion/store.(*Store).recordArtifactAuthorized.func1(0xc0006c2100)
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/store/artifacts.go:142 +0x58
+github.com/yetone/magpie/internal/fusion/store.(*Store).transaction(0xc0003cc920, 0xc0003706f8)
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/store/store.go:376 +0x108
+github.com/yetone/magpie/internal/fusion/store.(*Store).recordArtifactAuthorized(_, {{0x1, {{0xc0003ee6c0, 0x25}, 0x1, {0xc000174880, 0x40}, {0xc00048e150, 0x24}, 0x1, ...}, ...}, ...}, ...)
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/store/artifacts.go:141 +0x228
+github.com/yetone/magpie/internal/fusion/store.(*Store).RecordArtifactAuthorized(_, {{0x1, {{0xc0003ee6c0, 0x25}, 0x1, {0xc000174880, 0x40}, {0xc00048e150, 0x24}, 0x1, ...}, ...}, ...}, ...)
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/store/artifacts.go:127 +0xb8
+github.com/yetone/magpie/internal/fusion/bootstrap.newCodexRuntimeFactory.func2.stageExecutionRegistration.11.2({{0xc0003ee3c0, 0x24}, 0x1, {0xc00027c600, 0x26}, {0xc0006d0980, 0x40}, {0xc0006d0a40, 0x40}, 0x1})
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/bootstrap/stage_execution.go:258 +0x1f84
+github.com/yetone/magpie/internal/fusion/control.(*Controller).observe(0xc0000a7e00, 0xc0000bf508, {0x1060470f8, 0xc0004bc808}, {0xc0004b8978, 0xc0003cda20, 0xc00059a008, 0xc0004b89c0, 0x0, 0x0, ...})
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/control/controller.go:467 +0x448
+github.com/yetone/magpie/internal/fusion/control.(*Controller).start.func6()
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/control/controller.go:350 +0xb8
+created by github.com/yetone/magpie/internal/fusion/control.(*Controller).start in goroutine 12
+	/Users/zhaojianzhi/Desktop/Fusion Gateway/FusionGateWay_Claude/.fusion-dev/worktrees/implementation/internal/fusion/control/controller.go:349 +0x294c
+
+goroutine 1068 [chan receive]:
+database/sql.(*Tx).awaitDone(0xc0006c2100)
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/database/sql/sql.go:2212 +0x4c
+created by database/sql.(*DB).beginDC in goroutine 195
+	/Users/zhaojianzhi/.local/share/go/1.26.3/src/database/sql/sql.go:1925 +0x338
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	45.680s
+FAIL

@@ -1,0 +1,8 @@
+--- FAIL: TestCodexFactoryAdmittedEfforts (0.36s)
+    --- FAIL: TestCodexFactoryAdmittedEfforts/xhigh (0.14s)
+        codex_execution_test.go:300: xhigh execution management authority unavailable
+    --- FAIL: TestCodexFactoryAdmittedEfforts/minimal (0.12s)
+        codex_execution_test.go:300: minimal execution management authority unavailable
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	1.048s
+FAIL

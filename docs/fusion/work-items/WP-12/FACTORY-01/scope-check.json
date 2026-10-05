@@ -1,0 +1,15 @@
+{
+  "component": "WP-12-FACTORY-01",
+  "owned_files": 27,
+  "local_doc_links_checked": 20,
+  "utf8_json_gofmt": "PASS",
+  "private_credential_exact_bytes_excluded": true,
+  "private_key_file_present": false,
+  "private_key_exclusion_note": "GLM private key file absent this turn; no GLM key used; no credentials in staged scope",
+  "ui_store_dependencies_and_final_statuses_unchanged": true,
+  "primary_dirty_preserved": true,
+  "real_model_calls": 0,
+  "real_account_admission": false,
+  "production_registered_with_real_admission": false,
+  "whole_goal_complete": false
+}

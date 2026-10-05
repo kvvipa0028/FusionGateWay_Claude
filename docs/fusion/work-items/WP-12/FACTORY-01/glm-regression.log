@@ -1,0 +1,97 @@
+=== RUN   TestGLMFactoryPinnedNativeProductLifecycle
+=== RUN   TestGLMFactoryPinnedNativeProductLifecycle/success
+    glm_execution_native_test.go:317: production factory -> HTTP/Controller/Store -> GLMAdapter -> fixed Native -> 1 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+=== RUN   TestGLMFactoryPinnedNativeProductLifecycle/implementation
+    glm_execution_native_test.go:317: production factory -> HTTP/Controller/Store -> GLMAdapter -> fixed Native -> 2 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+=== RUN   TestGLMFactoryPinnedNativeProductLifecycle/handoff_collision
+    glm_execution_native_test.go:317: production factory -> HTTP/Controller/Store -> GLMAdapter -> fixed Native -> 1 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+=== RUN   TestGLMFactoryPinnedNativeProductLifecycle/cancel
+    glm_execution_native_test.go:317: production factory -> HTTP/Controller/Store -> GLMAdapter -> fixed Native -> 1 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+=== RUN   TestGLMFactoryPinnedNativeProductLifecycle/registry_revocation
+    glm_execution_native_test.go:317: production factory -> HTTP/Controller/Store -> GLMAdapter -> fixed Native -> 1 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+=== RUN   TestGLMFactoryPinnedNativeProductLifecycle/credential_rotation
+    glm_execution_native_test.go:317: production factory -> HTTP/Controller/Store -> GLMAdapter -> fixed Native -> 1 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+=== RUN   TestGLMFactoryPinnedNativeProductLifecycle/source_revocation
+    glm_execution_native_test.go:317: production factory -> HTTP/Controller/Store -> GLMAdapter -> fixed Native -> 1 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+--- PASS: TestGLMFactoryPinnedNativeProductLifecycle (6.71s)
+    --- PASS: TestGLMFactoryPinnedNativeProductLifecycle/success (1.01s)
+    --- PASS: TestGLMFactoryPinnedNativeProductLifecycle/implementation (1.06s)
+    --- PASS: TestGLMFactoryPinnedNativeProductLifecycle/handoff_collision (0.93s)
+    --- PASS: TestGLMFactoryPinnedNativeProductLifecycle/cancel (0.89s)
+    --- PASS: TestGLMFactoryPinnedNativeProductLifecycle/registry_revocation (0.94s)
+    --- PASS: TestGLMFactoryPinnedNativeProductLifecycle/credential_rotation (0.95s)
+    --- PASS: TestGLMFactoryPinnedNativeProductLifecycle/source_revocation (0.93s)
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/go_backend_success
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/go_backend_compile_failure
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/independence_conflict
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/rework_success
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/rework_exhausted
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/rework_retest_failure
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/rework_budget
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/rework_revoked
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/rework_parent_drift
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/rework_cancel
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/success
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/testing_scope_violation
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/parent_header_drift
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/unscoped_external_write
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/hard_test_failure
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/malformed_test_report
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/missing_verifier
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/wrong_standard
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/verifier_config_mutation
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/review_changes
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/review_malformed
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/review_write
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/review_standard_changed
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/review_no_verifier
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/review_parent_drift
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/acceptance_rejected
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/acceptance_unverified
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/acceptance_malformed
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/acceptance_missing_criteria
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/acceptance_write
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/acceptance_standard_changed
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/acceptance_parent_drift
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/human_standard_changed
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/human_reader_revoked
+=== RUN   TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/human_commit_revoked
+--- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart (229.06s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/go_backend_success (37.62s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/go_backend_compile_failure (13.11s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/independence_conflict (0.14s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/rework_success (13.03s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/rework_exhausted (9.30s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/rework_retest_failure (7.79s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/rework_budget (6.48s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/rework_revoked (4.59s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/rework_parent_drift (4.72s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/rework_cancel (4.87s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/success (7.60s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/testing_scope_violation (3.14s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/parent_header_drift (2.20s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/unscoped_external_write (3.28s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/hard_test_failure (3.67s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/malformed_test_report (3.61s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/missing_verifier (2.26s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/wrong_standard (2.28s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/verifier_config_mutation (7.42s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/review_changes (4.91s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/review_malformed (4.87s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/review_write (4.61s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/review_standard_changed (3.65s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/review_no_verifier (3.63s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/review_parent_drift (3.62s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/acceptance_rejected (7.60s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/acceptance_unverified (7.25s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/acceptance_malformed (6.89s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/acceptance_missing_criteria (7.11s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/acceptance_write (6.25s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/acceptance_standard_changed (5.08s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/acceptance_parent_drift (5.00s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/human_standard_changed (7.92s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/human_reader_revoked (6.85s)
+    --- PASS: TestGLMFactoryPinnedNativeConsumesApprovedParentAcrossRestart/human_commit_revoked (6.70s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	237.248s

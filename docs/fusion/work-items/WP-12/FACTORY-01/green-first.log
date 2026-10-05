@@ -1,0 +1,76 @@
+=== RUN   TestCodexFactoryPrivateRegistration
+=== RUN   TestCodexFactoryPrivateRegistration/registry
+=== RUN   TestCodexFactoryPrivateRegistration/identity
+=== RUN   TestCodexFactoryPrivateRegistration/inspector
+=== RUN   TestCodexFactoryPrivateRegistration/route
+=== RUN   TestCodexFactoryPrivateRegistration/revision
+=== RUN   TestCodexFactoryPrivateRegistration/relative_executable
+=== RUN   TestCodexFactoryPrivateRegistration/root_permissions
+=== RUN   TestCodexFactoryPrivateRegistration/credential_root
+=== RUN   TestCodexFactoryPrivateRegistration/no_read
+=== RUN   TestCodexFactoryPrivateRegistration/unadmitted
+=== RUN   TestCodexFactoryPrivateRegistration/wrong_account
+=== RUN   TestCodexFactoryPrivateRegistration/runtime
+=== RUN   TestCodexFactoryPrivateRegistration/upstream_account
+=== RUN   TestCodexFactoryPrivateRegistration/cache_permissions
+=== RUN   TestCodexFactoryPrivateRegistration/zero_epoch
+=== RUN   TestCodexFactoryPrivateRegistration/identity_account
+=== RUN   TestCodexFactoryPrivateRegistration/nil_context
+--- PASS: TestCodexFactoryPrivateRegistration (0.93s)
+    --- PASS: TestCodexFactoryPrivateRegistration/registry (0.01s)
+    --- PASS: TestCodexFactoryPrivateRegistration/identity (0.00s)
+    --- PASS: TestCodexFactoryPrivateRegistration/inspector (0.00s)
+    --- PASS: TestCodexFactoryPrivateRegistration/route (0.11s)
+    --- PASS: TestCodexFactoryPrivateRegistration/revision (0.10s)
+    --- PASS: TestCodexFactoryPrivateRegistration/relative_executable (0.00s)
+    --- PASS: TestCodexFactoryPrivateRegistration/root_permissions (0.00s)
+    --- PASS: TestCodexFactoryPrivateRegistration/credential_root (0.00s)
+    --- PASS: TestCodexFactoryPrivateRegistration/no_read (0.00s)
+    --- PASS: TestCodexFactoryPrivateRegistration/unadmitted (0.10s)
+    --- PASS: TestCodexFactoryPrivateRegistration/wrong_account (0.10s)
+    --- PASS: TestCodexFactoryPrivateRegistration/runtime (0.10s)
+    --- PASS: TestCodexFactoryPrivateRegistration/upstream_account (0.10s)
+    --- PASS: TestCodexFactoryPrivateRegistration/cache_permissions (0.10s)
+    --- PASS: TestCodexFactoryPrivateRegistration/zero_epoch (0.10s)
+    --- PASS: TestCodexFactoryPrivateRegistration/identity_account (0.10s)
+    --- PASS: TestCodexFactoryPrivateRegistration/nil_context (0.00s)
+=== RUN   TestCodexFactoryExactCopiesAndRoles
+=== RUN   TestCodexFactoryExactCopiesAndRoles/readonly
+=== RUN   TestCodexFactoryExactCopiesAndRoles/writers
+--- PASS: TestCodexFactoryExactCopiesAndRoles (0.35s)
+    --- PASS: TestCodexFactoryExactCopiesAndRoles/readonly (0.18s)
+    --- PASS: TestCodexFactoryExactCopiesAndRoles/writers (0.17s)
+=== RUN   TestCodexFactoryCurrentBeforeCopy
+=== RUN   TestCodexFactoryCurrentBeforeCopy/registry
+=== RUN   TestCodexFactoryCurrentBeforeCopy/credential
+=== RUN   TestCodexFactoryCurrentBeforeCopy/epoch
+=== RUN   TestCodexFactoryCurrentBeforeCopy/root
+=== RUN   TestCodexFactoryCurrentBeforeCopy/source
+=== RUN   TestCodexFactoryCurrentBeforeCopy/target
+=== RUN   TestCodexFactoryCurrentBeforeCopy/task
+=== RUN   TestCodexFactoryCurrentBeforeCopy/provider
+=== RUN   TestCodexFactoryCurrentBeforeCopy/region
+=== RUN   TestCodexFactoryCurrentBeforeCopy/pool_provider
+=== RUN   TestCodexFactoryCurrentBeforeCopy/pool_region
+=== RUN   TestCodexFactoryCurrentBeforeCopy/quota_epoch
+=== RUN   TestCodexFactoryCurrentBeforeCopy/inspection_target
+=== RUN   TestCodexFactoryCurrentBeforeCopy/inspection_mutates_target
+=== RUN   TestCodexFactoryCurrentBeforeCopy/closed
+--- PASS: TestCodexFactoryCurrentBeforeCopy (1.79s)
+    --- PASS: TestCodexFactoryCurrentBeforeCopy/registry (0.12s)
+    --- PASS: TestCodexFactoryCurrentBeforeCopy/credential (0.12s)
+    --- PASS: TestCodexFactoryCurrentBeforeCopy/epoch (0.11s)
+    --- PASS: TestCodexFactoryCurrentBeforeCopy/root (0.12s)
+    --- PASS: TestCodexFactoryCurrentBeforeCopy/source (0.11s)
+    --- PASS: TestCodexFactoryCurrentBeforeCopy/target (0.11s)
+    --- PASS: TestCodexFactoryCurrentBeforeCopy/task (0.12s)
+    --- PASS: TestCodexFactoryCurrentBeforeCopy/provider (0.12s)
+    --- PASS: TestCodexFactoryCurrentBeforeCopy/region (0.12s)
+    --- PASS: TestCodexFactoryCurrentBeforeCopy/pool_provider (0.12s)
+    --- PASS: TestCodexFactoryCurrentBeforeCopy/pool_region (0.12s)
+    --- PASS: TestCodexFactoryCurrentBeforeCopy/quota_epoch (0.12s)
+    --- PASS: TestCodexFactoryCurrentBeforeCopy/inspection_target (0.13s)
+    --- PASS: TestCodexFactoryCurrentBeforeCopy/inspection_mutates_target (0.13s)
+    --- PASS: TestCodexFactoryCurrentBeforeCopy/closed (0.13s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	4.734s

@@ -77,11 +77,12 @@ type registeredProject struct {
 	folder  fileIdentity
 }
 type Loaded struct {
-	path     string
-	identity fileIdentity
-	digest   [32]byte
-	revision int64
-	projects map[string]registeredProject
+	path         string
+	identity     fileIdentity
+	digest       [32]byte
+	revision     int64
+	projects     map[string]registeredProject
+	nativeRoutes map[stageplan.RouteRef]string
 }
 
 func (*Loaded) String() string   { return "Fusion local registration (redacted)" }
@@ -152,7 +153,10 @@ func Load(path string) (*Loaded, error) {
 		}
 		declarations[ref] = stageplan.Route{ID: entry.ID, Revision: entry.Revision, Model: entry.Model, Account: entry.Account, Workspace: entry.Workspace, CredentialIdentity: entry.CredentialIdentity, RuntimeVersion: entry.RuntimeVersion, BillingPath: native.Billing, Efforts: entry.Efforts, DefaultEffort: entry.DefaultEffort, NoEffort: entry.NoEffort, LockEnforcement: stageplan.Unverified}
 	}
-	s := &Loaded{path: path, identity: record.fileIdentity, digest: sha256.Sum256(record.raw), revision: d.Revision, projects: map[string]registeredProject{}}
+	s := &Loaded{path: path, identity: record.fileIdentity, digest: sha256.Sum256(record.raw), revision: d.Revision, projects: map[string]registeredProject{}, nativeRoutes: map[stageplan.RouteRef]string{}}
+	for _, entry := range d.Routes {
+		s.nativeRoutes[stageplan.RouteRef{ID: entry.ID, Revision: entry.Revision}] = entry.NativeRoute
+	}
 	for _, entry := range d.Projects {
 		if !opaque(entry.ID) || !utf8.ValidString(entry.Name) || strings.TrimSpace(entry.Name) == "" || len(entry.Name) > 256 || strings.ContainsFunc(entry.Name, unicode.IsControl) || !entry.Read || len(entry.Routes) > MaxRoutes {
 			return nil, ErrRegistration

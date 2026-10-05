@@ -64,3 +64,7 @@ T01/T02/T14/T15/T25/T31/T32/T35/T44/T53/T59 的最终端到端状态继续为 `n
 ## 固定订阅 Forwarder 与实际模型来源
 
 [SUBSCRIPTION-FORWARDER-01](SUBSCRIPTION-FORWARDER-01/summary.md) 已实现固定 ChatGPT 订阅端点的单次 HTTPS、FileCredential、受检系统 CA、无代理/redirect/retry/API fallback、有界取消及完整 SSE 后交付。官方实际模型来源为 HTTP OpenAI-Model 或 SSE response.headers，普通 response.model 不能作为证明；新增支持保留全部状态、模型漂移及秘密反射拒绝。TLS/Gate 合成回归、四种 mutation 和固定 Native 消费模型 header 的10场景实际停止均通过。合同见 [订阅 Forwarder](../../contracts/codex-subscription-forwarder.md)。真实账号登录、地区/费用/额度、Factory 注册、续期和完整工具/写入/恢复仍待完成；本组件不能升级路线准入、父包或最终验收。
+
+## 生产执行 Factory
+
+[FACTORY-01](FACTORY-01/summary.md) 已实现可信 `CodexRuntimeConfig`/`NewCodexRuntimeFactory`：绑定独立 admitted Registry candidate、显式 upstream account、私有 pinned cache、冻结独立 Identity epoch、固定 SubscriptionForwarder、私有执行根与当前项目 source；构造零启动/零查询/零准入，公开入口无上游覆写缝。GLM 共享阶段执行提取到 `stage_execution.go` 且 lifecycle/handoff 回归不变；Store 授权锁内回调改用独立有界 `registrationCurrent`（真实死锁 RED 复现并修复），Codex 档位核对改为 admitted route 声明的 Efforts（官方开放枚举）。固定 Native 生命周期 7 场景（含 Registry/缓存/epoch/source 撤销实际终止与写入 intent 前拒绝）、合成 targeted、GLM 回归、6 包 race 与 CLI/GUI/vet 均通过。合同见 [执行 Factory](../../contracts/codex-execution-factory.md)。真实登录、三路线真实准入、产品 CLI/GUI 注册、工具/写入/恢复与最终 Gate 仍待完成；父包保持 in_progress。

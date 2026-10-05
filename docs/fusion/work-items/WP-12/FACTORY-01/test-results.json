@@ -1,0 +1,27 @@
+{
+  "component": "WP-12-FACTORY-01",
+  "go_version": "1.26.3",
+  "runner": ".fusion-dev/codex-factory/run.py (isolated HOME/XDG, environment whitelist, GOPROXY/GOSUMDB off, system clang/SDK, race)",
+  "native_fixture": {
+    "codex": "/Users/zhaojianzhi/.codex/packages/standalone/releases/0.160.0-aarch64-apple-darwin/bin/codex",
+    "codex_sha256": "112fae7a5a1223e673c8a1791d32338f37df8b527ff1159bb8adac6c4dbf1b4b",
+    "claude": "/Users/zhaojianzhi/.local/share/claude/versions/2.1.287"
+  },
+  "runs": [
+    {"name": "initial-red", "command": "bootstrap -run TestCodexFactory* (pre-constructor)", "exit": 1, "evidence": "red.log"},
+    {"name": "first-green", "command": "bootstrap targeted factory tests, race", "exit": 0, "top_level": 3, "subtests": 34, "evidence": "green-first.log"},
+    {"name": "native-route-red", "command": "bootstrap TestCodexFactoryPrivateRegistration/native_route", "exit": 1, "evidence": "native-route-red.log"},
+    {"name": "native-route-green", "command": "bootstrap TestCodexFactoryPrivateRegistration (18 subtests), race", "exit": 0, "evidence": "native-route-green.log"},
+    {"name": "effort-red", "command": "bootstrap TestCodexFactoryAdmittedEfforts", "exit": 1, "failed_subtests": ["xhigh", "minimal"], "evidence": "effort-red.log"},
+    {"name": "lock-red", "command": "bootstrap TestCodexFactoryPinnedNativeProductLifecycle/success -timeout 45s + pinned Native", "exit": 1, "failure": "test timed out; Store.mu deadlock via storeCurrent->Identity->Store.Task", "evidence": "lock-red.log"},
+    {"name": "effort-green-verbose", "command": "bootstrap TestCodexFactoryAdmittedEfforts -v", "exit": 0, "subtests": 3, "evidence": "effort-green-v.log"},
+    {"name": "effort-green-package", "command": "bootstrap TestCodexFactory(PrivateRegistration|ExactCopiesAndRoles|AdmittedEfforts|CurrentBeforeCopy)", "exit": 0, "evidence": "effort-green.log"},
+    {"name": "native-lifecycle-green", "command": "bootstrap TestCodexFactoryPinnedNativeProductLifecycle + pinned Native, race, -timeout 120s", "exit": 0, "subtests": 7, "modes": ["success", "cancel", "registry_revocation", "credential_rotation", "epoch_drift", "source_revocation", "writer_preintent"], "evidence": "lock-green.log"},
+    {"name": "glm-regression", "command": "bootstrap TestGLMFactoryPinnedNative(ProductLifecycle|ConsumesApprovedParentAcrossRestart) + pinned Claude 2.1.287, race", "exit": 0, "subtests": 42, "evidence": "glm-regression.log"},
+    {"name": "affected-race", "command": "bootstrap runtime/codex runtime/codexadapter runtime/glm control store, race", "exit": 0, "packages": 6, "evidence": "bootstrap-full.log"},
+    {"name": "build-dev", "command": "python3 scripts/fusion/build-dev.py", "exit": 0, "checks": ["cli", "gui", "vet"], "evidence": "build-dev.log"}
+  ],
+  "synthetic_only": true,
+  "real_vendor_calls": 0,
+  "real_account_admission": false
+}

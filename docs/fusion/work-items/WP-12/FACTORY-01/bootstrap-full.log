@@ -1,0 +1,6 @@
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	23.915s
+ok  	github.com/yetone/magpie/internal/fusion/runtime/codex	6.979s
+ok  	github.com/yetone/magpie/internal/fusion/runtime/codexadapter	5.971s
+ok  	github.com/yetone/magpie/internal/fusion/runtime/glm	3.775s
+ok  	github.com/yetone/magpie/internal/fusion/control	12.856s
+ok  	github.com/yetone/magpie/internal/fusion/store	57.185s
