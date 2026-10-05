@@ -1,0 +1,7 @@
+{
+  "expected_exit": 1,
+  "observed_exit": 1,
+  "lost_authority_would_commit": true,
+  "production_source_exactly_restored": true,
+  "source_sha256": "3c1ce6fdb55cc0be4dda681cbf0ae5860370c5d9954c03d8cc952b67a2f8bd4e"
+}

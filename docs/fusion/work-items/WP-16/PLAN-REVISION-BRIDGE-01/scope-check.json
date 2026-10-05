@@ -1,0 +1,23 @@
+{
+  "original_upstream_assets_equal_pinned": true,
+  "original_asset_hashes": {
+    "internal/gui/assets/index.html": "07c2658d16f14d160afd286f8e3f0d5752c4cce831e79b902f57b09589e41b64",
+    "internal/gui/assets/app.js": "4484b81c5581925ad88808754c6539818719465614e0d72ac7ea7147e37cbc80",
+    "internal/gui/assets/i18n.js": "8beaf651034b7dd962e7541d9ff3f3a801b7e315bf6524b7b6d6556fcc09e4fb",
+    "internal/gui/assets/app.css": "86f8853f683605079737d7cc9d2f0702fbdf46a0af5026f2fc3b7501ef47a471",
+    "internal/gui/assets/library.css": "6a5224fcfce687ee957d172dd3e3e8b5f9069067d407621717926b659c3349f6",
+    "internal/gui/assets/plugins.css": "9141f4e6e4cf8921f18334f3abd6ef4d85accabde192b1d87e449b2113dbf445",
+    "internal/gui/assets/routing.css": "458f7ce623f19eacaa2d8e1bf5c3dd4596b5eb1864d97e4d56aa7449360d4856",
+    "internal/gui/assets/sessions.css": "5be688fef12052748d0cffed17eb6a12c329c154d617da2bbf1f1066bf0de6a0",
+    "internal/gui/assets/omarchy.css": "7ae2af013244e0e7eeb88f783360ff3e3f123632d3ea7e2adc0df2c7391f2feb"
+  },
+  "all_fusion_assets_equal_component_base": true,
+  "schema_controller_scheduler_openapi_unchanged": true,
+  "exact_private_credential_bytes_absent": true,
+  "utf8_json_gofmt_valid": true,
+  "local_markdown_links_checked": 192,
+  "primary_two_dsstore_preserved": true,
+  "graph_nodes": 14711,
+  "graph_edges": 133053,
+  "wails_pixels_verified": false
+}

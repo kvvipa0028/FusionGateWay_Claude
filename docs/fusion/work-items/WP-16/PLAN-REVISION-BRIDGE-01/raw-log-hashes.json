@@ -1,0 +1,21 @@
+{
+  "api-store-bootstrap-final.log": "88b0a95fac66462f793ddd6b250a6be10ce4eb868a200f62b27b4fef9317a50b",
+  "api-store-final.log": "d0a6b6a062b66281c9ad52cd50aa22c12385fba23305944e735f89ea48dedb65",
+  "authority-green.log": "68a1528dea89c820b2e26c6b70f74b309b6060bb521ae2c0332267fd42d266ba",
+  "build-authority-final.log": "ee5843ba8efa1fc8bd85d79079ecd1a564c46c02021ed3bf2844076b9f3dcfe2",
+  "build-final.log": "ee5843ba8efa1fc8bd85d79079ecd1a564c46c02021ed3bf2844076b9f3dcfe2",
+  "commit-authority-mutation.log": "1fb8e32a457f9e7e93863ff2ddde5abfaa2e31f968899134fd3fc2d51e0d2572",
+  "native-api-final.log": "a6b1c4c1270b3db2df093cd996a1ecc4b08c23412f41c35f28b7257e8f7b0dd3",
+  "native-behavior-red.log": "e93700ab50aeef00f6f867a361517fb62af6f3dc2b73640b03cda257fe49359e",
+  "native-expanded-corrected.log": "98293b0a3165829f8843cb9cad2120b1071e5b4af5ab9d601d4ef5cfd721fa31",
+  "native-expanded.log": "97af6321276f205e46d4fc009e692ece194bab81c6a97c1fe357f91f17907864",
+  "native-first-green.log": "1465235a2d5b1be883bbcd9a08b0fedf2d1867eb295fd5485ccdad33d7c6ba54",
+  "native-path-red.log": "c8cf19f4c4ee8455770ee7116db80123f9ee9b860a1901b8af1e78aa9775daa9",
+  "native-red.log": "f88235f46f0e1f178c81a658e9e4bf28875dd06c7c0cc3a027e6b029679c1e4b",
+  "project-boundary-mutation.log": "1b5a6025a758fd17c832992ffcdc2aaa1f672aa16893839fe5ce188989d1cdf9",
+  "revision-authority-red.log": "f6eab0ffbaf0df14a5140b3e54f49c3415d78c17a31fdb9d3d8255fd60808258",
+  "store-authority-red.log": "ab9b1a83fc97c5842a6d763772335cc1b16febff68155a109a6774e49202eb48",
+  "build-cli.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "build-gui.log": "1701e3721b2b5ce7810cd9f6f0ea8b3f53c76b64c7e1fab60cccdf166111a785",
+  "build-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

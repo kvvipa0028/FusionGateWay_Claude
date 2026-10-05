@@ -10,7 +10,7 @@ WP-06 对 Fusion 构建封闭全部旧入口；无 tag 构建保持原版回归�
 | `/_magpie/claude-mcp/{token}` | 同一 Handler | 不能以 URL 中旧 token 绕过阶段身份 |
 | GUI assets、boot.js、所有 `/api/*` 管理/导入/账号/设置/会话/备份/窗口入口 | gui.Handler | 在 mux 注册前拒绝，覆盖 HTTP 与 Wails AssetOptions native bridge |
 | 未来任务/事件/SSE 与未知 GUI 路径 | 同一 GUI Handler | 默认拒绝；新接口按管理或准确 stage audience 接入 |
-| 新任务预览、提交、读取、plan 修订、budget 与 SSE 组件 | fusion/api.Server.Handler | policy.Manager.Management 强鉴权；SSE 持续检查当前 issuer/撤销；仅组件 HTTP 测试，尚未注册生产 GUI/gateway |
+| 新任务预览、提交、读取、plan 修订、budget 与 SSE 组件 | fusion/api.Server.Handler | policy.Manager.Management 强鉴权；SSE 持续检查当前 issuer/撤销；独立 ControlHost Management HTTP 接入；Native 仅开放逐项核验后的精确通路，不开放旧 GUI/gateway |
 | 原版 query-key Web | gui.StartWeb | 在生成 Key、创建 listener 或打印 URL 前拒绝；没有新的监听端口 |
 | 原版开发 backend/shell/listen | gui.Run、Handler | Fusion Run 拒绝 devRole；旧 devRoutes/devListen 不执行 |
 | URI 导入与单实例导入 | gui.Run、host.Import | 拒绝/忽略旧导入入口，不改变受控路线 |
@@ -24,4 +24,4 @@ GUI startBackend 在 Fusion 中跳过 catalog/provider 发现和日常客户端�
 
 WP-15-EVENTS-01 已验证组件的实际 loopback SSE、持久 sequence 重连补读、断线不取消/启动任务和授权撤销后关闭连接；这不代表生产 UI 接线或真实供应商任务已通过。
 
-WP-15-REVISION-01 新增 GET plan、POST plan/preview 和 PUT plan 组件接口；都使用 Management 身份，强 If-Match、任务/用途/配置绑定的 receipt 和服务端冻结 hash。预览及修订不调用 Runtime；尚未注册到生产 listener/GUI。
+WP-15-REVISION-01 新增 GET plan、POST plan/preview 和 PUT plan 组件接口；都使用 Management 身份，强 If-Match、任务/用途/配置绑定的 receipt 和服务端冻结 hash。预览及修订不调用 Runtime；已在独立 ControlHost 的 Management HTTP 接入，[Native 修订桥](native-plan-revision.md)已开放精确 POST/PUT 通路。界面修订控件、实际 Wails 操作和真实供应商准入尚未完成。

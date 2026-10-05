@@ -2,6 +2,7 @@ package store
 
 import (
 	"errors"
+	"reflect"
 	"testing"
 
 	"github.com/yetone/magpie/internal/fusion/stageplan"
@@ -92,5 +93,52 @@ func TestOrdinaryRevisionCannotReplaceRequiredRoles(t *testing.T) {
 	}
 	if e = s.RevisePlan(task.ID, 1, p); !errors.Is(e, ErrConflict) {
 		t.Fatal("required role changed", e)
+	}
+}
+
+func TestRevisionCurrentAuthorityLossRollsBackWholeTransaction(t *testing.T) {
+	for _, mode := range []string{"nil", "before", "before-commit", "valid"} {
+		t.Run(mode, func(t *testing.T) {
+			s, _ := openFixture(t)
+			task := create(t, s)
+			defaults, err := s.DefaultLayers(task.ProjectID)
+			if err != nil {
+				t.Fatal(err)
+			}
+			before, _ := s.Events(task.ID, 0)
+			budget, _ := s.Budget(task.ID)
+			checks := 0
+			var current func() bool
+			if mode != "nil" {
+				current = func() bool { checks++; return mode == "valid" || mode == "before-commit" && checks == 1 }
+			}
+			next := plan(t, 2)
+			err = s.RevisePlanCurrentGuarded(task.ID, 1, next, defaults.Stamp(), current)
+			if mode == "valid" {
+				if err != nil || checks != 2 {
+					t.Fatal("valid guarded revision", err, checks)
+				}
+				got, _ := s.Plan(task.ID, 2)
+				if !reflect.DeepEqual(got, next) {
+					t.Fatal("guarded revision lost snapshot")
+				}
+				return
+			}
+			if !errors.Is(err, ErrWorkflowAuthority) {
+				t.Fatal("revoked authority revised plan", err)
+			}
+			after, _ := s.Events(task.ID, 0)
+			got, _ := s.Task(task.ID)
+			afterBudget, _ := s.Budget(task.ID)
+			if !reflect.DeepEqual(before, after) || got != task || budget != afterBudget {
+				t.Fatal("failed authority wrote state")
+			}
+			if _, err = s.Plan(task.ID, 2); !errors.Is(err, ErrNotFound) {
+				t.Fatal("failed authority retained new snapshot", err)
+			}
+			if mode == "before-commit" && checks != 2 {
+				t.Fatal("missing final authority check", checks)
+			}
+		})
 	}
 }

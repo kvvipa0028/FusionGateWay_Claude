@@ -132,6 +132,12 @@ func (b *NativeStageBridge) allowed(method, path string) bool {
 	if nativeWorkflowID(path) != "" {
 		return method == "POST" || method == "GET" && (strings.HasSuffix(path, "/workflow") || strings.HasSuffix(path, "/workflow/decision"))
 	}
+	if nativePlanID(path) != "" {
+		if strings.HasSuffix(path, "/preview") {
+			return method == "POST"
+		}
+		return method == "GET" || method == "PUT"
+	}
 	if nativeTaskReadID(path) != "" {
 		return method == "GET"
 	}
@@ -212,6 +218,18 @@ func nativeWorkflowID(path string) string {
 	}
 	parts := strings.Split(strings.TrimPrefix(path, "/control/v1/tasks/"), "/")
 	if len(parts) >= 2 && opaque(parts[0]) && parts[1] == "workflow" && (len(parts) == 2 || len(parts) == 3 && (parts[2] == "design" || parts[2] == "approve" || parts[2] == "decision")) {
+		return parts[0]
+	}
+	return ""
+}
+
+// Exact frozen-plan metadata paths, not a generic task/Worker proxy.
+func nativePlanID(path string) string {
+	if !strings.HasPrefix(path, "/control/v1/tasks/") {
+		return ""
+	}
+	parts := strings.Split(strings.TrimPrefix(path, "/control/v1/tasks/"), "/")
+	if len(parts) >= 2 && opaque(parts[0]) && parts[1] == "plan" && (len(parts) == 2 || len(parts) == 3 && parts[2] == "preview") {
 		return parts[0]
 	}
 	return ""
@@ -325,7 +343,10 @@ func (b *NativeStageBridge) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if id == "" {
 		id = nativeWorkflowID(r.URL.Path)
 	}
-	if nativeWorkflowID(r.URL.Path) != "" && len(r.Header.Values("Idempotency-Key")) != 0 {
+	if id == "" {
+		id = nativePlanID(r.URL.Path)
+	}
+	if (nativeWorkflowID(r.URL.Path) != "" || nativePlanID(r.URL.Path) != "") && len(r.Header.Values("Idempotency-Key")) != 0 {
 		http.Error(w, "Bad Request", 400)
 		return
 	}

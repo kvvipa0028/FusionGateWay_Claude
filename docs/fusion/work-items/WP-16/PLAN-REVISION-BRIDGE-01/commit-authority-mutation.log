@@ -1,0 +1,16 @@
+=== RUN   TestRevisionCurrentAuthorityLossRollsBackWholeTransaction
+=== RUN   TestRevisionCurrentAuthorityLossRollsBackWholeTransaction/nil
+=== RUN   TestRevisionCurrentAuthorityLossRollsBackWholeTransaction/before
+    revision_test.go:128: revoked authority revised plan <nil>
+=== RUN   TestRevisionCurrentAuthorityLossRollsBackWholeTransaction/before-commit
+    revision_test.go:128: revoked authority revised plan <nil>
+=== RUN   TestRevisionCurrentAuthorityLossRollsBackWholeTransaction/valid
+    revision_test.go:119: valid guarded revision <nil> 0
+--- FAIL: TestRevisionCurrentAuthorityLossRollsBackWholeTransaction (0.39s)
+    --- PASS: TestRevisionCurrentAuthorityLossRollsBackWholeTransaction/nil (0.10s)
+    --- FAIL: TestRevisionCurrentAuthorityLossRollsBackWholeTransaction/before (0.09s)
+    --- FAIL: TestRevisionCurrentAuthorityLossRollsBackWholeTransaction/before-commit (0.10s)
+    --- FAIL: TestRevisionCurrentAuthorityLossRollsBackWholeTransaction/valid (0.10s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/store	0.985s
+FAIL

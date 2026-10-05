@@ -43,3 +43,5 @@ launcher 使用私有 HOME/XDG 和环境允许清单。启动 stdout 仅含产�
 后续 [EVENT-PAGE-01](task-event-page.md)新增精确事件分页 GET 及原 UI 默认折叠记录区；仅持久状态元数据回读，原 SSE 不开放到 Native 桥，不修改运行回执或自动推进 Task。CSS 未改，实际 Native 事件按钮未验证。
 
 后续 [MAIN-UI-01](magpie-main-ui.md)直接复用原首页页头与导航接入现有 Fusion 面板，精确增加 main.mjs 静态资源，不扩大主框架、窗口身份、HTTP/API 权限。2026-10-05 浏览器及 SDK-window 回归通过；本轮桌面报告 Mac locked，未重验此版本的实际 Wails 操作。
+
+后续[未开始阶段计划修订通路](native-plan-revision.md)开放精确 plan/preview POST 和 plan PUT，先核验当前窗口、宿主与已登记 Task；沿原 Management/If-Match/receipt 合同，不调用 Runtime，不开放泛化路径。回执绑定原计划版本，拒绝未知 Idempotency-Key，保留128KiB/2MiB/8秒与来源撤销保护。页面修订控件尚未接入，当前 bridge/HTTP 证据不等于实际 Wails 操作。

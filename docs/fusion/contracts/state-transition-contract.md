@@ -91,3 +91,5 @@ Start journal 的 prepared→committed/abandoned、committed→acknowledged 独�
 ## WP-19 schema 9 设计批准
 
 当前 schema 9，未来 10 拒绝。工作流在执行前冻结固定 kind/角色，设计文档和每版计划的人类批准不可变；迁移不为手动任务猜测工作流。Controller 预检及启动事务双重检查下一角色、前序停止和当前计划批准，不修改原 Task/Run 状态语义；workflow_complete 不等于 Task completed 或验收通过。009 失败完整回滚到 8。Management/Native/UI 工作流消费者及真实 Gate A 尚未完成，见[工作流设计批准合同](workflow-design-gate.md)。
+
+后续[Native计划修订通路](native-plan-revision.md)补充管理请求的等待后/回执前权限重查及`RevisePlanCurrentGuarded`的事务开始和提交前guard。权限在事务期间失效时，快照、Task版本、plan_revised事件一起回滚；旧可信进程内RevisePlan/RevisePlanCurrent签名与行为不变。SQL/schema不变，计划和活动run/预算规则不变。

@@ -9,6 +9,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/yetone/magpie/internal/fusion/control"
 	"github.com/yetone/magpie/internal/fusion/stageplan"
 	"github.com/yetone/magpie/internal/fusion/store"
 )
@@ -48,9 +49,20 @@ func planError(e error) error {
 	return e
 }
 
-func (s *Server) previewRevision(id string, base int64, in RevisionRequest) (Preview, error) {
+func planFailure(w http.ResponseWriter, e error) {
+	if errors.Is(e, control.ErrForbidden) || errors.Is(e, store.ErrWorkflowAuthority) {
+		controlFailure(w, e)
+		return
+	}
+	failure(w, e)
+}
+
+func (s *Server) previewRevision(r *http.Request, id string, base int64, in RevisionRequest) (Preview, error) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
+	if e := s.workflowAuthority(r); e != nil {
+		return Preview{}, e
+	}
 	task, e := s.store.Task(id)
 	if e != nil {
 		return Preview{}, e
@@ -91,16 +103,22 @@ func (s *Server) previewRevision(id string, base int64, in RevisionRequest) (Pre
 		return Preview{}, e
 	}
 	p := Preview{ID: "preview-" + hex.EncodeToString(entropy[:]), ConfigurationRevision: c.revision, ExpiresAt: now.Add(5 * time.Minute), Plan: plan, Budget: BudgetLimits{MaxCalls: b.MaxCalls, MaxReworks: b.MaxReworks}}
+	if e := s.workflowAuthority(r); e != nil {
+		return Preview{}, e
+	}
 	s.previews[p.ID] = &receipt{preview: copyPreview(p), request: PreviewRequest{ProjectID: task.ProjectID}, taskID: id, base: base, defaults: c.defaults}
 	return p, nil
 }
 
-func (s *Server) applyRevision(id string, base int64, in SubmitRequest) (stageplan.Snapshot, error) {
+func (s *Server) applyRevision(request *http.Request, id string, base int64, in SubmitRequest) (stageplan.Snapshot, error) {
 	if !opaque(in.PreviewID) || in.PlanHash == "" {
 		return stageplan.Snapshot{}, errInvalid
 	}
 	s.mu.Lock()
 	defer s.mu.Unlock()
+	if e := s.workflowAuthority(request); e != nil {
+		return stageplan.Snapshot{}, e
+	}
 	r, ok := s.previews[in.PreviewID]
 	if !ok || r.taskID != id || r.base != base || r.preview.Plan.Hash != in.PlanHash {
 		return stageplan.Snapshot{}, errPreview
@@ -117,7 +135,7 @@ func (s *Server) applyRevision(id string, base int64, in SubmitRequest) (stagepl
 	if !s.now().Before(r.preview.ExpiresAt) || p.revision != r.preview.ConfigurationRevision || p.defaults != r.defaults {
 		return stageplan.Snapshot{}, errPreview
 	}
-	if e := s.store.RevisePlanCurrent(id, base, r.preview.Plan, r.defaults); e != nil {
+	if e := s.store.RevisePlanCurrentGuarded(id, base, r.preview.Plan, r.defaults, func() bool { return s.workflowAuthority(request) == nil }); e != nil {
 		if errors.Is(e, store.ErrDefaultsChanged) {
 			return stageplan.Snapshot{}, errPreview
 		}
@@ -128,6 +146,10 @@ func (s *Server) applyRevision(id string, base int64, in SubmitRequest) (stagepl
 }
 
 func (s *Server) planControl(w http.ResponseWriter, r *http.Request) {
+	if e := s.workflowAuthority(r); e != nil {
+		planFailure(w, e)
+		return
+	}
 	preview := strings.HasSuffix(r.URL.Path, "/plan/preview")
 	suffix := "/plan"
 	if preview {
@@ -149,6 +171,10 @@ func (s *Server) planControl(w http.ResponseWriter, r *http.Request) {
 			failure(w, e)
 			return
 		}
+		if e := s.workflowAuthority(r); e != nil {
+			planFailure(w, e)
+			return
+		}
 		w.Header().Set("ETag", etag(plan.Revision))
 		respond(w, 200, plan)
 		return
@@ -168,9 +194,13 @@ func (s *Server) planControl(w http.ResponseWriter, r *http.Request) {
 			failure(w, errInvalid)
 			return
 		}
-		p, e := s.previewRevision(id, base, in)
+		p, e := s.previewRevision(r, id, base, in)
+		if authErr := s.workflowAuthority(r); authErr != nil {
+			planFailure(w, authErr)
+			return
+		}
 		if e != nil {
-			failure(w, e)
+			planFailure(w, e)
 			return
 		}
 		w.Header().Set("ETag", etag(base))
@@ -182,9 +212,13 @@ func (s *Server) planControl(w http.ResponseWriter, r *http.Request) {
 		failure(w, errInvalid)
 		return
 	}
-	plan, e := s.applyRevision(id, base, in)
+	plan, e := s.applyRevision(r, id, base, in)
+	if authErr := s.workflowAuthority(r); authErr != nil {
+		planFailure(w, authErr)
+		return
+	}
 	if e != nil {
-		failure(w, e)
+		planFailure(w, e)
 		return
 	}
 	w.Header().Set("ETag", etag(plan.Revision))

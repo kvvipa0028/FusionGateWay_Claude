@@ -69,3 +69,5 @@
 [EVENT-PAGE-01](../WP-16/EVENT-PAGE-01/summary.md)新增有界只读事件分页及精确 Native 通路，在原详情附近用默认折叠区按序回读，CSS 未改。完整浏览器49PASS、API113顶层/81子、Native/Store12顶层/22子PASS；关闭重开、授权/来源撤销和游标边界验证通过。实际 Native 点击、实时推送、真实供应商执行和完整工程闭环仍未完成；父包保持 in_progress，最终60类验收 not_run。
 
 [START-JOURNAL-01](START-JOURNAL-01/summary.md)完成原阶段启动的持久准备/冻结、原子run关联、确认和封存，schema8迁移及失败回滚。HTTP/Native/UI消费与实际窗口恢复仍未完成；父包保持in_progress，不改变真实准入和最终60类验收状态。
+
+后续[WP-16-PLAN-REVISION-BRIDGE-01](../WP-16/PLAN-REVISION-BRIDGE-01/summary.md)已把原未开始阶段计划修订API接到精确 Native 通路；预览、提交与历史/预算/并发约束保持不变。页面修订控件尚未接入，父包与最终验收状态不变。

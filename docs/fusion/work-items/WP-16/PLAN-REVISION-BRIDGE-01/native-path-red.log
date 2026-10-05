@@ -1,0 +1,7 @@
+=== RUN   TestNativePlanRevisionPreviewApplyPreservesStartedRunBudgetAndHistory
+    native_plan_revision_test.go:133: Native revision preview 404 404 page not found
+
+--- FAIL: TestNativePlanRevisionPreviewApplyPreservesStartedRunBudgetAndHistory (0.14s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	0.631s
+FAIL

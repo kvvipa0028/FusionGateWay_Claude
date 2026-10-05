@@ -1,0 +1,17 @@
+=== RUN   TestRevisionRechecksManagementAfterWaitingBeforePreviewOrApply
+=== RUN   TestRevisionRechecksManagementAfterWaitingBeforePreviewOrApply/preview/cancel
+    revision_test.go:365: late revoked plan read/wrote state 200 1
+=== RUN   TestRevisionRechecksManagementAfterWaitingBeforePreviewOrApply/preview/revoke
+    revision_test.go:365: late revoked plan read/wrote state 200 1
+=== RUN   TestRevisionRechecksManagementAfterWaitingBeforePreviewOrApply/apply/cancel
+    revision_test.go:365: late revoked plan read/wrote state 200 2
+=== RUN   TestRevisionRechecksManagementAfterWaitingBeforePreviewOrApply/apply/revoke
+    revision_test.go:365: late revoked plan read/wrote state 200 2
+--- FAIL: TestRevisionRechecksManagementAfterWaitingBeforePreviewOrApply (0.38s)
+    --- FAIL: TestRevisionRechecksManagementAfterWaitingBeforePreviewOrApply/preview/cancel (0.11s)
+    --- FAIL: TestRevisionRechecksManagementAfterWaitingBeforePreviewOrApply/preview/revoke (0.09s)
+    --- FAIL: TestRevisionRechecksManagementAfterWaitingBeforePreviewOrApply/apply/cancel (0.09s)
+    --- FAIL: TestRevisionRechecksManagementAfterWaitingBeforePreviewOrApply/apply/revoke (0.09s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/api	1.106s
+FAIL

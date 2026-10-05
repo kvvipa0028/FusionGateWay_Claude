@@ -1,0 +1,6 @@
+=== RUN   TestNativePlanRevisionPreviewApplyPreservesStartedRunBudgetAndHistory
+    native_plan_revision_test.go:119: Fusion local control host unavailable
+--- FAIL: TestNativePlanRevisionPreviewApplyPreservesStartedRunBudgetAndHistory (0.11s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	0.788s
+FAIL

@@ -1,0 +1,57 @@
+=== RUN   TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies
+=== RUN   TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/HEAD/control/v1/tasks/task-b22b729a4950cb1598878281eafa26bf/plan
+=== RUN   TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/POST/control/v1/tasks/task-b22b729a4950cb1598878281eafa26bf/plan
+=== RUN   TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/DELETE/control/v1/tasks/task-b22b729a4950cb1598878281eafa26bf/plan
+=== RUN   TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/GET/control/v1/tasks/task-b22b729a4950cb1598878281eafa26bf/plan/preview
+=== RUN   TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/PUT/control/v1/tasks/task-b22b729a4950cb1598878281eafa26bf/plan/preview
+=== RUN   TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/POST/control/v1/tasks/task-b22b729a4950cb1598878281eafa26bf/plan/preview/extra
+=== RUN   TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/PUT/control/v1/tasks/task-b22b729a4950cb1598878281eafa26bf/plan/versions/2
+=== RUN   TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/POST/control/v1/projects/fixture-project/plan/preview
+=== RUN   TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/GET_window
+=== RUN   TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/GET_unsupported_key_unsupported-key
+=== RUN   TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/GET_unsupported_key_
+=== RUN   TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/POST_window
+=== RUN   TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/POST_unsupported_key_unsupported-key
+=== RUN   TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/POST_unsupported_key_
+=== RUN   TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/PUT_window
+=== RUN   TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/PUT_unsupported_key_unsupported-key
+=== RUN   TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/PUT_unsupported_key_
+=== RUN   TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/If-Match_
+=== RUN   TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/If-Match_"01"
+=== RUN   TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/If-Match_W/"1"
+=== RUN   TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/If-Match_*
+=== RUN   TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/If-Match_"0"
+=== RUN   TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/If-Match_"9223372036854775808"
+=== RUN   TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/If-Match_"p1-g0-ready"
+=== RUN   TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/If-Match_"2"
+=== NAME  TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies
+    native_plan_revision_test.go:253: foreign/unknown task reached plan handler GET 200
+--- FAIL: TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies (0.17s)
+    --- PASS: TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/HEAD/control/v1/tasks/task-b22b729a4950cb1598878281eafa26bf/plan (0.00s)
+    --- PASS: TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/POST/control/v1/tasks/task-b22b729a4950cb1598878281eafa26bf/plan (0.00s)
+    --- PASS: TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/DELETE/control/v1/tasks/task-b22b729a4950cb1598878281eafa26bf/plan (0.00s)
+    --- PASS: TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/GET/control/v1/tasks/task-b22b729a4950cb1598878281eafa26bf/plan/preview (0.00s)
+    --- PASS: TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/PUT/control/v1/tasks/task-b22b729a4950cb1598878281eafa26bf/plan/preview (0.00s)
+    --- PASS: TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/POST/control/v1/tasks/task-b22b729a4950cb1598878281eafa26bf/plan/preview/extra (0.00s)
+    --- PASS: TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/PUT/control/v1/tasks/task-b22b729a4950cb1598878281eafa26bf/plan/versions/2 (0.00s)
+    --- PASS: TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/POST/control/v1/projects/fixture-project/plan/preview (0.00s)
+    --- PASS: TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/GET_window (0.00s)
+    --- PASS: TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/GET_unsupported_key_unsupported-key (0.00s)
+    --- PASS: TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/GET_unsupported_key_ (0.00s)
+    --- PASS: TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/POST_window (0.00s)
+    --- PASS: TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/POST_unsupported_key_unsupported-key (0.00s)
+    --- PASS: TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/POST_unsupported_key_ (0.00s)
+    --- PASS: TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/PUT_window (0.00s)
+    --- PASS: TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/PUT_unsupported_key_unsupported-key (0.00s)
+    --- PASS: TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/PUT_unsupported_key_ (0.00s)
+    --- PASS: TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/If-Match_ (0.00s)
+    --- PASS: TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/If-Match_"01" (0.00s)
+    --- PASS: TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/If-Match_W/"1" (0.00s)
+    --- PASS: TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/If-Match_* (0.00s)
+    --- PASS: TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/If-Match_"0" (0.00s)
+    --- PASS: TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/If-Match_"9223372036854775808" (0.00s)
+    --- PASS: TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/If-Match_"p1-g0-ready" (0.00s)
+    --- PASS: TestNativePlanRevisionRejectsForeignWindowProjectPathsHeadersAndBodies/If-Match_"2" (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/bootstrap	0.824s
+FAIL

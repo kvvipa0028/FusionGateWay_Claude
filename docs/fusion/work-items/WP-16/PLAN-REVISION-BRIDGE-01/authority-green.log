@@ -1,0 +1,24 @@
+=== RUN   TestRevisionRechecksManagementAfterWaitingBeforePreviewOrApply
+=== RUN   TestRevisionRechecksManagementAfterWaitingBeforePreviewOrApply/preview/cancel
+=== RUN   TestRevisionRechecksManagementAfterWaitingBeforePreviewOrApply/preview/revoke
+=== RUN   TestRevisionRechecksManagementAfterWaitingBeforePreviewOrApply/apply/cancel
+=== RUN   TestRevisionRechecksManagementAfterWaitingBeforePreviewOrApply/apply/revoke
+--- PASS: TestRevisionRechecksManagementAfterWaitingBeforePreviewOrApply (0.40s)
+    --- PASS: TestRevisionRechecksManagementAfterWaitingBeforePreviewOrApply/preview/cancel (0.10s)
+    --- PASS: TestRevisionRechecksManagementAfterWaitingBeforePreviewOrApply/preview/revoke (0.10s)
+    --- PASS: TestRevisionRechecksManagementAfterWaitingBeforePreviewOrApply/apply/cancel (0.10s)
+    --- PASS: TestRevisionRechecksManagementAfterWaitingBeforePreviewOrApply/apply/revoke (0.10s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/api	2.168s
+=== RUN   TestRevisionCurrentAuthorityLossRollsBackWholeTransaction
+=== RUN   TestRevisionCurrentAuthorityLossRollsBackWholeTransaction/nil
+=== RUN   TestRevisionCurrentAuthorityLossRollsBackWholeTransaction/before
+=== RUN   TestRevisionCurrentAuthorityLossRollsBackWholeTransaction/before-commit
+=== RUN   TestRevisionCurrentAuthorityLossRollsBackWholeTransaction/valid
+--- PASS: TestRevisionCurrentAuthorityLossRollsBackWholeTransaction (0.38s)
+    --- PASS: TestRevisionCurrentAuthorityLossRollsBackWholeTransaction/nil (0.09s)
+    --- PASS: TestRevisionCurrentAuthorityLossRollsBackWholeTransaction/before (0.09s)
+    --- PASS: TestRevisionCurrentAuthorityLossRollsBackWholeTransaction/before-commit (0.10s)
+    --- PASS: TestRevisionCurrentAuthorityLossRollsBackWholeTransaction/valid (0.10s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/store	2.022s

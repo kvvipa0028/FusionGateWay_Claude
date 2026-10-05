@@ -1,0 +1,4 @@
+# github.com/yetone/magpie/internal/fusion/store [github.com/yetone/magpie/internal/fusion/store.test]
+internal/fusion/store/revision_test.go:116:12: s.RevisePlanCurrentGuarded undefined (type *Store has no field or method RevisePlanCurrentGuarded)
+FAIL	github.com/yetone/magpie/internal/fusion/store [build failed]
+FAIL

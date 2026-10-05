@@ -2,6 +2,7 @@ package api
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
@@ -324,5 +325,82 @@ func TestAppliedRevisionReceiptReturnsItsCommittedSnapshotAfterLaterRevision(t *
 	after, _ := st.Events(task.ID, 0)
 	if current.PlanRevision != 3 || len(before) != len(after) {
 		t.Fatal("receipt replay rewound task")
+	}
+}
+
+func TestRevisionRechecksManagementAfterWaitingBeforePreviewOrApply(t *testing.T) {
+	for _, operation := range []string{"preview", "apply", "replay"} {
+		for _, loss := range []string{"cancel", "revoke"} {
+			t.Run(operation+"/"+loss, func(t *testing.T) {
+				s, st, h, task := revisionSetup(t)
+				method, path, body := "POST", "/control/v1/tasks/"+task.ID+"/plan/preview", reviewChange
+				if operation != "preview" {
+					p := revisionPreview(t, h, task.ID)
+					if operation == "replay" {
+						if w := applyRevision(h, task.ID, p, `"1"`); w.Code != 200 {
+							t.Fatal("prepare committed replay", w.Code)
+						}
+					}
+					raw, _ := json.Marshal(SubmitRequest{PreviewID: p.ID, PlanHash: p.Plan.Hash})
+					method, path, body = "PUT", "/control/v1/tasks/"+task.ID+"/plan", string(raw)
+				}
+				before, _ := st.Events(task.ID, 0)
+				beforeTask, _ := st.Task(task.ID)
+				receipts := len(s.previews)
+				ctx, cancel := context.WithCancel(context.Background())
+				defer cancel()
+				entered := make(chan struct{})
+				wrapped := s.auth.Management(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) { close(entered); s.planControl(w, r) }))
+				req := httptest.NewRequest(method, path, strings.NewReader(body)).WithContext(ctx)
+				req.Header.Set("Authorization", "Bearer fixture-management")
+				req.Header.Set("Content-Type", "application/json")
+				req.Header.Set("If-Match", `"1"`)
+				s.mu.Lock()
+				done := make(chan *httptest.ResponseRecorder, 1)
+				go func() { w := httptest.NewRecorder(); wrapped.ServeHTTP(w, req); done <- w }()
+				<-entered
+				if loss == "cancel" {
+					cancel()
+				} else {
+					s.auth.RevokeManagement()
+				}
+				s.mu.Unlock()
+				w := <-done
+				after, _ := st.Events(task.ID, 0)
+				current, _ := st.Task(task.ID)
+				if w.Code != 401 || strings.Contains(w.Body.String(), task.Goal) || !reflect.DeepEqual(before, after) || current != beforeTask || len(s.previews) != receipts {
+					t.Fatal("late revoked plan read/wrote state", w.Code, current.PlanRevision)
+				}
+			})
+		}
+	}
+}
+
+func TestRevisionPlanReadRechecksAcceptedManagementBeforeSnapshot(t *testing.T) {
+	for _, loss := range []string{"cancel", "revoke"} {
+		t.Run(loss, func(t *testing.T) {
+			s, st, _, task := revisionSetup(t)
+			before, _ := st.Events(task.ID, 0)
+			ctx, cancel := context.WithCancel(context.Background())
+			defer cancel()
+			entered, release := make(chan struct{}), make(chan struct{})
+			wrapped := s.auth.Management(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) { close(entered); <-release; s.planControl(w, r) }))
+			req := httptest.NewRequest("GET", "/control/v1/tasks/"+task.ID+"/plan", nil).WithContext(ctx)
+			req.Header.Set("Authorization", "Bearer fixture-management")
+			done := make(chan *httptest.ResponseRecorder, 1)
+			go func() { w := httptest.NewRecorder(); wrapped.ServeHTTP(w, req); done <- w }()
+			<-entered
+			if loss == "cancel" {
+				cancel()
+			} else {
+				s.auth.RevokeManagement()
+			}
+			close(release)
+			w := <-done
+			after, _ := st.Events(task.ID, 0)
+			if w.Code != 401 || strings.Contains(w.Body.String(), "fixture-model") || !reflect.DeepEqual(before, after) {
+				t.Fatal("revoked accepted read disclosed snapshot", w.Code)
+			}
+		})
 	}
 }

@@ -1,0 +1,4 @@
+=== RUN   TestNativePlanRevisionPreviewApplyPreservesStartedRunBudgetAndHistory
+--- PASS: TestNativePlanRevisionPreviewApplyPreservesStartedRunBudgetAndHistory (0.17s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	1.911s

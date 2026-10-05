@@ -583,13 +583,23 @@ func (s *Store) create(key string, in CreateRequest, expected *DefaultStamp, sub
 	return result, e
 }
 func (s *Store) RevisePlan(taskID string, ifMatch int64, p stageplan.Snapshot) error {
-	return s.revisePlan(taskID, ifMatch, p, nil)
+	return s.revisePlan(taskID, ifMatch, p, nil, nil)
 }
 func (s *Store) RevisePlanCurrent(taskID string, ifMatch int64, p stageplan.Snapshot, expected DefaultStamp) error {
-	return s.revisePlan(taskID, ifMatch, p, &expected)
+	return s.revisePlan(taskID, ifMatch, p, &expected, nil)
 }
-func (s *Store) revisePlan(taskID string, ifMatch int64, p stageplan.Snapshot, expected *DefaultStamp) error {
-	return s.transaction(func(tx *sql.Tx) error {
+
+// The trusted guard must not reenter Store. It is checked after waiting for
+// the Store lock and again before commit; a lost authority rolls back all rows.
+func (s *Store) RevisePlanCurrentGuarded(taskID string, ifMatch int64, p stageplan.Snapshot, expected DefaultStamp, current func() bool) error {
+	if current == nil {
+		return ErrWorkflowAuthority
+	}
+	return s.revisePlan(taskID, ifMatch, p, &expected, current)
+}
+
+func (s *Store) revisePlan(taskID string, ifMatch int64, p stageplan.Snapshot, expected *DefaultStamp, current func() bool) error {
+	write := func(tx *sql.Tx) error {
 		t, e := revisionIn(tx, taskID, ifMatch, p)
 		if e != nil {
 			return e
@@ -608,7 +618,11 @@ func (s *Store) revisePlan(taskID string, ifMatch int64, p stageplan.Snapshot, e
 			return e
 		}
 		return event(tx, taskID, "plan_revised", "", t.Generation)
-	})
+	}
+	if current != nil {
+		return s.workflowTransaction(current, write)
+	}
+	return s.transaction(write)
 }
 
 func (s *Store) Events(taskID string, after int64) ([]Event, error) {
