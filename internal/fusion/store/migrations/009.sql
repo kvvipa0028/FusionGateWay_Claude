@@ -1,0 +1,13 @@
+CREATE TABLE task_workflows(task_id TEXT PRIMARY KEY REFERENCES tasks(id),project_id TEXT NOT NULL,goal TEXT NOT NULL,definition_json TEXT NOT NULL,definition_hash TEXT NOT NULL);
+CREATE TABLE workflow_designs(task_id TEXT PRIMARY KEY REFERENCES task_workflows(task_id),run_id TEXT NOT NULL UNIQUE REFERENCES stage_runs(id),design_json TEXT NOT NULL,design_hash TEXT NOT NULL);
+CREATE TABLE workflow_approvals(task_id TEXT NOT NULL REFERENCES workflow_designs(task_id),plan_revision INTEGER NOT NULL,approval_json TEXT NOT NULL,approval_hash TEXT NOT NULL,PRIMARY KEY(task_id,plan_revision),FOREIGN KEY(task_id,plan_revision) REFERENCES plan_revisions(task_id,revision));
+CREATE TRIGGER immutable_task_workflows BEFORE UPDATE ON task_workflows BEGIN SELECT RAISE(ABORT,'immutable workflow definition'); END;
+CREATE TRIGGER preserve_task_workflows BEFORE DELETE ON task_workflows BEGIN SELECT RAISE(ABORT,'preserve workflow definition'); END;
+CREATE TRIGGER immutable_workflow_designs BEFORE UPDATE ON workflow_designs BEGIN SELECT RAISE(ABORT,'immutable design'); END;
+CREATE TRIGGER preserve_workflow_designs BEFORE DELETE ON workflow_designs BEGIN SELECT RAISE(ABORT,'preserve design'); END;
+CREATE TRIGGER immutable_workflow_approvals BEFORE UPDATE ON workflow_approvals BEGIN SELECT RAISE(ABORT,'immutable design approval'); END;
+CREATE TRIGGER preserve_workflow_approvals BEFORE DELETE ON workflow_approvals BEGIN SELECT RAISE(ABORT,'preserve design approval'); END;
+CREATE TRIGGER validate_task_workflow BEFORE INSERT ON task_workflows WHEN NOT EXISTS(SELECT 1 FROM tasks t WHERE t.id=NEW.task_id AND t.project_id=NEW.project_id AND t.goal=NEW.goal AND t.state='ready' AND t.generation=0) OR EXISTS(SELECT 1 FROM stage_runs r WHERE r.task_id=NEW.task_id) OR EXISTS(SELECT 1 FROM start_journals j WHERE j.task_id=NEW.task_id AND j.state IN ('prepared','committed')) BEGIN SELECT RAISE(ABORT,'workflow must precede execution'); END;
+CREATE TRIGGER validate_workflow_design BEFORE INSERT ON workflow_designs WHEN NOT EXISTS(SELECT 1 FROM stage_runs r JOIN tasks t ON t.id=r.task_id JOIN reservations v ON v.run_id=r.id WHERE r.id=NEW.run_id AND r.task_id=NEW.task_id AND r.role='design' AND r.state='succeeded' AND r.launch_confirmed=1 AND r.startup_intent=1 AND r.lease_owner='' AND t.state='ready' AND v.state='released' AND length(v.stop_proof_hash)=64) BEGIN SELECT RAISE(ABORT,'design requires completed stopped run'); END;
+CREATE TRIGGER validate_workflow_approval BEFORE INSERT ON workflow_approvals WHEN NOT EXISTS(SELECT 1 FROM tasks t WHERE t.id=NEW.task_id AND t.state='ready' AND t.plan_revision=NEW.plan_revision) BEGIN SELECT RAISE(ABORT,'approval requires current ready task'); END;
+PRAGMA user_version=9;

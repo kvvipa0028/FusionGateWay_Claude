@@ -36,7 +36,7 @@ func TestStartJournalMigrationEightPreservesLegacyDataWithoutGuessingStarts(t *t
 		t.Fatal(e)
 	}
 	var version, count int
-	if e = s.db.QueryRow("PRAGMA user_version").Scan(&version); e != nil || version != 8 {
+	if e = s.db.QueryRow("PRAGMA user_version").Scan(&version); e != nil || version != 9 {
 		t.Fatal("schema8 missing", e)
 	}
 	if e = s.db.QueryRow("SELECT COUNT(*) FROM start_journals").Scan(&count); e != nil || count != 0 {

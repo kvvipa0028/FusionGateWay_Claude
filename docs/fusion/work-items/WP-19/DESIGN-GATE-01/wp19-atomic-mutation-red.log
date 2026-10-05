@@ -1,0 +1,6 @@
+=== RUN   TestWorkflowBlocksAllStartEntrypointsAndPreservesBudgetAndEvents
+    workflow_test.go:304: bypass once <nil>
+--- FAIL: TestWorkflowBlocksAllStartEntrypointsAndPreservesBudgetAndEvents (0.11s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/store	0.566s
+FAIL

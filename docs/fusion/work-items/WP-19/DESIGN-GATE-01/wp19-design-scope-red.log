@@ -1,0 +1,6 @@
+=== RUN   TestDesignRejectsMissingContractAndEscapingWriteScope
+    design_test.go:87: invalid design accepted <nil>
+--- FAIL: TestDesignRejectsMissingContractAndEscapingWriteScope (0.00s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/workflow	0.339s
+FAIL

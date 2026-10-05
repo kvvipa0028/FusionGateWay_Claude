@@ -16,13 +16,15 @@
 
 ## 阅读顺序
 
+[有限工作流与设计检查点](contracts/workflow-design-gate.md)已完成核心定义、不可变方案/当前计划批准及所有启动出口约束；[组件证据](work-items/WP-19/DESIGN-GATE-01/summary.md)单独记录。Management API、Native 与原 Magpie 界面接入仍待完成，Gate A 未通过，不启用自动闭环。原主资源和全部 UI/CSS 本组件未改。
+
 1. [当前需求摘录](requirements-summary.md)：已知目标与未取得的原始需求文档。
 2. [实施计划](planning/Fusion_Magpie_Fork_实施计划_v1.0.md)：M0–M5 的范围和退出条件。
 3. [Agent 工作包](planning/Fusion_Magpie_Fork_Agent工作包_v1.0.md)：WP-01–WP-30 的实施边界。
 4. [验收矩阵](planning/Fusion_Magpie_Fork_验收矩阵_v1.0.md)：T01–T60；当前均为 `not_run`。
 5. [源码与工具链锁](upstream-lock.json)、[基线报告](baseline/baseline-report.md)：本轮实际准备与验证证据。
 
-`planning/implementation_tasks.json` 和 `planning/acceptance_tests.json` 由本地三份 Markdown 提取，已核对编号、引用及依赖无环；它们不是原 ZIP 的恢复副本。WP-01–WP-11 为 `done`，WP-12–WP-16 为 `in_progress`，其余包为 `planned`；最终验收仍为 `not_run`。
+`planning/implementation_tasks.json` 和 `planning/acceptance_tests.json` 由本地三份 Markdown 提取，已核对编号、引用及依赖无环；它们不是原 ZIP 的恢复副本。WP-01–WP-11 为 `done`，WP-12–WP-16 与 WP-19 为 `in_progress`，其余包为 `planned`；最终验收仍为 `not_run`。
 
 ## 源码与 Git
 

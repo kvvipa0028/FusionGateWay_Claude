@@ -1,0 +1,8 @@
+=== RUN   TestWorkflowBlocksAllStartEntrypointsAndPreservesBudgetAndEvents
+--- PASS: TestWorkflowBlocksAllStartEntrypointsAndPreservesBudgetAndEvents (0.12s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/store	1.532s
+=== RUN   TestControllerWorkflowDeniesUnapprovedStageBeforeResolverAndStartsApprovedBinding
+--- PASS: TestControllerWorkflowDeniesUnapprovedStageBeforeResolverAndStartsApprovedBinding (0.17s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/control	1.912s

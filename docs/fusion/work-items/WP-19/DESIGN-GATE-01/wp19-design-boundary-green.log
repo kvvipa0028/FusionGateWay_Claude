@@ -1,0 +1,14 @@
+=== RUN   TestExecutionWorkflowGateReturnsConflictWithoutAnotherRuntime
+--- PASS: TestExecutionWorkflowGateReturnsConflictWithoutAnotherRuntime (0.10s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/api	1.890s
+=== RUN   TestPresetFutureSchemaIsRejectedWithoutDowngrade
+--- PASS: TestPresetFutureSchemaIsRejectedWithoutDowngrade (0.08s)
+=== RUN   TestWorkflowMigrationNinePreservesLegacyAndRejectsChecksumDrift
+--- PASS: TestWorkflowMigrationNinePreservesLegacyAndRejectsChecksumDrift (0.14s)
+=== RUN   TestWorkflowMigrationNineFailureRollsBackAndRetries
+--- PASS: TestWorkflowMigrationNineFailureRollsBackAndRetries (0.16s)
+=== RUN   TestWorkflowDesignCanBeFrozenAfterIdlePauseContinueWithCurrentCondition
+--- PASS: TestWorkflowDesignCanBeFrozenAfterIdlePauseContinueWithCurrentCondition (0.09s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/store	2.128s

@@ -29,7 +29,7 @@
 
 ## schema 8 迁移与回退
 
-008 新增 start_journals、每项目 pending 唯一索引及约束/事务耦合 trigger。001–007 的文件和 checksum、旧 payload hash、任务提交记录与旧 run 不改。现有 schema 1–7 自动逐步迁移；008/schema/checksum 写入失败时该步骤整体回滚，schema 7 数据保持，可修复阻塞后重试；checksum 漂移及未来 schema 9 及以上拒绝。
+008 新增 start_journals、每项目 pending 唯一索引及约束/事务耦合 trigger。001–007 的文件和 checksum、旧 payload hash、任务提交记录与旧 run 不改。现有 schema 1–7 自动逐步迁移；008/schema/checksum 写入失败时该步骤整体回滚，schema 7 数据保持，可修复阻塞后重试。当前另有[009 设计批准迁移](workflow-design-gate.md)，不改 001–008 或原启动记录；checksum 漂移及未来 schema 10 及以上拒绝。
 
 升级前停止自己拥有的宿主，等待 owned Runtime 实际退出并核对 reservation；保存关闭后的一致性私有状态备份，包括 fusion.db、私有来源和同属该宿主的状态。备份保持原访问权限，不提交 Git。先在备份副本/隔离 HOME 中验证新二进制可以打开，核对原任务、冻结计划、已用预算和历史回执，再用于原状态根。
 

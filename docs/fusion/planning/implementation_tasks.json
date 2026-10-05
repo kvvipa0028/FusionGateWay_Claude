@@ -485,7 +485,7 @@
       "id": "WP-19",
       "title": "精简工作流与设计检查点",
       "milestone": "M3",
-      "status": "planned",
+      "status": "in_progress",
       "depends_on": [
         "WP-18"
       ],

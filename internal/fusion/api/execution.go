@@ -146,6 +146,8 @@ func controlErrorValue(e error) (int, controlError) {
 		code, reason = 409, "execution_requires_reconciliation"
 	case errors.Is(e, store.ErrFenced):
 		code, reason = 409, "execution_fenced"
+	case errors.Is(e, store.ErrWorkflowGate):
+		code, reason = 409, "workflow_requires_review"
 	case errors.Is(e, store.ErrConflict), errors.Is(e, control.ErrIdentity):
 		code, reason = 409, "execution_conflict"
 	default:

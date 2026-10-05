@@ -86,4 +86,8 @@ prepared→committed/abandoned、committed→acknowledged 是独立窗口提交�
 
 ## WP-15 schema 8 原阶段启动记录
 
-Start journal 的 prepared→committed/abandoned、committed→acknowledged 独立于 Task/Run。原子写入 run/start_requests 时关联 committed，封存后拒绝原 key，确认不升级 unknown、不释放 reservation、不扣退预算或生成 StopProof。新记录从可信 Store 冻结 Task/Plan，历史终态保持；没有 journal 的原 API start/resume 幂等语义不改。当前 schema8，未来9拒绝；001–007不改，008失败回滚与既有数据保留已验证。详见[原启动持久记录](task-start-journal.md)。HTTP/Native/UI 消费尚未接入。
+Start journal 的 prepared→committed/abandoned、committed→acknowledged 独立于 Task/Run。原子写入 run/start_requests 时关联 committed，封存后拒绝原 key，确认不升级 unknown、不释放 reservation、不扣退预算或生成 StopProof。新记录从可信 Store 冻结 Task/Plan，历史终态保持；没有 journal 的原 API start/resume 幂等语义不改。008 失败回滚与既有数据保留已验证，后续 009 不修改 001–008。详见[原启动持久记录](task-start-journal.md)；[API/Native](task-start-api.md)与[原详情区 UI](task-start-ui.md)已接入。
+
+## WP-19 schema 9 设计批准
+
+当前 schema 9，未来 10 拒绝。工作流在执行前冻结固定 kind/角色，设计文档和每版计划的人类批准不可变；迁移不为手动任务猜测工作流。Controller 预检及启动事务双重检查下一角色、前序停止和当前计划批准，不修改原 Task/Run 状态语义；workflow_complete 不等于 Task completed 或验收通过。009 失败完整回滚到 8。Management/Native/UI 工作流消费者及真实 Gate A 尚未完成，见[工作流设计批准合同](workflow-design-gate.md)。

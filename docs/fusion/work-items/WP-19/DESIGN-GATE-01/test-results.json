@@ -1,0 +1,188 @@
+{
+  "component": "WP-19-DESIGN-GATE-01",
+  "base": "feb78b89c6a34dcf65ab464ed3910d9b277b1dae",
+  "parent_status": "in_progress",
+  "goal_status": "active",
+  "final_acceptance": "not_run",
+  "real_model_calls": 0,
+  "real_quota_calls": 0,
+  "native_ui_clicks": "not_run",
+  "jev": "off",
+  "component_top_pass": 19,
+  "graph": {
+    "mode": "fast",
+    "project": "fusion-development",
+    "nodes": 14210,
+    "edges": 127263
+  },
+  "checks": {
+    "wp19-design-controller-red-final.log": {
+      "PASS": 0,
+      "subpass": 0,
+      "FAIL": 1,
+      "subfail": 0,
+      "SKIP": 0,
+      "subskip": 0,
+      "packages": 0
+    },
+    "wp19-design-scope-red.log": {
+      "PASS": 0,
+      "subpass": 0,
+      "FAIL": 1,
+      "subfail": 0,
+      "SKIP": 0,
+      "subskip": 0,
+      "packages": 0
+    },
+    "wp19-schema-baseline-fail.log": {
+      "PASS": 117,
+      "subpass": 34,
+      "FAIL": 8,
+      "subfail": 0,
+      "SKIP": 1,
+      "subskip": 0,
+      "packages": 0
+    },
+    "wp19-design-boundary-red.log": {
+      "PASS": 0,
+      "subpass": 0,
+      "FAIL": 2,
+      "subfail": 1,
+      "SKIP": 0,
+      "subskip": 0,
+      "packages": 0
+    },
+    "wp19-design-boundary-green.log": {
+      "PASS": 5,
+      "subpass": 0,
+      "FAIL": 0,
+      "subfail": 0,
+      "SKIP": 0,
+      "subskip": 0,
+      "packages": 2
+    },
+    "wp19-design-full-fusion.log": {
+      "PASS": 627,
+      "subpass": 1127,
+      "FAIL": 2,
+      "subfail": 0,
+      "SKIP": 31,
+      "subskip": 10,
+      "packages": 16
+    },
+    "wp19-design-full-fusion-final.log": {
+      "PASS": 629,
+      "subpass": 1127,
+      "FAIL": 0,
+      "subfail": 0,
+      "SKIP": 31,
+      "subskip": 10,
+      "packages": 17
+    },
+    "wp19-preflight-mutation-red.log": {
+      "PASS": 0,
+      "subpass": 0,
+      "FAIL": 1,
+      "subfail": 0,
+      "SKIP": 0,
+      "subskip": 0,
+      "packages": 0
+    },
+    "wp19-atomic-mutation-red.log": {
+      "PASS": 0,
+      "subpass": 0,
+      "FAIL": 1,
+      "subfail": 0,
+      "SKIP": 0,
+      "subskip": 0,
+      "packages": 0
+    },
+    "wp19-guards-restored-green.log": {
+      "PASS": 2,
+      "subpass": 0,
+      "FAIL": 0,
+      "subfail": 0,
+      "SKIP": 0,
+      "subskip": 0,
+      "packages": 2
+    },
+    "wp19-task-ui-fixture-final.log": {
+      "PASS": 0,
+      "subpass": 0,
+      "FAIL": 0,
+      "subfail": 0,
+      "SKIP": 0,
+      "subskip": 0,
+      "packages": 0
+    },
+    "wp19-original-ui-browser-final.log": {
+      "tests": 59,
+      "pass": 59,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    }
+  },
+  "log_provenance": {
+    "wp19-design-controller-red-final.log": {
+      "scratch_raw_sha256": "9bf20fc5788dc7865e31692b27a81dd1530b8a6f422fcc61f99c597a61f70658",
+      "packet_sha256": "9bf20fc5788dc7865e31692b27a81dd1530b8a6f422fcc61f99c597a61f70658",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp19-design-scope-red.log": {
+      "scratch_raw_sha256": "a3bcbd92f5df3297bbb3441809b88c66b8a067a6ac20dd93001919f3dc8bbcb3",
+      "packet_sha256": "a3bcbd92f5df3297bbb3441809b88c66b8a067a6ac20dd93001919f3dc8bbcb3",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp19-schema-baseline-fail.log": {
+      "scratch_raw_sha256": "c5339f4b2bcf7ed5ca701addd2c79f3b58c1f47d5c2727a6498ea8220407b9ac",
+      "packet_sha256": "c5339f4b2bcf7ed5ca701addd2c79f3b58c1f47d5c2727a6498ea8220407b9ac",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp19-design-boundary-red.log": {
+      "scratch_raw_sha256": "39458ce2913e1c1c6d65a4bcee6b2228d084c6430b5a0b564d13e0e80e05868a",
+      "packet_sha256": "3cb4acb8c959d3d102e6277223c738f1e81b9ed53b6e87f2c481e1a04b75b346",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp19-design-boundary-green.log": {
+      "scratch_raw_sha256": "45aa88856110c7ee3f59b68c2fc63c4e9dbbafaf6b2c6b6a5345357dfa588c11",
+      "packet_sha256": "45aa88856110c7ee3f59b68c2fc63c4e9dbbafaf6b2c6b6a5345357dfa588c11",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp19-design-full-fusion.log": {
+      "scratch_raw_sha256": "54eb2dc0dd1586e4b932592a4ab801809c24179d1c3a83f37e251be0fd656eda",
+      "packet_sha256": "54eb2dc0dd1586e4b932592a4ab801809c24179d1c3a83f37e251be0fd656eda",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp19-design-full-fusion-final.log": {
+      "scratch_raw_sha256": "c8f50726601264f158724bbb7514439cb9964429fd9b2ead716a2a4c5ac37d06",
+      "packet_sha256": "c8f50726601264f158724bbb7514439cb9964429fd9b2ead716a2a4c5ac37d06",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp19-preflight-mutation-red.log": {
+      "scratch_raw_sha256": "9eb1c4e45334dd3cff087779cdb85d1524405af4eca2d94c6e8ddc2fbb480821",
+      "packet_sha256": "9eb1c4e45334dd3cff087779cdb85d1524405af4eca2d94c6e8ddc2fbb480821",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp19-atomic-mutation-red.log": {
+      "scratch_raw_sha256": "9b7de19fe5e35f74559f6413d0b79863dd1027f38d054ebd566b6318f9de348e",
+      "packet_sha256": "9b7de19fe5e35f74559f6413d0b79863dd1027f38d054ebd566b6318f9de348e",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp19-guards-restored-green.log": {
+      "scratch_raw_sha256": "0155a8b410d7938531b6c935bf0f8dfbfb176188a534dab30cc2d6b00a3130c1",
+      "packet_sha256": "0155a8b410d7938531b6c935bf0f8dfbfb176188a534dab30cc2d6b00a3130c1",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp19-task-ui-fixture-final.log": {
+      "scratch_raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "packet_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    },
+    "wp19-original-ui-browser-final.log": {
+      "scratch_raw_sha256": "a875dfbc1de48aab98a483ea0acc837323804c6e81834e86869be338a4870693",
+      "packet_sha256": "a875dfbc1de48aab98a483ea0acc837323804c6e81834e86869be338a4870693",
+      "normalization": "ANSI display codes and trailing whitespace only"
+    }
+  }
+}

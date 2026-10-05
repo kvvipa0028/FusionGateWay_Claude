@@ -1,0 +1,12 @@
+=== RUN   TestExecutionWorkflowGateReturnsConflictWithoutAnotherRuntime
+    workflow_test.go:29: workflow gate misclassified 500 {"error":{"code":"internal_error","message":"Internal Server Error"}}
+
+--- FAIL: TestExecutionWorkflowGateReturnsConflictWithoutAnotherRuntime (0.10s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/api	0.891s
+=== RUN   TestWorkflowDesignCanBeFrozenAfterIdlePauseContinueWithCurrentCondition
+    workflow_test.go:61: idle pause lost completed original design workflow requires review or design approval
+--- FAIL: TestWorkflowDesignCanBeFrozenAfterIdlePauseContinueWithCurrentCondition (0.10s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/store	0.743s
+FAIL

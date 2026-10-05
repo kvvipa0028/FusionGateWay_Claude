@@ -1,0 +1,6 @@
+=== RUN   TestControllerWorkflowDeniesUnapprovedStageBeforeResolverAndStartsApprovedBinding
+    workflow_test.go:49: execution blocked: reservation_failed
+--- FAIL: TestControllerWorkflowDeniesUnapprovedStageBeforeResolverAndStartsApprovedBinding (0.09s)
+FAIL
+FAIL	github.com/yetone/magpie/internal/fusion/control	0.706s
+FAIL

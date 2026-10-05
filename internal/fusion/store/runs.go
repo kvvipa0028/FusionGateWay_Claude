@@ -67,6 +67,9 @@ func (s *Store) startIntentIn(tx *sql.Tx, in StartRequest, result *StageRun) err
 	if in.ExpectedGeneration != nil && *in.ExpectedGeneration != t.Generation {
 		return ErrConflict
 	}
+	if e = workflowStartIn(tx, t, in.Role); e != nil {
+		return e
+	}
 	p, e := planIn(tx, t.ID, in.PlanRevision)
 	if e != nil {
 		return e
