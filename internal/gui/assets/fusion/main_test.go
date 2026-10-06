@@ -37,6 +37,9 @@ func TestMainPageUsesOriginalMagpieHeaderWithOneFusionTab(t *testing.T) {
 	if !strings.Contains(body, `id="view-unavailable"`) || !strings.Contains(body, `src="./main.mjs"`) || strings.Count(body, `id="view-fusion"`) != 1 {
 		t.Fatal("integrated view missing")
 	}
+	if strings.Count(body, `id="view-sessions"`) != 1 {
+		t.Fatal("integrated sessions view missing or duplicated")
+	}
 	for _, disallowed := range []string{`src="boot.js"`, `src="app.js"`, `id="agents"`, `id="save" data-t`, "onclick=", "fgm_"} {
 		if strings.Contains(body, disallowed) {
 			t.Fatal("legacy scripts, duplicate controls or secret in page", disallowed)

@@ -1,5 +1,5 @@
 import {roles,labels,groups,copy,expandLayer,groupShared,shareGroup,exactRoute,targetFor,routeKey,configurationRoutes,layerIssues,sameBinding,frozenPlanLayer,planRevisionChanges,revisionPlanMatches} from "./model.mjs";
-import {updateProviders,configureProviders} from "./main.mjs";
+import {updateProviders,configureProviders,configureSessions} from "./main.mjs";
 import {createWorkbench,workflowRoles} from "./workbench.mjs";
 import {createQuotaView} from "./quota.mjs";
 const $=id=>document.getElementById(id);
@@ -82,6 +82,48 @@ configureProviders({
  reload(){ $("reload").click() },
  focus(role){$("groups").querySelector('[aria-label="'+labels[role]+'推理档位"]')?.focus()},
 });
+// Sessions 复用原导航入口，只读本项目的 Fusion 任务记录；不读取原客户端
+// 会话，不新增执行入口。迟到响应按项目代次丢弃，避免旧项目数据复活。
+const sessionsState={project:"",before:"",loading:false,loaded:false};
+const taskStates={ready:"待启动",running:"运行中",pausing:"暂停中",paused:"待复核",needs_review:"待复核",succeeded:"已完成",failed:"已失败",cancelled:"已取消",cancelling:"取消中"};
+function sessionsStatus(text){$("sessions-status").textContent=text;$("sessions-older").hidden=!sessionsState.before||sessionsState.loading}
+function renderSessions(tasks,replace){
+ const list=$("sessions-list");if(replace)list.replaceChildren();
+ for(const task of tasks){
+  const row=el("div",null,{class:"row"}),who=el("div",null,{class:"who"});
+  const chars=[...task.goal];
+  const goal=chars.slice(0,160).join("")+(chars.length>160||task.goal_truncated?"…":"");
+  who.append(el("div",goal||"（无目标文本）",{class:"name"}),el("div","任务 "+task.id+" · 第 "+task.generation+" 代 · 计划 r"+task.plan_revision,{class:"sub"}));
+  const pill=el("span",null,{class:"key "+(task.state==="succeeded"?"acct":task.state==="failed"||task.state==="cancelled"?"none":"")});
+  pill.append(el("span",taskStates[task.state]||task.state));
+  pill.title="任务状态不代表工程验收；运行与证据以工作台为准。";
+  row.append(who,pill);list.append(row);
+ }
+ sessionsStatus(sessionsState.before?"已显示最近任务；可继续读取更早记录。":"已显示最近任务。");
+}
+async function loadSessions(older){
+ if(sessionsState.loading||!state.project||state.providerRevoked)return;
+ const project=state.project,before=older?sessionsState.before:"";
+ if(older&&!before)return;
+ sessionsState.loading=true;$("sessions-reload").disabled=true;sessionsStatus(before?"正在读取更早任务…":"正在读取任务记录…");
+ try{
+  const path="/control/v1/projects/"+encodeURIComponent(project)+"/tasks"+(before?"/before/"+encodeURIComponent(before):"");
+  const reply=await request(path);
+  if(project!==state.project)return;
+  const tasks=Array.isArray(reply.body?.tasks)?reply.body.tasks:null;
+  if(!tasks||tasks.some(t=>typeof t?.id!=="string"||!t.id||t.project_id!==project||typeof t.goal!=="string"||typeof t.state!=="string"||!Number.isSafeInteger(t.generation)||!Number.isSafeInteger(t.plan_revision)))throw new RequestError(reply.status,"response_unavailable");
+  sessionsState.project=project;sessionsState.loaded=true;
+  sessionsState.before=typeof reply.body.next_before==="string"?reply.body.next_before:"";
+  renderSessions(tasks,!older);
+ }catch(e){
+  if(project!==state.project)return;
+  sessionsState.before="";$("sessions-list").replaceChildren();
+  sessionsStatus(state.providerRevoked?"管理授权已失效，请重新连接本机服务。":errorText(e));
+ }finally{sessionsState.loading=false;$("sessions-reload").disabled=false;$("sessions-older").hidden=!sessionsState.before}
+}
+$("sessions-reload").onclick=()=>loadSessions(false);
+$("sessions-older").onclick=()=>loadSessions(true);
+configureSessions({enter(){if(!sessionsState.loaded||sessionsState.project!==state.project)loadSessions(false)}});
 function controlsFor(target,onchange,prefix,role){
  const fragment=document.createDocumentFragment(),routeLabel=el("label","模型"),select=el("select",null,{"aria-label":prefix+"模型"});
  option(select,"","请选择已登记模型");
@@ -181,6 +223,7 @@ function render(){
 let projectLoad=0;
 async function loadProject(id){
  const generation=++projectLoad;
+ sessionsState.project="";sessionsState.before="";sessionsState.loaded=false;$("sessions-list").replaceChildren();sessionsStatus("选择项目后读取任务记录。");
  state.loading=true;quotaView.clear();workbench.setProject("");state.error=false;state.notice="正在读取项目配置…";render();
  try{
   const base="/control/v1/projects/"+encodeURIComponent(id);

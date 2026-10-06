@@ -2,11 +2,13 @@
 // No legacy boot, configuration, provider, plugin or update API is invoked.
 import {roles,labels,routeKey} from "./model.mjs";
 const $=id=>document.getElementById(id);
-const pages={agents:["Agents", "阶段角色选择使用 Fusion 面板；本窗口不会改写原客户端配置。"],providers:["Providers", "账号与授权只使用已登记的私有路线；此入口尚未开放登录或插件迁移。"],gateway:["Gateway", "Fusion 任务通过受控入口执行；旧 Gateway 配置与调用接口尚未开放。"],routing:["Routing", "阶段 locked / auto / inherit 在 Fusion 面板设置；Jev 保持 off。"],usage:["Usage", "Fusion 面板提供已登记路线的额度缓存与手动刷新；原用量页面尚未接入。"],sessions:["Sessions", "任务和运行记录使用 Fusion 工作台；原客户端会话读取与终端入口尚未开放。"],library:["Library", "原文件库尚未接入批准的项目范围。"],plugins:["Plugins", "插件管理、安装与账号迁移尚未开放。"],settings:["Settings", "此窗口只编辑 Fusion 的全局、项目与本次任务配置；原 Magpie 设置未开放。"]};
+const pages={agents:["Agents", "阶段角色选择使用 Fusion 面板；本窗口不会改写原客户端配置。"],providers:["Providers", "账号与授权只使用已登记的私有路线；此入口尚未开放登录或插件迁移。"],gateway:["Gateway", "Fusion 任务通过受控入口执行；旧 Gateway 配置与调用接口尚未开放。"],routing:["Routing", "阶段 locked / auto / inherit 在 Fusion 面板设置；Jev 保持 off。"],usage:["Usage", "Fusion 面板提供已登记路线的额度缓存与手动刷新；原用量页面尚未接入。"],library:["Library", "原文件库尚未接入批准的项目范围。"],plugins:["Plugins", "插件管理、安装与账号迁移尚未开放。"],settings:["Settings", "此窗口只编辑 Fusion 的全局、项目与本次任务配置；原 Magpie 设置未开放。"]};
 const scroll=new Map();let active="fusion";
 let providerState={project:"",routes:[],scope:"project",blocked:true,loading:true,error:""},providerSignature="",providerHandlers={},dialogOrigin=null;
 const node=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==null)n.textContent=text;if(cls)n.className=cls;return n};
-const pane=view=>$(view==="fusion"?"view-fusion":view==="providers"?"view-providers":"view-unavailable");
+const pane=view=>$(view==="fusion"?"view-fusion":view==="providers"?"view-providers":view==="sessions"?"view-sessions":"view-unavailable");
+let sessionsHandlers=null;
+export function configureSessions(handlers){sessionsHandlers=handlers}
 export function configureProviders(handlers){providerHandlers=handlers}
 function closeProvider(focus=true){
  const open=!$("modal").hidden;$("modal").hidden=true;$("modal").firstElementChild.replaceChildren();
@@ -66,15 +68,16 @@ if(location.protocol==="wails:"){
  if(/^Mac/.test(navigator.platform))document.body.classList.add("mac");
 }
 function show(view){
- if(view!=="fusion"&&!Object.hasOwn(pages,view))return;
+ if(view!=="fusion"&&view!=="sessions"&&!Object.hasOwn(pages,view))return;
  closeProvider(false);const current=pane(active);scroll.set(active,current.scrollTop);active=view;
  for(const b of $("nav").querySelectorAll("button[data-view]")){
   b.classList.toggle("on",b.dataset.view===view);
   if(b.dataset.view===view)b.setAttribute("aria-current","page");else b.removeAttribute("aria-current");
  }
  $("prefs").classList.toggle("on",view==="settings");
- $("view-fusion").hidden=view!=="fusion";$("view-providers").hidden=view!=="providers";$("view-unavailable").hidden=view==="fusion"||view==="providers";
- if(view!=="fusion"&&view!=="providers"){$("unavailable-title").textContent=pages[view][0];$("unavailable-reason").textContent=pages[view][1]}
+ $("view-fusion").hidden=view!=="fusion";$("view-providers").hidden=view!=="providers";$("view-sessions").hidden=view!=="sessions";$("view-unavailable").hidden=view==="fusion"||view==="providers"||view==="sessions";
+ if(view!=="fusion"&&view!=="providers"&&view!=="sessions"){$("unavailable-title").textContent=pages[view][0];$("unavailable-reason").textContent=pages[view][1]}
+ if(view==="sessions")sessionsHandlers?.enter?.();
  const next=pane(view);next.scrollTop=scroll.get(view)||0;
  const button=$("nav").querySelector("button.on");if(button)button.scrollIntoView({block:"nearest",inline:"nearest"});
 }

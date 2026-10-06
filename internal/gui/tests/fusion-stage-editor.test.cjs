@@ -1155,6 +1155,7 @@ test('Magpie main navigation reuses original header and preserves unsaved Fusion
   await page.locator(`#nav [data-view="${view}"]`).click();
   assert.equal(await page.locator('#view-fusion').isVisible(),false);
   if(view==='providers')assert.equal(await page.locator('#view-providers').isVisible(),true);
+  else if(view==='sessions')assert.equal(await page.locator('#view-sessions').isVisible(),true);
   else {assert.equal(await page.locator('#view-unavailable').isVisible(),true);assert.match(await page.locator('#view-unavailable').innerText(),/尚未/)}
   assert.equal(await page.locator(`#nav [data-view="${view}"]`).getAttribute('aria-current'),'page');
   assert.equal(new URL(page.url()).search,'');assert.equal(new URL(page.url()).hash,'');
@@ -1167,6 +1168,37 @@ test('Magpie main navigation reuses original header and preserves unsaved Fusion
  assert.match(await page.locator('#status').innerText(),/尚未保存/);
  assert.ok(!calls.some(p=>p.startsWith('/api/')||p==='/boot.js'||p.includes('/wails/')));
  assert.ok(!calls.some(p=>p.includes('/defaults')),'navigation must not save');
+ assert.deepEqual(errors,[]);await context.close();
+});
+
+test('Magpie Sessions lists the project Fusion task records without legacy client sessions',async t=>{
+ const f=await fixture(t,true,true);
+ for(let i=0;i<2;i++){
+  const p=await f.request('/control/v1/tasks/preview','POST',{project_id:'synthetic-ui',goal:'会话记录任务 '+i,required_roles:['design']});assert.equal(p.status,200);
+  const s=await f.request('/agent/v1/tasks','POST',{preview_id:p.body.preview_id,plan_hash:p.body.plan.hash},null,'browser-sessions-'+i);assert.equal(s.status,201);
+ }
+ const {page,context,errors}=await f.newPage();await status(page,'已载入当前配置');
+ const calls=[];page.on('request',r=>calls.push({path:new URL(r.url()).pathname,method:r.method()}));
+ await page.locator('#nav [data-view="sessions"]').click();
+ await page.locator('#view-sessions').waitFor({state:'visible',timeout:2000});
+ await page.locator('#sessions-status').filter({hasText:'已显示最近任务'}).waitFor();
+ assert.equal(await page.locator('#sessions-list .row').count(),2);
+ const first=await page.locator('#sessions-list .row').first().innerText();
+ assert.ok(first.includes('会话记录任务 1'),first);assert.ok(first.includes('待启动'),first);assert.ok(first.includes('任务 '),first);
+ assert.equal(await page.locator('#sessions-older').isHidden(),true);
+ await page.locator('#nav [data-view="fusion"]').click();
+ await page.locator('#nav [data-view="sessions"]').click();
+ assert.equal(await page.locator('#sessions-list .row').count(),2,'re-entering keeps one list without refetch');
+ assert.ok(calls.filter(c=>c.path.endsWith('/control/v1/projects/synthetic-ui/tasks')).length>=1);
+ await page.getByRole('button',{name:'重新读取任务记录',exact:true}).click();
+ await page.locator('#sessions-status').filter({hasText:'已显示最近任务'}).waitFor();
+ await page.locator('#nav [data-view="fusion"]').click();
+ await page.getByLabel('项目',{exact:true}).selectOption('synthetic-ui-other');
+ await status(page,'已载入当前配置');
+ await page.locator('#nav [data-view="sessions"]').click();
+ await page.locator('#sessions-status').filter({hasText:'已显示最近任务'}).waitFor();
+ assert.equal(await page.locator('#sessions-list .row').count(),0,'other project starts empty');
+ assert.ok(!calls.some(c=>c.path.startsWith('/api/')||c.path==='/boot.js'||c.path.includes('/wails/')));
  assert.deepEqual(errors,[]);await context.close();
 });
 
