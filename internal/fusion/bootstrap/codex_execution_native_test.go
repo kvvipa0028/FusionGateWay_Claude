@@ -34,16 +34,18 @@ func TestCodexFactoryPinnedNativeProductLifecycle(t *testing.T) {
 	for _, mode := range []string{"success", "implementation", "cancel", "registry_revocation", "credential_rotation", "epoch_drift", "source_revocation", "writer_launch"} {
 		t.Run(mode, func(t *testing.T) {
 			if mode == "implementation" {
-				// The writer chain executes for real up to the native inner
-				// sandbox: exec_command spawns and the model roundtrip carries
-				// a genuine tool call and replayed output. Both command forms
-				// are then denied inside the native's own sandbox — external
-				// commands fail sandbox_apply (kernel nesting refusal, EPERM)
-				// and the internal apply_patch path is refused its workspace
-				// write even with the outer profile fully open, so the denial
-				// originates in the native-generated inner profile. Aligning
-				// with that generator (official seatbelt.rs) is next.
-				t.Skip("pinned-Native writer blocked at native inner sandbox")
+				// The chain runs for real: the model issues exec_command, the
+				// native spawns the child and apply_patch executes. A write
+				// inside the workspace is then refused at the OS level while
+				// a write outside it is refused by the tool's own project
+				// boundary — proving the workspace IS the project root and
+				// the OS refusal comes from the exec child's sandbox. That
+				// sandbox's filesystem policy does not derive from the legacy
+				// sandboxPolicy, the seeded config or thread config (all
+				// probed with explicit writable_roots); mirroring the
+				// exec-server PermissionProfile model is the recorded next
+				// step.
+				t.Skip("pinned-Native writer blocked at exec-child permission profile")
 			}
 			path, d, c, _, epoch := codexFactoryFixture(t, mode == "writer_launch")
 			exe, err := filepath.EvalSymlinks(*hostNativeCodex)
