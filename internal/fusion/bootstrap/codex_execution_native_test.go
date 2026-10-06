@@ -34,14 +34,16 @@ func TestCodexFactoryPinnedNativeProductLifecycle(t *testing.T) {
 	for _, mode := range []string{"success", "implementation", "cancel", "registry_revocation", "credential_rotation", "epoch_drift", "source_revocation", "writer_launch"} {
 		t.Run(mode, func(t *testing.T) {
 			if mode == "implementation" {
-				// The full writer path now works against the pinned Native:
-				// tool seeding, model roundtrip with a real exec_command call,
-				// process spawn and workspace write all execute. A timing race
-				// remains between the async command completion and the turn
-				// terminal state (passes standalone, non-deterministic in the
-				// full suite) — aligning the replayed tool-output semantics
-				// with official traffic is the final recorded step.
-				t.Skip("pinned-Native writer pending exec-output timing alignment")
+				// The writer chain executes for real up to the native inner
+				// sandbox: exec_command spawns and the model roundtrip carries
+				// a genuine tool call and replayed output. Both command forms
+				// are then denied inside the native's own sandbox — external
+				// commands fail sandbox_apply (kernel nesting refusal, EPERM)
+				// and the internal apply_patch path is refused its workspace
+				// write even with the outer profile fully open, so the denial
+				// originates in the native-generated inner profile. Aligning
+				// with that generator (official seatbelt.rs) is next.
+				t.Skip("pinned-Native writer blocked at native inner sandbox")
 			}
 			path, d, c, _, epoch := codexFactoryFixture(t, mode == "writer_launch")
 			exe, err := filepath.EvalSymlinks(*hostNativeCodex)
@@ -285,7 +287,7 @@ func TestCodexFactoryPinnedNativeProductLifecycle(t *testing.T) {
 func hostCodexApplyPatchSSE(model string) string {
 	// Official shell_spec: exec_command takes a single required string "cmd".
 	added := map[string]any{"type": "function_call", "id": "fc_fixture", "call_id": "call_fixture", "name": "exec_command", "status": "in_progress", "arguments": ""}
-	cmd, _ := json.Marshal(map[string]string{"cmd": "printf 'synthetic codex patch\\n' > created.txt"})
+	cmd, _ := json.Marshal(map[string]string{"cmd": "apply_patch <<'FUSION_EOF'\n*** Begin Patch\n*** Add File: created.txt\n+synthetic codex patch\n*** End Patch\nFUSION_EOF"})
 	done := map[string]any{"type": "function_call", "id": "fc_fixture", "call_id": "call_fixture", "name": "exec_command", "status": "completed", "arguments": string(cmd)}
 	events := []map[string]any{
 		{"type": "response.created", "response": map[string]any{"id": "resp_fixture", "status": "in_progress", "model": model, "output": []any{}}},
