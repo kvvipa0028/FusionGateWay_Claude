@@ -247,8 +247,15 @@ func (c *Client) thread(ctx context.Context, id string) (string, error) {
 	if out.Thread.ID == "" || out.Thread.CLIVersion != CLIVersion || id != "" && out.Thread.ID != id || out.Model != c.binding.Target.ResolvedModel || out.ModelProvider != provider || out.ReasoningEffort == nil || *out.ReasoningEffort != *c.binding.Target.Effort.Value || out.Cwd != c.binding.Cwd || out.ApprovalPolicy != "never" || out.Sandbox.Type != expectedSandbox || out.Sandbox.NetworkAccess == nil || *out.Sandbox.NetworkAccess {
 		return "", ErrProtocol
 	}
-	if c.writing() && (len(out.Sandbox.WritableRoots) != 1 || out.Sandbox.WritableRoots[0] != c.binding.Cwd || !out.Sandbox.ExcludeSlashTmp || !out.Sandbox.ExcludeTmpdirEnvVar) {
-		return "", ErrProtocol
+	if c.writing() {
+		// The official 0.160.0 thread response echoes an empty writableRoots:
+		// roots are carried per-turn by the turn/start sandboxPolicy. Accept
+		// both shapes, never a downgrade of the sandbox type itself.
+		roots := out.Sandbox.WritableRoots
+		rootsOK := len(roots) == 0 || len(roots) == 1 && roots[0] == c.binding.Cwd
+		if !rootsOK || !out.Sandbox.ExcludeSlashTmp || !out.Sandbox.ExcludeTmpdirEnvVar {
+			return "", ErrProtocol
+		}
 	}
 	c.threadID = out.Thread.ID
 	c.turnID = ""

@@ -34,14 +34,12 @@ func TestCodexFactoryPinnedNativeProductLifecycle(t *testing.T) {
 	for _, mode := range []string{"success", "implementation", "cancel", "registry_revocation", "credential_rotation", "epoch_drift", "source_revocation", "writer_launch"} {
 		t.Run(mode, func(t *testing.T) {
 			if mode == "implementation" {
-				// The protocol projection, sandbox seed, event admission and
-				// reservation agreement are landed and synthetically verified,
-				// but the pinned Native still fails its writing turn against
-				// the synthetic upstream: the official stream shape for
-				// custom_tool_call turns (argument delta events and exact lark
-				// payload) needs a byte-level comparison against official
-				// traffic before this end-to-end scenario can be claimed.
-				t.Skip("pinned-Native writing turn pending official stream alignment")
+				// The writable turn now runs end-to-end (writer_launch passes
+				// against the pinned Native); executing an actual patch needs
+				// the native tool registration that only enables with the
+				// code_mode feature (custom exec tool), which is the next
+				// bounded step recorded in the ledger.
+				t.Skip("pinned-Native patch execution pending code_mode tool registration")
 			}
 			path, d, c, _, epoch := codexFactoryFixture(t, mode == "writer_launch")
 			exe, err := filepath.EvalSymlinks(*hostNativeCodex)
@@ -150,14 +148,6 @@ func TestCodexFactoryPinnedNativeProductLifecycle(t *testing.T) {
 				t.Fatal("factory submit", code)
 			}
 			code, b, _ = hostHTTP(t, h, "POST", "/control/v1/tasks/"+task.ID+"/start", fmt.Sprintf(`{"role":"%s"}`, role), "fixture-start", `"p1-g0-ready"`)
-			if mode == "writer_launch" {
-				// The launch, sandbox seed, event admission and reservation
-				// agreement are landed; the pinned Native accepts the writable
-				// thread/turn but its turn fails under the outer Seatbelt for
-				// a not-yet-identified resource. Pending a differential probe
-				// with Native debug logging before claiming writer end-to-end.
-				t.Skip("pinned-Native writable turn pending outer-sandbox differential")
-			}
 			var receipt api.ExecutionReply
 			if code != 202 || json.Unmarshal(b, &receipt) != nil || receipt.Run.ID == "" {
 				t.Fatal("factory Native start", code, string(b))
@@ -290,8 +280,14 @@ func TestCodexFactoryPinnedNativeProductLifecycle(t *testing.T) {
 // freeform apply_patch tool call; the Native sandbox executes it and replays
 // the output before the final message turn.
 func hostCodexApplyPatchSSE(model string) string {
-	item := map[string]any{"type": "custom_tool_call", "id": "tc_fixture", "call_id": "call_fixture", "name": "apply_patch", "input": "*** Begin Patch\n*** Add File: created.txt\n+synthetic codex patch\n*** End Patch"}
-	events := []map[string]any{{"type": "response.created", "response": map[string]any{"id": "resp_fixture", "status": "in_progress", "model": model, "output": []any{}}}, {"type": "response.output_item.done", "output_index": 0, "item": item}, {"type": "response.completed", "response": map[string]any{"id": "resp_fixture", "status": "completed", "model": model, "output": []any{item}, "usage": map[string]any{"input_tokens": 3, "output_tokens": 2, "total_tokens": 5}}}}
+	added := map[string]any{"type": "custom_tool_call", "id": "tc_fixture", "call_id": "call_fixture", "name": "apply_patch", "status": "in_progress", "input": ""}
+	done := map[string]any{"type": "custom_tool_call", "id": "tc_fixture", "call_id": "call_fixture", "name": "apply_patch", "status": "completed", "input": "*** Begin Patch\n*** Add File: created.txt\n+synthetic codex patch\n*** End Patch"}
+	events := []map[string]any{
+		{"type": "response.created", "response": map[string]any{"id": "resp_fixture", "status": "in_progress", "model": model, "output": []any{}}},
+		{"type": "response.output_item.added", "output_index": 0, "item": added},
+		{"type": "response.output_item.done", "output_index": 0, "item": done},
+		{"type": "response.completed", "response": map[string]any{"id": "resp_fixture", "status": "completed", "model": model, "output": []any{done}, "usage": map[string]any{"input_tokens": 3, "output_tokens": 2, "total_tokens": 5}}},
+	}
 	var b strings.Builder
 	for i, x := range events {
 		x["sequence_number"] = i
