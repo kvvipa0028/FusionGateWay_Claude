@@ -211,6 +211,9 @@ func (h *ControlHost) Serve(ctx context.Context) error {
 	}
 	h.served = true
 	h.mu.Unlock()
+	if e := writeControlAddress(h.root, h.Addr()); e != nil {
+		return e
+	}
 	watchDone := make(chan struct{})
 	go func() {
 		defer close(watchDone)
@@ -281,6 +284,7 @@ func (h *ControlHost) beginClose() {
 		h.revoke()
 		h.server.Close()
 		h.listener.Close()
+		removeControlAddress(h.root)
 		go func() {
 			defer close(h.closeDone)
 			h.handlers.Wait()

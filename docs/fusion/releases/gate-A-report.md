@@ -1,8 +1,8 @@
 # Gate A 报告 — 手动可用版验收
 
-日期：2026-10-06
-基线：`fusion/development` @ `749d69b`
-状态：**合成验证全部通过；三路真实准入阻塞于用户官方设备授权登录**
+日期：2026-10-06（增量更新）
+基线：`fusion/development` @ `5d078a1`（初始 @ `749d69b`）
+状态：**合成验证全部通过；Codex/Grok checkpoint 恢复已在 Controller 层验证；三路真实准入阻塞于用户官方设备授权登录**
 
 ## 验收范围
 
@@ -13,8 +13,8 @@ Gate A 验证"单阶段受控工作台"：用户通过原 Magpie 界面指定项
 | 路线 | 写入方式 | 固定 Native | 合成端到端 | 真实准入 |
 | --- | --- | --- | --- | --- |
 | GLM / Claude Code | 进程内写工具 | Claude Code 2.1.287 | 42 子场景 PASS | 未准入 |
-| Codex / ChatGPT | 委托沙箱 + exec_command | Codex 0.160.0 | 8 场景 PASS | 未准入 |
-| Grok / xAI | 进程内写工具 | Grok 1.0.48 | 6 场景 PASS | 未准入 |
+| Codex / ChatGPT | 委托沙箱 + exec_command | Codex 0.160.0 | 8 场景 PASS + checkpoint/restore 5 场景 + Controller restore | 未准入 |
+| Grok / xAI | 进程内写工具 | Grok 1.0.48 | 6 场景 PASS + 恢复基础（归档已接生产工厂） | 未准入 |
 
 所有合成测试在隔离 runner（Go1.26.3、race、环境白名单）下通过。真实账号/计费/额度/续期均未验证。
 
@@ -64,9 +64,9 @@ Gate A 验证"单阶段受控工作台"：用户通过原 Magpie 界面指定项
 | # | 阻断项 | 影响 | 解除条件 |
 | --- | --- | --- | --- |
 | B1 | 本人官方设备授权登录未完成 | 三路线无法执行真实模型调用；无法验证账号/tier/计费/额度/续期 | 用户运行 `login-codex.command` 和 `login-grok.command` 完成官方设备授权 |
-| B2 | Codex implementation turn 终态报 interrupted | Codex 写入的完整五阶段闭环差最后一步 | 需调查 native 的 turn status 或 driver 的 observation（命令已成功 exit 0） |
+| ~~B2~~ 已解除 | ~~Codex implementation turn 终态报 interrupted~~ 委托沙箱 + 事件过滤修复后写入闭环 8 场景全过 | — | — |
 | B3 | Grok effort 档位不支持 | Grok 路线只能 NoEffort 模式 | 需要真实模型 metadata（native 给未知模型剥离 reasoning_effort） |
-| B4 | 产品 CLI 草稿不执行任务 | 只能通过 GUI 发起阶段执行 | CLI 集成待做 |
+| B4 | 产品 CLI 草稿不执行任务 | 只能通过 GUI 发起阶段执行 | CLI 集成实施中（fusion-task 客户端子命令） |
 | B5 | 实际 Native UI 点击验证 | 部分 UI 组件只有浏览器/桥验证，无桌面像素验证 | 用户桌面解锁后执行 |
 | B6 | 真实工程 Smoke 未执行 | 五阶段完整闭环用真实模型验证未做 | B1 解除后 |
 
@@ -77,11 +77,12 @@ Gate A 验证"单阶段受控工作台"：用户通过原 Magpie 界面指定项
 3. 三路真实准入需用户完成官方设备授权；未登录时所有模型调用被拒绝。
 4. Codex writer 委托架构下，外层 supervisor profile 对 writer 启动不做 Seatbelt 隔离（由 native 内层沙箱接管命令隔离）。
 5. Jev 旁路、自动工作流、插件自动更新全部 off。
-6. 原版 Magpie 的聊天、Sessions、Gateway 功能不受影响但未与 Fusion 集成。
+6. 原版 Magpie 的聊天、Gateway 功能不受影响但未与 Fusion 集成；Sessions 导航已接入当前项目的 Fusion 任务记录（只读）。
+7. Codex/Grok checkpoint 引用是密封归档（HMAC key 在执行根私有目录），恢复要求同任务更晚 attempt 与冻结 target/cwd 精确匹配。
 
 ## 下一步
 
 1. 用户完成官方设备授权登录 → 解除 B1
 2. 三路真实 Smoke Test → WP-17 完成
-3. B2/B3/B4/B5 逐项解除
+3. B3/B4/B5 逐项解除（B2 已解除）
 4. Gate A 真实验证通过 → WP-18 done → 进入 M3 五阶段闭环
