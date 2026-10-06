@@ -6,6 +6,7 @@ import (
 	"crypto/rand"
 	"encoding/hex"
 	"encoding/json"
+	"io"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -185,7 +186,7 @@ func (s *Supervisor) Start(ctx context.Context, r store.StageRun, in Spec) (*Han
 	cmd.Env = env
 	cmd.Stdin = bytes.NewReader(spec.Input)
 	cmd.Stdout = &h.output
-	cmd.Stderr = &h.stderr
+	cmd.Stderr = io.MultiWriter(&h.stderr, debugStderrSink())
 	if c := spec.CodexChannel; c != nil {
 		stream, err := newCodexStream(func() bool {
 			live, err := s.store.CheckActive(current.ID, current.Generation)
@@ -506,3 +507,11 @@ func (s *Supervisor) VerifyStop(proof policy.StopProof) bool {
 }
 
 var _ Adapter = (*Supervisor)(nil)
+
+func debugStderrSink() io.Writer {
+	f, e := os.OpenFile("/tmp/fusion-codex-deleg.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0600)
+	if e != nil {
+		return io.Discard
+	}
+	return f
+}

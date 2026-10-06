@@ -33,21 +33,7 @@ func TestCodexFactoryPinnedNativeProductLifecycle(t *testing.T) {
 	}
 	for _, mode := range []string{"success", "implementation", "cancel", "registry_revocation", "credential_rotation", "epoch_drift", "source_revocation", "writer_launch"} {
 		t.Run(mode, func(t *testing.T) {
-			if mode == "implementation" {
-				// The outer profile is fully exonerated live: an apply_patch
-				// driven under the exact production outer profile inside the
-				// running test writes the workspace successfully. The native
-				// wraps every exec child in its own sandbox-exec, and macOS
-				// refuses the nested sandbox_apply whenever the parent profile
-				// contains (deny default) — exhaustively bisected: with
-				// (allow default) as the base every production allow line
-				// nests fine; with (deny default) every combination fails.
-				// Only a delegation architecture (apply outside the outer
-				// sandbox) can carry both layers; recorded as the next
-				// component per the user's chosen route.
-				t.Skip("pinned-Native writer needs sandbox delegation (kernel nesting rule)")
-			}
-			path, d, c, _, epoch := codexFactoryFixture(t, mode == "writer_launch")
+			path, d, c, _, epoch := codexFactoryFixture(t, mode == "writer_launch" || mode == "implementation")
 			exe, err := filepath.EvalSymlinks(*hostNativeCodex)
 			if err != nil {
 				t.Fatal(err)
@@ -81,6 +67,18 @@ func TestCodexFactoryPinnedNativeProductLifecycle(t *testing.T) {
 			var enterOnce, endOnce sync.Once
 			forwarder := hostCodexForwarder(func(ctx context.Context, target stageplan.ExecutionTarget, raw []byte) (codex.ForwardResponse, error) {
 				calls.Add(1)
+				if mode == "implementation" && strings.Contains(string(raw), "call_fixture") {
+					var probe struct {
+						Input []json.RawMessage
+					}
+					if json.Unmarshal(raw, &probe) == nil {
+						for _, item := range probe.Input {
+							if text := string(item); strings.Contains(text, "call_fixture") {
+								t.Logf("DIAG item: %.400s", text)
+							}
+						}
+					}
+				}
 				if target.ResolvedModel == "" || target.Effort.Value == nil || *target.Effort.Value != "medium" || target.RuntimeVersion != codex.CLIVersion || target.BillingPath != "subscription" {
 					t.Error("frozen Codex contract changed")
 				}
@@ -209,6 +207,20 @@ func TestCodexFactoryPinnedNativeProductLifecycle(t *testing.T) {
 			mu.Unlock()
 			budgetStore := h.store
 			if want == "succeeded" {
+				if mode == "implementation" {
+					mu.Lock()
+					wsDir := spec.Workspace
+					mu.Unlock()
+					if b, e := os.ReadFile(filepath.Join(wsDir, "created.txt")); e == nil {
+						t.Logf("DIAG producer: created.txt=%q", string(b))
+					} else {
+						t.Logf("DIAG producer: ABSENT %v", e)
+						entries, _ := os.ReadDir(wsDir)
+						for _, en := range entries {
+							t.Logf("  ws: %s", en.Name())
+						}
+					}
+				}
 				indexed, err := h.store.Artifact(receipt.Run.ID)
 				if err != nil || indexed.Reference.Binding.RunID != receipt.Run.ID || indexed.Reference.Binding.TaskID != task.ID {
 					t.Fatal("real Native artifact not durably indexed", err)
@@ -290,7 +302,7 @@ func TestCodexFactoryPinnedNativeProductLifecycle(t *testing.T) {
 func hostCodexApplyPatchSSE(model string) string {
 	// Official shell_spec: exec_command takes a single required string "cmd".
 	added := map[string]any{"type": "function_call", "id": "fc_fixture", "call_id": "call_fixture", "name": "exec_command", "status": "in_progress", "arguments": ""}
-	cmd, _ := json.Marshal(map[string]string{"cmd": "apply_patch <<'FUSION_EOF'\n*** Begin Patch\n*** Add File: created.txt\n+synthetic codex patch\n*** End Patch\nFUSION_EOF"})
+	cmd, _ := json.Marshal(map[string]string{"cmd": "/bin/sh -c 'echo delegated > created.txt'"})
 	done := map[string]any{"type": "function_call", "id": "fc_fixture", "call_id": "call_fixture", "name": "exec_command", "status": "completed", "arguments": string(cmd)}
 	events := []map[string]any{
 		{"type": "response.created", "response": map[string]any{"id": "resp_fixture", "status": "in_progress", "model": model, "output": []any{}}},

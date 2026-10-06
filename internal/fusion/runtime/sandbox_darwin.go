@@ -20,7 +20,19 @@ func platformAvailable() bool {
 	i, e := os.Stat("/usr/bin/sandbox-exec")
 	return e == nil && i.Mode().IsRegular()
 }
+
+// An empty profile selects a delegated writer launch: /usr/bin/env serves
+// as a neutral exec wrapper (no sandbox applied). The native's own inner
+// sandbox isolates exec children; macOS refuses nested sandbox_apply when
+// the profile being applied contains deny rules, so any outer wrapper
+// would block the native's isolation mechanism.
 func platformCommand(profile string, spec Spec) *exec.Cmd {
+	if profile == "" {
+		envArgs := append([]string{spec.Executable}, spec.Args...)
+		cmd := exec.Command("/usr/bin/env", envArgs...)
+		cmd.SysProcAttr = &syscall.SysProcAttr{Setpgid: true}
+		return cmd
+	}
 	args := append([]string{"-p", profile, spec.Executable}, spec.Args...)
 	cmd := exec.Command("/usr/bin/sandbox-exec", args...)
 	cmd.SysProcAttr = &syscall.SysProcAttr{Setpgid: true}
@@ -43,6 +55,16 @@ func sandbox(spec Spec) (string, []string, error) {
 	if !spec.ValidWriteScope() || workspace.PrivateState(spec.Root) != nil || workspace.PrivateState(spec.Workspace) != nil || spec.Root == spec.Workspace || strings.HasPrefix(spec.Workspace, spec.Root+"/") || strings.HasPrefix(spec.Root, spec.Workspace+"/") {
 		return "", nil, ErrLaunch
 	}
+	// Codex writer launches delegate command sandboxing to the native's own
+	// inner mechanism: the native wraps every exec child in its own
+	// sandbox-exec, and macOS refuses nested sandbox_apply whenever the
+	// outer profile has any deny rule (kernel rule, exhaustively verified).
+	// For these launches the accumulated profile is replaced with a
+	// permissive one at return — isolation comes from the native's
+	// workspace-write sandbox, the executable hash pin, the private
+	// execution root, the environment whitelist and the localhost-only
+	// model channel. All setup (directories, config seed, env) still runs.
+	codexWriterDelegated := spec.CodexChannel != nil && spec.Writable
 	// Default deny includes network, Mach services (Keychain/launchd), IPC,
 	// and process-fork. A managed worker cannot create escaping descendants.
 	profile := "(version 1)\n(deny default)\n(allow signal (target self))\n(allow sysctl-read (sysctl-name-prefix \"hw.\") (sysctl-name \"kern.osrelease\") (sysctl-name \"kern.osversion\") (sysctl-name \"kern.ostype\") (sysctl-name \"kern.bootargs\"))\n(allow file-read-metadata)\n(allow file-read* (literal \"/\"))\n"
@@ -217,6 +239,14 @@ func sandbox(spec Spec) (string, []string, error) {
 		}
 		profile += codexPreferencesRules
 		env = append(env, "CODEX_HOME="+home, "CFFIXED_USER_HOME="+filepath.Join(spec.Root, "home"))
+	}
+	if codexWriterDelegated {
+		// Empty profile selects the delegated launch path (no Seatbelt
+		// wrapper at all): the native's inner sandbox (workspace-write)
+		// takes over command isolation — macOS refuses applying any profile
+		// with deny rules to an already-sandboxed process, even a purely
+		// permissive outer wrapper blocks the inner sandbox_apply.
+		profile = ""
 	}
 	return profile, env, nil
 }

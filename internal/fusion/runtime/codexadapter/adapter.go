@@ -346,7 +346,7 @@ func (a *Adapter) Start(ctx context.Context, inputRun store.StageRun, in managed
 	}
 	a.observations[r.ID] = observation{generation: r.Generation, outcome: Outcome{State: "execution_uncertain"}}
 	a.mu.Unlock()
-	spec := managed.Spec{Source: in.Source, Executable: a.config.Executable, ExecutableHash: managed.CodexExecutableSHA256, Args: []string{"app-server", "--listen", "stdio://", "--strict-config"}, Root: in.Root, Workspace: in.Workspace, Timeout: in.Timeout, NativeSessionID: sid, CodexChannel: channel, ValidateOutcome: func(raw []byte) bool {
+	spec := managed.Spec{Source: in.Source, Executable: a.config.Executable, ExecutableHash: managed.CodexExecutableSHA256, Args: []string{"app-server", "--listen", "stdio://", "--strict-config"}, Root: in.Root, Workspace: in.Workspace, Timeout: in.Timeout, NativeSessionID: sid, Writable: in.Writable, WritePaths: append([]string(nil), in.WritePaths...), CodexChannel: channel, ValidateOutcome: func(raw []byte) bool {
 		if !safeOutput(raw, secret) || !current(cloneBinding(binding)) {
 			return false
 		}
