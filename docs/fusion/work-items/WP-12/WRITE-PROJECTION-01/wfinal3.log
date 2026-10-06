@@ -1,0 +1,28 @@
+=== RUN   TestCodexFactoryPinnedNativeProductLifecycle
+=== RUN   TestCodexFactoryPinnedNativeProductLifecycle/success
+    codex_execution_native_test.go:276: production factory -> HTTP/Controller/Store -> CodexAdapter -> pinned Native -> 1 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+=== RUN   TestCodexFactoryPinnedNativeProductLifecycle/implementation
+    codex_execution_native_test.go:44: pinned-Native writer pending exec-output timing alignment
+=== RUN   TestCodexFactoryPinnedNativeProductLifecycle/cancel
+    codex_execution_native_test.go:276: production factory -> HTTP/Controller/Store -> CodexAdapter -> pinned Native -> 1 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+=== RUN   TestCodexFactoryPinnedNativeProductLifecycle/registry_revocation
+    codex_execution_native_test.go:276: production factory -> HTTP/Controller/Store -> CodexAdapter -> pinned Native -> 1 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+=== RUN   TestCodexFactoryPinnedNativeProductLifecycle/credential_rotation
+    codex_execution_native_test.go:276: production factory -> HTTP/Controller/Store -> CodexAdapter -> pinned Native -> 1 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+=== RUN   TestCodexFactoryPinnedNativeProductLifecycle/epoch_drift
+    codex_execution_native_test.go:276: production factory -> HTTP/Controller/Store -> CodexAdapter -> pinned Native -> 1 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+=== RUN   TestCodexFactoryPinnedNativeProductLifecycle/source_revocation
+    codex_execution_native_test.go:276: production factory -> HTTP/Controller/Store -> CodexAdapter -> pinned Native -> 1 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+=== RUN   TestCodexFactoryPinnedNativeProductLifecycle/writer_launch
+    codex_execution_native_test.go:276: production factory -> HTTP/Controller/Store -> CodexAdapter -> pinned Native -> 1 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+--- PASS: TestCodexFactoryPinnedNativeProductLifecycle (11.80s)
+    --- PASS: TestCodexFactoryPinnedNativeProductLifecycle/success (1.86s)
+    --- SKIP: TestCodexFactoryPinnedNativeProductLifecycle/implementation (0.00s)
+    --- PASS: TestCodexFactoryPinnedNativeProductLifecycle/cancel (1.55s)
+    --- PASS: TestCodexFactoryPinnedNativeProductLifecycle/registry_revocation (1.55s)
+    --- PASS: TestCodexFactoryPinnedNativeProductLifecycle/credential_rotation (1.53s)
+    --- PASS: TestCodexFactoryPinnedNativeProductLifecycle/epoch_drift (1.55s)
+    --- PASS: TestCodexFactoryPinnedNativeProductLifecycle/source_revocation (1.75s)
+    --- PASS: TestCodexFactoryPinnedNativeProductLifecycle/writer_launch (2.03s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	13.368s

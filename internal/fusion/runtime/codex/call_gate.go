@@ -462,7 +462,9 @@ func toolName(f map[string]json.RawMessage) bool {
 		return false
 	}
 	switch name {
-	case "apply_patch", "view_image", "read_file", "list_dir", "grep":
+	// apply_patch runs as a command through the official exec_command shell
+	// tool, which shell_tool registers for writer runs alongside write_stdin.
+	case "apply_patch", "view_image", "read_file", "list_dir", "grep", "exec_command", "write_stdin":
 		return true
 	}
 	return false

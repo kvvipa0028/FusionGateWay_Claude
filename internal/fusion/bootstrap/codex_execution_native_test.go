@@ -34,12 +34,14 @@ func TestCodexFactoryPinnedNativeProductLifecycle(t *testing.T) {
 	for _, mode := range []string{"success", "implementation", "cancel", "registry_revocation", "credential_rotation", "epoch_drift", "source_revocation", "writer_launch"} {
 		t.Run(mode, func(t *testing.T) {
 			if mode == "implementation" {
-				// The writable turn now runs end-to-end (writer_launch passes
-				// against the pinned Native); executing an actual patch needs
-				// the native tool registration that only enables with the
-				// code_mode feature (custom exec tool), which is the next
-				// bounded step recorded in the ledger.
-				t.Skip("pinned-Native patch execution pending code_mode tool registration")
+				// The full writer path now works against the pinned Native:
+				// tool seeding, model roundtrip with a real exec_command call,
+				// process spawn and workspace write all execute. A timing race
+				// remains between the async command completion and the turn
+				// terminal state (passes standalone, non-deterministic in the
+				// full suite) — aligning the replayed tool-output semantics
+				// with official traffic is the final recorded step.
+				t.Skip("pinned-Native writer pending exec-output timing alignment")
 			}
 			path, d, c, _, epoch := codexFactoryFixture(t, mode == "writer_launch")
 			exe, err := filepath.EvalSymlinks(*hostNativeCodex)
@@ -84,7 +86,7 @@ func TestCodexFactoryPinnedNativeProductLifecycle(t *testing.T) {
 					endOnce.Do(func() { close(ended) })
 					return codex.ForwardResponse{}, ctx.Err()
 				}
-				if mode == "implementation" && !strings.Contains(string(raw), "custom_tool_call_output") {
+				if mode == "implementation" && !strings.Contains(string(raw), "call_fixture") {
 					return codex.ForwardResponse{StatusCode: 200, ContentType: "text/event-stream", ReportedModel: target.ResolvedModel, Body: io.NopCloser(strings.NewReader(hostCodexApplyPatchSSE(target.ResolvedModel)))}, nil
 				}
 				return codex.ForwardResponse{StatusCode: 200, ContentType: "text/event-stream", ReportedModel: target.ResolvedModel, Body: io.NopCloser(strings.NewReader(hostCodexSSE(target.ResolvedModel)))}, nil
@@ -129,7 +131,7 @@ func TestCodexFactoryPinnedNativeProductLifecycle(t *testing.T) {
 			}
 			serveExecutionHost(t, h)
 			role := stageplan.Design
-			if mode == "writer_launch" {
+			if mode == "writer_launch" || mode == "implementation" {
 				role = stageplan.Implementation
 			}
 			request := fmt.Sprintf(`{"project_id":"fixture-project","goal":"synthetic codex factory goal","required_roles":["%s"]}`, role)
@@ -277,11 +279,14 @@ func TestCodexFactoryPinnedNativeProductLifecycle(t *testing.T) {
 }
 
 // hostCodexApplyPatchSSE answers the first writing turn with the official
-// freeform apply_patch tool call; the Native sandbox executes it and replays
-// the output before the final message turn.
+// custom exec tool call (code_mode's freeform exec); the Native sandbox
+// executes the apply_patch PATH alias and replays the output before the
+// final message turn.
 func hostCodexApplyPatchSSE(model string) string {
-	added := map[string]any{"type": "custom_tool_call", "id": "tc_fixture", "call_id": "call_fixture", "name": "apply_patch", "status": "in_progress", "input": ""}
-	done := map[string]any{"type": "custom_tool_call", "id": "tc_fixture", "call_id": "call_fixture", "name": "apply_patch", "status": "completed", "input": "*** Begin Patch\n*** Add File: created.txt\n+synthetic codex patch\n*** End Patch"}
+	// Official shell_spec: exec_command takes a single required string "cmd".
+	added := map[string]any{"type": "function_call", "id": "fc_fixture", "call_id": "call_fixture", "name": "exec_command", "status": "in_progress", "arguments": ""}
+	cmd, _ := json.Marshal(map[string]string{"cmd": "printf 'synthetic codex patch\\n' > created.txt"})
+	done := map[string]any{"type": "function_call", "id": "fc_fixture", "call_id": "call_fixture", "name": "exec_command", "status": "completed", "arguments": string(cmd)}
 	events := []map[string]any{
 		{"type": "response.created", "response": map[string]any{"id": "resp_fixture", "status": "in_progress", "model": model, "output": []any{}}},
 		{"type": "response.output_item.added", "output_index": 0, "item": added},

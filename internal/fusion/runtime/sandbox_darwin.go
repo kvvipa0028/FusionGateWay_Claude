@@ -67,8 +67,16 @@ func sandbox(spec Spec) (string, []string, error) {
 		if len(paths) == 0 {
 			paths = []string{"."} // Existing trusted diagnostic/manual semantics.
 		}
-		for _, p := range paths {
-			profile += fmt.Sprintf("(allow file-write* (subpath %s))\n", strconv.Quote(filepath.Join(spec.Workspace, p)))
+		// Seatbelt matches resolved vnode paths: a workspace under /var is
+		// written by the kernel as /private/var. Admit both spellings.
+		resolvedWorkspace, evalErr := filepath.EvalSymlinks(spec.Workspace)
+		if evalErr != nil {
+			resolvedWorkspace = spec.Workspace
+		}
+		for _, base := range []string{spec.Workspace, resolvedWorkspace} {
+			for _, p := range paths {
+				profile += fmt.Sprintf("(allow file-write* (subpath %s))\n", strconv.Quote(filepath.Join(base, p)))
+			}
 		}
 	}
 	env := []string{"PATH=/usr/bin:/bin", "HOME=" + filepath.Join(spec.Root, "home"), "XDG_CONFIG_HOME=" + filepath.Join(spec.Root, "config"), "XDG_CACHE_HOME=" + filepath.Join(spec.Root, "cache"), "XDG_DATA_HOME=" + filepath.Join(spec.Root, "data"), "TMPDIR=" + filepath.Join(spec.Root, "tmp")}
@@ -154,10 +162,14 @@ func sandbox(spec Spec) (string, []string, error) {
 				return "", nil, ErrLaunch
 			}
 			// Strict config overrides per-thread params, so the seeded sandbox
-			// mode must follow the run's own write intent exactly.
+			// mode must follow the run's own write intent exactly. Writers also
+			// enable shell_tool: it registers the official exec_command function
+			// tool through which apply_patch runs as a command.
 			sandboxMode := "read-only"
+			shellTool := false
 			if c.run.Role == stageplan.Implementation || c.run.Role == stageplan.Testing {
 				sandboxMode = "workspace-write"
+				shellTool = true
 			}
 			config := map[string]any{
 				"model_provider": CodexStageProvider, "model": c.run.Target.RequestedModel,
@@ -167,7 +179,7 @@ func sandbox(spec Spec) (string, []string, error) {
 				"analytics": map[string]any{"enabled": false}, "feedback": map[string]any{"enabled": false},
 				"agents":   map[string]any{"enabled": false},
 				"tools":    map[string]any{"update_plan": map[string]any{"enabled": false}, "experimental_request_user_input": map[string]any{"enabled": false}},
-				"features": map[string]any{"goals": false, "shell_tool": false, "view_image": false, "sleep_tool": false, "unified_exec": false, "shell_snapshot": false, "code_mode": false, "multi_agent": false, "multi_agent_v2": false, "apps": false, "tool_search": false, "remote_models": false, "api_key_model_discovery": false, "enable_request_compression": false},
+				"features": map[string]any{"goals": false, "view_image": false, "sleep_tool": false, "unified_exec": false, "shell_snapshot": false, "code_mode": false, "shell_tool": shellTool, "multi_agent": false, "multi_agent_v2": false, "apps": false, "tool_search": false, "remote_models": false, "api_key_model_discovery": false, "enable_request_compression": false},
 				"model_providers": map[string]any{CodexStageProvider: map[string]any{
 					"name": "Fusion scoped Codex", "base_url": c.models.endpoint, "env_key": codexStageEnv,
 					"wire_api": "responses", "requires_openai_auth": false, "supports_websockets": false,
@@ -176,6 +188,16 @@ func sandbox(spec Spec) (string, []string, error) {
 			}
 			if sandboxMode == "workspace-write" {
 				config["sandbox_workspace_write"] = map[string]any{"network_access": false, "exclude_slash_tmp": true, "exclude_tmpdir_env_var": true}
+				// The official exec_command tool runs commands through the user
+				// shell and the arg0 PATH aliases (symlinks to the pinned
+				// binary under CODEX_HOME/tmp/arg0). Admit the system shell and
+				// that alias subtree for execution; aliases still resolve to
+				// the SHA-pinned binary and writes stay inside the workspace.
+				aliasRoot := filepath.Join(home, "tmp", "arg0")
+				profile += fmt.Sprintf("(allow process-exec (subpath %s))\n(allow file-read* file-map-executable (subpath %s))\n", strconv.Quote(aliasRoot), strconv.Quote(aliasRoot))
+				profile += "(allow process-exec (subpath \"/bin\"))\n(allow file-read* file-map-executable (subpath \"/bin\"))\n(allow process-exec (subpath \"/usr/bin\"))\n(allow file-read* file-map-executable (subpath \"/usr/bin\"))\n"
+				// The unified exec child is spawned by the native itself.
+				profile += "(allow process-fork)\n"
 			}
 			raw, e := toml.Marshal(config)
 			if e != nil {

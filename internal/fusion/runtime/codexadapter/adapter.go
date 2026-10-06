@@ -202,7 +202,13 @@ func (a *Adapter) Start(ctx context.Context, inputRun store.StageRun, in managed
 		return nil, codex.ErrUnverified
 	}
 	sid := "codex-" + hex.EncodeToString(session[:])
-	binding := codex.Binding{Scope: codex.Scope{RunID: r.ID, Generation: r.Generation, Role: r.Role}, Identity: a.config.Identity(cloneTarget(r.Target)), Target: cloneTarget(r.Target), Cwd: in.Workspace, CodexHome: filepath.Join(in.Root, "config", "codex")}
+	// The native inner sandbox matches resolved vnode paths (a workspace under
+	// /var is /private/var to the kernel), so hand it the resolved cwd.
+	bindingCwd, evalErr := filepath.EvalSymlinks(in.Workspace)
+	if evalErr != nil {
+		bindingCwd = in.Workspace
+	}
+	binding := codex.Binding{Scope: codex.Scope{RunID: r.ID, Generation: r.Generation, Role: r.Role}, Identity: a.config.Identity(cloneTarget(r.Target)), Target: cloneTarget(r.Target), Cwd: bindingCwd, CodexHome: filepath.Join(in.Root, "config", "codex")}
 	lifetime, cancel := context.WithTimeout(ctx, in.Timeout)
 	pathsCurrent := func() bool {
 		info, e := os.Lstat(in.Root)
