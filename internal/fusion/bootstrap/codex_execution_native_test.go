@@ -302,7 +302,7 @@ func TestCodexFactoryPinnedNativeProductLifecycle(t *testing.T) {
 func hostCodexApplyPatchSSE(model string) string {
 	// Official shell_spec: exec_command takes a single required string "cmd".
 	added := map[string]any{"type": "function_call", "id": "fc_fixture", "call_id": "call_fixture", "name": "exec_command", "status": "in_progress", "arguments": ""}
-	cmd, _ := json.Marshal(map[string]string{"cmd": "/bin/sh -c 'echo delegated > created.txt'"})
+	cmd, _ := json.Marshal(map[string]string{"cmd": "/bin/sh -c 'echo synthetic codex patch > created.txt'"})
 	done := map[string]any{"type": "function_call", "id": "fc_fixture", "call_id": "call_fixture", "name": "exec_command", "status": "completed", "arguments": string(cmd)}
 	events := []map[string]any{
 		{"type": "response.created", "response": map[string]any{"id": "resp_fixture", "status": "in_progress", "model": model, "output": []any{}}},

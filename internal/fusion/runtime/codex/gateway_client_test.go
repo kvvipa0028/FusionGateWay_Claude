@@ -95,10 +95,13 @@ func TestGatewayClientGrantsWritesOnlyToWritingRoles(t *testing.T) {
 			if c.writing() != writing {
 				t.Fatal("gateway write roles drifted")
 			}
-			for _, kind := range []string{"commandExecution", "imageView", "sleep", "plan", "collabAgentToolCall"} {
+			for _, kind := range []string{"imageView", "sleep", "plan", "collabAgentToolCall"} {
 				if c.allowedItem(kind) {
 					t.Fatal("gateway allowed unverified tool", kind)
 				}
+			}
+			if c.allowedItem("commandExecution") != writing {
+				t.Fatal("gateway commandExecution must track the writer roles")
 			}
 			if c.allowedItem("fileChange") != writing {
 				t.Fatal("gateway file-change items must track the writer roles")

@@ -440,11 +440,12 @@ func advertisesVersion(agent string) bool {
 // observation filter does not replace OS tool confinement or route admission.
 func (c *Client) allowedItem(kind string) bool {
 	if c.gateway {
-		// A writing turn also reports the executed file changes; execution
-		// stays inside the Native sandbox and the artifact diff is verified
-		// against the frozen write scope at release.
+		// A writing turn also reports the executed tool calls (function_call
+		// and function_call_output with their exec results) and file changes;
+		// execution stays inside the Native sandbox and the artifact diff is
+		// verified against the frozen write scope at release.
 		if c.writing() {
-			return kind == "userMessage" || kind == "agentMessage" || kind == "reasoning" || kind == "fileChange"
+			return kind == "userMessage" || kind == "agentMessage" || kind == "reasoning" || kind == "fileChange" || kind == "commandExecution"
 		}
 		return kind == "userMessage" || kind == "agentMessage" || kind == "reasoning"
 	}

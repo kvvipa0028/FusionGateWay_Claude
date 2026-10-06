@@ -71,7 +71,7 @@ func (c *Client) gatewayEvent(raw []byte) (err error) {
 	}
 	allowed, known := fields[method]
 	if !known {
-		return ErrUnverified
+		return ErrUnverified // UE_LINE_74
 	}
 	params, ok = object(envelope["params"], allowed...)
 	if !ok {
@@ -93,7 +93,7 @@ func (c *Client) gatewayEvent(raw []byte) (err error) {
 	case "remoteControl/status/changed":
 		status, ok := stringField(params, "status")
 		if !ok || status != "disabled" {
-			return ErrUnverified
+			return ErrUnverified // UE_LINE_96
 		}
 		for _, k := range []string{"installationId", "serverName"} {
 			s, ok := stringField(params, k)
@@ -133,7 +133,7 @@ func (c *Client) gatewayEvent(raw []byte) (err error) {
 		if typ == "active" {
 			flags, ok := array(status["activeFlags"])
 			if !ok || len(flags) != 0 {
-				return ErrUnverified
+				return ErrUnverified // UE_LINE_136
 			}
 		} else if _, exists := status["activeFlags"]; exists {
 			return ErrProtocol
@@ -157,7 +157,7 @@ func (c *Client) gatewayEvent(raw []byte) (err error) {
 		for _, item := range items {
 			id, kind, ok := c.gatewayItem(item)
 			if !ok {
-				return ErrUnverified
+				return ErrUnverified // UE_LINE_160
 			}
 			if method == "turn/completed" {
 				seen, exists := c.gatewayItems[id]
@@ -214,7 +214,7 @@ func (c *Client) gatewayEvent(raw []byte) (err error) {
 		}
 		id, kind, ok := c.gatewayItem(params["item"])
 		if !ok {
-			return ErrUnverified
+			return ErrUnverified // UE_LINE_217
 		}
 		item, exists := c.gatewayItems[id]
 		if method == "item/started" {
@@ -351,6 +351,23 @@ func (c *Client) gatewayItem(raw []byte) (string, string, bool) {
 			for _, x := range a {
 				var s string
 				if isNull(x) || json.Unmarshal(x, &s) != nil {
+					return "", "", false
+				}
+			}
+		}
+	case "commandExecution":
+		// The native's exec tool reports its commands and results in-process.
+		// Bounded fields only: no execution authority is conferred by the
+		// observation; the artifact diff is verified at release.
+		m, ok = object(raw, "id", "type", "command", "aggregatedOutput", "exitCode", "status", "pluginId", "scriptPath", "cwd", "processId", "source", "commandActions", "startedAt", "completedAt", "durationMs", "output")
+		_, cmdOK := stringField(m, "command")
+		if !ok || !cmdOK {
+			return "", "", false
+		}
+		for _, k := range []string{"aggregatedOutput", "status"} {
+			if x, exists := m[k]; exists && !isNull(x) {
+				var s string
+				if json.Unmarshal(x, &s) != nil || len(s) > 1<<20 {
 					return "", "", false
 				}
 			}

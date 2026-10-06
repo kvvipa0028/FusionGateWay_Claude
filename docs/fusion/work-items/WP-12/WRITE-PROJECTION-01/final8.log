@@ -1,0 +1,74 @@
+=== RUN   TestCodexFactoryPinnedNativeProductLifecycle
+=== RUN   TestCodexFactoryPinnedNativeProductLifecycle/success
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: succeeded
+    codex_execution_native_test.go:293: production factory -> HTTP/Controller/Store -> CodexAdapter -> pinned Native -> 1 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+=== RUN   TestCodexFactoryPinnedNativeProductLifecycle/implementation
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: running
+    codex_execution_native_test.go:77: DIAG item: {"type":"function_call","id":"fc_fixture","name":"exec_command","arguments":"{\"cmd\":\"/bin/sh -c 'echo synthetic codex patch \\u003e created.txt'\"}","call_id":"call_fixture"}
+    codex_execution_native_test.go:77: DIAG item: {"type":"function_call_output","id":"fco_01a1109b-e82c-7da3-9ea6-ed5bae308872","call_id":"call_fixture","output":"Chunk ID: b586c1\nWall time: 0.0000 seconds\nProcess exited with code 0\nOriginal token count: 0\nOutput:\n"}
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: succeeded
+    codex_execution_native_test.go:215: DIAG producer: created.txt="synthetic codex patch\n"
+    codex_execution_native_test.go:293: production factory -> HTTP/Controller/Store -> CodexAdapter -> pinned Native -> 2 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+=== RUN   TestCodexFactoryPinnedNativeProductLifecycle/cancel
+    codex_execution_native_test.go:293: production factory -> HTTP/Controller/Store -> CodexAdapter -> pinned Native -> 1 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+=== RUN   TestCodexFactoryPinnedNativeProductLifecycle/registry_revocation
+    codex_execution_native_test.go:293: production factory -> HTTP/Controller/Store -> CodexAdapter -> pinned Native -> 1 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+=== RUN   TestCodexFactoryPinnedNativeProductLifecycle/credential_rotation
+    codex_execution_native_test.go:293: production factory -> HTTP/Controller/Store -> CodexAdapter -> pinned Native -> 1 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+=== RUN   TestCodexFactoryPinnedNativeProductLifecycle/epoch_drift
+    codex_execution_native_test.go:293: production factory -> HTTP/Controller/Store -> CodexAdapter -> pinned Native -> 1 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+=== RUN   TestCodexFactoryPinnedNativeProductLifecycle/source_revocation
+    codex_execution_native_test.go:293: production factory -> HTTP/Controller/Store -> CodexAdapter -> pinned Native -> 1 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+=== RUN   TestCodexFactoryPinnedNativeProductLifecycle/writer_launch
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: running
+EVENT_STATE: succeeded
+    codex_execution_native_test.go:293: production factory -> HTTP/Controller/Store -> CodexAdapter -> pinned Native -> 1 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+--- PASS: TestCodexFactoryPinnedNativeProductLifecycle (13.82s)
+    --- PASS: TestCodexFactoryPinnedNativeProductLifecycle/success (2.00s)
+    --- PASS: TestCodexFactoryPinnedNativeProductLifecycle/implementation (2.01s)
+    --- PASS: TestCodexFactoryPinnedNativeProductLifecycle/cancel (1.54s)
+    --- PASS: TestCodexFactoryPinnedNativeProductLifecycle/registry_revocation (1.54s)
+    --- PASS: TestCodexFactoryPinnedNativeProductLifecycle/credential_rotation (1.55s)
+    --- PASS: TestCodexFactoryPinnedNativeProductLifecycle/epoch_drift (1.60s)
+    --- PASS: TestCodexFactoryPinnedNativeProductLifecycle/source_revocation (1.59s)
+    --- PASS: TestCodexFactoryPinnedNativeProductLifecycle/writer_launch (1.99s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	15.286s
