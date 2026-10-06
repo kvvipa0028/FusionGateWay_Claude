@@ -1,0 +1,22 @@
+=== RUN   TestGrokFactoryPinnedNativeProductLifecycle
+=== RUN   TestGrokFactoryPinnedNativeProductLifecycle/success
+    grok_execution_native_test.go:244: production factory -> HTTP/Controller/Store -> GrokAdapter -> pinned Native -> 2 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+=== RUN   TestGrokFactoryPinnedNativeProductLifecycle/cancel
+    grok_execution_native_test.go:244: production factory -> HTTP/Controller/Store -> GrokAdapter -> pinned Native -> 1 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+=== RUN   TestGrokFactoryPinnedNativeProductLifecycle/registry_revocation
+    grok_execution_native_test.go:244: production factory -> HTTP/Controller/Store -> GrokAdapter -> pinned Native -> 1 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+=== RUN   TestGrokFactoryPinnedNativeProductLifecycle/credential_rotation
+    grok_execution_native_test.go:244: production factory -> HTTP/Controller/Store -> GrokAdapter -> pinned Native -> 1 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+=== RUN   TestGrokFactoryPinnedNativeProductLifecycle/source_revocation
+    grok_execution_native_test.go:244: production factory -> HTTP/Controller/Store -> GrokAdapter -> pinned Native -> 1 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+=== RUN   TestGrokFactoryPinnedNativeProductLifecycle/writer_launch
+    grok_execution_native_test.go:244: production factory -> HTTP/Controller/Store -> GrokAdapter -> pinned Native -> 2 synthetic calls; actual stop and artifact/release outcome verified; no real account/quota/billing admission
+--- PASS: TestGrokFactoryPinnedNativeProductLifecycle (8.16s)
+    --- PASS: TestGrokFactoryPinnedNativeProductLifecycle/success (1.51s)
+    --- PASS: TestGrokFactoryPinnedNativeProductLifecycle/cancel (1.21s)
+    --- PASS: TestGrokFactoryPinnedNativeProductLifecycle/registry_revocation (1.31s)
+    --- PASS: TestGrokFactoryPinnedNativeProductLifecycle/credential_rotation (1.31s)
+    --- PASS: TestGrokFactoryPinnedNativeProductLifecycle/source_revocation (1.26s)
+    --- PASS: TestGrokFactoryPinnedNativeProductLifecycle/writer_launch (1.55s)
+PASS
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	9.444s

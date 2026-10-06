@@ -1,0 +1,3 @@
+ok  	github.com/yetone/magpie/internal/fusion/runtime/grok	32.193s
+ok  	github.com/yetone/magpie/internal/fusion/bootstrap	30.304s
+ok  	github.com/yetone/magpie/internal/fusion/runtime	23.585s

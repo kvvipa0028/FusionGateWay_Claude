@@ -30,9 +30,9 @@ func TestGrokFactoryPinnedNativeProductLifecycle(t *testing.T) {
 	if *hostNativeGrok == "" {
 		t.Skip("explicit pinned Native fixture only")
 	}
-	for _, mode := range []string{"success", "cancel", "registry_revocation", "credential_rotation", "source_revocation", "writer_preintent"} {
+	for _, mode := range []string{"success", "cancel", "registry_revocation", "credential_rotation", "source_revocation", "writer_launch"} {
 		t.Run(mode, func(t *testing.T) {
-			path, d, c, _ := grokRuntimeFixture(t, mode == "writer_preintent")
+			path, d, c, _ := grokRuntimeFixture(t, mode == "writer_launch")
 			exe, err := filepath.EvalSymlinks(*hostNativeGrok)
 			if err != nil {
 				t.Fatal(err)
@@ -56,7 +56,7 @@ func TestGrokFactoryPinnedNativeProductLifecycle(t *testing.T) {
 				if target.ResolvedModel == "" || target.Effort.RequestedMode != stageplan.EffortNone || target.Effort.Value != nil || target.RuntimeVersion != grok.CLIVersion || target.BillingPath != "subscription" {
 					t.Error("frozen Grok contract changed")
 				}
-				if mode != "success" && mode != "writer_preintent" {
+				if mode != "success" && mode != "writer_launch" {
 					enterOnce.Do(func() { close(entered) })
 					<-ctx.Done()
 					endOnce.Do(func() { close(ended) })
@@ -122,29 +122,19 @@ func TestGrokFactoryPinnedNativeProductLifecycle(t *testing.T) {
 				t.Fatal("factory submit", code)
 			}
 			code, b, _ = hostHTTP(t, h, "POST", "/control/v1/tasks/"+task.ID+"/start", fmt.Sprintf(`{"role":"%s"}`, role), "fixture-start", `"p1-g0-ready"`)
-			if mode == "writer_preintent" {
-				if code != 503 {
-					t.Fatal("writable Grok launch not refused before intent", code, string(b))
+			if mode == "writer_launch" {
+				// The native's write tools are in-process: the outer profile
+				// bounds them, no nested sandbox is spawned. The writable
+				// launch is a legal production path and must start.
+				if code != 202 {
+					t.Fatal("writable Grok launch refused", code, string(b))
 				}
-				live, err := h.store.Task(task.ID)
-				if err != nil || live.State != "ready" || calls.Load() != 0 {
-					t.Fatal("writer refusal changed task or called upstream", err)
-				}
-				budget, err := h.store.Budget(task.ID)
-				if err != nil || budget.UsedCalls != 0 {
-					t.Fatal("writer refusal spent budget", err)
-				}
-				t.Logf("mode=%s writer refused preintent native_calls=0", mode)
-				if err := h.Close(); err != nil {
-					t.Fatal(err)
-				}
-				return
 			}
 			var receipt api.ExecutionReply
 			if code != 202 || json.Unmarshal(b, &receipt) != nil || receipt.Run.ID == "" {
 				t.Fatal("factory Native start", code, string(b))
 			}
-			if mode != "success" {
+			if mode != "success" && mode != "writer_launch" {
 				select {
 				case <-entered:
 				case <-time.After(10 * time.Second):
@@ -180,7 +170,7 @@ func TestGrokFactoryPinnedNativeProductLifecycle(t *testing.T) {
 			defer cancel()
 			done, err := h.controller.Wait(wait, receipt.Run.ID)
 			want := "cancelled"
-			if mode == "success" {
+			if mode == "success" || mode == "writer_launch" {
 				want = "succeeded"
 			}
 			if err != nil || done.State != want || !done.StoppedVerified || !done.Released {

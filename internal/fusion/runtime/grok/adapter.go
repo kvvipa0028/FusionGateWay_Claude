@@ -85,9 +85,11 @@ func (a *Adapter) Release(p policy.StopProof) error {
 	return nil
 }
 
-// ValidateLaunch refuses a writer launch before intent. This surface is
-// readonly (single approved read_file); resume needs a sealed checkpoint and
-// is not a writer path. Silent readonly downgrade of a writer is forbidden.
+// ValidateLaunch admits bounded writers before intent: the native's write
+// tools (search_replace, write_file, Edit, Write) operate in-process, so the
+// outer supervisor profile bounds their writes without any nested sandbox.
+// Resume needs a sealed checkpoint and is not a writer path; silent readonly
+// downgrade of an unbounded writer is still refused.
 func (a *Adapter) ValidateLaunch(ctx context.Context, role stageplan.Role, target stageplan.ExecutionTarget, in managed.Spec) error {
 	if a == nil || in.Timeout <= 0 || in.Timeout > 4*time.Minute {
 		return ErrUnverified
@@ -95,7 +97,7 @@ func (a *Adapter) ValidateLaunch(ctx context.Context, role stageplan.Role, targe
 	if ctx.Err() != nil {
 		return ErrUnverified
 	}
-	if in.Writable {
+	if in.Writable && !in.ValidWriteScope() {
 		return ErrUnsupported
 	}
 	return nil
@@ -129,9 +131,6 @@ func (a *Adapter) start(ctx context.Context, inputRun store.StageRun, in managed
 	}
 	if a == nil || ctx.Err() != nil || in.Executable != "" || in.ExecutableHash != "" || len(in.Args) != 0 || len(in.FixtureEnvironment) != 0 || in.NativeSessionID != "" || in.ClaudeChannel != nil || in.GrokChannel != nil || in.CodexChannel != nil || in.ValidateOutcome != nil || in.Timeout <= 0 || in.Timeout > 4*time.Minute || len(in.Input) == 0 || len(in.Input) > 64<<10 || !utf8.Valid(in.Input) || bytes.IndexByte(in.Input, 0) >= 0 {
 		return nil, ErrUnverified
-	}
-	if in.Writable {
-		return nil, ErrUnsupported
 	}
 	if workspace.PrivateState(in.Root) != nil || workspace.PrivateState(in.Workspace) != nil || in.Root == in.Workspace || strings.HasPrefix(in.Root, in.Workspace+"/") || strings.HasPrefix(in.Workspace, in.Root+"/") {
 		return nil, ErrUnverified
@@ -327,13 +326,19 @@ func (a *Adapter) start(ctx context.Context, inputRun store.StageRun, in managed
 	if writeErr != nil || syncErr != nil || closeErr != nil {
 		return fail(ErrUnverified)
 	}
-	args := []string{"--prompt-file", prompt, "--model", "fusion", "--output-format", "streaming-json", "--permission-mode", "dontAsk", "--no-subagents", "--max-turns", fmt.Sprint(turns), "--tools", "Read", "--disallowed-tools", "search_tool,use_tool", "--disable-web-search", "--no-auto-update", "--cwd", binding.Observer.Cwd}
+	tools := "Read"
+	if in.Writable {
+		// The native's write tools operate in-process; the outer profile
+		// bounds their writes to the workspace scope.
+		tools = "Read,Write,Edit"
+	}
+	args := []string{"--prompt-file", prompt, "--model", "fusion", "--output-format", "streaming-json", "--permission-mode", "dontAsk", "--no-subagents", "--max-turns", fmt.Sprint(turns), "--tools", tools, "--disallowed-tools", "search_tool,use_tool", "--disable-web-search", "--no-auto-update", "--cwd", binding.Observer.Cwd}
 	if restored != nil {
 		args = append(args, "--resume", sid)
 	} else {
 		args = append(args, "--session-id", sid)
 	}
-	spec := managed.Spec{Source: in.Source, Executable: a.config.Executable, ExecutableHash: NativeExecutableSHA256, Args: args, Root: in.Root, Workspace: in.Workspace, Timeout: in.Timeout, NativeSessionID: sid, GrokChannel: channel, ValidateOutcome: func(raw []byte) bool {
+	spec := managed.Spec{Source: in.Source, Executable: a.config.Executable, ExecutableHash: NativeExecutableSHA256, Args: args, Root: in.Root, Workspace: in.Workspace, Timeout: in.Timeout, NativeSessionID: sid, Writable: in.Writable, WritePaths: append([]string(nil), in.WritePaths...), GrokChannel: channel, ValidateOutcome: func(raw []byte) bool {
 		if bytes.Contains(raw, []byte(secret)) {
 			return false
 		}
