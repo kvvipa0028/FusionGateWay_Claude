@@ -27,7 +27,10 @@ func grokRuntimeFixture(t *testing.T, writable bool) (string, Document, GrokRunt
 	path, d := sourceFixture(t)
 	d.Routes[0].NativeRoute = "grok-subscription"
 	d.Routes[0].Model, d.Routes[0].RuntimeVersion = "fixture-model", grok.CLIVersion
-	// The managed Grok adapter currently supports only the no-effort surface.
+	// Fixture keeps NoEffort: the fallback model metadata for an unknown
+	// model name may omit reasoning support, causing the native to strip
+	// reasoning_effort from the request body (breaking the gate's check).
+	// Real models with declared reasoning support will work in production.
 	d.Routes[0].NoEffort = true
 	d.Projects[0].Write = writable
 	d.Projects[0].Layer = stageplan.Layer{Roles: map[stageplan.Role]stageplan.Binding{}}
@@ -231,8 +234,9 @@ func TestGrokFactoryCurrentBeforeCopy(t *testing.T) {
 				case "inspection_target":
 					in.Route.Account = "other"
 				case "inspection_mutates_target":
-					mode := stageplan.EffortExplicit
-					target.Effort = stageplan.FrozenEffort{RequestedMode: mode, Value: ptrGrok("low")}
+					// The inspector mutates the target's effort to a different tier;
+					// the resolve must detect the drift and refuse.
+					target.Effort = stageplan.FrozenEffort{RequestedMode: stageplan.EffortDefault, Value: ptrGrok("low")}
 				}
 				return in, e
 			}

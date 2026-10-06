@@ -185,9 +185,7 @@ func (a *Adapter) start(ctx context.Context, inputRun store.StageRun, in managed
 	if e != nil || budget.MaxCalls <= budget.UsedCalls {
 		return nil, ErrUnverified
 	}
-	if r.Target.Effort.RequestedMode != stageplan.EffortNone || r.Target.Effort.Value != nil {
-		return nil, ErrUnsupported
-	}
+
 	var restored *restoredCheckpoint
 	var sid string
 	if resume != nil {
@@ -333,6 +331,7 @@ func (a *Adapter) start(ctx context.Context, inputRun store.StageRun, in managed
 		tools = "Read,Write,Edit"
 	}
 	args := []string{"--prompt-file", prompt, "--model", "fusion", "--output-format", "streaming-json", "--permission-mode", "dontAsk", "--no-subagents", "--max-turns", fmt.Sprint(turns), "--tools", tools, "--disallowed-tools", "search_tool,use_tool", "--disable-web-search", "--no-auto-update", "--cwd", binding.Observer.Cwd}
+
 	if restored != nil {
 		args = append(args, "--resume", sid)
 	} else {

@@ -152,8 +152,9 @@ func grokFactoryTarget(route stageplan.Route, target stageplan.ExecutionTarget) 
 	if target.Effort.Value != nil {
 		effort.Value = *target.Effort.Value
 	}
-	// The managed Grok adapter supports only the no-effort surface today; a
-	// declared tier must reconstruct exactly once effort support lands.
+	// The managed Grok adapter supports only the no-effort surface today;
+	// effort support requires real model metadata (the native strips
+	// reasoning_effort for unknown models without declared reasoning support).
 	if effort.Mode != stageplan.EffortNone || effort.Value != "" || !route.NoEffort {
 		return false
 	}
