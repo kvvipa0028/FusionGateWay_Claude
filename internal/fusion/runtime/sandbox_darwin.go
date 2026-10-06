@@ -237,6 +237,9 @@ func sandbox(spec Spec) (string, []string, error) {
 			}
 			env = append(env, codexStageEnv+"="+secret)
 		}
+		if c.seed != nil && c.seed.install(home, spec) != nil {
+			return "", nil, ErrLaunch
+		}
 		profile += codexPreferencesRules
 		env = append(env, "CODEX_HOME="+home, "CFFIXED_USER_HOME="+filepath.Join(spec.Root, "home"))
 	}

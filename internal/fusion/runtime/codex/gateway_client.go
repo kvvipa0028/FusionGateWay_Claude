@@ -13,8 +13,9 @@ const StageProvider = "fusion_codex_stage"
 // NewGateway selects the controller-owned stage transport, not a Native
 // ChatGPT login. Scope/Identity/admitted must come from trusted frozen registry
 // and managed execution wiring. A local null account never admits an upstream.
-// Only readonly, tool-free generation is currently characterized; restoring a
-// thread needs a separate checkpoint/identity proof and is refused here.
+// Gateway threads persist their rollout under the private CODEX_HOME so a
+// trusted checkpoint consumer can later resume them; adopting a prior thread
+// still requires the adapter's verified checkpoint binding plus ResumeThread.
 func NewGateway(p Peer, b Binding, scope func(Scope) bool, identity func() Identity, admitted func() bool) (*Client, error) {
 	if e := ValidateGatewayTarget(b.Target); e != nil {
 		return nil, e
@@ -24,6 +25,7 @@ func NewGateway(p Peer, b Binding, scope func(Scope) bool, identity func() Ident
 		return nil, e
 	}
 	c.gateway = true
+	c.persist = true
 	return c, nil
 }
 

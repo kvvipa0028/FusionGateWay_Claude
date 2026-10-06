@@ -32,6 +32,7 @@ type CodexChannel struct {
 	driver             func(context.Context, io.ReadWriteCloser) error
 	current            func() bool
 	active, closed     bool
+	seed               *codexSessionSeed
 }
 
 func (*CodexChannel) String() string               { return "private Codex bootstrap channel (redacted)" }

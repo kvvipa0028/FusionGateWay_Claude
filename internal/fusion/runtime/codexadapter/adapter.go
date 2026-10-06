@@ -8,6 +8,7 @@ import (
 	"crypto/rand"
 	"encoding/hex"
 	"encoding/json"
+	"errors"
 	"io"
 	"os"
 	"path/filepath"
@@ -42,10 +43,29 @@ type Outcome struct {
 	ThreadID  string `json:"thread_id"`
 	TurnID    string `json:"turn_id"`
 }
+
+// CheckpointRef is private controller state produced only by Checkpoint from
+// this Adapter's own succeeded, released run. The rollout bytes never become a
+// request DTO, public source of authority or log output; a distinct prepared
+// run of the same frozen target may consume it once via StartResumed.
+type CheckpointRef struct {
+	ThreadID         string
+	Cwd              string
+	Target           stageplan.ExecutionTarget
+	RuntimeVersion   string
+	ExecutableSHA256 string
+	Files            map[string][]byte
+}
+
+func (CheckpointRef) String() string               { return "Codex checkpoint reference (private)" }
+func (CheckpointRef) GoString() string             { return "codexadapter.CheckpointRef(<private>)" }
+func (CheckpointRef) MarshalJSON() ([]byte, error) { return nil, codex.ErrUnverified }
+
 type observation struct {
 	generation int64
 	outcome    Outcome
 	text       string
+	root, cwd  string
 }
 type Adapter struct {
 	config       AdapterConfig
@@ -163,6 +183,17 @@ func (a *Adapter) ValidateLaunch(ctx context.Context, role stageplan.Role, targe
 // Start repeats preflight after durable intent, then checks the reservation.
 // This version is readonly/tool-free; roles do not grant write authority.
 func (a *Adapter) Start(ctx context.Context, inputRun store.StageRun, in managed.Spec) (*managed.Handle, error) {
+	return a.start(ctx, inputRun, in, nil)
+}
+
+// StartResumed launches a distinct prepared run that continues the thread of a
+// prior verified checkpoint instead of starting a new one. The ref must match
+// this run's frozen target and cwd exactly and is spent by the launch.
+func (a *Adapter) StartResumed(ctx context.Context, inputRun store.StageRun, in managed.Spec, ref CheckpointRef) (*managed.Handle, error) {
+	return a.start(ctx, inputRun, in, &ref)
+}
+
+func (a *Adapter) start(ctx context.Context, inputRun store.StageRun, in managed.Spec, resume *CheckpointRef) (*managed.Handle, error) {
 	if a == nil {
 		return nil, codex.ErrUnverified
 	}
@@ -171,6 +202,9 @@ func (a *Adapter) Start(ctx context.Context, inputRun store.StageRun, in managed
 	inputRun.Target = cloneTarget(inputRun.Target)
 	if e := a.ValidateLaunch(ctx, inputRun.Role, inputRun.Target, in); e != nil {
 		return nil, e
+	}
+	if resume != nil && (resume.ThreadID == "" || len(resume.ThreadID) > 4096 || resume.Cwd == "" || !same(resume.Target, cloneTarget(inputRun.Target)) || resume.RuntimeVersion != codex.CLIVersion || resume.ExecutableSHA256 != managed.CodexExecutableSHA256 || len(resume.Files) == 0 || len(resume.Files) > 4) {
+		return nil, codex.ErrIdentity
 	}
 	rootInfo, e := os.Lstat(in.Root)
 	if e != nil {
@@ -209,6 +243,10 @@ func (a *Adapter) Start(ctx context.Context, inputRun store.StageRun, in managed
 		bindingCwd = in.Workspace
 	}
 	binding := codex.Binding{Scope: codex.Scope{RunID: r.ID, Generation: r.Generation, Role: r.Role}, Identity: a.config.Identity(cloneTarget(r.Target)), Target: cloneTarget(r.Target), Cwd: bindingCwd, CodexHome: filepath.Join(in.Root, "config", "codex")}
+	// The rollout embeds its original cwd; a resumed launch must keep it.
+	if resume != nil && resume.Cwd != bindingCwd {
+		return nil, codex.ErrIdentity
+	}
 	lifetime, cancel := context.WithTimeout(ctx, in.Timeout)
 	pathsCurrent := func() bool {
 		info, e := os.Lstat(in.Root)
@@ -263,7 +301,12 @@ func (a *Adapter) Start(ctx context.Context, inputRun store.StageRun, in managed
 			return e
 		}
 		out := Outcome{State: "execution_uncertain", SessionID: sid}
-		if out.ThreadID, e = client.StartThread(ctx); e != nil {
+		if resume != nil {
+			if e = client.ResumeThread(ctx, resume.ThreadID); e != nil {
+				return e
+			}
+			out.ThreadID = resume.ThreadID
+		} else if out.ThreadID, e = client.StartThread(ctx); e != nil {
 			return e
 		}
 		if out.TurnID, e = client.StartTurn(ctx, prompt); e != nil {
@@ -320,7 +363,12 @@ func (a *Adapter) Start(ctx context.Context, inputRun store.StageRun, in managed
 			}
 		}
 	}
-	channel, e := managed.NewCodexHTTPChannel(r, in.Root, in.Workspace, sid, driver, func() bool { return current(cloneBinding(binding)) }, gate, pending)
+	var channel *managed.CodexChannel
+	if resume != nil {
+		channel, e = managed.NewCodexResumeChannel(r, in.Root, in.Workspace, sid, driver, func() bool { return current(cloneBinding(binding)) }, gate, pending, resume.ThreadID, resume.Files)
+	} else {
+		channel, e = managed.NewCodexHTTPChannel(r, in.Root, in.Workspace, sid, driver, func() bool { return current(cloneBinding(binding)) }, gate, pending)
+	}
 	if e != nil {
 		pending.Cancel()
 		cancel()
@@ -344,7 +392,7 @@ func (a *Adapter) Start(ctx context.Context, inputRun store.StageRun, in managed
 		a.mu.Unlock()
 		return fail(codex.ErrUnverified)
 	}
-	a.observations[r.ID] = observation{generation: r.Generation, outcome: Outcome{State: "execution_uncertain"}}
+	a.observations[r.ID] = observation{generation: r.Generation, outcome: Outcome{State: "execution_uncertain"}, root: in.Root, cwd: bindingCwd}
 	a.mu.Unlock()
 	spec := managed.Spec{Source: in.Source, Executable: a.config.Executable, ExecutableHash: managed.CodexExecutableSHA256, Args: []string{"app-server", "--listen", "stdio://", "--strict-config"}, Root: in.Root, Workspace: in.Workspace, Timeout: in.Timeout, NativeSessionID: sid, Writable: in.Writable, WritePaths: append([]string(nil), in.WritePaths...), CodexChannel: channel, ValidateOutcome: func(raw []byte) bool {
 		if !safeOutput(raw, secret) || !current(cloneBinding(binding)) {
@@ -373,9 +421,58 @@ func (a *Adapter) Start(ctx context.Context, inputRun store.StageRun, in managed
 	return h, e
 }
 
+// Checkpoint captures the persisted thread rollout of one of this Adapter's
+// own runs. A successful Native end or files on disk is never sufficient: the
+// durable run must be succeeded, launch-confirmed and released with no
+// retained reservation, and exactly one rollout naming the thread must exist
+// in that run's private CODEX_HOME. The reference creates no new execution,
+// budget or upstream authority.
+func (a *Adapter) Checkpoint(ctx context.Context, runID string, generation int64) (CheckpointRef, error) {
+	if a == nil || ctx.Err() != nil {
+		return CheckpointRef{}, codex.ErrUnverified
+	}
+	a.mu.Lock()
+	v, ok := a.observations[runID]
+	a.mu.Unlock()
+	if !ok || v.generation != generation || v.root == "" || v.cwd == "" || v.outcome.State != "succeeded" || v.outcome.ThreadID == "" {
+		return CheckpointRef{}, codex.ErrIdentity
+	}
+	r, e := a.config.Scheduler.Store.Run(runID)
+	if e != nil || r.Generation != generation || r.State != "succeeded" || !r.LaunchConfirmed || r.Owner != "" || r.NativeSessionID != v.outcome.SessionID {
+		return CheckpointRef{}, codex.ErrIdentity
+	}
+	if _, e := a.config.Scheduler.Store.Reservation(runID); !errors.Is(e, store.ErrNotFound) {
+		return CheckpointRef{}, codex.ErrUnverified
+	}
+	task, e := a.config.Scheduler.Store.Task(r.TaskID)
+	if e != nil || task.State == "cancelled" || task.State == "cancelling" {
+		return CheckpointRef{}, codex.ErrIdentity
+	}
+	var found []string
+	sessions := filepath.Join(v.root, "config", "codex", "sessions")
+	if e := filepath.WalkDir(sessions, func(path string, entry os.DirEntry, err error) error {
+		if err != nil || entry.IsDir() || !strings.HasPrefix(entry.Name(), "rollout-") || !strings.HasSuffix(entry.Name(), ".jsonl") || !strings.Contains(entry.Name(), v.outcome.ThreadID) {
+			return nil
+		}
+		found = append(found, path)
+		return nil
+	}); e != nil || len(found) != 1 {
+		return CheckpointRef{}, codex.ErrUnverified
+	}
+	data, e := os.ReadFile(found[0])
+	if e != nil || len(data) == 0 || len(data) > 4<<20 || !utf8.Valid(data) || bytes.IndexByte(data, 0) >= 0 {
+		return CheckpointRef{}, codex.ErrUnverified
+	}
+	rel, e := filepath.Rel(filepath.Join(v.root, "config", "codex"), found[0])
+	if e != nil || strings.HasPrefix(rel, "..") {
+		return CheckpointRef{}, codex.ErrUnverified
+	}
+	return CheckpointRef{ThreadID: v.outcome.ThreadID, Cwd: v.cwd, Target: cloneTarget(r.Target), RuntimeVersion: codex.CLIVersion, ExecutableSHA256: managed.CodexExecutableSHA256, Files: map[string][]byte{rel: data}}, nil
+}
+
 // Supervisor captures native stdout even when the private driver owns it.
-// This scans for private material; protocol/terminal authority remains with
-// the typed driver and gate, never this JSON confidentiality projection.
+// This scans for private material; protocol/terminal authority remains with the
+// typed driver and gate, never this JSON confidentiality projection.
 func safeOutput(raw []byte, marker string) bool {
 	for _, line := range bytes.Split(bytes.TrimSpace(raw), []byte("\n")) {
 		if privateJSON(line, marker) {

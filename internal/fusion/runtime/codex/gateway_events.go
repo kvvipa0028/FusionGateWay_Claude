@@ -59,6 +59,7 @@ func (c *Client) gatewayEvent(raw []byte) (err error) {
 		"remoteControl/status/changed": {"installationId", "serverName", "status", "environmentId"},
 		"thread/started":               {"thread"},
 		"warning":                      {"message", "threadId"},
+		"deprecationNotice":            {"summary", "details"},
 		"account/rateLimits/updated":   {"rateLimits"},
 		"thread/status/changed":        {"threadId", "status"},
 		"turn/started":                 {"threadId", "turn"},
@@ -85,7 +86,9 @@ func (c *Client) gatewayEvent(raw []byte) (err error) {
 	}
 	if _, exists := params["turnId"]; exists {
 		id, valid := stringField(params, "turnId")
-		if !valid || id != c.turnID {
+		// A resumed thread may report usage against a prior turn before the
+		// new turn starts; those ids were captured from the resume response.
+		if !valid || id != c.turnID && !c.historicalTurns[id] {
 			return ErrIdentity
 		}
 	}
@@ -115,6 +118,18 @@ func (c *Client) gatewayEvent(raw []byte) (err error) {
 	case "warning":
 		if _, ok := stringField(params, "message"); !ok {
 			return ErrProtocol
+		}
+	case "deprecationNotice":
+		// Emitted when resuming a persisted thread hydrates full history. The
+		// notice is advisory only; it confers no execution authority.
+		summary, ok := stringField(params, "summary")
+		if !ok || len(summary) > 4096 {
+			return ErrProtocol
+		}
+		if x, exists := params["details"]; exists && !isNull(x) {
+			if s, valid := stringField(params, "details"); !valid || len(s) > 4096 {
+				return ErrProtocol
+			}
 		}
 	case "account/rateLimits/updated":
 		var v map[string]json.RawMessage

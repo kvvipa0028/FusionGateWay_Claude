@@ -9,6 +9,7 @@ import (
 	"errors"
 	"io"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"sync"
 	"unicode"
@@ -58,9 +59,10 @@ type Client struct {
 	currentIdentity              func() Identity
 	generationAdmitted           func() bool
 	initialized, accountVerified bool
-	gateway                      bool
+	gateway, persist             bool
 	gatewayStarted, gatewayFatal bool
 	gatewayItems                 map[string]gatewayItem
+	historicalTurns              map[string]bool
 	nextID                       uint64
 	threadID, turnID, state      string
 }
@@ -193,7 +195,9 @@ func (c *Client) threadParams(id string) map[string]any {
 	}
 	if id != "" {
 		p["threadId"] = id
-	} else {
+	} else if !c.persist {
+		// Persisted (non-ephemeral) threads write their rollout under the
+		// private CODEX_HOME so a later verified checkpoint can resume them.
 		p["ephemeral"] = true
 	}
 	return p
@@ -213,6 +217,9 @@ func (c *Client) thread(ctx context.Context, id string) (string, error) {
 		Thread struct {
 			ID         string `json:"id"`
 			CLIVersion string `json:"cliVersion"`
+			Turns      []struct {
+				ID string `json:"id"`
+			} `json:"turns"`
 		} `json:"thread"`
 		Model           string  `json:"model"`
 		ModelProvider   string  `json:"modelProvider"`
@@ -257,6 +264,24 @@ func (c *Client) thread(ctx context.Context, id string) (string, error) {
 			return "", ErrProtocol
 		}
 	}
+	// A resumed thread arrives with its prior turns. Record their IDs so
+	// post-resume usage notifications carrying a historical turnId remain
+	// attributable to this same thread instead of an identity failure.
+	if id != "" {
+		if len(out.Thread.Turns) > 128 {
+			return "", ErrProtocol
+		}
+		turns := make(map[string]bool, len(out.Thread.Turns))
+		for _, turn := range out.Thread.Turns {
+			if turn.ID == "" || len(turn.ID) > 4096 || turns[turn.ID] {
+				return "", ErrProtocol
+			}
+			turns[turn.ID] = true
+		}
+		c.historicalTurns = turns
+	} else {
+		c.historicalTurns = nil
+	}
 	c.threadID = out.Thread.ID
 	c.turnID = ""
 	c.state = "ready"
@@ -269,6 +294,22 @@ func (c *Client) StartThread(ctx context.Context) (string, error) {
 		return "", ErrProtocol
 	}
 	return c.thread(ctx, "")
+}
+
+var resumeThreadID = regexp.MustCompile(`^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$`)
+
+// ResumeThread adopts a thread persisted by a prior run of this same frozen
+// target. Rolling the rollout file into this launch's private CODEX_HOME and
+// binding the id to a verified prior run are trusted controller duties; the
+// native must still echo the exact id and the frozen thread contract.
+func (c *Client) ResumeThread(ctx context.Context, id string) error {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	if !c.gateway || c.threadID != "" || c.state != "initialized" || !resumeThreadID.MatchString(id) {
+		return ErrProtocol
+	}
+	_, e := c.thread(ctx, id)
+	return e
 }
 func (c *Client) Resume(ctx context.Context, id string) error {
 	c.mu.Lock()
