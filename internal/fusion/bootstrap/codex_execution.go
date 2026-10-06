@@ -150,11 +150,21 @@ func newCodexRuntimeFactory(c CodexRuntimeConfig, buildForwarder func(*codex.Fil
 		if err != nil {
 			return fail()
 		}
-		backend := watchStageExecution(control.BindAdapter(adapter), current)
+		// Checkpoint archives live in a controller-owned persistent directory
+		// under the execution root; the seal key never enters any launch root.
+		archivesDir := filepath.Join(c.ExecutionRoot, "codex-checkpoints")
+		if err := os.Mkdir(archivesDir, 0700); err != nil && !os.IsExist(err) {
+			return fail()
+		}
+		archives, err := codexadapter.NewArchives(archivesDir)
+		if err != nil {
+			return fail()
+		}
+		backend := watchStageExecution(control.BindCodexCheckpoint(adapter, archives), current)
 		return stageExecutionRegistration(ctx, e, p, route, stageExecutionConfig{ProjectID: c.ProjectID, ExecutionRoot: c.ExecutionRoot, TestingWritePaths: c.TestingWritePaths, Verification: c.Verification, Timeout: c.Timeout}, current, func() bool { return ctx.Err() == nil && !closed.Load() && e.Current(c.ProjectID) }, inspect, backend, adapter.VerifyStop, func(id string, generation int64) (stageObservation, string, error) {
 			out, text, err := adapter.Observation(id, generation)
 			return stageObservation{State: out.State, SessionID: out.SessionID}, text, err
-		}, func(context.Context) error { closed.Store(true); return nil }), nil
+		}, func(context.Context) error { closed.Store(true); return archives.Close() }), nil
 	}, nil
 }
 

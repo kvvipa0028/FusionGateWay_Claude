@@ -39,7 +39,7 @@ func TestControllerPinnedCodexNativeLifecycle(t *testing.T) {
 	if *nativeCodexControlCLI == "" {
 		t.Skip("explicit pinned Codex Controller only")
 	}
-	for _, mode := range []string{"success", "rate_limit", "unsafe503", "disconnect", "pause", "task_cancel", "stage_cancel", "close", "source_drift", "identity_drift", "activation_refused"} {
+	for _, mode := range []string{"success", "restore", "rate_limit", "unsafe503", "disconnect", "pause", "task_cancel", "stage_cancel", "close", "source_drift", "identity_drift", "activation_refused"} {
 		t.Run(mode, func(t *testing.T) { controllerCodexNative(t, mode) })
 	}
 }
@@ -59,13 +59,15 @@ func controllerCodexNative(t *testing.T, mode string) {
 	}
 	copyFile := filepath.Join(f.launch.Spec.Workspace, "source.txt")
 	f.launch.Spec.Timeout = 15 * time.Second
-	f.launch.Spec.Input = []byte("Reply fixture. Do not use tools.")
+	f.launch.Spec.Input = []byte("Remember the codeword KUMQUAT-7. Reply fixture. Do not use tools.")
 	manager := policy.NewManager("fixture-management", policy.StoreValidator(f.st), nil)
 	grantManager := manager
 	if mode == "activation_refused" {
 		grantManager = policy.NewManager("fixture-management", func(policy.Claims) bool { return false }, nil)
 	}
 	var calls atomic.Int64
+	var secondBodyMu sync.Mutex
+	var secondBody string
 	var epoch atomic.Int64
 	epoch.Store(1)
 	entered, ended, release := make(chan struct{}), make(chan struct{}), make(chan struct{})
@@ -73,9 +75,15 @@ func controllerCodexNative(t *testing.T, mode string) {
 	blocked := mode == "disconnect" || mode == "pause" || mode == "task_cancel" || mode == "stage_cancel" || mode == "close"
 	adapter, e := codexadapter.NewAdapter(codexadapter.AdapterConfig{Scheduler: f.config.Scheduler, Manager: grantManager, Executable: exe, Identity: func(target stageplan.ExecutionTarget) codex.Identity {
 		return codex.Identity{Account: target.Account, Workspace: target.Workspace, CredentialIdentity: target.CredentialIdentity, Generation: epoch.Load()}
-	}, Current: func(codex.Binding) bool { return true }, Forwarder: controlCodexForwarder(func(ctx context.Context, target stageplan.ExecutionTarget, _ []byte) (codex.ForwardResponse, error) {
-		if calls.Add(1) != 1 {
+	}, Current: func(codex.Binding) bool { return true }, Forwarder: controlCodexForwarder(func(ctx context.Context, target stageplan.ExecutionTarget, raw []byte) (codex.ForwardResponse, error) {
+		n := calls.Add(1)
+		if n > 2 {
 			t.Error("receipt or SDK repeated upstream send")
+		}
+		if n == 2 {
+			secondBodyMu.Lock()
+			secondBody = string(raw)
+			secondBodyMu.Unlock()
 		}
 		if target.RequestedModel != route.Model || target.ResolvedModel != route.Model || target.Account != route.Account || target.CredentialIdentity != route.CredentialIdentity || target.Effort.Value == nil || *target.Effort.Value != effort {
 			t.Error("frozen target changed")
@@ -109,7 +117,17 @@ func controllerCodexNative(t *testing.T, mode string) {
 	if e != nil {
 		t.Fatal(e)
 	}
-	f.launch.Backend = BindAdapter(adapter)
+	var archives *codexadapter.Archives
+	if mode == "restore" {
+		archives, e = codexadapter.NewArchives(fixturePrivate(t))
+		if e != nil {
+			t.Fatal(e)
+		}
+		defer archives.Close()
+		f.launch.Backend = BindCodexCheckpoint(adapter, archives)
+	} else {
+		f.launch.Backend = BindAdapter(adapter)
+	}
 	if f.launch.Backend.ValidateLaunch == nil {
 		t.Fatal("Codex preflight hook absent")
 	}
@@ -261,6 +279,58 @@ func controllerCodexNative(t *testing.T, mode string) {
 		if e != nil || !bytes.Equal(after, original) {
 			t.Fatal("original source changed")
 		}
+	}
+	if mode == "restore" {
+		checkpointTask, e := f.st.Task(f.in.TaskID)
+		if e != nil {
+			t.Fatal(e)
+		}
+		ref, e := c.Checkpoint(ctx, f.in.TaskID, first.Run.ID, controlVersion(checkpointTask))
+		if e != nil {
+			t.Fatal("owned Controller checkpoint failed", e)
+		}
+		again, e := c.Checkpoint(ctx, f.in.TaskID, first.Run.ID, controlVersion(checkpointTask))
+		if e != nil || again != ref || calls.Load() != wantCalls {
+			t.Fatal("checkpoint recreated execution or changed ref", e)
+		}
+		task, e := f.st.Task(f.in.TaskID)
+		if e != nil {
+			t.Fatal(e)
+		}
+		in := f.in
+		in.Generation = task.Generation
+		in.Restore = &store.RestoreIdentity{OriginRunID: first.Run.ID, CheckpointID: ref.ID, CheckpointDigest: ref.Digest}
+		f.launch.Spec.Root = fixturePrivate(t)
+		f.launch.Spec.Input = []byte("Reply with only the codeword I gave you earlier. Do not use tools.")
+		f.launch.Backend = BindCodexCheckpoint(adapter, archives)
+		got, e := c.Restore(ctx, "fixture-codex-control-resume", in)
+		if e != nil || !got.Created {
+			t.Fatal("native restore failed", e)
+		}
+		restored, e := c.Wait(ctx, got.Run.ID)
+		if e != nil || !restored.StoppedVerified || !restored.Released || restored.State != "succeeded" {
+			t.Fatal("restore stop/release failed", e)
+		}
+		secondBodyMu.Lock()
+		history := strings.Contains(secondBody, "KUMQUAT-7")
+		secondBodyMu.Unlock()
+		b, e := f.st.Budget(f.in.TaskID)
+		if e != nil || int64(b.UsedCalls) != wantCalls+1 || calls.Load() != wantCalls+1 || !history {
+			t.Fatal("restore accounting/history wrong", e, b.UsedCalls, calls.Load(), history)
+		}
+		oldRun, _ := f.st.Run(first.Run.ID)
+		newRun, _ := f.st.Run(got.Run.ID)
+		if newRun.ID == oldRun.ID || newRun.Generation < oldRun.Generation {
+			t.Fatal("wrong restore run identity")
+		}
+		if _, e := f.st.Reservation(got.Run.ID); !errors.Is(e, store.ErrNotFound) {
+			t.Fatal("restore capacity held after real stop")
+		}
+		retry, e := c.Restore(ctx, "fixture-codex-control-resume", in)
+		if e != nil || retry.Created || retry.Run.ID != got.Run.ID || calls.Load() != wantCalls+1 {
+			t.Fatal("restore receipt replayed", e)
+		}
+		t.Logf("actual Controller sealed checkpoint/restore: historyCarried=true HTTP2 budget2 sealedRef opaque; upstream/quota synthetic")
 	}
 	encoded, _ := json.Marshal(done)
 	if bytes.Contains(encoded, []byte(f.launch.Spec.Root)) || bytes.Contains(encoded, []byte("fixture-management")) {

@@ -44,11 +44,10 @@ type Outcome struct {
 	TurnID    string `json:"turn_id"`
 }
 
-// CheckpointRef is private controller state produced only by Checkpoint from
-// this Adapter's own succeeded, released run. The rollout bytes never become a
-// request DTO, public source of authority or log output; a distinct prepared
-// run of the same frozen target may consume it once via StartResumed.
-type CheckpointRef struct {
+// checkpointSeed is private controller state consumed exactly once by a
+// resumed launch. The rollout bytes never become a request DTO, public source
+// of authority or log output.
+type checkpointSeed struct {
 	ThreadID         string
 	Cwd              string
 	Target           stageplan.ExecutionTarget
@@ -57,15 +56,18 @@ type CheckpointRef struct {
 	Files            map[string][]byte
 }
 
-func (CheckpointRef) String() string               { return "Codex checkpoint reference (private)" }
-func (CheckpointRef) GoString() string             { return "codexadapter.CheckpointRef(<private>)" }
-func (CheckpointRef) MarshalJSON() ([]byte, error) { return nil, codex.ErrUnverified }
+func (checkpointSeed) String() string               { return "Codex checkpoint seed (private)" }
+func (checkpointSeed) GoString() string             { return "codexadapter.checkpointSeed(<private>)" }
+func (checkpointSeed) MarshalJSON() ([]byte, error) { return nil, codex.ErrUnverified }
 
 type observation struct {
 	generation int64
 	outcome    Outcome
 	text       string
 	root, cwd  string
+	marker     string
+	projectID  string
+	owner      string
 }
 type Adapter struct {
 	config       AdapterConfig
@@ -186,14 +188,29 @@ func (a *Adapter) Start(ctx context.Context, inputRun store.StageRun, in managed
 	return a.start(ctx, inputRun, in, nil)
 }
 
-// StartResumed launches a distinct prepared run that continues the thread of a
-// prior verified checkpoint instead of starting a new one. The ref must match
-// this run's frozen target and cwd exactly and is spent by the launch.
-func (a *Adapter) StartResumed(ctx context.Context, inputRun store.StageRun, in managed.Spec, ref CheckpointRef) (*managed.Handle, error) {
-	return a.start(ctx, inputRun, in, &ref)
+// ResumeCheckpoint launches a distinct prepared run that continues the thread
+// of a prior sealed checkpoint instead of starting a new one. The archive must
+// bind this run's frozen task/role/plan and later generation, and the sealed
+// workspace must equal the launch cwd.
+func (a *Adapter) ResumeCheckpoint(ctx context.Context, inputRun store.StageRun, in managed.Spec, archives *Archives, ref CheckpointRef) (*managed.Handle, error) {
+	if a == nil || archives == nil || ctx.Err() != nil {
+		return nil, codex.ErrUnverified
+	}
+	m, files, e := archives.open(ref)
+	if e != nil {
+		return nil, e
+	}
+	// The resumed run must be a strictly later attempt of the same frozen
+	// stage: same task/role/plan and identical target, never the origin run.
+	later := inputRun.Generation > m.Run.Generation || inputRun.Generation == m.Run.Generation && inputRun.Attempt > m.Run.Attempt
+	if m.Run.TaskID != inputRun.TaskID || m.Run.Role != inputRun.Role || m.Run.PlanRevision != inputRun.PlanRevision || m.Run.ID == inputRun.ID || !later || !same(m.Run.Target, cloneTarget(inputRun.Target)) {
+		return nil, codex.ErrIdentity
+	}
+	seed := checkpointSeed{ThreadID: m.ThreadID, Cwd: m.Workspace, Target: cloneTarget(m.Run.Target), RuntimeVersion: m.RuntimeVersion, ExecutableSHA256: m.ExecutableHash, Files: files}
+	return a.start(ctx, inputRun, in, &seed)
 }
 
-func (a *Adapter) start(ctx context.Context, inputRun store.StageRun, in managed.Spec, resume *CheckpointRef) (*managed.Handle, error) {
+func (a *Adapter) start(ctx context.Context, inputRun store.StageRun, in managed.Spec, resume *checkpointSeed) (*managed.Handle, error) {
 	if a == nil {
 		return nil, codex.ErrUnverified
 	}
@@ -392,7 +409,7 @@ func (a *Adapter) start(ctx context.Context, inputRun store.StageRun, in managed
 		a.mu.Unlock()
 		return fail(codex.ErrUnverified)
 	}
-	a.observations[r.ID] = observation{generation: r.Generation, outcome: Outcome{State: "execution_uncertain"}, root: in.Root, cwd: bindingCwd}
+	a.observations[r.ID] = observation{generation: r.Generation, outcome: Outcome{State: "execution_uncertain"}, root: in.Root, cwd: bindingCwd, marker: secret, projectID: task.ProjectID, owner: r.Owner}
 	a.mu.Unlock()
 	spec := managed.Spec{Source: in.Source, Executable: a.config.Executable, ExecutableHash: managed.CodexExecutableSHA256, Args: []string{"app-server", "--listen", "stdio://", "--strict-config"}, Root: in.Root, Workspace: in.Workspace, Timeout: in.Timeout, NativeSessionID: sid, Writable: in.Writable, WritePaths: append([]string(nil), in.WritePaths...), CodexChannel: channel, ValidateOutcome: func(raw []byte) bool {
 		if !safeOutput(raw, secret) || !current(cloneBinding(binding)) {
@@ -421,20 +438,21 @@ func (a *Adapter) start(ctx context.Context, inputRun store.StageRun, in managed
 	return h, e
 }
 
-// Checkpoint captures the persisted thread rollout of one of this Adapter's
-// own runs. A successful Native end or files on disk is never sufficient: the
-// durable run must be succeeded, launch-confirmed and released with no
-// retained reservation, and exactly one rollout naming the thread must exist
-// in that run's private CODEX_HOME. The reference creates no new execution,
+// Checkpoint seals the persisted thread rollout of one of this Adapter's own
+// runs into the trusted archives. A successful Native end or files on disk is
+// never sufficient: the durable run must be succeeded, launch-confirmed and
+// released with no retained reservation, exactly one rollout naming the thread
+// must exist in that run's private CODEX_HOME, and the rollout bytes must not
+// reflect the run's stage secret. The reference creates no new execution,
 // budget or upstream authority.
-func (a *Adapter) Checkpoint(ctx context.Context, runID string, generation int64) (CheckpointRef, error) {
-	if a == nil || ctx.Err() != nil {
+func (a *Adapter) Checkpoint(ctx context.Context, runID string, generation int64, archives *Archives) (CheckpointRef, error) {
+	if a == nil || archives == nil || ctx.Err() != nil {
 		return CheckpointRef{}, codex.ErrUnverified
 	}
 	a.mu.Lock()
 	v, ok := a.observations[runID]
 	a.mu.Unlock()
-	if !ok || v.generation != generation || v.root == "" || v.cwd == "" || v.outcome.State != "succeeded" || v.outcome.ThreadID == "" {
+	if !ok || v.generation != generation || v.root == "" || v.cwd == "" || v.outcome.State != "succeeded" || v.outcome.ThreadID == "" || v.marker == "" || v.projectID == "" || v.owner == "" {
 		return CheckpointRef{}, codex.ErrIdentity
 	}
 	r, e := a.config.Scheduler.Store.Run(runID)
@@ -445,7 +463,7 @@ func (a *Adapter) Checkpoint(ctx context.Context, runID string, generation int64
 		return CheckpointRef{}, codex.ErrUnverified
 	}
 	task, e := a.config.Scheduler.Store.Task(r.TaskID)
-	if e != nil || task.State == "cancelled" || task.State == "cancelling" {
+	if e != nil || task.ProjectID != v.projectID || task.State == "cancelled" || task.State == "cancelling" {
 		return CheckpointRef{}, codex.ErrIdentity
 	}
 	var found []string
@@ -467,7 +485,10 @@ func (a *Adapter) Checkpoint(ctx context.Context, runID string, generation int64
 	if e != nil || strings.HasPrefix(rel, "..") {
 		return CheckpointRef{}, codex.ErrUnverified
 	}
-	return CheckpointRef{ThreadID: v.outcome.ThreadID, Cwd: v.cwd, Target: cloneTarget(r.Target), RuntimeVersion: codex.CLIVersion, ExecutableSHA256: managed.CodexExecutableSHA256, Files: map[string][]byte{rel: data}}, nil
+	record := checkpointRecord{run: r, projectID: v.projectID, threadID: v.outcome.ThreadID, cwd: v.cwd, owner: v.owner, marker: []byte(v.marker), files: map[string][]byte{rel: data}}
+	// capture is idempotent for the same stopped run: the sealed bytes and
+	// derived id repeat, so a repeated checkpoint returns the same reference.
+	return archives.capture(ctx, record)
 }
 
 // Supervisor captures native stdout even when the private driver owns it.

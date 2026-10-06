@@ -20,14 +20,15 @@ import (
 )
 
 // Actual pinned 0.160.0 end-to-end checkpoint/resume through the production
-// adapter: run A succeeds and persists its thread rollout, Checkpoint captures
-// it only after verified stop and release, and a distinct prepared run B
-// resumes the exact thread so its upstream request carries the prior history.
+// adapter and sealed archives: run A succeeds and persists its thread rollout,
+// Checkpoint seals it only after verified stop and release, and a distinct
+// prepared run B resumes the exact thread so its upstream request carries the
+// prior history.
 func TestCodexAdapterPinnedResume(t *testing.T) {
 	if *nativeCLI == "" {
 		t.Skip("explicit pinned private Codex Adapter only")
 	}
-	for _, mode := range []string{"resume", "target_drift", "cwd_drift"} {
+	for _, mode := range []string{"resume", "digest_drift", "cwd_drift", "reopen", "foreign_archive"} {
 		t.Run(mode, func(t *testing.T) {
 			c, r, in, calls, _, _ := adapterFixture(t)
 			exe, e := filepath.EvalSymlinks(*nativeCLI)
@@ -48,6 +49,11 @@ func TestCodexAdapterPinnedResume(t *testing.T) {
 			if e != nil {
 				t.Fatal(e)
 			}
+			archives, e := NewArchives(privateDir(t))
+			if e != nil {
+				t.Fatal(e)
+			}
+			defer archives.Close()
 			ctx, cancel := context.WithTimeout(context.Background(), 40*time.Second)
 			defer cancel()
 			specA := in
@@ -64,28 +70,57 @@ func TestCodexAdapterPinnedResume(t *testing.T) {
 			if e = a.Release(resultA.Proof); e != nil {
 				t.Fatal(e)
 			}
-			ref, e := a.Checkpoint(ctx, r.ID, r.Generation)
-			if e != nil || ref.ThreadID == "" || len(ref.Files) != 1 || ref.Cwd == "" {
-				t.Fatal("checkpoint refused or incomplete", e)
+			ref, e := a.Checkpoint(ctx, r.ID, r.Generation, archives)
+			if e != nil || !validRefShape(ref) {
+				t.Fatal("checkpoint refused or malformed", e)
 			}
 			if _, e := a.config.Scheduler.Store.Reservation(r.ID); !errors.Is(e, store.ErrNotFound) {
 				t.Fatal("checkpoint run retained reservation")
+			}
+			// The sealed archive is verifiable after a full reopen.
+			if mode == "reopen" {
+				path := archives.path
+				if e := archives.Close(); e != nil {
+					t.Fatal(e)
+				}
+				archives, e = NewArchives(path)
+				if e != nil {
+					t.Fatal(e)
+				}
+				defer archives.Close()
+			}
+			// A second capture of the same stopped run is idempotent.
+			again, e := a.Checkpoint(ctx, r.ID, r.Generation, archives)
+			if e != nil || again != ref {
+				t.Fatal("idempotent recapture failed", e)
+			}
+			consume := archives
+			if mode == "foreign_archive" {
+				// The seal is meaningless under a different archive key.
+				foreign, e := NewArchives(privateDir(t))
+				if e != nil {
+					t.Fatal(e)
+				}
+				defer foreign.Close()
+				if _, e := foreign.Info(ref); e == nil {
+					t.Fatal("foreign archive verified another key's seal")
+				}
+				consume = foreign
 			}
 			next, e := a.config.Scheduler.Prepare(ctx, store.StartRequest{TaskID: r.TaskID, Role: r.Role, PlanRevision: r.PlanRevision, Owner: "fixture-resume-owner", TTL: time.Minute, Target: r.Target})
 			if e != nil {
 				t.Fatal(e)
 			}
 			specB := managed.Spec{Source: in.Source, Root: privateDir(t), Workspace: in.Workspace, Timeout: 20 * time.Second, Input: []byte("Reply with only the codeword I gave you earlier. Do not use tools.")}
-			if mode == "target_drift" {
-				drifted := ref
-				drifted.Target.Account = "fixture-other-account"
-				ref = drifted
-			}
-			if mode == "cwd_drift" {
+			drifted := ref
+			switch mode {
+			case "digest_drift":
+				drifted.Digest = strings.Repeat("f", 64)
+			case "cwd_drift":
 				specB.Workspace = privateDir(t)
 			}
-			hB, e := a.StartResumed(ctx, next, specB, ref)
-			if mode != "resume" {
+			hB, e := a.ResumeCheckpoint(ctx, next, specB, consume, drifted)
+			if mode != "resume" && mode != "reopen" {
 				if hB != nil || e == nil {
 					hB.Cancel()
 					t.Fatal("drifted resume launched")
@@ -100,7 +135,7 @@ func TestCodexAdapterPinnedResume(t *testing.T) {
 				if _, e := os.Stat(filepath.Join(specB.Root, "launch.json")); !os.IsNotExist(e) {
 					t.Fatal("refused resume published launch intent")
 				}
-				t.Logf("mode=%s originalHTTP=1 resumedHTTP=0 nativeLaunches=1 checkpointCapture=1 refusal=prelaunch", mode)
+				t.Logf("mode=%s originalHTTP=1 resumedHTTP=0 nativeLaunches=1 sealedCapture=1 refusal=prelaunch", mode)
 				return
 			}
 			if e != nil || hB == nil {
@@ -115,8 +150,8 @@ func TestCodexAdapterPinnedResume(t *testing.T) {
 				t.Fatal(e)
 			}
 			outB, textB, e := a.Observation(next.ID, next.Generation)
-			if e != nil || outB.State != "succeeded" || textB != "fixture" || outB.ThreadID != ref.ThreadID {
-				t.Fatal("resumed observation wrong", e, outB.State, outB.ThreadID, ref.ThreadID)
+			if e != nil || outB.State != "succeeded" || textB != "fixture" || outB.ThreadID == "" {
+				t.Fatal("resumed observation wrong", e, outB.State)
 			}
 			mu.Lock()
 			count := len(bodies)
@@ -132,7 +167,16 @@ func TestCodexAdapterPinnedResume(t *testing.T) {
 			if budget.UsedCalls != 2 || calls.Load() != 2 {
 				t.Fatal("resumed budget accounting wrong", budget.UsedCalls, calls.Load())
 			}
-			t.Logf("mode=%s originalHTTP=1 resumedHTTP=1 historyCarried=true nativeLaunches=2 budget=2 checkpointRef=private", mode)
+			t.Logf("mode=%s originalHTTP=1 resumedHTTP=1 historyCarried=true nativeLaunches=2 budget=2 sealedRef=opaque reopen=%v", mode, mode == "reopen")
 		})
 	}
+}
+
+func validRefShape(ref CheckpointRef) bool {
+	for _, v := range []string{ref.ID, ref.Digest} {
+		if len(v) != 64 || strings.Trim(v, "0123456789abcdef") != "" {
+			return false
+		}
+	}
+	return true
 }
