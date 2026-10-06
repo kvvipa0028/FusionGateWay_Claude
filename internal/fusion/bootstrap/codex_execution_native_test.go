@@ -34,18 +34,18 @@ func TestCodexFactoryPinnedNativeProductLifecycle(t *testing.T) {
 	for _, mode := range []string{"success", "implementation", "cancel", "registry_revocation", "credential_rotation", "epoch_drift", "source_revocation", "writer_launch"} {
 		t.Run(mode, func(t *testing.T) {
 			if mode == "implementation" {
-				// Root cause confirmed twice by the replayed tool output: the
-				// native spawns exec commands inside its own
-				// /usr/bin/sandbox-exec -p wrapper, and applying that inner
-				// profile inside our outer Seatbelt is refused by the kernel
-				// (sandbox_apply: Operation not permitted, exit 71) — the
-				// macOS single-profile rule. The official apply_patch itself
-				// writes fine under the full outer profile (verified), and
-				// danger-full-access is rejected by the thread parameters.
-				// The sanctioned fix is the official seatbelt-daemon route
-				// (delegate the inner apply outside the outer sandbox), which
-				// is the next recorded component.
-				t.Skip("pinned-Native writer pending seatbelt-daemon delegation")
+				// The outer profile is fully exonerated live: an apply_patch
+				// driven under the exact production outer profile inside the
+				// running test writes the workspace successfully. The native
+				// wraps every exec child in its own sandbox-exec, and macOS
+				// refuses the nested sandbox_apply whenever the parent profile
+				// contains (deny default) — exhaustively bisected: with
+				// (allow default) as the base every production allow line
+				// nests fine; with (deny default) every combination fails.
+				// Only a delegation architecture (apply outside the outer
+				// sandbox) can carry both layers; recorded as the next
+				// component per the user's chosen route.
+				t.Skip("pinned-Native writer needs sandbox delegation (kernel nesting rule)")
 			}
 			path, d, c, _, epoch := codexFactoryFixture(t, mode == "writer_launch")
 			exe, err := filepath.EvalSymlinks(*hostNativeCodex)
@@ -90,6 +90,7 @@ func TestCodexFactoryPinnedNativeProductLifecycle(t *testing.T) {
 					endOnce.Do(func() { close(ended) })
 					return codex.ForwardResponse{}, ctx.Err()
 				}
+
 				if mode == "implementation" && !strings.Contains(string(raw), "call_fixture") {
 					return codex.ForwardResponse{StatusCode: 200, ContentType: "text/event-stream", ReportedModel: target.ResolvedModel, Body: io.NopCloser(strings.NewReader(hostCodexApplyPatchSSE(target.ResolvedModel)))}, nil
 				}

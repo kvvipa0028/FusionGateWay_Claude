@@ -34,7 +34,7 @@ func TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority(t *testing.T) {
 		t.Fatal("caller mutated frozen target")
 	}
 	r = codexChannelRun()
-	for _, mode := range []string{"run", "generation", "owner", "role", "task", "plan", "attempt", "target", "root", "cwd", "hash", "args", "input", "fixture", "write", "session", "claude", "grok"} {
+	for _, mode := range []string{"run", "generation", "owner", "role", "task", "plan", "attempt", "target", "root", "cwd", "hash", "args", "input", "fixture", "write-escape", "session", "claude", "grok"} {
 		t.Run(mode, func(t *testing.T) {
 			bad, launch := r, spec
 			switch mode {
@@ -66,8 +66,10 @@ func TestCodexChannelFrozenScopeAndNoCallerLaunchAuthority(t *testing.T) {
 				launch.Input = []byte("caller input")
 			case "fixture":
 				launch.FixtureEnvironment = map[string]string{"FUSION_WORKER_FIXTURE": "ok"}
-			case "write":
+			case "write-escape":
+				// Writable with a valid scope is now admitted; escape stays refused.
 				launch.Writable = true
+				launch.WritePaths = []string{"../escape"}
 			case "session":
 				launch.NativeSessionID += "other"
 			case "claude":

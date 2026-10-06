@@ -39,7 +39,7 @@ func TestCodexSandboxExactPreferencesAndPrivateEnvironment(t *testing.T) {
 	if info, e := os.Stat(vars["CODEX_HOME"]); e != nil || info.Mode().Perm() != 0700 {
 		t.Fatal("home not private")
 	}
-	for _, mode := range []string{"empty", "argv", "fixture", "other_channel", "write"} {
+	for _, mode := range []string{"empty", "argv", "fixture", "other_channel", "write-escape"} {
 		t.Run(mode, func(t *testing.T) {
 			s := spec
 			s.Root, s.Workspace = pdir(t), pdir(t)
@@ -53,8 +53,10 @@ func TestCodexSandboxExactPreferencesAndPrivateEnvironment(t *testing.T) {
 				s.FixtureEnvironment = map[string]string{"FUSION_WORKER_FIXTURE": "ok"}
 			case "other_channel":
 				s.GrokChannel = &GrokChannel{}
-			case "write":
+			case "write-escape":
+				// Bounded writers are legal; only an escaping write scope is refused.
 				s.Writable = true
+				s.WritePaths = []string{"../escape"}
 			}
 			if _, _, e := sandbox(s); e == nil {
 				t.Fatal("caller authority accepted")

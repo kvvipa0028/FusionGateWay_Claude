@@ -55,7 +55,10 @@ func privateCodexPaths(root, cwd string) bool {
 }
 
 func (c *CodexChannel) launchValid(s Spec) bool {
-	return c != nil && c.driver != nil && c.current != nil && s.CodexChannel == c && s.Root == c.root && s.Workspace == c.cwd && s.NativeSessionID == c.session && s.ExecutableHash == CodexExecutableSHA256 && slices.Equal(s.Args, []string{"app-server", "--listen", "stdio://", "--strict-config"}) && !s.Writable && len(s.Input) == 0 && len(s.FixtureEnvironment) == 0 && s.ClaudeChannel == nil && s.GrokChannel == nil
+	// Writer launches are admitted when the write scope is valid: the outer
+	// supervisor profile bounds the writable subtree, and the run's own role
+	// and reservation already agreed on the write key.
+	return c != nil && c.driver != nil && c.current != nil && s.CodexChannel == c && s.Root == c.root && s.Workspace == c.cwd && s.NativeSessionID == c.session && s.ExecutableHash == CodexExecutableSHA256 && slices.Equal(s.Args, []string{"app-server", "--listen", "stdio://", "--strict-config"}) && s.ValidWriteScope() && len(s.Input) == 0 && len(s.FixtureEnvironment) == 0 && s.ClaudeChannel == nil && s.GrokChannel == nil
 }
 func (c *CodexChannel) valid(r store.StageRun, s Spec) bool {
 	if !c.launchValid(s) || !c.current() {
