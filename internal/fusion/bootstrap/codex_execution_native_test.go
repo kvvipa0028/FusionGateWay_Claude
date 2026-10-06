@@ -8,7 +8,9 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strings"
 	"sync"
@@ -34,18 +36,15 @@ func TestCodexFactoryPinnedNativeProductLifecycle(t *testing.T) {
 	for _, mode := range []string{"success", "implementation", "cancel", "registry_revocation", "credential_rotation", "epoch_drift", "source_revocation", "writer_launch"} {
 		t.Run(mode, func(t *testing.T) {
 			if mode == "implementation" {
-				// The chain runs for real: the model issues exec_command, the
-				// native spawns the child and apply_patch executes. A write
-				// inside the workspace is then refused at the OS level while
-				// a write outside it is refused by the tool's own project
-				// boundary — proving the workspace IS the project root and
-				// the OS refusal comes from the exec child's sandbox. That
-				// sandbox's filesystem policy does not derive from the legacy
-				// sandboxPolicy, the seeded config or thread config (all
-				// probed with explicit writable_roots); mirroring the
-				// exec-server PermissionProfile model is the recorded next
-				// step.
-				t.Skip("pinned-Native writer blocked at exec-child permission profile")
+				// Chain verified live: model tool call, native spawn, real
+				// apply_patch execution. The exec child runs WITHOUT an inner
+				// sandbox-exec wrapper (ps capture during a live command) and
+				// the full production outer profile permits the workspace
+				// write (verified standalone with the exact sandbox() output),
+				// yet apply_patch's own write is still refused. The remaining
+				// suspect is the PTY spawn path (DescriptorPolicy::Explicit)
+				// or the arg0-alias exec form; that is the recorded next step.
+				t.Skip("pinned-Native writer blocked at apply_patch exec form")
 			}
 			path, d, c, _, epoch := codexFactoryFixture(t, mode == "writer_launch")
 			exe, err := filepath.EvalSymlinks(*hostNativeCodex)
@@ -91,6 +90,21 @@ func TestCodexFactoryPinnedNativeProductLifecycle(t *testing.T) {
 					return codex.ForwardResponse{}, ctx.Err()
 				}
 				if mode == "implementation" && !strings.Contains(string(raw), "call_fixture") {
+					go func() {
+						time.Sleep(2500 * time.Millisecond)
+						out, e := exec.Command("/bin/ps", "-axo", "command=").CombinedOutput()
+						if e == nil {
+							for _, line := range strings.Split(string(out), "\n") {
+								if strings.Contains(line, "sandbox-exec") && !strings.Contains(line, "grep") {
+									head := line
+									if len(head) > 6000 {
+										head = head[:6000]
+									}
+									log.Printf("DIAGPS: %s", head)
+								}
+							}
+						}
+					}()
 					return codex.ForwardResponse{StatusCode: 200, ContentType: "text/event-stream", ReportedModel: target.ResolvedModel, Body: io.NopCloser(strings.NewReader(hostCodexApplyPatchSSE(target.ResolvedModel)))}, nil
 				}
 				return codex.ForwardResponse{StatusCode: 200, ContentType: "text/event-stream", ReportedModel: target.ResolvedModel, Body: io.NopCloser(strings.NewReader(hostCodexSSE(target.ResolvedModel)))}, nil
