@@ -6,7 +6,7 @@
 |---|---|---|---|---|
 | codex-chatgpt | [0.160.0 已核验](../work-items/WP-17/PUBLISHER-01/codex-live.json) | [独立设备登录入口](private-runtime-login.md)已准备；本人登录、账号/workspace/地区、subscription 权益待核验 | 最终登录 profile 已取得官方设备挑战并取消/wait；模型生成及额度未核验 | 未执行；[私有缓存读取](../contracts/codex-private-credential.md)及[固定 Forwarder](../contracts/codex-subscription-forwarder.md)组件已验证，生产 Factory/完整准入待完成 |
 | grok-subscription | [1.0.48 已核验](../work-items/WP-17/PUBLISHER-01/grok-live.json) | [独立设备登录入口](private-runtime-login.md)已准备；本人登录、账号/workspace/地区、subscription 权益待核验 | 最终登录 profile 已取得官方设备挑战并取消/wait；模型生成及额度未核验 | 未执行；生产 Forwarder 与完整准入待完成 |
-| glm-cn-claude | [Claude Code 2.1.287 已核验](../work-items/WP-17/PUBLISHER-01/claude-live.json) | 已登记本人的私有 key；实际账号、Coding Plan 费用和权益仍未核验 | 工具关闭连接诊断与真实只读额度查询已有记录；额度 snapshot 仍为 unverified，Complete=false、Pool.Verified=false | 未执行真实工程闭环；Factory 合成上游验证不能替代此项 |
+| glm-cn-claude | [Claude Code 2.1.287 已核验](../work-items/WP-17/PUBLISHER-01/claude-live.json) | 已登记本人的私有 key；真实 Coding Plan 窗口已入证据（记录器三证：探针 pass + 发布者 + 只读额度 GET） | 真实生成探针两次 pass（429 限流恢复后，glm-5.3 单次工具关闭）；只读额度 GET 正常返回 3 窗口（TOKENS_LIMIT 48%/29%），但 snapshot 仍 Complete=false、Pool.Verified=false | 执行宿主已从证据准入并通过 fusion-task preview/submit 走到 start；start 被实时额度门以 quota_unverified 正确拦截（上游不提供可验证 pool 数据），真实工程闭环待额度语义决策 |
 
 历史 [GLM 接入核验](../work-items/WP-14/glm-integration-verification.md)及[额度宿主证据](../work-items/WP-15/GLM-QUOTA-HOST-01/summary.md)继续保留原时间和证明范围。不重复消耗订阅生成做同一诊断，也不把历史额度观察视为当前可用额度。
 

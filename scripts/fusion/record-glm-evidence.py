@@ -13,11 +13,9 @@ secrets. A failed or rate-limited step refuses to write anything.
 import argparse
 from datetime import datetime, timezone
 import importlib.util
-import ipaddress
 import json
 import os
 from pathlib import Path
-import socket
 import stat
 import sys
 import urllib.parse
@@ -54,14 +52,14 @@ def publisher_verified(claude_path):
 
 
 def checked_quota_url():
-    """Assert the one fixed public CN endpoint and public resolved addresses."""
+    """Assert the one fixed CN endpoint literal. The URL is a module constant,
+    never caller input, so endpoint whitelisting plus disabled redirects carry
+    the SSRF boundary; resolved-address filtering is deliberately absent
+    because local fake-IP proxies (198.18.0.0/15) legitimately map public
+    hostnames to reserved ranges."""
     parsed = urllib.parse.urlparse(QUOTA_ENDPOINT)
     if parsed.scheme != "https" or parsed.hostname != "open.bigmodel.cn" or parsed.query or parsed.fragment or parsed.username or parsed.password:
         raise ValueError("quota endpoint mismatch")
-    for _, _, _, _, sockaddr in socket.getaddrinfo(parsed.hostname, 443):
-        address = ipaddress.ip_address(sockaddr[0])
-        if address.is_private or address.is_loopback or address.is_link_local or address.is_unspecified or address.is_reserved:
-            raise ValueError("quota endpoint resolves to a non-public address")
     return QUOTA_ENDPOINT
 
 

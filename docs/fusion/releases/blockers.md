@@ -2,7 +2,7 @@
 
 | # | 阻断项 | 影响工作包 | 类别 | 解除条件 | 状态 |
 | --- | --- | --- | --- | --- | --- |
-| B1 | 本人官方设备授权登录未完成 | WP-17, WP-18, WP-23, WP-26 | 用户操作 | 运行 `login-codex.command` / `login-grok.command` 完成官方设备授权 | 等待用户 |
+| B1 | 本人官方设备授权登录未完成 | WP-17, WP-18, WP-23, WP-26 | 用户操作 | 官方登录界面已实际调出（设备授权链路验证通过），浏览器授权待用户择时完成 | 等待用户授权 |
 | B2 | ~~Codex implementation turn 终态报 interrupted~~ 已修复：委托沙箱 + gateway 事件过滤（commandExecution/null 容错）后 8 场景全过 | WP-12 写入闭环 | 代码 bug | 已通过全场景验证 | 已解除 |
 | B3 | Grok effort 档位不支持 | WP-13 effort 支持 | 能力限制 | 需要真实模型 metadata（native 给未知模型剥离 reasoning_effort） | 等真实准入 |
 | B4 | 产品 CLI 草稿不执行任务 | WP-15 CLI | 功能缺口 | CLI 集成待做 | 待做 |
